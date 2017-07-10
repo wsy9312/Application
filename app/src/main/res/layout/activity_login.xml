@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorAccentLib">
+
+    <RelativeLayout
+        android:paddingBottom="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+        <LinearLayout
+            android:layout_width="300dp"
+            android:orientation="vertical"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rec_round_white"
+            android:layout_gravity="center"
+            android:layout_alignTop="@+id/iv_avatar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:padding="5dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/view"
+                android:layout_marginTop="50dp">
+
+                <android.support.design.widget.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:hint="@string/userId"
+                    android:lines="1"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/et_username"
+                    android:inputType="textVisiblePassword" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:padding="5dp"
+                android:layout_height="wrap_content"
+                app:errorTextAppearance="@android:color/holo_red_dark"
+                app:errorEnabled="true"
+                android:id="@+id/tilyout_password">
+
+                <android.support.design.widget.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:hint="@string/password"
+                    android:lines="1"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/et_password"
+                    android:inputType="textPassword" />
+            </android.support.design.widget.TextInputLayout>
+
+            <CheckBox
+                android:id="@+id/login_cb_savepassword"
+                android:layout_gravity="right"
+                android:layout_marginTop="-40dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/Save_Password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/pressed_blue_white"
+                android:text="@string/land"
+                android:enabled="false"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:background="@drawable/selector_bg_login_button"
+                android:id="@+id/btn_login"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/iv_avatar"
+            android:background="@mipmap/ic_user"
+            android:layout_gravity="center_horizontal|top"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/login_pb"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
+
+
+</RelativeLayout>
