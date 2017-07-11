@@ -24,11 +24,11 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true" />
 
-    <Button
+    <!--<Button
         android:id="@+id/button4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="相册" />
+        android:text="相册" />-->
 </RelativeLayout>
