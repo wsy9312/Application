@@ -9,14 +9,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
-import com.example.hgtxxgl.application.QrCode.QRCodeActivity;
+
+import com.example.hgtxxgl.application.QrCode.sample.MainActivity;
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.LoginActivity;
 import com.example.hgtxxgl.application.network.NetworkApi;
 import com.example.hgtxxgl.application.network.RetrofitUtils;
 import com.example.hgtxxgl.application.utils.ToastUtil;
+
 import java.util.HashMap;
 import java.util.Map;
+
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -80,7 +83,7 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
     }
 
     private void skipToQR() {
-        Intent intent = new Intent(getContext(),QRCodeActivity.class);
+        Intent intent = new Intent(getContext(),MainActivity.class);
         startActivity(intent);
     }
 

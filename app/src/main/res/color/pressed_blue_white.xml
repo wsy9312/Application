@@ -3,7 +3,7 @@
     <item android:state_enabled="true" android:color="@color/white">
 
     </item>
-    <item android:state_enabled="false" android:color="@color/colorAccentLib">
+    <item android:state_enabled="false" android:color="@color/mainColor_blue">
 
     </item>
 </selector>

@@ -16,6 +16,7 @@ import android.widget.RadioButton;
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.utils.Fields;
 import com.example.hgtxxgl.application.utils.SpUtils;
+import com.example.hgtxxgl.application.utils.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.ToastUtil;
 
 
@@ -36,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        StatusBarUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
         initView();
         etUsername.setText(SpUtils.getString(getApplicationContext(), Fields.USERID));
         savePassword = SpUtils.getisBoolean_false(getApplicationContext(), Fields.SAVE_PASSWORD,false);

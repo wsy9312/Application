@@ -64,4 +64,5 @@
         <!-- 是否只识别扫描框区域的二维码，默认值为false -->
         <attr name="qrcv_isOnlyDecodeScanBoxArea" format="boolean" />
     </declare-styleable>
+
 </resources>

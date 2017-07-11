@@ -17,6 +17,7 @@ public class ApplicationApp extends Application {
     public static Context context;
 
     private static LoginEntity loginEntity;
+    private String UPLOAD_URL="http:";
 
     @Override
     public void onCreate() {
@@ -27,8 +28,22 @@ public class ApplicationApp extends Application {
             StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
             StrictMode.setVmPolicy(builder.build());
         }
-//        checkFirstIn();
+
+//        //upload logfile , post params.
+//        HttpParameters params = new HttpParameters();
+//        params.add("key1", "value1");
+//        params.add("key2", "value2");
+//        params.add("key3", "value3");
+//        //.......
+//        //replace your key and value;
+//
+//        boolean isDebug = true;
+//        LogCollector.setDebugMode(isDebug);
+//        LogCollector.init(getApplicationContext(), UPLOAD_URL, params);//params can be null
     }
+
+//        checkFirstIn();
+
 
     public static LoginEntity getLoginEntity() {
         return loginEntity;

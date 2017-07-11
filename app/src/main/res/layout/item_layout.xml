@@ -2,6 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <com.example.hgtxxgl.application.view.HandToolbar
+        android:id="@+id/itemactivity_handtoolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <TextView
         android:text="这是标题"
         android:textSize="20sp"
@@ -16,7 +20,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <ImageView
-        android:src="@drawable/defalut"
         android:id="@+id/image_news"
         android:layout_width="match_parent"
         android:layout_height="0dp"

@@ -9,7 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
+import com.example.hgtxxgl.application.utils.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.ToastUtil;
+import com.example.hgtxxgl.application.view.HandToolbar;
 
 
 public class ItemActivity extends AppCompatActivity implements View.OnClickListener {
@@ -17,11 +19,13 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
     private TextView tv;
     private String title;
     private ImageView image;
+    private HandToolbar handToolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item_layout);
+        StatusBarUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
         Intent getIntent = getIntent();
         title = getIntent.getStringExtra("title");
         initview();
@@ -32,6 +36,10 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         image = (ImageView) findViewById(R.id.image_news);
         image.setOnClickListener(this);
         tv.setText(title);
+        handToolbar = (HandToolbar) findViewById(R.id.itemactivity_handtoolbar);
+        handToolbar.setDisplayHomeAsUpEnabled(true, this);
+        handToolbar.setBackHome(true,this);
+        handToolbar.setTitleSize(18);
     }
 
     @Override

@@ -67,8 +67,4 @@
                 android:background="?android:attr/selectableItemBackground" />
         </LinearLayout>
     </LinearLayout>
-
-
-
-
 </FrameLayout>

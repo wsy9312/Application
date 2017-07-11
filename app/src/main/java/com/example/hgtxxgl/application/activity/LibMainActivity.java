@@ -17,6 +17,7 @@ import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
 import com.example.hgtxxgl.application.fragment.PersonalFragment;
 import com.example.hgtxxgl.application.utils.PageConfig;
+import com.example.hgtxxgl.application.utils.StatusBarUtils;
 import com.example.hgtxxgl.application.view.HandToolbar;
 
 //首页
@@ -50,23 +51,20 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                 currentIndex = 0;
                 //根据fragment实例改变当前界面的fragment
                 changeFragment(fragments[0]);
-                fragments[0].onPause();
+//                fragments[0].onPause();
                 //根据当前的fragment自定义toolbar动态设定标题
                 handToolbar.setTitle(title[0]);
-
 
             } else if (checkedId == R.id.rb_main_notification_center) {
                 currentIndex = 1;
                 changeFragment(fragments[1]);
-                fragments[1].onPause();
+//                fragments[1].onPause();
                 handToolbar.setTitle(title[1]);
-
 
             } else if (checkedId == R.id.rb_main_personal_center) {
                 currentIndex = 2;
                 changeFragment(fragments[2]);
                 handToolbar.setTitle(title[2]);
-
 
             }
         }
@@ -101,6 +99,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         supportFragmentManager = getSupportFragmentManager();
         //初始化fragment(首页三个子界面)
         initFragment(false);
+        StatusBarUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
     }
 
     //接收登录界面传递的用户名密码参数
