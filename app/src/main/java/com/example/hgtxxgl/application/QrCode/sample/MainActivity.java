@@ -2,7 +2,9 @@ package com.example.hgtxxgl.application.QrCode.sample;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -30,6 +32,7 @@ import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.utils.ImgUtils;
 import com.example.hgtxxgl.application.utils.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.ToastUtil;
+import com.example.hgtxxgl.application.view.HandToolbar;
 import com.google.zxing.client.result.ParsedResultType;
 import com.mylhyl.zxing.scanner.common.Intents;
 import com.mylhyl.zxing.scanner.encode.QREncode;
@@ -147,15 +150,46 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
 //            saveImage();
 //        }
 //    }
-
+    private HandToolbar handToolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //
+        mContext = this;
+        handToolbar = (HandToolbar) findViewById(R.id.qrcode_mainactivity_toolbar);
+        handToolbar.setTitle("二维码名片");
+        handToolbar.setDisplayHomeAsUpEnabled(true, this);
+        handToolbar.setBackHome(true,this);
+        handToolbar.setTitleSize(18);
+        handToolbar.setButtonsClickCallback(new HandToolbar.OnButtonsClickCallback() {
+            @Override
+            public void onButtonClickListner(HandToolbar.VIEWS views, int radioIndex) {
+               final String[] items = new String[]{"保存到相册","扫描二维码"};
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (items[which].equals("保存到相册")){
+                            imageView.setDrawingCacheEnabled(true);
+                            if (imageView.getDrawingCache() != null){
+                                bitmap = Bitmap.createBitmap(imageView.getDrawingCache());
+                                requestPermission();
+                            }else{
+                                ToastUtil.showToast(mContext,"图片不能为空");
+                            }
+                            imageView.setDrawingCacheEnabled(false);
+                        }else{
+                            ScannerActivity.gotoActivity(MainActivity.this, true, 1);
+                        }
+                    }
+                });
+                builder.create().show();
+            }
+        });
         StatusBarUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        initTotal();
+//        toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        initTotal();
         //
         tvResult = (TextView) findViewById(R.id.textView);
         imageView = (ImageView) findViewById(R.id.imageView);

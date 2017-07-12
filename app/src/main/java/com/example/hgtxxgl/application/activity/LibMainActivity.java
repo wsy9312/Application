@@ -51,14 +51,14 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                 currentIndex = 0;
                 //根据fragment实例改变当前界面的fragment
                 changeFragment(fragments[0]);
-//                fragments[0].onPause();
+                fragments[0].onPause();
                 //根据当前的fragment自定义toolbar动态设定标题
                 handToolbar.setTitle(title[0]);
 
             } else if (checkedId == R.id.rb_main_notification_center) {
                 currentIndex = 1;
                 changeFragment(fragments[1]);
-//                fragments[1].onPause();
+                fragments[1].onPause();
                 handToolbar.setTitle(title[1]);
 
             } else if (checkedId == R.id.rb_main_personal_center) {
@@ -158,7 +158,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         handToolbar = (HandToolbar) findViewById(R.id.toolbar);
         handToolbar.setButtonsClickCallback(LibMainActivity.this);
         handToolbar.setDisplayHomeAsUpEnabled(true, this);
-        handToolbar.setBackHome(true,this);
+        handToolbar.setBackHome(false,this);
         handToolbar.setTitleSize(18);
         bottomBar = (RadioGroup) findViewById(R.id.bottom_bar);
         newsCenter = (RadioButton) findViewById(R.id.rb_main_news_center);

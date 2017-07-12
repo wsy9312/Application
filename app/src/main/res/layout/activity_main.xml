@@ -6,8 +6,11 @@
     android:orientation="vertical"
     tools:context=".QrCode.sample.MainActivity">
 
-    <include layout="@layout/include_toolbar" />
-
+    <!--<include layout="@layout/include_toolbar" />-->
+    <com.example.hgtxxgl.application.view.HandToolbar
+        android:id="@+id/qrcode_mainactivity_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"

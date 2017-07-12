@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -82,20 +81,22 @@ public class HandToolbar extends FrameLayout {
 
     public void setBackHome(boolean enable,final Activity activity){
         if (enable) {
-            setRightButton(R.drawable.ic_home_back);
-            tvRight.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent();
-                    try {
-                        Class<?> clazz = Class.forName("com.example.hgtxxgl.seahigh.activity.LibMainActivity");
-                        intent.setClass(activity, clazz);
-                    } catch(Exception e){
-                        e.printStackTrace();
-                    }
-                    activity.startActivity(intent);
-                }
-            });
+            setRightButton(R.mipmap.ic_more);
+//            tvRight.setOnClickListener(new OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Intent intent = new Intent();
+//                    try {
+//                        Class<?> clazz = Class.forName("com.example.hgtxxgl.seahigh.activity.LibMainActivity");
+//                        intent.setClass(activity, clazz);
+//                    } catch(Exception e){
+//                        e.printStackTrace();
+//                    }
+//                    activity.startActivity(intent);
+//                }
+//            });
+        }else{
+            tvRight.setVisibility(GONE);
         }
     }
 
