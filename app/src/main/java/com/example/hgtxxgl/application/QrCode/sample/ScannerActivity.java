@@ -77,8 +77,8 @@ public class ScannerActivity extends DeCodeActivity {
         mScannerView.setDrawText("将二维码放入框内",true);
         mScannerView.setDrawTextColor(Color.RED);
 
-        mScannerView.setLaserFrameTopMargin(100);//扫描框与屏幕上方距离
-        mScannerView.setLaserFrameSize(350, 350);//扫描框大小
+        mScannerView.setLaserFrameTopMargin(150);//扫描框与屏幕上方距离
+        mScannerView.setLaserFrameSize(220, 220);//扫描框大小
         mScannerView.setLaserFrameCornerLength(30);//设置4角长度
         mScannerView.setLaserLineHeight(5);//设置扫描线高度
 
