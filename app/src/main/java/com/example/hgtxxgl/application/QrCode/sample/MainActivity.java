@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
     private static final int REQUEST_CODE_SAVE_IMG = 10;
     private static final String TAG = "MainActivity";
     private Context mContext;
-    //button
 
     private void initTotal() {
         mContext = this;
