@@ -11,15 +11,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <include layout="@layout/include_toolbar" />
-    <!--<com.example.hgtxxgl.application.view.HandToolbar
+    <!--<include layout="@layout/include_toolbar" />-->
+    <com.example.hgtxxgl.application.view.HandToolbar
         android:id="@+id/activity_scanner_qr_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>-->
+        android:layout_height="wrap_content"/>
     <ToggleButton
         android:id="@+id/toggleButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textOn="关闭闪光灯"
+        android:textOff="开启闪光灯"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true" />

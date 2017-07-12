@@ -6,7 +6,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.widget.CompoundButton;
 import android.widget.Toast;
@@ -14,6 +13,7 @@ import android.widget.ToggleButton;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.utils.StatusBarUtils;
+import com.example.hgtxxgl.application.view.HandToolbar;
 import com.google.zxing.Result;
 import com.mylhyl.zxing.scanner.ScannerView;
 import com.mylhyl.zxing.scanner.common.Intents;
@@ -33,12 +33,17 @@ public class ScannerActivity extends DeCodeActivity {
     private ScannerView mScannerView;
     private Result mLastResult;
     private int laserMode;
-
+    private HandToolbar handToolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanner);
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        handToolbar = (HandToolbar) findViewById(R.id.activity_scanner_qr_toolbar);
+        handToolbar.setTitle("扫一扫");
+        handToolbar.setDisplayHomeAsUpEnabled(true, this);
+        handToolbar.setBackHome(false,this);
+        handToolbar.setTitleSize(17);
+//        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         StatusBarUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
         mScannerView = (ScannerView) findViewById(R.id.scanner_view);
         mScannerView.setOnScannerCompletionListener(this);
