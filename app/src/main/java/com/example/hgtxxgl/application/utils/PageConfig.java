@@ -19,7 +19,7 @@ public class PageConfig {
      */
     public static final int PAGE_APPLY_BLEAVE = 0;  //公出申请
     public static final int PAGE_APPLY_EXTRAWORK = 1;  //加班
-    public static final int PAGE_APPLY_REST = 2;  //请假
+    public static final int PAGE_APPLY_REST = 2;  //ic_leave
     public static final int PAGE_APPLY_TRAVEL_OFFER = 3; //差旅报销
     public static final int PAGE_APPLY_PAYMENT_FLOW = 4; //付款流程
     public static final int PAGE_APPLY_EXPENSE_OFFER = 5; //费用报销

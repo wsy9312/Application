@@ -66,7 +66,7 @@ public class CommonValues {
     public static final String REQ_EXTRAWORK_APPROVE = currentHost + "/ApprovalPostOverTime";
 
     /**
-     * 请假
+     * ic_leave
      */
     public static final String REQ_REST_APPLY = currentHost + "/AddOrUpdatePostLeave";
     public static final String REQ_REST_APPROVE = currentHost + "/ApprovalPostLeave";

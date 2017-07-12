@@ -199,10 +199,10 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
                 group.setVisibility(GONE);
                 break;
             case PageConfig.PAGE_NOTIFICATION:
-                /*if (checkButtons) {
-                    setRadioButtons("待处理", "已处理");
-                }*/
-                group.setVisibility(GONE);
+                if (checkButtons) {
+                    setRadioButtons("申请", "审批" ,"查看");
+                }
+                group.setVisibility(VISIBLE);
                 break;
             case PageConfig.PAGE_PERSONAL:
                 group.setVisibility(GONE);

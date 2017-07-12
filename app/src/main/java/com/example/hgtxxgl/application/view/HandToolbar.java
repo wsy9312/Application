@@ -79,9 +79,10 @@ public class HandToolbar extends FrameLayout {
         });
     }
 
-    public void setBackHome(boolean enable,final Activity activity){
+    public void setBackHome(boolean enable,final Activity activity,int drawableResId){
         if (enable) {
-            setRightButton(R.mipmap.ic_more);
+            setRightButton(drawableResId);
+//            setRightButton(R.mipmap.ic_more);
 //            tvRight.setOnClickListener(new OnClickListener() {
 //                @Override
 //                public void onClick(View v) {

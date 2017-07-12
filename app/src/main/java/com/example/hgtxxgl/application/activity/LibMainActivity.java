@@ -54,20 +54,20 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                 fragments[0].onPause();
                 //根据当前的fragment自定义toolbar动态设定标题
                 handToolbar.setTitle(title[0]);
-                handToolbar.setBackHome(false,LibMainActivity.this);
+                handToolbar.setBackHome(false,LibMainActivity.this,0);
 
             } else if (checkedId == R.id.rb_main_notification_center) {
                 currentIndex = 1;
                 changeFragment(fragments[1]);
                 fragments[1].onPause();
                 handToolbar.setTitle(title[1]);
-                handToolbar.setBackHome(true,LibMainActivity.this);
+                handToolbar.setBackHome(true,LibMainActivity.this,R.mipmap.ic_leave);
 
             } else if (checkedId == R.id.rb_main_personal_center) {
                 currentIndex = 2;
                 changeFragment(fragments[2]);
                 handToolbar.setTitle(title[2]);
-                handToolbar.setBackHome(false,LibMainActivity.this);
+                handToolbar.setBackHome(false,LibMainActivity.this,0);
 
             }
         }
