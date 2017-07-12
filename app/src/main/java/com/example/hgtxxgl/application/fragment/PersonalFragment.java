@@ -39,6 +39,19 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
 
     }
 
+    public static PersonalFragment newInstance(int tab) {
+        Bundle args = new Bundle();
+        PersonalFragment fragment = new PersonalFragment();
+        args.putInt(DetailFragment.ARG_TAB, tab);
+        fragment.setArguments(args);
+        return fragment;
+    }
+    private DetailFragment.DataCallback callback;
+    public PersonalFragment setCallback(DetailFragment.DataCallback callback) {
+        this.callback = callback;
+        return this;
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

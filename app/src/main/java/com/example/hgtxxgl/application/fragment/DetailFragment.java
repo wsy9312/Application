@@ -10,6 +10,7 @@ import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
     private int currentPage;
     private SearchView etSearch;
     private TextView tvCancel;
+    private LinearLayout llEtSearch;
     private RadioButton rbLeft, rbMid, rbRight;
     private RadioGroup group;
     private static int currentTab = 0;
@@ -85,11 +87,15 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
         @Override
         public Fragment getItem(int position) {
             if (currentPage == PageConfig.PAGE_NEWS) {
+                llEtSearch.setVisibility(VISIBLE);
                 return NewsFragment.newInstance(position).setCallback(this);
             } else if (currentPage == PageConfig.PAGE_NOTIFICATION) {
                 return NotificationFragment.newInstance(position).setCallback(this);
-            } /*else if (currentPage == PageConfig.PAGE_PERSONAL)
-                return CCToMeFragment.newInstance(position);*/
+            } else if (currentPage == PageConfig.PAGE_PERSONAL) {
+                return PersonalFragment.newInstance(position).setCallback(this);
+            } else if (currentPage == PageConfig.PAGE_LEAVE) {
+                return LeaveFragment.newInstance(position).setCallback(this);
+            }
             return null;
         }
 
@@ -97,8 +103,10 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
         @Override
         public int getCount() {
             if (currentPage == PageConfig.PAGE_NEWS) {
-                return 3;
+                return 4;
             } else if (currentPage == PageConfig.PAGE_NOTIFICATION) {
+                return 3;
+            } else if (currentPage == PageConfig.PAGE_LEAVE) {
                 return 2;
             } else if (currentPage == PageConfig.PAGE_PERSONAL)
                 return 1;
@@ -129,6 +137,7 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
         rbLeft = (RadioButton) view.findViewById(R.id.rb_left);
         rbMid = (RadioButton) view.findViewById(R.id.rb_mid);
         rbRight = (RadioButton) view.findViewById(R.id.rb_right);
+        llEtSearch = (LinearLayout) view.findViewById(R.id.ll_et_search);
         etSearch = (SearchView) view.findViewById(R.id.et_search);
         tvCancel = (TextView) view.findViewById(R.id.tv_cancel);
         tvCancel.setOnClickListener(this);
@@ -156,9 +165,9 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
     //搜索逻辑跳转到子fragment界面进行搜索
     public void doFilter(String str){
         Fragment f = fragments[currentTab];
-        if (f instanceof NotificationFragment) {
+        /*if (f instanceof NotificationFragment) {
             ((NotificationFragment) f).filter(str);
-        } else if (f instanceof NewsFragment) {
+        } else*/ if (f instanceof NewsFragment) {
             ((NewsFragment) f).filter(str);
         }
     }
@@ -199,6 +208,9 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
                 group.setVisibility(GONE);
                 break;
             case PageConfig.PAGE_NOTIFICATION:
+                group.setVisibility(GONE);
+                break;
+            case PageConfig.PAGE_LEAVE:
                 if (checkButtons) {
                     setRadioButtons("申请", "审批" ,"查看");
                 }
@@ -235,7 +247,7 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
     public void setRadioButtons(final String... titles) {
         if (titles == null)
             return;
-        if (titles.length < 2 || titles.length > 3) {
+        if (titles.length < 2 || titles.length > 4) {
             throw new IllegalArgumentException("参数数量为2或者3");
         } else {
             radioButtonList = new ArrayList<>();

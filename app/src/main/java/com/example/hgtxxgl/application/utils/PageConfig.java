@@ -12,6 +12,7 @@ public class PageConfig {
     public static final int PAGE_NEWS = -1;
     public static final int PAGE_NOTIFICATION = -2;
     public static final int PAGE_PERSONAL = -3;
+    public static final int PAGE_LEAVE = -4;
 
 
     /**

@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
-import com.example.hgtxxgl.application.fragment.PersonalFragment;
 import com.example.hgtxxgl.application.utils.PageConfig;
 import com.example.hgtxxgl.application.utils.StatusBarUtils;
 import com.example.hgtxxgl.application.view.HandToolbar;
@@ -29,7 +28,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
     public static final String PASS_WORD = "PASS_WORD";
     private boolean loginSucceed = false;
     private RadioGroup bottomBar;
-    private Fragment[] fragments = new Fragment[3];
+    private Fragment[] fragments = new Fragment[4];
     private FragmentManager supportFragmentManager;
     private int lastIndex = -1, currentIndex;
     private static final int LOGIN_SUCESS = 0;
@@ -38,6 +37,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
     private String password;
     private RadioButton newsCenter;
     private RadioButton notificationCenter;
+    private RadioButton leaveCenter;
     private RadioButton personalCenter;
 
     //底部菜单栏单选按钮监听器
@@ -61,12 +61,20 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                 changeFragment(fragments[1]);
                 fragments[1].onPause();
                 handToolbar.setTitle(title[1]);
-                handToolbar.setBackHome(true,LibMainActivity.this,R.mipmap.ic_leave);
+                handToolbar.setBackHome(true,LibMainActivity.this,0);
 
-            } else if (checkedId == R.id.rb_main_personal_center) {
+            } else if (checkedId == R.id.rb_main_leave_center) {
                 currentIndex = 2;
                 changeFragment(fragments[2]);
+                fragments[2].onPause();
                 handToolbar.setTitle(title[2]);
+                handToolbar.setBackHome(false,LibMainActivity.this,0);
+
+            } else if (checkedId == R.id.rb_main_personal_center) {
+                currentIndex = 3;
+                changeFragment(fragments[3]);
+                fragments[3].onPause();
+                handToolbar.setTitle(title[3]);
                 handToolbar.setBackHome(false,LibMainActivity.this,0);
 
             }
@@ -87,7 +95,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
 
     //初始化设置toolbar标题
     private void initTitle() {
-        title = new String[]{this.getString(R.string.to_do_list),this.getString(R.string.my_request),this.getString(R.string.add_request)};
+        title = new String[]{this.getString(R.string.news),this.getString(R.string.notification),this.getString(R.string.leave),this.getString(R.string.me)};
     }
 
     @Override
@@ -165,6 +173,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         bottomBar = (RadioGroup) findViewById(R.id.bottom_bar);
         newsCenter = (RadioButton) findViewById(R.id.rb_main_news_center);
         notificationCenter = (RadioButton) findViewById(R.id.rb_main_notification_center);
+        leaveCenter = (RadioButton) findViewById(R.id.rb_main_leave_center);
         personalCenter = (RadioButton) findViewById(R.id.rb_main_personal_center);
         bottomBar.setOnCheckedChangeListener(listener);
     }
@@ -179,8 +188,10 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
             FragmentTransaction transaction = supportFragmentManager.beginTransaction();
             fragments[0] = DetailFragment.newInstance(PageConfig.PAGE_NEWS);
             fragments[1] = DetailFragment.newInstance(PageConfig.PAGE_NOTIFICATION);
-//            fragments[2] = DetailFragment.newInstance(PageConfig.PAGE_PERSONAL);
-            fragments[2] = new PersonalFragment();
+            fragments[2] = DetailFragment.newInstance(PageConfig.PAGE_LEAVE);
+            fragments[3] = DetailFragment.newInstance(PageConfig.PAGE_PERSONAL);
+//            fragments[2] = new LeaveFragment();
+//            fragments[3] = new PersonalFragment();
             for (int i = 0; i < fragments.length; i++) {
                 transaction.add(R.id.fl_container, fragments[i]);
                 transaction.hide(fragments[i]);
@@ -205,10 +216,12 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                     public void run() {
                         newsCenter.setEnabled(true);
                         newsCenter.setBackgroundColor(0xffffff);
-                        personalCenter.setEnabled(true);
-                        personalCenter.setBackgroundColor(0xffffff);
                         notificationCenter.setEnabled(true);
                         notificationCenter.setBackgroundColor(0xffffff);
+                        leaveCenter.setEnabled(true);
+                        leaveCenter.setBackgroundColor(0xffffff);
+                        personalCenter.setEnabled(true);
+                        personalCenter.setBackgroundColor(0xffffff);
                     }
                 });
                 //pb.setVisibility(View.GONE);
@@ -219,10 +232,12 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                     public void run() {
                         newsCenter.setEnabled(false);
                         newsCenter.setBackgroundColor(0xd4d4d4);
-                        personalCenter.setEnabled(false);
-                        personalCenter.setBackgroundColor(0xd4d4d4);
                         notificationCenter.setEnabled(false);
                         notificationCenter.setBackgroundColor(0xd4d4d4);
+                        leaveCenter.setEnabled(false);
+                        leaveCenter.setBackgroundColor(0xd4d4d4);
+                        personalCenter.setEnabled(false);
+                        personalCenter.setBackgroundColor(0xd4d4d4);
                     }
                 });
                 //pb.setVisibility(View.VISIBLE);

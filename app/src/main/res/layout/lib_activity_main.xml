@@ -47,22 +47,28 @@
             android:checked="true"
             android:enabled="false"
             android:drawableTop="@drawable/home_page_radio_button_my_news"
-            android:text="@string/to_do_list" />
+            android:text="@string/news" />
 
         <RadioButton
             android:id="@+id/rb_main_notification_center"
             style="@style/BottomBarItem"
             android:enabled="false"
             android:drawableTop="@drawable/home_page_radio_button_my_notification"
-            android:textAppearance="?attr/selectableItemBackground"
-            android:text="@string/my_request" />
+            android:text="@string/notification" />
+
+        <RadioButton
+            android:id="@+id/rb_main_leave_center"
+            style="@style/BottomBarItem"
+            android:enabled="false"
+            android:drawableTop="@drawable/home_page_radio_button_my_leave"
+            android:text="@string/leave" />
 
         <RadioButton
             android:enabled="false"
             android:id="@+id/rb_main_personal_center"
             style="@style/BottomBarItem"
             android:drawableTop="@drawable/home_page_radio_button_post_personal"
-            android:text="@string/add_request" />
+            android:text="@string/me" />
     </RadioGroup>
 
 </RelativeLayout>
