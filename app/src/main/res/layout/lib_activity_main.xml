@@ -65,5 +65,4 @@
             android:text="@string/add_request" />
     </RadioGroup>
 
-
 </RelativeLayout>

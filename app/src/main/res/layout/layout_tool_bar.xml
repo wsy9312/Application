@@ -61,7 +61,6 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:paddingRight="10dp"
-                android:drawableRight="@drawable/ic_home_back"
                 tools:visibility="visible"
                 android:textAppearance="?attr/textAppearanceListItemSmall"
                 android:background="?android:attr/selectableItemBackground" />

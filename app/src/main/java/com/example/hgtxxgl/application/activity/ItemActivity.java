@@ -38,7 +38,8 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         tv.setText(title);
         handToolbar = (HandToolbar) findViewById(R.id.itemactivity_handtoolbar);
         handToolbar.setDisplayHomeAsUpEnabled(true, this);
-        handToolbar.setBackHome(true,this);
+        handToolbar.setBackHome(false,this);
+        handToolbar.setTitle("新闻内容");
         handToolbar.setTitleSize(18);
     }
 

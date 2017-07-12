@@ -54,17 +54,20 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                 fragments[0].onPause();
                 //根据当前的fragment自定义toolbar动态设定标题
                 handToolbar.setTitle(title[0]);
+                handToolbar.setBackHome(false,LibMainActivity.this);
 
             } else if (checkedId == R.id.rb_main_notification_center) {
                 currentIndex = 1;
                 changeFragment(fragments[1]);
                 fragments[1].onPause();
                 handToolbar.setTitle(title[1]);
+                handToolbar.setBackHome(true,LibMainActivity.this);
 
             } else if (checkedId == R.id.rb_main_personal_center) {
                 currentIndex = 2;
                 changeFragment(fragments[2]);
                 handToolbar.setTitle(title[2]);
+                handToolbar.setBackHome(false,LibMainActivity.this);
 
             }
         }
@@ -97,6 +100,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         //接收登录界面传递的用户名密码参数
         acceptParam();
         supportFragmentManager = getSupportFragmentManager();
+
         //初始化fragment(首页三个子界面)
         initFragment(false);
         StatusBarUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
@@ -156,9 +160,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         setContentView(R.layout.lib_activity_main);
         //pb = (ProgressBar) findViewById(R.id.lib_pb);
         handToolbar = (HandToolbar) findViewById(R.id.toolbar);
-        handToolbar.setButtonsClickCallback(LibMainActivity.this);
         handToolbar.setDisplayHomeAsUpEnabled(true, this);
-        handToolbar.setBackHome(false,this);
         handToolbar.setTitleSize(18);
         bottomBar = (RadioGroup) findViewById(R.id.bottom_bar);
         newsCenter = (RadioButton) findViewById(R.id.rb_main_news_center);

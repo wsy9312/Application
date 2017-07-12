@@ -195,7 +195,6 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
         tabIndex = getArguments().getInt(DetailFragment.ARG_TAB, 0);
         loadData(tabIndex, index, 10);
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.main_viewpage_page_content, null, false);
