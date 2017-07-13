@@ -94,7 +94,7 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
             } else if (currentPage == PageConfig.PAGE_PERSONAL) {
                 return PersonalFragment.newInstance(position).setCallback(this);
             } else if (currentPage == PageConfig.PAGE_LEAVE) {
-                return LeaveFragment.newInstance(position).setCallback(this);
+                return new LeaveFragment();
             }
             return null;
         }
@@ -211,10 +211,10 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
                 group.setVisibility(GONE);
                 break;
             case PageConfig.PAGE_LEAVE:
-                if (checkButtons) {
+                /*if (checkButtons) {
                     setRadioButtons("申请", "审批" ,"查看");
-                }
-                group.setVisibility(VISIBLE);
+                }*/
+                group.setVisibility(GONE);
                 break;
             case PageConfig.PAGE_PERSONAL:
                 group.setVisibility(GONE);
