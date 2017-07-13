@@ -16,7 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
-import com.example.hgtxxgl.application.activity.ItemActivity;
+import com.example.hgtxxgl.application.activity.NewsItemActivity;
 import com.example.hgtxxgl.application.entity.MyLaunchListEntity;
 import com.example.hgtxxgl.application.utils.ApplicationApp;
 import com.example.hgtxxgl.application.utils.CommonValues;
@@ -406,7 +406,7 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
 
     //传递意图带上参数进入对应的详情页
     private void checkDetail(int position, int pageApplyBleave, int tabIndex) {
-        Intent intent = new Intent(getActivity(), ItemActivity.class);
+        Intent intent = new Intent(getActivity(), NewsItemActivity.class);
         intent.putExtra(PageConfig.PAGE_CODE, pageApplyBleave);
         Bundle bundle = new Bundle();
         bundle.putString("userId", ApplicationApp.getLoginEntity().getUserId());

@@ -26,7 +26,7 @@
             android:launchMode="singleTask"
             android:theme="@style/AppThemeLib"/>
         <activity
-            android:name=".activity.ItemActivity"
+            android:name=".activity.NewsItemActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeLib"
             android:windowSoftInputMode="adjustPan"/>
@@ -68,7 +68,25 @@
         <activity
             android:name=".QrCode.sample.BarcodeActivity"
             android:label="barcode" />
-
+        <activity
+            android:name=".rest.ActionSheetActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyDialogStyleBottom" />
+        <activity
+            android:name=".rest.HistoryActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeLib"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".rest.InputActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/MyDialogStyleBottom" />
+        <activity
+            android:name=".activity.ItemActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeLib"
+            android:windowSoftInputMode="adjustPan" />
 
     </application>
     <uses-permission android:name="android.permission.READ_CONTACTS" />

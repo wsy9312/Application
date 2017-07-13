@@ -16,7 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
-import com.example.hgtxxgl.application.activity.ItemActivity;
+import com.example.hgtxxgl.application.activity.NewsItemActivity;
 import com.example.hgtxxgl.application.utils.CommonValues;
 import com.example.hgtxxgl.application.utils.DataUtil;
 import com.example.hgtxxgl.application.utils.ListAdapter;
@@ -221,7 +221,7 @@ public class NewsFragment extends Fragment implements AdapterView.OnItemClickLis
     //根据条目在listview中的位置选择进入对应的详情页
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        Intent intent = new Intent(getContext(), ItemActivity.class);
+//        Intent intent = new Intent(getContext(), NewsItemActivity.class);
 //        intent.putExtra("index",position);
 //        intent.putExtra("title",map.get(position).toString());
 //        startActivity(intent);
@@ -232,11 +232,11 @@ public class NewsFragment extends Fragment implements AdapterView.OnItemClickLis
 //        Toast.makeText(ApplicationApp.context, "单击的标题是"+title,
 //                Toast.LENGTH_LONG).show();
         Intent intent1 = new Intent();
-        intent1.setClass(getContext(), ItemActivity.class);
+        intent1.setClass(getContext(), NewsItemActivity.class);
         intent1.putExtra("title", title);
         startActivity(intent1);
 
-//        Intent intent = new Intent(getActivity(), ItemActivity.class);
+//        Intent intent = new Intent(getActivity(), NewsItemActivity.class);
 //        intent.putExtra(PageConfig.PAGE_CODE, pageCode);
 //        Bundle bundle = new Bundle();
 //        bundle.putString("userId", ApplicationApp.getLoginEntity().getUserId());
@@ -370,7 +370,7 @@ public class NewsFragment extends Fragment implements AdapterView.OnItemClickLis
 
     //7检索不同的字段参数跳转到对应的条目界面
 //    private void checkDetail(int position, int pageCode, boolean remak, int tabIndex) {
-//        Intent intent = new Intent(getActivity(), ItemActivity.class);
+//        Intent intent = new Intent(getActivity(), NewsItemActivity.class);
 //        intent.putExtra(PageConfig.PAGE_CODE, pageCode);
 //        Bundle bundle = new Bundle();
 //        bundle.putString("userId", ApplicationApp.getLoginEntity().getUserId());

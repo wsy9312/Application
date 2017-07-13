@@ -61,10 +61,11 @@ public class LeaveFragment extends Fragment{
     public void onDestroyView() {
         super.onDestroyView();
     }*/
-    final int[] page = new int[]{PageConfig.PAGE_APPLY_BLEAVE, PageConfig.PAGE_APPLY_EXTRAWORK
-            , PageConfig.PAGE_APPLY_REST, PageConfig.PAGE_APPLY_TRAVEL_OFFER,
-            PageConfig.PAGE_APPLY_PAYMENT_FLOW, PageConfig.PAGE_APPLY_EXPENSE_OFFER, PageConfig.PAGE_APPLY_ENTERTAINMENT_EXPENSE,
-            PageConfig.PAGE_APPLY_POST_FILE,PageConfig.PAGE_APPLY_BLEAVE,PageConfig.PAGE_APPLY_TRAVEL_OFFER,PageConfig.PAGE_APPLY_EXPENSE_OFFER};
+//    final int[] page = new int[]{PageConfig.PAGE_APPLY_BLEAVE, PageConfig.PAGE_APPLY_EXTRAWORK
+//            , PageConfig.PAGE_APPLY_REST, PageConfig.PAGE_APPLY_TRAVEL_OFFER,
+//            PageConfig.PAGE_APPLY_PAYMENT_FLOW, PageConfig.PAGE_APPLY_EXPENSE_OFFER, PageConfig.PAGE_APPLY_ENTERTAINMENT_EXPENSE,
+//            PageConfig.PAGE_APPLY_POST_FILE,PageConfig.PAGE_APPLY_BLEAVE,PageConfig.PAGE_APPLY_TRAVEL_OFFER,PageConfig.PAGE_APPLY_EXPENSE_OFFER};
+    final int[] page = new int[]{PageConfig.PAGE_LEAVE_TODO,PageConfig.PAGE_LEAVE_LAUNCH,PageConfig.PAGE_LEAVE_APPLY};
 
     private LinearLayout[] buttons = null;
     public LeaveFragment() {

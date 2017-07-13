@@ -12,7 +12,7 @@ import android.view.animation.CycleInterpolator;
 import android.widget.LinearLayout;
 
 import com.example.hgtxxgl.application.R;
-import com.example.hgtxxgl.application.activity.ItemActivity;
+import com.example.hgtxxgl.application.activity.NewsItemActivity;
 import com.example.hgtxxgl.application.utils.PageConfig;
 
 
@@ -85,7 +85,7 @@ public class StartNewFragment extends Fragment {
 
                         @Override
                         public void onAnimationEnd(Animator animation) {
-                            Intent intent = new Intent(getActivity(), ItemActivity.class);
+                            Intent intent = new Intent(getActivity(), NewsItemActivity.class);
                             intent.putExtra(PageConfig.PAGE_CODE, page[finalI]);
                             startActivity(intent);
                         }
