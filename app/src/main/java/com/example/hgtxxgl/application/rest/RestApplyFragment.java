@@ -180,41 +180,54 @@ public class RestApplyFragment extends CommonFragment /*implements FileChooserLa
         mEid = "";
         List<Group> groups = new ArrayList<>();
         if (bean == null) {
-            List<HandInputGroup.Holder> subHolder = new ArrayList<>();
-            subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Company_Name), false, false, mCompNameCN, HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-            subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Department), false, false, mDeptNameCN, HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-            subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Applicant), false, false, mNameCN, HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-            subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Position), false, false, mPositionNameCN, HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-            subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Employee_ID), false, false, mEid, HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-            if (leaveDaysBean == null){
-                subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Lave_Year_Days), false, false, "0", HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-                subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Lave_Hours), false, false, "0", HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-                subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Cumulative_number_of_antenatal_examination), false, false, "0", HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-                subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Total_Days), false, false, "0", HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-            }else {
-                subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Lave_Year_Days), false, false, leaveDaysBean.getRetData().getAnnualDaysLeft(), HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-                subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Lave_Hours), false, false, leaveDaysBean.getRetData().getTimesOfAntenatalTotal(), HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-                subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Cumulative_number_of_antenatal_examination), false, false, leaveDaysBean.getRetData().getOffHoursLeft(), HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-                subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Total_Days), false, false, leaveDaysBean.getRetData().getDayOfLeaveTotal(), HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-            }
-            groups.add(0, new Group(this.getString(R.string.Basic_Information), null, true, null, subHolder));
-            List<HandInputGroup.Holder> subDetail = new ArrayList<>();
-            subDetail.add(new HandInputGroup.Holder(this.getString(R.string.Rest_Leave_Type), true, false, "/" + this.getString(R.string.Please_Select), HandInputGroup.VALUE_TYPE.SELECT));
-            subDetail.add(new HandInputGroup.Holder(this.getString(R.string.Starting_Time), true, false, "/" + this.getString(R.string.Please_Select), HandInputGroup.VALUE_TYPE.DATE));
-            subDetail.add(new HandInputGroup.Holder(this.getString(R.string.Ending_Time), true, false, "/" + this.getString(R.string.Please_Select), HandInputGroup.VALUE_TYPE.DATE));
-            subDetail.add(new HandInputGroup.Holder(this.getString(R.string.Leave_Time), true, false, "/0小时", HandInputGroup.VALUE_TYPE.DOUBLE).setColor(Color.rgb(229,0,17)));
-            subDetail.add(new HandInputGroup.Holder(this.getString(R.string.Leave_Causes), false, false, "/请填写请假原因", HandInputGroup.VALUE_TYPE.TEXTFILED));
-            groups.add(1, new Group(this.getString(R.string.Details_Information), R.mipmap.add_detail3x, true, null, subDetail).sethasDelete(true));
-            List<HandInputGroup.Holder> subDetailTotoal = new ArrayList<>();
-            groups.add(2, new Group(this.getString(R.string.Total), null, false, "0天", subDetailTotoal));
-            List<HandInputGroup.Holder> subAppend = new ArrayList<>();
-            subAppend.add(new HandInputGroup.Holder(this.getString(R.string.Attachment_Type), false, false, "/" + this.getString(R.string.Please_Select), HandInputGroup.VALUE_TYPE.SELECT));
-            if (fileUri == null) {
-                fileUri = new HashMap<>();
-                fileUri.put("", new HashSet<Uri>());
-            }
-            subAppend.add(new HandInputGroup.Holder(this.getString(R.string.Select_Attachments), false, false, "", HandInputGroup.VALUE_TYPE.FILES_UPLOAD).setValue(fileUri.get("")));
-            groups.add(new Group(this.getString(R.string.Attachment_Info), null, false, null, subAppend));
+            String[] strings = {"是", "否"};
+            List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
+            baseHolder.add(new HandInputGroup.Holder("申请人",true,false,mCompNameCN,HandInputGroup.VALUE_TYPE.TEXTFILED));
+            baseHolder.add(new HandInputGroup.Holder("预计外出时间",true,false,mCompNameCN,HandInputGroup.VALUE_TYPE.DATE));
+            baseHolder.add(new HandInputGroup.Holder("预计归来时间",true,false,mCompNameCN,HandInputGroup.VALUE_TYPE.DATE));
+            baseHolder.add(new HandInputGroup.Holder("请假原因",false,false,mCompNameCN,HandInputGroup.VALUE_TYPE.TEXTFILED));
+            baseHolder.add(new HandInputGroup.Holder("是否取消请假",true,false,strings[1],HandInputGroup.VALUE_TYPE.SELECT));
+            baseHolder.add(new HandInputGroup.Holder("是否后补请假",true,false,strings[1],HandInputGroup.VALUE_TYPE.SELECT));
+            groups.add(0,new Group("基本信息", null,true,null,baseHolder));
+
+
+
+
+//            List<HandInputGroup.Holder> subHolder = new ArrayList<>();
+//            subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Company_Name), false, false, mCompNameCN, HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
+//            subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Department), false, false, mDeptNameCN, HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
+//            subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Applicant), false, false, mNameCN, HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
+//            subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Position), false, false, mPositionNameCN, HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
+//            subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Employee_ID), false, false, mEid, HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
+//            if (leaveDaysBean == null){
+//                subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Lave_Year_Days), false, false, "0", HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
+//                subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Lave_Hours), false, false, "0", HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
+//                subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Cumulative_number_of_antenatal_examination), false, false, "0", HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
+//                subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Total_Days), false, false, "0", HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
+//            }else {
+//                subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Lave_Year_Days), false, false, leaveDaysBean.getRetData().getAnnualDaysLeft(), HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
+//                subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Lave_Hours), false, false, leaveDaysBean.getRetData().getTimesOfAntenatalTotal(), HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
+//                subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Cumulative_number_of_antenatal_examination), false, false, leaveDaysBean.getRetData().getOffHoursLeft(), HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
+//                subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Total_Days), false, false, leaveDaysBean.getRetData().getDayOfLeaveTotal(), HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
+//            }
+//            groups.add(0, new Group(this.getString(R.string.Basic_Information), null, true, null, subHolder));
+//            List<HandInputGroup.Holder> subDetail = new ArrayList<>();
+//            subDetail.add(new HandInputGroup.Holder(this.getString(R.string.Rest_Leave_Type), true, false, "/" + this.getString(R.string.Please_Select), HandInputGroup.VALUE_TYPE.SELECT));
+//            subDetail.add(new HandInputGroup.Holder(this.getString(R.string.Starting_Time), true, false, "/" + this.getString(R.string.Please_Select), HandInputGroup.VALUE_TYPE.DATE));
+//            subDetail.add(new HandInputGroup.Holder(this.getString(R.string.Ending_Time), true, false, "/" + this.getString(R.string.Please_Select), HandInputGroup.VALUE_TYPE.DATE));
+//            subDetail.add(new HandInputGroup.Holder(this.getString(R.string.Leave_Time), true, false, "/0小时", HandInputGroup.VALUE_TYPE.DOUBLE).setColor(Color.rgb(229,0,17)));
+//            subDetail.add(new HandInputGroup.Holder(this.getString(R.string.Leave_Causes), false, false, "/请填写请假原因", HandInputGroup.VALUE_TYPE.TEXTFILED));
+//            groups.add(1, new Group(this.getString(R.string.Details_Information), R.mipmap.add_detail3x, true, null, subDetail).sethasDelete(true));
+//            List<HandInputGroup.Holder> subDetailTotoal = new ArrayList<>();
+//            groups.add(2, new Group(this.getString(R.string.Total), null, false, "0天", subDetailTotoal));
+//            List<HandInputGroup.Holder> subAppend = new ArrayList<>();
+//            subAppend.add(new HandInputGroup.Holder(this.getString(R.string.Attachment_Type), false, false, "/" + this.getString(R.string.Please_Select), HandInputGroup.VALUE_TYPE.SELECT));
+//            if (fileUri == null) {
+//                fileUri = new HashMap<>();
+//                fileUri.put("", new HashSet<Uri>());
+//            }
+//            subAppend.add(new HandInputGroup.Holder(this.getString(R.string.Select_Attachments), false, false, "", HandInputGroup.VALUE_TYPE.FILES_UPLOAD).setValue(fileUri.get("")));
+//            groups.add(new Group(this.getString(R.string.Attachment_Info), null, false, null, subAppend));
         } else {
             RestDetailBean.RetDataBean.DetailDataBean dataBean = bean.getRetData().getDetailData();
             List<RestDetailBean.RetDataBean.DetailDataBean.LeaveRequestDetailBean> leaveRequestDetail = dataBean.getLeaveRequestDetail();
