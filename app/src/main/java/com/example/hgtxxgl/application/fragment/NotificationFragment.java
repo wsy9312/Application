@@ -123,6 +123,12 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
         fragment.setArguments(args);
         return fragment;
     }
+
+    public static NotificationFragment newInstance(Bundle bundle) {
+        NotificationFragment fragment = new NotificationFragment();
+        fragment.setArguments(bundle);
+        return fragment;
+    }
     //5删除单独的条目(用途不大,暂时不需要)
 //    private void removeTarget(final int id) {
 //        Snackbar.make(ivEmpty,"是否确定删除？",Snackbar.LENGTH_SHORT).setAction("确定", new View.OnClickListener() {

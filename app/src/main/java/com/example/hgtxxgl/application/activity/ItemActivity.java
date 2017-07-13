@@ -8,19 +8,12 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.hgtxxgl.application.R;
+import com.example.hgtxxgl.application.fragment.NewsFragment;
+import com.example.hgtxxgl.application.fragment.NotificationFragment;
 import com.example.hgtxxgl.application.rest.RestApplyFragment;
 import com.example.hgtxxgl.application.utils.PageConfig;
 
 import java.util.List;
-
-import static com.example.hgtxxgl.application.utils.PageConfig.PAGE_APPLY_BLEAVE;
-import static com.example.hgtxxgl.application.utils.PageConfig.PAGE_APPLY_ENTERTAINMENT_EXPENSE;
-import static com.example.hgtxxgl.application.utils.PageConfig.PAGE_APPLY_EXPENSE_OFFER;
-import static com.example.hgtxxgl.application.utils.PageConfig.PAGE_APPLY_EXTRAWORK;
-import static com.example.hgtxxgl.application.utils.PageConfig.PAGE_APPLY_PAYMENT_FLOW;
-import static com.example.hgtxxgl.application.utils.PageConfig.PAGE_APPLY_POST_FILE;
-import static com.example.hgtxxgl.application.utils.PageConfig.PAGE_APPLY_REST;
-import static com.example.hgtxxgl.application.utils.PageConfig.PAGE_APPLY_TRAVEL_OFFER;
 
 
 /**
@@ -59,7 +52,13 @@ public class ItemActivity extends AppCompatActivity {
 //                break;
             case PageConfig.PAGE_LEAVE_APPLY:
                 //请假申请
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, RestApplyFragment.newInstance(getIntent().getBundleExtra("data"))).commit();
+                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
+                break;
+            case PageConfig.PAGE_LEAVE_TODO:
+                checkFragment(NewsFragment.newInstance(getIntent().getBundleExtra("data")));
+                break;
+            case PageConfig.PAGE_LEAVE_LAUNCH:
+                checkFragment(NotificationFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             /*case PageConfig.PAGE_APPROVE_REST:
                 //请假审批
@@ -166,9 +165,7 @@ public class ItemActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         int intExtra = getIntent().getIntExtra(PageConfig.PAGE_CODE, -1);
-        if (intExtra == PAGE_APPLY_BLEAVE || intExtra == PAGE_APPLY_EXTRAWORK ||intExtra == PAGE_APPLY_REST ||
-                intExtra == PAGE_APPLY_TRAVEL_OFFER ||intExtra == PAGE_APPLY_PAYMENT_FLOW ||intExtra == PAGE_APPLY_EXPENSE_OFFER ||
-                intExtra == PAGE_APPLY_ENTERTAINMENT_EXPENSE ||intExtra == PAGE_APPLY_POST_FILE ){
+        if (intExtra == PageConfig.PAGE_LEAVE_APPLY ){
             AlertDialog.Builder builder=new AlertDialog.Builder(this);  //先得到构造器
             builder.setMessage("是否确认退出?"); //设置内容
             builder.setPositiveButton("确定", new DialogInterface.OnClickListener() { //设置确定按钮

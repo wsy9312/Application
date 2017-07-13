@@ -20,51 +20,6 @@ import com.example.hgtxxgl.application.utils.PageConfig;
  */
 public class LeaveFragment extends Fragment{
 
-    /*private View view;
-    private DetailFragment.DataCallback callback;
-
-    public LeaveFragment() {
-
-    }
-
-    public static LeaveFragment newInstance(int tabIndex) {
-        Bundle args = new Bundle();
-        LeaveFragment fragment = new LeaveFragment();
-        args.putInt(DetailFragment.ARG_TAB, tabIndex);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    public LeaveFragment setCallback(DetailFragment.DataCallback callback) {
-        this.callback = callback;
-        return this;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_leave_center, container, false);
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }*/
-//    final int[] page = new int[]{PageConfig.PAGE_APPLY_BLEAVE, PageConfig.PAGE_APPLY_EXTRAWORK
-//            , PageConfig.PAGE_APPLY_REST, PageConfig.PAGE_APPLY_TRAVEL_OFFER,
-//            PageConfig.PAGE_APPLY_PAYMENT_FLOW, PageConfig.PAGE_APPLY_EXPENSE_OFFER, PageConfig.PAGE_APPLY_ENTERTAINMENT_EXPENSE,
-//            PageConfig.PAGE_APPLY_POST_FILE,PageConfig.PAGE_APPLY_BLEAVE,PageConfig.PAGE_APPLY_TRAVEL_OFFER,PageConfig.PAGE_APPLY_EXPENSE_OFFER};
     final int[] page = new int[]{PageConfig.PAGE_LEAVE_TODO,PageConfig.PAGE_LEAVE_LAUNCH,PageConfig.PAGE_LEAVE_APPLY};
 
     private LinearLayout[] buttons = null;

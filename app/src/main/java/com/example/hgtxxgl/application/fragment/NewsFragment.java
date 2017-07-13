@@ -51,6 +51,12 @@ public class NewsFragment extends Fragment implements AdapterView.OnItemClickLis
         return fragment;
     }
 
+    public static NewsFragment newInstance(Bundle bundle) {
+        NewsFragment fragment = new NewsFragment();
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
     //1原本的外部网络数据集合变量
 //    private List<MyCommissionListEntity.RetDataBean> entityList = new ArrayList<>();
 //    private List<MyCommissionListEntity.RetDataBean> baseEntityList;
