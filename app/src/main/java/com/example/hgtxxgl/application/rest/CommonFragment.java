@@ -237,7 +237,8 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
         toolbar.setDisplayHomeAsUpEnabled(true, getActivity());
         toolbar.setBackHome(true,getActivity(),0);
         stubEmpty = (RelativeLayout) layout.findViewById(R.id.vs_empty);
-        stubEmpty.setVisibility(groupList == null || groupList.size() == 0 ? View.VISIBLE : View.GONE);
+//        stubEmpty.setVisibility(groupList == null || groupList.size() == 0 ? View.VISIBLE : View.GONE);
+        stubEmpty.setVisibility(View.GONE);
         setButtonsTitles(getBottomButtonsTitles());
         if (getGroup() != null) {
             itemCont = (RecyclerView) layout.findViewById(R.id.frag_list_container);
@@ -250,7 +251,8 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
                     @Override
                     public void onChanged() {
                         if (adpter.getItemCount() == 0) {
-                            stubEmpty.setVisibility(groupList == null ? View.VISIBLE : View.GONE);
+//                            stubEmpty.setVisibility(groupList == null ? View.VISIBLE : View.GONE);
+                            stubEmpty.setVisibility(View.GONE);
                         }
                     }
                 });
@@ -476,11 +478,12 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
     public void notifyDataSetChanged() {
         if (adpter != null)
             adpter.notifyDataSetChanged();
-        if (groupList != null && groupList.size() <= 0) {
-            stubEmpty.setVisibility(View.VISIBLE);
-        } else if (groupList != null && groupList.size() > 0) {
-            stubEmpty.setVisibility(View.GONE);
-        }
+        stubEmpty.setVisibility(View.GONE);
+//        if (groupList != null && groupList.size() <= 0) {
+//            stubEmpty.setVisibility(View.VISIBLE);
+//        } else if (groupList != null && groupList.size() > 0) {
+//            stubEmpty.setVisibility(View.GONE);
+//        }
     }
 
     /*public void lookAttachmentInDetailFragment(final AttachmentListEntity entity){

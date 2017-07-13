@@ -40,7 +40,7 @@ public class NewsItemActivity extends AppCompatActivity implements View.OnClickL
         handToolbar.setDisplayHomeAsUpEnabled(true, this);
         handToolbar.setBackHome(false,this,0);
         handToolbar.setTitle("新闻内容");
-        handToolbar.setTitleSize(18);
+        handToolbar.setTitleSize(20);
     }
 
     @Override

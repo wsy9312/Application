@@ -13,6 +13,7 @@ import com.example.hgtxxgl.application.entity.DataListEntity;
 import com.example.hgtxxgl.application.utils.CommonValues;
 import com.example.hgtxxgl.application.utils.DataUtil;
 import com.example.hgtxxgl.application.utils.HttpManager;
+import com.example.hgtxxgl.application.utils.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.ToastUtil;
 import com.example.hgtxxgl.application.view.HandToolbar;
 import com.google.gson.Gson;
@@ -27,9 +28,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-/**
- * Created by guiluXu on 2016/10/12.
- */
 public class RestApplyFragment extends CommonFragment /*implements FileChooserLayout.DataChangeListener*/ {
     private String uuid;
     private RestDetailBean bean;
@@ -59,6 +57,7 @@ public class RestApplyFragment extends CommonFragment /*implements FileChooserLa
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StatusBarUtils.setWindowStatusBarColor(getActivity(),R.color.mainColor_blue);
         loadData();
         getLeaveDays();
         loadDraftData();
@@ -313,9 +312,9 @@ public class RestApplyFragment extends CommonFragment /*implements FileChooserLa
         });
     }
 
-
     public void setToolbar(HandToolbar toolbar) {
         toolbar.setTitle("请假申请");
+        toolbar.setTitleSize(20);
         toolbar.setDisplayHomeAsUpEnabled(true, getActivity());
     }
 

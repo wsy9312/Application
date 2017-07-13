@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         handToolbar.setTitle("二维码名片");
         handToolbar.setDisplayHomeAsUpEnabled(true, this);
         handToolbar.setBackHome(true,this,R.mipmap.ic_more);
-        handToolbar.setTitleSize(17);
+        handToolbar.setTitleSize(20);
         handToolbar.setButtonsClickCallback(new HandToolbar.OnButtonsClickCallback() {
             @Override
             public void onButtonClickListner(HandToolbar.VIEWS views, int radioIndex) {

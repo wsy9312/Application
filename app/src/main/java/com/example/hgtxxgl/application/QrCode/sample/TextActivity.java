@@ -26,7 +26,7 @@ public class TextActivity extends AppCompatActivity {
         handToolbar.setTitle("识别结果");
         handToolbar.setDisplayHomeAsUpEnabled(true, this);
         handToolbar.setBackHome(false,this,0);
-        handToolbar.setTitleSize(17);
+        handToolbar.setTitleSize(20);
         StatusBarUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
         Bundle extras = getIntent().getExtras();
         if (extras != null)

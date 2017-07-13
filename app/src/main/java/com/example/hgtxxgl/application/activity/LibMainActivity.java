@@ -169,7 +169,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         //pb = (ProgressBar) findViewById(R.id.lib_pb);
         handToolbar = (HandToolbar) findViewById(R.id.toolbar);
         handToolbar.setDisplayHomeAsUpEnabled(true, this);
-        handToolbar.setTitleSize(18);
+        handToolbar.setTitleSize(20);
         bottomBar = (RadioGroup) findViewById(R.id.bottom_bar);
         newsCenter = (RadioButton) findViewById(R.id.rb_main_news_center);
         notificationCenter = (RadioButton) findViewById(R.id.rb_main_notification_center);

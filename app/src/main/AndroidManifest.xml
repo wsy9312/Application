@@ -30,7 +30,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeLib"
             android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".QrCode.activity.QRCodeActivity"/>
         <activity android:name=".QrCode.sample.MainActivity"
             android:label="二维码名片">
             <!--<intent-filter>
