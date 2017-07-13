@@ -29,7 +29,6 @@ import static com.example.hgtxxgl.application.utils.PageConfig.PAGE_APPLY_TRAVEL
  */
 public class ItemActivity extends AppCompatActivity {
 
-
 //    FileChooserLayout.ActivityResultCallback callback;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +57,7 @@ public class ItemActivity extends AppCompatActivity {
 //            case PAGE_APPLY_EXTRAWORK:
 //                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, ExtraWorkApplyFragment.newInstance(getIntent().getBundleExtra("data"))).commit();
 //                break;
-            case PageConfig.PAGE_APPLY_REST:
+            case PageConfig.PAGE_LEAVE_APPLY:
                 //请假申请
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, RestApplyFragment.newInstance(getIntent().getBundleExtra("data"))).commit();
                 break;

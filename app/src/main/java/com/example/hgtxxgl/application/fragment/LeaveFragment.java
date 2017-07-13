@@ -86,14 +86,6 @@ public class LeaveFragment extends Fragment{
 
     private void initButtons(View v) {
         buttons = new LinearLayout[]{
-//                (LinearLayout) v.findViewById(R.id.btn_gc),
-//                (LinearLayout) v.findViewById(R.id.btn_jb),
-//                (LinearLayout) v.findViewById(R.id.btn_qj),
-//                (LinearLayout) v.findViewById(R.id.btn_clbx),
-//                (LinearLayout) v.findViewById(R.id.btn_fklc),
-//                (LinearLayout) v.findViewById(R.id.btn_fybx),
-//                (LinearLayout) v.findViewById(R.id.btn_zdf),
-//                (LinearLayout) v.findViewById(R.id.btn_post_file),
                 (LinearLayout) v.findViewById(R.id.but_hot1),
                 (LinearLayout) v.findViewById(R.id.but_hot2),
                 (LinearLayout) v.findViewById(R.id.but_hot3),
