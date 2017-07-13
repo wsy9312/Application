@@ -20,9 +20,6 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-/**
- * Created by liuwan on 2016/9/28.
- */
 public class DatePickerView extends View {
 
     private Context context;

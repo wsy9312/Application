@@ -3,10 +3,6 @@ package com.example.hgtxxgl.application.rest;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * Created by Oliver on 2016/10/8.
- */
-
 public class HisDataBean implements Serializable {
     private List<AuditHisBean> auditHis;
     private List<AuditNodeBean> auditNode;

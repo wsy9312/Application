@@ -1,9 +1,5 @@
 package com.example.hgtxxgl.application.rest;
 
-/**
- * Created by Oliver on 2016/11/18.
- */
-
 public class InputHolder {
     String title;
     String buttonText;

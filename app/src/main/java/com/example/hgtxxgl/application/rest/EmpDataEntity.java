@@ -1,9 +1,5 @@
 package com.example.hgtxxgl.application.rest;
 
-/**
- * Created by Oliver on 2016/11/17.
- */
-
 public class EmpDataEntity {
 
     private String Id;

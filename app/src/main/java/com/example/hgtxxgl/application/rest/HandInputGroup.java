@@ -37,9 +37,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by Oliver on 2016/9/18.
- */
 public class HandInputGroup extends LinearLayout {
 
     Button btnDelete;

@@ -1,9 +1,5 @@
 package com.example.hgtxxgl.application.rest;
 
-/**
- * Created by Oliver on 2016/9/21.
- */
-
 public class CommonDataEntity<T> {
 
     private String code;

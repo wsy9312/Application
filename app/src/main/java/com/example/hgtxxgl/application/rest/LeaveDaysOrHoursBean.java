@@ -1,9 +1,5 @@
 package com.example.hgtxxgl.application.rest;
 
-/**
- * Created by zhy on 2016/12/2.
- */
-
 public class LeaveDaysOrHoursBean {
     private String code;
     private String msg;

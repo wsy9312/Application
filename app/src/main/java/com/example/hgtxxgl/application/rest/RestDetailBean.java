@@ -4,9 +4,6 @@ package com.example.hgtxxgl.application.rest;
 
 import java.util.List;
 
-/**
- * Created by guiluXu on 2016/11/8.
- */
 public class RestDetailBean {
     @Override
     public String toString() {

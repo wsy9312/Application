@@ -6,10 +6,6 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * Created by Oliver on 2016/9/28.
- */
-
 public class DescripUtil {
     private static String[] CH = {"", "", "拾", "佰", "仟"};
 

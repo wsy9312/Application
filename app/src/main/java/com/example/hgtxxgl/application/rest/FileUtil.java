@@ -11,10 +11,6 @@ import java.io.ObjectOutputStream;
 
 import static android.content.Context.MODE_PRIVATE;
 
-/**
- * Created by Oliver on 2016/9/22.
- */
-
 public class FileUtil {
     public static boolean writeSerializable(Object object, String path) {
         FileOutputStream fileOutputStream = null;

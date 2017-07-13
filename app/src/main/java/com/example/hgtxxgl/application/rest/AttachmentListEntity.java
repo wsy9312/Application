@@ -2,10 +2,6 @@ package com.example.hgtxxgl.application.rest;
 
 import android.net.Uri;
 
-/**
- * Created by Oliver on 2016/11/17.
- */
-
 public class AttachmentListEntity {
 
     private String Id;

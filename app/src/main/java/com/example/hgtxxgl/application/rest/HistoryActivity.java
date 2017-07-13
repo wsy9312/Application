@@ -19,10 +19,6 @@ import com.example.hgtxxgl.application.view.HandToolbar;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * Created by zhy on 2017/1/17.
- */
-
 public class HistoryActivity extends AppCompatActivity {
 
     public static final String HISTORY = "HISTORY";

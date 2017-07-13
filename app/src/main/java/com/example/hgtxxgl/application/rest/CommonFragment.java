@@ -37,11 +37,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-
-/**
- * Created by Oliver on 2016/9/20.
- *
- */
 /*{@linkplain com.geely.app.geelyapprove.activities.extrawork.views.ExtraWorkDetailFragment}  for a example*/
 public abstract class CommonFragment extends Fragment implements HandInputGroup.Callback, RadioBarViewPager.OnCheckedChangeListener{
     public RecyclerView itemCont;

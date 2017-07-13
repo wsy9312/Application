@@ -8,9 +8,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.hgtxxgl.application.R;
-import com.example.hgtxxgl.application.fragment.NewsFragment;
-import com.example.hgtxxgl.application.fragment.NotificationFragment;
 import com.example.hgtxxgl.application.rest.RestApplyFragment;
+import com.example.hgtxxgl.application.rest.RestLaunchFragment;
+import com.example.hgtxxgl.application.rest.RestTodoFragment;
 import com.example.hgtxxgl.application.utils.PageConfig;
 
 import java.util.List;
@@ -55,10 +55,10 @@ public class ItemActivity extends AppCompatActivity {
                 checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_LEAVE_TODO:
-                checkFragment(NewsFragment.newInstance(getIntent().getBundleExtra("data")));
+                checkFragment(RestTodoFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_LEAVE_LAUNCH:
-                checkFragment(NotificationFragment.newInstance(getIntent().getBundleExtra("data")));
+                checkFragment(RestLaunchFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             /*case PageConfig.PAGE_APPROVE_REST:
                 //请假审批

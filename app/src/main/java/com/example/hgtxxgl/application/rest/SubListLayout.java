@@ -12,10 +12,6 @@ import com.example.hgtxxgl.application.R;
 
 import java.util.Set;
 
-/**
- * Created by Oliver on 2016/11/25.
- */
-
 public class SubListLayout extends LinearLayout {
 
     private Set<String> barCode ;

@@ -15,10 +15,6 @@ import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
 
-
-/**
- * Created by Oliver on 2016/10/24.
- */
 public class InputActivity extends AppCompatActivity {
 
     private static Callback mCallback;

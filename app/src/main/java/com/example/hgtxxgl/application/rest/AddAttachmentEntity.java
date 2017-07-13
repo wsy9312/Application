@@ -1,8 +1,5 @@
 package com.example.hgtxxgl.application.rest;
 
-/**
- * Created by glx on 2017/3/14.
- */
 public class AddAttachmentEntity {
 
     private String code;

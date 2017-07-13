@@ -16,9 +16,6 @@ import com.example.hgtxxgl.application.R;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by Oliver on 2016/11/15.
- */
 public class ActionSheetActivity extends Activity {
 
     private static final String DATA = "DATA";

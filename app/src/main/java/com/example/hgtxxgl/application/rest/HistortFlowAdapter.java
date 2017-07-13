@@ -13,10 +13,6 @@ import com.example.hgtxxgl.application.R;
 
 import java.util.List;
 
-
-/**
- * Created by Oliver on 2016/12/1.
- */
 public class HistortFlowAdapter extends RecyclerView.Adapter<HistortFlowAdapter.HistoryHolder>{
 
     private HisDataBean data;

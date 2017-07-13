@@ -4,9 +4,6 @@ import com.example.hgtxxgl.application.entity.DataListEntity;
 
 import java.util.List;
 
-/**下拉框返回
- * Created by zhy on 2016/10/24.
- */
 public class DictionaryEntity {
 
     private String code;

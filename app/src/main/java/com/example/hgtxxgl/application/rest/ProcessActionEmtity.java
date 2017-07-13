@@ -2,10 +2,6 @@ package com.example.hgtxxgl.application.rest;
 
 import java.util.List;
 
-/**
- * Created by zhy on 2017/2/22.
- */
-
 public class ProcessActionEmtity {
 
     private String code;

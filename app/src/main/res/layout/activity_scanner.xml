@@ -16,6 +16,7 @@
         android:id="@+id/activity_scanner_qr_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
     <ToggleButton
         android:id="@+id/toggleButton"
         android:layout_width="wrap_content"

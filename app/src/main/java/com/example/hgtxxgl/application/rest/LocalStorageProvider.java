@@ -24,9 +24,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-/**
- * Created by xgl on 2017/1/6.
- */
 @SuppressLint("NewApi")
 public class LocalStorageProvider extends DocumentsProvider {
 

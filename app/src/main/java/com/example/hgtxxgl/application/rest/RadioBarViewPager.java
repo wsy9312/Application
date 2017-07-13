@@ -11,10 +11,6 @@ import android.widget.RadioGroup;
 
 import com.example.hgtxxgl.application.R;
 
-/**
- * <p>This is a radio group，which is smarter and powerful.</p>
- * Created by Oliver on 2016/10/20.
- */
 public class RadioBarViewPager extends LinearLayout {
 
     private SparseArray<String> text;

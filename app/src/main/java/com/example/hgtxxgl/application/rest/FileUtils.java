@@ -37,9 +37,6 @@ import java.io.FileFilter;
 import java.text.DecimalFormat;
 import java.util.Comparator;
 
-/**
- * Created by xgl on 2017/1/6.
- */
 public class FileUtils {
     private FileUtils() {} //private constructor to enforce Singleton pattern
     
