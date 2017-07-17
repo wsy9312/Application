@@ -36,5 +36,5 @@
         app:qrcv_topOffset="90dp"/>
     <include layout="@layout/toolbar"/>
 
-    <include layout="@layout/view_control"/>
+
 </RelativeLayout>

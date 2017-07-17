@@ -9,8 +9,10 @@
     <string name="news">新闻</string>
     <string name="notification">通知</string>
     <string name="me">我</string>
-    <string name="leave">请假</string>
-    
+    <string name="todo">待办</string>
+    <string name="launch">提交</string>
+    <string name="apply">申请</string>
+
     <string name="Basic_Information">基本信息</string>
     <string name="Details_Information">明细信息</string>
     <string name="Attachment_Info">附件信息</string>

@@ -16,6 +16,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
+import com.example.hgtxxgl.application.rest.MyCommissionFragment;
+import com.example.hgtxxgl.application.rest.MyLaunchFragment;
 import com.example.hgtxxgl.application.utils.PageConfig;
 
 import java.util.ArrayList;
@@ -34,7 +36,6 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
     private RadioGroup group;
     private static int currentTab = 0;
     private DetailFragment.SectionsPagerAdapter pagerAdapter;
-//      private ViewPager container;
     public static final String ARG_TAB = "TABS";
     private List<RadioButton> radioButtonList;
     private Fragment[] fragments;
@@ -91,10 +92,15 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
                 return NewsFragment.newInstance(position).setCallback(this);
             } else if (currentPage == PageConfig.PAGE_NOTIFICATION) {
                 return NotificationFragment.newInstance(position).setCallback(this);
-            } else if (currentPage == PageConfig.PAGE_PERSONAL) {
+            } else if (currentPage == PageConfig.PAGE_ME) {
                 return PersonalFragment.newInstance(position).setCallback(this);
-            } else if (currentPage == PageConfig.PAGE_LEAVE) {
-                return new LeaveFragment();
+            } else if (currentPage == PageConfig.PAGE_TODO) {
+                return MyCommissionFragment.newInstance(position).setCallback(this);
+            } else if (currentPage == PageConfig.PAGE_LAUNCH){
+                return MyLaunchFragment.newInstance(position).setCallback(this);
+            } else if (currentPage == PageConfig.PAGE_APPLY){
+//                return MyApplyFragment.newInstance(position).setCallback(this);
+                return null;
             }
             return null;
         }
@@ -102,15 +108,11 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
 
         @Override
         public int getCount() {
-            if (currentPage == PageConfig.PAGE_NEWS) {
-                return 4;
-            } else if (currentPage == PageConfig.PAGE_NOTIFICATION) {
-                return 3;
-            } else if (currentPage == PageConfig.PAGE_LEAVE) {
+            if (currentPage == PageConfig.PAGE_TODO) {
                 return 2;
-            } else if (currentPage == PageConfig.PAGE_PERSONAL)
-                return 1;
-            else
+            } else if (currentPage == PageConfig.PAGE_LAUNCH) {
+                return 3;
+            } else
                 return 0;
         }
 
@@ -165,10 +167,10 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
     //搜索逻辑跳转到子fragment界面进行搜索
     public void doFilter(String str){
         Fragment f = fragments[currentTab];
-        /*if (f instanceof NotificationFragment) {
-            ((NotificationFragment) f).filter(str);
-        } else*/ if (f instanceof NewsFragment) {
-            ((NewsFragment) f).filter(str);
+        if (f instanceof MyLaunchFragment) {
+            ((MyLaunchFragment) f).filter(str);
+        } else if (f instanceof MyCommissionFragment) {
+            ((MyCommissionFragment) f).filter(str);
         }
     }
 
@@ -210,19 +212,28 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
             case PageConfig.PAGE_NOTIFICATION:
                 group.setVisibility(GONE);
                 break;
-            case PageConfig.PAGE_LEAVE:
-                /*if (checkButtons) {
-                    setRadioButtons("申请", "审批" ,"查看");
-                }*/
+            case PageConfig.PAGE_TODO:
+                if (checkButtons) {
+                    setRadioButtons("待处理", "已处理");
+                }
                 group.setVisibility(GONE);
                 break;
-            case PageConfig.PAGE_PERSONAL:
+            case PageConfig.PAGE_LAUNCH:
+                if (checkButtons) {
+                    setRadioButtons("未提交", "未完成", "已完成");
+                }
+                group.setVisibility(GONE);
+                break;
+            case PageConfig.PAGE_APPLY:
+                group.setVisibility(GONE);
+                break;
+            case PageConfig.PAGE_ME:
                 group.setVisibility(GONE);
                 break;
         }
     }
 
-    //根据顶部按钮点击跳转到三个子fragment中的子fragment当中(暂时用不到)
+    //根据顶部按钮点击跳转到三个子fragment中的子fragment当中
     public void onButtonClickListner(int radioIndex) {
         if (radioIndex >= 0 && radioIndex <= 2) {
             currentTab = radioIndex;
@@ -243,11 +254,11 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
      * 参数顺序为导航按钮从左至右的次序，参数数量2或者3
      * @param titles
      */
-    //设置顶部菜单栏的按钮(暂时用不到)
+    //设置顶部菜单栏的按钮
     public void setRadioButtons(final String... titles) {
         if (titles == null)
             return;
-        if (titles.length < 2 || titles.length > 4) {
+        if (titles.length < 2 || titles.length > 3) {
             throw new IllegalArgumentException("参数数量为2或者3");
         } else {
             radioButtonList = new ArrayList<>();

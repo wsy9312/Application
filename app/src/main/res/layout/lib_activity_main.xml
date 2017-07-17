@@ -57,12 +57,23 @@
             android:text="@string/notification" />
 
         <RadioButton
-            android:id="@+id/rb_main_leave_center"
+            android:id="@+id/rb_main_leave_todo_center"
             style="@style/BottomBarItem"
             android:enabled="false"
-            android:drawableTop="@drawable/home_page_radio_button_my_leave"
-            android:text="@string/leave" />
-
+            android:drawableTop="@drawable/home_page_radio_button_my_comm"
+            android:text="@string/todo" />
+        <RadioButton
+            android:enabled="false"
+            android:id="@+id/rb_main_leave_launch_center"
+            style="@style/BottomBarItem"
+            android:drawableTop="@drawable/home_page_radio_button_my_launch"
+            android:text="@string/launch" />
+        <RadioButton
+            android:enabled="false"
+            android:id="@+id/rb_main_leave_apply_center"
+            style="@style/BottomBarItem"
+            android:drawableTop="@drawable/home_page_radio_button_post_flow"
+            android:text="@string/apply" />
         <RadioButton
             android:enabled="false"
             android:id="@+id/rb_main_personal_center"
