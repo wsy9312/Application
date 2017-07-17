@@ -24,7 +24,6 @@ public class OkHttpUtils {
             synchronized (OkHttpUtils.class) {
                 if (singleton == null) {
                     File cacheDir = new File(context.getCacheDir(), Config.RESPONSE_CACHE);
-
                     singleton = new OkHttpClient();
                     singleton.setCache(new Cache(cacheDir, Config.RESPONSE_CACHE_SIZE));
                     singleton.setConnectTimeout(Config.HTTP_CONNECT_TIMEOUT, TimeUnit.MILLISECONDS);

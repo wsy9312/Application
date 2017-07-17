@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.rest.MyCommissionFragment;
 import com.example.hgtxxgl.application.rest.MyLaunchFragment;
+import com.example.hgtxxgl.application.rest.RestApplyFragment;
 import com.example.hgtxxgl.application.utils.PageConfig;
 
 import java.util.ArrayList;
@@ -99,8 +100,7 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
             } else if (currentPage == PageConfig.PAGE_LAUNCH){
                 return MyLaunchFragment.newInstance(position).setCallback(this);
             } else if (currentPage == PageConfig.PAGE_APPLY){
-//                return MyApplyFragment.newInstance(position).setCallback(this);
-                return null;
+                return new RestApplyFragment();
             }
             return null;
         }
@@ -108,11 +108,26 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
 
         @Override
         public int getCount() {
-            if (currentPage == PageConfig.PAGE_TODO) {
+        /*    if (currentPage == PageConfig.PAGE_TODO) {
                 return 2;
             } else if (currentPage == PageConfig.PAGE_LAUNCH) {
                 return 3;
             } else
+                return 0;
+*/
+            if (currentPage == PageConfig.PAGE_NEWS) {
+                return 1;
+            } else if (currentPage == PageConfig.PAGE_NOTIFICATION) {
+                return 1;
+            } else if (currentPage == PageConfig.PAGE_TODO) {
+                return 2;
+            } else if (currentPage == PageConfig.PAGE_LAUNCH) {
+                return 3;
+            } else if (currentPage == PageConfig.PAGE_APPLY) {
+                return 1;
+            } else if (currentPage == PageConfig.PAGE_ME)
+                return 1;
+            else
                 return 0;
         }
 
@@ -216,13 +231,13 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
                 if (checkButtons) {
                     setRadioButtons("待处理", "已处理");
                 }
-                group.setVisibility(GONE);
+                group.setVisibility(VISIBLE);
                 break;
             case PageConfig.PAGE_LAUNCH:
                 if (checkButtons) {
                     setRadioButtons("未提交", "未完成", "已完成");
                 }
-                group.setVisibility(GONE);
+                group.setVisibility(VISIBLE);
                 break;
             case PageConfig.PAGE_APPLY:
                 group.setVisibility(GONE);

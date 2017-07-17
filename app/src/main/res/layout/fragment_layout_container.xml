@@ -11,11 +11,11 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/llayout_bottom_buttons_bar"
         android:orientation="vertical">
-
+<!--
         <com.example.hgtxxgl.application.view.HandToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content" />-->
 
         <com.example.hgtxxgl.application.rest.RadioBarViewPager
             android:id="@+id/rb_viewpager"

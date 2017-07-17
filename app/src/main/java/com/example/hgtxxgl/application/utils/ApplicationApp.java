@@ -6,7 +6,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.StrictMode;
 
-import com.example.hgtxxgl.application.entity.LoginEntity;
 import com.example.hgtxxgl.application.network.RetrofitUtils;
 
 

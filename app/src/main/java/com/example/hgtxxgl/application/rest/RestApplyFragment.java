@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.Toast;
 
 import com.example.hgtxxgl.application.R;
@@ -15,7 +14,6 @@ import com.example.hgtxxgl.application.utils.DataUtil;
 import com.example.hgtxxgl.application.utils.HttpManager;
 import com.example.hgtxxgl.application.utils.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.ToastUtil;
-import com.example.hgtxxgl.application.view.HandToolbar;
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -79,7 +77,7 @@ public class RestApplyFragment extends CommonFragment /*implements FileChooserLa
                             @Override
                             public void run() {
                                 if (getArguments().getBoolean("Remak")){
-                                    settoolbar();
+//                                    settoolbar();
                                     setButtonsTitles(new String[]{"重新提交"});
                                 }
                                 setGroup(getGroupList());
@@ -111,7 +109,7 @@ public class RestApplyFragment extends CommonFragment /*implements FileChooserLa
         }
     }
 
-    private void settoolbar() {
+    /*private void settoolbar() {
         HandToolbar toolbar = getToolbar();
         final View his = toolbar.findViewById(R.id.tv_history);
         getActivity().runOnUiThread(new Runnable() {
@@ -126,7 +124,7 @@ public class RestApplyFragment extends CommonFragment /*implements FileChooserLa
                 });
             }
         });
-    }
+    }*/
 
     private void getLeaveDays() {
         Map<String, Object> params = CommonValues.getCommonParams(getActivity());
@@ -325,15 +323,15 @@ public class RestApplyFragment extends CommonFragment /*implements FileChooserLa
         });
     }
 
-    public void setToolbar(HandToolbar toolbar) {
+   /* public void setToolbar(HandToolbar toolbar) {
         toolbar.setTitle("请假申请");
         toolbar.setTitleSize(20);
         toolbar.setDisplayHomeAsUpEnabled(true, getActivity());
-    }
+    }*/
 
     @Override
     public String[] getBottomButtonsTitles() {
-        return new String[]{"提交", "保存"};
+        return new String[]{"提交"};
     }
 
     @SuppressWarnings("unchecked")

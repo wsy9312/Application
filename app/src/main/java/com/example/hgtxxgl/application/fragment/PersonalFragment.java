@@ -12,7 +12,6 @@ import android.widget.RelativeLayout;
 
 import com.example.hgtxxgl.application.QrCode.sample.MainActivity;
 import com.example.hgtxxgl.application.R;
-import com.example.hgtxxgl.application.activity.LoginActivity;
 import com.example.hgtxxgl.application.network.NetworkApi;
 import com.example.hgtxxgl.application.network.RetrofitUtils;
 import com.example.hgtxxgl.application.utils.ToastUtil;
@@ -122,9 +121,10 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
     }
 
     private void logOut() {
-        ToastUtil.showToast(getContext(),"退出");
+        /*ToastUtil.showToast(getContext(),"退出");
         Intent intent = new Intent(getContext(), LoginActivity.class);
-        startActivity(intent);
+        startActivity(intent);*/
+
     }
 
     private void ceshi() {

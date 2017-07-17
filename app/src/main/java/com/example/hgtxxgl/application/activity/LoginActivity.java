@@ -154,6 +154,9 @@ public class LoginActivity extends AppCompatActivity {
     //输入用户名密码登录
     private void login(final String username, final String password) {
         //TODO 网络获取用户名密码数据
+//        {"Login":[{"LoginName":"Admin","Password":"123456"}]}
+//        Login {"Login":[{"LoginName":"Admin","Password":"123456"}]}
+
         if (username.equals("123")&&password.equals("123")){
             show("输入正确");
             toLibMainActivity(username,password);
