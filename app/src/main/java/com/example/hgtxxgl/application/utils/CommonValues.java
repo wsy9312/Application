@@ -182,8 +182,6 @@ public class CommonValues {
     //根据员工编号获取银行信息
     public static final String GET_PERSONAL_ACCOUNT_INFO = currentHost + "/GetAllPersonalAccountInfo";
 
-
-
     /**
      * 公用请求
      */
@@ -242,7 +240,7 @@ public class CommonValues {
 
     public static Map<String, Object> getCommonParams(Context context) {
         Map<String, Object> param = new HashMap<>();
-        param.put("userId", ApplicationApp.getLoginEntity() != null ? ApplicationApp.getLoginEntity().getUserId() : "");
+//        param.put("userId", ApplicationApp.getLoginEntity() != null ? ApplicationApp.getLoginEntity().getUserId() : "");
         param.put("deviceId",getLocalMacAddressFromBusybox());
         param.put("deviceType", "Android");
         int apnType = NetworkHttpManager.getAPNType(context);
@@ -257,7 +255,7 @@ public class CommonValues {
         }else if (apnType == 0){
             param.put("net", "");
         }
-        param.put("sign", ApplicationApp.getLoginEntity() != null ? ApplicationApp.getLoginEntity().getSign() : "");
+//        param.put("sign", ApplicationApp.getLoginEntity() != null ? ApplicationApp.getLoginEntity().getSign() : "");
         return param;
     }
 

@@ -15,7 +15,6 @@ public class ApplicationApp extends Application {
 
     public static Context context;
 
-    private static LoginEntity loginEntity;
     private String UPLOAD_URL="http:";
 
     @Override
@@ -43,14 +42,6 @@ public class ApplicationApp extends Application {
 
 //        checkFirstIn();
 
-
-    public static LoginEntity getLoginEntity() {
-        return loginEntity;
-    }
-
-    public static void setLoginEntity(LoginEntity loginEntity) {
-        ApplicationApp.loginEntity = loginEntity;
-    }
 
 //    private void checkFirstIn() {
 //        CommonValues.firstIn = getSharedPreferences("app", MODE_PRIVATE).getBoolean("firstIn", true);

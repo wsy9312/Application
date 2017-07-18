@@ -18,7 +18,6 @@ import android.widget.TextView;
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.NewsItemActivity;
 import com.example.hgtxxgl.application.entity.MyLaunchListEntity;
-import com.example.hgtxxgl.application.utils.ApplicationApp;
 import com.example.hgtxxgl.application.utils.CommonValues;
 import com.example.hgtxxgl.application.utils.DataUtil;
 import com.example.hgtxxgl.application.utils.ListAdapter;
@@ -69,7 +68,7 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
     //3根据网络获取的数据设置的条目,绑定视图
         @Override
         public void bindView(final ViewHolder holder, MyLaunchListEntity.RetDataBean obj) {
-            holder.setText(R.id.tv_title, ApplicationApp.getLoginEntity().getRetData().getUserInfo().getNameCN());
+//            holder.setText(R.id.tv_title, ApplicationApp.getLoginEntity().getRetData().getUserInfo().getNameCN());
             holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(obj.getUpdateTime(), "yyyy-MM-dd HH:mm"));
             holder.setText(R.id.tv_message, obj.getSummary());
             holder.setText(R.id.tv_sketch, obj.getProcessNameCN());
@@ -410,7 +409,7 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
         Intent intent = new Intent(getActivity(), NewsItemActivity.class);
         intent.putExtra(PageConfig.PAGE_CODE, pageApplyBleave);
         Bundle bundle = new Bundle();
-        bundle.putString("userId", ApplicationApp.getLoginEntity().getUserId());
+//        bundle.putString("userId", ApplicationApp.getLoginEntity().getUserId());
         bundle.putString("barCode", adapter.getItem(position).getBarCode());
         bundle.putString("SubmitBy",adapter.getItem(position).getSubmitBy());
         bundle.putString("SN",adapter.getItem(position).getProcInstID() + "_" + adapter.getItem(position).getActInstDestID());

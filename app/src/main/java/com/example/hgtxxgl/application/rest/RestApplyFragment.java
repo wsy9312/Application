@@ -184,8 +184,8 @@ public class RestApplyFragment extends CommonFragment /*implements FileChooserLa
             baseHolder.add(new HandInputGroup.Holder("预计外出时间",true,false,mCompNameCN,HandInputGroup.VALUE_TYPE.DATE));
             baseHolder.add(new HandInputGroup.Holder("预计归来时间",true,false,mCompNameCN,HandInputGroup.VALUE_TYPE.DATE));
             baseHolder.add(new HandInputGroup.Holder("请假原因",false,false,mCompNameCN,HandInputGroup.VALUE_TYPE.TEXTFILED));
-            baseHolder.add(new HandInputGroup.Holder("是否取消请假",true,false,strings[1],HandInputGroup.VALUE_TYPE.SELECT));
-            baseHolder.add(new HandInputGroup.Holder("是否后补请假",true,false,strings[1],HandInputGroup.VALUE_TYPE.SELECT));
+            baseHolder.add(new HandInputGroup.Holder("是否取消请假",true,false,"",HandInputGroup.VALUE_TYPE.SELECT));
+            baseHolder.add(new HandInputGroup.Holder("是否后补请假",true,false,"",HandInputGroup.VALUE_TYPE.SELECT));
             groups.add(0,new Group("基本信息", null,true,null,baseHolder));
 
 
@@ -563,7 +563,13 @@ public class RestApplyFragment extends CommonFragment /*implements FileChooserLa
     public void onClickItemContentSetter(final HandInputGroup.Holder holder) {
         if (holder.getType() == HandInputGroup.VALUE_TYPE.DATE) {
             showDateTimePicker(holder,true);
-        } else if (holder.getType() == HandInputGroup.VALUE_TYPE.SELECT) {
+        } else if (holder.getKey().equals("是否取消请假")){
+            showSelector(holder,new String[]{"是","否"});
+        }
+        else if (holder.getKey().equals("是否后补请假")){
+            showSelector(holder,new String[]{"是","否"});
+        }
+        else if (holder.getType() == HandInputGroup.VALUE_TYPE.SELECT) {
             if (holder.getKey().equals(this.getString(R.string.Rest_Leave_Type))) {
                 if (draftRestType != null) {
                     showSelector(holder, DataUtil.getDescr(draftRestType), new OnSelectedResultCallback() {
