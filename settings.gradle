@@ -1,1 +1,1 @@
-include ':app', ':logCollector', ':zxingscanner'
+include ':app', ':logCollector', ':zxingscanner', ':okhttputils'

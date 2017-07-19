@@ -51,6 +51,6 @@ public class Config {
     }
 
     public static String getServer() {
-        return "http://192.168.1.106:8080";
+        return "http://192.168.1.109:8080";
     }
 }
