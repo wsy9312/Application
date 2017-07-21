@@ -6,6 +6,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -14,15 +15,26 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 
 import com.example.hgtxxgl.application.R;
+import com.example.hgtxxgl.application.entity.LoginEntity;
 import com.example.hgtxxgl.application.utils.Fields;
 import com.example.hgtxxgl.application.utils.SpUtils;
 import com.example.hgtxxgl.application.utils.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.ToastUtil;
+import com.google.gson.Gson;
+import com.zhy.http.okhttp.OkHttpUtils;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.MediaType;
+import okhttp3.Response;
 
 
 //登录界面
 public class LoginActivity extends AppCompatActivity {
 
+    private static final String TAG = "LoginActivity";
     TextInputEditText etUsername;
     TextInputEditText etPassword;
     Button btnLogin;
@@ -153,14 +165,95 @@ public class LoginActivity extends AppCompatActivity {
 
     //输入用户名密码登录
     private void login(final String username, final String password) {
-        //TODO 网络获取用户名密码数据
-//        {"Login":[{"LoginName":"Admin","Password":"123456"}]}
-//        Login {"Login":[{"LoginName":"Admin","Password":"123456"}]}
 
-        if (username.equals("123")&&password.equals("123")){
-            show("输入正确");
-            toLibMainActivity(username,password);
-        }
+//        toLibMainActivity(username,password);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                LoginEntity loginEntity = new LoginEntity();
+                LoginEntity.LoginBean loginBean = new LoginEntity.LoginBean();
+                loginBean.setLoginName(username);
+                loginBean.setPassword(password);
+                List<LoginEntity.LoginBean> list = new ArrayList<>();
+                list.add(loginBean);
+                loginEntity.setLogin(list);
+                String toJson = new Gson().toJson(loginEntity);
+                Log.d("test",toJson);
+                String s="Login"+" "+toJson;
+                String url = "http://192.168.1.137:8080/";
+                try {
+                    Response execute = OkHttpUtils
+                            .postString()
+                            .url(url)
+                            .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                            .content(s)
+                            .build()
+                            .readTimeOut(10000L)
+                            .writeTimeOut(10000L)
+                            .connTimeOut(10000L)
+                            .execute();
+                    if (execute!=null){
+                        String ResponseStr = execute.body().string();
+                        if (ResponseStr != null && ResponseStr.contains("ok")){
+                            Log.e(TAG,"ResponseStr = " + ResponseStr);
+                            show("输入正确");
+                            toLibMainActivity(username,password);
+                        }else{
+                            Log.e(TAG,"ResponseStr = null");
+                        }
+                    }else{
+                        Log.e(TAG,"execute = null");
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.e(TAG,"IOException ="+e.toString());
+                }
+            }
+        }).start();
+/*
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                LoginEntity loginEntity = new LoginEntity();
+                LoginEntity.LoginBean loginBean = new LoginEntity.LoginBean();
+                loginBean.setLoginName(username);
+                loginBean.setPassword(password);
+                List<LoginEntity.LoginBean> list = new ArrayList<>();
+                list.add(loginBean);
+                loginEntity.setLogin(list);
+                String toJson = new Gson().toJson(loginEntity);
+                Log.d("test",toJson);
+                String s="Login"+" "+toJson;
+                String url = "http://192.168.1.102:8080/";
+                try {
+                    Response execute = OkHttpUtils
+                            .postString()
+                            .url(url)
+                            .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                            .content(s)
+                            .build()
+                            .execute();
+                    if (execute!=null){
+                        String ResponseStr = execute.body().string();
+                        if (ResponseStr!=null *//*&& ResponseStr.equals("Login:error")*//*){
+                            Log.e(TAG,"ResponseStr = "+ResponseStr);
+                                show("输入正确");
+                                toLibMainActivity(username,password);
+                        }else{
+                            Log.e(TAG,"ResponseStr = null");
+                        }
+                    }else{
+                        Log.e(TAG,"execute = null");
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();*/
+
+
     }
 
     //跳转到首页activity
@@ -168,7 +261,7 @@ public class LoginActivity extends AppCompatActivity {
         LibMainActivity.startActivity(this,username,password);
     }
 
-    //吐司
+    //吐丝
     private void show(final String asd) {
         runOnUiThread(new Runnable() {
             @Override

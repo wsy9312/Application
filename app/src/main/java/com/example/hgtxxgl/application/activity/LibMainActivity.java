@@ -24,6 +24,7 @@ import static com.example.hgtxxgl.application.R.string.launch;
 //首页
 public class LibMainActivity extends AppCompatActivity implements HandToolbar.OnButtonsClickCallback {
 
+    private static final String TAG = "LibMainActivity";
     private HandToolbar handToolbar;
     private String username;
     public static final String USER_NAME = "USER_NAME";
@@ -128,6 +129,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         //初始化fragment(首页六个子界面)
         initFragment(false);
         StatusBarUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
+//        getPersonalInfoFormNet();
     }
 
     //接收登录界面传递的用户名密码参数
@@ -276,5 +278,91 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
     public void onButtonClickListner(HandToolbar.VIEWS views, int radioIndex) {
 
     }
-
+//    public void getPersonalInfoFormNet(){
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
+//                PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
+//                peopleInfoBean.setSex("?");
+//                peopleInfoBean.setName("?");
+//                peopleInfoBean.setCardNo("?");
+//                peopleInfoBean.setBirthDay("?");
+//                List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
+//                beanList.add(peopleInfoBean);
+//                peopleEntity.setPeopleInfo(beanList);
+//                String json = new Gson().toJson(peopleEntity);
+//                String s1 = "get " + json;
+//                Response execute = null;
+//                try {
+//                    execute = OkHttpUtils
+//                            .postString()
+//                            .url("http://192.168.1.137:8080/")
+//                            .mediaType(MediaType.parse("application/json; charset=utf-8"))
+//                            .content(s1)
+//                            .build()
+//                            .readTimeOut(10000L)
+//                            .writeTimeOut(10000L)
+//                            .connTimeOut(10000L)
+//                            .execute();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//                if (execute!=null){
+//                    String ResponseStr = null;
+//                    try {
+//                        ResponseStr = execute.body().string();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                    if (ResponseStr != null && ResponseStr.contains("ok")){
+//                        Log.e(TAG,"ResponseStr = " + ResponseStr);
+//                    }else{
+//                        Log.e(TAG,"ResponseStr = null");
+//                    }
+//                }else{
+//                    Log.e(TAG,"execute = null");
+//                }
+//
+//                LoginEntity loginEntity = new LoginEntity();
+//                LoginEntity.LoginBean loginBean = new LoginEntity.LoginBean();
+//                loginBean.setLoginName("123");
+//                loginBean.setPassword("123");
+//                List<LoginEntity.LoginBean> list = new ArrayList<>();
+//                list.add(loginBean);
+//                loginEntity.setLogin(list);
+//                String toJson = new Gson().toJson(loginEntity);
+//                Log.d("test",toJson);
+//                String s="Login"+" "+toJson;
+//                String url = "http://192.168.1.137:8080/";
+//                try {
+//                    Response execute1 = OkHttpUtils
+//                            .postString()
+//                            .url(url)
+//                            .mediaType(MediaType.parse("application/json; charset=utf-8"))
+//                            .content(s)
+//                            .build()
+//                            .readTimeOut(10000L)
+//                            .writeTimeOut(10000L)
+//                            .connTimeOut(10000L)
+//                            .execute();
+//                    if (execute1!=null){
+//                        String ResponseStr = execute1.body().string();
+//                        if (ResponseStr != null && ResponseStr.contains("ok")){
+//                            Log.e(TAG,"ResponseStr = " + ResponseStr);
+//
+//                        }else{
+//                            Log.e(TAG,"ResponseStr = null");
+//                        }
+//                    }else{
+//                        Log.e(TAG,"execute1 = null");
+//                    }
+//
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                    Log.e(TAG,"IOException ="+e.toString());
+//                }
+//            }
+//        }).start();
+//    }
 }

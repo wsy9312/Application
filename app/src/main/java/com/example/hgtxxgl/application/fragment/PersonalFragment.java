@@ -1,5 +1,6 @@
 package com.example.hgtxxgl.application.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,28 +12,19 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.example.hgtxxgl.application.QrCode.sample.MainActivity;
 import com.example.hgtxxgl.application.R;
-import com.example.hgtxxgl.application.entity.JsonRootBean;
-import com.example.hgtxxgl.application.entity.Login;
 import com.example.hgtxxgl.application.entity.LoginEntity;
-import com.example.hgtxxgl.application.network.NetworkApi;
-import com.example.hgtxxgl.application.network.RetrofitUtils;
-import com.example.hgtxxgl.application.utils.ToastUtil;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.MediaType;
 import okhttp3.Request;
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 
 public class PersonalFragment extends Fragment implements View.OnClickListener {
@@ -106,71 +98,26 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
     }
 
     private void ceshijson() {
-//        ToastUtil.showToast(getContext(),"测试json");
-//        NetworkApi api = RetrofitUtils.createApi(NetworkApi.class);
-//        if (api == null){
-//            return;
-//        }
-//        String json = "123123";
-//        api.loginFromWJ(json, new Callback<Response>() {
-//            @Override
-//            public void success(Response response, Response response2) {
-//                ToastUtil.showToast(getContext(),"response = "+response+"response2 = "+response2);
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError error) {
-//                ToastUtil.showToast(getContext(),"失败");
-//            }
-//        });
-
     }
 
     private void skipToQR() {
-        /*Intent intent = new Intent(getContext(),MainActivity.class);
-        startActivity(intent);*/
-        NetworkApi api = RetrofitUtils.createApi(NetworkApi.class);
-//        LoginEntity loginEntity = new LoginEntity();
-//        LoginEntity.LoginBean loginBean = new LoginEntity.LoginBean();
-//        loginBean.setLoginName("111111");
-//        loginBean.setPassword("22222");
-//        List<LoginEntity.LoginBean> list = new ArrayList<>();
-//        list.add(loginBean);
-//        loginEntity.setLogin(list);
-//        System.out.println(loginEntity);
-        JsonRootBean jsonRootBean = new JsonRootBean();
-        Login login = new Login();
-        login.setLoginName("111111");
-        login.setPassword("2222");
-        List<Login> list = new ArrayList<>();
-        list.add(login);
-        jsonRootBean.setLogin(list);
-        Map<String, Object> params = new HashMap<>();
-        params.put("Login",/*loginEntity*/jsonRootBean);
-        api.postCeShiFromWJ(params, new Callback<Response>() {
-            @Override
-            public void success(Response response, Response response2) {
-                ToastUtil.showToast(getContext(),"成功");
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                ToastUtil.showToast(getContext(),"失败");
-            }
-        });
-
+        Intent intent = new Intent(getContext(),MainActivity.class);
+        startActivity(intent);
     }
+
     public class MyStringCallback extends StringCallback
     {
         @Override
         public void onBefore(Request request, int id)
         {
 //            setTitle("loading...");
+            Log.e("xglonBefore","loading...");
         }
 
         @Override
         public void onAfter(int id)
         {
+            Log.e("xglonAfter","Sample-okHttp");
 //            setTitle("Sample-okHttp");
         }
 
@@ -179,6 +126,7 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
         {
             e.printStackTrace();
 //            mTv.setText("onError:" + e.getMessage());
+            Log.e("xglonError",e.getMessage());
         }
 
         @Override
@@ -186,7 +134,7 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
         {
             Log.e(TAG, "onResponse：complete");
 //            mTv.setText("onResponse:" + response);
-
+            Log.e("xglonResponse",response);
             switch (id)
             {
                 case 100:
@@ -206,125 +154,50 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    List list=new ArrayList();
     private void logOut() {
-        LoginEntity loginEntity = new LoginEntity();
-        LoginEntity.LoginBean loginBean = new LoginEntity.LoginBean();
-        loginBean.setLoginName("Admin");
-        loginBean.setPassword("123456");
-        List<LoginEntity.LoginBean> list = new ArrayList<>();
-        list.add(loginBean);
-        loginEntity.setLogin(list);
-
-       /* JsonRootBean jsonRootBean = new JsonRootBean();
-        Login login = new Login();
-        login.setLoginName("Admin");
-        login.setPassword("123456");
-        list.add(login);
-        jsonRootBean.setLogin(list);*/
-        String toJson = new Gson().toJson(loginEntity);
-        Log.e("test",toJson);
-        String s="Login"+" "+toJson;
-        String url = "http://192.168.1.109:8080/" + "user!postString";
-        OkHttpUtils
-                .postString()
-                .url(url)
-                .mediaType(MediaType.parse("application/json; charset=utf-8"))
-                .content(s)
-                .build()
-                .execute(new MyStringCallback());
-/*
-        NetworkApi api = RetrofitUtils.createApi(NetworkApi.class);
-        Map<String, Object> params = new HashMap<>();
-        params.put("Admin",1111);
-        params.put("PassWord",2222);
-        api.postCeShiFromWJ(params, new Callback<Response>() {
+        new Thread(new Runnable() {
             @Override
-            public void success(Response response, Response response2) {
+            public void run() {
+                LoginEntity loginEntity = new LoginEntity();
+                LoginEntity.LoginBean loginBean = new LoginEntity.LoginBean();
+                loginBean.setLoginName("person1");
+                loginBean.setPassword("person1");
+                List<LoginEntity.LoginBean> list = new ArrayList<>();
+                list.add(loginBean);
+                loginEntity.setLogin(list);
+                String toJson = new Gson().toJson(loginEntity);
+                Log.d("test",toJson);
+                String s="Login"+" "+toJson;
+                String url = "http://192.168.1.137:8080/";
+                try {
+                    OkHttpUtils
+                            .postString()
+                            .url(url)
+                            .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                            .content(s)
+                            .build()
+                            .readTimeOut(10000L)
+                            .writeTimeOut(10000L)
+                            .connTimeOut(10000L)
+                            .execute(new MyStringCallback());
+                   /* if (execute!=null){
+                        String ResponseStr = execute.body().string();
+                        if (ResponseStr != null){
+                            Log.e(TAG,"ResponseStr = " + ResponseStr);
+                        }else{
+                            Log.e(TAG,"ResponseStr = null");
+                        }
+                    }else{
+                        Log.e(TAG,"execute = null");
+                    }*/
 
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.e(TAG,"IOException ="+e.toString());
+                }
             }
+        }).start();
 
-            @Override
-            public void failure(RetrofitError error) {
-
-            }
-        });*/
-        //json字符串格式正确,表单名缺
-        /*NetworkApi api = RetrofitUtils.createApi(NetworkApi.class);
-        LoginEntity loginEntity = new LoginEntity();
-        LoginEntity.LoginBean loginBean = new LoginEntity.LoginBean();
-        loginBean.setLoginName("111111");
-        loginBean.setPassword("22222");
-        List<LoginEntity.LoginBean> list = new ArrayList<>();
-        list.add(loginBean);
-        loginEntity.setLogin(list);
-        api.postString(loginEntity, new Callback<Response>() {
-            @Override
-            public void success(Response response, Response response2) {
-
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-
-            }
-        });*/
-       /* NetworkApi api = RetrofitUtils.createApi(NetworkApi.class);
-        LoginEntity loginEntity = new LoginEntity();
-        LoginEntity.LoginBean loginBean = new LoginEntity.LoginBean();
-        loginBean.setLoginName("Admin");
-        loginBean.setPassword("123456");
-        List<LoginEntity.LoginBean> list = new ArrayList<>();
-        list.add(loginBean);
-        loginEntity.setLogin(list);
-        System.out.println(loginEntity);
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        Gson gson = gsonBuilder.create();
-        String json = gson.toJson(loginEntity);
-        System.out.println(json);
-        String str = "{\"Login\":[{\"LoginName\":\"Admin\",\"Password\":\"123456\"}]}";
-        System.out.println(str);
-        api.postString1("Login "+json, new Callback<Response>() {
-            @Override
-            public void success(Response response, Response response2) {
-
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-
-            }
-        });*/
-
-
-//        LoginEntity loginEntity = new LoginEntity();
-//        LoginEntity.LoginBean loginBean = new LoginEntity.LoginBean();
-//        loginBean.setLoginName("111111");
-//        loginBean.setPassword("22222");
-//        List<LoginEntity.LoginBean> list = new ArrayList<>();
-//        list.add(loginBean);
-//        loginEntity.setLogin(list);
-//        System.out.println(loginEntity);
-////        JsonRootBean jsonRootBean = new JsonRootBean();
-////        Login login = new Login();
-////        login.setLoginName("111111");
-////        login.setPassword("2222");
-////        List<Login> list = new ArrayList<>();
-////        list.add(login);
-////        jsonRootBean.setLogin(list);
-//        Map<String, Object> params = new HashMap<>();
-//        params.put("Login",loginEntity);
-//        api.postCeShiFromWJ(params, new Callback<Response>() {
-//            @Override
-//            public void success(Response response, Response response2) {
-//                ToastUtil.showToast(getContext(),"成功");
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError error) {
-//                ToastUtil.showToast(getContext(),"失败");
-//            }
-//        });
 //        LoginEntity loginEntity = new LoginEntity();
 //        LoginEntity.LoginBean loginBean = new LoginEntity.LoginBean();
 //        loginBean.setLoginName("Admin");
@@ -332,148 +205,19 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
 //        List<LoginEntity.LoginBean> list = new ArrayList<>();
 //        list.add(loginBean);
 //        loginEntity.setLogin(list);
-//        System.out.println(loginEntity);
-//        GsonBuilder gsonBuilder = new GsonBuilder();
-//        Gson gson = gsonBuilder.create();
-//        String json = gson.toJson(loginEntity);
-//        System.out.println(json);
-//        String str = "{\"Login\":[{\"LoginName\":\"Admin\",\"Password\":\"123456\"}]}";
-//        System.out.println(str);
-//        RequestBody body= RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json);
-//        NetworkApi api = RetrofitUtils.createApi(NetworkApi.class);
-//        api.postFlyRoute(body, new Callback<LoginEntity>() {
-//            @Override
-//            public void success(LoginEntity loginEntity, Response response) {
-//                ToastUtil.showToast(getContext(),"成功");
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError error) {
-//                ToastUtil.showToast(getContext(),"失败");
-//            }
-//        });
-//    }
-//
-//    private void ceshi() {
-//        ToastUtil.showToast(getContext(),"测试");
-//        NetworkApi api = RetrofitUtils.createApi(NetworkApi.class);
-//        if (api == null) {
-//            return;
-//        }
-//        Map<String, Object> params = new HashMap<>();
-//        params.put("LoginName", "Admin");
-//        params.put("Password", "123456");
-//        api.postCeShiFromWJ(params, new Callback<Response>() {
-//
-//            @Override
-//            public void success(Response response, Response response2) {
-//                ToastUtil.showToast(getContext(),"成功");
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError error) {
-//                ToastUtil.showToast(getContext(),"失败");
-//            }
-//
-//        });
+//        String toJson = new Gson().toJson(loginEntity);
+//        Log.d("test",toJson);
+//        String s="Login"+" "+toJson;
+//        String url = "http://192.168.1.102:8080/" + "user!postString";
+//        OkHttpUtils
+//                .postString()
+//                .url(url)
+//                .mediaType(MediaType.parse("application/json; charset=utf-8"))
+//                .content(s)
+//                .build()
+//                .execute(new MyStringCallback());
+
     }
-
-    /*private void onClickToNewFragment() {
-        mPicture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                ToastUtil.showToast(getContext(),"头像");
-                showChooser();
-            }
-        });
-        mQrCode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ToastUtil.showToast(getContext(),"二维码");
-            }
-        });
-        mName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ToastUtil.showToast(getContext(),"名字");
-            }
-        });
-        mAge.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ToastUtil.showToast(getContext(),"出生年月日");
-            }
-        });
-        mHometown.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ToastUtil.showToast(getContext(),"出生地");
-            }
-        });
-        mPhoneNumber.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ToastUtil.showToast(getContext(),"电话号码");
-            }
-        });
-        mSerialNumber.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ToastUtil.showToast(getContext(),"部队编号");
-            }
-        });
-        mLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ToastUtil.showToast(getContext(),"退出");
-                Intent intent = new Intent(getContext(), LoginActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
-
-    private void showChooser() {
-        // Use the GET_CONTENT intent from the utility class
-        Intent target = FileUtils.createGetContentIntent();
-        // Create the chooser Intent
-        Intent intent = Intent.createChooser(target, getString(R.string.chooser_title));
-        try {
-            startActivityForResult(intent, REQUEST_CODE);
-        } catch (ActivityNotFoundException e) {
-            // The reason for the existence of aFileChooser
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case REQUEST_CODE:
-                // If the file selection was successful
-                    if (data != null) {
-                        // Get the URI of the selected file
-                        final Uri uri = data.getData();
-                        Log.e("data---",data.toString());
-                        Log.e("uri---",uri.toString());
-                        try {
-                            final String path = FileUtils.getPath(getContext(), uri);
-                            File file = new File(path);
-                            Log.e("path---",path.toString());
-                            if(file.exists()){
-                                Bitmap bm = BitmapFactory.decodeFile(path);
-                                image.setImageBitmap(bm);
-
-                            }
-                            *//*Toast.makeText(FileChooserExampleActivity.this,
-                                    "File Selected: " + path, Toast.LENGTH_LONG).show();*//*
-                        } catch (Exception e) {
-                            Log.e("Exception---","");
-                        }
-                    }
-                break;
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-    }*/
-
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
