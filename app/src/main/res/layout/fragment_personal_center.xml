@@ -3,9 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -58,7 +56,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="000001"
             android:layout_margin="8dp"/>
     </RelativeLayout>
     <LinearLayout
@@ -87,7 +84,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="张三"
             android:layout_margin="8dp"/>
     </RelativeLayout>
     <LinearLayout
@@ -106,7 +102,7 @@
             android:id="@+id/tv_titile_soldier"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="军人证号"
+            android:text="身份证号"
             android:textColor="@color/black"
             android:layout_centerVertical="true"
             android:layout_margin="8dp"/>
@@ -117,7 +113,6 @@
             android:layout_alignParentRight="true"
             android:textColor="@color/shengrey"
             android:layout_centerVertical="true"
-            android:text="165126"
             android:layout_margin="8dp"/>
     </RelativeLayout>
     <LinearLayout
@@ -136,7 +131,7 @@
             android:id="@+id/tv_title_sex"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="性别"
+            android:text="职务"
             android:textColor="@color/black"
             android:layout_centerVertical="true"
             android:layout_margin="8dp"/>
@@ -147,7 +142,6 @@
             android:layout_alignParentRight="true"
             android:textColor="@color/shengrey"
             android:layout_centerVertical="true"
-            android:text="男"
             android:layout_margin="8dp"/>
     </RelativeLayout>
     <LinearLayout
@@ -166,7 +160,7 @@
             android:id="@+id/tv_title_birth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="出生年月日"
+            android:text="性别"
             android:textColor="@color/black"
             android:layout_centerVertical="true"
             android:layout_margin="8dp"/>
@@ -177,7 +171,6 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:textColor="@color/shengrey"
-            android:text="1998-03-10"
             android:layout_margin="8dp"/>
     </RelativeLayout>
     <LinearLayout
@@ -196,7 +189,7 @@
             android:id="@+id/tv_title_nationality"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="名族"
+            android:text="所属单位"
             android:textColor="@color/black"
             android:layout_centerVertical="true"
             android:layout_margin="8dp"/>
@@ -207,7 +200,6 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:textColor="@color/shengrey"
-            android:text="汉"
             android:layout_margin="8dp"/>
     </RelativeLayout>
     <LinearLayout
@@ -226,7 +218,7 @@
             android:id="@+id/tv_title_maritalstatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="婚姻状况"
+            android:text="所属部门"
             android:textColor="@color/black"
             android:layout_centerVertical="true"
             android:layout_margin="8dp"/>
@@ -237,7 +229,6 @@
             android:layout_alignParentRight="true"
             android:textColor="@color/shengrey"
             android:layout_centerVertical="true"
-            android:text="已婚"
             android:layout_margin="8dp"/>
     </RelativeLayout>
     <LinearLayout
@@ -256,7 +247,7 @@
             android:id="@+id/tv_title_joindate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="入伍时间"
+            android:text="固定电话"
             android:textColor="@color/black"
             android:layout_centerVertical="true"
             android:layout_margin="8dp"/>
@@ -267,7 +258,6 @@
             android:layout_alignParentRight="true"
             android:textColor="@color/shengrey"
             android:layout_centerVertical="true"
-            android:text="2015-5-25"
             android:layout_margin="8dp"/>
     </RelativeLayout>
     <LinearLayout
@@ -286,7 +276,7 @@
             android:id="@+id/tv_title_militaryrank"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="军衔"
+            android:text="手机号码"
             android:textColor="@color/black"
             android:layout_centerVertical="true"
             android:layout_margin="8dp"/>
@@ -297,7 +287,6 @@
             android:layout_alignParentRight="true"
             android:textColor="@color/shengrey"
             android:layout_centerVertical="true"
-            android:text="士兵"
             android:layout_margin="8dp"/>
     </RelativeLayout>
     <LinearLayout
@@ -307,59 +296,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:background="@color/grey"/>
-    <RelativeLayout
-        android:id="@+id/rl_group"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-        <TextView
-            android:id="@+id/tv_title_group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="分组"
-            android:textColor="@color/black"
-            android:layout_centerVertical="true"
-            android:layout_margin="8dp"/>
-        <TextView
-            android:id="@+id/tv_message_group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:textColor="@color/shengrey"
-            android:layout_centerVertical="true"
-            android:text="二营三连一排五班"
-            android:layout_margin="8dp"/>
-    </RelativeLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:orientation="horizontal"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/grey"/>
-    <RelativeLayout
-        android:id="@+id/rl_telnumber"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-        <TextView
-            android:id="@+id/tv_title_telnumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="手机号码"
-            android:textColor="@color/black"
-            android:layout_centerVertical="true"
-            android:layout_margin="8dp"/>
-        <TextView
-            android:id="@+id/tv_message_telnumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:textColor="@color/shengrey"
-            android:layout_centerVertical="true"
-            android:text="13856841155"
-            android:layout_margin="8dp"/>
-    </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -377,5 +314,5 @@
             android:layout_height="wrap_content" />
         </LinearLayout>
         </LinearLayout>
-    </ScrollView>
+
 </LinearLayout>

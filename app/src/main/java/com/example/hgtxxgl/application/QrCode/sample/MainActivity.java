@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
@@ -22,13 +21,16 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hgtxxgl.application.R;
+import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
+import com.example.hgtxxgl.application.utils.CacheManger;
+import com.example.hgtxxgl.application.utils.CommonValues;
+import com.example.hgtxxgl.application.utils.GsonUtil;
 import com.example.hgtxxgl.application.utils.ImgUtils;
 import com.example.hgtxxgl.application.utils.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.ToastUtil;
@@ -53,6 +55,13 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
     private static final int REQUEST_CODE_SAVE_IMG = 10;
     private static final String TAG = "MainActivity";
     private Context mContext;
+    private String no;
+    private String name;
+    private String cardNo;
+    private String position;
+    private String sex;
+    private String unit;
+    private String armyGroup;
 
     private void initTotal() {
         mContext = this;
@@ -154,7 +163,6 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //
         mContext = this;
         handToolbar = (HandToolbar) findViewById(R.id.qrcode_mainactivity_toolbar);
         handToolbar.setTitle("二维码名片");
@@ -192,7 +200,25 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         //
         tvResult = (TextView) findViewById(R.id.textView);
         imageView = (ImageView) findViewById(R.id.imageView);
-
+        String data = CacheManger.getInstance().getData(CommonValues.BASE_URL);
+        PeopleInfoEntity entity = GsonUtil.parseJsonToBean(data, PeopleInfoEntity.class);
+        no = entity.getPeopleInfo().get(0).getNo();
+        name = entity.getPeopleInfo().get(0).getName();
+        cardNo = entity.getPeopleInfo().get(0).getCardNo();
+        position = entity.getPeopleInfo().get(0).getPosition();
+        sex = entity.getPeopleInfo().get(0).getSex();
+        //所属单位
+        unit = entity.getPeopleInfo().get(0).getUnit();
+        //所属部门
+        armyGroup = entity.getPeopleInfo().get(0).getArmyGroup();
+        data = "编号: "+ no + "\r\n"
+                +"姓名: "+ name + "\r\n"
+                +"身份证号: "+ cardNo + "\r\n"
+                +"职务: "+ position + "\r\n"
+                +"性别: "+ sex + "\r\n"
+                +"所属单位: "+ unit + "\r\n"
+                +"所属部门: "+ armyGroup + "\r\n";
+        initshow(data);
         final CheckBox checkBox = (CheckBox) findViewById(R.id.checkBox);
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -227,26 +253,26 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
             }
         });
 
-        final EditText editText = (EditText) findViewById(R.id.editText);
+//        final EditText editText = (EditText) findViewById(editText);
 
         findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Resources res = getResources();
+//                Resources res = getResources();
 //                Bitmap logoBitmap = BitmapFactory.decodeResource(res, R.mipmap.btn_wheelview_ok_normal);
-                String qrContent = editText.getText().toString();
-                Bitmap bitmap = new QREncode.Builder(MainActivity.this)
-                        //二维码颜色
-                        .setColor(getResources().getColor(R.color.mainColor_blue))
-                        //二维码类型
-                        .setParsedResultType(TextUtils.isEmpty(qrContent) ? ParsedResultType.URI : ParsedResultType.TEXT)
-                        //二维码内容
-                        .setContents(TextUtils.isEmpty(qrContent) ? "https://www.baidu.com" : qrContent)
-//                        .setSize(100)
-//                        .setLogoBitmap(logoBitmap,90)
-                        .build().encodeAsBitmap();
-                imageView.setImageBitmap(bitmap);
-                tvResult.setText("单击识别图中二维码");
+//                String qrContent = editText.getText().toString();
+//                Bitmap bitmap = new QREncode.Builder(MainActivity.this)
+//                        //二维码颜色
+//                        .setColor(getResources().getColor(R.color.mainColor_blue))
+//                        //二维码类型
+//                        .setParsedResultType(TextUtils.isEmpty(qrContent) ? ParsedResultType.URI : ParsedResultType.TEXT)
+//                        //二维码内容
+//                        .setContents(TextUtils.isEmpty(qrContent) ? "https://www.baidu.com" : qrContent)
+////                        .setSize(100)
+////                        .setLogoBitmap(logoBitmap,90)
+//                        .build().encodeAsBitmap();
+//                imageView.setImageBitmap(bitmap);
+//                tvResult.setText("单击识别图中二维码");
 
             }
         });
@@ -273,6 +299,26 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
                 imageView.setDrawingCacheEnabled(false);//step 5
             }
         });
+    }
+
+    private void initshow(String peopleInfoEntity) {
+        String qrContent = peopleInfoEntity;
+        if (qrContent!=null){
+            Bitmap bitmap = new QREncode.Builder(MainActivity.this)
+                    //二维码颜色
+                    .setColor(getResources().getColor(R.color.mainColor_blue))
+                    //二维码类型
+                    .setParsedResultType(TextUtils.isEmpty(qrContent) ? ParsedResultType.URI : ParsedResultType.TEXT)
+                    //二维码内容
+                    .setContents(TextUtils.isEmpty(qrContent) ? "https://www.baidu.com" : qrContent)
+//                        .setSize(100)
+//                        .setLogoBitmap(logoBitmap,90)
+                    .build().encodeAsBitmap();
+            imageView.setImageBitmap(bitmap);
+            tvResult.setText("单击识别图中二维码");
+        }else{
+            tvResult.setText("系统无法生成二维码");
+        }
     }
 
     @Override
@@ -313,4 +359,5 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         imageView.setImageBitmap(bitmap);
         tvResult.setText("单击二维码图片识别");
     }
+
 }

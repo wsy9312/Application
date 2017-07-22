@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/ll_qr_image"
         android:layout_centerHorizontal="true"
-        android:text="扫描结果" />
+        />
     <RelativeLayout
         android:background="@color/gray_light"
         android:id="@+id/ll_qr_image"
@@ -43,6 +43,7 @@
         android:text="扫一扫" />
 
     <Button
+        android:visibility="gone"
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -100,6 +101,7 @@
     </RadioGroup>
 
     <EditText
+        android:visibility="gone"
         android:layout_above="@+id/button2"
         android:layout_centerHorizontal="true"
         android:id="@+id/editText"

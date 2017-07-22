@@ -13,6 +13,7 @@ public class CommonValues {
     public static final String BASE_TEST_HOST = "http://118.178.89.47:8899/WorkflowService.asmx";//测试环境
 //    public static final String BASE_TEST_HOST = "http://bpmservice.geely.com/WorkflowService.asmx";//生产环境
 //    public static final String BASE_TEST_HOST = "http://218.75.72.105:8899/WorkflowService.asmx"; //吉利外网UAT环境
+    public static final String BASE_URL = "http://192.168.1.137:8080/";
 
     public static String currentHost = BASE_TEST_HOST;
     public static final String WORKFLOW_BLEAVE = "BusinessTripRequest";

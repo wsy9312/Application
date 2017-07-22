@@ -9,15 +9,27 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.hgtxxgl.application.R;
+import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
+import com.example.hgtxxgl.application.utils.CacheManger;
+import com.example.hgtxxgl.application.utils.CommonValues;
 import com.example.hgtxxgl.application.utils.PageConfig;
 import com.example.hgtxxgl.application.utils.StatusBarUtils;
 import com.example.hgtxxgl.application.view.HandToolbar;
+import com.google.gson.Gson;
+import com.zhy.http.okhttp.OkHttpUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.MediaType;
+import okhttp3.Response;
 
 import static com.example.hgtxxgl.application.R.string.launch;
 
@@ -129,7 +141,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         //初始化fragment(首页六个子界面)
         initFragment(false);
         StatusBarUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
-//        getPersonalInfoFormNet();
+        getPersonalInfoFormNet();
     }
 
     //接收登录界面传递的用户名密码参数
@@ -278,91 +290,52 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
     public void onButtonClickListner(HandToolbar.VIEWS views, int radioIndex) {
 
     }
-//    public void getPersonalInfoFormNet(){
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
-//                PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
-//                peopleInfoBean.setSex("?");
-//                peopleInfoBean.setName("?");
-//                peopleInfoBean.setCardNo("?");
-//                peopleInfoBean.setBirthDay("?");
-//                List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
-//                beanList.add(peopleInfoBean);
-//                peopleEntity.setPeopleInfo(beanList);
-//                String json = new Gson().toJson(peopleEntity);
-//                String s1 = "get " + json;
-//                Response execute = null;
-//                try {
-//                    execute = OkHttpUtils
-//                            .postString()
-//                            .url("http://192.168.1.137:8080/")
-//                            .mediaType(MediaType.parse("application/json; charset=utf-8"))
-//                            .content(s1)
-//                            .build()
-//                            .readTimeOut(10000L)
-//                            .writeTimeOut(10000L)
-//                            .connTimeOut(10000L)
-//                            .execute();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//                if (execute!=null){
-//                    String ResponseStr = null;
-//                    try {
-//                        ResponseStr = execute.body().string();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                    if (ResponseStr != null && ResponseStr.contains("ok")){
-//                        Log.e(TAG,"ResponseStr = " + ResponseStr);
-//                    }else{
-//                        Log.e(TAG,"ResponseStr = null");
-//                    }
-//                }else{
-//                    Log.e(TAG,"execute = null");
-//                }
-//
-//                LoginEntity loginEntity = new LoginEntity();
-//                LoginEntity.LoginBean loginBean = new LoginEntity.LoginBean();
-//                loginBean.setLoginName("123");
-//                loginBean.setPassword("123");
-//                List<LoginEntity.LoginBean> list = new ArrayList<>();
-//                list.add(loginBean);
-//                loginEntity.setLogin(list);
-//                String toJson = new Gson().toJson(loginEntity);
-//                Log.d("test",toJson);
-//                String s="Login"+" "+toJson;
-//                String url = "http://192.168.1.137:8080/";
-//                try {
-//                    Response execute1 = OkHttpUtils
-//                            .postString()
-//                            .url(url)
-//                            .mediaType(MediaType.parse("application/json; charset=utf-8"))
-//                            .content(s)
-//                            .build()
-//                            .readTimeOut(10000L)
-//                            .writeTimeOut(10000L)
-//                            .connTimeOut(10000L)
-//                            .execute();
-//                    if (execute1!=null){
-//                        String ResponseStr = execute1.body().string();
-//                        if (ResponseStr != null && ResponseStr.contains("ok")){
-//                            Log.e(TAG,"ResponseStr = " + ResponseStr);
-//
-//                        }else{
-//                            Log.e(TAG,"ResponseStr = null");
-//                        }
-//                    }else{
-//                        Log.e(TAG,"execute1 = null");
-//                    }
-//
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                    Log.e(TAG,"IOException ="+e.toString());
-//                }
-//            }
-//        }).start();
-//    }
+    public void getPersonalInfoFormNet(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
+                PeopleInfoEntity.PeopleInfoBean peopleInfoBean =
+                        new PeopleInfoEntity.PeopleInfoBean
+                                ("?","赵四","?","?","?","?","?","?","?");
+                List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
+                beanList.add(peopleInfoBean);
+                peopleEntity.setPeopleInfo(beanList);
+                String json = new Gson().toJson(peopleEntity);
+                String s1 = "get " + json;
+                Response execute = null;
+                try {
+                    execute = OkHttpUtils
+                            .postString()
+                            .url(CommonValues.BASE_URL)
+                            .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                            .content(s1)
+                            .build()
+                            .readTimeOut(10000L)
+                            .writeTimeOut(10000L)
+                            .connTimeOut(10000L)
+                            .execute();
+                    if (execute!=null){
+                        String ResponseStr = null;
+                        ResponseStr = execute.body().string();
+                        if (ResponseStr != null && ResponseStr.contains("ok")){
+                            Log.e(TAG,"ResponseStr1 = " + ResponseStr);
+                            String newRes = ResponseStr.substring(ResponseStr.indexOf("{"),ResponseStr.length());
+                            Log.e(TAG,"ResponseStr2 = " + newRes);
+                            String str = newRes +"}]}";
+                            Log.e(TAG,"ResponseStr3 = " + str);
+                            CacheManger.getInstance().saveData(CommonValues.BASE_URL,str);
+                        }else{
+                            Log.e(TAG,"ResponseStr5 = null");
+                        }
+                    }else{
+                        Log.e(TAG,"execute = null");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }).start();
+    }
 }

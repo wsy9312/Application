@@ -10,21 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.example.hgtxxgl.application.QrCode.sample.MainActivity;
 import com.example.hgtxxgl.application.R;
-import com.example.hgtxxgl.application.entity.LoginEntity;
-import com.google.gson.Gson;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import okhttp3.Call;
-import okhttp3.MediaType;
-import okhttp3.Request;
+import com.example.hgtxxgl.application.activity.LoginActivity;
+import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
+import com.example.hgtxxgl.application.utils.CacheManger;
+import com.example.hgtxxgl.application.utils.CommonValues;
+import com.example.hgtxxgl.application.utils.GsonUtil;
 
 
 public class PersonalFragment extends Fragment implements View.OnClickListener {
@@ -36,6 +30,17 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
     private RelativeLayout relativeLayout1;
     private RelativeLayout rlQRcode;
     private View view;
+    private PeopleInfoEntity peopleInfoEntity;
+    private TextView mNumber;
+    private TextView mName;
+    private TextView mSFZnumber;
+    private TextView mPostion;
+    private TextView mSex;
+    private TextView mCompany;
+    private TextView mDepartment;
+    private TextView mGDNumber;
+    private TextView mTelNumber;
+    private String s;
 
     public PersonalFragment() {
 
@@ -48,6 +53,7 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
         fragment.setArguments(args);
         return fragment;
     }
+
     private DetailFragment.DataCallback callback;
     public PersonalFragment setCallback(DetailFragment.DataCallback callback) {
         this.callback = callback;
@@ -63,20 +69,50 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_personal_center, container, false);
+        String data = CacheManger.getInstance().getData(CommonValues.BASE_URL);
+        peopleInfoEntity = GsonUtil.parseJsonToBean(data, PeopleInfoEntity.class);
+        s = peopleInfoEntity.getPeopleInfo().get(0).toString();
+        Log.e(TAG, "onCreateView: " + s);
         initView();
-//        onClickToNewFragment();
         return view;
     }
 
     private void initView() {
         mLogout = (Button) view.findViewById(R.id.btn_logout);
         rlQRcode = (RelativeLayout) view.findViewById(R.id.rl_qrcode);
-        relativeLayout = (RelativeLayout) view.findViewById(R.id.rl_number);
-        relativeLayout1 = (RelativeLayout) view.findViewById(R.id.rl_name);
+        //编号
+        mNumber = (TextView) view.findViewById(R.id.tv_message_number);
+        //姓名
+        mName = (TextView) view.findViewById(R.id.tv_message_name);
+        //身份证
+        mSFZnumber = (TextView) view.findViewById(R.id.tv_message_soldier);
+        //职务
+        mPostion = (TextView) view.findViewById(R.id.tv_message_sex);
+        //性别
+        mSex = (TextView) view.findViewById(R.id.tv_message_birth);
+        //所属单位
+        mCompany = (TextView) view.findViewById(R.id.tv_message_nationality);
+        //所属部门
+        mDepartment = (TextView) view.findViewById(R.id.tv_message_maritalstatus);
+        //固定电话
+        mGDNumber = (TextView) view.findViewById(R.id.tv_message_joindate);
+        //手机号码
+        mTelNumber = (TextView) view.findViewById(R.id.tv_message_militaryrank);
         mLogout.setOnClickListener(this);
-        relativeLayout.setOnClickListener(this);
-        relativeLayout1.setOnClickListener(this);
         rlQRcode.setOnClickListener(this);
+        showData();
+    }
+
+    private void showData() {
+        mNumber.setText(peopleInfoEntity.getPeopleInfo().get(0).getNo());
+        mName.setText(peopleInfoEntity.getPeopleInfo().get(0).getName());
+        mSFZnumber.setText(peopleInfoEntity.getPeopleInfo().get(0).getCardNo());
+        mPostion.setText(peopleInfoEntity.getPeopleInfo().get(0).getPosition());
+        mSex.setText(peopleInfoEntity.getPeopleInfo().get(0).getSex().equals("0")?"男":"女");
+        mCompany.setText(peopleInfoEntity.getPeopleInfo().get(0).getUnit());
+        mDepartment.setText(peopleInfoEntity.getPeopleInfo().get(0).getArmyGroup());
+        mGDNumber.setText(peopleInfoEntity.getPeopleInfo().get(0).getPhoneNo());
+        mTelNumber.setText(peopleInfoEntity.getPeopleInfo().get(0).getTelNo());
     }
 
     @Override
@@ -85,138 +121,18 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
             case R.id.btn_logout:
                 logOut();
                 break;
-            case R.id.rl_number:
-//                ceshi();
-                break;
-            case R.id.rl_name:
-                ceshijson();
-                break;
             case R.id.rl_qrcode:
                 skipToQR();
                 break;
         }
     }
 
-    private void ceshijson() {
-    }
-
     private void skipToQR() {
-        Intent intent = new Intent(getContext(),MainActivity.class);
-        startActivity(intent);
-    }
-
-    public class MyStringCallback extends StringCallback
-    {
-        @Override
-        public void onBefore(Request request, int id)
-        {
-//            setTitle("loading...");
-            Log.e("xglonBefore","loading...");
-        }
-
-        @Override
-        public void onAfter(int id)
-        {
-            Log.e("xglonAfter","Sample-okHttp");
-//            setTitle("Sample-okHttp");
-        }
-
-        @Override
-        public void onError(Call call, Exception e, int id)
-        {
-            e.printStackTrace();
-//            mTv.setText("onError:" + e.getMessage());
-            Log.e("xglonError",e.getMessage());
-        }
-
-        @Override
-        public void onResponse(String response, int id)
-        {
-            Log.e(TAG, "onResponse：complete");
-//            mTv.setText("onResponse:" + response);
-            Log.e("xglonResponse",response);
-            switch (id)
-            {
-                case 100:
-                    Toast.makeText(getContext(), "http", Toast.LENGTH_SHORT).show();
-                    break;
-                case 101:
-                    Toast.makeText(getContext(), "https", Toast.LENGTH_SHORT).show();
-                    break;
-            }
-        }
-
-        @Override
-        public void inProgress(float progress, long total, int id)
-        {
-            Log.e(TAG, "inProgress:" + progress);
-//            mProgressBar.setProgress((int) (100 * progress));
-        }
+        startActivity(new Intent(getContext(), MainActivity.class));
     }
 
     private void logOut() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                LoginEntity loginEntity = new LoginEntity();
-                LoginEntity.LoginBean loginBean = new LoginEntity.LoginBean();
-                loginBean.setLoginName("person1");
-                loginBean.setPassword("person1");
-                List<LoginEntity.LoginBean> list = new ArrayList<>();
-                list.add(loginBean);
-                loginEntity.setLogin(list);
-                String toJson = new Gson().toJson(loginEntity);
-                Log.d("test",toJson);
-                String s="Login"+" "+toJson;
-                String url = "http://192.168.1.137:8080/";
-                try {
-                    OkHttpUtils
-                            .postString()
-                            .url(url)
-                            .mediaType(MediaType.parse("application/json; charset=utf-8"))
-                            .content(s)
-                            .build()
-                            .readTimeOut(10000L)
-                            .writeTimeOut(10000L)
-                            .connTimeOut(10000L)
-                            .execute(new MyStringCallback());
-                   /* if (execute!=null){
-                        String ResponseStr = execute.body().string();
-                        if (ResponseStr != null){
-                            Log.e(TAG,"ResponseStr = " + ResponseStr);
-                        }else{
-                            Log.e(TAG,"ResponseStr = null");
-                        }
-                    }else{
-                        Log.e(TAG,"execute = null");
-                    }*/
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Log.e(TAG,"IOException ="+e.toString());
-                }
-            }
-        }).start();
-
-//        LoginEntity loginEntity = new LoginEntity();
-//        LoginEntity.LoginBean loginBean = new LoginEntity.LoginBean();
-//        loginBean.setLoginName("Admin");
-//        loginBean.setPassword("123456");
-//        List<LoginEntity.LoginBean> list = new ArrayList<>();
-//        list.add(loginBean);
-//        loginEntity.setLogin(list);
-//        String toJson = new Gson().toJson(loginEntity);
-//        Log.d("test",toJson);
-//        String s="Login"+" "+toJson;
-//        String url = "http://192.168.1.102:8080/" + "user!postString";
-//        OkHttpUtils
-//                .postString()
-//                .url(url)
-//                .mediaType(MediaType.parse("application/json; charset=utf-8"))
-//                .content(s)
-//                .build()
-//                .execute(new MyStringCallback());
-
+        startActivity(new Intent(getContext(), LoginActivity.class));
     }
 
     @Override
@@ -228,6 +144,5 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
     public void onDestroyView() {
         super.onDestroyView();
     }
-
 
 }

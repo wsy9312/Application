@@ -56,7 +56,7 @@ public class ScannerActivity extends DeCodeActivity {
             }
         });
 
-      /*  findViewById(R.id.button4).setOnClickListener(new View.OnClickListener() {
+        /*findViewById(R.id.button4).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (ContextCompat.checkSelfPermission(ScannerActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -76,7 +76,6 @@ public class ScannerActivity extends DeCodeActivity {
         mScannerView.setMediaResId(R.raw.weixin_beep);//设置扫描成功的声音
         mScannerView.setDrawText("将二维码放入框内",true);
         mScannerView.setDrawTextColor(Color.RED);
-
         mScannerView.setLaserFrameTopMargin(150);//扫描框与屏幕上方距离
         mScannerView.setLaserFrameSize(220, 220);//扫描框大小
         mScannerView.setLaserFrameCornerLength(30);//设置4角长度
