@@ -32,11 +32,6 @@
             android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".QrCode.sample.MainActivity"
             android:label="二维码名片">
-            <!--<intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
         </activity>
         <activity
             android:name=".QrCode.sample.ScannerActivity"

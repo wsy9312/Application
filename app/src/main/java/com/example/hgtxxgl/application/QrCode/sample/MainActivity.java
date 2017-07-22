@@ -23,6 +23,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
     private String sex;
     private String unit;
     private String armyGroup;
+    private RelativeLayout llqrimage;
 
     private void initTotal() {
         mContext = this;
@@ -200,6 +202,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         //
         tvResult = (TextView) findViewById(R.id.textView);
         imageView = (ImageView) findViewById(R.id.imageView);
+        llqrimage = (RelativeLayout) findViewById(R.id.ll_qr_image);
         String data = CacheManger.getInstance().getData(CommonValues.BASE_URL);
         PeopleInfoEntity entity = GsonUtil.parseJsonToBean(data, PeopleInfoEntity.class);
         no = entity.getPeopleInfo().get(0).getNo();
@@ -329,6 +332,13 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
                 if (data != null) {
                     String stringExtra = data.getStringExtra(Intents.Scan.RESULT);
                     tvResult.setText(stringExtra);
+                    tvResult.setTextSize(20);
+                    imageView.setVisibility(View.GONE);
+                    /*ViewGroup.LayoutParams para = imageView.getLayoutParams();
+                    para.height = 0;
+                    imageView.setLayoutParams(para);
+                    imageView.setImageBitmap(null);
+                    imageView.setVisibility(View.GONE);*/
                 }
             } else if (requestCode == PICK_CONTACT) {
                 // Data field is content://contacts/people/984

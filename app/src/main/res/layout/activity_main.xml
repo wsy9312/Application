@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,19 +11,23 @@
         android:id="@+id/qrcode_mainactivity_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/ll_qr_image"
-        android:layout_centerHorizontal="true"
-        />
+
+
     <RelativeLayout
         android:background="@color/gray_light"
         android:id="@+id/ll_qr_image"
-        android:layout_centerInParent="true"
-        android:layout_width="250dp"
-        android:layout_height="250dp">
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <TextView
+            android:id="@+id/textView"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/imageView"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            />
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="200dp"
@@ -31,6 +35,8 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true" />
     </RelativeLayout>
+
+
 
 
     <Button
@@ -109,4 +115,4 @@
         android:layout_height="wrap_content"
         android:textSize="14sp"
         android:hint="输入二维码内容，默认为uri" />
-</RelativeLayout>
+</LinearLayout>
