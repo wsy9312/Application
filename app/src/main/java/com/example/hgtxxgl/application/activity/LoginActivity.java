@@ -165,8 +165,6 @@ public class LoginActivity extends AppCompatActivity {
 
     //输入用户名密码登录
     private void login(final String username, final String password) {
-
-//        toLibMainActivity(username,password);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -211,48 +209,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         }).start();
-/*
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                LoginEntity loginEntity = new LoginEntity();
-                LoginEntity.LoginBean loginBean = new LoginEntity.LoginBean();
-                loginBean.setLoginName(username);
-                loginBean.setPassword(password);
-                List<LoginEntity.LoginBean> list = new ArrayList<>();
-                list.add(loginBean);
-                loginEntity.setLogin(list);
-                String toJson = new Gson().toJson(loginEntity);
-                Log.d("test",toJson);
-                String s="Login"+" "+toJson;
-                String url = "http://192.168.1.102:8080/";
-                try {
-                    Response execute = OkHttpUtils
-                            .postString()
-                            .url(url)
-                            .mediaType(MediaType.parse("application/json; charset=utf-8"))
-                            .content(s)
-                            .build()
-                            .execute();
-                    if (execute!=null){
-                        String ResponseStr = execute.body().string();
-                        if (ResponseStr!=null *//*&& ResponseStr.equals("Login:error")*//*){
-                            Log.e(TAG,"ResponseStr = "+ResponseStr);
-                                show("输入正确");
-                                toLibMainActivity(username,password);
-                        }else{
-                            Log.e(TAG,"ResponseStr = null");
-                        }
-                    }else{
-                        Log.e(TAG,"execute = null");
-                    }
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();*/
-
 
     }
 

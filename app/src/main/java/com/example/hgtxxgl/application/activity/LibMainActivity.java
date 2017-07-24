@@ -297,7 +297,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                 PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
                 PeopleInfoEntity.PeopleInfoBean peopleInfoBean =
                         new PeopleInfoEntity.PeopleInfoBean
-                                ("?","赵四","?","?","?","?","?","?","?");
+                                ("?","?","?","?","?","?","?","?","?","?",username,password,"?","?","?");
                 List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
                 beanList.add(peopleInfoBean);
                 peopleEntity.setPeopleInfo(beanList);
@@ -324,7 +324,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                             Log.e(TAG,"ResponseStr2 = " + newRes);
                             String str = newRes +"}]}";
                             Log.e(TAG,"ResponseStr3 = " + str);
-                            CacheManger.getInstance().saveData(CommonValues.BASE_URL,str);
+                            CacheManger.getInstance().saveData(CommonValues.BASE_URL_SAVE,str);
                         }else{
                             Log.e(TAG,"ResponseStr5 = null");
                         }

@@ -20,15 +20,21 @@ public class PeopleInfoEntity {
 
     public static class PeopleInfoBean {
         /**
-         * No : 编号
-         * Name : 姓名
-         * CardNo : 身份证号
-         * Position : 职务
+         * No : 个人唯一编号
+         * Name : 王城
+         * CardNo : 321281199521233221
+         * Position : 一垒士兵
          * Sex : 性别
-         * Unit : 所属单位
-         * ArmyGroup : 所属部门
-         * PhoneNo : 固定电话
-         * TelNo : 手机号码
+         * Unit : 炊事班一组
+         * ArmyGroup : 221
+         * PhoneNo : 123456782
+         * TelNo : 12345678902
+         * GroupName : B
+         * LoginName : xc123
+         * Password : xc123
+         * Authority : 权限
+         * ModifyTime : 最后修改时间
+         * RegisterTime : 登记时间
          */
 
         private String No;
@@ -40,8 +46,14 @@ public class PeopleInfoEntity {
         private String ArmyGroup;
         private String PhoneNo;
         private String TelNo;
+        private String GroupName;
+        private String LoginName;
+        private String Password;
+        private String Authority;
+        private String ModifyTime;
+        private String RegisterTime;
 
-        public PeopleInfoBean(String no, String name, String cardNo, String position, String sex, String unit, String armyGroup, String phoneNo, String telNo) {
+        public PeopleInfoBean(String no, String name, String cardNo, String position, String sex, String unit, String armyGroup, String phoneNo, String telNo, String groupName, String loginName, String password, String authority, String modifyTime, String registerTime) {
             No = no;
             Name = name;
             CardNo = cardNo;
@@ -51,21 +63,12 @@ public class PeopleInfoEntity {
             ArmyGroup = armyGroup;
             PhoneNo = phoneNo;
             TelNo = telNo;
-        }
-
-        @Override
-        public String toString() {
-            return "PeopleInfoBean{" +
-                    "No='" + No + '\'' +
-                    ", Name='" + Name + '\'' +
-                    ", CardNo='" + CardNo + '\'' +
-                    ", Position='" + Position + '\'' +
-                    ", Sex=" + Sex +
-                    ", Unit='" + Unit + '\'' +
-                    ", ArmyGroup='" + ArmyGroup + '\'' +
-                    ", PhoneNo='" + PhoneNo + '\'' +
-                    ", TelNo='" + TelNo + '\'' +
-                    '}';
+            GroupName = groupName;
+            LoginName = loginName;
+            Password = password;
+            Authority = authority;
+            ModifyTime = modifyTime;
+            RegisterTime = registerTime;
         }
 
         public String getNo() {
@@ -138,6 +141,54 @@ public class PeopleInfoEntity {
 
         public void setTelNo(String TelNo) {
             this.TelNo = TelNo;
+        }
+
+        public String getGroupName() {
+            return GroupName;
+        }
+
+        public void setGroupName(String GroupName) {
+            this.GroupName = GroupName;
+        }
+
+        public String getLoginName() {
+            return LoginName;
+        }
+
+        public void setLoginName(String LoginName) {
+            this.LoginName = LoginName;
+        }
+
+        public String getPassword() {
+            return Password;
+        }
+
+        public void setPassword(String Password) {
+            this.Password = Password;
+        }
+
+        public String getAuthority() {
+            return Authority;
+        }
+
+        public void setAuthority(String Authority) {
+            this.Authority = Authority;
+        }
+
+        public String getModifyTime() {
+            return ModifyTime;
+        }
+
+        public void setModifyTime(String ModifyTime) {
+            this.ModifyTime = ModifyTime;
+        }
+
+        public String getRegisterTime() {
+            return RegisterTime;
+        }
+
+        public void setRegisterTime(String RegisterTime) {
+            this.RegisterTime = RegisterTime;
         }
     }
 }

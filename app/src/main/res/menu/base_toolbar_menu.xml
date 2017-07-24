@@ -4,12 +4,10 @@
 
     <item
         android:id="@+id/action_item1"
-        android:title="保存到相册"
-        app:showAsAction="never" />
+        android:title="保存到相册" />
 
     <item
         android:id="@+id/action_item2"
-        android:title="扫描二维码"
-        app:showAsAction="never" />
+        android:title="扫描二维码" />
 
 </menu>

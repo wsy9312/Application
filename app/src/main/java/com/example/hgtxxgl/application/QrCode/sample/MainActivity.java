@@ -2,7 +2,6 @@ package com.example.hgtxxgl.application.QrCode.sample;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,6 +13,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -40,7 +40,6 @@ import com.google.zxing.client.result.ParsedResultType;
 import com.mylhyl.zxing.scanner.common.Intents;
 import com.mylhyl.zxing.scanner.encode.QREncode;
 
-import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 import pub.devrel.easypermissions.AppSettingsDialog;
@@ -89,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
             }
         });
     }
+
 
     /**
      * 请求读取sd卡的权限
@@ -203,24 +203,24 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         tvResult = (TextView) findViewById(R.id.textView);
         imageView = (ImageView) findViewById(R.id.imageView);
         llqrimage = (RelativeLayout) findViewById(R.id.ll_qr_image);
-        String data = CacheManger.getInstance().getData(CommonValues.BASE_URL);
+        String data = CacheManger.getInstance().getData(CommonValues.BASE_URL_SAVE);
         PeopleInfoEntity entity = GsonUtil.parseJsonToBean(data, PeopleInfoEntity.class);
         no = entity.getPeopleInfo().get(0).getNo();
         name = entity.getPeopleInfo().get(0).getName();
         cardNo = entity.getPeopleInfo().get(0).getCardNo();
-        position = entity.getPeopleInfo().get(0).getPosition();
+//        position = entity.getPeopleInfo().get(0).getPosition();
         sex = entity.getPeopleInfo().get(0).getSex();
-        //所属单位
+        /*//所属单位
         unit = entity.getPeopleInfo().get(0).getUnit();
         //所属部门
-        armyGroup = entity.getPeopleInfo().get(0).getArmyGroup();
+        armyGroup = entity.getPeopleInfo().get(0).getArmyGroup();*/
         data = "编号: "+ no + "\r\n"
                 +"姓名: "+ name + "\r\n"
                 +"身份证号: "+ cardNo + "\r\n"
-                +"职务: "+ position + "\r\n"
-                +"性别: "+ sex + "\r\n"
-                +"所属单位: "+ unit + "\r\n"
-                +"所属部门: "+ armyGroup + "\r\n";
+//                +"职务: "+ position + "\r\n"
+                +"性别: "+ sex + "\r\n";
+//                +"所属单位: "+ unit + "\r\n"
+//                +"所属部门: "+ armyGroup + "\r\n";
         initshow(data);
         final CheckBox checkBox = (CheckBox) findViewById(R.id.checkBox);
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
@@ -288,20 +288,20 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
                 startActivityForResult(intent, PICK_CONTACT);
             }
         });
-
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                imageView.setDrawingCacheEnabled(true);//step 1
-                Bitmap bitmap = imageView.getDrawingCache();//step 2
-                //step 3 转bytes
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-
-                DeCodeActivity.gotoActivity(MainActivity.this, baos.toByteArray());//step 4
-                imageView.setDrawingCacheEnabled(false);//step 5
-            }
-        });
+// TODO 单击二维码识别暂时注释
+//        imageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                imageView.setDrawingCacheEnabled(true);//step 1
+//                Bitmap bitmap = imageView.getDrawingCache();//step 2
+//                //step 3 转bytes
+//                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//                bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+//
+//                DeCodeActivity.gotoActivity(MainActivity.this, baos.toByteArray());//step 4
+//                imageView.setDrawingCacheEnabled(false);//step 5
+//            }
+//        });
     }
 
     private void initshow(String peopleInfoEntity) {
@@ -318,7 +318,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
 //                        .setLogoBitmap(logoBitmap,90)
                     .build().encodeAsBitmap();
             imageView.setImageBitmap(bitmap);
-            tvResult.setText("单击识别图中二维码");
+//            tvResult.setText("单击识别图中二维码");
         }else{
             tvResult.setText("系统无法生成二维码");
         }
