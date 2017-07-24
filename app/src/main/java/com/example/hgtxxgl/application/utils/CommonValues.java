@@ -17,6 +17,8 @@ public class CommonValues {
     public static final String BASE_URL_NEWS = "http://192.168.1.106:8080/";
     public static final String BASE_URL_SAVE = "1";
     public static final String BASE_URL_NEWS_SAVE = "2";
+    public static final String BASE_URL_NEWS_SAVE_TEMP = "3";
+    public static final String BASE_URL_NEWS_SAVE_TEMP1 = "4";
 
     public static String currentHost = BASE_TEST_HOST;
     public static final String WORKFLOW_BLEAVE = "BusinessTripRequest";

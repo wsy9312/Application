@@ -186,9 +186,6 @@ public class LoginActivity extends AppCompatActivity {
                             .mediaType(MediaType.parse("application/json; charset=utf-8"))
                             .content(s)
                             .build()
-                            .readTimeOut(10000L)
-                            .writeTimeOut(10000L)
-                            .connTimeOut(10000L)
                             .execute();
                     if (execute!=null){
                         String ResponseStr = execute.body().string();

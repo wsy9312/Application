@@ -4,9 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.DataSetObserver;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,22 +19,19 @@ import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.NewsItemActivity;
-import com.example.hgtxxgl.application.entity.NewsInfoEntity;
-import com.example.hgtxxgl.application.utils.CacheManger;
 import com.example.hgtxxgl.application.utils.CommonValues;
 import com.example.hgtxxgl.application.utils.DataUtil;
 import com.example.hgtxxgl.application.utils.ListAdapter;
 import com.example.hgtxxgl.application.view.SimpleListView;
-import com.google.gson.Gson;
-import com.zhy.http.okhttp.OkHttpUtils;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import okhttp3.MediaType;
-import okhttp3.Response;
 
 //原本的我的待办fragment,现在的新闻中心
 public class NewsFragment extends Fragment implements AdapterView.OnItemClickListener, SimpleListView.OnRefreshListener {
@@ -86,6 +84,7 @@ public class NewsFragment extends Fragment implements AdapterView.OnItemClickLis
             map.put("title", "这是一个标题"+i);
             map.put("sketch", "这是一个简述"+i);
 //            map.put("message", "内容" + i);
+//            map.put("image",file);
             map.put("date", "年月日" + i);
             list.add(map);
         }
@@ -97,6 +96,8 @@ public class NewsFragment extends Fragment implements AdapterView.OnItemClickLis
         public void bindView(ViewHolder holder, Map<String, Object> map) {
             holder.setText(R.id.tv_title, map.get("title").toString());
             holder.setText(R.id.tv_date, map.get("date").toString());
+//            holder.setImageResource(R.id.iv_avatar, BitmapFactory.decodeFile(map.get("image").toString()));
+
 //            holder.setText(R.id.tv_message, map.get("message").toString());
             holder.setText(R.id.tv_sketch, map.get("sketch").toString());
         }
@@ -234,7 +235,7 @@ public class NewsFragment extends Fragment implements AdapterView.OnItemClickLis
 //        intent.putExtra("index",position);
 //        intent.putExtra("title",map.get(position).toString());
 //        startActivity(intent);
-        getnews();
+//        getnews();
 
 
         Map<String, Object> item = adapter.getItem(position-1);
@@ -244,6 +245,7 @@ public class NewsFragment extends Fragment implements AdapterView.OnItemClickLis
 //                Toast.LENGTH_LONG).show();
         Intent intent1 = new Intent();
         intent1.setClass(getContext(), NewsItemActivity.class);
+
         intent1.putExtra("title", title);
         startActivity(intent1);
 
@@ -379,67 +381,37 @@ public class NewsFragment extends Fragment implements AdapterView.OnItemClickLis
 //        }
     }
     public static final String TAG = "NewsFragment";
-    private void getnews() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
 
-                NewsInfoEntity newsInfoEntity1 = new NewsInfoEntity();
-                NewsInfoEntity.NewsRrdBean newsRrdBean1 = new NewsInfoEntity.NewsRrdBean();
-                newsRrdBean1.setTitle("?");
-                newsRrdBean1.setContext("?");
-                newsRrdBean1.setPicture1("?");
-                newsRrdBean1.setPicture2("?");
-                newsRrdBean1.setPicture3("?");
-                newsRrdBean1.setPicture4("?");
-                newsRrdBean1.setPicture5("?");
-                newsRrdBean1.setPicture1Len("?");
-                newsRrdBean1.setPicture2Len("?");
-                newsRrdBean1.setPicture3Len("?");
-                newsRrdBean1.setPicture4Len("?");
-                newsRrdBean1.setPicture5Len("?");
-                List<NewsInfoEntity.NewsRrdBean> beanList1 = new ArrayList<>();
-                beanList1.add(newsRrdBean1);
-                newsInfoEntity1.setNewsRrd(beanList1);
-                String json1 = new Gson().toJson(newsInfoEntity1);
-                String s1 = "get " + json1;
-                Log.e(TAG,"ResponseStr = " + json1);
-                Response execute = null;
-                try {
-                    execute = OkHttpUtils
-                            .postString()
-                            .url(CommonValues.BASE_URL_NEWS)
-                            .mediaType(MediaType.parse("application/json; charset=utf-8"))
-                            .content(s1)
-                            .build()
-                            .readTimeOut(10000L)
-                            .writeTimeOut(10000L)
-                            .connTimeOut(10000L)
-                            .execute();
-                    if (execute!=null){
-                        String ResponseStr = null;
-                        ResponseStr = execute.body().string();
-                        if (ResponseStr != null && ResponseStr.contains("ok")){
-                            Log.e(TAG,"ResponseStr1 = " + ResponseStr);
-                            String newRes = ResponseStr.substring(ResponseStr.indexOf("{"),ResponseStr.length());
-                            Log.e(TAG,"ResponseStr2 = " + newRes);
-                            String str = newRes +"}]}";
-                            Log.e(TAG,"ResponseStr3 = " + str);
-                            CacheManger.getInstance().saveData(CommonValues.BASE_URL_NEWS_SAVE,str);
-                        }else{
-                            Log.e(TAG,"ResponseStr4 = null");
-                        }
-                    }else{
-                        Log.e(TAG,"execute = null");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
 
+    public static File base64ToFile(String base64) {
+        File file = null;
+        String fileName = "SeaHigh."+"jpg";
+        FileOutputStream out = null;
+        try {
+            file = new File(Environment.getExternalStorageDirectory(), fileName);
+            if (!file.exists())
+                file.createNewFile();
+            byte[] bytes = Base64.decode(base64, Base64.DEFAULT);
+            ByteArrayInputStream in = new ByteArrayInputStream(bytes);
+            byte[] buffer = new byte[1024];
+            out = new FileOutputStream(file);
+            int bytesum = 0;
+            int byteread = 0;
+            while ((byteread = in.read(buffer)) != -1) {
+                bytesum += byteread;
+                out.write(buffer, 0, byteread);
             }
-        }).start();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        } finally {
+            try {
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return file;
     }
-
     //7检索不同的字段参数跳转到对应的条目界面
 //    private void checkDetail(int position, int pageCode, boolean remak, int tabIndex) {
 //        Intent intent = new Intent(getActivity(), NewsItemActivity.class);

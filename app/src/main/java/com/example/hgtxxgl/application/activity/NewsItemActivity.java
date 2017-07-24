@@ -1,14 +1,23 @@
 package com.example.hgtxxgl.application.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
+import com.example.hgtxxgl.application.entity.NewsInfoEntity;
+import com.example.hgtxxgl.application.utils.ApplicationApp;
+import com.example.hgtxxgl.application.utils.CacheManger;
+import com.example.hgtxxgl.application.utils.CommonValues;
+import com.example.hgtxxgl.application.utils.GsonUtil;
 import com.example.hgtxxgl.application.utils.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.ToastUtil;
 import com.example.hgtxxgl.application.view.HandToolbar;
@@ -16,6 +25,7 @@ import com.example.hgtxxgl.application.view.HandToolbar;
 
 public class NewsItemActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static final String TAG = "NewsItemActivity";
     private TextView tv;
     private String title;
     private ImageView image;
@@ -41,8 +51,53 @@ public class NewsItemActivity extends AppCompatActivity implements View.OnClickL
         handToolbar.setBackHome(false,this,0);
         handToolbar.setTitle("新闻内容");
         handToolbar.setTitleSize(20);
-    }
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+//                File file = base64ToFile(CacheManger.getInstance().getData(CommonValues.BASE_URL_NEWS_SAVE));
+//                image.setImageBitmap(BitmapFactory.decodeFile(String.valueOf(file)));
 
+                String data = CacheManger.getInstance().getData(CommonValues.BASE_URL_NEWS_SAVE_TEMP);
+                NewsInfoEntity newsInfoEntity = GsonUtil.parseJsonToBean(data, NewsInfoEntity.class);
+                String s = newsInfoEntity.toString();
+                Log.e(TAG, s);
+                boolean empty = newsInfoEntity.getNewsRrd().isEmpty();
+                if (empty){
+                    ToastUtil.showToast(ApplicationApp.context,"为空");
+                }
+                String picture1 = newsInfoEntity.getNewsRrd().get(0).getPicture1();
+                image.setImageBitmap(stringtoBitmap(picture1));
+//                String substring = data.substring(data.lastIndexOf("/")-1,data.lastIndexOf("\"")-1);
+//                Log.e(TAG, substring);
+//                String data1 = CacheManger.getInstance().getData(CommonValues.BASE_URL_NEWS_SAVE_TEMP);
+//                String substring1 = data.substring(data.lastIndexOf("\"")+1);
+//                Log.e(TAG, substring1);
+//                String data2 = CacheManger.getInstance().getData(CommonValues.BASE_URL_NEWS_SAVE);
+//                String substring2 = data.substring(data.lastIndexOf("\"")+1);
+//                Log.e(TAG, substring2);
+//                Bitmap bitmap = stringtoBitmap(substring);
+//                image.setImageBitmap(bitmap);
+
+//                NewsInfoEntity newsInfoEntity = GsonUtil.parseJsonToBean(data, NewsInfoEntity.class);
+//                String picture1 = newsInfoEntity.getNewsRrd().get(0).getPicture1();
+//                Log.e(TAG, picture1);
+            }
+        });
+
+    }
+    public Bitmap stringtoBitmap(String string){
+        //将字符串转换成Bitmap类型
+        Bitmap bitmap=null;
+        try {
+            byte[]bitmapArray;
+            bitmapArray= Base64.decode(string, Base64.DEFAULT);
+            bitmap= BitmapFactory.decodeByteArray(bitmapArray, 0, bitmapArray.length);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return bitmap;
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();

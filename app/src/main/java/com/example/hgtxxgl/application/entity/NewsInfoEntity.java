@@ -19,6 +19,13 @@ public class NewsInfoEntity {
         this.NewsRrd = NewsRrd;
     }
 
+    @Override
+    public String toString() {
+        return "NewsInfoEntity{" +
+                "NewsRrd=" + NewsRrd +
+                '}';
+    }
+
     public static class NewsRrdBean {
         /**
          * Title : ?
@@ -54,6 +61,24 @@ public class NewsInfoEntity {
 
         public NewsRrdBean(String s, String s1, String s2, String s3, String s4, String s5, String s6, String s7, String s8, String s9, String s10, String s11) {
 
+        }
+
+        @Override
+        public String toString() {
+            return "NewsRrdBean{" +
+                    "Title='" + Title + '\'' +
+                    ", Context='" + Context + '\'' +
+                    ", Picture1='" + Picture1 + '\'' +
+                    ", Picture2='" + Picture2 + '\'' +
+                    ", Picture3='" + Picture3 + '\'' +
+                    ", Picture4='" + Picture4 + '\'' +
+                    ", Picture5='" + Picture5 + '\'' +
+                    ", Picture1Len='" + Picture1Len + '\'' +
+                    ", Picture2Len='" + Picture2Len + '\'' +
+                    ", Picture3Len='" + Picture3Len + '\'' +
+                    ", Picture4Len='" + Picture4Len + '\'' +
+                    ", Picture5Len='" + Picture5Len + '\'' +
+                    '}';
         }
 
         public String getTitle() {

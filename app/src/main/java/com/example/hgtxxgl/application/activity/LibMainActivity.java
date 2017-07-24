@@ -15,6 +15,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.hgtxxgl.application.R;
+import com.example.hgtxxgl.application.entity.NewsInfoEntity;
 import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
 import com.example.hgtxxgl.application.utils.CacheManger;
@@ -142,6 +143,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         initFragment(false);
         StatusBarUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
         getPersonalInfoFormNet();
+//        getnews();
     }
 
     //接收登录界面传递的用户名密码参数
@@ -290,6 +292,67 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
     public void onButtonClickListner(HandToolbar.VIEWS views, int radioIndex) {
 
     }
+
+    private void getnews() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                NewsInfoEntity newsInfoEntity1 = new NewsInfoEntity();
+                NewsInfoEntity.NewsRrdBean newsRrdBean1 = new NewsInfoEntity.NewsRrdBean();
+                newsRrdBean1.setTitle("?");
+                newsRrdBean1.setContext("?");
+                newsRrdBean1.setPicture1("?");
+                newsRrdBean1.setPicture2("?");
+                newsRrdBean1.setPicture3("?");
+                newsRrdBean1.setPicture4("?");
+                newsRrdBean1.setPicture5("?");
+                newsRrdBean1.setPicture1Len("?");
+                newsRrdBean1.setPicture2Len("?");
+                newsRrdBean1.setPicture3Len("?");
+                newsRrdBean1.setPicture4Len("?");
+                newsRrdBean1.setPicture5Len("?");
+                List<NewsInfoEntity.NewsRrdBean> beanList1 = new ArrayList<>();
+                beanList1.add(newsRrdBean1);
+                newsInfoEntity1.setNewsRrd(beanList1);
+                String json1 = new Gson().toJson(newsInfoEntity1);
+                String s1 = "get " + json1;
+                Log.e(TAG,"ResponseStr = " + json1);
+                Response execute = null;
+                try {
+                    execute = OkHttpUtils
+                            .postString()
+                            .url(CommonValues.BASE_URL_NEWS)
+                            .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                            .content(s1)
+                            .build()
+                            .readTimeOut(10000L)
+                            .writeTimeOut(10000L)
+                            .connTimeOut(10000L)
+                            .execute();
+                    if (execute!=null){
+                        String ResponseStr = null;
+                        ResponseStr = execute.body().string();
+                        if (ResponseStr != null && ResponseStr.contains("ok")){
+                            Log.e(TAG,"新闻1 = " + ResponseStr);
+                            String newRes = ResponseStr.substring(ResponseStr.indexOf("{"),ResponseStr.length());
+                            Log.e(TAG,"新闻2 = " + newRes);
+                            String str = newRes +"}]}";
+                            Log.e(TAG,"新闻3 = " + str);
+                            CacheManger.getInstance().saveData(CommonValues.BASE_URL_NEWS_SAVE,str);
+                        }else{
+                            Log.e(TAG,"ResponseStr4 = null");
+                        }
+                    }else{
+                        Log.e(TAG,"execute = null");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }).start();
+    }
+
     public void getPersonalInfoFormNet(){
         new Thread(new Runnable() {
             @Override
@@ -319,11 +382,14 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                         String ResponseStr = null;
                         ResponseStr = execute.body().string();
                         if (ResponseStr != null && ResponseStr.contains("ok")){
-                            Log.e(TAG,"ResponseStr1 = " + ResponseStr);
+                            Log.e(TAG,"个人信息1 = " + ResponseStr);
+                            Log.e(TAG,"个人信息1 = " + ResponseStr.length());
                             String newRes = ResponseStr.substring(ResponseStr.indexOf("{"),ResponseStr.length());
-                            Log.e(TAG,"ResponseStr2 = " + newRes);
+                            Log.e(TAG,"个人信息2 = " + newRes);
+                            Log.e(TAG,"个人信息2 = " + newRes.length());
                             String str = newRes +"}]}";
-                            Log.e(TAG,"ResponseStr3 = " + str);
+                            Log.e(TAG,"个人信息3 = " + str);
+                            Log.e(TAG,"个人信息3 = " + str.length());
                             CacheManger.getInstance().saveData(CommonValues.BASE_URL_SAVE,str);
                         }else{
                             Log.e(TAG,"ResponseStr5 = null");
