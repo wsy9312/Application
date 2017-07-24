@@ -14,13 +14,14 @@ import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.entity.NewsInfoEntity;
-import com.example.hgtxxgl.application.utils.ApplicationApp;
 import com.example.hgtxxgl.application.utils.CacheManger;
 import com.example.hgtxxgl.application.utils.CommonValues;
 import com.example.hgtxxgl.application.utils.GsonUtil;
 import com.example.hgtxxgl.application.utils.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.ToastUtil;
 import com.example.hgtxxgl.application.view.HandToolbar;
+
+import static com.example.hgtxxgl.application.utils.ApplicationApp.context;
 
 
 public class NewsItemActivity extends AppCompatActivity implements View.OnClickListener {
@@ -57,13 +58,13 @@ public class NewsItemActivity extends AppCompatActivity implements View.OnClickL
 //                File file = base64ToFile(CacheManger.getInstance().getData(CommonValues.BASE_URL_NEWS_SAVE));
 //                image.setImageBitmap(BitmapFactory.decodeFile(String.valueOf(file)));
 
-                String data = CacheManger.getInstance().getData(CommonValues.BASE_URL_NEWS_SAVE_TEMP);
+                String data = CacheManger.getInstance().getData(CommonValues.BASE_URL_NEWS_SAVE);
                 NewsInfoEntity newsInfoEntity = GsonUtil.parseJsonToBean(data, NewsInfoEntity.class);
                 String s = newsInfoEntity.toString();
                 Log.e(TAG, s);
                 boolean empty = newsInfoEntity.getNewsRrd().isEmpty();
                 if (empty){
-                    ToastUtil.showToast(ApplicationApp.context,"为空");
+                    ToastUtil.showToast(context,"为空");
                 }
                 String picture1 = newsInfoEntity.getNewsRrd().get(0).getPicture1();
                 image.setImageBitmap(stringtoBitmap(picture1));

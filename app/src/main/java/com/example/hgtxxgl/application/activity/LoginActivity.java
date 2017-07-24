@@ -190,7 +190,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (execute!=null){
                         String ResponseStr = execute.body().string();
                         if (ResponseStr != null && ResponseStr.contains("ok")){
-                            Log.e(TAG,"ResponseStr = " + ResponseStr);
+//                            Log.e(TAG,"ResponseStr = " + ResponseStr);
                             show("输入正确");
                             toLibMainActivity(username,password);
                         }else{

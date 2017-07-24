@@ -8,7 +8,6 @@ import java.util.List;
 
 public class NewsInfoEntity {
 
-
     private List<NewsRrdBean> NewsRrd;
 
     public List<NewsRrdBean> getNewsRrd() {
@@ -54,13 +53,28 @@ public class NewsInfoEntity {
         private String Picture3Len;
         private String Picture4Len;
         private String Picture5Len;
+        private String ModifyTime;
+        private String RegisterTime;
 
         public NewsRrdBean() {
 
         }
 
-        public NewsRrdBean(String s, String s1, String s2, String s3, String s4, String s5, String s6, String s7, String s8, String s9, String s10, String s11) {
-
+        public NewsRrdBean(String title, String context, String picture1, String picture2, String picture3, String picture4, String picture5, String picture1Len, String picture2Len, String picture3Len, String picture4Len, String picture5Len, String modifyTime, String registerTime) {
+            Title = title;
+            Context = context;
+            Picture1 = picture1;
+            Picture2 = picture2;
+            Picture3 = picture3;
+            Picture4 = picture4;
+            Picture5 = picture5;
+            Picture1Len = picture1Len;
+            Picture2Len = picture2Len;
+            Picture3Len = picture3Len;
+            Picture4Len = picture4Len;
+            Picture5Len = picture5Len;
+            ModifyTime = modifyTime;
+            RegisterTime = registerTime;
         }
 
         @Override
@@ -78,6 +92,8 @@ public class NewsInfoEntity {
                     ", Picture3Len='" + Picture3Len + '\'' +
                     ", Picture4Len='" + Picture4Len + '\'' +
                     ", Picture5Len='" + Picture5Len + '\'' +
+                    ", ModifyTime='" + ModifyTime + '\'' +
+                    ", RegisterTime='" + RegisterTime + '\'' +
                     '}';
         }
 
@@ -175,6 +191,22 @@ public class NewsInfoEntity {
 
         public void setPicture5Len(String Picture5Len) {
             this.Picture5Len = Picture5Len;
+        }
+
+        public String getModifyTime() {
+            return ModifyTime;
+        }
+
+        public void setModifyTime(String modifyTime) {
+            ModifyTime = modifyTime;
+        }
+
+        public String getRegisterTime() {
+            return RegisterTime;
+        }
+
+        public void setRegisterTime(String registerTime) {
+            RegisterTime = registerTime;
         }
     }
 }

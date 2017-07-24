@@ -311,6 +311,8 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                 newsRrdBean1.setPicture3Len("?");
                 newsRrdBean1.setPicture4Len("?");
                 newsRrdBean1.setPicture5Len("?");
+                newsRrdBean1.setModifyTime("?");
+                newsRrdBean1.setRegisterTime("?");
                 List<NewsInfoEntity.NewsRrdBean> beanList1 = new ArrayList<>();
                 beanList1.add(newsRrdBean1);
                 newsInfoEntity1.setNewsRrd(beanList1);
@@ -335,10 +337,11 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                         if (ResponseStr != null && ResponseStr.contains("ok")){
                             Log.e(TAG,"新闻1 = " + ResponseStr);
                             String newRes = ResponseStr.substring(ResponseStr.indexOf("{"),ResponseStr.length());
+                            CacheManger.getInstance().saveData(CommonValues.BASE_URL_NEWS_SAVE,newRes);
                             Log.e(TAG,"新闻2 = " + newRes);
                             String str = newRes +"}]}";
                             Log.e(TAG,"新闻3 = " + str);
-                            CacheManger.getInstance().saveData(CommonValues.BASE_URL_NEWS_SAVE,str);
+//                            CacheManger.getInstance().saveData(CommonValues.BASE_URL_NEWS_SAVE,str);
                         }else{
                             Log.e(TAG,"ResponseStr4 = null");
                         }
@@ -382,14 +385,14 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                         String ResponseStr = null;
                         ResponseStr = execute.body().string();
                         if (ResponseStr != null && ResponseStr.contains("ok")){
-                            Log.e(TAG,"个人信息1 = " + ResponseStr);
-                            Log.e(TAG,"个人信息1 = " + ResponseStr.length());
+//                            Log.e(TAG,"个人信息1 = " + ResponseStr);
+//                            Log.e(TAG,"个人信息1 = " + ResponseStr.length());
                             String newRes = ResponseStr.substring(ResponseStr.indexOf("{"),ResponseStr.length());
-                            Log.e(TAG,"个人信息2 = " + newRes);
-                            Log.e(TAG,"个人信息2 = " + newRes.length());
+//                            Log.e(TAG,"个人信息2 = " + newRes);
+//                            Log.e(TAG,"个人信息2 = " + newRes.length());
                             String str = newRes +"}]}";
-                            Log.e(TAG,"个人信息3 = " + str);
-                            Log.e(TAG,"个人信息3 = " + str.length());
+//                            Log.e(TAG,"个人信息3 = " + str);
+//                            Log.e(TAG,"个人信息3 = " + str.length());
                             CacheManger.getInstance().saveData(CommonValues.BASE_URL_SAVE,str);
                         }else{
                             Log.e(TAG,"ResponseStr5 = null");

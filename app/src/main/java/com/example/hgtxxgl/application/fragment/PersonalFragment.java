@@ -72,7 +72,7 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
         String data = CacheManger.getInstance().getData(CommonValues.BASE_URL_SAVE);
         peopleInfoEntity = GsonUtil.parseJsonToBean(data, PeopleInfoEntity.class);
         s = peopleInfoEntity.getPeopleInfo().get(0).toString();
-        Log.e(TAG, "onCreateView: " + s);
+//        Log.e(TAG, "onCreateView: " + s);
         initView();
         return view;
     }
@@ -113,6 +113,7 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
         mDepartment.setText(peopleInfoEntity.getPeopleInfo().get(0).getArmyGroup());
         mGDNumber.setText(peopleInfoEntity.getPeopleInfo().get(0).getPhoneNo());
         mTelNumber.setText(peopleInfoEntity.getPeopleInfo().get(0).getTelNo());
+        Log.e(TAG, peopleInfoEntity.getPeopleInfo().get(0).getModifyTime());
     }
 
     @Override

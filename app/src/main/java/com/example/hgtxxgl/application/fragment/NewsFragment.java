@@ -4,10 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.DataSetObserver;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,17 +18,17 @@ import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.NewsItemActivity;
+import com.example.hgtxxgl.application.entity.NewsInfoEntity;
+import com.example.hgtxxgl.application.utils.ApplicationApp;
+import com.example.hgtxxgl.application.utils.CacheManger;
 import com.example.hgtxxgl.application.utils.CommonValues;
 import com.example.hgtxxgl.application.utils.DataUtil;
+import com.example.hgtxxgl.application.utils.GsonUtil;
 import com.example.hgtxxgl.application.utils.ListAdapter;
+import com.example.hgtxxgl.application.utils.ToastUtil;
 import com.example.hgtxxgl.application.view.SimpleListView;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -74,34 +73,62 @@ public class NewsFragment extends Fragment implements AdapterView.OnItemClickLis
 //        }
 //    };
 
-    private List<Map<String, Object>> entityList = getData();
-    private List<Map<String, Object>> baseEntityList;
-    //填充预留的假数据
-    public List<Map<String, Object>> getData(){
-        List<Map<String, Object>> list=new ArrayList<Map<String,Object>>();
-        for (int i = 0; i < 100; i++) {
-            map = new HashMap<String, Object>();
-            map.put("title", "这是一个标题"+i);
-            map.put("sketch", "这是一个简述"+i);
-//            map.put("message", "内容" + i);
-//            map.put("image",file);
-            map.put("date", "年月日" + i);
-            list.add(map);
-        }
-        return list;
-    }
-    ListAdapter<Map<String, Object>> adapter = new ListAdapter<Map<String, Object>>((ArrayList<Map<String, Object>>) entityList, R.layout.layout_my_todo_too){
+//    private List<Map<String, Object>> entityList = getData();
+//    private List<Map<String, Object>> baseEntityList;
 
+    private List<NewsInfoEntity.NewsRrdBean> entityList = getData();
+    private List<NewsInfoEntity.NewsRrdBean> baseEntityList;
+        ListAdapter<NewsInfoEntity.NewsRrdBean> adapter =
+            new ListAdapter<NewsInfoEntity.NewsRrdBean>((ArrayList<NewsInfoEntity.NewsRrdBean>) entityList, R.layout.layout_my_todo_too) {
         @Override
-        public void bindView(ViewHolder holder, Map<String, Object> map) {
-            holder.setText(R.id.tv_title, map.get("title").toString());
-            holder.setText(R.id.tv_date, map.get("date").toString());
-//            holder.setImageResource(R.id.iv_avatar, BitmapFactory.decodeFile(map.get("image").toString()));
-
-//            holder.setText(R.id.tv_message, map.get("message").toString());
-            holder.setText(R.id.tv_sketch, map.get("sketch").toString());
+        public void bindView(ViewHolder holder, NewsInfoEntity.NewsRrdBean obj) {
+            holder.setText(R.id.tv_title, obj.getTitle());
+            holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(obj.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
+            holder.setText(R.id.tv_sketch, obj.getContext());
         }
     };
+    //填充预留的假数据
+    public List<NewsInfoEntity.NewsRrdBean> getData(){
+        String data = CacheManger.getInstance().getData(CommonValues.BASE_URL_NEWS_SAVE);
+        NewsInfoEntity newsInfoEntity = GsonUtil.parseJsonToBean(data, NewsInfoEntity.class);
+        String s = newsInfoEntity.toString();
+        Log.e(TAG, s);
+        boolean empty = newsInfoEntity.getNewsRrd().isEmpty();
+        if (empty){
+            ToastUtil.showToast(ApplicationApp.context,"为空");
+        }
+        String title = newsInfoEntity.getNewsRrd().get(0).getTitle();
+        String context = newsInfoEntity.getNewsRrd().get(0).getContext();
+        String modifyTime = newsInfoEntity.getNewsRrd().get(0).getModifyTime();
+        Log.e(TAG, modifyTime);
+        List<NewsInfoEntity.NewsRrdBean> list = new ArrayList<>();
+        list.add(newsInfoEntity.getNewsRrd().get(0));
+        return list;
+
+//        List<Map<String, Object>> list=new ArrayList<Map<String,Object>>();
+//        for (int i = 0; i < 100; i++) {
+//            map = new HashMap<String, Object>();
+//            map.put("title", "这是一个标题"+i);
+//            map.put("sketch", "这是一个简述"+i);
+////            map.put("message", "内容" + i);
+////            map.put("image",file);
+//            map.put("date", "年月日" + i);
+//            list.add(map);
+//        }
+//        return list;
+    }
+//    ListAdapter<Map<String, Object>> adapter = new ListAdapter<Map<String, Object>>((ArrayList<Map<String, Object>>) entityList, R.layout.layout_my_todo_too){
+//
+//        @Override
+//        public void bindView(ViewHolder holder, Map<String, Object> map) {
+//            holder.setText(R.id.tv_title, map.get("title").toString());
+//            holder.setText(R.id.tv_date, map.get("date").toString());
+////            holder.setImageResource(R.id.iv_avatar, BitmapFactory.decodeFile(map.get("image").toString()));
+//
+////            holder.setText(R.id.tv_message, map.get("message").toString());
+//            holder.setText(R.id.tv_sketch, map.get("sketch").toString());
+//        }
+//    };
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -238,8 +265,10 @@ public class NewsFragment extends Fragment implements AdapterView.OnItemClickLis
 //        getnews();
 
 
-        Map<String, Object> item = adapter.getItem(position-1);
-        String title = item.get("title").toString();
+//        Map<String, Object> item = adapter.getItem(position-1);
+//        String title = item.get("title").toString();
+        NewsInfoEntity.NewsRrdBean item = adapter.getItem(position - 1);
+        String title = item.getTitle();
 
 //        Toast.makeText(ApplicationApp.context, "单击的标题是"+title,
 //                Toast.LENGTH_LONG).show();
@@ -382,36 +411,6 @@ public class NewsFragment extends Fragment implements AdapterView.OnItemClickLis
     }
     public static final String TAG = "NewsFragment";
 
-
-    public static File base64ToFile(String base64) {
-        File file = null;
-        String fileName = "SeaHigh."+"jpg";
-        FileOutputStream out = null;
-        try {
-            file = new File(Environment.getExternalStorageDirectory(), fileName);
-            if (!file.exists())
-                file.createNewFile();
-            byte[] bytes = Base64.decode(base64, Base64.DEFAULT);
-            ByteArrayInputStream in = new ByteArrayInputStream(bytes);
-            byte[] buffer = new byte[1024];
-            out = new FileOutputStream(file);
-            int bytesum = 0;
-            int byteread = 0;
-            while ((byteread = in.read(buffer)) != -1) {
-                bytesum += byteread;
-                out.write(buffer, 0, byteread);
-            }
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        } finally {
-            try {
-                out.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return file;
-    }
     //7检索不同的字段参数跳转到对应的条目界面
 //    private void checkDetail(int position, int pageCode, boolean remak, int tabIndex) {
 //        Intent intent = new Intent(getActivity(), NewsItemActivity.class);
@@ -466,36 +465,34 @@ public class NewsFragment extends Fragment implements AdapterView.OnItemClickLis
                 baseEntityList = new ArrayList<>();
                 baseEntityList.addAll(entityList);
             }
-//            List<MyCommissionListEntity.RetDataBean> list = new ArrayList<>();
-//            for (MyCommissionListEntity.RetDataBean bean : baseEntityList) {
-//                if (bean.getProcessNameCN().replace(" ", "").contains(key)) {
-//                    list.add(bean);
-//                }
-//                if (bean.getSummary().replace(" ", "").contains(key)) {
-//                    list.add(bean);
-//                }
-//                if (DataUtil.parseDateByFormat(bean.getUpdateTime(), "yyyy-MM-dd HH:mm").replace(" ", "").contains(key)) {
-//                    list.add(bean);
-//                }
-//                if (bean.getApplicantName().replace(" ", "").contains(key)) {
-//                    list.add(bean);
-//                }
-//            }
-            List<Map<String, Object>> list = new ArrayList<>();
-            for (Map<String, Object> bean : baseEntityList) {
-                if (bean.get("title").toString().replace(" ", "").contains(key)) {
+            List<NewsInfoEntity.NewsRrdBean> list = new ArrayList<>();
+            for (NewsInfoEntity.NewsRrdBean bean : baseEntityList) {
+                if (bean.getTitle().replace(" ", "").contains(key)) {
                     list.add(bean);
                 }
-                if (bean.get("sketch").toString().replace(" ", "").contains(key)) {
+                if (bean.getContext().replace(" ", "").contains(key)) {
                     list.add(bean);
                 }
-                if (DataUtil.parseDateByFormat(bean.get("date").toString(), "yyyy-MM-dd HH:mm").replace(" ", "").contains(key)) {
+                if (DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm").replace(" ", "").contains(key)) {
                     list.add(bean);
                 }
-//                if (bean.get("message").toString().replace(" ", "").contains(key)) {
-//                    list.add(bean);
-//                }
+
             }
+//            List<Map<String, Object>> list = new ArrayList<>();
+//            for (Map<String, Object> bean : baseEntityList) {
+//                if (bean.get("title").toString().replace(" ", "").contains(key)) {
+//                    list.add(bean);
+//                }
+//                if (bean.get("sketch").toString().replace(" ", "").contains(key)) {
+//                    list.add(bean);
+//                }
+//                if (DataUtil.parseDateByFormat(bean.get("date").toString(), "yyyy-MM-dd HH:mm").replace(" ", "").contains(key)) {
+//                    list.add(bean);
+//                }
+////                if (bean.get("message").toString().replace(" ", "").contains(key)) {
+////                    list.add(bean);
+////                }
+//            }
             entityList.clear();
             entityList.addAll(list);
             adapter.notifyDataSetChanged();
