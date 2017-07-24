@@ -133,6 +133,7 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
 
     private void logOut() {
         startActivity(new Intent(getContext(), LoginActivity.class));
+        System.exit(0);
     }
 
     @Override
