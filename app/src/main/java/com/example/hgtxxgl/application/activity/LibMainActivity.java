@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -18,10 +17,12 @@ import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.entity.NewsInfoEntity;
 import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
+import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CacheManger;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
+import com.example.hgtxxgl.application.utils.hyutils.L;
 import com.example.hgtxxgl.application.view.HandToolbar;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -94,12 +95,14 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                 fragments[3].onPause();
                 handToolbar.setTitle(title[3]);
                 handToolbar.setBackHome(false,LibMainActivity.this,0);
+
             }else if (checkedId == R.id.rb_main_leave_apply_center){
                 currentIndex = 4;
                 changeFragment(fragments[4]);
                 fragments[4].onPause();
                 handToolbar.setTitle(title[4]);
                 handToolbar.setBackHome(false,LibMainActivity.this,0);
+
             }
             else if (checkedId == R.id.rb_main_personal_center) {
                 currentIndex = 5;
@@ -173,7 +176,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getApplicationContext(),msg, Toast.LENGTH_SHORT).show();
+                Toast.makeText(ApplicationApp.context,msg, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -293,6 +296,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
 
     }
 
+    //获取新闻数据
     private void getnews() {
         new Thread(new Runnable() {
             @Override
@@ -318,7 +322,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                 newsInfoEntity1.setNewsRrd(beanList1);
                 String json1 = new Gson().toJson(newsInfoEntity1);
                 String s1 = "get " + json1;
-                Log.e(TAG,"ResponseStr = " + json1);
+                L.e(TAG,"ResponseStr = " + json1);
                 Response execute = null;
                 try {
                     execute = OkHttpUtils
@@ -335,18 +339,18 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                         String ResponseStr = null;
                         ResponseStr = execute.body().string();
                         if (ResponseStr != null && ResponseStr.contains("ok")){
-                            Log.e(TAG,"新闻1 = " + ResponseStr);
+                            L.e(TAG,"新闻1 = " + ResponseStr);
                             String newRes = ResponseStr.substring(ResponseStr.indexOf("{"),ResponseStr.length());
                             CacheManger.getInstance().saveData(CommonValues.BASE_URL_NEWS_SAVE,newRes);
-                            Log.e(TAG,"新闻2 = " + newRes);
+                            L.e(TAG,"新闻2 = " + newRes);
                             String str = newRes +"}]}";
-                            Log.e(TAG,"新闻3 = " + str);
+                            L.e(TAG,"新闻3 = " + str);
 //                            CacheManger.getInstance().saveData(CommonValues.BASE_URL_NEWS_SAVE,str);
                         }else{
-                            Log.e(TAG,"ResponseStr4 = null");
+                            L.e(TAG,"ResponseStr4 = null");
                         }
                     }else{
-                        Log.e(TAG,"execute = null");
+                        L.e(TAG,"execute = null");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -356,6 +360,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         }).start();
     }
 
+    //获取个人资料数据
     public void getPersonalInfoFormNet(){
         new Thread(new Runnable() {
             @Override
@@ -385,20 +390,20 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                         String ResponseStr = null;
                         ResponseStr = execute.body().string();
                         if (ResponseStr != null && ResponseStr.contains("ok")){
-//                            Log.e(TAG,"个人信息1 = " + ResponseStr);
-//                            Log.e(TAG,"个人信息1 = " + ResponseStr.length());
+//                            L.e(TAG,"个人信息1 = " + ResponseStr);
+//                            L.e(TAG,"个人信息1 = " + ResponseStr.length());
                             String newRes = ResponseStr.substring(ResponseStr.indexOf("{"),ResponseStr.length());
-//                            Log.e(TAG,"个人信息2 = " + newRes);
-//                            Log.e(TAG,"个人信息2 = " + newRes.length());
+//                            L.e(TAG,"个人信息2 = " + newRes);
+//                            L.e(TAG,"个人信息2 = " + newRes.length());
                             String str = newRes +"}]}";
-//                            Log.e(TAG,"个人信息3 = " + str);
-//                            Log.e(TAG,"个人信息3 = " + str.length());
+//                            L.e(TAG,"个人信息3 = " + str);
+//                            L.e(TAG,"个人信息3 = " + str.length());
                             CacheManger.getInstance().saveData(CommonValues.BASE_URL_SAVE,str);
                         }else{
-                            Log.e(TAG,"ResponseStr5 = null");
+                            L.e(TAG,"ResponseStr5 = null");
                         }
                     }else{
-                        Log.e(TAG,"execute = null");
+                        L.e(TAG,"execute = null");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

@@ -27,7 +27,7 @@ import java.util.List;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
-//首页三个fragment的通类
+//首页六个fragment的通类
 public class DetailFragment extends Fragment implements  View.OnClickListener {
     private int currentPage;
     private SearchView etSearch;
@@ -235,7 +235,7 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
                 break;
             case PageConfig.PAGE_LAUNCH:
                 if (checkButtons) {
-                    setRadioButtons("未提交", "未完成", "已完成");
+                    setRadioButtons("未完成", "已完成");
                 }
                 group.setVisibility(VISIBLE);
                 break;

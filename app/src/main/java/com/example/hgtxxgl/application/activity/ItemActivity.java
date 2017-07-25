@@ -9,8 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.rest.RestApplyFragment;
-import com.example.hgtxxgl.application.rest.RestLaunchFragment;
-import com.example.hgtxxgl.application.rest.RestTodoFragment;
+import com.example.hgtxxgl.application.rest.RestApproveFragment;
+import com.example.hgtxxgl.application.rest.RestDetailFragment;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
 
 import java.util.List;
@@ -49,11 +49,11 @@ public class ItemActivity extends AppCompatActivity {
                 //请假申请
                 checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
-            case PageConfig.PAGE_LEAVE_TODO:
-                checkFragment(RestTodoFragment.newInstance(getIntent().getBundleExtra("data")));
+            case PageConfig.PAGE_LEAVE_APPROVE:
+                checkFragment(RestApproveFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
-            case PageConfig.PAGE_LEAVE_LAUNCH:
-                checkFragment(RestLaunchFragment.newInstance(getIntent().getBundleExtra("data")));
+            case PageConfig.PAGE_LEAVE_DETAIL:
+                checkFragment(RestDetailFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             /*case PageConfig.PAGE_APPROVE_REST:
                 //请假审批

@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,11 +18,12 @@ import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.GsonUtil;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
+import com.example.hgtxxgl.application.utils.hyutils.L;
 import com.example.hgtxxgl.application.view.HandToolbar;
 
 import static com.example.hgtxxgl.application.utils.hand.ApplicationApp.context;
 
-
+//新闻详情页
 public class NewsItemActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "NewsItemActivity";
@@ -61,7 +61,7 @@ public class NewsItemActivity extends AppCompatActivity implements View.OnClickL
                 String data = CacheManger.getInstance().getData(CommonValues.BASE_URL_NEWS_SAVE);
                 NewsInfoEntity newsInfoEntity = GsonUtil.parseJsonToBean(data, NewsInfoEntity.class);
                 String s = newsInfoEntity.toString();
-                Log.e(TAG, s);
+                L.e(TAG, s);
                 boolean empty = newsInfoEntity.getNewsRrd().isEmpty();
                 if (empty){
                     ToastUtil.showToast(context,"为空");
@@ -69,25 +69,25 @@ public class NewsItemActivity extends AppCompatActivity implements View.OnClickL
                 String picture1 = newsInfoEntity.getNewsRrd().get(0).getPicture1();
                 image.setImageBitmap(stringtoBitmap(picture1));
 //                String substring = data.substring(data.lastIndexOf("/")-1,data.lastIndexOf("\"")-1);
-//                Log.e(TAG, substring);
+//                L.e(TAG, substring);
 //                String data1 = CacheManger.getInstance().getData(CommonValues.BASE_URL_NEWS_SAVE_TEMP);
 //                String substring1 = data.substring(data.lastIndexOf("\"")+1);
-//                Log.e(TAG, substring1);
+//                L.e(TAG, substring1);
 //                String data2 = CacheManger.getInstance().getData(CommonValues.BASE_URL_NEWS_SAVE);
 //                String substring2 = data.substring(data.lastIndexOf("\"")+1);
-//                Log.e(TAG, substring2);
+//                L.e(TAG, substring2);
 //                Bitmap bitmap = stringtoBitmap(substring);
 //                image.setImageBitmap(bitmap);
 
 //                NewsInfoEntity newsInfoEntity = GsonUtil.parseJsonToBean(data, NewsInfoEntity.class);
 //                String picture1 = newsInfoEntity.getNewsRrd().get(0).getPicture1();
-//                Log.e(TAG, picture1);
+//                L.e(TAG, picture1);
             }
         });
-
     }
+
+    //将字符串转换成Bitmap类型
     public Bitmap stringtoBitmap(String string){
-        //将字符串转换成Bitmap类型
         Bitmap bitmap=null;
         try {
             byte[]bitmapArray;
@@ -99,6 +99,7 @@ public class NewsItemActivity extends AppCompatActivity implements View.OnClickL
 
         return bitmap;
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

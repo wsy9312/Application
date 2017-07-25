@@ -20,7 +20,7 @@ import com.example.hgtxxgl.application.utils.hand.PageConfig;
  */
 public class LeaveFragment extends Fragment{
 
-    final int[] page = new int[]{PageConfig.PAGE_LEAVE_TODO,PageConfig.PAGE_LEAVE_LAUNCH,PageConfig.PAGE_LEAVE_APPLY};
+    final int[] page = new int[]{PageConfig.PAGE_LEAVE_APPROVE,PageConfig.PAGE_LEAVE_DETAIL,PageConfig.PAGE_LEAVE_APPLY};
 
     private LinearLayout[] buttons = null;
     public LeaveFragment() {

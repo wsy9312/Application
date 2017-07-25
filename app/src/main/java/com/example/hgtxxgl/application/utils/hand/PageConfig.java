@@ -19,8 +19,8 @@ public class PageConfig {
     /**
      * 请假流程首页三个按钮
      */
-    public static final int PAGE_LEAVE_TODO = 26;
-    public static final int PAGE_LEAVE_LAUNCH = 27;
+    public static final int PAGE_LEAVE_APPROVE = 26;
+    public static final int PAGE_LEAVE_DETAIL = 27;
     public static final int PAGE_LEAVE_APPLY = 28;
 
     /**
