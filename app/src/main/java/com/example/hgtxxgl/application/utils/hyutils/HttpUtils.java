@@ -11,9 +11,6 @@ import java.net.URL;
 
 /**
  * Http请求的工具类
- * 
- * @author zhy
- * 
  */
 public class HttpUtils
 {

@@ -7,9 +7,6 @@ import java.io.File;
 
 /**
  * SD卡相关的辅助类
- * 
- * @author zhy
- * 
  */
 public class SDCardUtils
 {
