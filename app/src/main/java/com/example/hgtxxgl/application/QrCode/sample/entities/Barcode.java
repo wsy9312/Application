@@ -2,9 +2,6 @@ package com.example.hgtxxgl.application.QrCode.sample.entities;
 
 import java.io.Serializable;
 
-/**
- * Created by hupei on 2016/8/11.
- */
 public class Barcode implements Serializable {
     public String name;//名称
     public float price;//价格

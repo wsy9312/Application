@@ -37,9 +37,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Oliver on 2016/9/23.
- */
 public class MyLaunchFragment extends Fragment implements AdapterView.OnItemClickListener, SimpleListView.OnRefreshListener {
 
     SimpleListView lv;

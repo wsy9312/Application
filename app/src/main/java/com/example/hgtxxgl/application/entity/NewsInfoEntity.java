@@ -3,7 +3,8 @@ package com.example.hgtxxgl.application.entity;
 import java.util.List;
 
 /**
- * Created by HGTXxgl on 2017/7/24.
+ * Created by HGTXxgl on 2017/7/24.\
+ * 新闻实体
  */
 
 public class NewsInfoEntity {

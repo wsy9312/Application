@@ -4,10 +4,9 @@ import java.util.List;
 
 /**
  * Created by HGTXxgl on 2017/7/17.
+ * 登录实体
  */
-
 public class LoginEntity {
-
 
     private List<LoginBean> Login;
 

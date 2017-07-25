@@ -20,7 +20,6 @@ import java.util.List;
 
 /**
  * 手机图片列表中的详细
- * Created by hupei on 2016/7/7.
  */
 public class PickPictureActivity extends BasicActivity {
     private GridView mGridView;

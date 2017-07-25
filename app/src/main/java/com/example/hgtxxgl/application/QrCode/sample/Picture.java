@@ -1,8 +1,5 @@
 package com.example.hgtxxgl.application.QrCode.sample;
 
-/**
- * Created by hupei on 2016/7/7.
- */
 public class Picture {
     /**
      * 文件夹的第一张图片路径

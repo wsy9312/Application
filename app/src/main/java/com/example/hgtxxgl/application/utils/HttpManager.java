@@ -25,8 +25,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-
-
 //统一网络管理类
 public class HttpManager {
 

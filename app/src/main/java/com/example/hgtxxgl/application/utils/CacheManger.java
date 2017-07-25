@@ -1,9 +1,5 @@
 package com.example.hgtxxgl.application.utils;
 
-/**zhy
- * Created on 2016/7/23.
- */
-
 import android.os.Environment;
 
 import java.io.File;

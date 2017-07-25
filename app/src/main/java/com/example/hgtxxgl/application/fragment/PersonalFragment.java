@@ -20,7 +20,7 @@ import com.example.hgtxxgl.application.utils.CacheManger;
 import com.example.hgtxxgl.application.utils.CommonValues;
 import com.example.hgtxxgl.application.utils.GsonUtil;
 
-
+//个人资料首页
 public class PersonalFragment extends Fragment implements View.OnClickListener {
 
     public static final String TAG = PersonalFragment.class.getSimpleName();

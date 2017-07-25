@@ -24,9 +24,6 @@ import com.mylhyl.zxing.scanner.result.ISBNResult;
 import com.mylhyl.zxing.scanner.result.ProductResult;
 import com.mylhyl.zxing.scanner.result.URIResult;
 
-/**
- * Created by hupei on 2016/7/7.
- */
 public abstract class BasicScannerActivity extends AppCompatActivity implements OnScannerCompletionListener {
     public static final int REQUEST_CODE_SCANNER = 188;
     public static final String EXTRA_RETURN_SCANNER_RESULT = "return_scanner_result";

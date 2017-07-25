@@ -5,7 +5,6 @@ import java.util.Comparator;
 
 /**
  * 图片修改时间排序
- * Created by hupei on 2016/7/7.
  */
 public class SortPictureList implements Comparator {
     @Override

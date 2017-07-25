@@ -45,6 +45,7 @@ import java.util.List;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
+//二维码首页
 public class MainActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks{
     private static final int PICK_CONTACT = 1;
     private TextView tvResult;

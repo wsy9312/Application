@@ -31,7 +31,6 @@ import java.util.Map;
 
 /**
  * 选择相册，手机所有的图片列表
- * Created by hupei on 2016/7/7.
  */
 public class PickPictureTotalActivity extends BasicActivity {
     public static final int REQUEST_CODE_SELECT_PICTURE = 102;

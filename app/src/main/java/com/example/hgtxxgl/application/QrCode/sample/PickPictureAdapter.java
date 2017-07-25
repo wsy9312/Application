@@ -18,7 +18,6 @@ import java.util.List;
 
 /**
  * 照片浏览
- * Created by hupei on 2016/7/7.
  */
 class PickPictureAdapter extends CygAdapter<String> {
 

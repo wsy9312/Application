@@ -15,11 +15,6 @@ import com.example.hgtxxgl.application.utils.PageConfig;
 
 import java.util.List;
 
-
-/**
- *
- * Created by zhy on 2016/9/14.
- */
 public class ItemActivity extends AppCompatActivity {
 
 //    FileChooserLayout.ActivityResultCallback callback;

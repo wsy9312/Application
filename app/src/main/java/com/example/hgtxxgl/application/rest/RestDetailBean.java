@@ -1,7 +1,5 @@
 package com.example.hgtxxgl.application.rest;
 
-
-
 import java.util.List;
 
 public class RestDetailBean {

@@ -15,8 +15,6 @@ import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.NewsItemActivity;
 import com.example.hgtxxgl.application.utils.PageConfig;
 
-
-//原本的启动新流程,现在的个人中心
 public class StartNewFragment extends Fragment {
 
     final int[] page = new int[]{PageConfig.PAGE_APPLY_BLEAVE, PageConfig.PAGE_APPLY_EXTRAWORK
