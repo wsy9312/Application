@@ -7,7 +7,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.hgtxxgl.application.R;
-import com.example.hgtxxgl.application.utils.StatusBarUtils;
+import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 
 public class BasicActivity extends AppCompatActivity {
 

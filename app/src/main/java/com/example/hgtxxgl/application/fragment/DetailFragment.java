@@ -19,7 +19,7 @@ import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.rest.MyCommissionFragment;
 import com.example.hgtxxgl.application.rest.MyLaunchFragment;
 import com.example.hgtxxgl.application.rest.RestApplyFragment;
-import com.example.hgtxxgl.application.utils.PageConfig;
+import com.example.hgtxxgl.application.utils.hand.PageConfig;
 
 import java.util.ArrayList;
 import java.util.List;

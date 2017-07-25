@@ -12,14 +12,14 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RadioButton;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.entity.LoginEntity;
-import com.example.hgtxxgl.application.utils.Fields;
-import com.example.hgtxxgl.application.utils.SpUtils;
-import com.example.hgtxxgl.application.utils.StatusBarUtils;
-import com.example.hgtxxgl.application.utils.ToastUtil;
+import com.example.hgtxxgl.application.utils.hand.CommonValues;
+import com.example.hgtxxgl.application.utils.hand.Fields;
+import com.example.hgtxxgl.application.utils.hand.SpUtils;
+import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
+import com.example.hgtxxgl.application.utils.hand.ToastUtil;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
 
@@ -43,7 +43,6 @@ public class LoginActivity extends AppCompatActivity {
     private boolean savePassword;
     private ProgressBar pb;
     private CheckBox savepassword;
-    private RadioButton rb1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -178,7 +177,7 @@ public class LoginActivity extends AppCompatActivity {
                 String toJson = new Gson().toJson(loginEntity);
                 Log.d("test",toJson);
                 String s="Login"+" "+toJson;
-                String url = "http://192.168.1.137:8080/";
+                String url = CommonValues.BASE_URL;
                 try {
                     Response execute = OkHttpUtils
                             .postString()

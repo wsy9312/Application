@@ -1,4 +1,4 @@
-package com.example.hgtxxgl.application.utils;
+package com.example.hgtxxgl.application.utils.hand;
 
 public class Fields {
     public static final String SAVE_PASSWORD = "SAVE_PASSWORD";

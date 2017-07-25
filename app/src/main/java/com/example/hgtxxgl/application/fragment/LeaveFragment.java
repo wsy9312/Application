@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.ItemActivity;
-import com.example.hgtxxgl.application.utils.PageConfig;
+import com.example.hgtxxgl.application.utils.hand.PageConfig;
 
 /**
  * Created by HGTXxgl on 2017/7/12.

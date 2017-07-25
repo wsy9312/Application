@@ -1,4 +1,4 @@
-package com.example.hgtxxgl.application.utils;
+package com.example.hgtxxgl.application.utils.hand;
 
 
 public class PageConfig {

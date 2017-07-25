@@ -22,8 +22,8 @@ import android.widget.Toast;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.LibMainActivity;
-import com.example.hgtxxgl.application.utils.CommonValues;
-import com.example.hgtxxgl.application.utils.HttpManager;
+import com.example.hgtxxgl.application.utils.hand.CommonValues;
+import com.example.hgtxxgl.application.utils.hand.HttpManager;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

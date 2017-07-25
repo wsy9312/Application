@@ -1,4 +1,4 @@
-package com.example.hgtxxgl.application.utils;
+package com.example.hgtxxgl.application.utils.hand;
 
 import android.content.Context;
 import android.util.SparseArray;

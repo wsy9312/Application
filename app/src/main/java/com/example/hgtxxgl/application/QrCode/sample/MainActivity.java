@@ -29,12 +29,12 @@ import android.widget.Toast;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
-import com.example.hgtxxgl.application.utils.CacheManger;
-import com.example.hgtxxgl.application.utils.CommonValues;
-import com.example.hgtxxgl.application.utils.GsonUtil;
-import com.example.hgtxxgl.application.utils.ImgUtils;
-import com.example.hgtxxgl.application.utils.StatusBarUtils;
-import com.example.hgtxxgl.application.utils.ToastUtil;
+import com.example.hgtxxgl.application.utils.hand.CacheManger;
+import com.example.hgtxxgl.application.utils.hand.CommonValues;
+import com.example.hgtxxgl.application.utils.hand.GsonUtil;
+import com.example.hgtxxgl.application.utils.hand.ImgUtils;
+import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
+import com.example.hgtxxgl.application.utils.hand.ToastUtil;
 import com.example.hgtxxgl.application.view.HandToolbar;
 import com.google.zxing.client.result.ParsedResultType;
 import com.mylhyl.zxing.scanner.common.Intents;

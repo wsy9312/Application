@@ -22,12 +22,12 @@ import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.ItemActivity;
 import com.example.hgtxxgl.application.entity.MyLaunchListEntity;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
-import com.example.hgtxxgl.application.utils.CommonValues;
-import com.example.hgtxxgl.application.utils.DataUtil;
-import com.example.hgtxxgl.application.utils.HttpManager;
-import com.example.hgtxxgl.application.utils.ListAdapter;
-import com.example.hgtxxgl.application.utils.PageConfig;
-import com.example.hgtxxgl.application.utils.ToastUtil;
+import com.example.hgtxxgl.application.utils.hand.CommonValues;
+import com.example.hgtxxgl.application.utils.hand.DataUtil;
+import com.example.hgtxxgl.application.utils.hand.HttpManager;
+import com.example.hgtxxgl.application.utils.hand.ListAdapter;
+import com.example.hgtxxgl.application.utils.hand.PageConfig;
+import com.example.hgtxxgl.application.utils.hand.ToastUtil;
 import com.example.hgtxxgl.application.view.SimpleListView;
 import com.example.hgtxxgl.application.view.SwipeLayout;
 

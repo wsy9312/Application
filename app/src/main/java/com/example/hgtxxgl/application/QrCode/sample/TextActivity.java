@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
-import com.example.hgtxxgl.application.utils.StatusBarUtils;
+import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.view.HandToolbar;
 import com.mylhyl.zxing.scanner.common.Intents;
 //import com.mylhyl.zxing.scanner.sample.BasicActivity;

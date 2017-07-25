@@ -4,6 +4,7 @@ import java.util.List;
 
 /**
  * Created by HGTXxgl on 2017/7/21.
+ * 个人资料实体
  */
 
 public class PeopleInfoEntity {

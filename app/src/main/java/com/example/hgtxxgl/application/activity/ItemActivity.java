@@ -11,7 +11,7 @@ import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.rest.RestApplyFragment;
 import com.example.hgtxxgl.application.rest.RestLaunchFragment;
 import com.example.hgtxxgl.application.rest.RestTodoFragment;
-import com.example.hgtxxgl.application.utils.PageConfig;
+import com.example.hgtxxgl.application.utils.hand.PageConfig;
 
 import java.util.List;
 

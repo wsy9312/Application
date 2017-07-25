@@ -14,14 +14,14 @@ import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.entity.NewsInfoEntity;
-import com.example.hgtxxgl.application.utils.CacheManger;
-import com.example.hgtxxgl.application.utils.CommonValues;
-import com.example.hgtxxgl.application.utils.GsonUtil;
-import com.example.hgtxxgl.application.utils.StatusBarUtils;
-import com.example.hgtxxgl.application.utils.ToastUtil;
+import com.example.hgtxxgl.application.utils.hand.CacheManger;
+import com.example.hgtxxgl.application.utils.hand.CommonValues;
+import com.example.hgtxxgl.application.utils.hand.GsonUtil;
+import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
+import com.example.hgtxxgl.application.utils.hand.ToastUtil;
 import com.example.hgtxxgl.application.view.HandToolbar;
 
-import static com.example.hgtxxgl.application.utils.ApplicationApp.context;
+import static com.example.hgtxxgl.application.utils.hand.ApplicationApp.context;
 
 
 public class NewsItemActivity extends AppCompatActivity implements View.OnClickListener {

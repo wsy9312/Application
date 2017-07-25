@@ -16,9 +16,9 @@ import com.example.hgtxxgl.application.QrCode.sample.MainActivity;
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.LoginActivity;
 import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
-import com.example.hgtxxgl.application.utils.CacheManger;
-import com.example.hgtxxgl.application.utils.CommonValues;
-import com.example.hgtxxgl.application.utils.GsonUtil;
+import com.example.hgtxxgl.application.utils.hand.CacheManger;
+import com.example.hgtxxgl.application.utils.hand.CommonValues;
+import com.example.hgtxxgl.application.utils.hand.GsonUtil;
 
 //个人资料首页
 public class PersonalFragment extends Fragment implements View.OnClickListener {
