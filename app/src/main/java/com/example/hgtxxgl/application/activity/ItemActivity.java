@@ -55,6 +55,7 @@ public class ItemActivity extends AppCompatActivity {
             case PageConfig.PAGE_LEAVE_DETAIL:
                 checkFragment(RestDetailFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
+
             /*case PageConfig.PAGE_APPROVE_REST:
                 //请假审批
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, RestApproveFragment.newInstance(getIntent().getBundleExtra("data"))).commit();

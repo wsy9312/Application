@@ -52,12 +52,12 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
     private List<MyCommissionListEntity.RetDataBean> entityList = new ArrayList<>();
     private List<MyCommissionListEntity.RetDataBean> baseEntityList;
 
-    ListAdapter<MyCommissionListEntity.RetDataBean> adapter = new ListAdapter<MyCommissionListEntity.RetDataBean>((ArrayList<MyCommissionListEntity.RetDataBean>) entityList, R.layout.rest_my_todo_too) {
+    ListAdapter<MyCommissionListEntity.RetDataBean> adapter = new ListAdapter<MyCommissionListEntity.RetDataBean>((ArrayList<MyCommissionListEntity.RetDataBean>) entityList, R.layout.item_news) {
         @Override
         public void bindView(ViewHolder holder, MyCommissionListEntity.RetDataBean obj) {
-            holder.setText(R.id.tv_name, obj.getApplicantName());
+            holder.setText(R.id.tv_title, obj.getApplicantName());
             holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(obj.getUpdateTime(), "yyyy-MM-dd HH:mm"));
-            holder.setText(R.id.tv_message, obj.getSummary());
+            holder.setText(R.id.tv_context, obj.getSummary());
             holder.setText(R.id.tv_type, obj.getProcessNameCN());
         }
     };
@@ -69,15 +69,15 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
         loadData(tabIndex, index, 10);
     }
 
-    SimpleListView lv;
+//    SimpleListView lv;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.main_viewpage_page_content, null, false);
-        lv = (SimpleListView) view.findViewById(R.id.viewpager_listview);
-        ivEmpty = (ImageView) view.findViewById(R.id.iv_empty);
-        pb = (ProgressBar) view.findViewById(R.id.mycommission_pb);
-        lv.setAdapter(adapter);
+//        lv = (SimpleListView) view.findViewById(R.id.viewpager_listview);
+//        ivEmpty = (ImageView) view.findViewById(R.id.iv_empty);
+//        pb = (ProgressBar) view.findViewById(R.id.mycommission_pb);
+//        lv.setAdapter(adapter);
         adapter.registerDataSetObserver(new DataSetObserver() {
             @Override
             public void onChanged() {
@@ -90,8 +90,8 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
                 super.onChanged();
             }
         });
-        lv.setOnRefreshListener(this);
-        lv.setOnItemClickListener(this);
+//        lv.setOnRefreshListener(this);
+//        lv.setOnItemClickListener(this);
         return view;
     }
 
@@ -129,7 +129,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
                                 hasMore = false;
                             }
                             pb.setVisibility(View.GONE);
-                            lv.completeRefresh();
+//                            lv.completeRefresh();
                         }
                     });
 
@@ -141,8 +141,8 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            lv.completeRefresh();
-                            pb.setVisibility(View.GONE);
+//                            lv.completeRefresh();
+//                            pb.setVisibility(View.GONE);
                         }
                     });
 
@@ -158,13 +158,13 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
             index += 1;
             loadData(tabIndex, index, 10);
         } else {
-            lv.completeRefresh();
+//            lv.completeRefresh();
         }
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (lv.getCurrentState() == 2) return;
+//        if (lv.getCurrentState() == 2) return;
         position -= 1;
         MyCommissionListEntity.RetDataBean item = adapter.getItem(position);
         String procName = item.getProcessName();
@@ -273,10 +273,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
             }else {
                 checkDetail(position, PageConfig.PAGE_DISPLAY_UNIFIED, false, tabIndex);
             }
-
         }
-
-
     }
 
     private void checkDetail(int position, int pageCode, boolean remak, int tabIndex) {

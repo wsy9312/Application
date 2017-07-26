@@ -1,6 +1,5 @@
 package com.example.hgtxxgl.application.activity;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -12,41 +11,51 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
-import com.example.hgtxxgl.application.entity.NewsInfoEntity;
-import com.example.hgtxxgl.application.utils.hand.CacheManger;
-import com.example.hgtxxgl.application.utils.hand.CommonValues;
-import com.example.hgtxxgl.application.utils.hand.GsonUtil;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
-import com.example.hgtxxgl.application.utils.hyutils.L;
 import com.example.hgtxxgl.application.view.HandToolbar;
-
-import static com.example.hgtxxgl.application.utils.hand.ApplicationApp.context;
 
 //新闻详情页
 public class NewsItemActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "NewsItemActivity";
-    private TextView tv;
-    private String title;
     private ImageView image;
     private HandToolbar handToolbar;
+    private String title;
+    private String context;
+    private String modifytime;
+    private String picture1;
+    private String picture2;
+    private String picture3;
+    private String picture4;
+    private String picture5;
+    private TextView tvTitle;
+    private TextView tvDate;
+    private TextView tvBody;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item_layout);
         StatusBarUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
-        Intent getIntent = getIntent();
-        title = getIntent.getStringExtra("title");
+        Bundle bundle = this.getIntent().getExtras();
+        title = bundle.getString("title");
+        context = bundle.getString("context");
+        modifytime = bundle.getString("modifytime");
+        picture1 = bundle.getString("picture1");
+        picture2 = bundle.getString("picture2");
+        picture3 = bundle.getString("picture3");
+        picture4 = bundle.getString("picture4");
+        picture5 = bundle.getString("picture5");
         initview();
     }
 
     private void initview() {
-        tv = (TextView) findViewById(R.id.tv_news_title);
+        tvTitle = (TextView) findViewById(R.id.tv_news_title);
+        tvDate = (TextView) findViewById(R.id.tv_news_date);
+        tvBody = (TextView) findViewById(R.id.tv_news_body);
         image = (ImageView) findViewById(R.id.image_news);
         image.setOnClickListener(this);
-        tv.setText(title);
         handToolbar = (HandToolbar) findViewById(R.id.itemactivity_handtoolbar);
         handToolbar.setDisplayHomeAsUpEnabled(true, this);
         handToolbar.setBackHome(false,this,0);
@@ -57,17 +66,20 @@ public class NewsItemActivity extends AppCompatActivity implements View.OnClickL
             public void run() {
 //                File file = base64ToFile(CacheManger.getInstance().getData(CommonValues.BASE_URL_NEWS_SAVE));
 //                image.setImageBitmap(BitmapFactory.decodeFile(String.valueOf(file)));
-
-                String data = CacheManger.getInstance().getData(CommonValues.BASE_URL_NEWS_SAVE);
-                NewsInfoEntity newsInfoEntity = GsonUtil.parseJsonToBean(data, NewsInfoEntity.class);
-                String s = newsInfoEntity.toString();
-                L.e(TAG, s);
-                boolean empty = newsInfoEntity.getNewsRrd().isEmpty();
-                if (empty){
-                    ToastUtil.showToast(context,"为空");
-                }
-                String picture1 = newsInfoEntity.getNewsRrd().get(0).getPicture1();
+                tvTitle.setText(title);
+                tvDate.setText(modifytime);
+                tvBody.setText(context);
                 image.setImageBitmap(stringtoBitmap(picture1));
+//                String data = CacheManger.getInstance().getData(CommonValues.BASE_URL_NEWS_SAVE);
+//                NewsInfoEntity newsInfoEntity = GsonUtil.parseJsonToBean(data, NewsInfoEntity.class);
+//                String s = newsInfoEntity.toString();
+//                L.e(TAG, s);
+//                boolean empty = newsInfoEntity.getNewsRrd().isEmpty();
+//                if (empty){
+//                    ToastUtil.showToast(ApplicationApp.context,"为空");
+//                }
+//                String picture1 = newsInfoEntity.getNewsRrd().get(0).getPicture1();
+
 //                String substring = data.substring(data.lastIndexOf("/")-1,data.lastIndexOf("\"")-1);
 //                L.e(TAG, substring);
 //                String data1 = CacheManger.getInstance().getData(CommonValues.BASE_URL_NEWS_SAVE_TEMP);

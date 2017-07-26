@@ -56,12 +56,14 @@ public class NewsInfoEntity {
         private String Picture5Len;
         private String ModifyTime;
         private String RegisterTime;
+        private String BeginNum;
+        private String EndNum;
 
         public NewsRrdBean() {
 
         }
 
-        public NewsRrdBean(String title, String context, String picture1, String picture2, String picture3, String picture4, String picture5, String picture1Len, String picture2Len, String picture3Len, String picture4Len, String picture5Len, String modifyTime, String registerTime) {
+        public NewsRrdBean(String title, String context, String picture1, String picture2, String picture3, String picture4, String picture5, String picture1Len, String picture2Len, String picture3Len, String picture4Len, String picture5Len, String modifyTime, String registerTime, String beginNum, String endNum) {
             Title = title;
             Context = context;
             Picture1 = picture1;
@@ -76,6 +78,8 @@ public class NewsInfoEntity {
             Picture5Len = picture5Len;
             ModifyTime = modifyTime;
             RegisterTime = registerTime;
+            BeginNum = beginNum;
+            EndNum = endNum;
         }
 
         @Override
@@ -95,6 +99,8 @@ public class NewsInfoEntity {
                     ", Picture5Len='" + Picture5Len + '\'' +
                     ", ModifyTime='" + ModifyTime + '\'' +
                     ", RegisterTime='" + RegisterTime + '\'' +
+                    ", BeginNum='" + BeginNum + '\'' +
+                    ", EndNum='" + EndNum + '\'' +
                     '}';
         }
 
@@ -208,6 +214,22 @@ public class NewsInfoEntity {
 
         public void setRegisterTime(String registerTime) {
             RegisterTime = registerTime;
+        }
+
+        public String getBeginNum() {
+            return BeginNum;
+        }
+
+        public void setBeginNum(String beginNum) {
+            BeginNum = beginNum;
+        }
+
+        public String getEndNum() {
+            return EndNum;
+        }
+
+        public void setEndNum(String endNum) {
+            EndNum = endNum;
         }
     }
 }

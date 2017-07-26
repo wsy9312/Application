@@ -1,60 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
 
-    <LinearLayout
-        android:layout_centerInParent="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:id="@+id/iv_empty"
-            android:layout_gravity="center"
-            android:visibility="gone"
-            android:src="@mipmap/break_network"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/tv_reload"
-            android:visibility="gone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="当前网络状态不佳,请重新加载"/>
-        <Button
-            android:id="@+id/btn_reload"
-            android:text="重新加载"
-            android:visibility="gone"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+    <!--     The PullToRefreshListView replaces a standard ListView widget. -->
 
 
-    <com.example.hgtxxgl.application.view.SimpleListView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/retest"
         android:layout_width="match_parent"
-        android:id="@+id/viewpager_listview"
-        android:divider="@null"
-        android:paddingLeft="@dimen/main_list_item_padding_inside"
-        android:paddingRight="@dimen/main_list_item_padding_inside"
-        android:smoothScrollbar="true"
-        android:scrollbarSize="4dp"
-        android:scrollbarStyle="outsideOverlay"
-        android:scrollbarThumbVertical="@drawable/rec_round_blue_dark"
-        android:dividerHeight="@dimen/main_list_item_padding_inside"
-        android:layoutAnimation="@anim/list_item_in"
-        android:fastScrollEnabled="false"
-        android:choiceMode="singleChoice"
-        android:headerDividersEnabled="true"
-        android:footerDividersEnabled="true"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"></android.support.v4.widget.SwipeRefreshLayout>
+    <!--<com.handmark.pulltorefresh.library.PullToRefreshListView-->
+        <!--android:id="@+id/pull_refresh_list"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="fill_parent"-->
+        <!--android:cacheColorHint="#00000000"-->
 
-    <ProgressBar
-        android:id="@+id/mycommission_pb"
-        android:visibility="gone"
-        android:layout_centerInParent="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <!--android:divider="#19000000"-->
+        <!--android:dividerHeight="4dp"-->
+        <!--android:fadingEdge="none"-->
+        <!--android:fastScrollEnabled="false"-->
+        <!--android:footerDividersEnabled="false"-->
+        <!--android:headerDividersEnabled="false"-->
+        <!--android:smoothScrollbar="true" />-->
 
-</RelativeLayout>
+
+</LinearLayout>

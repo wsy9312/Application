@@ -22,6 +22,7 @@ public class PageConfig {
     public static final int PAGE_LEAVE_APPROVE = 26;
     public static final int PAGE_LEAVE_DETAIL = 27;
     public static final int PAGE_LEAVE_APPLY = 28;
+    public static final int PAGE_ITEM_NEWS = 29;
 
     /**
      * 申请页面

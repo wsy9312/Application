@@ -14,7 +14,6 @@ import android.widget.ProgressBar;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.entity.LoginEntity;
-import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.Fields;
 import com.example.hgtxxgl.application.utils.hand.SpUtils;
@@ -217,7 +216,7 @@ public class LoginActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                ToastUtil.showToast(ApplicationApp.context,asd);
+                ToastUtil.showToast(getApplicationContext(),asd);
             }
         });
     }

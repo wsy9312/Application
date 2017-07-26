@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -113,7 +112,6 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
         mDepartment.setText(peopleInfoEntity.getPeopleInfo().get(0).getArmyGroup());
         mGDNumber.setText(peopleInfoEntity.getPeopleInfo().get(0).getPhoneNo());
         mTelNumber.setText(peopleInfoEntity.getPeopleInfo().get(0).getTelNo());
-        Log.e(TAG, peopleInfoEntity.getPeopleInfo().get(0).getModifyTime());
     }
 
     @Override

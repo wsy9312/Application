@@ -39,7 +39,7 @@ import java.util.Map;
 
 public class MyLaunchFragment extends Fragment implements AdapterView.OnItemClickListener, SimpleListView.OnRefreshListener {
 
-    SimpleListView lv;
+//    SimpleListView lv;
     private int tabIndex;
     private int index = 1;
     private View root;
@@ -70,9 +70,9 @@ public class MyLaunchFragment extends Fragment implements AdapterView.OnItemClic
 
         @Override
         public void bindView(final ViewHolder holder, MyLaunchListEntity.RetDataBean obj) {
-            holder.setText(R.id.tv_name, "");
+            holder.setText(R.id.tv_title, "");
             holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(obj.getUpdateTime(), "yyyy-MM-dd HH:mm"));
-            holder.setText(R.id.tv_message, obj.getSummary());
+            holder.setText(R.id.tv_context, obj.getSummary());
             holder.setText(R.id.tv_type, obj.getProcessNameCN());
         }
 
@@ -198,10 +198,10 @@ public class MyLaunchFragment extends Fragment implements AdapterView.OnItemClic
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.main_viewpage_page_content, null, false);
-        lv = (SimpleListView) root.findViewById(R.id.viewpager_listview);
-        ivEmpty = (ImageView) root.findViewById(R.id.iv_empty);
-        pb = (ProgressBar) root.findViewById(R.id.mycommission_pb);
-        lv.setAdapter(adapter);
+//        lv = (SimpleListView) root.findViewById(R.id.viewpager_listview);
+//        ivEmpty = (ImageView) root.findViewById(R.id.iv_empty);
+//        pb = (ProgressBar) root.findViewById(R.id.mycommission_pb);
+//        lv.setAdapter(adapter);
         adapter.registerDataSetObserver(new DataSetObserver() {
             @Override
             public void onChanged() {
@@ -214,13 +214,13 @@ public class MyLaunchFragment extends Fragment implements AdapterView.OnItemClic
                 super.onChanged();
             }
         });
-        lv.setOnRefreshListener(this);
-        lv.setOnItemClickListener(this);
+//        lv.setOnRefreshListener(this);
+//        lv.setOnItemClickListener(this);
         return root;
     }
 
     public void filter(String key) {
-        if (lv == null || key == null) return;
+//        if (lv == null || key == null) return;
         this.key = key;
         if (entityList != null && !key.equals("")) {
             if (baseEntityList == null) {
@@ -288,13 +288,13 @@ public class MyLaunchFragment extends Fragment implements AdapterView.OnItemClic
                                     entityList.clear();
                                 }
                                 entityList.addAll(myLaunchListEntity.getRetData());
-                                lv.setVisibility(View.VISIBLE);
+//                                lv.setVisibility(View.VISIBLE);
                                 adapter.notifyDataSetChanged();
                             } else {
                                 hasMore = false;
                             }
                             pb.setVisibility(View.GONE);
-                            lv.completeRefresh();
+//                            lv.completeRefresh();
                         }
                     });
 
@@ -305,7 +305,7 @@ public class MyLaunchFragment extends Fragment implements AdapterView.OnItemClic
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            lv.completeRefresh();
+//                            lv.completeRefresh();
                         }
                     });
                 }
@@ -321,13 +321,13 @@ public class MyLaunchFragment extends Fragment implements AdapterView.OnItemClic
             index += 1;
             loadData(tabIndex, index, 10);
         } else {
-            lv.completeRefresh();
+//            lv.completeRefresh();
         }
 
     }
 
     private void checkItem(int position){
-        if (lv.getCurrentState() == 2) return;
+//        if (lv.getCurrentState() == 2) return;
         String procName = adapter.getItem(position).getProcessName();
         //公出明细
         if (procName.equals("BusinessTripRequest")) {

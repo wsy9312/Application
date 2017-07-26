@@ -90,7 +90,7 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
         public Fragment getItem(int position) {
             if (currentPage == PageConfig.PAGE_NEWS) {
                 llEtSearch.setVisibility(VISIBLE);
-                return NewsFragment.newInstance(position).setCallback(this);
+                return NewFragment.newInstance(position).setCallback(this);
             } else if (currentPage == PageConfig.PAGE_NOTIFICATION) {
                 return NotificationFragment.newInstance(position).setCallback(this);
             } else if (currentPage == PageConfig.PAGE_ME) {

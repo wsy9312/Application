@@ -32,7 +32,7 @@ import java.util.List;
 //原本我启动的fragment,现在的通知中心
 public class NotificationFragment extends Fragment implements AdapterView.OnItemClickListener, SimpleListView.OnRefreshListener {
 
-    SimpleListView lv;
+//    SimpleListView lv;
     private int tabIndex;
     private int index = 1;
     private View root;
@@ -70,7 +70,7 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
         public void bindView(final ViewHolder holder, MyLaunchListEntity.RetDataBean obj) {
 //            holder.setText(R.id.tv_title, ApplicationApp.getLoginEntity().getRetData().getUserInfo().getNameCN());
             holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(obj.getUpdateTime(), "yyyy-MM-dd HH:mm"));
-            holder.setText(R.id.tv_message, obj.getSummary());
+            holder.setText(R.id.tv_context, obj.getSummary());
             holder.setText(R.id.tv_sketch, obj.getProcessNameCN());
         }
     //4得到条目视图
@@ -83,7 +83,7 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
             view.findViewById(R.id.llayout_item_container).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    checkItem(position);
+//                    checkItem(position);
                     adapter.closeAllItems();
                 }
             });
@@ -198,12 +198,12 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.main_viewpage_page_content, null, false);
-        lv = (SimpleListView) root.findViewById(R.id.viewpager_listview);
-        ivEmpty = (ImageView) root.findViewById(R.id.iv_empty);
-        tvEmpty = (TextView) root.findViewById(R.id.tv_reload);
-        btnEmpty = (Button) root.findViewById(R.id.btn_reload);
-        pb = (ProgressBar) root.findViewById(R.id.mycommission_pb);
-        lv.setAdapter(adapter);
+//        lv = (SimpleListView) root.findViewById(R.id.viewpager_listview);
+//        ivEmpty = (ImageView) root.findViewById(R.id.iv_empty);
+//        tvEmpty = (TextView) root.findViewById(R.id.tv_reload);
+//        btnEmpty = (Button) root.findViewById(R.id.btn_reload);
+//        pb = (ProgressBar) root.findViewById(R.id.mycommission_pb);
+//        lv.setAdapter(adapter);
         //注册adapter数据监听器,监听条目数量是否为空,为空则显示标志空的图标
         adapter.registerDataSetObserver(new DataSetObserver() {
             @Override
@@ -222,14 +222,14 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
             }
         });
         //设置自定义listview刷新和条目点击监听器
-        lv.setOnRefreshListener(this);
-        lv.setOnItemClickListener(this);
+//        lv.setOnRefreshListener(this);
+//        lv.setOnItemClickListener(this);
         return root;
     }
 
     //搜索框具体功能实现
     public void filter(String key) {
-        if (lv == null || key == null) return;
+//        if (lv == null || key == null) return;
         this.key = key;
         if (entityList != null && !key.equals("")) {
             if (baseEntityList == null) {
@@ -332,14 +332,14 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
             index += 1;
             loadData(tabIndex, index, 10);
         } else {
-            lv.completeRefresh();
+//            lv.completeRefresh();
         }
 
     }
 
     //根据条目在listview中的位置选择进入对应的详情页
     private void checkItem(int position){
-        if (lv.getCurrentState() == 2) return;
+//        if (lv.getCurrentState() == 2) return;
         String procName = adapter.getItem(position).getProcessName();
         //公出明细
         if (procName.equals("BusinessTripRequest")) {
