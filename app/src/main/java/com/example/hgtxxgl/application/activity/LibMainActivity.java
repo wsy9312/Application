@@ -20,6 +20,7 @@ import com.example.hgtxxgl.application.fragment.DetailFragment;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CacheManger;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
+import com.example.hgtxxgl.application.utils.hand.GsonUtil;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.hyutils.L;
@@ -114,6 +115,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
             }
         }
     };
+    private int totalNumber;
 
     /**
      * 调用入口
@@ -146,8 +148,8 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         initFragment(false);
         StatusBarUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
         getPersonalInfoFormNet();
-
-//        getnews();
+//        getNewsDataNumber();
+        getNewsData();
     }
 
     //接收登录界面传递的用户名密码参数
@@ -296,9 +298,55 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
     public void onButtonClickListner(HandToolbar.VIEWS views, int radioIndex) {
 
     }
+    public int getNewsDataNumber(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                NewsInfoEntity newsInfoEntity1 = new NewsInfoEntity();
+                NewsInfoEntity.NewsRrdBean newsRrdBean1 = new NewsInfoEntity.NewsRrdBean();
+                newsRrdBean1.setTitle("?");
+                List<NewsInfoEntity.NewsRrdBean> beanList1 = new ArrayList<>();
+                beanList1.add(newsRrdBean1);
+                newsInfoEntity1.setNewsRrd(beanList1);
+                String json1 = new Gson().toJson(newsInfoEntity1);
+                String s1 = "get " + json1;
+                L.e(TAG,"ResponseStr = " + json1);
+                Response execute = null;
+                try {
+                    execute = OkHttpUtils
+                            .postString()
+                            .url(CommonValues.BASE_URL)
+                            .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                            .content(s1)
+                            .build()
+                            .readTimeOut(10000L)
+                            .writeTimeOut(10000L)
+                            .connTimeOut(10000L)
+                            .execute();
+                    if (execute!=null){
+                        String ResponseStr = null;
+                        ResponseStr = execute.body().string();
+                        if (ResponseStr != null && ResponseStr.contains("ok")){
+                            String newRes = ResponseStr.substring(ResponseStr.indexOf("{"),ResponseStr.length());
+                            totalNumber = GsonUtil.parseJsonToBean(newRes, NewsInfoEntity.class).getNewsRrd().size();
+                            L.e(TAG,"新闻数量 " + totalNumber);
+                        }else{
+                            L.e(TAG,"ResponseStr4 = null");
+                        }
+                    }else{
+                        L.e(TAG,"execute = null");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }).start();
+        return totalNumber;
+    }
 
     //获取新闻数据
-    private void getnews() {
+    private void getNewsData() {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -328,7 +376,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                 try {
                     execute = OkHttpUtils
                             .postString()
-                            .url(CommonValues.BASE_URL_NEWS)
+                            .url(CommonValues.BASE_URL)
                             .mediaType(MediaType.parse("application/json; charset=utf-8"))
                             .content(s1)
                             .build()
@@ -340,13 +388,13 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                         String ResponseStr = null;
                         ResponseStr = execute.body().string();
                         if (ResponseStr != null && ResponseStr.contains("ok")){
-                            L.e(TAG,"新闻1 = " + ResponseStr);
+//                            L.e(TAG,"新闻1 = " + ResponseStr);
                             String newRes = ResponseStr.substring(ResponseStr.indexOf("{"),ResponseStr.length());
+                            if (!CacheManger.getInstance().getData(CommonValues.BASE_URL_NEWS_SAVE).isEmpty()){
+                                CacheManger.getInstance().delFile(CommonValues.BASE_URL_NEWS_SAVE);
+                            }
                             CacheManger.getInstance().saveData(CommonValues.BASE_URL_NEWS_SAVE,newRes);
                             L.e(TAG,"新闻2 = " + newRes);
-                            String str = newRes +"}]}";
-                            L.e(TAG,"新闻3 = " + str);
-//                            CacheManger.getInstance().saveData(CommonValues.BASE_URL_NEWS_SAVE,str);
                         }else{
                             L.e(TAG,"ResponseStr4 = null");
                         }
@@ -391,14 +439,8 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                         String ResponseStr = null;
                         ResponseStr = execute.body().string();
                         if (ResponseStr != null && ResponseStr.contains("ok")){
-//                            L.e(TAG,"个人信息1 = " + ResponseStr);
-//                            L.e(TAG,"个人信息1 = " + ResponseStr.length());
                             String newRes = ResponseStr.substring(ResponseStr.indexOf("{"),ResponseStr.length());
-//                            L.e(TAG,"个人信息2 = " + newRes);
-//                            L.e(TAG,"个人信息2 = " + newRes.length());
                             String str = newRes +"}]}";
-//                            L.e(TAG,"个人信息3 = " + str);
-//                            L.e(TAG,"个人信息3 = " + str.length());
                             CacheManger.getInstance().saveData(CommonValues.BASE_URL_SAVE,str);
                         }else{
                             L.e(TAG,"ResponseStr5 = null");

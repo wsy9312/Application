@@ -1,6 +1,7 @@
 package com.example.hgtxxgl.application.utils.hand;
 
 import android.os.Environment;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,7 +16,7 @@ public class CacheManger
 {
     
     private static String cacheDir;
-    
+
     private CacheManger()
     {
         if (cacheDir == null)
@@ -40,7 +41,16 @@ public class CacheManger
     {
         return sCacheManger;
     }
-    
+
+    //删除文件
+    public void delFile(String url){
+        File file = new File(cacheDir, getMd5Name(url));
+        if(file.isFile()){
+            file.delete();
+        }
+        file.exists();
+    }
+
     // 保存缓存文件
     public void saveData(String url, String content)
     {
@@ -105,8 +115,8 @@ public class CacheManger
         StringBuffer stringBuffer = new StringBuffer();
         try
         {
-            File readFile = new File(cacheDir, getMd5Name(url));
-            
+            File readFile =  new File(cacheDir, getMd5Name(url));
+            Log.e("CacheManger", cacheDir);
             FileInputStream fileInputStream = new FileInputStream(readFile);
 
             int len = -1;

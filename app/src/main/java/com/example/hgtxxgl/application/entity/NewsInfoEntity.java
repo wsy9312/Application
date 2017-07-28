@@ -59,6 +59,67 @@ public class NewsInfoEntity {
         private String BeginNum;
         private String EndNum;
 
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            NewsRrdBean that = (NewsRrdBean) o;
+
+            if (Title != null ? !Title.equals(that.Title) : that.Title != null) return false;
+            if (Context != null ? !Context.equals(that.Context) : that.Context != null)
+                return false;
+            if (Picture1 != null ? !Picture1.equals(that.Picture1) : that.Picture1 != null)
+                return false;
+            if (Picture2 != null ? !Picture2.equals(that.Picture2) : that.Picture2 != null)
+                return false;
+            if (Picture3 != null ? !Picture3.equals(that.Picture3) : that.Picture3 != null)
+                return false;
+            if (Picture4 != null ? !Picture4.equals(that.Picture4) : that.Picture4 != null)
+                return false;
+            if (Picture5 != null ? !Picture5.equals(that.Picture5) : that.Picture5 != null)
+                return false;
+            if (Picture1Len != null ? !Picture1Len.equals(that.Picture1Len) : that.Picture1Len != null)
+                return false;
+            if (Picture2Len != null ? !Picture2Len.equals(that.Picture2Len) : that.Picture2Len != null)
+                return false;
+            if (Picture3Len != null ? !Picture3Len.equals(that.Picture3Len) : that.Picture3Len != null)
+                return false;
+            if (Picture4Len != null ? !Picture4Len.equals(that.Picture4Len) : that.Picture4Len != null)
+                return false;
+            if (Picture5Len != null ? !Picture5Len.equals(that.Picture5Len) : that.Picture5Len != null)
+                return false;
+            if (ModifyTime != null ? !ModifyTime.equals(that.ModifyTime) : that.ModifyTime != null)
+                return false;
+            if (RegisterTime != null ? !RegisterTime.equals(that.RegisterTime) : that.RegisterTime != null)
+                return false;
+            if (BeginNum != null ? !BeginNum.equals(that.BeginNum) : that.BeginNum != null)
+                return false;
+            return EndNum != null ? EndNum.equals(that.EndNum) : that.EndNum == null;
+
+        }
+
+        @Override
+        public int hashCode() {
+            int result = Title != null ? Title.hashCode() : 0;
+            result = 31 * result + (Context != null ? Context.hashCode() : 0);
+            result = 31 * result + (Picture1 != null ? Picture1.hashCode() : 0);
+            result = 31 * result + (Picture2 != null ? Picture2.hashCode() : 0);
+            result = 31 * result + (Picture3 != null ? Picture3.hashCode() : 0);
+            result = 31 * result + (Picture4 != null ? Picture4.hashCode() : 0);
+            result = 31 * result + (Picture5 != null ? Picture5.hashCode() : 0);
+            result = 31 * result + (Picture1Len != null ? Picture1Len.hashCode() : 0);
+            result = 31 * result + (Picture2Len != null ? Picture2Len.hashCode() : 0);
+            result = 31 * result + (Picture3Len != null ? Picture3Len.hashCode() : 0);
+            result = 31 * result + (Picture4Len != null ? Picture4Len.hashCode() : 0);
+            result = 31 * result + (Picture5Len != null ? Picture5Len.hashCode() : 0);
+            result = 31 * result + (ModifyTime != null ? ModifyTime.hashCode() : 0);
+            result = 31 * result + (RegisterTime != null ? RegisterTime.hashCode() : 0);
+            result = 31 * result + (BeginNum != null ? BeginNum.hashCode() : 0);
+            result = 31 * result + (EndNum != null ? EndNum.hashCode() : 0);
+            return result;
+        }
+
         public NewsRrdBean() {
 
         }

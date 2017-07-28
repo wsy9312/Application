@@ -35,6 +35,7 @@ public class NewFragment extends Fragment {
     private int totalNumber;
     private SwipeRefreshLayout swipeRefreshLayout;
     private static final String TAG = "NewFragment";
+
     public NewFragment() {
 
     }
@@ -50,6 +51,7 @@ public class NewFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     private DetailFragment.DataCallback callback;
@@ -62,44 +64,49 @@ public class NewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.main_viewpage_page_content, null, false);
-        initData();
-        initRefresh(view);
+        initView(view);
+        initRefresh();
+//        listener.onRefresh();
         return view;
+    }
+
+    private void initView(View view) {
+        listView = (ListView)view.findViewById(R.id.news_listview);
+        listView.setAdapter(adapter);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
     }
 
     private void initData() {
         new Thread(new Runnable() {
-
             @Override
             public void run() {
                 NewsInfoEntity newsInfoEntity1 = new NewsInfoEntity();
                 NewsInfoEntity.NewsRrdBean newsRrdBean1 = new NewsInfoEntity.NewsRrdBean();
                 newsRrdBean1.setTitle("?");
-                newsRrdBean1.setContext("?");
-                newsRrdBean1.setPicture1("?");
-                newsRrdBean1.setPicture2("?");
-                newsRrdBean1.setPicture3("?");
-                newsRrdBean1.setPicture4("?");
-                newsRrdBean1.setPicture5("?");
-                newsRrdBean1.setPicture1Len("?");
-                newsRrdBean1.setPicture2Len("?");
-                newsRrdBean1.setPicture3Len("?");
-                newsRrdBean1.setPicture4Len("?");
-                newsRrdBean1.setPicture5Len("?");
+//                newsRrdBean1.setContext("?");
+//                newsRrdBean1.setPicture1("?");
+//                newsRrdBean1.setPicture2("?");
+//                newsRrdBean1.setPicture3("?");
+//                newsRrdBean1.setPicture4("?");
+//                newsRrdBean1.setPicture5("?");
+//                newsRrdBean1.setPicture1Len("?");
+//                newsRrdBean1.setPicture2Len("?");
+//                newsRrdBean1.setPicture3Len("?");
+//                newsRrdBean1.setPicture4Len("?");
+//                newsRrdBean1.setPicture5Len("?");
                 newsRrdBean1.setModifyTime("?");
-                newsRrdBean1.setRegisterTime("?");
-//		newsRrdBean1.setBeginNum("1");
-//		newsRrdBean1.setEndNum("5");
+//                newsRrdBean1.setRegisterTime("?");
                 List<NewsInfoEntity.NewsRrdBean> beanList1 = new ArrayList<>();
                 beanList1.add(newsRrdBean1);
                 newsInfoEntity1.setNewsRrd(beanList1);
                 String json1 = new Gson().toJson(newsInfoEntity1);
                 String s1 = "get " + json1;
+                L.e(TAG,"ResponseStr = " + json1);
                 Response execute = null;
                 try {
                     execute = OkHttpUtils
                             .postString()
-                            .url(CommonValues.BASE_URL_NEWS)
+                            .url(CommonValues.BASE_URL)
                             .mediaType(MediaType.parse("application/json; charset=utf-8"))
                             .content(s1)
                             .build()
@@ -110,22 +117,28 @@ public class NewFragment extends Fragment {
                     if (execute!=null){
                         String ResponseStr = null;
                         ResponseStr = execute.body().string();
-                        if (ResponseStr != null && ResponseStr.contains("ok")) {
-                            /*if (entityList != null){
-                                entityList.clear();
-                            }*/
+                        if (ResponseStr != null && ResponseStr.contains("ok")){
+                            L.d(ResponseStr);
                             String newRes = ResponseStr.substring(ResponseStr.indexOf("{"),ResponseStr.length());
                             newsInfoEntity = GsonUtil.parseJsonToBean(newRes, NewsInfoEntity.class);
                             totalNumber = newsInfoEntity.getNewsRrd().size();
                             L.d(newsInfoEntity.toString());
                             L.d(totalNumber+"");
-                        } else {
+//                            if (!entityList.containsAll(newsInfoEntity.getNewsRrd())){
+                                entityList.clear();
+                                entityList.addAll(newsInfoEntity.getNewsRrd());
+                                adapter.notifyDataSetChanged();
+//                            }
+                        }else{
+                            L.e(TAG,"ResponseStr4 = null");
                         }
                     }else{
+                        L.e(TAG,"execute = null");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
             }
         }).start();
     }
@@ -138,17 +151,11 @@ public class NewFragment extends Fragment {
         public void bindView(ViewHolder holder, NewsInfoEntity.NewsRrdBean obj) {
             holder.setText(R.id.tv_title, obj.getTitle());
             holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(obj.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
-//            holder.setText(R.id.tv_sketch, "123asdafsf4r3434你好我好大家好");
+//            holder.setText(R.id.tv_sketch, obj.getContext());
         }
     };
 
-    private void initRefresh(View v) {
-        listView = (ListView)v.findViewById(R.id.news_listview);
-
-        listView.setAdapter(adapter);
-
-        //findview
-        swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
+    private void initRefresh() {
         //设置卷内的颜色
         swipeRefreshLayout.setColorSchemeResources(R.color.mainColor_blue);
         //设置下拉刷新监听
@@ -158,22 +165,26 @@ public class NewFragment extends Fragment {
     SwipeRefreshLayout.OnRefreshListener listener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-            initData();
+
+
             new Handler().postDelayed(new Runnable() {
                 public void run() {
                     Log.e(TAG, "run:");
-                    if (!entityList.containsAll(newsInfoEntity.getNewsRrd())){
-                        entityList.clear();
-                        entityList.addAll(newsInfoEntity.getNewsRrd());
-                    }
+                    initData();
                     adapter.notifyDataSetChanged();
                     //停止刷新动画
-                    if (swipeRefreshLayout.isRefreshing()){
-                        swipeRefreshLayout.setRefreshing(false);
-                    }
+
+                    swipeRefreshLayout.setRefreshing(false);
+
                 }
-            }, 2000);
+            }, 3000);
         }
     };
+
+
+//                String data = CacheManger.getInstance().getData(CommonValues.BASE_URL_NEWS_SAVE);
+//                entityList.addAll(GsonUtil.parseJsonToBean(data, NewsInfoEntity.class).getNewsRrd());
+//                adapter.notifyDataSetChanged();
+
 
 }
