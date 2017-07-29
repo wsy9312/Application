@@ -8,8 +8,11 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 
 import com.google.gson.reflect.TypeToken;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -27,7 +30,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 //统一网络管理类
 public class HttpManager {
-
+    public static final String TAG = "HttpManager";
     private static OkHttpClient okHttpClient = new OkHttpClient() ;
     private Response response;
     private static final MediaType FORM_TYPE = MediaType.parse("application/x-www-form-urlencoded;charset=utf-8");
@@ -42,7 +45,45 @@ public class HttpManager {
 
         return sHttpManager;
     }
+    public <T> void requestResultForm(final String url, final String json, final Class<T> clazz, final String endStr, final ResultCallback<T> callback) {
+        OkHttpUtils
+                .postString()
+                .url(url)
+                .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                .content(json)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        T t = null;
+                        try {
+                            callback.onFailure(e.getMessage());
+                        }catch (Exception ex){
+                            ex.printStackTrace();
+                        }
+                    }
 
+                    @Override
+                    public void onResponse(String response, int id) {
+                        try {
+                            T t = null;
+                            String substring = "";
+                            Log.e(TAG,"onResponse: "+response);
+                            substring = response.substring(response.indexOf("{"), response.length()) + endStr;
+                            setJson(substring);
+                            t = parseJson(substring,clazz);
+                            if (t != null) {
+                                callback.onSuccess(substring, t);
+                            } else {
+                                callback.onFailure(substring);
+                            }
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
+    }
     //从网络获取数据
     //get方式
     public <T> T get(String url, Class<T> clazz) {

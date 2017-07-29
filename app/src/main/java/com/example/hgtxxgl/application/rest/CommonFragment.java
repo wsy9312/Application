@@ -529,12 +529,12 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
                                                         int index = attachType.indexOf("/");
                                                         String substring = attachType.substring(index+1);
                                                         file = DataUtil.base64ToFile(attachment,substring);
-                                                        DataUtil.openFile(getContext(),file);
+                                                        DataUtil.openFile(getContent(),file);
                                                     }else {
                                                         int index = attachType.indexOf("/");
                                                         String substring = attachType.substring(index+1);
                                                         file = DataUtil.base64ToFile(attachment,substring);
-                                                        DataUtil.openFile(getContext(),file);
+                                                        DataUtil.openFile(getContent(),file);
                                                     }
                                                 }
                                             }
@@ -559,7 +559,7 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
     public void lookAttachmentData(AttachmentListEntity entity){
         Map<String, Object> param = CommonValues.getCommonParams(getActivity());
         param.put("attachmentId", entity.getId());
-        ToastUtil.showToast(getContext(),"正在加载中...");
+        ToastUtil.showToast(getContent(),"正在加载中...");
         HttpManager.getInstance().requestResultForm(CommonValues.CLICK_LOOK_DATA,param,AttachmentSingleEntity.class, new HttpManager.ResultCallback<AttachmentSingleEntity>() {
             @Override
             public void onSuccess(final String content, final AttachmentSingleEntity attachmentListEntity){
@@ -577,12 +577,12 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
                                     int index = attachType.indexOf("/");
                                     String substring = attachType.substring(index+1);
                                     file = DataUtil.base64ToFile(attachment,substring);
-                                    DataUtil.openFile(getContext(),file);
+                                    DataUtil.openFile(getContent(),file);
                                 }else {
                                     int index = attachType.indexOf("/");
                                     String substring = attachType.substring(index+1);
                                     file = DataUtil.base64ToFile(attachment,substring);
-                                    DataUtil.openFile(getContext(),file);
+                                    DataUtil.openFile(getContent(),file);
                                 }
                             }
                         }

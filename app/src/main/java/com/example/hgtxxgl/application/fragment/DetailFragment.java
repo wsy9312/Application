@@ -76,9 +76,9 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
             }
             trans.commit();
         }
+
         return root;
     }
-
     //fragmentPagerAdapter设置对应的fragment
     public class SectionsPagerAdapter extends FragmentPagerAdapter implements DataCallback {
 

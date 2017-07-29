@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray_light"
-    tools:context=".QrCode.sample.TextActivity">
+    tools:content=".QrCode.sample.TextActivity">
 
     <!--<include layout="@layout/include_toolbar" />-->
     <com.example.hgtxxgl.application.view.HandToolbar

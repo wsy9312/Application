@@ -29,7 +29,7 @@ public class NewsInfoEntity {
     public static class NewsRrdBean {
         /**
          * Title : ?
-         * Context : ?
+         * Content : ?
          * Picture1 : ?
          * Picture2 : ?
          * Picture3 : ?
@@ -43,7 +43,7 @@ public class NewsInfoEntity {
          */
 
         private String Title;
-        private String Context;
+        private String Content;
         private String Picture1;
         private String Picture2;
         private String Picture3;
@@ -67,7 +67,7 @@ public class NewsInfoEntity {
             NewsRrdBean that = (NewsRrdBean) o;
 
             if (Title != null ? !Title.equals(that.Title) : that.Title != null) return false;
-            if (Context != null ? !Context.equals(that.Context) : that.Context != null)
+            if (Content != null ? !Content.equals(that.Content) : that.Content != null)
                 return false;
             if (Picture1 != null ? !Picture1.equals(that.Picture1) : that.Picture1 != null)
                 return false;
@@ -102,7 +102,7 @@ public class NewsInfoEntity {
         @Override
         public int hashCode() {
             int result = Title != null ? Title.hashCode() : 0;
-            result = 31 * result + (Context != null ? Context.hashCode() : 0);
+            result = 31 * result + (Content != null ? Content.hashCode() : 0);
             result = 31 * result + (Picture1 != null ? Picture1.hashCode() : 0);
             result = 31 * result + (Picture2 != null ? Picture2.hashCode() : 0);
             result = 31 * result + (Picture3 != null ? Picture3.hashCode() : 0);
@@ -124,9 +124,9 @@ public class NewsInfoEntity {
 
         }
 
-        public NewsRrdBean(String title, String context, String picture1, String picture2, String picture3, String picture4, String picture5, String picture1Len, String picture2Len, String picture3Len, String picture4Len, String picture5Len, String modifyTime, String registerTime, String beginNum, String endNum) {
+        public NewsRrdBean(String title, String content, String picture1, String picture2, String picture3, String picture4, String picture5, String picture1Len, String picture2Len, String picture3Len, String picture4Len, String picture5Len, String modifyTime, String registerTime, String beginNum, String endNum) {
             Title = title;
-            Context = context;
+            Content = content;
             Picture1 = picture1;
             Picture2 = picture2;
             Picture3 = picture3;
@@ -147,7 +147,7 @@ public class NewsInfoEntity {
         public String toString() {
             return "NewsRrdBean{" +
                     "Title='" + Title + '\'' +
-                    ", Context='" + Context + '\'' +
+                    ", Content='" + Content + '\'' +
                     ", Picture1='" + Picture1 + '\'' +
                     ", Picture2='" + Picture2 + '\'' +
                     ", Picture3='" + Picture3 + '\'' +
@@ -173,12 +173,12 @@ public class NewsInfoEntity {
             this.Title = Title;
         }
 
-        public String getContext() {
-            return Context;
+        public String getContent() {
+            return Content;
         }
 
-        public void setContext(String Context) {
-            this.Context = Context;
+        public void setContent(String Context) {
+            this.Content = Context;
         }
 
         public String getPicture1() {

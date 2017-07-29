@@ -1,7 +1,6 @@
 package com.example.hgtxxgl.application.utils.hand;
 
 import android.os.Environment;
-import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -116,7 +115,7 @@ public class CacheManger
         try
         {
             File readFile =  new File(cacheDir, getMd5Name(url));
-            Log.e("CacheManger", cacheDir);
+
             FileInputStream fileInputStream = new FileInputStream(readFile);
 
             int len = -1;

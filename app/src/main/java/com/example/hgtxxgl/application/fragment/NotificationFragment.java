@@ -128,7 +128,7 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
 //        Snackbar.make(ivEmpty,"是否确定删除？",Snackbar.LENGTH_SHORT).setAction("确定", new View.OnClickListener() {
 //            @Override
 //            public void onClick(final View v) {
-//                final ProgressDialog dialog = new ProgressDialog(getContext());
+//                final ProgressDialog dialog = new ProgressDialog(getContent());
 //                dialog.setMessage("删除中，请稍等...");
 //                dialog.setCancelable(false);
 //                dialog.show();
@@ -321,7 +321,7 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
                 }
             });
         }else {
-            ToastUtil.showToast(getContext(),"登陆信息超时，请重新登陆");
+            ToastUtil.showToast(getContent(),"登陆信息超时，请重新登陆");
         }
 */
     }

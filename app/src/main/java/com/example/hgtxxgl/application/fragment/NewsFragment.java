@@ -64,7 +64,7 @@ public class NewsFragment extends Fragment implements AdapterView.OnItemClickLis
                 public void bindView(ViewHolder holder, NewsInfoEntity.NewsRrdBean obj) {
                     holder.setText(R.id.tv_title, obj.getTitle());
                     holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(obj.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
-                    holder.setText(R.id.tv_sketch, obj.getContext());
+                    holder.setText(R.id.tv_sketch, obj.getContent());
                 }
             };
     //填充预留的假数据
@@ -182,7 +182,7 @@ public class NewsFragment extends Fragment implements AdapterView.OnItemClickLis
                 if (bean.getTitle().replace(" ", "").contains(key)) {
                     list.add(bean);
                 }
-                if (bean.getContext().replace(" ", "").contains(key)) {
+                if (bean.getContent().replace(" ", "").contains(key)) {
                     list.add(bean);
                 }
                 if (DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm").replace(" ", "").contains(key)) {

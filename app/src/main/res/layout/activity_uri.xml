@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".QrCode.sample.UriActivity">
+    tools:content=".QrCode.sample.UriActivity">
 
     <include layout="@layout/include_toolbar" />
     <!--<com.example.hgtxxgl.application.view.HandToolbar

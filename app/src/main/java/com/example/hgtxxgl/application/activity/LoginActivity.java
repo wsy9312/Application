@@ -6,6 +6,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -14,6 +15,7 @@ import android.widget.ProgressBar;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.entity.LoginEntity;
+import com.example.hgtxxgl.application.fragment.PersonalFragment;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.Fields;
 import com.example.hgtxxgl.application.utils.hand.SpUtils;
@@ -174,8 +176,7 @@ public class LoginActivity extends AppCompatActivity {
                 list.add(loginBean);
                 loginEntity.setLogin(list);
                 String toJson = new Gson().toJson(loginEntity);
-                L.e("test",toJson);
-                String s="Login"+" "+toJson;
+                String s="Login "+toJson;
                 String url = CommonValues.BASE_URL;
                 try {
                     Response execute = OkHttpUtils
@@ -188,8 +189,10 @@ public class LoginActivity extends AppCompatActivity {
                     if (execute!=null){
                         String ResponseStr = execute.body().string();
                         if (ResponseStr != null && ResponseStr.contains("ok")){
+                            Log.e(TAG,ResponseStr);
                             show("输入正确");
                             toLibMainActivity(username,password);
+                            toPersonFragment(username,password);
                         }else{
                             L.e(TAG,"ResponseStr = null");
                         }
@@ -209,6 +212,10 @@ public class LoginActivity extends AppCompatActivity {
     //跳转到首页activity
     private void toLibMainActivity(String username, String password) {
         LibMainActivity.startActivity(this,username,password);
+    }
+    //跳转到首页activity
+    private void toPersonFragment(String username, String password) {
+        PersonalFragment.getInstance().getDataFromLoginActivity(username,password);
     }
 
     //吐丝
