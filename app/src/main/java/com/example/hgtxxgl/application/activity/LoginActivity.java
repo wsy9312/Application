@@ -15,7 +15,6 @@ import android.widget.ProgressBar;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.entity.LoginEntity;
-import com.example.hgtxxgl.application.fragment.PersonalFragment;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.Fields;
 import com.example.hgtxxgl.application.utils.hand.SpUtils;
@@ -192,7 +191,6 @@ public class LoginActivity extends AppCompatActivity {
                             Log.e(TAG,ResponseStr);
                             show("输入正确");
                             toLibMainActivity(username,password);
-                            toPersonFragment(username,password);
                         }else{
                             L.e(TAG,"ResponseStr = null");
                         }
@@ -212,10 +210,6 @@ public class LoginActivity extends AppCompatActivity {
     //跳转到首页activity
     private void toLibMainActivity(String username, String password) {
         LibMainActivity.startActivity(this,username,password);
-    }
-    //跳转到首页activity
-    private void toPersonFragment(String username, String password) {
-        PersonalFragment.getInstance().getDataFromLoginActivity(username,password);
     }
 
     //吐丝

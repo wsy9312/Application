@@ -15,11 +15,13 @@ import android.widget.Toast;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.entity.NewsInfoEntity;
+import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CacheManger;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.GsonUtil;
+import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.hyutils.L;
@@ -146,9 +148,40 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         //初始化fragment(首页六个子界面)
         initFragment(false);
         StatusBarUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
-
+        getPersonalInfoFormNet();
 //        getNewsDataNumber();
         getNewsData();
+    }
+
+    private void getPersonalInfoFormNet() {
+        PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
+        PeopleInfoEntity.PeopleInfoBean peopleInfoBean =
+                new PeopleInfoEntity.PeopleInfoBean
+                        ("?","?","?","?","?","?","?","?","?","?",username,password,"?","?","?");
+        List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
+        beanList.add(peopleInfoBean);
+        peopleEntity.setPeopleInfo(beanList);
+        String json = new Gson().toJson(peopleEntity);
+        String s1 = "get " + json;
+        HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL,s1,PeopleInfoEntity.class, "}]}",new HttpManager.ResultCallback<PeopleInfoEntity>() {
+            @Override
+            public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
+                if (peopleInfoEntity != null){
+                    String data = CacheManger.getInstance().getData(CommonValues.BASE_URL_PEOPLE_SAVE);
+                    if (!data.isEmpty()){
+                        CacheManger.getInstance().delFile(CommonValues.BASE_URL_NEWS_SAVE);
+                    }else{
+                        CacheManger.getInstance().saveData(CommonValues.BASE_URL_PEOPLE_SAVE,json);
+                    }
+                    show("个人资料保存成功");
+                }
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+        });
     }
 
     //接收登录界面传递的用户名密码参数
@@ -407,25 +440,5 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
             }
         }).start();
     }
-////    private DataChangeListener datachaneglistener;
-//    private static final LibMainActivity libmainactivity = new LibMainActivity();
-//
-//    public static LibMainActivity getInstance() {
-//
-//        return libmainactivity;
-//    }
-//    public void getUserNameAndPassword(DataChangeListener datachagelistener){
-//        datachagelistener.showDatafromHttpmanager(username,password);
-//    }
-//    public interface DataChangeListener{
-//        void showDatafromHttpmanager(String username,String password);
-//    }
-////    public DataChangeListener getListener() {
-////        return datachaneglistener;
-////    }
-////    public LibMainActivity setListener(DataChangeListener datachaneglistener) {
-////        this.datachaneglistener = datachaneglistener;
-////        return this;
-////    }
 
 }

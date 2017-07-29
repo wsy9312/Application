@@ -204,7 +204,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         tvResult = (TextView) findViewById(R.id.textView);
         imageView = (ImageView) findViewById(R.id.imageView);
         llqrimage = (RelativeLayout) findViewById(R.id.ll_qr_image);
-        String data = CacheManger.getInstance().getData(CommonValues.BASE_URL_SAVE);
+        String data = CacheManger.getInstance().getData(CommonValues.BASE_URL_PEOPLE_SAVE);
         PeopleInfoEntity entity = GsonUtil.parseJsonToBean(data, PeopleInfoEntity.class);
         no = entity.getPeopleInfo().get(0).getNo();
         name = entity.getPeopleInfo().get(0).getName();
