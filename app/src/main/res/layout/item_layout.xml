@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
     <com.example.hgtxxgl.application.view.HandToolbar
         android:id="@+id/itemactivity_handtoolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <TextView
+        android:layout_below="@+id/itemactivity_handtoolbar"
         android:text="这是标题"
         android:textSize="20sp"
         android:id="@+id/tv_news_title"
@@ -14,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <TextView
+        android:layout_below="@+id/tv_news_title"
         android:text="这是时间"
         android:textSize="20sp"
         android:id="@+id/tv_news_date"
@@ -21,6 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <TextView
+        android:layout_below="@+id/tv_news_date"
         android:text="这是正文"
         android:id="@+id/tv_news_body"
         android:padding="10dp"
@@ -28,7 +31,13 @@
         android:layout_height="0dp"
         android:layout_weight="1"/>
     <ImageView
+        android:layout_below="@+id/tv_news_body"
         android:id="@+id/image_news"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-</LinearLayout>
+    <ProgressBar
+        android:id="@+id/news_pb"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>
