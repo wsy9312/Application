@@ -45,11 +45,22 @@ public class HttpManager {
 
         return sHttpManager;
     }
-    public <T> void requestResultForm(final String url, final String json, final Class<T> clazz, final String endStr, final ResultCallback<T> callback) {
-        OkHttpUtils
+    public void requestResultForm(final String url, final String json) throws IOException {
+        Response execute = OkHttpUtils
                 .postString()
                 .url(url)
                 .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                .content(json)
+                .build()
+                .execute();
+        String s = execute.body().toString();
+        Log.e(TAG,s);
+    }
+    public <T> void requestResultForm(final String url, final String json, final Class<T> clazz, final String endStr, final ResultCallback<T> callback) {
+                OkHttpUtils
+                .postString()
+                .url(url)
+                .mediaType(MediaType.parse("application/json; charset=GBK"))
                 .content(json)
                 .build()
                 .execute(new StringCallback() {
@@ -66,6 +77,8 @@ public class HttpManager {
                     @Override
                     public void onResponse(String response, int id) {
                         try {
+                            String gbk = new String(response.getBytes(), "gbk");
+                            Log.e("text123",gbk);
                             T t = null;
                             String substring = "";
                             Log.e(TAG,"onResponse: "+response);

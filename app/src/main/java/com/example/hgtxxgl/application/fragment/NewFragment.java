@@ -23,6 +23,7 @@ import com.example.hgtxxgl.application.utils.hand.ListAdapter;
 import com.example.hgtxxgl.application.view.SimpleListView;
 import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,7 +71,37 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
                 return;
             }
         }
+//        loaddata();
 
+    }
+
+    private void loaddata() {
+        NewsInfoEntity newsInfoEntity = new NewsInfoEntity();
+        NewsInfoEntity.NewsRrdBean newsRrdBean = new NewsInfoEntity.NewsRrdBean();
+        newsRrdBean.setTitle("啊实打实大123");
+        newsRrdBean.setContent("啊实打实大321");
+        List<NewsInfoEntity.NewsRrdBean> list = new ArrayList<>();
+        list.add(newsRrdBean);
+        newsInfoEntity.setNewsRrd(list);
+        String json = new Gson().toJson(newsInfoEntity);
+        final String s = "new " + json;
+        Log.e(TAG, "loaddata123: "+s);
+        final String url = CommonValues.BASE_URL_NEWS;
+        try {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        HttpManager.getInstance().requestResultForm(url,s);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     SimpleListView lv;
@@ -109,11 +140,6 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
         newsRrdBean.setTitle("?");
         newsRrdBean.setContent("?");
         newsRrdBean.setModifyTime("?");
-        newsRrdBean.setPicture1("?");
-//        newsRrdBean.setPicture2("?");
-//        newsRrdBean.setPicture3("?");
-//        newsRrdBean.setPicture4("?");
-//        newsRrdBean.setPicture5("?");
         newsRrdBean.setBeginNum(beginNum+"");
         newsRrdBean.setEndNum(endNum+"");
         List<NewsInfoEntity.NewsRrdBean> list = new ArrayList<>();
@@ -133,9 +159,9 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
                             hasMore = true;
                             entityList.addAll(newsInfoEntity.getNewsRrd());
                             adapter.notifyDataSetChanged();
-                        } else {
+                        } /*else {
                             hasMore = false;
-                        }
+                        }*/
                         pb.setVisibility(View.GONE);
                         lv.completeRefresh();
                     }
@@ -153,8 +179,7 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
                 });
 
     }
-
-
+    
     private void loadMore() {
         if (hasMore) {
             beginNum += 6;
@@ -168,13 +193,13 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if (lv.getCurrentState() == 2) return;
         position -= 1;
         checkDetail(position);
 
     }
         private void checkDetail(int position) {
         Intent intent = new Intent(getActivity(), NewsItemActivity.class);
-//        Bundle bundle = new Bundle();
         intent.putExtra("title", adapter.getItem(position).getTitle());
         intent.putExtra("content", adapter.getItem(position).getContent());
         intent.putExtra("modifyTime",adapter.getItem(position).getModifyTime());
@@ -186,159 +211,6 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
 //        intent.putExtra("data", bundle);
         startActivity(intent);
     }
-//
-//    @Override
-//    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        if (lv.getCurrentState() == 2) return;
-//        position -= 1;
-//        MyCommissionListEntity.RetDataBean item = adapter.getItem(position);
-//        String procName = item.getProcessName();
-//        String activityNameEN = item.getActivityNameEN();
-//        boolean isRework = activityNameEN.equals("Rework");
-//        if (isRework && tabIndex == 0) {
-//            Toast.makeText(getActivity(), "退回的申请，请重新填写", Toast.LENGTH_LONG).show();
-//        }
-//        if (tabIndex == 0) {
-//            if (procName.equals("PaymentRequest")) {
-//                if (isRework) {
-//                    checkDetail(position, PageConfig.PAGE_APPLY_PAYMENT_FLOW, true,tabIndex);
-//                } else {
-//                    checkDetail(position, PageConfig.PAGE_APPROVE_PAYMENT_FLOW, false, tabIndex);
-//                }
-//            } else if (procName.equals("ExpenseRequest")) {
-//                if (isRework) {
-//                    checkDetail(position, PageConfig.PAGE_APPLY_EXPENSE_OFFER, true, tabIndex);
-//                } else {
-//                    checkDetail(position, PageConfig.PAGE_APPROVE_EXPENSE_OFFER, false, tabIndex);
-//                }
-//            } else if (procName.equals("BusinessTripRequest")) {
-//                if (isRework) {
-//                    checkDetail(position, PageConfig.PAGE_APPLY_BLEAVE, true, tabIndex);
-//                } else {
-//                    checkDetail(position, PageConfig.PAGE_APPROVE_BLEAVE, false, tabIndex);
-//                }
-//            } else if (procName.equals("EntertainmentExpenseRequest")) {
-//                if (isRework) {
-//                    checkDetail(position, PageConfig.PAGE_APPLY_ENTERTAINMENT_EXPENSE, true, tabIndex);
-//                } else {
-//                    checkDetail(position, PageConfig.PAGE_APPROVE_ENTER_EXPENSE, false, tabIndex);
-//
-//                }
-//            } else if (procName.equals("OverTimeRequest")) {
-//                if (isRework) {
-//                    checkDetail(position, PageConfig.PAGE_APPLY_EXTRAWORK, true, tabIndex);
-//                } else {
-//                    checkDetail(position, PageConfig.PAGE_APPROVE_EXTRAWORK, false, tabIndex);
-//                }
-//            } else if (procName.equals("LeaveRequest")) {
-//                if (isRework) {
-//                    checkDetail(position, PageConfig.PAGE_APPLY_REST, true, tabIndex);
-//                } else {
-//                    checkDetail(position, PageConfig.PAGE_APPROVE_REST, false, tabIndex);
-//                }
-//
-//            } else if (procName.equals("TravelExpenseRequest")) {
-//                if (isRework) {
-//                    checkDetail(position, PageConfig.PAGE_APPLY_TRAVEL_OFFER, true, tabIndex);
-//                } else {
-//                    checkDetail(position, PageConfig.PAGE_APPROVE_TRAVEL, false, tabIndex);
-//                }
-//
-//            }else if (procName.equals("FileRequest")) {
-//                if (isRework) {
-//                    checkDetail(position, PageConfig.PAGE_DISPLAY_POST_FILE, true, tabIndex);
-//                } else {
-//                    checkDetail(position, PageConfig.PAGE_APPROVE_POST_FILE, false, tabIndex);
-//                }
-//
-//            }else{
-//                if (isRework) {
-//                    checkDetail(position, PageConfig.PAGE_DISPLAY_UNIFIED, true, tabIndex);
-//                } else {
-//                    checkDetail(position, PageConfig.PAGE_APPROVE_UNIFIED, false, tabIndex);
-//                }
-//            }
-//
-//        } else if (tabIndex == 1) {
-//            if (procName.equals("BusinessTripRequest")) {
-//
-//                checkDetail(position, PageConfig.PAGE_DISPLAY_BLEAVE, false, tabIndex);
-//
-//                //加班明细
-//            } else if (procName.equals("OverTimeRequest")) {
-//
-//                checkDetail(position, PageConfig.PAGE_DISPLAY_OVERTIME, false, tabIndex);
-//
-//                //请假明细
-//            } else if (procName.equals("LeaveRequest")) {
-//
-//                checkDetail(position, PageConfig.PAGE_DISPLAY_REST, false, tabIndex);
-//
-//            } else if (procName.equals("ExpenseRequest")) {
-//
-//                checkDetail(position, PageConfig.PAGE_DISPLAY_EXPENSE, false, tabIndex);
-//
-//            }//付款明细
-//            else if (procName.equals("PaymentRequest")) {
-//
-//                checkDetail(position, PageConfig.PAGE_DISPLAY_PAYMENT, false, tabIndex);
-//
-//            }//差旅
-//            else if (procName.equals("TravelExpenseRequest")) {
-//
-//                checkDetail(position, PageConfig.PAGE_DISPLAY_TRAVEL, false, tabIndex);
-//            }//招待费
-//            else if (procName.equals("EntertainmentExpenseRequest")) {
-//
-//                checkDetail(position, PageConfig.PAGE_DISPLAY_EXPENSE_OFFER, false, tabIndex);
-//
-//            }//发文明细
-//            else if(procName.equals("FileRequest")){
-//                checkDetail(position, PageConfig.PAGE_DISPLAY_POST_FILE,false, tabIndex);
-//            }else {
-//                checkDetail(position, PageConfig.PAGE_DISPLAY_UNIFIED, false, tabIndex);
-//            }
-//        }
-//    }
-
-//    private void checkDetail(int position, int pageCode, boolean remak, int tabIndex) {
-//        Intent intent = new Intent(getActivity(), ItemActivity.class);
-//        intent.putExtra(PageConfig.PAGE_CODE, pageCode);
-//        Bundle bundle = new Bundle();
-//        bundle.putString("userId", GeelyApp.getLoginEntity().getUserId());
-//        bundle.putString("barCode", adapter.getItem(position).getBarCode());
-//        bundle.putString("SubmitBy",adapter.getItem(position).getSubmitBy());
-//        bundle.putString("workflowType", adapter.getItem(position).getProcessName());
-//        bundle.putString("ProcessNameCN",adapter.getItem(position).getProcessNameCN());
-//        bundle.putString("WorkflowIdentifier",adapter.getItem(position).getWorkflowIdentifier());
-//        bundle.putBoolean("Remak",remak);
-//        bundle.putInt("item",position);
-//        bundle.putInt("tabIndex",tabIndex);
-//        bundle.putString("SN", adapter.getItem(position).getProcInstID() + "_" + adapter.getItem(position).getActInstDestID());
-//        intent.putExtra("data", bundle);
-//        startActivityForResult(intent,CommonValues.MYCOMM);
-//    }
-
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == CommonValues.MYCOMM){
-//            if (resultCode == Activity.RESULT_OK){
-//                final int item = data.getExtras().getInt("item");
-//                final int tabIndex = data.getExtras().getInt("tabIndex");
-//                getActivity().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if (tabIndex == 0){
-//                            entityList.remove(item);
-//                            adapter.notifyDataSetChanged();
-//                        }
-//                    }
-//                });
-//
-//            }
-//        }
-//    }
 
     private DetailFragment.DataCallback callback;
 
