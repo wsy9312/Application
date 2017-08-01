@@ -71,6 +71,10 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
                 return;
             }
         }
+        String string = new String("你好啊");
+        String s = str2HexStr(string);
+        Log.e("字符串转16进制",s);
+        Log.e("16进制转字符串",hexStr2Str(s));
 //        loaddata();
 
     }
@@ -78,8 +82,8 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
     private void loaddata() {
         NewsInfoEntity newsInfoEntity = new NewsInfoEntity();
         NewsInfoEntity.NewsRrdBean newsRrdBean = new NewsInfoEntity.NewsRrdBean();
-        newsRrdBean.setTitle("啊实打实大123");
-        newsRrdBean.setContent("啊实打实大321");
+        newsRrdBean.setTitle("你好");
+        newsRrdBean.setContent("你好啊");
         List<NewsInfoEntity.NewsRrdBean> list = new ArrayList<>();
         list.add(newsRrdBean);
         newsInfoEntity.setNewsRrd(list);
@@ -146,7 +150,7 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
         list.add(newsRrdBean);
         newsInfoEntity.setNewsRrd(list);
         String json = new Gson().toJson(newsInfoEntity);
-        String s = "get " + json;
+        final String s = "get " + json;
         Log.e(TAG, "loadData: "+s);
         String url = CommonValues.BASE_URL;
         HttpManager.getInstance().requestResultForm(url, s, NewsInfoEntity.class, "",new HttpManager.ResultCallback<NewsInfoEntity>() {
@@ -158,10 +162,13 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
                             }
                             hasMore = true;
                             entityList.addAll(newsInfoEntity.getNewsRrd());
+//                            String s1 = str2HexStr(newsInfoEntity.getNewsRrd().get(0).getTitle());
+//                            Log.e("字符串转16进制",s1);
+//                            Log.e("16进制转字符串",hexStr2Str("c4e3bac3b0a1"));
                             adapter.notifyDataSetChanged();
-                        } /*else {
+                        } else {
                             hasMore = false;
-                        }*/
+                        }
                         pb.setVisibility(View.GONE);
                         lv.completeRefresh();
                     }
@@ -179,7 +186,43 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
                 });
 
     }
-    
+    public static String str2HexStr(String str)
+    {
+
+        char[] chars = "0123456789ABCDEF".toCharArray();
+        StringBuilder sb = new StringBuilder("");
+        byte[] bs = str.getBytes();
+        int bit;
+
+        for (int i = 0; i < bs.length; i++)
+        {
+            bit = (bs[i] & 0x0f0) >> 4;
+            sb.append(chars[bit]);
+            bit = bs[i] & 0x0f;
+            sb.append(chars[bit]);
+            sb.append(' ');
+        }
+        return sb.toString().trim();
+    }
+    /**
+     * 十六进制转换字符串
+     * @return String 对应的字符串
+     */
+    public static String hexStr2Str(String hexStr)
+    {
+        String str = "0123456789ABCDEF";
+        char[] hexs = hexStr.toCharArray();
+        byte[] bytes = new byte[hexStr.length() / 2];
+        int n;
+
+        for (int i = 0; i < bytes.length; i++)
+        {
+            n = str.indexOf(hexs[2 * i]) * 16;
+            n += str.indexOf(hexs[2 * i + 1]);
+            bytes[i] = (byte) (n & 0xff);
+        }
+        return new String(bytes);
+    }
     private void loadMore() {
         if (hasMore) {
             beginNum += 6;

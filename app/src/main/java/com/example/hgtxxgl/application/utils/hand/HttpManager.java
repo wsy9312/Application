@@ -18,6 +18,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.Map;
 
 import okhttp3.Call;
@@ -28,6 +29,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+
 //统一网络管理类
 public class HttpManager {
     public static final String TAG = "HttpManager";
@@ -49,7 +51,7 @@ public class HttpManager {
         Response execute = OkHttpUtils
                 .postString()
                 .url(url)
-                .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                .mediaType(MediaType.parse("application/json; charset=GBK"))
                 .content(json)
                 .build()
                 .execute();
@@ -77,8 +79,13 @@ public class HttpManager {
                     @Override
                     public void onResponse(String response, int id) {
                         try {
-                            String gbk = new String(response.getBytes(), "gbk");
-                            Log.e("text123",gbk);
+                            String gbk = new String(response.getBytes(), "utf-8");
+                            Log.e("text1",gbk);
+                            Log.e("text2", URLDecoder.decode(response,"utf-8"));
+                            Log.e("text3",new String(gbk2utf8(response)));
+                            Log.e("text4",str2HexStr(response));
+                            Log.e("text5",hexStr2Str("c4e3bac3b0a1"));
+
                             T t = null;
                             String substring = "";
                             Log.e(TAG,"onResponse: "+response);
@@ -96,6 +103,78 @@ public class HttpManager {
 
                     }
                 });
+    }
+    public static String hexStr2Str(String hexStr)
+    {
+        String str = "0123456789ABCDEF";
+        char[] hexs = hexStr.toCharArray();
+        byte[] bytes = new byte[hexStr.length() / 2];
+        int n;
+
+        for (int i = 0; i < bytes.length; i++)
+        {
+            n = str.indexOf(hexs[2 * i]) * 16;
+            n += str.indexOf(hexs[2 * i + 1]);
+            bytes[i] = (byte) (n & 0xff);
+        }
+        return new String(bytes);
+    }
+    public static String str2HexStr(String str)
+    {
+
+        char[] chars = "0123456789ABCDEF".toCharArray();
+        StringBuilder sb = new StringBuilder("");
+        byte[] bs = str.getBytes();
+        int bit;
+
+        for (int i = 0; i < bs.length; i++)
+        {
+            bit = (bs[i] & 0x0f0) >> 4;
+            sb.append(chars[bit]);
+            bit = bs[i] & 0x0f;
+            sb.append(chars[bit]);
+            sb.append(' ');
+        }
+        return sb.toString().trim();
+    }
+    public byte[] gbk2utf8(String chenese){
+        char c[] = chenese.toCharArray();
+        byte [] fullByte =new byte[3*c.length];
+        for(int i=0; i<c.length; i++){
+            int m = (int)c[i];
+            String word = Integer.toBinaryString(m);
+            // System.out.println(word);
+
+            StringBuffer sb = new StringBuffer();
+            int len = 16 - word.length();
+            //补零
+            for(int j=0; j<len; j++){
+                sb.append("0");
+            }
+            sb.append(word);
+            sb.insert(0, "1110");
+            sb.insert(8, "10");
+            sb.insert(16, "10");
+
+//             System.out.println(sb.toString());
+
+            String s1 = sb.substring(0, 8);
+            String s2 = sb.substring(8, 16);
+            String s3 = sb.substring(16);
+
+            byte b0 = Integer.valueOf(s1, 2).byteValue();
+            byte b1 = Integer.valueOf(s2, 2).byteValue();
+            byte b2 = Integer.valueOf(s3, 2).byteValue();
+            byte[] bf = new byte[3];
+            bf[0] = b0;
+            fullByte[i*3] = bf[0];
+            bf[1] = b1;
+            fullByte[i*3+1] = bf[1];
+            bf[2] = b2;
+            fullByte[i*3+2] = bf[2];
+
+        }
+        return fullByte;
     }
     //从网络获取数据
     //get方式

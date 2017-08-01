@@ -148,7 +148,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         //初始化fragment(首页六个子界面)
         initFragment(false);
         StatusBarUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
-        getPersonalInfoFormNet();
+//        getPersonalInfoFormNet();
 //        getNewsDataNumber();
         getNewsData();
     }

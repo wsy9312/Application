@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -16,7 +15,6 @@ import android.widget.TextView;
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.entity.NewsInfoEntity;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
-import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.view.HandToolbar;
 import com.google.gson.Gson;
@@ -101,31 +99,31 @@ public class NewsItemActivity extends AppCompatActivity {
         String s = "get " + json;
         Log.e(TAG, "postString: " + s);
         String url = CommonValues.BASE_URL;
-        HttpManager.getInstance().requestResultForm(url, s, NewsInfoEntity.class, "", new HttpManager.ResultCallback<NewsInfoEntity>() {
-            @Override
-            public void onSuccess(String json, NewsInfoEntity newsInfoEntity) throws InterruptedException {
-                if (newsInfoEntity != null && newsInfoEntity.getNewsRrd().size() > 0) {
-                    pb.setVisibility(View.GONE);
-                    final String picture1 = newsInfoEntity.getNewsRrd().get(0).getPicture1();
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            image.setImageBitmap(stringtoBitmap(picture1));
-                        }
-                    });
-                    final String picture2 = newsInfoEntity.getNewsRrd().get(0).getPicture2();
-                    final String picture3 = newsInfoEntity.getNewsRrd().get(0).getPicture3();
-                    final String picture4 = newsInfoEntity.getNewsRrd().get(0).getPicture4();
-                    final String picture5 = newsInfoEntity.getNewsRrd().get(0).getPicture5();
-
-                }
-            }
-
-            @Override
-            public void onFailure(String msg) {
-
-            }
-        });
+//        HttpManager.getInstance().requestResultForm(url, s, NewsInfoEntity.class, "", new HttpManager.ResultCallback<NewsInfoEntity>() {
+//            @Override
+//            public void onSuccess(String json, NewsInfoEntity newsInfoEntity) throws InterruptedException {
+//                if (newsInfoEntity != null && newsInfoEntity.getNewsRrd().size() > 0) {
+//                    pb.setVisibility(View.GONE);
+//                    final String picture1 = newsInfoEntity.getNewsRrd().get(0).getPicture1();
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            image.setImageBitmap(stringtoBitmap(picture1));
+//                        }
+//                    });
+//                    final String picture2 = newsInfoEntity.getNewsRrd().get(0).getPicture2();
+//                    final String picture3 = newsInfoEntity.getNewsRrd().get(0).getPicture3();
+//                    final String picture4 = newsInfoEntity.getNewsRrd().get(0).getPicture4();
+//                    final String picture5 = newsInfoEntity.getNewsRrd().get(0).getPicture5();
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(String msg) {
+//
+//            }
+//        });
     }
 
     //将字符串转换成Bitmap类型
