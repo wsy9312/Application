@@ -71,10 +71,7 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
                 return;
             }
         }
-        String string = new String("你好啊");
-        String s = str2HexStr(string);
-        Log.e("字符串转16进制",s);
-        Log.e("16进制转字符串",hexStr2Str(s));
+
 //        loaddata();
 
     }
@@ -82,8 +79,8 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
     private void loaddata() {
         NewsInfoEntity newsInfoEntity = new NewsInfoEntity();
         NewsInfoEntity.NewsRrdBean newsRrdBean = new NewsInfoEntity.NewsRrdBean();
-        newsRrdBean.setTitle("你好");
-        newsRrdBean.setContent("你好啊");
+        newsRrdBean.setTitle("人民");
+        newsRrdBean.setContent("中华");
         List<NewsInfoEntity.NewsRrdBean> list = new ArrayList<>();
         list.add(newsRrdBean);
         newsInfoEntity.setNewsRrd(list);
@@ -162,9 +159,8 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
                             }
                             hasMore = true;
                             entityList.addAll(newsInfoEntity.getNewsRrd());
-//                            String s1 = str2HexStr(newsInfoEntity.getNewsRrd().get(0).getTitle());
-//                            Log.e("字符串转16进制",s1);
-//                            Log.e("16进制转字符串",hexStr2Str("c4e3bac3b0a1"));
+                            String s1 = str2HexStr(newsInfoEntity.getNewsRrd().get(0).getTitle());
+                            Log.e("字符串转16进制",s1);
                             adapter.notifyDataSetChanged();
                         } else {
                             hasMore = false;

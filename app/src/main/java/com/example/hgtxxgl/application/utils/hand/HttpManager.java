@@ -18,7 +18,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URLDecoder;
 import java.util.Map;
 
 import okhttp3.Call;
@@ -35,7 +34,6 @@ public class HttpManager {
     public static final String TAG = "HttpManager";
     private static OkHttpClient okHttpClient = new OkHttpClient() ;
     private Response response;
-    private static final MediaType FORM_TYPE = MediaType.parse("application/x-www-form-urlencoded;charset=utf-8");
 
     private HttpManager() {
 
@@ -58,6 +56,7 @@ public class HttpManager {
         String s = execute.body().toString();
         Log.e(TAG,s);
     }
+
     public <T> void requestResultForm(final String url, final String json, final Class<T> clazz, final String endStr, final ResultCallback<T> callback) {
                 OkHttpUtils
                 .postString()
@@ -79,17 +78,20 @@ public class HttpManager {
                     @Override
                     public void onResponse(String response, int id) {
                         try {
-                            String gbk = new String(response.getBytes(), "utf-8");
-                            Log.e("text1",gbk);
-                            Log.e("text2", URLDecoder.decode(response,"utf-8"));
-                            Log.e("text3",new String(gbk2utf8(response)));
-                            Log.e("text4",str2HexStr(response));
-                            Log.e("text5",hexStr2Str("c4e3bac3b0a1"));
+//                            String gbk = new String(response.getBytes(), "utf-8");
+//                            Log.e("text1",gbk);
+//                            Log.e("text2", URLDecoder.decode(response,"utf-8"));
+//                            Log.e("text3",new String(gbk2utf8(response)));
+//                            Log.e("text4",str2HexStr(response));
+//                            Log.e("text5",hexStr2Str("c4e3bac3b0a1"));
+//                            String decodedString =new String(Base64.decode(response,Base64.DEFAULT));
+                            String gbk = new String(response.getBytes("gbk"), "utf-8");
+//                            String utf = new String(gbk.getBytes(), "utf-8");
 
                             T t = null;
                             String substring = "";
-                            Log.e(TAG,"onResponse: "+response);
-                            substring = response.substring(response.indexOf("{"), response.length()) + endStr;
+                            Log.e(TAG,"onResponse: "+gbk);
+                            substring = gbk.substring(gbk.indexOf("{"), gbk.length()) + endStr;
                             setJson(substring);
                             t = parseJson(substring,clazz);
                             if (t != null) {
