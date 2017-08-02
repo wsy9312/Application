@@ -43,7 +43,7 @@ import java.util.UUID;
 public class RestApplyCarFragment extends CommonFragment{
     private String uuid;
     private RestDetailBean bean;
-    public LeaveDaysOrHoursBean leaveDaysBean;
+    private LeaveDaysOrHoursBean leaveDaysBean;
     private String barCode;
     private List<DataListEntity> draftRestType, draftRestDayCount, draftAttachmentType;
     private Map<String, HashSet<Uri>> fileUri;
