@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.entity.NewsInfoEntity;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
+import com.example.hgtxxgl.application.utils.SysExitUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CacheManger;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
@@ -152,6 +153,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         //初始化fragment(首页六个子界面)
         initFragment(false);
         StatusBarUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
+        SysExitUtil.activityList.add(LibMainActivity.this);
 //        getNewsDataNumber();
 //        getNewsData();
 //        getData();

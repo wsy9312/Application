@@ -12,6 +12,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.hgtxxgl.application.R;
+import com.example.hgtxxgl.application.utils.SysExitUtil;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.view.HandToolbar;
 import com.google.zxing.Result;
@@ -38,6 +39,7 @@ public class ScannerActivity extends DeCodeActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanner);
+        SysExitUtil.activityList.add(ScannerActivity.this);
         handToolbar = (HandToolbar) findViewById(R.id.activity_scanner_qr_toolbar);
         handToolbar.setTitle("扫一扫");
         handToolbar.setDisplayHomeAsUpEnabled(true, this);

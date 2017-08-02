@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.example.hgtxxgl.application.R;
+import com.example.hgtxxgl.application.entity.CarLeaveEntity;
 import com.example.hgtxxgl.application.entity.DataListEntity;
 import com.example.hgtxxgl.application.rest.ActionSheetActivity;
 import com.example.hgtxxgl.application.rest.AttachmentListEntity;
@@ -19,6 +20,7 @@ import com.example.hgtxxgl.application.rest.FileUtils;
 import com.example.hgtxxgl.application.rest.HandInputGroup;
 import com.example.hgtxxgl.application.rest.LeaveDaysOrHoursBean;
 import com.example.hgtxxgl.application.rest.RestDetailBean;
+import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.DataUtil;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
@@ -51,6 +53,7 @@ public class RestApplyCarFragment extends CommonFragment{
     private String id;
     private String date;
     private List<AttachmentListEntity> attachList;
+    private CarLeaveEntity entity;
 
     public RestApplyCarFragment() {
     }
@@ -71,110 +74,59 @@ public class RestApplyCarFragment extends CommonFragment{
         super.onCreate(savedInstanceState);
         StatusBarUtils.setWindowStatusBarColor(getActivity(), R.color.mainColor_blue);
         loadData();
-        getLeaveDays();
         loadDraftData();
     }
 
     private void loadData() {
         if (getArguments() != null) {
-            Map<String, Object> params = CommonValues.getCommonParams(getActivity());
-            params.put("userId",getArguments().getString("userId"));
-            params.put("barCode", getArguments().getString("barCode"));
-            params.put("workflowType", getArguments().getString("workflowType"));
-            HttpManager.getInstance().requestResultForm(CommonValues.REQ_REST_DETAIL, params, RestDetailBean.class, new HttpManager.ResultCallback<RestDetailBean>() {
+            String loginName = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getLoginName();
+            String password = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getPassword();
+            CarLeaveEntity carLeaveEntity = new CarLeaveEntity();
+            CarLeaveEntity.CarLeaveRrdBean carLeaveRrdBean =
+                    new CarLeaveEntity.CarLeaveRrdBean
+                            ("?","?","?","?","?","?","?","?","?","?",loginName,password,"?","?","?");
+            List<CarLeaveEntity.CarLeaveRrdBean> beanList = new ArrayList<>();
+            beanList.add(carLeaveRrdBean);
+            carLeaveEntity.setCarLeaveRrd(beanList);
+            String json = new Gson().toJson(carLeaveEntity);
+            String s1 = "apply " + json;
+            HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL,s1,CarLeaveEntity.class,new HttpManager.ResultCallback<CarLeaveEntity>() {
                 @Override
-                public void onSuccess(String json, final RestDetailBean entity) {
-
-                    if(entity != null && entity.getCode().equals("100")){
-                        bean = entity;
+                public void onSuccess(String json, CarLeaveEntity carLeaveEntity1) throws InterruptedException {
+                    if (carLeaveEntity1 != null){
+                        entity = carLeaveEntity1;
+                        setGroup(getGroupList());
+                        setPb(false);
+                        setButtonllEnable(true);
+                        notifyDataSetChanged();
+                    }else{
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (getArguments().getBoolean("Remak")){
-//                                    settoolbar();
-                                    setButtonsTitles(new String[]{"重新提交"});
-                                }
-                                setGroup(getGroupList());
-                                getLeaveDays();
-                                setPb(false);
-                                setButtonllEnable(true);
-                                notifyDataSetChanged();
-                            }
-                        });
-                    }else {
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(getActivity(),entity.getMsg(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(),"车辆外出信息实体转换异常", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
                 }
+
                 @Override
                 public void onFailure(final String msg) {
-
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getActivity(),msg, Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             });
+
         }
-    }
-
-    /*private void settoolbar() {
-        HandToolbar toolbar = getToolbar();
-        final View his = toolbar.findViewById(R.id.tv_history);
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                his.setVisibility(View.VISIBLE);
-                his.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        HistoryActivity.startActivity(getActivity(),bean.getRetData().getHisData());
-                    }
-                });
-            }
-        });
-    }*/
-
-    private void getLeaveDays() {
-        Map<String, Object> params = CommonValues.getCommonParams(getActivity());
-// 6023       params.put("Eid", GeelyApp.getLoginEntity().getRetData().getUserInfo().getEid());
-        params.put("Eid", "");
-        if (getArguments() != null){
-            params.put("barCode", getArguments().getString("barCode"));
-        }else {
-            params.put("barCode", "");
-        }
-        HttpManager.getInstance().requestResultForm(CommonValues.GET_LEAVE_REQUESTLEFTDAYS_ORHOURS_BYCODE, params, LeaveDaysOrHoursBean.class, new HttpManager.ResultCallback<LeaveDaysOrHoursBean>() {
-            @Override
-            public void onSuccess(String json, final LeaveDaysOrHoursBean leaveDaysOrHoursBean) {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if(null != leaveDaysOrHoursBean && leaveDaysOrHoursBean.getCode().equals("100")){
-                            leaveDaysBean = leaveDaysOrHoursBean;
-                            setGroup(getGroupList());
-                            notifyDataSetChanged();
-                        }else {
-                            Toast.makeText(getActivity(), leaveDaysOrHoursBean.getMsg(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-            }
-            @Override
-            public void onFailure(final String msg) {
-
-            }
-        });
     }
 
     @Override
     public List<CommonFragment.Group> getGroupList() {
-//6023        mCompNameCN = GeelyApp.getLoginEntity().getRetData().getUserInfo().getCompNameCN();
-//        mDeptNameCN = GeelyApp.getLoginEntity().getRetData().getUserInfo().getDeptNameCN();
-//        mNameCN = GeelyApp.getLoginEntity().getRetData().getUserInfo().getNameCN();
-//        mPositionNameCN = GeelyApp.getLoginEntity().getRetData().getUserInfo().getPositionNameCN();
-//        mEid = GeelyApp.getLoginEntity().getRetData().getUserInfo().getEid();
-
+        String name = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName();
+        String no = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo();
         mCompNameCN = "";
         mDeptNameCN = "";
         mNameCN = "";
@@ -184,53 +136,32 @@ public class RestApplyCarFragment extends CommonFragment{
         if (bean == null) {
             String[] strings = {"是", "否"};
             List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
-            baseHolder.add(new HandInputGroup.Holder("申请人",true,false,mCompNameCN,HandInputGroup.VALUE_TYPE.TEXTFILED));
-            baseHolder.add(new HandInputGroup.Holder("预计外出时间",true,false,mCompNameCN,HandInputGroup.VALUE_TYPE.DATE));
-            baseHolder.add(new HandInputGroup.Holder("预计归来时间",true,false,mCompNameCN,HandInputGroup.VALUE_TYPE.DATE));
-            baseHolder.add(new HandInputGroup.Holder("请假原因",false,false,mCompNameCN,HandInputGroup.VALUE_TYPE.TEXTFILED));
+            baseHolder.add(new HandInputGroup.Holder("申请人",true,false,name,HandInputGroup.VALUE_TYPE.TEXTFILED));
+            baseHolder.add(new HandInputGroup.Holder("申请车辆号牌",false,false,"",HandInputGroup.VALUE_TYPE.TEXTFILED));
+            baseHolder.add(new HandInputGroup.Holder("预计外出时间",true,false,"",HandInputGroup.VALUE_TYPE.DATE));
+            baseHolder.add(new HandInputGroup.Holder("预计归来时间",true,false,"",HandInputGroup.VALUE_TYPE.DATE));
+            baseHolder.add(new HandInputGroup.Holder("请假原因",false,false,"",HandInputGroup.VALUE_TYPE.TEXTFILED));
             baseHolder.add(new HandInputGroup.Holder("是否取消请假",true,false,"",HandInputGroup.VALUE_TYPE.SELECT));
             baseHolder.add(new HandInputGroup.Holder("是否后补请假",true,false,"",HandInputGroup.VALUE_TYPE.SELECT));
             groups.add(0,new CommonFragment.Group("基本信息", null,true,null,baseHolder));
-
-
-
-
-//            List<HandInputGroup.Holder> subHolder = new ArrayList<>();
-//            subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Company_Name), false, false, mCompNameCN, HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-//            subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Department), false, false, mDeptNameCN, HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-//            subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Applicant), false, false, mNameCN, HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-//            subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Position), false, false, mPositionNameCN, HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-//            subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Employee_ID), false, false, mEid, HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-//            if (leaveDaysBean == null){
-//                subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Lave_Year_Days), false, false, "0", HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-//                subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Lave_Hours), false, false, "0", HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-//                subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Cumulative_number_of_antenatal_examination), false, false, "0", HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-//                subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Total_Days), false, false, "0", HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-//            }else {
-//                subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Lave_Year_Days), false, false, leaveDaysBean.getRetData().getAnnualDaysLeft(), HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-//                subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Lave_Hours), false, false, leaveDaysBean.getRetData().getTimesOfAntenatalTotal(), HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-//                subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Cumulative_number_of_antenatal_examination), false, false, leaveDaysBean.getRetData().getOffHoursLeft(), HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-//                subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Total_Days), false, false, leaveDaysBean.getRetData().getDayOfLeaveTotal(), HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-//            }
-//            groups.add(0, new Group(this.getString(R.string.Basic_Information), null, true, null, subHolder));
-//            List<HandInputGroup.Holder> subDetail = new ArrayList<>();
-//            subDetail.add(new HandInputGroup.Holder(this.getString(R.string.Rest_Leave_Type), true, false, "/" + this.getString(R.string.Please_Select), HandInputGroup.VALUE_TYPE.SELECT));
-//            subDetail.add(new HandInputGroup.Holder(this.getString(R.string.Starting_Time), true, false, "/" + this.getString(R.string.Please_Select), HandInputGroup.VALUE_TYPE.DATE));
-//            subDetail.add(new HandInputGroup.Holder(this.getString(R.string.Ending_Time), true, false, "/" + this.getString(R.string.Please_Select), HandInputGroup.VALUE_TYPE.DATE));
-//            subDetail.add(new HandInputGroup.Holder(this.getString(R.string.Leave_Time), true, false, "/0小时", HandInputGroup.VALUE_TYPE.DOUBLE).setColor(Color.rgb(229,0,17)));
-//            subDetail.add(new HandInputGroup.Holder(this.getString(R.string.Leave_Causes), false, false, "/请填写请假原因", HandInputGroup.VALUE_TYPE.TEXTFILED));
-//            groups.add(1, new Group(this.getString(R.string.Details_Information), R.mipmap.add_detail3x, true, null, subDetail).sethasDelete(true));
-//            List<HandInputGroup.Holder> subDetailTotoal = new ArrayList<>();
-//            groups.add(2, new Group(this.getString(R.string.Total), null, false, "0天", subDetailTotoal));
-//            List<HandInputGroup.Holder> subAppend = new ArrayList<>();
-//            subAppend.add(new HandInputGroup.Holder(this.getString(R.string.Attachment_Type), false, false, "/" + this.getString(R.string.Please_Select), HandInputGroup.VALUE_TYPE.SELECT));
-//            if (fileUri == null) {
-//                fileUri = new HashMap<>();
-//                fileUri.put("", new HashSet<Uri>());
-//            }
-//            subAppend.add(new HandInputGroup.Holder(this.getString(R.string.Select_Attachments), false, false, "", HandInputGroup.VALUE_TYPE.FILES_UPLOAD).setValue(fileUri.get("")));
-//            groups.add(new Group(this.getString(R.string.Attachment_Info), null, false, null, subAppend));
         } else {
+            CarLeaveEntity.CarLeaveRrdBean carLeaveRrdBean = entity.getCarLeaveRrd().get(0);
+            String outTime = carLeaveRrdBean.getOutTime();
+            String inTime = carLeaveRrdBean.getInTime();
+            String content = carLeaveRrdBean.getContent();
+            String carNo = carLeaveRrdBean.getCarNo();
+            String bCancel = carLeaveRrdBean.getBCancel();
+            String bFillup = carLeaveRrdBean.getBFillup();
+            List<HandInputGroup.Holder> subHolder1 = new ArrayList<>();
+            subHolder1.add(new HandInputGroup.Holder("申请人",true,false,name,HandInputGroup.VALUE_TYPE.TEXTFILED));
+            subHolder1.add(new HandInputGroup.Holder("申请车辆号牌",false,false,carNo,HandInputGroup.VALUE_TYPE.TEXTFILED));
+            subHolder1.add(new HandInputGroup.Holder("预计外出时间",true,false,outTime,HandInputGroup.VALUE_TYPE.DATE));
+            subHolder1.add(new HandInputGroup.Holder("预计归来时间",true,false,inTime,HandInputGroup.VALUE_TYPE.DATE));
+            subHolder1.add(new HandInputGroup.Holder("请假原因",false,false,content,HandInputGroup.VALUE_TYPE.TEXTFILED));
+            subHolder1.add(new HandInputGroup.Holder("是否取消请假",true,false,bCancel.equals("0")?"否":"是",HandInputGroup.VALUE_TYPE.SELECT));
+            subHolder1.add(new HandInputGroup.Holder("是否后补请假",true,false,bFillup.equals("0")?"否":"是",HandInputGroup.VALUE_TYPE.SELECT));
+            groups.add(0,new CommonFragment.Group("基本信息", null,true,null,subHolder1));
+
             RestDetailBean.RetDataBean.DetailDataBean dataBean = bean.getRetData().getDetailData();
             List<RestDetailBean.RetDataBean.DetailDataBean.LeaveRequestDetailBean> leaveRequestDetail = dataBean.getLeaveRequestDetail();
             List<HandInputGroup.Holder> subHolder = new ArrayList<>();
@@ -725,47 +656,5 @@ public class RestApplyCarFragment extends CommonFragment{
         getGroup().get(index).setDrawableRes(null);
         notifyDataSetChanged();
     }
-/*
-    @Override
-    public void onDeleteRemoteFile(Uri uri) {
-        for (final AttachmentListEntity entity : attachList){
-            if(uri == entity.getLocalFileUri()){
-                final String entityId = entity.getId();
-                Map<String, Object> param = CommonValues.getCommonParams(getActivity());
-                param.put("attachmentId", entityId);
-                param.put("workflowType", getArguments().getString("workflowType"));
-                HttpManager.getInstance().requestResultForm(CommonValues.DELETE_ATTACHMENT, param, AttachDeleteEntity.class, new HttpManager.ResultCallback<AttachDeleteEntity>() {
-                    @Override
-                    public void onSuccess(String content, final AttachDeleteEntity attachmentListEntity) {
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (attachmentListEntity != null && attachmentListEntity.getRetData() != null) {
-                                    if (attachmentListEntity.getCode().equals("100")) {
-                                        String retData = attachmentListEntity.getRetData();
-                                        if (retData.equals("")) {
-                                            if (attachList != null && attachList.size() > 0) {
-                                                for (int i = 0; i < attachList.size(); i++) {
-                                                    if (attachList.get(i).getId().equals(entityId)) {
-                                                        attachList.remove(entity);
-                                                        notifyDataSetChanged();
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        });
-                    }
 
-                    @Override
-                    public void onFailure(String msg) {
-
-                    }
-                });
-
-            }
-        }
-    }*/
 }

@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.entity.NewsInfoEntity;
+import com.example.hgtxxgl.application.utils.SysExitUtil;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.view.HandToolbar;
@@ -47,6 +48,7 @@ public class NewsItemActivity extends AppCompatActivity {
         setContentView(R.layout.item_layout);
         StatusBarUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
 //        Bundle bundle = this.getIntent().getBundleExtra("data");
+        SysExitUtil.activityList.add(NewsItemActivity.this);
         Intent intent = getIntent();
         title = intent.getStringExtra("title");
         content = intent.getStringExtra("content");

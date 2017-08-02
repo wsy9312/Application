@@ -13,10 +13,9 @@ import android.widget.TextView;
 
 import com.example.hgtxxgl.application.QrCode.sample.MainActivity;
 import com.example.hgtxxgl.application.R;
-import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
-import com.example.hgtxxgl.application.utils.hand.CacheManger;
-import com.example.hgtxxgl.application.utils.hand.CommonValues;
-import com.example.hgtxxgl.application.utils.hand.GsonUtil;
+import com.example.hgtxxgl.application.activity.LoginActivity;
+import com.example.hgtxxgl.application.utils.SysExitUtil;
+import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 
 //个人资料首页
 public class PersonalFragment extends Fragment implements View.OnClickListener{
@@ -25,7 +24,6 @@ public class PersonalFragment extends Fragment implements View.OnClickListener{
     private Button mLogout;
     private RelativeLayout rlQRcode;
     private View view;
-    private PeopleInfoEntity peopleInfoEntity;
     private TextView mNumber;
     private TextView mName;
     private TextView mSFZnumber;
@@ -64,13 +62,14 @@ public class PersonalFragment extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_personal_center, container, false);
-        String data = CacheManger.getInstance().getData(CommonValues.BASE_URL_PEOPLE_SAVE);
-        peopleInfoEntity = GsonUtil.parseJsonToBean(data, PeopleInfoEntity.class);
+//        String data = CacheManger.getInstance().getData(CommonValues.BASE_URL_PEOPLE_SAVE);
+//        peopleInfoEntity = GsonUtil.parseJsonToBean(data, PeopleInfoEntity.class);
         initView();
         return view;
     }
 
     private void initView() {
+        mLogout = (Button) view.findViewById(R.id.btn_logout);
         rlQRcode = (RelativeLayout) view.findViewById(R.id.rl_qrcode);
         //编号
         mNumber = (TextView) view.findViewById(R.id.tv_message_number);
@@ -91,19 +90,20 @@ public class PersonalFragment extends Fragment implements View.OnClickListener{
         //手机号码
         mTelNumber = (TextView) view.findViewById(R.id.tv_message_militaryrank);
         rlQRcode.setOnClickListener(this);
+        mLogout.setOnClickListener(this);
         showData();
     }
 
     private void showData() {
-        mNumber.setText(peopleInfoEntity.getPeopleInfo().get(0).getNo());
-        mName.setText(peopleInfoEntity.getPeopleInfo().get(0).getName());
-        mSFZnumber.setText(peopleInfoEntity.getPeopleInfo().get(0).getCardNo());
-        mPostion.setText(peopleInfoEntity.getPeopleInfo().get(0).getPosition());
-        mSex.setText(peopleInfoEntity.getPeopleInfo().get(0).getSex().equals("0")?"男":"女");
-        mCompany.setText(peopleInfoEntity.getPeopleInfo().get(0).getUnit());
-        mDepartment.setText(peopleInfoEntity.getPeopleInfo().get(0).getArmyGroup());
-        mGDNumber.setText(peopleInfoEntity.getPeopleInfo().get(0).getPhoneNo());
-        mTelNumber.setText(peopleInfoEntity.getPeopleInfo().get(0).getTelNo());
+        mNumber.setText(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
+        mName.setText(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName());
+        mSFZnumber.setText(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getCardNo());
+        mPostion.setText(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getPosition());
+        mSex.setText(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getSex().equals("0")?"男":"女");
+        mCompany.setText(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getUnit());
+        mDepartment.setText(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getArmyGroup());
+        mGDNumber.setText(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getPhoneNo());
+        mTelNumber.setText(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getTelNo());
     }
 
     @Override
@@ -112,13 +112,19 @@ public class PersonalFragment extends Fragment implements View.OnClickListener{
             case R.id.rl_qrcode:
                 skipToQR();
                 break;
+            case R.id.btn_logout:
+                logOut();
+                break;
         }
     }
 
     private void skipToQR() {
         startActivity(new Intent(getContext(), MainActivity.class));
     }
-
+    private void logOut() {
+        startActivity(new Intent(getContext(), LoginActivity.class));
+        SysExitUtil.exit();
+    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {

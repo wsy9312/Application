@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
+import com.example.hgtxxgl.application.utils.SysExitUtil;
 import com.example.hgtxxgl.application.utils.hand.CacheManger;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.GsonUtil;
@@ -166,6 +167,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        SysExitUtil.activityList.add(MainActivity.this);
         mContext = this;
         handToolbar = (HandToolbar) findViewById(R.id.qrcode_mainactivity_toolbar);
         handToolbar.setTitle("二维码名片");

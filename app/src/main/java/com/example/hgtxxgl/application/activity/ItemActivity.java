@@ -12,6 +12,7 @@ import com.example.hgtxxgl.application.fragment.RestApplyCarFragment;
 import com.example.hgtxxgl.application.fragment.RestApplyPeopleFragment;
 import com.example.hgtxxgl.application.rest.RestApproveFragment;
 import com.example.hgtxxgl.application.rest.RestDetailFragment;
+import com.example.hgtxxgl.application.utils.SysExitUtil;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
 
 import java.util.List;
@@ -24,6 +25,7 @@ public class ItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flow_detail_item);
         checkFragmentForLoading(getIntent().getIntExtra(PageConfig.PAGE_CODE, -1));
+        SysExitUtil.activityList.add(ItemActivity.this);
     }
 
     @Override
