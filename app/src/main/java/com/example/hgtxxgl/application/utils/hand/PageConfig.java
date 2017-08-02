@@ -13,8 +13,9 @@ public class PageConfig {
     public static final int PAGE_NOTIFICATION = -2;
     public static final int PAGE_TODO = -3;
     public static final int PAGE_LAUNCH = -4;
-    public static final int PAGE_APPLY = -5;
-    public static final int PAGE_ME = -6;
+    public static final int PAGE_APPLY_CAR = -5;
+    public static final int PAGE_APPLY_PEOPLE = -6;
+    public static final int PAGE_ME = -7;
 
     /**
      * 请假流程首页三个按钮

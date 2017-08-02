@@ -47,39 +47,45 @@
             android:checked="true"
             android:enabled="false"
             android:drawableTop="@drawable/home_page_radio_button_my_news"
-            android:text="@string/news" />
+            android:text="新闻" />
 
         <RadioButton
             android:id="@+id/rb_main_notification_center"
             style="@style/BottomBarItem"
             android:enabled="false"
             android:drawableTop="@drawable/home_page_radio_button_my_notification"
-            android:text="@string/notification" />
+            android:text="通知" />
 
         <RadioButton
             android:id="@+id/rb_main_leave_todo_center"
             style="@style/BottomBarItem"
             android:enabled="false"
             android:drawableTop="@drawable/home_page_radio_button_my_comm"
-            android:text="@string/todo" />
+            android:text="审批" />
         <RadioButton
             android:enabled="false"
             android:id="@+id/rb_main_leave_launch_center"
             style="@style/BottomBarItem"
             android:drawableTop="@drawable/home_page_radio_button_my_launch"
-            android:text="@string/launch" />
+            android:text="查看" />
         <RadioButton
             android:enabled="false"
-            android:id="@+id/rb_main_leave_apply_center"
+            android:id="@+id/rb_main_leave_apply_car_center"
+            style="@style/BottomBarItem"
+            android:drawableTop="@drawable/home_page_radio_button_car_apply"
+            android:text="车辆外出" />
+        <RadioButton
+            android:enabled="false"
+            android:id="@+id/rb_main_leave_apply_people_center"
             style="@style/BottomBarItem"
             android:drawableTop="@drawable/home_page_radio_button_post_flow"
-            android:text="@string/apply" />
+            android:text="人员请假" />
         <RadioButton
             android:enabled="false"
             android:id="@+id/rb_main_personal_center"
             style="@style/BottomBarItem"
             android:drawableTop="@drawable/home_page_radio_button_post_personal"
-            android:text="@string/me" />
+            android:text="我的" />
     </RadioGroup>
 
 </RelativeLayout>

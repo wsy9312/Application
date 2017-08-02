@@ -15,13 +15,11 @@ import android.widget.Toast;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.entity.NewsInfoEntity;
-import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CacheManger;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.GsonUtil;
-import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.hyutils.L;
@@ -35,8 +33,6 @@ import java.util.List;
 import okhttp3.MediaType;
 import okhttp3.Response;
 
-import static com.example.hgtxxgl.application.R.string.launch;
-
 //首页
 public class LibMainActivity extends AppCompatActivity implements HandToolbar.OnButtonsClickCallback {
 
@@ -47,7 +43,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
     public static final String PASS_WORD = "PASS_WORD";
     private boolean loginSucceed = false;
     private RadioGroup bottomBar;
-    private Fragment[] fragments = new Fragment[6];
+    private Fragment[] fragments = new Fragment[7];
     private FragmentManager supportFragmentManager;
     private int lastIndex = -1, currentIndex;
     private static final int LOGIN_SUCESS = 0;
@@ -58,7 +54,8 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
     private RadioButton notificationCenter;
     private RadioButton todoCenter;
     private RadioButton launchCenter;
-    private RadioButton applyCenter;
+    private RadioButton applyCarCenter;
+    private RadioButton applyPeoPleCenter;
     private RadioButton personalCenter;
 
     //底部菜单栏单选按钮监听器
@@ -98,19 +95,26 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                 handToolbar.setTitle(title[3]);
                 handToolbar.setBackHome(false,LibMainActivity.this,0);
 
-            }else if (checkedId == R.id.rb_main_leave_apply_center){
+            }else if (checkedId == R.id.rb_main_leave_apply_car_center){
                 currentIndex = 4;
                 changeFragment(fragments[4]);
                 fragments[4].onPause();
                 handToolbar.setTitle(title[4]);
                 handToolbar.setBackHome(false,LibMainActivity.this,0);
 
-            }
-            else if (checkedId == R.id.rb_main_personal_center) {
+            } else if (checkedId == R.id.rb_main_leave_apply_people_center){
                 currentIndex = 5;
                 changeFragment(fragments[5]);
                 fragments[5].onPause();
                 handToolbar.setTitle(title[5]);
+                handToolbar.setBackHome(false,LibMainActivity.this,0);
+
+            }
+            else if (checkedId == R.id.rb_main_personal_center) {
+                currentIndex = 6;
+                changeFragment(fragments[6]);
+                fragments[6].onPause();
+                handToolbar.setTitle(title[6]);
                 handToolbar.setBackHome(false,LibMainActivity.this,0);
 
             }
@@ -132,7 +136,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
 
     //初始化设置toolbar标题
     private void initTitle() {
-        title = new String[]{this.getString(R.string.news),this.getString(R.string.notification),this.getString(R.string.todo),this.getString(launch),this.getString(R.string.apply),this.getString(R.string.me)};
+        title = new String[]{"新闻","通知","审批","查看","车辆","人员","我的"};
     }
 
     @Override
@@ -152,33 +156,6 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
 //        getNewsData();
 //        getData();
     }
-
-    private void getData() {
-        //个人资料
-        PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
-        PeopleInfoEntity.PeopleInfoBean peopleInfoBean =
-                new PeopleInfoEntity.PeopleInfoBean
-                        ("?","?","?","?","?","?","?","?","?","?",username,password,"?","?","?");
-        List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
-        beanList.add(peopleInfoBean);
-        peopleEntity.setPeopleInfo(beanList);
-        String json = new Gson().toJson(peopleEntity);
-        String s1 = "get " + json;
-        HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
-            @Override
-            public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
-                if (peopleInfoEntity != null){
-                    CacheManger.getInstance().saveData(CommonValues.BASE_URL_PEOPLE_SAVE,json);
-                }
-            }
-
-            @Override
-            public void onFailure(String msg) {
-
-            }
-        });
-    }
-
 
     //接收登录界面传递的用户名密码参数
     private void acceptParam() {
@@ -241,7 +218,8 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         notificationCenter = (RadioButton) findViewById(R.id.rb_main_notification_center);
         todoCenter = (RadioButton) findViewById(R.id.rb_main_leave_todo_center);
         launchCenter = (RadioButton) findViewById(R.id.rb_main_leave_launch_center);
-        applyCenter = (RadioButton) findViewById(R.id.rb_main_leave_apply_center);
+        applyCarCenter = (RadioButton) findViewById(R.id.rb_main_leave_apply_car_center);
+        applyPeoPleCenter = (RadioButton) findViewById(R.id.rb_main_leave_apply_people_center);
         personalCenter = (RadioButton) findViewById(R.id.rb_main_personal_center);
         bottomBar.setOnCheckedChangeListener(listener);
     }
@@ -258,8 +236,9 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
             fragments[1] = DetailFragment.newInstance(PageConfig.PAGE_NOTIFICATION);
             fragments[2] = DetailFragment.newInstance(PageConfig.PAGE_TODO);
             fragments[3] = DetailFragment.newInstance(PageConfig.PAGE_LAUNCH);
-            fragments[4] = DetailFragment.newInstance(PageConfig.PAGE_APPLY);
-            fragments[5] = DetailFragment.newInstance(PageConfig.PAGE_ME);
+            fragments[4] = DetailFragment.newInstance(PageConfig.PAGE_APPLY_CAR);
+            fragments[5] = DetailFragment.newInstance(PageConfig.PAGE_APPLY_PEOPLE);
+            fragments[6] = DetailFragment.newInstance(PageConfig.PAGE_ME);
             for (int i = 0; i < fragments.length; i++) {
                 transaction.add(R.id.fl_container, fragments[i]);
                 transaction.hide(fragments[i]);
@@ -290,8 +269,10 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                         todoCenter.setBackgroundColor(0xffffff);
                         launchCenter.setEnabled(true);
                         launchCenter.setBackgroundColor(0xffffff);
-                        applyCenter.setEnabled(true);
-                        applyCenter.setBackgroundColor(0xffffff);
+                        applyCarCenter.setEnabled(true);
+                        applyCarCenter.setBackgroundColor(0xffffff);
+                        applyPeoPleCenter.setEnabled(true);
+                        applyPeoPleCenter.setBackgroundColor(0xffffff);
                         personalCenter.setEnabled(true);
                         personalCenter.setBackgroundColor(0xffffff);
                     }
@@ -310,8 +291,10 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                         todoCenter.setBackgroundColor(0xd4d4d4);
                         launchCenter.setEnabled(false);
                         launchCenter.setBackgroundColor(0xd4d4d4);
-                        applyCenter.setEnabled(false);
-                        applyCenter.setBackgroundColor(0xd4d4d4);
+                        applyCarCenter.setEnabled(false);
+                        applyCarCenter.setBackgroundColor(0xd4d4d4);
+                        applyPeoPleCenter.setEnabled(false);
+                        applyPeoPleCenter.setBackgroundColor(0xd4d4d4);
                         personalCenter.setEnabled(false);
                         personalCenter.setBackgroundColor(0xd4d4d4);
                     }

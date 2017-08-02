@@ -6,7 +6,6 @@ import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -109,7 +108,6 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
         }
         map.put("pageIndex", pageIndex);
         map.put("pageSize", pageSize);
-        Log.e("map集合",map.toString());
         if (map.get("userId") != null){
             HttpManager.getInstance().requestResultForm(url, map, MyCommissionListEntity.class, new HttpManager.ResultCallback<MyCommissionListEntity>() {
                 @Override

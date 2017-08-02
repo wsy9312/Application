@@ -96,7 +96,9 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
                 return MyCommissionFragment.newInstance(position).setCallback(this);
             } else if (currentPage == PageConfig.PAGE_LAUNCH){
                 return MyLaunchFragment.newInstance(position).setCallback(this);
-            } else if (currentPage == PageConfig.PAGE_APPLY){
+            } else if (currentPage == PageConfig.PAGE_APPLY_CAR){
+                return new RestApplyFragment();
+            } else if (currentPage == PageConfig.PAGE_APPLY_PEOPLE){
                 return new RestApplyFragment();
             }
             return null;
@@ -120,7 +122,9 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
                 return 2;
             } else if (currentPage == PageConfig.PAGE_LAUNCH) {
                 return 3;
-            } else if (currentPage == PageConfig.PAGE_APPLY) {
+            } else if (currentPage == PageConfig.PAGE_APPLY_CAR) {
+                return 1;
+            } else if (currentPage == PageConfig.PAGE_APPLY_PEOPLE) {
                 return 1;
             } else if (currentPage == PageConfig.PAGE_ME)
                 return 1;
@@ -236,7 +240,10 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
                 }
                 group.setVisibility(VISIBLE);
                 break;
-            case PageConfig.PAGE_APPLY:
+            case PageConfig.PAGE_APPLY_CAR:
+                group.setVisibility(GONE);
+                break;
+            case PageConfig.PAGE_APPLY_PEOPLE:
                 group.setVisibility(GONE);
                 break;
             case PageConfig.PAGE_ME:
