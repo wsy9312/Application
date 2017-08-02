@@ -57,11 +57,11 @@ public class HttpManager {
         Log.e(TAG,s);
     }
 
-    public <T> void requestResultForm(final String url, final String json, final Class<T> clazz, final String endStr, final ResultCallback<T> callback) {
+    public <T> void requestResultForm(final String url, final String json, final Class<T> clazz, final ResultCallback<T> callback) {
                 OkHttpUtils
                 .postString()
                 .url(url)
-                .mediaType(MediaType.parse("application/json; charset=GBK"))
+                .mediaType(MediaType.parse("application/json; charset=utf-8"))
                 .content(json)
                 .build()
                 .execute(new StringCallback() {
@@ -78,20 +78,10 @@ public class HttpManager {
                     @Override
                     public void onResponse(String response, int id) {
                         try {
-//                            String gbk = new String(response.getBytes(), "utf-8");
-//                            Log.e("text1",gbk);
-//                            Log.e("text2", URLDecoder.decode(response,"utf-8"));
-//                            Log.e("text3",new String(gbk2utf8(response)));
-//                            Log.e("text4",str2HexStr(response));
-//                            Log.e("text5",hexStr2Str("c4e3bac3b0a1"));
-//                            String decodedString =new String(Base64.decode(response,Base64.DEFAULT));
-                            String gbk = new String(response.getBytes("gbk"), "utf-8");
-//                            String utf = new String(gbk.getBytes(), "utf-8");
-
                             T t = null;
                             String substring = "";
-                            Log.e(TAG,"onResponse: "+gbk);
-                            substring = gbk.substring(gbk.indexOf("{"), gbk.length()) + endStr;
+                            Log.e(TAG,"onResponse: "+response);
+                            substring = response.substring(response.indexOf("{"), response.length());
                             setJson(substring);
                             t = parseJson(substring,clazz);
                             if (t != null) {
@@ -304,7 +294,7 @@ public class HttpManager {
 
         } catch (Exception e) {
             e.printStackTrace();
-            callback.onFailure(e.getMessage());
+//            callback.onFailure(e.getMessage());
         }
 
     }

@@ -15,8 +15,11 @@ import android.widget.ProgressBar;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.entity.LoginEntity;
+import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
+import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.Fields;
+import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.SpUtils;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
@@ -202,6 +205,31 @@ public class LoginActivity extends AppCompatActivity {
                     e.printStackTrace();
                     L.e(TAG,"IOException ="+e.toString());
                 }
+
+                //个人资料
+                PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
+                PeopleInfoEntity.PeopleInfoBean peopleInfoBean =
+                        new PeopleInfoEntity.PeopleInfoBean
+                                ("?","?","?","?","?","?","?","?","?","?",username,password,"?","?","?");
+                List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
+                beanList.add(peopleInfoBean);
+                peopleEntity.setPeopleInfo(beanList);
+                String json = new Gson().toJson(peopleEntity);
+                String s1 = "get " + json;
+                HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
+                    @Override
+                    public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
+                        if (peopleInfoEntity != null){
+                            ApplicationApp.setPeopleInfoEntity(peopleInfoEntity);
+                            show("个人资料保存成功");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(String msg) {
+
+                    }
+                });
             }
         }).start();
 

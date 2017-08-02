@@ -6,6 +6,8 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.StrictMode;
 
+import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
+
 public class ApplicationApp extends Application {
     //handler
     public static Handler mainHandler;
@@ -14,10 +16,10 @@ public class ApplicationApp extends Application {
 
     private String UPLOAD_URL="http:";
 
+    private static PeopleInfoEntity peopleInfoEntity;
     @Override
     public void onCreate() {
         super.onCreate();
-//        RetrofitUtils.init(this);
         mainHandler = new Handler();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
@@ -35,6 +37,13 @@ public class ApplicationApp extends Application {
 //        boolean isDebug = true;
 //        LogCollector.setDebugMode(isDebug);
 //        LogCollector.init(getApplicationContext(), UPLOAD_URL, params);//params can be null
+    }
+    public static PeopleInfoEntity getPeopleInfoEntity() {
+        return peopleInfoEntity;
+    }
+
+    public static void setPeopleInfoEntity(PeopleInfoEntity peopleInfoEntity) {
+        ApplicationApp.peopleInfoEntity = peopleInfoEntity;
     }
 
 //        checkFirstIn();

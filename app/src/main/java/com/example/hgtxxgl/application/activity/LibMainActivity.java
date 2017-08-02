@@ -148,12 +148,13 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         //初始化fragment(首页六个子界面)
         initFragment(false);
         StatusBarUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
-//        getPersonalInfoFormNet();
 //        getNewsDataNumber();
-        getNewsData();
+//        getNewsData();
+//        getData();
     }
 
-    private void getPersonalInfoFormNet() {
+    private void getData() {
+        //个人资料
         PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
         PeopleInfoEntity.PeopleInfoBean peopleInfoBean =
                 new PeopleInfoEntity.PeopleInfoBean
@@ -163,17 +164,11 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         peopleEntity.setPeopleInfo(beanList);
         String json = new Gson().toJson(peopleEntity);
         String s1 = "get " + json;
-        HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL,s1,PeopleInfoEntity.class, "}]}",new HttpManager.ResultCallback<PeopleInfoEntity>() {
+        HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
             @Override
             public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
                 if (peopleInfoEntity != null){
-                    String data = CacheManger.getInstance().getData(CommonValues.BASE_URL_PEOPLE_SAVE);
-                    if (!data.isEmpty()){
-                        CacheManger.getInstance().delFile(CommonValues.BASE_URL_NEWS_SAVE);
-                    }else{
-                        CacheManger.getInstance().saveData(CommonValues.BASE_URL_PEOPLE_SAVE,json);
-                    }
-                    show("个人资料保存成功");
+                    CacheManger.getInstance().saveData(CommonValues.BASE_URL_PEOPLE_SAVE,json);
                 }
             }
 
@@ -183,6 +178,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
             }
         });
     }
+
 
     //接收登录界面传递的用户名密码参数
     private void acceptParam() {

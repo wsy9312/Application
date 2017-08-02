@@ -8,7 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.hgtxxgl.application.R;
-import com.example.hgtxxgl.application.rest.RestApplyFragment;
+import com.example.hgtxxgl.application.fragment.RestApplyFragment;
 import com.example.hgtxxgl.application.rest.RestApproveFragment;
 import com.example.hgtxxgl.application.rest.RestDetailFragment;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;

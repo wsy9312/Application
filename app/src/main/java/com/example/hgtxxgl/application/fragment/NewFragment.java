@@ -148,9 +148,9 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
         newsInfoEntity.setNewsRrd(list);
         String json = new Gson().toJson(newsInfoEntity);
         final String s = "get " + json;
-        Log.e(TAG, "loadData: "+s);
+//        Log.e(TAG, "loadData: "+s);
         String url = CommonValues.BASE_URL;
-        HttpManager.getInstance().requestResultForm(url, s, NewsInfoEntity.class, "",new HttpManager.ResultCallback<NewsInfoEntity>() {
+        HttpManager.getInstance().requestResultForm(url, s, NewsInfoEntity.class,new HttpManager.ResultCallback<NewsInfoEntity>() {
                     @Override
                     public void onSuccess(final String json, final NewsInfoEntity newsInfoEntity) throws InterruptedException {
                         if (newsInfoEntity != null && newsInfoEntity.getNewsRrd().size() > 0) {
@@ -160,7 +160,7 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
                             hasMore = true;
                             entityList.addAll(newsInfoEntity.getNewsRrd());
                             String s1 = str2HexStr(newsInfoEntity.getNewsRrd().get(0).getTitle());
-                            Log.e("字符串转16进制",s1);
+//                            Log.e("字符串转16进制",s1);
                             adapter.notifyDataSetChanged();
                         } else {
                             hasMore = false;

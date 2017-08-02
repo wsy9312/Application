@@ -1,4 +1,4 @@
-package com.example.hgtxxgl.application.rest;
+package com.example.hgtxxgl.application.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,6 +6,7 @@ import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,6 @@ import android.widget.Toast;
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.ItemActivity;
 import com.example.hgtxxgl.application.entity.MyCommissionListEntity;
-import com.example.hgtxxgl.application.fragment.DetailFragment;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.DataUtil;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
@@ -52,12 +52,10 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
     private List<MyCommissionListEntity.RetDataBean> entityList = new ArrayList<>();
     private List<MyCommissionListEntity.RetDataBean> baseEntityList;
 
-    ListAdapter<MyCommissionListEntity.RetDataBean> adapter = new ListAdapter<MyCommissionListEntity.RetDataBean>((ArrayList<MyCommissionListEntity.RetDataBean>) entityList, R.layout.item_news) {
+    ListAdapter<MyCommissionListEntity.RetDataBean> adapter = new ListAdapter<MyCommissionListEntity.RetDataBean>((ArrayList<MyCommissionListEntity.RetDataBean>) entityList, R.layout.layout_my_todo_too) {
         @Override
         public void bindView(ViewHolder holder, MyCommissionListEntity.RetDataBean obj) {
-            holder.setText(R.id.tv_title, obj.getApplicantName());
             holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(obj.getUpdateTime(), "yyyy-MM-dd HH:mm"));
-            holder.setText(R.id.tv_context, obj.getSummary());
             holder.setText(R.id.tv_type, obj.getProcessNameCN());
         }
     };
@@ -111,6 +109,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
         }
         map.put("pageIndex", pageIndex);
         map.put("pageSize", pageSize);
+        Log.e("map集合",map.toString());
         if (map.get("userId") != null){
             HttpManager.getInstance().requestResultForm(url, map, MyCommissionListEntity.class, new HttpManager.ResultCallback<MyCommissionListEntity>() {
                 @Override

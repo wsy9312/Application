@@ -1,4 +1,4 @@
-package com.example.hgtxxgl.application.rest;
+package com.example.hgtxxgl.application.fragment;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -21,7 +21,7 @@ import android.widget.TextView;
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.ItemActivity;
 import com.example.hgtxxgl.application.entity.MyLaunchListEntity;
-import com.example.hgtxxgl.application.fragment.DetailFragment;
+import com.example.hgtxxgl.application.rest.RemoveDraftEntity;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.DataUtil;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
