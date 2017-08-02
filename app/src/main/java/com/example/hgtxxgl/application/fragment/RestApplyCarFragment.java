@@ -25,8 +25,9 @@ import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
 import com.google.gson.Gson;
-import java.text.ParseException;
+
 import java.io.File;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -35,7 +36,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public class RestApplyFragment extends CommonFragment {
+/**
+ * Created by HGTXxgl on 2017/8/2.
+ */
+
+public class RestApplyCarFragment extends CommonFragment{
     private String uuid;
     private RestDetailBean bean;
     public LeaveDaysOrHoursBean leaveDaysBean;
@@ -47,16 +52,16 @@ public class RestApplyFragment extends CommonFragment {
     private String date;
     private List<AttachmentListEntity> attachList;
 
-    public RestApplyFragment() {
+    public RestApplyCarFragment() {
     }
 
-    public static RestApplyFragment newInstance() {
-        RestApplyFragment restApplyFragment = new RestApplyFragment();
-        return restApplyFragment;
+    public static RestApplyCarFragment newInstance() {
+        RestApplyCarFragment restApplyCarFragment = new RestApplyCarFragment();
+        return restApplyCarFragment;
     }
 
-    public static RestApplyFragment newInstance(Bundle bundle) {
-        RestApplyFragment fragment = new RestApplyFragment();
+    public static RestApplyCarFragment newInstance(Bundle bundle) {
+        RestApplyCarFragment fragment = new RestApplyCarFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -163,7 +168,7 @@ public class RestApplyFragment extends CommonFragment {
     }
 
     @Override
-    public List<Group> getGroupList() {
+    public List<CommonFragment.Group> getGroupList() {
 //6023        mCompNameCN = GeelyApp.getLoginEntity().getRetData().getUserInfo().getCompNameCN();
 //        mDeptNameCN = GeelyApp.getLoginEntity().getRetData().getUserInfo().getDeptNameCN();
 //        mNameCN = GeelyApp.getLoginEntity().getRetData().getUserInfo().getNameCN();
@@ -175,7 +180,7 @@ public class RestApplyFragment extends CommonFragment {
         mNameCN = "";
         mPositionNameCN = "";
         mEid = "";
-        List<Group> groups = new ArrayList<>();
+        List<CommonFragment.Group> groups = new ArrayList<>();
         if (bean == null) {
             String[] strings = {"是", "否"};
             List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
@@ -185,7 +190,7 @@ public class RestApplyFragment extends CommonFragment {
             baseHolder.add(new HandInputGroup.Holder("请假原因",false,false,mCompNameCN,HandInputGroup.VALUE_TYPE.TEXTFILED));
             baseHolder.add(new HandInputGroup.Holder("是否取消请假",true,false,"",HandInputGroup.VALUE_TYPE.SELECT));
             baseHolder.add(new HandInputGroup.Holder("是否后补请假",true,false,"",HandInputGroup.VALUE_TYPE.SELECT));
-            groups.add(0,new Group("基本信息", null,true,null,baseHolder));
+            groups.add(0,new CommonFragment.Group("基本信息", null,true,null,baseHolder));
 
 
 
@@ -238,7 +243,7 @@ public class RestApplyFragment extends CommonFragment {
             subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Lave_Hours), false, false, TextUtils.isEmpty(dataBean.getLaveHours()) ? "0" : dataBean.getLaveHours(), HandInputGroup.VALUE_TYPE.DOUBLE));
             subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Cumulative_number_of_antenatal_examination), false, false, TextUtils.isEmpty(dataBean.getTotalNumber()) ? "0" : dataBean.getTotalNumber(), HandInputGroup.VALUE_TYPE.DOUBLE));
             subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Total_Days), false, false, TextUtils.isEmpty(dataBean.getTotalDays()) ? "0" : dataBean.getTotalDays(), HandInputGroup.VALUE_TYPE.DOUBLE));
-            groups.add(0, new Group(this.getString(R.string.Basic_Information), null, true, null, subHolder));
+            groups.add(0, new CommonFragment.Group(this.getString(R.string.Basic_Information), null, true, null, subHolder));
             for (int i = 0; i < leaveRequestDetail.size(); i++) {
                 List<HandInputGroup.Holder> subDetail = new ArrayList<>();
                 subDetail.add(new HandInputGroup.Holder(this.getString(R.string.Rest_Leave_Type), true, false, leaveRequestDetail.get(i).getLeaveTpyeName(), HandInputGroup.VALUE_TYPE.SELECT));
@@ -247,13 +252,13 @@ public class RestApplyFragment extends CommonFragment {
                 subDetail.add(new HandInputGroup.Holder(this.getString(R.string.Leave_Time), true, false, leaveRequestDetail.get(i).getLeaveTime() + "", HandInputGroup.VALUE_TYPE.DOUBLE).setColor(Color.rgb(229,0,17)));
                 subDetail.add(new HandInputGroup.Holder(this.getString(R.string.Leave_Causes), false, false, leaveRequestDetail.get(i).getLeaveCauses() + leaveRequestDetail.get(i).getRemark(), HandInputGroup.VALUE_TYPE.TEXTFILED));
                 if (i == leaveRequestDetail.size() - 1) {
-                    groups.add(new Group(this.getString(R.string.Details_Information), R.mipmap.add_detail3x, true, null, subDetail).sethasDelete(true));
+                    groups.add(new CommonFragment.Group(this.getString(R.string.Details_Information), R.mipmap.add_detail3x, true, null, subDetail).sethasDelete(true));
                 } else {
-                    groups.add(new Group(this.getString(R.string.Details_Information), null, true, null, subDetail).sethasDelete(true));
+                    groups.add(new CommonFragment.Group(this.getString(R.string.Details_Information), null, true, null, subDetail).sethasDelete(true));
                 }
             }
             List<HandInputGroup.Holder> subDetailTotoal = new ArrayList<>();
-            groups.add(new Group(this.getString(R.string.Total), null, false, dataBean.getTotalLeaveTime(), subDetailTotoal));
+            groups.add(new CommonFragment.Group(this.getString(R.string.Total), null, false, dataBean.getTotalLeaveTime(), subDetailTotoal));
             attachList = bean.getRetData().getAttchList();
             if (attachList != null && attachList.size() > 0) {
                 if (fileUri == null) {
@@ -267,7 +272,7 @@ public class RestApplyFragment extends CommonFragment {
                         subAddNoNull.add(new HandInputGroup.Holder(this.getString(R.string.Attachment_Type), false, false, entity.getFileGroupName(), HandInputGroup.VALUE_TYPE.SELECT));
                         subAddNoNull.add(new HandInputGroup.Holder<HashSet<Uri>>(this.getString(R.string.Select_Attachments), false, false, entity.getFileGroupName()+ DataUtil.getCurrentDate() +entity.getFileExtension().substring(entity.getFileExtension().indexOf(".")), HandInputGroup.VALUE_TYPE.FILES_UPLOAD)
                                 .setColor(Color.BLUE).setDrawableRight(-1).setValue(fileUri.get(groupName)).setTag(this).setName(groupName));
-                        groups.add(new Group(this.getString(R.string.Attachment_Info), null, false, null, subAddNoNull));
+                        groups.add(new CommonFragment.Group(this.getString(R.string.Attachment_Info), null, false, null, subAddNoNull));
                     }
                     loadRemoteFiles(entity);
                 }
@@ -279,7 +284,7 @@ public class RestApplyFragment extends CommonFragment {
                     fileUri.put("", new HashSet<Uri>());
                 }
                 subAddNull.add(new HandInputGroup.Holder(this.getString(R.string.Select_Attachments), false, false, "/" + this.getString(R.string.Please_Select), HandInputGroup.VALUE_TYPE.FILES_UPLOAD).setValue(fileUri.get("")));
-                groups.add(new Group(this.getString(R.string.Attachment_Info), null, false, null, subAddNull));
+                groups.add(new CommonFragment.Group(this.getString(R.string.Attachment_Info), null, false, null, subAddNull));
             }
         }
         return groups;
@@ -335,15 +340,15 @@ public class RestApplyFragment extends CommonFragment {
 
     @SuppressWarnings("unchecked")
     @Override
-    public void onBottomButtonsClick(final String title, final List<Group> groups) {
+    public void onBottomButtonsClick(final String title, final List<CommonFragment.Group> groups) {
         setButtonllEnable(false);
         String over = isOver(groups);
         if (!title.equals("保存") && over != null){
             ToastUtil.showToast(getContext(),this.getString(R.string.Please_Fill) + over);
             setButtonllEnable(true);
         }else {
-            List<Group> groupsByTitle = getGroupsByTitle(this.getString(R.string.Details_Information));
-            for (Group group : groupsByTitle) {
+            List<CommonFragment.Group> groupsByTitle = getGroupsByTitle(this.getString(R.string.Details_Information));
+            for (CommonFragment.Group group : groupsByTitle) {
                 int getday = getday(group.getHolders().get(1).getRealValue().isEmpty() ? "0000-00-00 00:00" : group.getHolders().get(1).getRealValue(), group.getHolders().get(2).getRealValue().isEmpty() ? "0000-00-00 00:00" : group.getHolders().get(2).getRealValue());
                 if (group.getHolders().get(0).getRealValue().equals("调休")){
                     if(Double.parseDouble(group.getHolders().get(3).getRealValue().isEmpty()?"0":group.getHolders().get(3).getRealValue())%4 != 0){
@@ -571,9 +576,9 @@ public class RestApplyFragment extends CommonFragment {
         else if (holder.getType() == HandInputGroup.VALUE_TYPE.SELECT) {
             if (holder.getKey().equals(this.getString(R.string.Rest_Leave_Type))) {
                 if (draftRestType != null) {
-                    showSelector(holder, DataUtil.getDescr(draftRestType), new OnSelectedResultCallback() {
+                    showSelector(holder, DataUtil.getDescr(draftRestType), new CommonFragment.OnSelectedResultCallback() {
                         @Override
-                        public void onSelected(Group ownGroup, HandInputGroup.Holder holder, int mainIndex, int itemIndex) {
+                        public void onSelected(CommonFragment.Group ownGroup, HandInputGroup.Holder holder, int mainIndex, int itemIndex) {
                             HandInputGroup.Holder holder1 = ownGroup.getHolders().get(3);
                             if (holder.getRealValue().equals("调休")){
                                 holder1.setDispayValue("/0小时");
@@ -593,9 +598,9 @@ public class RestApplyFragment extends CommonFragment {
                     ToastUtil.showToast(getContext(),"拉取失败");
                 }
             } else if (holder.getKey().equals(this.getString(R.string.Attachment_Type))) {
-                showSelector(holder, DataUtil.getDescr(draftAttachmentType), new OnSelectedResultCallback() {
+                showSelector(holder, DataUtil.getDescr(draftAttachmentType), new CommonFragment.OnSelectedResultCallback() {
                     @Override
-                    public void onSelected(Group ownGroup, HandInputGroup.Holder holder, int mainIndex, int itemIndex) {
+                    public void onSelected(CommonFragment.Group ownGroup, HandInputGroup.Holder holder, int mainIndex, int itemIndex) {
                         HandInputGroup.Holder holder2 = ownGroup.getHolders().get(1);
                         if (holder.getRealValue().equals("代填请假")){
                             holder2.setName("代填请假");
@@ -625,8 +630,8 @@ public class RestApplyFragment extends CommonFragment {
         final String key = holder.getKey();
         if (key.equals(this.getString(R.string.Leave_Time))){
             double sum = 0;
-            List<Group> groupsByTitle = getGroupsByTitle(this.getString(R.string.Details_Information));
-            for (Group group : groupsByTitle) {
+            List<CommonFragment.Group> groupsByTitle = getGroupsByTitle(this.getString(R.string.Details_Information));
+            for (CommonFragment.Group group : groupsByTitle) {
                 double v = 0;
                 if (group.getHolders().get(0).getRealValue().equals("调休")){
                     v = Double.parseDouble(group.getHolders().get(3).getRealValue().isEmpty() ? "0" : group.getHolders().get(3).getRealValue())/8.0;
@@ -643,7 +648,7 @@ public class RestApplyFragment extends CommonFragment {
     @Override
     public void onDataChanged(HandInputGroup.Holder holder) throws ParseException {
         int getitemnum = getitemnum(holder);
-        Group group = getGroup().get(getitemnum);
+        CommonFragment.Group group = getGroup().get(getitemnum);
         if (holder.getKey().equals(this.getString(R.string.Starting_Time))){
             HandInputGroup.Holder holder1 = group.getHolders().get(2);
             if (!holder1.getRealValue().isEmpty()){
@@ -716,7 +721,7 @@ public class RestApplyFragment extends CommonFragment {
         subHolder1.add(new HandInputGroup.Holder(this.getString(R.string.Ending_Time), true, false, "/" + this.getString(R.string.Please_Select), HandInputGroup.VALUE_TYPE.DATE));
         subHolder1.add(new HandInputGroup.Holder(this.getString(R.string.Leave_Time),true, false, "/天", HandInputGroup.VALUE_TYPE.DOUBLE).setColor(Color.rgb(229,0,17)));
         subHolder1.add(new HandInputGroup.Holder(this.getString(R.string.Leave_Causes), false, false, "/" + this.getString(R.string.Please_Fill), HandInputGroup.VALUE_TYPE.TEXTFILED));
-        addGroup(index + 1, new Group(this.getString(R.string.Details_Information), R.mipmap.add_detail3x, true, null, subHolder1).sethasDelete(true));
+        addGroup(index + 1, new CommonFragment.Group(this.getString(R.string.Details_Information), R.mipmap.add_detail3x, true, null, subHolder1).sethasDelete(true));
         getGroup().get(index).setDrawableRes(null);
         notifyDataSetChanged();
     }

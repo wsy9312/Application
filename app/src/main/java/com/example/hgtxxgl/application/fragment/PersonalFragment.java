@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.example.hgtxxgl.application.QrCode.sample.MainActivity;
 import com.example.hgtxxgl.application.R;
-import com.example.hgtxxgl.application.activity.LoginActivity;
 import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
 import com.example.hgtxxgl.application.utils.hand.CacheManger;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
@@ -72,7 +71,6 @@ public class PersonalFragment extends Fragment implements View.OnClickListener{
     }
 
     private void initView() {
-        mLogout = (Button) view.findViewById(R.id.btn_logout);
         rlQRcode = (RelativeLayout) view.findViewById(R.id.rl_qrcode);
         //编号
         mNumber = (TextView) view.findViewById(R.id.tv_message_number);
@@ -92,7 +90,6 @@ public class PersonalFragment extends Fragment implements View.OnClickListener{
         mGDNumber = (TextView) view.findViewById(R.id.tv_message_joindate);
         //手机号码
         mTelNumber = (TextView) view.findViewById(R.id.tv_message_militaryrank);
-        mLogout.setOnClickListener(this);
         rlQRcode.setOnClickListener(this);
         showData();
     }
@@ -112,9 +109,6 @@ public class PersonalFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.btn_logout:
-                logOut();
-                break;
             case R.id.rl_qrcode:
                 skipToQR();
                 break;
@@ -125,10 +119,6 @@ public class PersonalFragment extends Fragment implements View.OnClickListener{
         startActivity(new Intent(getContext(), MainActivity.class));
     }
 
-    private void logOut() {
-        startActivity(new Intent(getContext(), LoginActivity.class));
-        System.exit(0);
-    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {

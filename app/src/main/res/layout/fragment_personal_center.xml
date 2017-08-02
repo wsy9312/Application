@@ -296,8 +296,13 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:background="@color/grey"/>
-
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:orientation="horizontal"
+        android:background="@color/grey"/>
+    <!--<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3"
@@ -312,7 +317,7 @@
             android:textColor="@color/colorWindowBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-        </LinearLayout>
+        </LinearLayout>-->
         </LinearLayout>
 
 </LinearLayout>

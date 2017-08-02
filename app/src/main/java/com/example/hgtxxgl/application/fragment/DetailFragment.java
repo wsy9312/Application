@@ -97,9 +97,9 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
             } else if (currentPage == PageConfig.PAGE_LAUNCH){
                 return MyLaunchFragment.newInstance(position).setCallback(this);
             } else if (currentPage == PageConfig.PAGE_APPLY_CAR){
-                return new RestApplyFragment();
+                return new RestApplyCarFragment();
             } else if (currentPage == PageConfig.PAGE_APPLY_PEOPLE){
-                return new RestApplyFragment();
+                return new RestApplyPeopleFragment();
             }
             return null;
         }

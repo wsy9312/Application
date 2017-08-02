@@ -8,7 +8,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.hgtxxgl.application.R;
-import com.example.hgtxxgl.application.fragment.RestApplyFragment;
+import com.example.hgtxxgl.application.fragment.RestApplyCarFragment;
+import com.example.hgtxxgl.application.fragment.RestApplyPeopleFragment;
 import com.example.hgtxxgl.application.rest.RestApproveFragment;
 import com.example.hgtxxgl.application.rest.RestDetailFragment;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
@@ -45,9 +46,13 @@ public class ItemActivity extends AppCompatActivity {
 //            case PAGE_APPLY_EXTRAWORK:
 //                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, ExtraWorkApplyFragment.newInstance(getIntent().getBundleExtra("data"))).commit();
 //                break;
-            case PageConfig.PAGE_LEAVE_APPLY:
+            case PageConfig.PAGE_LEAVE_APPLY_CAR:
                 //请假申请
-                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
+                checkFragment(RestApplyCarFragment.newInstance(getIntent().getBundleExtra("data")));
+                break;
+            case PageConfig.PAGE_LEAVE_APPLY_PEOPLE:
+                //请假申请
+                checkFragment(RestApplyPeopleFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_LEAVE_APPROVE:
                 checkFragment(RestApproveFragment.newInstance(getIntent().getBundleExtra("data")));
@@ -161,7 +166,7 @@ public class ItemActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         int intExtra = getIntent().getIntExtra(PageConfig.PAGE_CODE, -1);
-        if (intExtra == PageConfig.PAGE_LEAVE_APPLY ){
+        if (intExtra == PageConfig.PAGE_LEAVE_APPLY_CAR || intExtra == PageConfig.PAGE_LEAVE_APPLY_PEOPLE ){
             AlertDialog.Builder builder=new AlertDialog.Builder(this);  //先得到构造器
             builder.setMessage("是否确认退出?"); //设置内容
             builder.setPositiveButton("确定", new DialogInterface.OnClickListener() { //设置确定按钮
