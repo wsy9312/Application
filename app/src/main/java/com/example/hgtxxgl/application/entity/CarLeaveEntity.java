@@ -53,6 +53,9 @@ public class CarLeaveEntity {
         private String ModifyTime;
         private String NoIndex;
 
+        public CarLeaveRrdBean() {
+        }
+
         public CarLeaveRrdBean(String no, String approverNo, String carNo, String process, String result, String bCancel, String bFillup, String registerTime, String outTime, String inTime, String content, String actualOutTime, String actualInTime, String modifyTime, String noIndex) {
             No = no;
             ApproverNo = approverNo;

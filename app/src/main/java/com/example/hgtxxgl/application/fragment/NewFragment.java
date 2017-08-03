@@ -64,14 +64,14 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        tabIndex = getArguments().getInt(DetailFragment.ARG_TAB);
-        for (int i = 0; i < 2; i++) {
-            if (entityList.isEmpty()){
-                loadData(1,6);
-            }else{
-                return;
-            }
-        }
-
+//        for (int i = 0; i < 2; i++) {
+//            if (entityList.isEmpty()){
+//                loadData(1,6);
+//            }else{
+//                return;
+//            }
+//        }
+        loadData(1,6);
 //        loaddata();
 
     }
