@@ -61,6 +61,31 @@ public class PeopleLeaveEntity {
         private String bFillup;
         private String NoIndex;
 
+        public PeopleLeaveRrdBean() {
+        }
+
+        public PeopleLeaveRrdBean(String no, String approver1No, String approver2No, String approver3No, String approver4No, String approver5No, String registerTime, String outTime, String inTime, String content, String actualOutTime, String actualInTime, String modifyTime, String multiLevelResult, String process, String levelNum, String bCancel, String bFillup, String noIndex) {
+            No = no;
+            Approver1No = approver1No;
+            Approver2No = approver2No;
+            Approver3No = approver3No;
+            Approver4No = approver4No;
+            Approver5No = approver5No;
+            RegisterTime = registerTime;
+            OutTime = outTime;
+            InTime = inTime;
+            Content = content;
+            ActualOutTime = actualOutTime;
+            ActualInTime = actualInTime;
+            ModifyTime = modifyTime;
+            MultiLevelResult = multiLevelResult;
+            Process = process;
+            LevelNum = levelNum;
+            this.bCancel = bCancel;
+            this.bFillup = bFillup;
+            NoIndex = noIndex;
+        }
+
         public String getNo() {
             return No;
         }

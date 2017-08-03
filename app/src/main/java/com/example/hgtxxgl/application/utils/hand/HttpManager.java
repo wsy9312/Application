@@ -81,13 +81,17 @@ public class HttpManager {
                             T t = null;
                             String substring = "";
                             Log.e(TAG,"onResponse: "+response);
-                            substring = response.substring(response.indexOf("{"), response.length());
-                            setJson(substring);
-                            t = parseJson(substring,clazz);
-                            if (t != null) {
-                                callback.onSuccess(substring, t);
-                            } else {
-                                callback.onFailure(substring);
+                            if (response.contains("\"")) {
+                                substring = response.substring(response.indexOf("{"), response.length());
+                                setJson(substring);
+                                t = parseJson(substring, clazz);
+                                if (t != null) {
+                                    callback.onSuccess(substring, t);
+                                } else {
+                                    callback.onFailure(substring);
+                                }
+                            }else{
+                                callback.onResponse(response);
                             }
                         }catch (Exception e){
                             e.printStackTrace();
@@ -248,6 +252,8 @@ public class HttpManager {
         void onSuccess(String json, T t) throws InterruptedException;
 
         void onFailure(String msg);
+
+        void onResponse(String response);
     }
 
     public <T> void requestResultForm(final String url, final Map<String, Object> map, final Class<T> clazz, final ResultCallback<T> callback) {

@@ -179,7 +179,12 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
                             }
                         });
                     }
-                });
+
+                    @Override
+                    public void onResponse(String response) {
+
+                    }
+        });
 
     }
     public static String str2HexStr(String str)

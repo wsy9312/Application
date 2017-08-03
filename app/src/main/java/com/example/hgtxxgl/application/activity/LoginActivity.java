@@ -229,6 +229,11 @@ public class LoginActivity extends AppCompatActivity {
                     public void onFailure(String msg) {
 
                     }
+
+                    @Override
+                    public void onResponse(String response) {
+
+                    }
                 });
             }
         }).start();

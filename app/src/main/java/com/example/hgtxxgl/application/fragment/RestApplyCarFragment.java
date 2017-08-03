@@ -93,29 +93,32 @@ public class RestApplyCarFragment extends CommonFragment{
                         setButtonllEnable(true);
                         notifyDataSetChanged();
                     }else{
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(getActivity(),"车辆外出信息实体转换异常", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        show("车辆外出信息实体转换异常");
                     }
                 }
 
                 @Override
                 public void onFailure(final String msg) {
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(getActivity(),msg, Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    show(msg);
+                }
+
+                @Override
+                public void onResponse(String response) {
+
                 }
             });
 
         }
     }
 
+    public void show(final String msg){
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getActivity(),msg, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     @Override
     public List<CommonFragment.Group> getGroupList() {
         if (!ApplicationApp.getPeopleInfoEntity().getPeopleInfo().isEmpty()){
@@ -135,7 +138,7 @@ public class RestApplyCarFragment extends CommonFragment{
             baseHolder.add(new HandInputGroup.Holder("申请车辆号牌",true,false,"",HandInputGroup.VALUE_TYPE.TEXTFILED));
             baseHolder.add(new HandInputGroup.Holder("预计外出时间",true,false,"",HandInputGroup.VALUE_TYPE.DATE));
             baseHolder.add(new HandInputGroup.Holder("预计归来时间",true,false,"",HandInputGroup.VALUE_TYPE.DATE));
-            baseHolder.add(new HandInputGroup.Holder("请假原因",false,false,"",HandInputGroup.VALUE_TYPE.TEXTFILED));
+            baseHolder.add(new HandInputGroup.Holder("外出原因",false,false,"",HandInputGroup.VALUE_TYPE.TEXTFILED));
             baseHolder.add(new HandInputGroup.Holder("是否取消请假",false,false,"否",HandInputGroup.VALUE_TYPE.SELECT));
             baseHolder.add(new HandInputGroup.Holder("是否后补请假",false,false,"否",HandInputGroup.VALUE_TYPE.SELECT));
             groups.add(0,new CommonFragment.Group("基本信息", null,true,null,baseHolder));
@@ -152,7 +155,7 @@ public class RestApplyCarFragment extends CommonFragment{
             subHolder1.add(new HandInputGroup.Holder("申请车辆号牌", true, false, carNo, HandInputGroup.VALUE_TYPE.TEXTFILED));
             subHolder1.add(new HandInputGroup.Holder("预计外出时间", true, false, outTime, HandInputGroup.VALUE_TYPE.DATE));
             subHolder1.add(new HandInputGroup.Holder("预计归来时间", true, false, inTime, HandInputGroup.VALUE_TYPE.DATE));
-            subHolder1.add(new HandInputGroup.Holder("请假原因", false, false, content, HandInputGroup.VALUE_TYPE.TEXTFILED));
+            subHolder1.add(new HandInputGroup.Holder("外出原因", false, false, content, HandInputGroup.VALUE_TYPE.TEXTFILED));
             subHolder1.add(new HandInputGroup.Holder("是否取消请假", false, false, bCancel.equals("0") ? "否" : "是", HandInputGroup.VALUE_TYPE.SELECT));
             subHolder1.add(new HandInputGroup.Holder("是否后补请假", false, false, bFillup.equals("0") ? "否" : "是", HandInputGroup.VALUE_TYPE.SELECT));
             groups.add(0, new CommonFragment.Group("基本信息", null, true, null, subHolder1));
@@ -519,26 +522,21 @@ public class RestApplyCarFragment extends CommonFragment{
         HttpManager.getInstance().requestResultForm(baseUrl, s1, CarLeaveEntity.class, new HttpManager.ResultCallback<CarLeaveEntity>() {
             @Override
             public void onSuccess(String json, final CarLeaveEntity carLeaveEntity) throws InterruptedException {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (carLeaveEntity != null){
-                            ToastUtil.showToast(getContext(),"提交成功");
-                        }else{
-                            ToastUtil.showToast(getContext(),"提交失败");
-                        }
-                    }
-                });
+                show(json);
             }
 
             @Override
             public void onFailure(final String msg) {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        ToastUtil.showToast(getContext(),"onFailure:"+msg);
-                    }
-                });
+                show("onFailure:"+msg);
+            }
+
+            @Override
+            public void onResponse(String response) {
+                if (response.toLowerCase().contains("ok")) {
+                    show("提交成功");
+                }else{
+                    show("提交失败");
+                }
             }
         });
 
@@ -618,6 +616,11 @@ public class RestApplyCarFragment extends CommonFragment{
             @Override
             public void onFailure(String content) {
             }
+
+            @Override
+            public void onResponse(String response) {
+
+            }
         });
         //请假天数
         params.put("code", "3176");
@@ -629,6 +632,11 @@ public class RestApplyCarFragment extends CommonFragment{
             @Override
             public void onFailure(String content) {
             }
+
+            @Override
+            public void onResponse(String response) {
+
+            }
         });
         //附件类型
         params.put("code", "2169");
@@ -639,6 +647,11 @@ public class RestApplyCarFragment extends CommonFragment{
             }
             @Override
             public void onFailure(String content) {
+            }
+
+            @Override
+            public void onResponse(String response) {
+
             }
         });
     }

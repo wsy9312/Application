@@ -997,6 +997,11 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
                                 });
 
                             }
+
+                            @Override
+                            public void onResponse(String response) {
+
+                            }
                         });
                     }
                 }
@@ -1052,6 +1057,11 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
                         setButtonllEnable(true);
                     }
                 });
+            }
+
+            @Override
+            public void onResponse(String response) {
+
             }
         });
     }
@@ -1297,6 +1307,11 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
 
             @Override
             public void onFailure(String content) {
+            }
+
+            @Override
+            public void onResponse(String response) {
+
             }
         });
     }

@@ -144,6 +144,11 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
                     });
 
                 }
+
+                @Override
+                public void onResponse(String response) {
+
+                }
             });
         }
 

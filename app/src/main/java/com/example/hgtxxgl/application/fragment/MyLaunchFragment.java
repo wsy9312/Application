@@ -183,6 +183,11 @@ public class MyLaunchFragment extends Fragment implements AdapterView.OnItemClic
                             }
                         });
                     }
+
+                    @Override
+                    public void onResponse(String response) {
+
+                    }
                 });
             }
         }).setActionTextColor(Color.RED).show();
@@ -308,6 +313,11 @@ public class MyLaunchFragment extends Fragment implements AdapterView.OnItemClic
 //                            lv.completeRefresh();
                         }
                     });
+                }
+
+                @Override
+                public void onResponse(String response) {
+
                 }
             });
         }else {

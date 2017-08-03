@@ -172,6 +172,11 @@ public class RestDetailFragment extends CommonFragment {
                 });
 
             }
+
+            @Override
+            public void onResponse(String response) {
+
+            }
         });
         param.put("uid",getArguments().getString("SubmitBy"));
         HttpManager.getInstance().requestResultForm(CommonValues.GET_USER_PHOTO, param, UserPhotoEntity.class, new HttpManager.ResultCallback<UserPhotoEntity>() {
@@ -197,6 +202,11 @@ public class RestDetailFragment extends CommonFragment {
 
             @Override
             public void onFailure(String content) {
+
+            }
+
+            @Override
+            public void onResponse(String response) {
 
             }
         });
