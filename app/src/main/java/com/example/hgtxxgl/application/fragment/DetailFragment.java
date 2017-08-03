@@ -100,7 +100,8 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
                 return new RestApplyCarFragment();
 //                return new RestDetailCarFragment();
             } else if (currentPage == PageConfig.PAGE_APPLY_PEOPLE){
-                return new RestApplyPeopleFragment();
+//                return new RestApplyPeopleFragment();
+                return new RestDetailPeopleFragment();
             }
             return null;
         }

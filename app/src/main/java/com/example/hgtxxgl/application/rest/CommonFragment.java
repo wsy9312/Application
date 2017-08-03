@@ -807,8 +807,8 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
                 RecyclerView listView = ((HistoryViewHolder) holder).rvHistory;
                 Object value = groupList.get(position).getValue();
                 if (listView.getAdapter() == null) {
-                    listView.setAdapter(new HistortFlowAdapter(getActivity(),
-                            (HisDataBean) value));
+//                    listView.setAdapter(new HistortFlowAdapter(getActivity(),
+//                            (HisDataBean) value));
                 }
                 if (displayTabs) {
                     setVisibility(listView, groupList.get(position).isVisible());

@@ -11,7 +11,9 @@ import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.fragment.RestApplyCarFragment;
 import com.example.hgtxxgl.application.fragment.RestApplyPeopleFragment;
 import com.example.hgtxxgl.application.fragment.RestApproveCarFragment;
+import com.example.hgtxxgl.application.fragment.RestApprovePeoplePeopleFragment;
 import com.example.hgtxxgl.application.fragment.RestDetailCarFragment;
+import com.example.hgtxxgl.application.fragment.RestDetailPeopleFragment;
 import com.example.hgtxxgl.application.utils.SysExitUtil;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
 
@@ -56,13 +58,18 @@ public class ItemActivity extends AppCompatActivity {
                 //请假申请
                 checkFragment(RestApplyPeopleFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
-            case PageConfig.PAGE_LEAVE_APPROVE:
+            case PageConfig.PAGE_LEAVE_APPROVE_CAR:
                 checkFragment(RestApproveCarFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
-            case PageConfig.PAGE_LEAVE_DETAIL:
+            case PageConfig.PAGE_LEAVE_DETAIL_CAR:
                 checkFragment(RestDetailCarFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
-
+            case PageConfig.PAGE_LEAVE_APPROVE_PEOPLE:
+                checkFragment(RestApprovePeoplePeopleFragment.newInstance(getIntent().getBundleExtra("data")));
+                break;
+            case PageConfig.PAGE_LEAVE_DETAIL_PEOPLE:
+                checkFragment(RestDetailPeopleFragment.newInstance(getIntent().getBundleExtra("data")));
+                break;
             /*case PageConfig.PAGE_APPROVE_REST:
                 //请假审批
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, RestApproveCarFragment.newInstance(getIntent().getBundleExtra("data"))).commit();

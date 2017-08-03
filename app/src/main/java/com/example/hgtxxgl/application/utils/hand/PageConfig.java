@@ -20,11 +20,13 @@ public class PageConfig {
     /**
      * 请假流程首页三个按钮
      */
-    public static final int PAGE_LEAVE_APPROVE = 26;
-    public static final int PAGE_LEAVE_DETAIL = 27;
-    public static final int PAGE_LEAVE_APPLY_CAR = 28;
-    public static final int PAGE_LEAVE_APPLY_PEOPLE = 30;
-    public static final int PAGE_ITEM_NEWS = 29;
+    public static final int PAGE_LEAVE_APPLY_CAR = 26;
+    public static final int PAGE_LEAVE_APPLY_PEOPLE = 27;
+    public static final int PAGE_LEAVE_APPROVE_CAR = 28;
+    public static final int PAGE_LEAVE_APPROVE_PEOPLE = 29;
+    public static final int PAGE_LEAVE_DETAIL_CAR = 30;
+    public static final int PAGE_LEAVE_DETAIL_PEOPLE = 31;
+    public static final int PAGE_ITEM_NEWS = 32;
 
     /**
      * 申请页面

@@ -54,6 +54,9 @@ public class PeopleInfoEntity {
         private String ModifyTime;
         private String RegisterTime;
 
+        public PeopleInfoBean() {
+        }
+
         public PeopleInfoBean(String no, String name, String cardNo, String position, String sex, String unit, String armyGroup, String phoneNo, String telNo, String groupName, String loginName, String password, String authority, String modifyTime, String registerTime) {
             No = no;
             Name = name;
