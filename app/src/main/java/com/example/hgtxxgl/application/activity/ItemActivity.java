@@ -10,8 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.fragment.RestApplyCarFragment;
 import com.example.hgtxxgl.application.fragment.RestApplyPeopleFragment;
-import com.example.hgtxxgl.application.rest.RestApproveFragment;
-import com.example.hgtxxgl.application.rest.RestDetailFragment;
+import com.example.hgtxxgl.application.fragment.RestApproveCarFragment;
+import com.example.hgtxxgl.application.fragment.RestDetailCarFragment;
 import com.example.hgtxxgl.application.utils.SysExitUtil;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
 
@@ -57,19 +57,19 @@ public class ItemActivity extends AppCompatActivity {
                 checkFragment(RestApplyPeopleFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_LEAVE_APPROVE:
-                checkFragment(RestApproveFragment.newInstance(getIntent().getBundleExtra("data")));
+                checkFragment(RestApproveCarFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_LEAVE_DETAIL:
-                checkFragment(RestDetailFragment.newInstance(getIntent().getBundleExtra("data")));
+                checkFragment(RestDetailCarFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
 
             /*case PageConfig.PAGE_APPROVE_REST:
                 //请假审批
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, RestApproveFragment.newInstance(getIntent().getBundleExtra("data"))).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, RestApproveCarFragment.newInstance(getIntent().getBundleExtra("data"))).commit();
                 break;
                 //请假查看
             case PageConfig.PAGE_DISPLAY_REST:
-                checkFragment(RestDetailFragment.newInstance(getIntent().getBundleExtra("data")));
+                checkFragment(RestDetailCarFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;*/
 //            case PAGE_APPLY_TRAVEL_OFFER:
 //                //差旅报销

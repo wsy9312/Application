@@ -1,4 +1,4 @@
-package com.example.hgtxxgl.application.rest;
+package com.example.hgtxxgl.application.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,10 @@ import android.support.annotation.Nullable;
 import android.widget.Toast;
 
 import com.example.hgtxxgl.application.R;
+import com.example.hgtxxgl.application.rest.AttachmentListEntity;
+import com.example.hgtxxgl.application.rest.DescripUtil;
+import com.example.hgtxxgl.application.rest.HandInputGroup;
+import com.example.hgtxxgl.application.rest.RestDetailBean;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
 import com.example.hgtxxgl.application.utils.hyutils.L;
@@ -19,16 +23,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RestApproveFragment extends RestDetailFragment{
+public class RestApproveCarFragment extends RestDetailCarFragment {
 
     private RestDetailBean.RetDataBean.DetailDataBean entitiy;
     private HandInputGroup.Holder mholder;
 
-    public RestApproveFragment() {
+    public RestApproveCarFragment() {
     }
 
-    public static RestApproveFragment newInstance(Bundle bundle) {
-        RestApproveFragment fragment = new RestApproveFragment();
+    public static RestApproveCarFragment newInstance(Bundle bundle) {
+        RestApproveCarFragment fragment = new RestApproveCarFragment();
         fragment.setArguments(bundle);
         return fragment;
     }

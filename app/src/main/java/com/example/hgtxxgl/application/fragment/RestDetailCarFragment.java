@@ -1,4 +1,4 @@
-package com.example.hgtxxgl.application.rest;
+package com.example.hgtxxgl.application.fragment;
 
 import android.graphics.Color;
 import android.net.Uri;
@@ -6,6 +6,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.example.hgtxxgl.application.R;
+import com.example.hgtxxgl.application.rest.AttachmentListEntity;
+import com.example.hgtxxgl.application.rest.CommonFragment;
+import com.example.hgtxxgl.application.rest.HandInputGroup;
+import com.example.hgtxxgl.application.rest.RestDetailBean;
+import com.example.hgtxxgl.application.rest.UserPhotoEntity;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.DataUtil;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
@@ -17,20 +22,20 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-public class RestDetailFragment extends CommonFragment {
+public class RestDetailCarFragment extends CommonFragment {
 
 
     private String SN;
     private String photo;
-    private String TAG = "RestDetailFragment";
+    private String TAG = "RestDetailCarFragment";
 
-    public RestDetailFragment(){
+    public RestDetailCarFragment(){
     }
 
     private RestDetailBean.RetDataBean entity = null;
 
-    public static RestDetailFragment newInstance(Bundle bundle) {
-        RestDetailFragment fragment = new RestDetailFragment();
+    public static RestDetailCarFragment newInstance(Bundle bundle) {
+        RestDetailCarFragment fragment = new RestDetailCarFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
