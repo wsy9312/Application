@@ -98,6 +98,7 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
                 return MyLaunchFragment.newInstance(position).setCallback(this);
             } else if (currentPage == PageConfig.PAGE_APPLY_CAR){
                 return new RestApplyCarFragment();
+//                return new RestDetailCarFragment();
             } else if (currentPage == PageConfig.PAGE_APPLY_PEOPLE){
                 return new RestApplyPeopleFragment();
             }
@@ -121,7 +122,7 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
             } else if (currentPage == PageConfig.PAGE_TODO) {
                 return 2;
             } else if (currentPage == PageConfig.PAGE_LAUNCH) {
-                return 3;
+                return 2;
             } else if (currentPage == PageConfig.PAGE_APPLY_CAR) {
                 return 1;
             } else if (currentPage == PageConfig.PAGE_APPLY_PEOPLE) {

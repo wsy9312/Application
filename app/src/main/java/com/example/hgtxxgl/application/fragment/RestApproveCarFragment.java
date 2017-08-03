@@ -57,7 +57,7 @@ public class RestApproveCarFragment extends RestDetailCarFragment {
             requestForPerson(title);
             return;
         }
-        entitiy = getEntity().getDetailData();
+//        entitiy = getEntity().getDetailData();
         String over = isOver(groups);
         if (!title.equals("驳回") && over != null){
             ToastUtil.showToast(getContext(),(this.getString(R.string.Please_Fill) + over));
