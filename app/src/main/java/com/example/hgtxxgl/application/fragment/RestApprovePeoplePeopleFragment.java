@@ -7,11 +7,13 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.hgtxxgl.application.R;
+import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
 import com.example.hgtxxgl.application.rest.AttachmentListEntity;
 import com.example.hgtxxgl.application.rest.DescripUtil;
 import com.example.hgtxxgl.application.rest.HandInputGroup;
 import com.example.hgtxxgl.application.rest.RestDetailBean;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
+import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
 import com.example.hgtxxgl.application.view.HandToolbar;
 import com.google.gson.Gson;
@@ -42,7 +44,46 @@ public class RestApprovePeoplePeopleFragment extends RestDetailPeopleFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getBottomTitles();
+//        getBottomTitles();
+        loadToDoData();
+    }
+
+    private void loadToDoData() {
+        PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
+        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean =
+                new PeopleLeaveEntity.PeopleLeaveRrdBean("?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?");
+        List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
+        list.add(peopleLeaveRrdBean);
+        peopleLeaveEntity.setPeopleLeaveRrd(list);
+        String toJson = new Gson().toJson(peopleLeaveEntity);
+        String s="get "+toJson;
+        String url = CommonValues.BASE_URL;
+        HttpManager.getInstance().requestResultForm(url, s, PeopleLeaveEntity.class, new HttpManager.ResultCallback<PeopleLeaveEntity>() {
+            @Override
+            public void onSuccess(String json, final PeopleLeaveEntity peopleLeaveEntity1) throws InterruptedException {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (peopleLeaveEntity1 != null){
+                            setEntity(peopleLeaveEntity1.getPeopleLeaveRrd().get(0));
+                            setGroup(getGroupList());
+                            setPb(false);
+                            setButtonllEnable(true);
+                            setDisplayTabs(true);
+                            notifyDataSetChanged();
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(String msg) {
+            }
+
+            @Override
+            public void onResponse(String response) {
+            }
+        });
     }
 
     @Override
@@ -51,14 +92,20 @@ public class RestApprovePeoplePeopleFragment extends RestDetailPeopleFragment {
         toolbar.setDisplayHomeAsUpEnabled(true, getActivity());
     }
 
+    @Override
+    public List<Group> getGroupList() {
+        List<Group> groups = super.getGroupList();
+        return groups;
+    }
+
     @SuppressWarnings("unchecked")
     @Override
     public void onBottomButtonsClick(final String title, final List<Group> groups) {
         setButtonllEnable(false);
-        if (title.equals("转办")){
-            requestForPerson(title);
-            return;
-        }
+//        if (title.equals("转办")){
+//            requestForPerson(title);
+//            return;
+//        }
 //        entitiy = getEntity().getDetailData();
         String over = isOver(groups);
         if (!title.equals("驳回") && over != null){

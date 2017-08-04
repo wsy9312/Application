@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
 import com.example.hgtxxgl.application.rest.CommonFragment;
 import com.example.hgtxxgl.application.rest.HandInputGroup;
-import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
@@ -43,20 +42,22 @@ public class RestDetailPeopleFragment extends CommonFragment {
     public List<Group> getGroupList() {
         if (entity == null) return new ArrayList<>();
         List<Group> groups = new ArrayList<>();
+
         List<HandInputGroup.Holder> list = new ArrayList<>();
         list.add(new HandInputGroup.Holder("流程内容", true, false, "人员请假", HandInputGroup.VALUE_TYPE.TEXT));
-        Group group = new Group("流程摘要-摘要内容", null, true, null, list).setrl(true).setv1(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName());
-        groups.add(group);
-        groups.add(new Group("流程摘要-摘要",null,true,null,null).setrl(false));
+        list.add(new HandInputGroup.Holder("审批进度", true, false, entity.getProcess().equals("0")?"审批中":"审批结束", HandInputGroup.VALUE_TYPE.TEXT));
+        list.add(new HandInputGroup.Holder("审批结果", true, false, entity.getMultiLevelResult(), HandInputGroup.VALUE_TYPE.TEXT));
+        groups.add(new Group("流程摘要-摘要内容", null, false, null, list));
+
         List<HandInputGroup.Holder> holderList = new ArrayList<>();
         holderList.add(new HandInputGroup.Holder("流程内容",true,false, "人员请假",HandInputGroup.VALUE_TYPE.TEXT));
-        holderList.add(new HandInputGroup.Holder("申请人", false, false, entity.getNo(), HandInputGroup.VALUE_TYPE.TEXT));
-        holderList.add(new HandInputGroup.Holder("预计外出时间", false, false, entity.getOutTime(), HandInputGroup.VALUE_TYPE.TEXT));
-        holderList.add(new HandInputGroup.Holder("预计归来时间", false, false, entity.getInTime(), HandInputGroup.VALUE_TYPE.TEXT));
-        holderList.add(new HandInputGroup.Holder("请假原因", false, false, entity.getContent(), HandInputGroup.VALUE_TYPE.TEXT));
-        holderList.add(new HandInputGroup.Holder("是否取消请假", false, false, entity.getBCancel().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
-        holderList.add(new HandInputGroup.Holder("是否后补请假", false, false, entity.getBFillup().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
-        groups.add(new Group("详细信息-" + "基本信息", null, false, null, holderList).setrl(false));
+        holderList.add(new HandInputGroup.Holder("申请人", true, false, entity.getNo(), HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("预计外出时间", true, false, entity.getOutTime(), HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("预计归来时间", true, false, entity.getInTime(), HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("请假原因", true, false, entity.getContent(), HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("是否取消请假", true, false, entity.getBCancel().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("是否后补请假", true, false, entity.getBFillup().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
+        groups.add(new Group("详细信息-基本信息", null, false, null, holderList));
         return groups;
     }
 
@@ -68,7 +69,7 @@ public class RestDetailPeopleFragment extends CommonFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        SN = getArguments().getString("SN");
+        SN = getArguments().getString("SN");
         loadData();
     }
 
@@ -82,10 +83,18 @@ public class RestDetailPeopleFragment extends CommonFragment {
     }
 
     public void loadData() {
+        String no = getArguments().getString("no");
+        String multiLevelResult = getArguments().getString("multiLevelResult");
+        String content = getArguments().getString("content");
+        String modifyTime = getArguments().getString("modifyTime");
+        String outtime = getArguments().getString("outtime");
+        String intime = getArguments().getString("intime");
+        String bcancel = getArguments().getString("bcancel");
+        String bfillup = getArguments().getString("bfillup");
+        final String noindex = getArguments().getString("noindex");
         final PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
         PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean =
-                new PeopleLeaveEntity.PeopleLeaveRrdBean
-                        (ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo(),"?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","9");
+                new PeopleLeaveEntity.PeopleLeaveRrdBean(no,"?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?",Integer.parseInt(noindex)+1+"","?","?");
         List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
         list.add(peopleLeaveRrdBean);
         peopleLeaveEntity.setPeopleLeaveRrd(list);

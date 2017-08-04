@@ -24,6 +24,7 @@ import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.LibMainActivity;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
+import com.example.hgtxxgl.application.view.HandToolbar;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -43,7 +44,7 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
     private List<Group> groupList;
     private RelativeLayout stubEmpty;
     private boolean displayTabs = false;
-//    private HandToolbar toolbar;
+    private HandToolbar toolbar;
     private String[] buttonsTitles = new String[]{};
     private ProgressDialog dialog;
     private CustomDatePicker customDatePicker;
@@ -209,7 +210,7 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
             notifyDataSetChanged();
         }
     }
-
+//
 //    public HandToolbar getToolbar() {
 //        return toolbar;
 //    }
@@ -231,7 +232,7 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
 //        toolbar.setDisplayHomeAsUpEnabled(true, getActivity());
 //        toolbar.setBackHome(true,getActivity(),0);
         stubEmpty = (RelativeLayout) layout.findViewById(R.id.vs_empty);
-//        stubEmpty.setVisibility(groupList == null || groupList.size() == 0 ? View.VISIBLE : View.GONE);
+        stubEmpty.setVisibility(groupList == null || groupList.size() == 0 ? View.VISIBLE : View.GONE);
         stubEmpty.setVisibility(View.GONE);
         setButtonsTitles(getBottomButtonsTitles());
         if (getGroup() != null) {
@@ -245,8 +246,8 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
                     @Override
                     public void onChanged() {
                         if (adpter.getItemCount() == 0) {
-//                            stubEmpty.setVisibility(groupList == null ? View.VISIBLE : View.GONE);
-                            stubEmpty.setVisibility(View.GONE);
+                            stubEmpty.setVisibility(groupList == null ? View.VISIBLE : View.GONE);
+//                            stubEmpty.setVisibility(View.GONE);
                         }
                     }
                 });
@@ -286,13 +287,12 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
     }
 
     public abstract List<Group> getGroupList();
-/*
-    *//**
+    /**
      * 设置标题栏
      *
      * @param toolbar 组合控件，设置它的参数
-     *//*
-    public abstract void setToolbar(HandToolbar toolbar);*/
+     */
+//    public abstract void setToolbar(HandToolbar toolbar);
 
     /**
      * 返回底部按钮设置
@@ -947,7 +947,7 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
     }
 
     public void applyApprove(final String url, final Map<String, Object> param, final String title) {
-//        toolbar.setEnabled(false);
+        toolbar.setEnabled(false);
         InputHolder holder = new InputHolder("审批意见", "确定", "请输入" + title + "内容", title.equals("同意") ? "同意" : "", title.equals("驳回"));
         InputActivity.showBottomInputTextField(getActivity(),
                 holder, new InputActivity.Callback() {
@@ -1010,7 +1010,7 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
 
     public void applySaveOrStart(final String url, final Map<String, Object> param, final String title) {
         setPb(true);
-//        toolbar.setEnabled(false);
+        toolbar.setEnabled(false);
         if (title.equals("保存")) {
             param.put("actionType", "Save");
         } else if (title.equals("提交")) {

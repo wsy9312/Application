@@ -8,6 +8,7 @@ import java.util.List;
 
 public class PeopleLeaveEntity {
 
+
     private List<PeopleLeaveRrdBean> PeopleLeaveRrd;
 
     public List<PeopleLeaveRrdBean> getPeopleLeaveRrd() {
@@ -20,25 +21,27 @@ public class PeopleLeaveEntity {
 
     public static class PeopleLeaveRrdBean {
         /**
-         * No : 申请人ID.非空
-         * Approver1No : 审批人1ID
-         * Approver2No : 审批人2ID
-         * Approver3No : 审批人3ID
-         * Approver4No : 审批人4ID
-         * Approver5No : 审批人5ID
-         * RegisterTime : 申请时间.系统生成
-         * OutTime : 预计外出时间.非空
-         * InTime : 预计归来时间.非空
+         * No : 申请人
+         * Approver1No : 审批人1
+         * Approver2No : 审批人2
+         * Approver3No : 审批人3
+         * Approver4No : 审批人4
+         * Approver5No : 审批人5
+         * RegisterTime : 申请时间
+         * OutTime : 预计外出时间
+         * InTime : 预计归来时间
          * Content : 请假原因
          * ActualOutTime : 实际外出时间
          * ActualInTime : 实际归来时间
-         * ModifyTime : 最后修改时间.系统生成
-         * MultiLevelResult : 审批结果.非空
-         * Process : 0：审批中，1：审批结束.非空.默认0
-         * LevelNum : 审批级数.非空.默认1
-         * bCancel : 取消请假 0:正常/1:取消.默认0
-         * bFillup : 是否后补请假0：否，1：是.默认0
-         * NoIndex : 序号.系统生成
+         * ModifyTime : 最后修改时间
+         * MultiLevelResult : 审批结果
+         * Process : 审批状态
+         * LevelNum : 审批级数
+         * bCancel : 是否取消请假
+         * bFillup : 是否后补请假
+         * NoIndex : 序号
+         * BeginNum : 1
+         * EndNum : 10
          */
 
         private String No;
@@ -60,11 +63,13 @@ public class PeopleLeaveEntity {
         private String bCancel;
         private String bFillup;
         private String NoIndex;
+        private String BeginNum;
+        private String EndNum;
 
         public PeopleLeaveRrdBean() {
         }
 
-        public PeopleLeaveRrdBean(String no, String approver1No, String approver2No, String approver3No, String approver4No, String approver5No, String registerTime, String outTime, String inTime, String content, String actualOutTime, String actualInTime, String modifyTime, String multiLevelResult, String process, String levelNum, String bCancel, String bFillup, String noIndex) {
+        public PeopleLeaveRrdBean(String no, String approver1No, String approver2No, String approver3No, String approver4No, String approver5No, String registerTime, String outTime, String inTime, String content, String actualOutTime, String actualInTime, String modifyTime, String multiLevelResult, String process, String levelNum, String bCancel, String bFillup, String noIndex, String beginNum, String endNum) {
             No = no;
             Approver1No = approver1No;
             Approver2No = approver2No;
@@ -84,6 +89,8 @@ public class PeopleLeaveEntity {
             this.bCancel = bCancel;
             this.bFillup = bFillup;
             NoIndex = noIndex;
+            BeginNum = beginNum;
+            EndNum = endNum;
         }
 
         public String getNo() {
@@ -236,6 +243,22 @@ public class PeopleLeaveEntity {
 
         public void setNoIndex(String NoIndex) {
             this.NoIndex = NoIndex;
+        }
+
+        public String getBeginNum() {
+            return BeginNum;
+        }
+
+        public void setBeginNum(String BeginNum) {
+            this.BeginNum = BeginNum;
+        }
+
+        public String getEndNum() {
+            return EndNum;
+        }
+
+        public void setEndNum(String EndNum) {
+            this.EndNum = EndNum;
         }
     }
 }

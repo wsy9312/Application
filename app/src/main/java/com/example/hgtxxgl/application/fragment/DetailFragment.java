@@ -95,13 +95,14 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
             } else if (currentPage == PageConfig.PAGE_TODO) {
                 return MyCommissionFragment.newInstance(position).setCallback(this);
             } else if (currentPage == PageConfig.PAGE_LAUNCH){
-                return MyLaunchFragment.newInstance(position).setCallback(this);
+                llEtSearch.setVisibility(VISIBLE);
+                return MyLaunchFragment.newInstance().setCallback(this);
             } else if (currentPage == PageConfig.PAGE_APPLY_CAR){
                 return new RestApplyCarFragment();
 //                return new RestDetailCarFragment();
             } else if (currentPage == PageConfig.PAGE_APPLY_PEOPLE){
-//                return new RestApplyPeopleFragment();
-                return new RestDetailPeopleFragment();
+                return new RestApplyPeopleFragment();
+//                return new RestDetailPeopleFragment();
             }
             return null;
         }
@@ -109,13 +110,7 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
 
         @Override
         public int getCount() {
-        /*    if (currentPage == PageConfig.PAGE_TODO) {
-                return 2;
-            } else if (currentPage == PageConfig.PAGE_LAUNCH) {
-                return 3;
-            } else
-                return 0;
-*/
+
             if (currentPage == PageConfig.PAGE_NEWS) {
                 return 1;
             } else if (currentPage == PageConfig.PAGE_NOTIFICATION) {
@@ -221,10 +216,6 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
     private void checkTabs(int page, boolean checkButtons) {
         switch (page) {
             case PageConfig.PAGE_NEWS:
-                //将viewpager中的按钮列表取消
-                /*if (checkButtons) {
-                    setRadioButtons("未提交", "未完成", "已完成");
-                }*/
                 group.setVisibility(GONE);
                 break;
             case PageConfig.PAGE_NOTIFICATION:

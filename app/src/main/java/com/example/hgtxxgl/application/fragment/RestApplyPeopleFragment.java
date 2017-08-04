@@ -71,12 +71,12 @@ public class RestApplyPeopleFragment extends CommonFragment {
             PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
             PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean =
                     new PeopleLeaveEntity.PeopleLeaveRrdBean
-                            (NO,"?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?");
+                            (NO,"?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?");
             List<PeopleLeaveEntity.PeopleLeaveRrdBean> beanList = new ArrayList<>();
             beanList.add(peopleLeaveRrdBean);
             peopleLeaveEntity.setPeopleLeaveRrd(beanList);
             String json = new Gson().toJson(peopleLeaveEntity);
-            String s1 = "apply " + json;
+            String s1 = "get " + json;
             HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL,s1,PeopleLeaveEntity.class,new HttpManager.ResultCallback<PeopleLeaveEntity>() {
                 @Override
                 public void onSuccess(String json, PeopleLeaveEntity peopleLeaveEntity1) throws InterruptedException {
@@ -119,7 +119,7 @@ public class RestApplyPeopleFragment extends CommonFragment {
         List<CommonFragment.Group> groups = new ArrayList<>();
         if (bean == null) {
             List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
-            baseHolder.add(new HandInputGroup.Holder("申请人",true,false,no,HandInputGroup.VALUE_TYPE.TEXTFILED));
+            baseHolder.add(new HandInputGroup.Holder("申请人",true,false,name,HandInputGroup.VALUE_TYPE.TEXTFILED));
             baseHolder.add(new HandInputGroup.Holder("预计外出时间",true,false,"",HandInputGroup.VALUE_TYPE.DATE));
             baseHolder.add(new HandInputGroup.Holder("预计归来时间",true,false,"",HandInputGroup.VALUE_TYPE.DATE));
             baseHolder.add(new HandInputGroup.Holder("请假原因",false,false,"",HandInputGroup.VALUE_TYPE.TEXTFILED));
@@ -201,6 +201,7 @@ public class RestApplyPeopleFragment extends CommonFragment {
         return groups;
     }
 
+
 //    private void loadRemoteFiles(final AttachmentListEntity entity) {
 //        Map<String, Object> param = CommonValues.getCommonParams(getActivity());
 //        param.put("attachmentId", entity.getId());
@@ -261,7 +262,7 @@ public class RestApplyPeopleFragment extends CommonFragment {
             }else {
                 ToastUtil.showToast(getContext(),"提交");
                 List<HandInputGroup.Holder> holders = groups.get(0).getHolders();
-                String realValueNO = holders.get(0).getRealValue();
+                String realValueNO = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo();
                 String realValueoutTime = holders.get(1).getRealValue()+":00";
                 String realValueinTime = holders.get(2).getRealValue()+":00";
                 String realValuecontent = holders.get(3).getRealValue();

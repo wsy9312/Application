@@ -7,23 +7,6 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:padding="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/tv_itrm_delete"
-            android:layout_width="90dp"
-            android:layout_height="match_parent"
-            android:background="#F00"
-            android:gravity="center"
-            android:text="删除"
-            android:textColor="#FFF"
-            android:textSize="15sp" />
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/llayout_item_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
