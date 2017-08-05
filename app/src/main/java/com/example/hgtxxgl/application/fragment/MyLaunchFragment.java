@@ -6,6 +6,7 @@ import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.ProgressBar;
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.ItemActivity;
 import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
+import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.DataUtil;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
@@ -54,7 +56,7 @@ public class MyLaunchFragment extends Fragment implements SimpleListView.OnRefre
     ListAdapter<PeopleLeaveEntity.PeopleLeaveRrdBean> adapter = new ListAdapter<PeopleLeaveEntity.PeopleLeaveRrdBean>((ArrayList<PeopleLeaveEntity.PeopleLeaveRrdBean>) entityList, R.layout.layout_my_todo_too) {
         @Override
         public void bindView(ViewHolder holder, PeopleLeaveEntity.PeopleLeaveRrdBean bean) {
-            holder.setText(R.id.tv_title, bean.getNo());
+            holder.setText(R.id.tv_title, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName());
             holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
             holder.setText(R.id.tv_sketch, bean.getContent());
         }
@@ -64,7 +66,7 @@ public class MyLaunchFragment extends Fragment implements SimpleListView.OnRefre
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        tabIndex = getArguments().getInt(DetailFragment.ARG_TAB);
-        loadData(1,6);
+        loadData(beginNum, endNum);
     }
 
     SimpleListView lv;
@@ -94,25 +96,29 @@ public class MyLaunchFragment extends Fragment implements SimpleListView.OnRefre
     }
 
     private static final String TAG = "MyLaunchFragment";
+
     void loadData(final int beginNum, final int endNum) {
         if (callback != null) {
             callback.onLoadData();
         }
         PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
         PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
-        peopleLeaveRrdBean.setNo("?");
+        peopleLeaveRrdBean.setNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
+        peopleLeaveRrdBean.setMultiLevelResult("?");
+        peopleLeaveRrdBean.setProcess("?");
+        peopleLeaveRrdBean.setLevelNum("?");
         peopleLeaveRrdBean.setContent("?");
-        peopleLeaveRrdBean.setModifyTime("?");
-        peopleLeaveRrdBean.setNoIndex("?");
         peopleLeaveRrdBean.setBeginNum(String.valueOf(beginNum));
         peopleLeaveRrdBean.setEndNum(String.valueOf(endNum));
+        peopleLeaveRrdBean.setNoIndex("?");
+        peopleLeaveRrdBean.setModifyTime("?");
 
         List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
         list.add(peopleLeaveRrdBean);
         peopleLeaveEntity.setPeopleLeaveRrd(list);
         String json = new Gson().toJson(peopleLeaveEntity);
         final String s = "get " + json;
-//        Log.e(TAG, "loadData: "+s);
+        Log.e(TAG, "loadData()查看申请记录"+s);
         String url = CommonValues.BASE_URL;
         HttpManager.getInstance().requestResultForm(url, s, PeopleLeaveEntity.class,new HttpManager.ResultCallback<PeopleLeaveEntity>() {
             @Override
@@ -162,29 +168,26 @@ public class MyLaunchFragment extends Fragment implements SimpleListView.OnRefre
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        checkItem(position);
-//        if (lv.getCurrentState() == 2) return;
-//        position -= 1;
-//        checkDetail(position);
-    }
-
-    private void checkItem(int position) {
         if (lv.getCurrentState() == 2) return;
+        position -= 1;
         checkDetail(position, PageConfig.PAGE_LEAVE_DETAIL_PEOPLE);
     }
+
     private void checkDetail(int position, int pageApplyBleave) {
         Intent intent = new Intent(getActivity(), ItemActivity.class);
         intent.putExtra(PageConfig.PAGE_CODE, pageApplyBleave);
         Bundle bundle = new Bundle();
         bundle.putString("no", adapter.getItem(position).getNo());
-        bundle.putString("content", adapter.getItem(position).getContent());
-        bundle.putString("modifyTime",adapter.getItem(position).getModifyTime());
         bundle.putString("outtime",adapter.getItem(position).getOutTime());
         bundle.putString("intime", adapter.getItem(position).getInTime());
+        bundle.putString("content", adapter.getItem(position).getContent());
+        bundle.putString("levelnum", adapter.getItem(position).getContent());
+        bundle.putString("process", adapter.getItem(position).getContent());
+        bundle.putString("multiLevelResult",adapter.getItem(position).getMultiLevelResult());
+        bundle.putString("modifyTime",adapter.getItem(position).getModifyTime());
         bundle.putString("bcancel",adapter.getItem(position).getBCancel());
         bundle.putString("bfillup",adapter.getItem(position).getBFillup());
         bundle.putString("noindex",adapter.getItem(position).getNoIndex());
-        bundle.putString("multiLevelResult",adapter.getItem(position).getMultiLevelResult());
         bundle.putInt("item",position);
 //        bundle.putInt("tabIndex",tabIndex);
         intent.putExtra("data", bundle);
@@ -220,6 +223,7 @@ public class MyLaunchFragment extends Fragment implements SimpleListView.OnRefre
     }
 
     public void filter(String key) {
+        if (lv == null || key == null) return;
         if (entityList != null && !key.equals("")) {
             if (baseEntityList == null) {
                 baseEntityList = new ArrayList<>();
@@ -227,9 +231,6 @@ public class MyLaunchFragment extends Fragment implements SimpleListView.OnRefre
             }
             List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
             for (PeopleLeaveEntity.PeopleLeaveRrdBean bean : baseEntityList) {
-                if (bean.getNo().replace(" ", "").contains(key)) {
-                    list.add(bean);
-                }
                 if (bean.getContent().replace(" ", "").contains(key)) {
                     list.add(bean);
                 }
@@ -246,8 +247,37 @@ public class MyLaunchFragment extends Fragment implements SimpleListView.OnRefre
                 entityList.addAll(baseEntityList);
                 adapter.notifyDataSetChanged();
             }
-
         }
+
+//
+//        if (entityList != null && !key.equals("")) {
+//            if (baseEntityList == null) {
+//                baseEntityList = new ArrayList<>();
+//                baseEntityList.addAll(entityList);
+//            }
+//            List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
+//            for (PeopleLeaveEntity.PeopleLeaveRrdBean bean : baseEntityList) {
+//                if (bean.getNo().replace(" ", "").contains(key)) {
+//                    list.add(bean);
+//                }
+//                if (bean.getContent().replace(" ", "").contains(key)) {
+//                    list.add(bean);
+//                }
+//                if (DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss").replace(" ", "").contains(key)) {
+//                    list.add(bean);
+//                }
+//            }
+//            entityList.clear();
+//            entityList.addAll(list);
+//            adapter.notifyDataSetChanged();
+//        } else if (entityList != null) {
+//            if (baseEntityList != null) {
+//                entityList.clear();
+//                entityList.addAll(baseEntityList);
+//                adapter.notifyDataSetChanged();
+//            }
+//
+//        }
     }
 
     @Override
@@ -257,6 +287,7 @@ public class MyLaunchFragment extends Fragment implements SimpleListView.OnRefre
         beginNum = 1;
         endNum = 6;
         loadData(beginNum, endNum);
+        lv.completeRefresh();
     }
 
 

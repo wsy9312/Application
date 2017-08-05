@@ -1,6 +1,5 @@
 package com.example.hgtxxgl.application.fragment;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -8,13 +7,8 @@ import android.widget.Toast;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.entity.CarLeaveEntity;
-import com.example.hgtxxgl.application.entity.DataListEntity;
-import com.example.hgtxxgl.application.rest.AttachmentListEntity;
 import com.example.hgtxxgl.application.rest.CommonFragment;
-import com.example.hgtxxgl.application.rest.DictionaryEntity;
 import com.example.hgtxxgl.application.rest.HandInputGroup;
-import com.example.hgtxxgl.application.rest.LeaveDaysOrHoursBean;
-import com.example.hgtxxgl.application.rest.RestDetailBean;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
@@ -23,25 +17,23 @@ import com.example.hgtxxgl.application.utils.hand.ToastUtil;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by HGTXxgl on 2017/8/2.
  */
 
 public class RestApplyCarFragment extends CommonFragment{
-    private String uuid;
-    private RestDetailBean bean;
-    private LeaveDaysOrHoursBean leaveDaysBean;
-    private String barCode;
-    private List<DataListEntity> draftRestType, draftRestDayCount, draftAttachmentType;
-    private Map<String, HashSet<Uri>> fileUri;
-    private String mCompNameCN, mDeptNameCN, mNameCN, mPositionNameCN, mEid;
-    private String id;
-    private String date;
-    private List<AttachmentListEntity> attachList;
+//    private String uuid;
+//    private RestDetailBean bean;
+//    private LeaveDaysOrHoursBean leaveDaysBean;
+//    private String barCode;
+//    private List<DataListEntity> draftRestType, draftRestDayCount, draftAttachmentType;
+//    private Map<String, HashSet<Uri>> fileUri;
+//    private String mCompNameCN, mDeptNameCN, mNameCN, mPositionNameCN, mEid;
+//    private String id;
+//    private String date;
+//    private List<AttachmentListEntity> attachList;
     private CarLeaveEntity entity;
     private String name;
     private String no;
@@ -66,13 +58,10 @@ public class RestApplyCarFragment extends CommonFragment{
         super.onCreate(savedInstanceState);
         StatusBarUtils.setWindowStatusBarColor(getActivity(), R.color.mainColor_blue);
         loadData();
-        loadDraftData();
     }
 
     private void loadData() {
         if (getArguments() != null) {
-            String loginName = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getLoginName();
-            String password = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getPassword();
             String NO = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo();
             CarLeaveEntity carLeaveEntity = new CarLeaveEntity();
             CarLeaveEntity.CarLeaveRrdBean carLeaveRrdBean =
@@ -132,7 +121,7 @@ public class RestApplyCarFragment extends CommonFragment{
 //        mPositionNameCN = "";
 //        mEid = "";
         List<CommonFragment.Group> groups = new ArrayList<>();
-        if (bean == null) {
+        if (entity == null) {
             List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
             baseHolder.add(new HandInputGroup.Holder("申请人",true,false,no,HandInputGroup.VALUE_TYPE.TEXTFILED));
             baseHolder.add(new HandInputGroup.Holder("申请车辆号牌",true,false,"",HandInputGroup.VALUE_TYPE.TEXTFILED));
@@ -602,59 +591,6 @@ public class RestApplyCarFragment extends CommonFragment{
 //            }
 //        }
 //    }
-
-    private void loadDraftData() {
-        HttpManager manager = HttpManager.getInstance();
-        Map<String, Object> params = CommonValues.getCommonParams(getActivity());
-        //请假类别
-        params.put("code", "2124");
-        manager.requestResultForm(CommonValues.GET_DICTIONARY_LIST, params, DictionaryEntity.class, new HttpManager.ResultCallback<DictionaryEntity>() {
-            @Override
-            public void onSuccess(String content, final DictionaryEntity selectDraftListEntity) {
-                draftRestType = selectDraftListEntity.getRetData().get(0).getDataList();
-            }
-            @Override
-            public void onFailure(String content) {
-            }
-
-            @Override
-            public void onResponse(String response) {
-
-            }
-        });
-        //请假天数
-        params.put("code", "3176");
-        manager.requestResultForm(CommonValues.GET_DICTIONARY_LIST, params, DictionaryEntity.class, new HttpManager.ResultCallback<DictionaryEntity>() {
-            @Override
-            public void onSuccess(String content, final DictionaryEntity selectDraftListEntity) {
-                draftRestDayCount = selectDraftListEntity.getRetData().get(0).getDataList();
-            }
-            @Override
-            public void onFailure(String content) {
-            }
-
-            @Override
-            public void onResponse(String response) {
-
-            }
-        });
-        //附件类型
-        params.put("code", "2169");
-        manager.requestResultForm(CommonValues.GET_DICTIONARY_LIST, params, DictionaryEntity.class, new HttpManager.ResultCallback<DictionaryEntity>() {
-            @Override
-            public void onSuccess(String content, final DictionaryEntity selectDraftListEntity) {
-                draftAttachmentType = selectDraftListEntity.getRetData().get(0).getDataList();
-            }
-            @Override
-            public void onFailure(String content) {
-            }
-
-            @Override
-            public void onResponse(String response) {
-
-            }
-        });
-    }
 
 //    @Override
 //    public void onOneItemBottomDrawableResClick(int index) {

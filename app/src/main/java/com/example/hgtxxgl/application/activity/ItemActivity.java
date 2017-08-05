@@ -11,7 +11,7 @@ import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.fragment.RestApplyCarFragment;
 import com.example.hgtxxgl.application.fragment.RestApplyPeopleFragment;
 import com.example.hgtxxgl.application.fragment.RestApproveCarFragment;
-import com.example.hgtxxgl.application.fragment.RestApprovePeoplePeopleFragment;
+import com.example.hgtxxgl.application.fragment.RestApprovePeopleFragment;
 import com.example.hgtxxgl.application.fragment.RestDetailCarFragment;
 import com.example.hgtxxgl.application.fragment.RestDetailPeopleFragment;
 import com.example.hgtxxgl.application.utils.SysExitUtil;
@@ -51,11 +51,9 @@ public class ItemActivity extends AppCompatActivity {
 //                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, ExtraWorkApplyFragment.newInstance(getIntent().getBundleExtra("data"))).commit();
 //                break;
             case PageConfig.PAGE_LEAVE_APPLY_CAR:
-                //请假申请
                 checkFragment(RestApplyCarFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_LEAVE_APPLY_PEOPLE:
-                //请假申请
                 checkFragment(RestApplyPeopleFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_LEAVE_APPROVE_CAR:
@@ -65,7 +63,7 @@ public class ItemActivity extends AppCompatActivity {
                 checkFragment(RestDetailCarFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_LEAVE_APPROVE_PEOPLE:
-                checkFragment(RestApprovePeoplePeopleFragment.newInstance(getIntent().getBundleExtra("data")));
+                checkFragment(RestApprovePeopleFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_LEAVE_DETAIL_PEOPLE:
                 checkFragment(RestDetailPeopleFragment.newInstance(getIntent().getBundleExtra("data")));

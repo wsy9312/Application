@@ -2,7 +2,6 @@ package com.example.hgtxxgl.application.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.example.hgtxxgl.application.R;
@@ -19,32 +18,23 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RestApplyPeopleFragment extends CommonFragment {
-//    private String uuid;
-//    private RestDetailBean bean;
-//    public LeaveDaysOrHoursBean leaveDaysBean;
-//    private String barCode;
-//    private List<DataListEntity> draftRestType, draftRestDayCount, draftAttachmentType;
-//    private Map<String, HashSet<Uri>> fileUri;
-//    private String mCompNameCN, mDeptNameCN, mNameCN, mPositionNameCN, mEid;
-//    private String id;
-//    private String date;
-//    private List<AttachmentListEntity> attachList;
+public class RestApprovePeopleFragment extends RestDetailPeopleFragment {
+
     private PeopleLeaveEntity entity;
     private String name;
     private String no;
-    private final static String TAG = "RestApplyCarFragment";
+    private final static String TAG = "RestApprovePeopleFragment";
 
-    public RestApplyPeopleFragment() {
+    public RestApprovePeopleFragment() {
     }
 
-    public static RestApplyPeopleFragment newInstance() {
-        RestApplyPeopleFragment restApplyPeopleFragment = new RestApplyPeopleFragment();
-        return restApplyPeopleFragment;
+    public static RestApprovePeopleFragment newInstance() {
+        RestApprovePeopleFragment restApprovePeopleFragment = new RestApprovePeopleFragment();
+        return restApprovePeopleFragment;
     }
 
-    public static RestApplyPeopleFragment newInstance(Bundle bundle) {
-        RestApplyPeopleFragment fragment = new RestApplyPeopleFragment();
+    public static RestApprovePeopleFragment newInstance(Bundle bundle) {
+        RestApprovePeopleFragment fragment = new RestApprovePeopleFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -53,11 +43,13 @@ public class RestApplyPeopleFragment extends CommonFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         StatusBarUtils.setWindowStatusBarColor(getActivity(), R.color.mainColor_blue);
-        loadData();
+        loadTODOData();
     }
 
-    private void loadData() {
+    void loadTODOData() {
         if (getArguments() != null) {
+            String loginName = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getLoginName();
+            String password = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getPassword();
             String NO = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo();
             PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
             PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean =
@@ -68,7 +60,6 @@ public class RestApplyPeopleFragment extends CommonFragment {
             peopleLeaveEntity.setPeopleLeaveRrd(beanList);
             String json = new Gson().toJson(peopleLeaveEntity);
             String s1 = "get " + json;
-            Log.e(TAG,"loadData()查看个人申请记录状态:"+s1);
             HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL,s1,PeopleLeaveEntity.class,new HttpManager.ResultCallback<PeopleLeaveEntity>() {
                 @Override
                 public void onSuccess(String json, PeopleLeaveEntity peopleLeaveEntity1) throws InterruptedException {
@@ -85,12 +76,12 @@ public class RestApplyPeopleFragment extends CommonFragment {
 
                 @Override
                 public void onFailure(final String msg) {
-                    Log.e(TAG,"loadData()-onFailure():"+msg);
+                    show(msg);
                 }
 
                 @Override
                 public void onResponse(String response) {
-                    Log.e(TAG,"loadData()-onFailure():"+response);
+
                 }
             });
 
@@ -109,7 +100,7 @@ public class RestApplyPeopleFragment extends CommonFragment {
 //        mPositionNameCN = "";
 //        mEid = "";
         List<CommonFragment.Group> groups = new ArrayList<>();
-        if (entity == null) {
+        if (entity.getPeopleLeaveRrd() == null) {
             List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
             baseHolder.add(new HandInputGroup.Holder("申请人",true,false,name,HandInputGroup.VALUE_TYPE.TEXTFILED));
             baseHolder.add(new HandInputGroup.Holder("预计外出时间",true,false,"",HandInputGroup.VALUE_TYPE.DATE));
@@ -192,6 +183,8 @@ public class RestApplyPeopleFragment extends CommonFragment {
 //        }
         return groups;
     }
+
+
 //    private void loadRemoteFiles(final AttachmentListEntity entity) {
 //        Map<String, Object> param = CommonValues.getCommonParams(getActivity());
 //        param.put("attachmentId", entity.getId());
@@ -258,7 +251,7 @@ public class RestApplyPeopleFragment extends CommonFragment {
                 String realValuecontent = holders.get(3).getRealValue();
                 String realValueCancel = holders.get(4).getRealValue();
                 String realValueFillup = holders.get(5).getRealValue();
-                ToastUtil.showToast(getContext(),realValueNO+" /"+realValueoutTime+" /"+realValueinTime+" /"+realValuecontent+" /"+realValueCancel+" /"+realValueFillup);
+                ToastUtil.showToast(getContext(),realValueNO+" "+realValueoutTime+" "+realValueinTime+" "+realValuecontent+" "+realValueCancel+" "+realValueFillup);
                 PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
                 PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
                 peopleLeaveRrdBean.setNo(realValueNO);
@@ -272,7 +265,6 @@ public class RestApplyPeopleFragment extends CommonFragment {
                 peopleLeaveEntity.setPeopleLeaveRrd(beanList);
                 String json = new Gson().toJson(peopleLeaveEntity);
                 String s1 = "apply " + json;
-                Log.e(TAG,"人员请假请求:"+s1);
                 applyStart(CommonValues.BASE_URL,s1);
             }
         }
@@ -493,12 +485,12 @@ public class RestApplyPeopleFragment extends CommonFragment {
         HttpManager.getInstance().requestResultForm(baseUrl, s1, PeopleLeaveEntity.class, new HttpManager.ResultCallback<PeopleLeaveEntity>() {
             @Override
             public void onSuccess(String json, final PeopleLeaveEntity peopleLeaveEntity) throws InterruptedException {
-                Log.e(TAG,"applyStart()-onSuccess():"+json);
+                show(json);
             }
 
             @Override
             public void onFailure(final String msg) {
-                Log.e(TAG,"applyStart()-onFailure():"+msg);
+                show("onFailure:"+msg);
             }
 
             @Override
@@ -531,54 +523,4 @@ public class RestApplyPeopleFragment extends CommonFragment {
             showSelector(holder,new String[]{"是","否"});
         }
     }
-
-//    @Override
-//    public void onHolderTextChanged(int main, int index, HandInputGroup.Holder holder) {
-//        final String key = holder.getKey();
-//        if (key.equals(this.getString(R.string.Leave_Time))){
-//            double sum = 0;
-//            List<CommonFragment.Group> groupsByTitle = getGroupsByTitle(this.getString(R.string.Details_Information));
-//            for (CommonFragment.Group group : groupsByTitle) {
-//                double v = 0;
-//                if (group.getHolders().get(0).getRealValue().equals("调休")){
-//                    v = Double.parseDouble(group.getHolders().get(3).getRealValue().isEmpty() ? "0" : group.getHolders().get(3).getRealValue())/8.0;
-//                }else {
-//                    v = Double.parseDouble(group.getHolders().get(3).getRealValue().isEmpty() ? "0" : group.getHolders().get(3).getRealValue());
-//                }
-//                sum += v;
-//            }
-//            getGroupsByTitle(this.getString(R.string.Total)).get(0).setGroupTopRightTitle(sum + "天");
-//            notifyGroupChanged(getGroup().size()-2, 1);
-//        }
-//    }
-
-//    @Override
-//    public void onDataChanged(HandInputGroup.Holder holder) throws ParseException {
-//        int getitemnum = getitemnum(holder);
-//        CommonFragment.Group group = getGroup().get(getitemnum);
-//        if (holder.getKey().equals(this.getString(R.string.Starting_Time))){
-//            HandInputGroup.Holder holder1 = group.getHolders().get(2);
-//            if (!holder1.getRealValue().isEmpty()){
-//                String starttime = holder.getRealValue();
-//                String overtime = holder1.getRealValue();
-//                int getday = getday(starttime, overtime);
-//                if (getday == -1){
-//                    holder.setDispayValue("/" + this.getString(R.string.Please_Select));
-//                    ToastUtil.showToast(getContext(),"请正确选择第" + getitemnum+ "条明细信息中的开始、结束时间");
-//                }
-//            }
-//        }else if (holder.getKey().equals(this.getString(R.string.Ending_Time))){
-//            HandInputGroup.Holder holder1 = group.getHolders().get(1);
-//            if (!holder1.getRealValue().isEmpty()){
-//                String starttime = holder1.getRealValue();
-//                String overtime = holder.getRealValue();
-//                int getday = getday(starttime, overtime);
-//                if (getday == -1){
-//                    holder.setDispayValue("/" + this.getString(R.string.Please_Select));
-//                    ToastUtil.showToast(getContext(),"请正确选择第" + getitemnum+ "条明细信息中的开始、结束时间");
-//                }
-//            }
-//        }
-//    }
-
 }

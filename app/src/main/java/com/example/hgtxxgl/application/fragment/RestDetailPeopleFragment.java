@@ -2,10 +2,12 @@ package com.example.hgtxxgl.application.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
 import com.example.hgtxxgl.application.rest.CommonFragment;
 import com.example.hgtxxgl.application.rest.HandInputGroup;
+import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
@@ -42,11 +44,21 @@ public class RestDetailPeopleFragment extends CommonFragment {
     public List<Group> getGroupList() {
         if (entity == null) return new ArrayList<>();
         List<Group> groups = new ArrayList<>();
-
+        String levelNumStr = entity.getLevelNum();
+        String processStr = entity.getProcess();
+        String multiLevelResultStr = entity.getMultiLevelResult();
+        int levelNum = Integer.parseInt(levelNumStr);
+        int process = Integer.parseInt(processStr);
         List<HandInputGroup.Holder> list = new ArrayList<>();
         list.add(new HandInputGroup.Holder("流程内容", true, false, "人员请假", HandInputGroup.VALUE_TYPE.TEXT));
-        list.add(new HandInputGroup.Holder("审批进度", true, false, entity.getProcess().equals("0")?"审批中":"审批结束", HandInputGroup.VALUE_TYPE.TEXT));
-        list.add(new HandInputGroup.Holder("审批结果", true, false, entity.getMultiLevelResult(), HandInputGroup.VALUE_TYPE.TEXT));
+        list.add(new HandInputGroup.Holder("审批进度", true, false, process == 0?"审批中":"审批结束", HandInputGroup.VALUE_TYPE.TEXT));
+        if (process == 1){
+            String substring = multiLevelResultStr.substring(0, levelNum-1);
+            if (substring.endsWith("1")){
+                list.add(new HandInputGroup.Holder("审批结果", true, false, "审核通过", HandInputGroup.VALUE_TYPE.TEXT));
+            }
+
+        }
         groups.add(new Group("流程摘要-摘要内容", null, false, null, list));
 
         List<HandInputGroup.Holder> holderList = new ArrayList<>();
@@ -84,22 +96,25 @@ public class RestDetailPeopleFragment extends CommonFragment {
 
     public void loadData() {
         String no = getArguments().getString("no");
-        String multiLevelResult = getArguments().getString("multiLevelResult");
-        String content = getArguments().getString("content");
-        String modifyTime = getArguments().getString("modifyTime");
         String outtime = getArguments().getString("outtime");
         String intime = getArguments().getString("intime");
+        String content = getArguments().getString("content");
+        String levelnum = getArguments().getString("levelnum");
+        String process = getArguments().getString("process");
+        String multiLevelResult = getArguments().getString("multiLevelResult");
+        String modifyTime = getArguments().getString("modifyTime");
         String bcancel = getArguments().getString("bcancel");
         String bfillup = getArguments().getString("bfillup");
         final String noindex = getArguments().getString("noindex");
         final PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
         PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean =
-                new PeopleLeaveEntity.PeopleLeaveRrdBean(no,"?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?",Integer.parseInt(noindex)+1+"","?","?");
+                new PeopleLeaveEntity.PeopleLeaveRrdBean(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo(),"?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?",noindex,"?","?");
         List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
         list.add(peopleLeaveRrdBean);
         peopleLeaveEntity.setPeopleLeaveRrd(list);
         String toJson = new Gson().toJson(peopleLeaveEntity);
         String s="get "+toJson;
+        Log.e(TAG,"loadData()人员请假详情"+s);
         String url = CommonValues.BASE_URL;
         HttpManager.getInstance().requestResultForm(url, s, PeopleLeaveEntity.class, new HttpManager.ResultCallback<PeopleLeaveEntity>() {
             @Override
