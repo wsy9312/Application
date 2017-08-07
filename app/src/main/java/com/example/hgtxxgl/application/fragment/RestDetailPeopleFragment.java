@@ -51,7 +51,9 @@ public class RestDetailPeopleFragment extends CommonFragment {
         if (process == 1){
             String substring = multiLevelResultStr.substring(0, levelNum-1);
             if (substring.endsWith("1")){
-                list.add(new HandInputGroup.Holder("审批结果", true, false, "审核通过", HandInputGroup.VALUE_TYPE.TEXT));
+                list.add(new HandInputGroup.Holder("审批结果", true, false, "审批通过", HandInputGroup.VALUE_TYPE.TEXT));
+            }else{
+                list.add(new HandInputGroup.Holder("审批结果", true, false, "审批拒绝", HandInputGroup.VALUE_TYPE.TEXT));
             }
 
         }

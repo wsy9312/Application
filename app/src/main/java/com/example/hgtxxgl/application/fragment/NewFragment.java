@@ -34,6 +34,8 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
     private boolean hasMore = true;
     private ImageView ivEmpty;
     private ProgressBar pb;
+    private static final String TAG = "NewFragment";
+    SimpleListView lv;
 
     public NewFragment() {
 
@@ -105,8 +107,6 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
         }
     }
 
-    SimpleListView lv;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.main_listview_libmain, null, false);
@@ -131,7 +131,6 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
         return view;
     }
 
-    private static final String TAG = "NewFragment";
     void loadData(final int beginNum, final int endNum) {
         if (callback != null) {
             callback.onLoadData();
