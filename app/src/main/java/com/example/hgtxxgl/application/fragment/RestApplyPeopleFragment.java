@@ -250,7 +250,6 @@ public class RestApplyPeopleFragment extends CommonFragment {
                 ToastUtil.showToast(getContext(),"请填写" + over);
                 setButtonllEnable(true);
             }else {
-                ToastUtil.showToast(getContext(),"提交");
                 List<HandInputGroup.Holder> holders = groups.get(0).getHolders();
                 String realValueNO = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo();
                 String realValueoutTime = holders.get(1).getRealValue()+":00";

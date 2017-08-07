@@ -36,6 +36,7 @@ public class MyLaunchFragment extends Fragment implements SimpleListView.OnRefre
     private boolean hasMore = true;
     private ImageView ivEmpty;
     private ProgressBar pb;
+    private static final String TAG = "MyLaunchFragment";
 
     public MyLaunchFragment() {
 
@@ -95,8 +96,6 @@ public class MyLaunchFragment extends Fragment implements SimpleListView.OnRefre
         return view;
     }
 
-    private static final String TAG = "MyLaunchFragment";
-
     void loadData(final int beginNum, final int endNum) {
         if (callback != null) {
             callback.onLoadData();
@@ -150,7 +149,6 @@ public class MyLaunchFragment extends Fragment implements SimpleListView.OnRefre
 
             @Override
             public void onResponse(String response) {
-
             }
         });
     }
@@ -249,40 +247,11 @@ public class MyLaunchFragment extends Fragment implements SimpleListView.OnRefre
             }
         }
 
-//
-//        if (entityList != null && !key.equals("")) {
-//            if (baseEntityList == null) {
-//                baseEntityList = new ArrayList<>();
-//                baseEntityList.addAll(entityList);
-//            }
-//            List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
-//            for (PeopleLeaveEntity.PeopleLeaveRrdBean bean : baseEntityList) {
-//                if (bean.getNo().replace(" ", "").contains(key)) {
-//                    list.add(bean);
-//                }
-//                if (bean.getContent().replace(" ", "").contains(key)) {
-//                    list.add(bean);
-//                }
-//                if (DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss").replace(" ", "").contains(key)) {
-//                    list.add(bean);
-//                }
-//            }
-//            entityList.clear();
-//            entityList.addAll(list);
-//            adapter.notifyDataSetChanged();
-//        } else if (entityList != null) {
-//            if (baseEntityList != null) {
-//                entityList.clear();
-//                entityList.addAll(baseEntityList);
-//                adapter.notifyDataSetChanged();
-//            }
-//
-//        }
     }
 
     @Override
     public void onPullRefresh() {
-        pb.setVisibility(View.VISIBLE);
+//        pb.setVisibility(View.VISIBLE);
         hasMore = true;
         beginNum = 1;
         endNum = 6;

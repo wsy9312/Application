@@ -2,36 +2,31 @@ package com.example.hgtxxgl.application.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.widget.Toast;
+import android.util.Log;
 
-import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
 import com.example.hgtxxgl.application.rest.CommonFragment;
 import com.example.hgtxxgl.application.rest.HandInputGroup;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
-import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
+import com.example.hgtxxgl.application.view.HandToolbar;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RestApprovePeopleFragment extends RestDetailPeopleFragment {
-
-    private PeopleLeaveEntity entity;
-    private String name;
-    private String no;
+public class RestApprovePeopleFragment extends CommonFragment {
+    private String SN;
     private final static String TAG = "RestApprovePeopleFragment";
+    private String noindex;
 
-    public RestApprovePeopleFragment() {
+    public RestApprovePeopleFragment(){
+
     }
 
-    public static RestApprovePeopleFragment newInstance() {
-        RestApprovePeopleFragment restApprovePeopleFragment = new RestApprovePeopleFragment();
-        return restApprovePeopleFragment;
-    }
+    private PeopleLeaveEntity.PeopleLeaveRrdBean entity = null;
 
     public static RestApprovePeopleFragment newInstance(Bundle bundle) {
         RestApprovePeopleFragment fragment = new RestApprovePeopleFragment();
@@ -40,487 +35,250 @@ public class RestApprovePeopleFragment extends RestDetailPeopleFragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        StatusBarUtils.setWindowStatusBarColor(getActivity(), R.color.mainColor_blue);
-        loadTODOData();
-    }
-
-    void loadTODOData() {
-        if (getArguments() != null) {
-            String loginName = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getLoginName();
-            String password = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getPassword();
-            String NO = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo();
-            PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
-            PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean =
-                    new PeopleLeaveEntity.PeopleLeaveRrdBean
-                            (NO,"?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?");
-            List<PeopleLeaveEntity.PeopleLeaveRrdBean> beanList = new ArrayList<>();
-            beanList.add(peopleLeaveRrdBean);
-            peopleLeaveEntity.setPeopleLeaveRrd(beanList);
-            String json = new Gson().toJson(peopleLeaveEntity);
-            String s1 = "get " + json;
-            HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL,s1,PeopleLeaveEntity.class,new HttpManager.ResultCallback<PeopleLeaveEntity>() {
-                @Override
-                public void onSuccess(String json, PeopleLeaveEntity peopleLeaveEntity1) throws InterruptedException {
-                    if (peopleLeaveEntity1 != null){
-                        entity = peopleLeaveEntity1;
-                        setGroup(getGroupList());
-                        setPb(false);
-                        setButtonllEnable(true);
-                        notifyDataSetChanged();
-                    }else{
-                        show("人员请假信息实体转换异常");
-                    }
-                }
-
-                @Override
-                public void onFailure(final String msg) {
-                    show(msg);
-                }
-
-                @Override
-                public void onResponse(String response) {
-
-                }
-            });
-
-        }
+    public String[] getBottomButtonsTitles() {
+        return new String[]{"同意","拒绝"};
     }
 
     @Override
-    public List<CommonFragment.Group> getGroupList() {
-        if (!ApplicationApp.getPeopleInfoEntity().getPeopleInfo().isEmpty()){
-            name = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName();
-            no = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo();
+    public List<Group> getGroupList() {
+        if (entity == null) return new ArrayList<>();
+        List<Group> groups = new ArrayList<>();
+        String levelNumStr = entity.getLevelNum();
+        String processStr = entity.getProcess();
+        String multiLevelResultStr = entity.getMultiLevelResult();
+        int levelNum = Integer.parseInt(levelNumStr);
+        int process = Integer.parseInt(processStr);
+        List<HandInputGroup.Holder> list = new ArrayList<>();
+        list.add(new HandInputGroup.Holder("流程内容", true, false, "人员请假", HandInputGroup.VALUE_TYPE.TEXT));
+        list.add(new HandInputGroup.Holder("审批进度", true, false, process == 0?"审批中":"审批结束", HandInputGroup.VALUE_TYPE.TEXT));
+        if (process == 1){
+            String substring = multiLevelResultStr.substring(0, levelNum-1);
+            if (substring.endsWith("1")){
+                list.add(new HandInputGroup.Holder("审批结果", true, false, "审核通过", HandInputGroup.VALUE_TYPE.TEXT));
+            }
+
         }
-//        mCompNameCN = "";
-//        mDeptNameCN = "";
-//        mNameCN = "";
-//        mPositionNameCN = "";
-//        mEid = "";
-        List<CommonFragment.Group> groups = new ArrayList<>();
-        if (entity.getPeopleLeaveRrd() == null) {
-            List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
-            baseHolder.add(new HandInputGroup.Holder("申请人",true,false,name,HandInputGroup.VALUE_TYPE.TEXTFILED));
-            baseHolder.add(new HandInputGroup.Holder("预计外出时间",true,false,"",HandInputGroup.VALUE_TYPE.DATE));
-            baseHolder.add(new HandInputGroup.Holder("预计归来时间",true,false,"",HandInputGroup.VALUE_TYPE.DATE));
-            baseHolder.add(new HandInputGroup.Holder("请假原因",false,false,"",HandInputGroup.VALUE_TYPE.TEXTFILED));
-            baseHolder.add(new HandInputGroup.Holder("是否取消请假",false,false,"否",HandInputGroup.VALUE_TYPE.SELECT));
-            baseHolder.add(new HandInputGroup.Holder("是否后补请假",false,false,"否",HandInputGroup.VALUE_TYPE.SELECT));
-            groups.add(0,new CommonFragment.Group("基本信息", null,true,null,baseHolder));
-        } else {
-            PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = entity.getPeopleLeaveRrd().get(0);
-            String outTime = peopleLeaveRrdBean.getOutTime();
-            String inTime = peopleLeaveRrdBean.getInTime();
-            String content = peopleLeaveRrdBean.getContent();
-            String bCancel = peopleLeaveRrdBean.getBCancel();
-            String bFillup = peopleLeaveRrdBean.getBFillup();
-            List<HandInputGroup.Holder> subHolder1 = new ArrayList<>();
-            subHolder1.add(new HandInputGroup.Holder("申请人", true, false, name, HandInputGroup.VALUE_TYPE.TEXTFILED));
-            subHolder1.add(new HandInputGroup.Holder("预计外出时间", true, false, outTime, HandInputGroup.VALUE_TYPE.DATE));
-            subHolder1.add(new HandInputGroup.Holder("预计归来时间", true, false, inTime, HandInputGroup.VALUE_TYPE.DATE));
-            subHolder1.add(new HandInputGroup.Holder("请假原因", false, false, content, HandInputGroup.VALUE_TYPE.TEXTFILED));
-            subHolder1.add(new HandInputGroup.Holder("是否取消请假", false, false, bCancel.equals("0") ? "否" : "是", HandInputGroup.VALUE_TYPE.SELECT));
-            subHolder1.add(new HandInputGroup.Holder("是否后补请假", false, false, bFillup.equals("0") ? "否" : "是", HandInputGroup.VALUE_TYPE.SELECT));
-            groups.add(0, new CommonFragment.Group("基本信息", null, true, null, subHolder1));
-        }
-//            RestDetailBean.RetDataBean.DetailDataBean dataBean = bean.getRetData().getDetailData();
-//            List<RestDetailBean.RetDataBean.DetailDataBean.LeaveRequestDetailBean> leaveRequestDetail = dataBean.getLeaveRequestDetail();
-//            List<HandInputGroup.Holder> subHolder = new ArrayList<>();
-//            subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Company_Name), false, false, mCompNameCN, HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-//            subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Department), false, false, mDeptNameCN, HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-//            subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Applicant), false, false, mNameCN, HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-//            subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Position), false, false, mPositionNameCN, HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-//            subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Employee_ID), false, false, mEid, HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-//            subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Lave_Year_Days), false, false, TextUtils.isEmpty(dataBean.getLaveYearDays()) ? "0" : dataBean.getLaveYearDays(), HandInputGroup.VALUE_TYPE.DOUBLE));
-//            subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Lave_Hours), false, false, TextUtils.isEmpty(dataBean.getLaveHours()) ? "0" : dataBean.getLaveHours(), HandInputGroup.VALUE_TYPE.DOUBLE));
-//            subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Cumulative_number_of_antenatal_examination), false, false, TextUtils.isEmpty(dataBean.getTotalNumber()) ? "0" : dataBean.getTotalNumber(), HandInputGroup.VALUE_TYPE.DOUBLE));
-//            subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Total_Days), false, false, TextUtils.isEmpty(dataBean.getTotalDays()) ? "0" : dataBean.getTotalDays(), HandInputGroup.VALUE_TYPE.DOUBLE));
-//            groups.add(0, new CommonFragment.Group(this.getString(R.string.Basic_Information), null, true, null, subHolder));
-//            for (int i = 0; i < leaveRequestDetail.size(); i++) {
-//                List<HandInputGroup.Holder> subDetail = new ArrayList<>();
-//                subDetail.add(new HandInputGroup.Holder(this.getString(R.string.Rest_Leave_Type), true, false, leaveRequestDetail.get(i).getLeaveTpyeName(), HandInputGroup.VALUE_TYPE.SELECT));
-//                subDetail.add(new HandInputGroup.Holder(this.getString(R.string.Starting_Time), true, false, leaveRequestDetail.get(i).getStartTime(), HandInputGroup.VALUE_TYPE.DATE));
-//                subDetail.add(new HandInputGroup.Holder(this.getString(R.string.Ending_Time), true, false, leaveRequestDetail.get(i).getEndTime(), HandInputGroup.VALUE_TYPE.DATE));
-//                subDetail.add(new HandInputGroup.Holder(this.getString(R.string.Leave_Time), true, false, leaveRequestDetail.get(i).getLeaveTime() + "", HandInputGroup.VALUE_TYPE.DOUBLE).setColor(Color.rgb(229,0,17)));
-//                subDetail.add(new HandInputGroup.Holder(this.getString(R.string.Leave_Causes), false, false, leaveRequestDetail.get(i).getLeaveCauses() + leaveRequestDetail.get(i).getRemark(), HandInputGroup.VALUE_TYPE.TEXTFILED));
-//                if (i == leaveRequestDetail.size() - 1) {
-//                    groups.add(new CommonFragment.Group(this.getString(R.string.Details_Information), R.mipmap.add_detail3x, true, null, subDetail).sethasDelete(true));
-//                } else {
-//                    groups.add(new CommonFragment.Group(this.getString(R.string.Details_Information), null, true, null, subDetail).sethasDelete(true));
-//                }
-//            }
-//            List<HandInputGroup.Holder> subDetailTotoal = new ArrayList<>();
-//            groups.add(new CommonFragment.Group(this.getString(R.string.Total), null, false, dataBean.getTotalLeaveTime(), subDetailTotoal));
-//            attachList = bean.getRetData().getAttchList();
-//            if (attachList != null && attachList.size() > 0) {
-//                if (fileUri == null) {
-//                    fileUri = new HashMap<>();
-//                }
-//                for (AttachmentListEntity entity : attachList) {
-//                    String groupName = entity.getFileGroupName();
-//                    if (!fileUri.containsKey(groupName)) {
-//                        List<HandInputGroup.Holder> subAddNoNull = new ArrayList<>();
-//                        fileUri.put(groupName, new HashSet<Uri>());
-//                        subAddNoNull.add(new HandInputGroup.Holder(this.getString(R.string.Attachment_Type), false, false, entity.getFileGroupName(), HandInputGroup.VALUE_TYPE.SELECT));
-//                        subAddNoNull.add(new HandInputGroup.Holder<HashSet<Uri>>(this.getString(R.string.Select_Attachments), false, false, entity.getFileGroupName()+ DataUtil.getCurrentDate() +entity.getFileExtension().substring(entity.getFileExtension().indexOf(".")), HandInputGroup.VALUE_TYPE.FILES_UPLOAD)
-//                                .setColor(Color.BLUE).setDrawableRight(-1).setValue(fileUri.get(groupName)).setTag(this).setName(groupName));
-//                        groups.add(new CommonFragment.Group(this.getString(R.string.Attachment_Info), null, false, null, subAddNoNull));
-//                    }
-//                    loadRemoteFiles(entity);
-//                }
-//            } else {
-//                List<HandInputGroup.Holder> subAddNull = new ArrayList<>();
-//                subAddNull.add(new HandInputGroup.Holder(this.getString(R.string.Attachment_Type), false, false, "/" + this.getString(R.string.Please_Select), HandInputGroup.VALUE_TYPE.SELECT));
-//                if (fileUri == null) {
-//                    fileUri = new HashMap<>();
-//                    fileUri.put("", new HashSet<Uri>());
-//                }
-//                subAddNull.add(new HandInputGroup.Holder(this.getString(R.string.Select_Attachments), false, false, "/" + this.getString(R.string.Please_Select), HandInputGroup.VALUE_TYPE.FILES_UPLOAD).setValue(fileUri.get("")));
-//                groups.add(new CommonFragment.Group(this.getString(R.string.Attachment_Info), null, false, null, subAddNull));
-//            }
-//        }
+        groups.add(new Group("流程摘要-摘要内容", null, false, null, list));
+
+        List<HandInputGroup.Holder> holderList = new ArrayList<>();
+        holderList.add(new HandInputGroup.Holder("流程内容",true,false, "人员请假",HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("申请人", true, false, entity.getNo(), HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("预计外出时间", true, false, entity.getOutTime(), HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("预计归来时间", true, false, entity.getInTime(), HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("请假原因", true, false, entity.getContent(), HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("是否取消请假", true, false, entity.getBCancel().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("是否后补请假", true, false, entity.getBFillup().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
+        groups.add(new Group("详细信息-基本信息", null, false, null, holderList));
         return groups;
     }
 
+    public void setToolbar(HandToolbar toolbar) {
+        toolbar.setDisplayHomeAsUpEnabled(true, getActivity());
+        toolbar.setTitle("人员请假详情");
+    }
 
-//    private void loadRemoteFiles(final AttachmentListEntity entity) {
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        SN = getArguments().getString("SN");
+        loadData();
+    }
+
+    private void show(final String msg) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ToastUtil.showToast(getContext(),msg);
+            }
+        });
+    }
+
+    public void loadData() {
+        String no = getArguments().getString("no");
+        String outtime = getArguments().getString("outtime");
+        String intime = getArguments().getString("intime");
+        String content = getArguments().getString("content");
+        String levelnum = getArguments().getString("levelnum");
+        String process = getArguments().getString("process");
+        String multiLevelResult = getArguments().getString("multiLevelResult");
+        String modifyTime = getArguments().getString("modifyTime");
+        String bcancel = getArguments().getString("bcancel");
+        String bfillup = getArguments().getString("bfillup");
+        noindex = getArguments().getString("noindex");
+        final PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
+        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean =
+                new PeopleLeaveEntity.PeopleLeaveRrdBean(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo(),
+                        "?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?", noindex,"?","?");
+        List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
+        list.add(peopleLeaveRrdBean);
+        peopleLeaveEntity.setPeopleLeaveRrd(list);
+        String toJson = new Gson().toJson(peopleLeaveEntity);
+        String s="get "+toJson;
+        Log.e("测试approve",s);
+        String url = CommonValues.BASE_URL;
+        HttpManager.getInstance().requestResultForm(url, s, PeopleLeaveEntity.class, new HttpManager.ResultCallback<PeopleLeaveEntity>() {
+            @Override
+            public void onSuccess(String json, final PeopleLeaveEntity peopleLeaveEntity1) throws InterruptedException {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (peopleLeaveEntity1 != null){
+                            show("人员请假信息获取成功");
+                            setEntity(peopleLeaveEntity1.getPeopleLeaveRrd().get(0));
+                            setGroup(getGroupList());
+                            setPb(false);
+                            setButtonllEnable(true);
+                            setDisplayTabs(true);
+                            notifyDataSetChanged();
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                show(msg);
+            }
+
+            @Override
+            public void onResponse(String response) {
+                show(response);
+
+            }
+        });
+
 //        Map<String, Object> param = CommonValues.getCommonParams(getActivity());
-//        param.put("attachmentId", entity.getId());
-//        HttpManager.getInstance().requestResultForm(CommonValues.CLICK_LOOK_DATA, param, AttachmentSingleEntity.class, new HttpManager.ResultCallback<AttachmentSingleEntity>() {
+//        param.put("userId",getArguments().getString("userId"));
+//        param.put("barCode", getArguments().getString("barCode"));
+//        param.put("workflowType", getArguments().getString("workflowType"));
+//        HttpManager.getInstance().requestResultForm(CommonValues.REQ_REST_DETAIL, param, RestDetailBean.class, new HttpManager.ResultCallback<RestDetailBean>() {
 //            @Override
-//            public void onSuccess(final String content, final AttachmentSingleEntity attachmentListEntity) {
+//            public void onSuccess(String content, final RestDetailBean restDetailBean) {
 //                getActivity().runOnUiThread(new Runnable() {
 //                    @Override
 //                    public void run() {
-//                        if (attachmentListEntity != null && attachmentListEntity.getRetData() != null) {
-//                            if (attachmentListEntity.getCode().equals("100")) {
-//                                String attachment = attachmentListEntity.getRetData().getAttachment();
-//                                String attachType = attachmentListEntity.getRetData().getType();
-//                                String substring = null;
-//                                substring = DataUtil.getExtensionFromIME(attachType);
-//                                if (substring == null) {
-//                                    Toast.makeText(getContext(), "未知的文件类型！", Toast.LENGTH_SHORT).show();
-//                                    return;
-//                                }
-//                                File file = DataUtil.base64ToFileWithName(attachment, substring, entity.getFileName());
-//                                Uri uri = Uri.fromFile(file);
-//                                fileUri.get(entity.getFileGroupName()).add(uri);
-//                                entity.setLocalFileUri(uri);
+//                        if (restDetailBean != null && restDetailBean.getRetData() != null) {
+//                            if (restDetailBean.getCode().equals("100")) {
+//                                setEntity(restDetailBean.getRetData());
+//                                setGroup(getGroupList());
+//                                setPb(false);
+//                                setButtonllEnable(true);
+//                                setDisplayTabs(true);
 //                                notifyDataSetChanged();
+//                                return;
+//
 //                            }
+//                        }else {
+//                            ToastUtil.showToast(getContext(),restDetailBean.getMsg());
 //                        }
 //                    }
 //                });
 //            }
 //
 //            @Override
-//            public void onFailure(String msg) {
+//            public void onFailure(String content) {
+//                getActivity().runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        ToastUtil.showToast(getContext(),"请检查网络");
+//                    }
+//                });
+//
+//            }
+//
+//            @Override
+//            public void onResponse(String response) {
 //
 //            }
 //        });
-//    }
-
-//   /* public void setToolbar(HandToolbar toolbar) {
-//        toolbar.setTitle("请假申请");
-//        toolbar.setTitleSize(20);
-//        toolbar.setDisplayHomeAsUpEnabled(true, getActivity());
-//    }*/
-
-    @Override
-    public String[] getBottomButtonsTitles() {
-        return new String[]{"提交"};
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public void onBottomButtonsClick(final String title, final List<CommonFragment.Group> groups) {
-        setButtonllEnable(false);
-        if (title.equals("提交")){
-            String over = isOver(groups);
-            if (over != null){
-                ToastUtil.showToast(getContext(),"请填写" + over);
-                setButtonllEnable(true);
-            }else {
-                ToastUtil.showToast(getContext(),"提交");
-                List<HandInputGroup.Holder> holders = groups.get(0).getHolders();
-                String realValueNO = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo();
-                String realValueoutTime = holders.get(1).getRealValue()+":00";
-                String realValueinTime = holders.get(2).getRealValue()+":00";
-                String realValuecontent = holders.get(3).getRealValue();
-                String realValueCancel = holders.get(4).getRealValue();
-                String realValueFillup = holders.get(5).getRealValue();
-                ToastUtil.showToast(getContext(),realValueNO+" "+realValueoutTime+" "+realValueinTime+" "+realValuecontent+" "+realValueCancel+" "+realValueFillup);
-                PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
-                PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
-                peopleLeaveRrdBean.setNo(realValueNO);
-                peopleLeaveRrdBean.setOutTime(realValueoutTime);
-                peopleLeaveRrdBean.setInTime(realValueinTime);
-                peopleLeaveRrdBean.setContent(realValuecontent);
-                peopleLeaveRrdBean.setBCancel(realValueCancel.equals("否")?"0":"1");
-                peopleLeaveRrdBean.setBFillup(realValueFillup.equals("否")?"0":"1");
-                List<PeopleLeaveEntity.PeopleLeaveRrdBean> beanList = new ArrayList<>();
-                beanList.add(peopleLeaveRrdBean);
-                peopleLeaveEntity.setPeopleLeaveRrd(beanList);
-                String json = new Gson().toJson(peopleLeaveEntity);
-                String s1 = "apply " + json;
-                applyStart(CommonValues.BASE_URL,s1);
-            }
-        }
-//        if (!title.equals("保存") && over != null){
-//            ToastUtil.showToast(getContext(),this.getString(R.string.Please_Fill) + over);
-//            setButtonllEnable(true);
-//        }else {
-//            List<CommonFragment.Group> groupsByTitle = getGroupsByTitle(this.getString(R.string.Details_Information));
-//            for (CommonFragment.Group group : groupsByTitle) {
-//                int getday = getday(group.getHolders().get(1).getRealValue().isEmpty() ? "0000-00-00 00:00" : group.getHolders().get(1).getRealValue(), group.getHolders().get(2).getRealValue().isEmpty() ? "0000-00-00 00:00" : group.getHolders().get(2).getRealValue());
-//                if (group.getHolders().get(0).getRealValue().equals("调休")){
-//                    if(Double.parseDouble(group.getHolders().get(3).getRealValue().isEmpty()?"0":group.getHolders().get(3).getRealValue())%4 != 0){
-//                        ToastUtil.showToast(getContext(),"调休时长必须是4的整数倍！");
-//                        setButtonllEnable(true);
-//                        return;
-//                    }
-//                    if (getday< Double.parseDouble(group.getHolders().get(3).getRealValue().isEmpty()?"0":group.getHolders().get(3).getRealValue())){
-//                        ToastUtil.showToast(getContext(),"调休时长数不能超过所选时间！");
-//                        setButtonllEnable(true);
-//                        return;
-//                    }
-//                }else {
-//                    if(Double.parseDouble(group.getHolders().get(3).getRealValue().isEmpty()?"0":group.getHolders().get(3).getRealValue())*4%2 != 0){
-//                        ToastUtil.showToast(getContext(),"请假时长必须是0.5的整数倍！");
-//                        setButtonllEnable(true);
-//                        return;
-//                    }
-//                    if (getday< Double.parseDouble(group.getHolders().get(3).getRealValue().isEmpty()?"0":group.getHolders().get(3).getRealValue())*8){
-//                        ToastUtil.showToast(getContext(),"请假时长数不能超过所选时间！");
-//                        setButtonllEnable(true);
-//                        return;
-//                    }
-//                }
-//
-//            }
-//            Map<String, Object> body = CommonValues.getCommonParams(getActivity());
-//            Map<String, Object> mainData = new HashMap<String, Object>();
-//            ArrayList<Map> details = new ArrayList<>();
-////            LoginEntity.RetDataBean.UserInfoBean userInfo = GeelyApp.getLoginEntity().getRetData().getUserInfo();
-//            if (bean == null) {
-//                uuid = UUID.randomUUID().toString();
-//                barCode = "";
-//                date = DescripUtil.formatDate(new Date());
-//                id = "0";
-//                body.put("SN", "");
-//
-//            } else {
-//                uuid = bean.getRetData().getDetailData().getIdentifier();
-//                barCode = getArguments().getString("barCode");
-//                id = bean.getRetData().getDetailData().getId();
-//                date = bean.getRetData().getDetailData().getCreateTime();
-//                mainData.put("Id",id);//1
-//                mainData.put("BarCode", barCode);//2
-//                body.put("SN", getArguments().getString("SN"));
-//            }
-//
-//            mainData.put("Identifier", uuid);//3
-//            mainData.put("Company", "");//5
-//            mainData.put("Position", "");//6
-//            mainData.put("EmployeeID", "");//7
-//            mainData.put("Department", "");//8
-//            mainData.put("SubmitBy", "");//9
-//            mainData.put("UpdateBy","");
-//            String rightTitle = getGroupsByTitle(this.getString(R.string.Total)).get(0).getGroupTopRightTitle();
-//            if (rightTitle.endsWith("小时")){
-//                mainData.put("TotalLeaveTime",rightTitle.substring(0,rightTitle.length()-2));//10
-//            }else if (rightTitle.endsWith("天")){
-//                mainData.put("TotalLeaveTime",rightTitle.substring(0,rightTitle.length()-1));
-//            }else {
-//                mainData.put("TotalLeaveTime",rightTitle);//10
-//            }
-//            mainData.put("Applicant", "");//11
-//            mainData.put("UpdateTime", DescripUtil.formatDate(new Date()));//12
-//            mainData.put("CreateTime",date);//13
-//            String s = date.split(" ")[0];
-////            mainData.put("Summary", s.split("-")[0] + s.split("-")[1] + s.split("-")[2] + "-" +
-////                    GeelyApp.getLoginEntity().getRetData().getUserInfo().getDeptNameCN() +
-////                    GeelyApp.getLoginEntity().getRetData().getUserInfo().getNameCN()
-//            mainData.put("Summary", s.split("-")[0] + s.split("-")[1] + s.split("-")[2] + "-" +
-//                    "" +
-//                    ""
-//                    + rightTitle + "请假/调休");//14
-//            mainData.put("UpdateBy", "");//15
-//            mainData.put("IsSelf",false);//16
-//            List<HandInputGroup.Holder> holders = groups.get(0).getHolders();
-//            if (holders.get(5).getRealValue().isEmpty() || Double.parseDouble(holders.get(5).getRealValue()) == 0){
-//                mainData.put("laveYearDays","0");
-//            }else {
-//                mainData.put("laveYearDays", holders.get(5).getRealValue());//调休剩余小时数//19
-//            }
-//            if (holders.get(6).getRealValue().isEmpty() || Double.parseDouble(holders.get(6).getRealValue()) == 0){
-//                mainData.put("laveHours","0");
-//            }else {
-//                mainData.put("laveHours", holders.get(6).getRealValue());
-//            }
-//            if (holders.get(7).getRealValue().isEmpty() || Double.parseDouble(holders.get(7).getRealValue()) == 0){
-//                mainData.put("totalNumber","0");
-//            }else {
-//                mainData.put("totalNumber", holders.get(7).getRealValue());//累积产前检查次数//19
-//            }
-//            if (holders.get(8).getRealValue().isEmpty() || Double.parseDouble(holders.get(8).getRealValue()) == 0){
-//                mainData.put("totalDays","0");
-//            }else {
-//                mainData.put("totalDays", holders.get(8).getRealValue());//累计事假天数//19
-//            }
-//            double num = 0;
-//            double sum = 0;
-//            if (bean != null){
-//                for (int i = 1; i < groups.size() - 1-1; i++) {
-//                    Map<String, Object> detail = new HashMap<>();
-//                    if (groups.get(i).getTitle().equals(this.getString(R.string.Details_Information))){
-//                        detail.put("LeaveTpyeName",groups.get(i).getHolders().get(0).getRealValue());
-//                    }
-//                    if (bean.getRetData().getDetailData().getLeaveRequestDetail().isEmpty()){
-//                        detail.put("Id","0");
-//                    }else{
-//                        if(i < bean.getRetData().getDetailData().getLeaveRequestDetail().size() + 1){
-//                            detail.put("Id",bean.getRetData().getDetailData().getLeaveRequestDetail().get(i-1).getId());//1
-//                        }else {
-//                            detail.put("Id","0");
-//                        }
-//                    }
-//                    detail.put("WorkflowIdentifier", uuid);//2
-//                    if (groups.get(i).getTitle().endsWith(this.getString(R.string.Details_Information))){
-//                        String type = groups.get(i).getHolders().get(0).getRealValue();
-//                        if (type.equals("调休")){
-//                            sum += Double.parseDouble(groups.get(i).getHolders().get(3).getRealValue().equals("") ? "0" : groups.get(i).getHolders().get(3).getRealValue());
-//                        }else if (type.equals("年假请假")){
-//                            num += Double.parseDouble(groups.get(i).getHolders().get(3).getRealValue().equals("") ? "0" : groups.get(i).getHolders().get(3).getRealValue());
-//                        }
-//                        detail.put("LeaveType", DataUtil.getDicodeByDescr(draftRestType, type));//请假类别//3
-//                        String fromDate = groups.get(i).getHolders().get(1).getRealValue();
-//                        detail.put("StartTime", fromDate);//开始时间//4
-//                        String toDate = groups.get(i).getHolders().get(2).getRealValue();
-//                        detail.put("EndTime", toDate);//结束时间//5
-//                        detail.put("LeaveTime", groups.get(i).getHolders().get(3).getRealValue().equals("") ? "0" : groups.get(i).getHolders().get(3).getRealValue());//请假时数//6
-//                        detail.put("LeaveCauses", groups.get(i).getHolders().get(4).getRealValue().equals("") ? "" : groups.get(i).getHolders().get(4).getRealValue());//请假原因//7
-//                    }
-//                    detail.put("Remark","");//8
-//                    detail.put("IsPostToPs", false);//9
-//                    if (sum > Double.parseDouble(getDisplayValueByKey(this.getString(R.string.Lave_Hours)).getRealValue().isEmpty()?"0":getDisplayValueByKey(this.getString(R.string.Lave_Hours)).getRealValue())){
-//                        ToastUtil.showToast(getContext(),"调休时间不能大于调休剩余小时数");
-//                        setButtonllEnable(true);
-//                        return;
-//                    }
-//                    if (num > Double.parseDouble(getDisplayValueByKey(this.getString(R.string.Lave_Year_Days)).getRealValue().isEmpty()?"0":getDisplayValueByKey(this.getString(R.string.Lave_Year_Days)).getRealValue())){
-//                        ToastUtil.showToast(getContext(),"请年假时间不能大于剩余年假天数");
-//                        setButtonllEnable(true);
-//                        return;
-//                    }
-//                    details.add(detail);
-//                }
-//            }else{
-//                for (int i = 1; i < groups.size() - 2; i++) {
-//                    Map<String, Object> detail = new HashMap<>();
-//                    if (groups.get(i).getTitle().equals(this.getString(R.string.Details_Information))){
-//                        detail.put("LeaveTpyeName",groups.get(i).getHolders().get(0).getRealValue());
-//                    }
-//                    detail.put("Id","0");
-//                    detail.put("WorkflowIdentifier", uuid);//2
-//                    if (groups.get(i).getTitle().endsWith(this.getString(R.string.Details_Information))){
-//                        String type = groups.get(i).getHolders().get(0).getRealValue();
-//                        if (type.equals("调休")){
-//                            sum += Double.parseDouble(groups.get(i).getHolders().get(3).getRealValue().equals("") ? "0" : groups.get(i).getHolders().get(3).getRealValue());
-//                        }else if (type.equals("年假请假")){
-//                            num += Double.parseDouble(groups.get(i).getHolders().get(3).getRealValue().equals("") ? "0" : groups.get(i).getHolders().get(3).getRealValue());
-//                        }
-//                        detail.put("LeaveType", DataUtil.getDicodeByDescr(draftRestType, type));//请假类别//3
-//                        String fromDate = groups.get(i).getHolders().get(1).getRealValue();
-//                        detail.put("StartTime", fromDate);//开始时间//4
-//                        String toDate = groups.get(i).getHolders().get(2).getRealValue();
-//                        detail.put("EndTime", toDate);//结束时间//5
-//                        detail.put("LeaveTime", groups.get(i).getHolders().get(3).getRealValue().equals("") ? "0" : groups.get(i).getHolders().get(3).getRealValue());//请假时数//6
-//                        detail.put("LeaveCauses", groups.get(i).getHolders().get(4).getRealValue().equals("") ? "" : groups.get(i).getHolders().get(4).getRealValue());//请假原因//7
-//                    }
-//                    detail.put("Remark","");//8
-//                    detail.put("IsPostToPs", false);//9
-//                    if (sum > Double.parseDouble(getDisplayValueByKey(this.getString(R.string.Lave_Hours)).getRealValue().isEmpty()?"0":getDisplayValueByKey(this.getString(R.string.Lave_Hours)).getRealValue())){
-//                        ToastUtil.showToast(getContext(),"调休时间不能大于调休剩余小时数");
-//                        setButtonllEnable(true);
-//                        return;
-//                    }
-//                    if (num > Double.parseDouble(getDisplayValueByKey(this.getString(R.string.Lave_Year_Days)).getRealValue().isEmpty()?"0":getDisplayValueByKey(this.getString(R.string.Lave_Year_Days)).getRealValue())){
-//                        ToastUtil.showToast(getContext(),"请年假时间不能大于剩余年假天数");
-//                        setButtonllEnable(true);
-//                        return;
-//                    }
-//                    details.add(detail);
-//                }
-//            }
-//            body.put("mainData", new Gson().toJson(mainData));
-//            body.put("detailData", new Gson().toJson(details));
-//            body.put("transmissionId", "");
-//            String groupName = getDisplayValueByKey(this.getString(R.string.Attachment_Type)).getRealValue();
-//            if (!groupName.equals("")) {
-//                if(fileUri.get(groupName) == null){
-//                    uploadFileAndData(fileUri.get(""), title, body, uuid, CommonValues.WORKFLOW_REST, groupName, DataUtil.getDicIdByDescr(draftAttachmentType, groupName), CommonValues.REQ_REST_APPLY);
-//                }else {
-//                    uploadFileAndData(fileUri.get(groupName), title, body, uuid, CommonValues.WORKFLOW_REST, groupName, DataUtil.getDicIdByDescr(draftAttachmentType, groupName), CommonValues.REQ_REST_APPLY);
-//                    for (int i = 0; i < attachList.size(); i++) {
-//                        for (Uri uri : fileUri.get(groupName)){
-//                            String path = FileUtils.getPath(getActivity(), uri);
-//                            String name = path.substring(path.lastIndexOf("/") + 1);
-//                            String fileName = name.substring(0, name.lastIndexOf("."));
-//                            if (fileName.equals(attachList.get(i).getFileName())){
-////                                onDeleteRemoteFile(attachList.get(i).getLocalFileUri());
+//        param.put("uid",getArguments().getString("SubmitBy"));
+//        HttpManager.getInstance().requestResultForm(CommonValues.GET_USER_PHOTO, param, UserPhotoEntity.class, new HttpManager.ResultCallback<UserPhotoEntity>() {
+//            @Override
+//            public void onSuccess(String content, final UserPhotoEntity entity) {
+//                getActivity().runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        if (entity != null && entity.getRetData() != null) {
+//                            if (entity.getCode().equals("100")) {
+//                                photo = entity.getRetData();
+//                                if (getGroup().size() > 0){
+//                                    getGroup().get(0).setDrawable(photo);
+//                                    notifyGroupChanged(0,1);
+//                                }
+//                                return;
 //                            }
 //                        }
 //                    }
-//                }
-//            }else{
-//                applySaveOrStart(CommonValues.REQ_REST_APPLY, body, title);
+//                });
+//
 //            }
-//        }
+//
+//            @Override
+//            public void onFailure(String content) {
+//
+//            }
+//
+//            @Override
+//            public void onResponse(String response) {
+//
+//            }
+//        });
     }
 
-    private void applyStart(String baseUrl, String s1) {
+    @Override
+    public void onBottomButtonsClick(String title, List<Group> groups) {
+        setButtonllEnable(false);
+
+        PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
+        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
+        peopleLeaveRrdBean.setCurrentApproveNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
+        peopleLeaveRrdBean.setNoIndex(noindex);
+        if (title.equals("同意")){
+            peopleLeaveRrdBean.setResult("1");
+        }else {
+            peopleLeaveRrdBean.setResult("0");
+        }
+        ToastUtil.showToast(getContext(),peopleLeaveRrdBean.getCurrentApproveNo()+" "+peopleLeaveRrdBean.getResult()+" "+noindex);
+        List<PeopleLeaveEntity.PeopleLeaveRrdBean> beanList = new ArrayList<>();
+        beanList.add(peopleLeaveRrdBean);
+        peopleLeaveEntity.setPeopleLeaveRrd(beanList);
+        String json = new Gson().toJson(peopleLeaveEntity);
+        String s1 = "approve " + json;
+        approveStart(CommonValues.BASE_URL,s1);
+
+        }
+
+    private void approveStart(String baseUrl, String s1) {
         HttpManager.getInstance().requestResultForm(baseUrl, s1, PeopleLeaveEntity.class, new HttpManager.ResultCallback<PeopleLeaveEntity>() {
             @Override
             public void onSuccess(String json, final PeopleLeaveEntity peopleLeaveEntity) throws InterruptedException {
-                show(json);
             }
 
             @Override
             public void onFailure(final String msg) {
-                show("onFailure:"+msg);
             }
 
             @Override
             public void onResponse(String response) {
                 if (response.toLowerCase().contains("ok")) {
-                    show("提交成功");
+                    show("审批成功");
                 }else{
-                    show("提交失败");
+                    show("审批失败");
                 }
             }
         });
 
     }
-    public void show(final String msg){
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(getActivity(),msg, Toast.LENGTH_SHORT).show();
-            }
-        });
+
+    public PeopleLeaveEntity.PeopleLeaveRrdBean getEntity() {
+        return entity;
     }
 
-    @Override
-    public void onClickItemContentSetter(final HandInputGroup.Holder holder) {
-        if (holder.getType() == HandInputGroup.VALUE_TYPE.DATE) {
-            showDateTimePicker(holder,true);
-        } else if (holder.getKey().equals("是否取消请假")){
-            showSelector(holder,new String[]{"是","否"});
-        } else if (holder.getKey().equals("是否后补请假")){
-            showSelector(holder,new String[]{"是","否"});
-        }
+    public void setEntity(PeopleLeaveEntity.PeopleLeaveRrdBean entity) {
+        this.entity = entity;
+    }
+
+    public String getSN(){
+        return SN;
     }
 }

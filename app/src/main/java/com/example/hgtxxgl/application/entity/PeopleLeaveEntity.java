@@ -45,6 +45,8 @@ public class PeopleLeaveEntity {
          */
 
         private String No;
+        private String Result;
+        private String CurrentApproveNo;
         private String Approver1No;
         private String Approver2No;
         private String Approver3No;
@@ -69,6 +71,59 @@ public class PeopleLeaveEntity {
         public PeopleLeaveRrdBean() {
         }
 
+        public PeopleLeaveRrdBean(String no, String result, String currentApproveNo, String approver1No, String approver2No, String approver3No, String approver4No, String approver5No, String registerTime, String outTime, String inTime, String content, String actualOutTime, String actualInTime, String modifyTime, String multiLevelResult, String process, String levelNum, String bCancel, String bFillup, String noIndex, String beginNum, String endNum) {
+            No = no;
+            Result = result;
+            CurrentApproveNo = currentApproveNo;
+            Approver1No = approver1No;
+            Approver2No = approver2No;
+            Approver3No = approver3No;
+            Approver4No = approver4No;
+            Approver5No = approver5No;
+            RegisterTime = registerTime;
+            OutTime = outTime;
+            InTime = inTime;
+            Content = content;
+            ActualOutTime = actualOutTime;
+            ActualInTime = actualInTime;
+            ModifyTime = modifyTime;
+            MultiLevelResult = multiLevelResult;
+            Process = process;
+            LevelNum = levelNum;
+            this.bCancel = bCancel;
+            this.bFillup = bFillup;
+            NoIndex = noIndex;
+            BeginNum = beginNum;
+            EndNum = endNum;
+        }
+
+        //审批
+        public PeopleLeaveRrdBean(String currentApproveNo, String no, String approver1No, String approver2No, String approver3No, String approver4No, String approver5No, String registerTime, String outTime, String inTime, String content, String actualInTime, String actualOutTime, String modifyTime, String multiLevelResult, String process, String levelNum, String bCancel, String bFillup, String noIndex, String beginNum, String endNum) {
+            CurrentApproveNo = currentApproveNo;
+            No = no;
+            Approver1No = approver1No;
+            Approver2No = approver2No;
+            Approver3No = approver3No;
+            Approver4No = approver4No;
+            Approver5No = approver5No;
+            RegisterTime = registerTime;
+            OutTime = outTime;
+            InTime = inTime;
+            Content = content;
+            ActualInTime = actualInTime;
+            ActualOutTime = actualOutTime;
+            ModifyTime = modifyTime;
+            MultiLevelResult = multiLevelResult;
+            Process = process;
+            LevelNum = levelNum;
+            this.bCancel = bCancel;
+            this.bFillup = bFillup;
+            NoIndex = noIndex;
+            BeginNum = beginNum;
+            EndNum = endNum;
+        }
+
+        //申请和详情
         public PeopleLeaveRrdBean(String no, String approver1No, String approver2No, String approver3No, String approver4No, String approver5No, String registerTime, String outTime, String inTime, String content, String actualOutTime, String actualInTime, String modifyTime, String multiLevelResult, String process, String levelNum, String bCancel, String bFillup, String noIndex, String beginNum, String endNum) {
             No = no;
             Approver1No = approver1No;
@@ -93,12 +148,28 @@ public class PeopleLeaveEntity {
             EndNum = endNum;
         }
 
+        public String getResult() {
+            return Result;
+        }
+
+        public void setResult(String result) {
+            Result = result;
+        }
+
         public String getNo() {
             return No;
         }
 
         public void setNo(String No) {
             this.No = No;
+        }
+
+        public String getCurrentApproveNo() {
+            return CurrentApproveNo;
+        }
+
+        public void setCurrentApproveNo(String currentApproveNo) {
+            CurrentApproveNo = currentApproveNo;
         }
 
         public String getApprover1No() {

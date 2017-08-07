@@ -8,7 +8,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="驳回"
+        android:text="拒绝"
         android:id="@+id/btn_reject"
         android:enabled="false"
         android:visibility="gone"

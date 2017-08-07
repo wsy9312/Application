@@ -2,7 +2,6 @@ package com.example.hgtxxgl.application.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
 import com.example.hgtxxgl.application.rest.CommonFragment;
@@ -22,11 +21,8 @@ import java.util.List;
  */
 
 public class RestDetailPeopleFragment extends CommonFragment {
-
-
     private String SN;
-    private String photo;
-    private String TAG = "DetailFragment";
+    private final static String TAG = "RestDetailPeopleFragment";
 
     public RestDetailPeopleFragment(){
 
@@ -114,7 +110,6 @@ public class RestDetailPeopleFragment extends CommonFragment {
         peopleLeaveEntity.setPeopleLeaveRrd(list);
         String toJson = new Gson().toJson(peopleLeaveEntity);
         String s="get "+toJson;
-        Log.e(TAG,"loadData()人员请假详情"+s);
         String url = CommonValues.BASE_URL;
         HttpManager.getInstance().requestResultForm(url, s, PeopleLeaveEntity.class, new HttpManager.ResultCallback<PeopleLeaveEntity>() {
             @Override

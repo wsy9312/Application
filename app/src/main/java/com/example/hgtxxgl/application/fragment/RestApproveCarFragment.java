@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.widget.Toast;
 
 import com.example.hgtxxgl.application.R;
-import com.example.hgtxxgl.application.rest.AttachmentListEntity;
 import com.example.hgtxxgl.application.rest.DescripUtil;
 import com.example.hgtxxgl.application.rest.HandInputGroup;
 import com.example.hgtxxgl.application.rest.RestDetailBean;
@@ -40,7 +39,7 @@ public class RestApproveCarFragment extends RestDetailCarFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getBottomTitles();
+//        getBottomTitles();
     }
 
     @Override
@@ -52,14 +51,14 @@ public class RestApproveCarFragment extends RestDetailCarFragment {
     @SuppressWarnings("unchecked")
     @Override
     public void onBottomButtonsClick(final String title, final List<Group> groups) {
-        setButtonllEnable(false);
-        if (title.equals("转办")){
+        setButtonllEnable(true);
+        if (title.equals("同意")){
             requestForPerson(title);
             return;
         }
 //        entitiy = getEntity().getDetailData();
         String over = isOver(groups);
-        if (!title.equals("驳回") && over != null){
+        if (!title.equals("拒绝") && over != null){
             ToastUtil.showToast(getContext(),(this.getString(R.string.Please_Fill) + over));
             setButtonllEnable(true);
             return;
@@ -114,19 +113,9 @@ public class RestApproveCarFragment extends RestDetailCarFragment {
 
     }
 
-
     @Override
-    public void onClickItemContentSetter(HandInputGroup.Holder holder) {
-        mholder = holder;
-        if (mholder.getType() == HandInputGroup.VALUE_TYPE.SELECT) {
-            if (holder.getKey().equals(this.getString(R.string.Select_Attachments))) {
-                AttachmentListEntity entity = (AttachmentListEntity) holder.getValue();
-//                lookAttachmentInDetailFragment(entity);
-            }
-        }
-        if (mholder.getType() == HandInputGroup.VALUE_TYPE.DATE) {
-            showDateTimePicker(mholder,false);
-        }
+    public String[] getBottomButtonsTitles() {
+        return new String[]{"同意","拒绝"};
     }
 
     @Override
