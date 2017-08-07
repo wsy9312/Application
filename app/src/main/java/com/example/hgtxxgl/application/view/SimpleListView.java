@@ -126,6 +126,7 @@ public class SimpleListView extends ListView implements AbsListView.OnScrollList
                         refreshHeaderView();
                     }
                     headerView.setPadding(0, paddingTop > 40?40:paddingTop, 0, 0);
+                    super.onTouchEvent(ev);
                     return true;
                 }
                 break;

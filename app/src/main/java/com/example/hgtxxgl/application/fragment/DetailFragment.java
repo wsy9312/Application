@@ -95,7 +95,7 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
                 return PersonalFragment.newInstance(position).setCallback(this);
             } else if (currentPage == PageConfig.PAGE_TODO) {
                 llEtSearch.setVisibility(VISIBLE);
-                return MyCommissionFragment.newInstance(position).setCallback(this);
+                return MyCommissionFragment.newInstance().setCallback(this);
             } else if (currentPage == PageConfig.PAGE_LAUNCH){
                 llEtSearch.setVisibility(VISIBLE);
                 return MyLaunchFragment.newInstance().setCallback(this);

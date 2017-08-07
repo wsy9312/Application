@@ -31,12 +31,6 @@ import java.util.List;
 
 public class MyCommissionFragment extends Fragment implements AdapterView.OnItemClickListener, SimpleListView.OnRefreshListener {
 
-//    private int tabIndex;
-//    private int index = 1;
-//    private boolean hasMore = true;
-//    private ImageView ivEmpty;
-//    private ProgressBar pb;
-
     private int beginNum = 1;
     private int endNum = 6;
     private boolean hasMore = true;
@@ -48,7 +42,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
 
     }
 
-    public static MyCommissionFragment newInstance(int tabIndex) {
+    public static MyCommissionFragment newInstance() {
 //        Bundle args = new Bundle();
 //        MyCommissionFragment fragment = new MyCommissionFragment();
 //        args.putInt(DetailFragment.ARG_TAB, tabIndex);
@@ -68,6 +62,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
             holder.setText(R.id.tv_sketch, bean.getContent());
         }
     };
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -119,7 +114,6 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
         peopleLeaveRrdBean.setEndNum(String.valueOf(endNum));
         peopleLeaveRrdBean.setNoIndex("?");
         peopleLeaveRrdBean.setModifyTime("?");
-
         List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
         list.add(peopleLeaveRrdBean);
         peopleLeaveEntity.setPeopleLeaveRrd(list);
