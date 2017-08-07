@@ -31,7 +31,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
     public static final String PASS_WORD = "PASS_WORD";
     private boolean loginSucceed = false;
     private RadioGroup bottomBar;
-    private Fragment[] fragments = new Fragment[7];
+    private Fragment[] fragments = new Fragment[6];
     private FragmentManager supportFragmentManager;
     private int lastIndex = -1, currentIndex;
     private static final int LOGIN_SUCESS = 0;
@@ -42,7 +42,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
     private RadioButton notificationCenter;
     private RadioButton todoCenter;
     private RadioButton launchCenter;
-    private RadioButton applyCarCenter;
+//    private RadioButton applyCarCenter;
     private RadioButton applyPeoPleCenter;
     private RadioButton personalCenter;
 
@@ -83,14 +83,22 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                 handToolbar.setTitle(title[3]);
                 handToolbar.setBackHome(false,LibMainActivity.this,0);
 
-            }else if (checkedId == R.id.rb_main_leave_apply_car_center){
+            }/*else if (checkedId == R.id.rb_main_leave_apply_car_center){
                 currentIndex = 4;
                 changeFragment(fragments[4]);
                 fragments[4].onPause();
                 handToolbar.setTitle(title[4]);
                 handToolbar.setBackHome(false,LibMainActivity.this,0);
 
-            } else if (checkedId == R.id.rb_main_leave_apply_people_center){
+            }*/ else if (checkedId == R.id.rb_main_leave_apply_people_center){
+                currentIndex = 4;
+                changeFragment(fragments[4]);
+                fragments[4].onPause();
+                handToolbar.setTitle(title[4]);
+                handToolbar.setBackHome(false,LibMainActivity.this,0);
+
+            }
+            else if (checkedId == R.id.rb_main_personal_center) {
                 currentIndex = 5;
                 changeFragment(fragments[5]);
                 fragments[5].onPause();
@@ -98,17 +106,8 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                 handToolbar.setBackHome(false,LibMainActivity.this,0);
 
             }
-            else if (checkedId == R.id.rb_main_personal_center) {
-                currentIndex = 6;
-                changeFragment(fragments[6]);
-                fragments[6].onPause();
-                handToolbar.setTitle(title[6]);
-                handToolbar.setBackHome(false,LibMainActivity.this,0);
-
-            }
         }
     };
-    private int totalNumber;
 
     /**
      * 调用入口
@@ -124,7 +123,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
 
     //初始化设置toolbar标题
     private void initTitle() {
-        title = new String[]{"新闻","通知","审批","查看","车辆","人员","我的"};
+        title = new String[]{"新闻","通知","审批","查看"/*,"车辆"*/,"人员","我的"};
     }
 
     @Override
@@ -204,7 +203,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         notificationCenter = (RadioButton) findViewById(R.id.rb_main_notification_center);
         todoCenter = (RadioButton) findViewById(R.id.rb_main_leave_todo_center);
         launchCenter = (RadioButton) findViewById(R.id.rb_main_leave_launch_center);
-        applyCarCenter = (RadioButton) findViewById(R.id.rb_main_leave_apply_car_center);
+//        applyCarCenter = (RadioButton) findViewById(R.id.rb_main_leave_apply_car_center);
         applyPeoPleCenter = (RadioButton) findViewById(R.id.rb_main_leave_apply_people_center);
         personalCenter = (RadioButton) findViewById(R.id.rb_main_personal_center);
         bottomBar.setOnCheckedChangeListener(listener);
@@ -222,9 +221,9 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
             fragments[1] = DetailFragment.newInstance(PageConfig.PAGE_NOTIFICATION);
             fragments[2] = DetailFragment.newInstance(PageConfig.PAGE_TODO);
             fragments[3] = DetailFragment.newInstance(PageConfig.PAGE_LAUNCH);
-            fragments[4] = DetailFragment.newInstance(PageConfig.PAGE_APPLY_CAR);
-            fragments[5] = DetailFragment.newInstance(PageConfig.PAGE_APPLY_PEOPLE);
-            fragments[6] = DetailFragment.newInstance(PageConfig.PAGE_ME);
+//            fragments[4] = DetailFragment.newInstance(PageConfig.PAGE_APPLY_CAR);
+            fragments[4] = DetailFragment.newInstance(PageConfig.PAGE_APPLY_PEOPLE);
+            fragments[5] = DetailFragment.newInstance(PageConfig.PAGE_ME);
             for (int i = 0; i < fragments.length; i++) {
                 transaction.add(R.id.fl_container, fragments[i]);
                 transaction.hide(fragments[i]);
@@ -255,8 +254,8 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                         todoCenter.setBackgroundColor(0xffffff);
                         launchCenter.setEnabled(true);
                         launchCenter.setBackgroundColor(0xffffff);
-                        applyCarCenter.setEnabled(true);
-                        applyCarCenter.setBackgroundColor(0xffffff);
+//                        applyCarCenter.setEnabled(true);
+//                        applyCarCenter.setBackgroundColor(0xffffff);
                         applyPeoPleCenter.setEnabled(true);
                         applyPeoPleCenter.setBackgroundColor(0xffffff);
                         personalCenter.setEnabled(true);
@@ -277,8 +276,8 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                         todoCenter.setBackgroundColor(0xd4d4d4);
                         launchCenter.setEnabled(false);
                         launchCenter.setBackgroundColor(0xd4d4d4);
-                        applyCarCenter.setEnabled(false);
-                        applyCarCenter.setBackgroundColor(0xd4d4d4);
+//                        applyCarCenter.setEnabled(false);
+//                        applyCarCenter.setBackgroundColor(0xd4d4d4);
                         applyPeoPleCenter.setEnabled(false);
                         applyPeoPleCenter.setBackgroundColor(0xd4d4d4);
                         personalCenter.setEnabled(false);

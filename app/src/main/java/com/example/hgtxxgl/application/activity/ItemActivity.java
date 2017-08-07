@@ -8,7 +8,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.hgtxxgl.application.R;
-import com.example.hgtxxgl.application.fragment.RestApplyCarFragment;
 import com.example.hgtxxgl.application.fragment.RestApplyPeopleFragment;
 import com.example.hgtxxgl.application.fragment.RestApproveCarFragment;
 import com.example.hgtxxgl.application.fragment.RestApprovePeopleFragment;
@@ -44,15 +43,9 @@ public class ItemActivity extends AppCompatActivity {
 
     void checkFragmentForLoading(int pageCode) {
         switch (pageCode) {
-//            case PAGE_APPLY_BLEAVE:
-//                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, AddOrUpdateFragment.newInstance(getIntent().getBundleExtra("data"))).commit();
+//            case PageConfig.PAGE_LEAVE_APPLY_CAR:
+//                checkFragment(RestApplyCarFragment.newInstance(getIntent().getBundleExtra("data")));
 //                break;
-//            case PAGE_APPLY_EXTRAWORK:
-//                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, ExtraWorkApplyFragment.newInstance(getIntent().getBundleExtra("data"))).commit();
-//                break;
-            case PageConfig.PAGE_LEAVE_APPLY_CAR:
-                checkFragment(RestApplyCarFragment.newInstance(getIntent().getBundleExtra("data")));
-                break;
             case PageConfig.PAGE_LEAVE_APPLY_PEOPLE:
                 checkFragment(RestApplyPeopleFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;

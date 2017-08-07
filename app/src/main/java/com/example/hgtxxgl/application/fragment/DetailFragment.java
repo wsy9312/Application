@@ -23,6 +23,7 @@ import java.util.List;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static com.example.hgtxxgl.application.R.id.ll_et_search;
 
 //首页六个fragment的通类
 public class DetailFragment extends Fragment implements  View.OnClickListener {
@@ -93,16 +94,16 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
             } else if (currentPage == PageConfig.PAGE_ME) {
                 return PersonalFragment.newInstance(position).setCallback(this);
             } else if (currentPage == PageConfig.PAGE_TODO) {
+                llEtSearch.setVisibility(VISIBLE);
                 return MyCommissionFragment.newInstance(position).setCallback(this);
             } else if (currentPage == PageConfig.PAGE_LAUNCH){
                 llEtSearch.setVisibility(VISIBLE);
                 return MyLaunchFragment.newInstance().setCallback(this);
-            } else if (currentPage == PageConfig.PAGE_APPLY_CAR){
+            } /*else if (currentPage == PageConfig.PAGE_APPLY_CAR){
                 return new RestApplyCarFragment();
 //                return new RestDetailCarFragment();
-            } else if (currentPage == PageConfig.PAGE_APPLY_PEOPLE){
+            }*/ else if (currentPage == PageConfig.PAGE_APPLY_PEOPLE){
                 return new RestApplyPeopleFragment();
-//                return new RestDetailPeopleFragment();
             }
             return null;
         }
@@ -119,9 +120,9 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
                 return 2;
             } else if (currentPage == PageConfig.PAGE_LAUNCH) {
                 return 2;
-            } else if (currentPage == PageConfig.PAGE_APPLY_CAR) {
+            } /*else if (currentPage == PageConfig.PAGE_APPLY_CAR) {
                 return 1;
-            } else if (currentPage == PageConfig.PAGE_APPLY_PEOPLE) {
+            } */else if (currentPage == PageConfig.PAGE_APPLY_PEOPLE) {
                 return 1;
             } else if (currentPage == PageConfig.PAGE_ME)
                 return 1;
@@ -152,7 +153,7 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
         rbLeft = (RadioButton) view.findViewById(R.id.rb_left);
         rbMid = (RadioButton) view.findViewById(R.id.rb_mid);
         rbRight = (RadioButton) view.findViewById(R.id.rb_right);
-        llEtSearch = (LinearLayout) view.findViewById(R.id.ll_et_search);
+        llEtSearch = (LinearLayout) view.findViewById(ll_et_search);
         etSearch = (SearchView) view.findViewById(R.id.et_search);
         tvCancel = (TextView) view.findViewById(R.id.tv_cancel);
         tvCancel.setOnClickListener(this);
@@ -235,9 +236,9 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
 //                }
                 group.setVisibility(GONE);
                 break;
-            case PageConfig.PAGE_APPLY_CAR:
-                group.setVisibility(GONE);
-                break;
+//            case PageConfig.PAGE_APPLY_CAR:
+//                group.setVisibility(GONE);
+//                break;
             case PageConfig.PAGE_APPLY_PEOPLE:
                 group.setVisibility(GONE);
                 break;

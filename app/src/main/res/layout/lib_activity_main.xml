@@ -68,18 +68,18 @@
             style="@style/BottomBarItem"
             android:drawableTop="@drawable/home_page_radio_button_my_launch"
             android:text="查看" />
-        <RadioButton
+        <!--<RadioButton
             android:enabled="false"
             android:id="@+id/rb_main_leave_apply_car_center"
             style="@style/BottomBarItem"
             android:drawableTop="@drawable/home_page_radio_button_car_apply"
-            android:text="车辆外出" />
+            android:text="车辆外出" />-->
         <RadioButton
             android:enabled="false"
             android:id="@+id/rb_main_leave_apply_people_center"
             style="@style/BottomBarItem"
             android:drawableTop="@drawable/home_page_radio_button_post_flow"
-            android:text="人员请假" />
+            android:text="请假" />
         <RadioButton
             android:enabled="false"
             android:id="@+id/rb_main_personal_center"
