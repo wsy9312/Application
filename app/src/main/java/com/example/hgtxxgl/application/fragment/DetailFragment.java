@@ -95,7 +95,7 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
                 return PersonalFragment.newInstance(position).setCallback(this);
             } else if (currentPage == PageConfig.PAGE_TODO) {
                 llEtSearch.setVisibility(VISIBLE);
-                return MyCommissionFragment.newInstance().setCallback(this);
+                return MyCommissionFragment.newInstance(position).setCallback(this);
             } else if (currentPage == PageConfig.PAGE_LAUNCH){
                 llEtSearch.setVisibility(VISIBLE);
                 return MyLaunchFragment.newInstance().setCallback(this);
@@ -225,10 +225,10 @@ public class DetailFragment extends Fragment implements  View.OnClickListener {
                 group.setVisibility(GONE);
                 break;
             case PageConfig.PAGE_TODO:
-                if (checkButtons) {
-                    setRadioButtons("待处理", "已处理");
-                }
-                group.setVisibility(VISIBLE);
+//                if (checkButtons) {
+//                    setRadioButtons("待处理", "已处理");
+//                }
+                group.setVisibility(GONE);
                 break;
             case PageConfig.PAGE_LAUNCH:
 //                if (checkButtons) {

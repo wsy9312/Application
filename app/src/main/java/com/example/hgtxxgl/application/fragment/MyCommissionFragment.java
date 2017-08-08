@@ -31,6 +31,7 @@ import java.util.List;
 
 public class MyCommissionFragment extends Fragment implements AdapterView.OnItemClickListener, SimpleListView.OnRefreshListener {
 
+    private int tabIndex;
     private int beginNum = 1;
     private int endNum = 6;
     private boolean hasMore = true;
@@ -42,12 +43,12 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
 
     }
 
-    public static MyCommissionFragment newInstance() {
-//        Bundle args = new Bundle();
-//        MyCommissionFragment fragment = new MyCommissionFragment();
-//        args.putInt(DetailFragment.ARG_TAB, tabIndex);
-//        fragment.setArguments(args);
+    public static MyCommissionFragment newInstance(int tabIndex) {
+        Bundle args = new Bundle();
         MyCommissionFragment fragment = new MyCommissionFragment();
+        args.putInt(DetailFragment.ARG_TAB, tabIndex);
+        fragment.setArguments(args);
+//        MyCommissionFragment fragment = new MyCommissionFragment();
         return fragment;
     }
 
@@ -67,7 +68,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        tabIndex = getArguments().getInt(DetailFragment.ARG_TAB);
+        tabIndex = getArguments().getInt(DetailFragment.ARG_TAB);
 //        loadData(tabIndex, index, 10);
         loadData(beginNum, endNum);
     }
@@ -125,7 +126,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
             @Override
             public void onSuccess(final String json, final PeopleLeaveEntity peopleLeaveEntity1) throws InterruptedException {
                 if (peopleLeaveEntity1 != null && peopleLeaveEntity1.getPeopleLeaveRrd().size() > 0) {
-                    if (beginNum==1 && endNum == 6){
+                    if (beginNum == 1 && endNum == 6){
                         entityList.clear();
                     }
                     hasMore = true;
@@ -151,6 +152,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
 
             @Override
             public void onResponse(String response) {
+
             }
         });
     }
@@ -248,6 +250,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
         intent.putExtra(PageConfig.PAGE_CODE, pageApplyBleave);
         Bundle bundle = new Bundle();
         bundle.putString("no", adapter.getItem(position).getNo());
+//        Log.e(TAG,"NO号码："+adapter.getItem(position).getNo());
         bundle.putString("outtime",adapter.getItem(position).getOutTime());
         bundle.putString("intime", adapter.getItem(position).getInTime());
         bundle.putString("content", adapter.getItem(position).getContent());

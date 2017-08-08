@@ -1,9 +1,12 @@
 package com.example.hgtxxgl.application.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.example.hgtxxgl.application.activity.LibMainActivity;
 import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
 import com.example.hgtxxgl.application.rest.CommonFragment;
 import com.example.hgtxxgl.application.rest.HandInputGroup;
@@ -21,6 +24,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
     private String SN;
     private final static String TAG = "RestApprovePeopleFragment";
     private String noindex;
+    private String no;
 
     public RestApprovePeopleFragment(){
 
@@ -52,9 +56,11 @@ public class RestApprovePeopleFragment extends CommonFragment {
         list.add(new HandInputGroup.Holder("流程内容", true, false, "人员请假", HandInputGroup.VALUE_TYPE.TEXT));
         list.add(new HandInputGroup.Holder("审批进度", true, false, process == 0?"审批中":"审批结束", HandInputGroup.VALUE_TYPE.TEXT));
         if (process == 1){
-            String substring = multiLevelResultStr.substring(0, levelNum-1);
+            String substring = multiLevelResultStr.substring(0, levelNum);
             if (substring.endsWith("1")){
-                list.add(new HandInputGroup.Holder("审批结果", true, false, "审核通过", HandInputGroup.VALUE_TYPE.TEXT));
+                list.add(new HandInputGroup.Holder("审批结果", true, false, "审批同意", HandInputGroup.VALUE_TYPE.TEXT));
+            }else{
+                list.add(new HandInputGroup.Holder("审批结果", true, false, "审批拒绝", HandInputGroup.VALUE_TYPE.TEXT));
             }
 
         }
@@ -80,7 +86,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SN = getArguments().getString("SN");
+//        SN = getArguments().getString("SN");
         loadData();
     }
 
@@ -94,7 +100,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
     }
 
     public void loadData() {
-        String no = getArguments().getString("no");
+        no = getArguments().getString("no");
         String outtime = getArguments().getString("outtime");
         String intime = getArguments().getString("intime");
         String content = getArguments().getString("content");
@@ -262,8 +268,20 @@ public class RestApprovePeopleFragment extends CommonFragment {
             public void onResponse(String response) {
                 if (response.toLowerCase().contains("ok")) {
                     show("审批成功");
+                    Intent intent = new Intent();
+                    intent.setClass(getContext(), LibMainActivity.class);
+                    intent.putExtra("item",getArguments().getInt("item"));
+                    intent.putExtra("tabIndex",getArguments().getInt("tabIndex"));
+                    getActivity().setResult(Activity.RESULT_OK,intent);
+                    getActivity().finish();
                 }else{
                     show("审批失败");
+                    Intent intent = new Intent();
+                    intent.setClass(getContext(), LibMainActivity.class);
+                    intent.putExtra("item",getArguments().getInt("item"));
+                    intent.putExtra("tabIndex",getArguments().getInt("tabIndex"));
+                    getActivity().setResult(Activity.RESULT_OK,intent);
+                    getActivity().finish();
                 }
             }
         });

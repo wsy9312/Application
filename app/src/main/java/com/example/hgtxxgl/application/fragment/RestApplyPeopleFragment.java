@@ -20,16 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RestApplyPeopleFragment extends CommonFragment {
-//    private String uuid;
-//    private RestDetailBean bean;
-//    public LeaveDaysOrHoursBean leaveDaysBean;
-//    private String barCode;
-//    private List<DataListEntity> draftRestType, draftRestDayCount, draftAttachmentType;
-//    private Map<String, HashSet<Uri>> fileUri;
-//    private String mCompNameCN, mDeptNameCN, mNameCN, mPositionNameCN, mEid;
-//    private String id;
-//    private String date;
-//    private List<AttachmentListEntity> attachList;
+
     private PeopleLeaveEntity entity;
     private String name;
     private String no;
@@ -103,11 +94,6 @@ public class RestApplyPeopleFragment extends CommonFragment {
             name = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName();
             no = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo();
         }
-//        mCompNameCN = "";
-//        mDeptNameCN = "";
-//        mNameCN = "";
-//        mPositionNameCN = "";
-//        mEid = "";
         List<CommonFragment.Group> groups = new ArrayList<>();
         if (entity == null) {
             List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
@@ -134,106 +120,8 @@ public class RestApplyPeopleFragment extends CommonFragment {
             subHolder1.add(new HandInputGroup.Holder("是否后补请假", false, false, bFillup.equals("0") ? "否" : "是", HandInputGroup.VALUE_TYPE.SELECT));
             groups.add(0, new CommonFragment.Group("基本信息", null, true, null, subHolder1));
         }
-//            RestDetailBean.RetDataBean.DetailDataBean dataBean = bean.getRetData().getDetailData();
-//            List<RestDetailBean.RetDataBean.DetailDataBean.LeaveRequestDetailBean> leaveRequestDetail = dataBean.getLeaveRequestDetail();
-//            List<HandInputGroup.Holder> subHolder = new ArrayList<>();
-//            subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Company_Name), false, false, mCompNameCN, HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-//            subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Department), false, false, mDeptNameCN, HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-//            subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Applicant), false, false, mNameCN, HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-//            subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Position), false, false, mPositionNameCN, HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-//            subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Employee_ID), false, false, mEid, HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-//            subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Lave_Year_Days), false, false, TextUtils.isEmpty(dataBean.getLaveYearDays()) ? "0" : dataBean.getLaveYearDays(), HandInputGroup.VALUE_TYPE.DOUBLE));
-//            subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Lave_Hours), false, false, TextUtils.isEmpty(dataBean.getLaveHours()) ? "0" : dataBean.getLaveHours(), HandInputGroup.VALUE_TYPE.DOUBLE));
-//            subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Cumulative_number_of_antenatal_examination), false, false, TextUtils.isEmpty(dataBean.getTotalNumber()) ? "0" : dataBean.getTotalNumber(), HandInputGroup.VALUE_TYPE.DOUBLE));
-//            subHolder.add(new HandInputGroup.Holder(this.getString(R.string.Total_Days), false, false, TextUtils.isEmpty(dataBean.getTotalDays()) ? "0" : dataBean.getTotalDays(), HandInputGroup.VALUE_TYPE.DOUBLE));
-//            groups.add(0, new CommonFragment.Group(this.getString(R.string.Basic_Information), null, true, null, subHolder));
-//            for (int i = 0; i < leaveRequestDetail.size(); i++) {
-//                List<HandInputGroup.Holder> subDetail = new ArrayList<>();
-//                subDetail.add(new HandInputGroup.Holder(this.getString(R.string.Rest_Leave_Type), true, false, leaveRequestDetail.get(i).getLeaveTpyeName(), HandInputGroup.VALUE_TYPE.SELECT));
-//                subDetail.add(new HandInputGroup.Holder(this.getString(R.string.Starting_Time), true, false, leaveRequestDetail.get(i).getStartTime(), HandInputGroup.VALUE_TYPE.DATE));
-//                subDetail.add(new HandInputGroup.Holder(this.getString(R.string.Ending_Time), true, false, leaveRequestDetail.get(i).getEndTime(), HandInputGroup.VALUE_TYPE.DATE));
-//                subDetail.add(new HandInputGroup.Holder(this.getString(R.string.Leave_Time), true, false, leaveRequestDetail.get(i).getLeaveTime() + "", HandInputGroup.VALUE_TYPE.DOUBLE).setColor(Color.rgb(229,0,17)));
-//                subDetail.add(new HandInputGroup.Holder(this.getString(R.string.Leave_Causes), false, false, leaveRequestDetail.get(i).getLeaveCauses() + leaveRequestDetail.get(i).getRemark(), HandInputGroup.VALUE_TYPE.TEXTFILED));
-//                if (i == leaveRequestDetail.size() - 1) {
-//                    groups.add(new CommonFragment.Group(this.getString(R.string.Details_Information), R.mipmap.add_detail3x, true, null, subDetail).sethasDelete(true));
-//                } else {
-//                    groups.add(new CommonFragment.Group(this.getString(R.string.Details_Information), null, true, null, subDetail).sethasDelete(true));
-//                }
-//            }
-//            List<HandInputGroup.Holder> subDetailTotoal = new ArrayList<>();
-//            groups.add(new CommonFragment.Group(this.getString(R.string.Total), null, false, dataBean.getTotalLeaveTime(), subDetailTotoal));
-//            attachList = bean.getRetData().getAttchList();
-//            if (attachList != null && attachList.size() > 0) {
-//                if (fileUri == null) {
-//                    fileUri = new HashMap<>();
-//                }
-//                for (AttachmentListEntity entity : attachList) {
-//                    String groupName = entity.getFileGroupName();
-//                    if (!fileUri.containsKey(groupName)) {
-//                        List<HandInputGroup.Holder> subAddNoNull = new ArrayList<>();
-//                        fileUri.put(groupName, new HashSet<Uri>());
-//                        subAddNoNull.add(new HandInputGroup.Holder(this.getString(R.string.Attachment_Type), false, false, entity.getFileGroupName(), HandInputGroup.VALUE_TYPE.SELECT));
-//                        subAddNoNull.add(new HandInputGroup.Holder<HashSet<Uri>>(this.getString(R.string.Select_Attachments), false, false, entity.getFileGroupName()+ DataUtil.getCurrentDate() +entity.getFileExtension().substring(entity.getFileExtension().indexOf(".")), HandInputGroup.VALUE_TYPE.FILES_UPLOAD)
-//                                .setColor(Color.BLUE).setDrawableRight(-1).setValue(fileUri.get(groupName)).setTag(this).setName(groupName));
-//                        groups.add(new CommonFragment.Group(this.getString(R.string.Attachment_Info), null, false, null, subAddNoNull));
-//                    }
-//                    loadRemoteFiles(entity);
-//                }
-//            } else {
-//                List<HandInputGroup.Holder> subAddNull = new ArrayList<>();
-//                subAddNull.add(new HandInputGroup.Holder(this.getString(R.string.Attachment_Type), false, false, "/" + this.getString(R.string.Please_Select), HandInputGroup.VALUE_TYPE.SELECT));
-//                if (fileUri == null) {
-//                    fileUri = new HashMap<>();
-//                    fileUri.put("", new HashSet<Uri>());
-//                }
-//                subAddNull.add(new HandInputGroup.Holder(this.getString(R.string.Select_Attachments), false, false, "/" + this.getString(R.string.Please_Select), HandInputGroup.VALUE_TYPE.FILES_UPLOAD).setValue(fileUri.get("")));
-//                groups.add(new CommonFragment.Group(this.getString(R.string.Attachment_Info), null, false, null, subAddNull));
-//            }
-//        }
         return groups;
     }
-//    private void loadRemoteFiles(final AttachmentListEntity entity) {
-//        Map<String, Object> param = CommonValues.getCommonParams(getActivity());
-//        param.put("attachmentId", entity.getId());
-//        HttpManager.getInstance().requestResultForm(CommonValues.CLICK_LOOK_DATA, param, AttachmentSingleEntity.class, new HttpManager.ResultCallback<AttachmentSingleEntity>() {
-//            @Override
-//            public void onSuccess(final String content, final AttachmentSingleEntity attachmentListEntity) {
-//                getActivity().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if (attachmentListEntity != null && attachmentListEntity.getRetData() != null) {
-//                            if (attachmentListEntity.getCode().equals("100")) {
-//                                String attachment = attachmentListEntity.getRetData().getAttachment();
-//                                String attachType = attachmentListEntity.getRetData().getType();
-//                                String substring = null;
-//                                substring = DataUtil.getExtensionFromIME(attachType);
-//                                if (substring == null) {
-//                                    Toast.makeText(getContext(), "未知的文件类型！", Toast.LENGTH_SHORT).show();
-//                                    return;
-//                                }
-//                                File file = DataUtil.base64ToFileWithName(attachment, substring, entity.getFileName());
-//                                Uri uri = Uri.fromFile(file);
-//                                fileUri.get(entity.getFileGroupName()).add(uri);
-//                                entity.setLocalFileUri(uri);
-//                                notifyDataSetChanged();
-//                            }
-//                        }
-//                    }
-//                });
-//            }
-//
-//            @Override
-//            public void onFailure(String msg) {
-//
-//            }
-//        });
-//    }
-
-//   /* public void setToolbar(HandToolbar toolbar) {
-//        toolbar.setTitle("请假申请");
-//        toolbar.setTitleSize(20);
-//        toolbar.setDisplayHomeAsUpEnabled(true, getActivity());
-//    }*/
 
     @Override
     public String[] getBottomButtonsTitles() {
@@ -504,6 +392,7 @@ public class RestApplyPeopleFragment extends CommonFragment {
             public void onResponse(String response) {
                 if (response.toLowerCase().contains("ok")) {
                     show("提交成功");
+
                 }else{
                     show("提交失败");
                 }

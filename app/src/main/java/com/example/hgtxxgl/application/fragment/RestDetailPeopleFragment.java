@@ -49,9 +49,9 @@ public class RestDetailPeopleFragment extends CommonFragment {
         list.add(new HandInputGroup.Holder("流程内容", true, false, "人员请假", HandInputGroup.VALUE_TYPE.TEXT));
         list.add(new HandInputGroup.Holder("审批进度", true, false, process == 0?"审批中":"审批结束", HandInputGroup.VALUE_TYPE.TEXT));
         if (process == 1){
-            String substring = multiLevelResultStr.substring(0, levelNum-1);
+            String substring = multiLevelResultStr.substring(0, levelNum);
             if (substring.endsWith("1")){
-                list.add(new HandInputGroup.Holder("审批结果", true, false, "审批通过", HandInputGroup.VALUE_TYPE.TEXT));
+                list.add(new HandInputGroup.Holder("审批结果", true, false, "审批同意", HandInputGroup.VALUE_TYPE.TEXT));
             }else{
                 list.add(new HandInputGroup.Holder("审批结果", true, false, "审批拒绝", HandInputGroup.VALUE_TYPE.TEXT));
             }
