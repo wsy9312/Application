@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.example.hgtxxgl.application.activity.LibMainActivity;
+import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
 import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
 import com.example.hgtxxgl.application.rest.CommonFragment;
 import com.example.hgtxxgl.application.rest.HandInputGroup;
@@ -25,6 +26,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
     private final static String TAG = "RestApprovePeopleFragment";
     private String noindex;
     private String no;
+    private String name;
 
     public RestApprovePeopleFragment(){
 
@@ -68,7 +70,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
 
         List<HandInputGroup.Holder> holderList = new ArrayList<>();
         holderList.add(new HandInputGroup.Holder("流程内容",true,false, "人员请假",HandInputGroup.VALUE_TYPE.TEXT));
-        holderList.add(new HandInputGroup.Holder("申请人", true, false, entity.getNo(), HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("申请人", true, false, getName(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("预计外出时间", true, false, entity.getOutTime(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("预计归来时间", true, false, entity.getInTime(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("请假原因", true, false, entity.getContent(), HandInputGroup.VALUE_TYPE.TEXT));
@@ -80,7 +82,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
 
     public void setToolbar(HandToolbar toolbar) {
         toolbar.setDisplayHomeAsUpEnabled(true, getActivity());
-        toolbar.setTitle("人员请假详情");
+        toolbar.setTitle("人员请假审批");
     }
 
     @Override
@@ -88,6 +90,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
         super.onCreate(savedInstanceState);
 //        SN = getArguments().getString("SN");
         loadData();
+        getNameFromNo(no);
     }
 
     private void show(final String msg) {
@@ -99,6 +102,45 @@ public class RestApprovePeopleFragment extends CommonFragment {
         });
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    void getNameFromNo(String no){
+        PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
+        PeopleInfoEntity.PeopleInfoBean peopleInfoBean =
+                new PeopleInfoEntity.PeopleInfoBean();
+        peopleInfoBean.setNo(no);
+        peopleInfoBean.setName("?");
+        List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
+        beanList.add(peopleInfoBean);
+        peopleEntity.setPeopleInfo(beanList);
+        String json = new Gson().toJson(peopleEntity);
+        String s1 = "get " + json;
+        HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
+            @Override
+            public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
+                if (peopleInfoEntity != null){
+                    String name = peopleInfoEntity.getPeopleInfo().get(0).getName();
+                    setName(name);
+                }
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+
+            @Override
+            public void onResponse(String response) {
+
+            }
+        });
+    }
     public void loadData() {
         no = getArguments().getString("no");
         String outtime = getArguments().getString("outtime");

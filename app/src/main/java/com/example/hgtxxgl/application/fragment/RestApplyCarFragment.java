@@ -14,6 +14,7 @@ import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
+import com.example.hgtxxgl.application.view.HandToolbar;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -206,6 +207,11 @@ public class RestApplyCarFragment extends CommonFragment{
 //            }
 //        }
         return groups;
+    }
+
+    @Override
+    public void setToolbar(HandToolbar toolbar) {
+
     }
 
 //    private void loadRemoteFiles(final AttachmentListEntity entity) {

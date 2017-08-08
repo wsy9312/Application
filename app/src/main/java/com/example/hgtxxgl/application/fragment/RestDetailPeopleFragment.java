@@ -3,12 +3,14 @@ package com.example.hgtxxgl.application.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
 import com.example.hgtxxgl.application.rest.CommonFragment;
 import com.example.hgtxxgl.application.rest.HandInputGroup;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
+import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
 import com.example.hgtxxgl.application.view.HandToolbar;
 import com.google.gson.Gson;
@@ -21,7 +23,7 @@ import java.util.List;
  */
 
 public class RestDetailPeopleFragment extends CommonFragment {
-    private String SN;
+
     private final static String TAG = "RestDetailPeopleFragment";
 
     public RestDetailPeopleFragment(){
@@ -61,7 +63,7 @@ public class RestDetailPeopleFragment extends CommonFragment {
 
         List<HandInputGroup.Holder> holderList = new ArrayList<>();
         holderList.add(new HandInputGroup.Holder("流程内容",true,false, "人员请假",HandInputGroup.VALUE_TYPE.TEXT));
-        holderList.add(new HandInputGroup.Holder("申请人", true, false, entity.getNo(), HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("申请人", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("预计外出时间", true, false, entity.getOutTime(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("预计归来时间", true, false, entity.getInTime(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("请假原因", true, false, entity.getContent(), HandInputGroup.VALUE_TYPE.TEXT));
@@ -79,7 +81,7 @@ public class RestDetailPeopleFragment extends CommonFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SN = getArguments().getString("SN");
+        StatusBarUtils.setWindowStatusBarColor(getActivity(), R.color.mainColor_blue);
         loadData();
     }
 
@@ -106,7 +108,8 @@ public class RestDetailPeopleFragment extends CommonFragment {
         final String noindex = getArguments().getString("noindex");
         final PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
         PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean =
-                new PeopleLeaveEntity.PeopleLeaveRrdBean(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo(),"?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?",noindex,"?","?");
+                new PeopleLeaveEntity.PeopleLeaveRrdBean(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo(),
+                        "?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?",noindex,"?","?");
         List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
         list.add(peopleLeaveRrdBean);
         peopleLeaveEntity.setPeopleLeaveRrd(list);
@@ -230,7 +233,4 @@ public class RestDetailPeopleFragment extends CommonFragment {
         this.entity = entity;
     }
 
-    public String getSN(){
-        return SN;
-    }
 }

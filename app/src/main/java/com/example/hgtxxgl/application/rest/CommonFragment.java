@@ -210,10 +210,10 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
             notifyDataSetChanged();
         }
     }
-//
-//    public HandToolbar getToolbar() {
-//        return toolbar;
-//    }
+
+    public HandToolbar getToolbar() {
+        return toolbar;
+    }
 
     RadioBarViewPager pager;
 
@@ -225,12 +225,12 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
         layout = (RelativeLayout) inflater.inflate(R.layout.fragment_layout_container, container, false);
         buttonll = (LinearLayout) layout.findViewById(R.id.vs_action_buttons);
         setButtonllEnable(getArguments() == null);
-//        toolbar = (HandToolbar) layout.findViewById(R.id.toolbar);
+        toolbar = (HandToolbar) layout.findViewById(R.id.toolbar);
         pb = (RelativeLayout) layout.findViewById(R.id.frag_pb);
         setPb(getArguments() != null);
-//        setToolbar(toolbar);
-//        toolbar.setDisplayHomeAsUpEnabled(true, getActivity());
-//        toolbar.setBackHome(true,getActivity(),0);
+        setToolbar(toolbar);
+        toolbar.setDisplayHomeAsUpEnabled(true, getActivity());
+        toolbar.setBackHome(true,getActivity(),0);
         stubEmpty = (RelativeLayout) layout.findViewById(R.id.vs_empty);
         stubEmpty.setVisibility(groupList == null || groupList.size() == 0 ? View.VISIBLE : View.GONE);
         stubEmpty.setVisibility(View.GONE);
@@ -292,7 +292,7 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
      *
      * @param toolbar 组合控件，设置它的参数
      */
-//    public abstract void setToolbar(HandToolbar toolbar);
+    public abstract void setToolbar(HandToolbar toolbar);
 
     /**
      * 返回底部按钮设置

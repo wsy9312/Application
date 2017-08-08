@@ -5,15 +5,14 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
 import com.example.hgtxxgl.application.rest.CommonFragment;
 import com.example.hgtxxgl.application.rest.HandInputGroup;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
-import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
+import com.example.hgtxxgl.application.view.HandToolbar;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -43,7 +42,6 @@ public class RestApplyPeopleFragment extends CommonFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        StatusBarUtils.setWindowStatusBarColor(getActivity(), R.color.mainColor_blue);
         loadData();
     }
 
@@ -121,6 +119,12 @@ public class RestApplyPeopleFragment extends CommonFragment {
             groups.add(0, new CommonFragment.Group("基本信息", null, true, null, subHolder1));
         }
         return groups;
+    }
+
+    @Override
+    public void setToolbar(HandToolbar toolbar) {
+        toolbar.setDisplayHomeAsUpEnabled(true, getActivity());
+        toolbar.setTitle("人员请假申请");
     }
 
     @Override

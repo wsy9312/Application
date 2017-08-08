@@ -26,7 +26,7 @@ import static android.view.View.VISIBLE;
 import static com.example.hgtxxgl.application.R.id.ll_et_search;
 
 //首页六个fragment的通类
-public class DetailFragment extends Fragment implements  View.OnClickListener {
+public class DetailFragment extends Fragment implements View.OnClickListener {
     private int currentPage;
     private SearchView etSearch;
     private TextView tvCancel;
