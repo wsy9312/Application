@@ -24,6 +24,7 @@ import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.LibMainActivity;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
+import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.view.HandToolbar;
 
 import java.text.ParseException;
@@ -226,6 +227,7 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
         buttonll = (LinearLayout) layout.findViewById(R.id.vs_action_buttons);
         setButtonllEnable(getArguments() == null);
         toolbar = (HandToolbar) layout.findViewById(R.id.toolbar);
+        StatusBarUtils.setWindowStatusBarColor(getActivity(),R.color.mainColor_blue);
         pb = (RelativeLayout) layout.findViewById(R.id.frag_pb);
         setPb(getArguments() != null);
         setToolbar(toolbar);

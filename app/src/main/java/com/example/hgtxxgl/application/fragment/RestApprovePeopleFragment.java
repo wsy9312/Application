@@ -85,6 +85,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
     public void setToolbar(HandToolbar toolbar) {
         toolbar.setDisplayHomeAsUpEnabled(true, getActivity());
         toolbar.setTitle("人员请假审批");
+        toolbar.setTitleSize(18);
     }
 
     @Override

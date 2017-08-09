@@ -76,6 +76,7 @@ public class RestDetailPeopleFragment extends CommonFragment {
     public void setToolbar(HandToolbar toolbar) {
         toolbar.setDisplayHomeAsUpEnabled(true, getActivity());
         toolbar.setTitle("人员请假详情");
+        toolbar.setTitleSize(18);
     }
 
     @Override

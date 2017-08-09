@@ -256,8 +256,6 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
         lv.completeRefresh();
     }
 
-
-
     @Override
     public void onLoadingMore() {
         loadMore();

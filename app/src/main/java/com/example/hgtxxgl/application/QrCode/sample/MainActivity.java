@@ -208,16 +208,16 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         name = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName();
         cardNo = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getCardNo();
 //        position = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0)
-        sex = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getSex();
+        sex = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getSex().equals("0")?"男":"女";
         /*//所属单位
         unit = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0)
         //所属部门
         armyGroup = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0)*/
-        String data = "编号: "+ no + "\r\n"
-                +"姓名: "+ name + "\r\n"
-                +"身份证号: "+ cardNo + "\r\n"
+        String data = "编号: "+ no + "\r\n\r\n"
+                +"姓名: "+ name + "\r\n\r\n"
+                +"身份证号: "+ cardNo + "\r\n\r\n"
 //                +"职务: "+ position + "\r\n"
-                +"性别: "+ sex + "\r\n";
+                +"性别: "+ sex + "\r\n\r\n";
 //                +"所属单位: "+ unit + "\r\n"
 //                +"所属部门: "+ armyGroup + "\r\n";
         initshow(data);

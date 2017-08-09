@@ -90,7 +90,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
                 llEtSearch.setVisibility(VISIBLE);
                 return NewFragment.newInstance().setCallback(this);
             } else if (currentPage == PageConfig.PAGE_NOTIFICATION) {
-                return NotificationFragment.newInstance(position).setCallback(this);
+                return NotificationFragment.newInstance().setCallback(this);
             } else if (currentPage == PageConfig.PAGE_ME) {
                 return PersonalFragment.newInstance(position).setCallback(this);
             } else if (currentPage == PageConfig.PAGE_TODO) {
