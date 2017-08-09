@@ -29,6 +29,15 @@ public class LoginEntity {
         private String Authority;
         private String ModifyTime;
         private String NoIndex;
+        private String AuthenticationNo;
+
+        public String getAuthenticationNo() {
+            return AuthenticationNo;
+        }
+
+        public void setAuthenticationNo(String authenticationNo) {
+            AuthenticationNo = authenticationNo;
+        }
 
         public String getAuthority() {
             return Authority;

@@ -57,9 +57,9 @@ public class MyLaunchFragment extends Fragment implements SimpleListView.OnRefre
     ListAdapter<PeopleLeaveEntity.PeopleLeaveRrdBean> adapter = new ListAdapter<PeopleLeaveEntity.PeopleLeaveRrdBean>((ArrayList<PeopleLeaveEntity.PeopleLeaveRrdBean>) entityList, R.layout.layout_my_todo_too) {
         @Override
         public void bindView(ViewHolder holder, PeopleLeaveEntity.PeopleLeaveRrdBean bean) {
-            holder.setText(R.id.tv_title, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName());
-            holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
-            holder.setText(R.id.tv_sketch, bean.getContent());
+            holder.setText(R.id.tv_title, "申请人："+ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName());
+            holder.setText(R.id.tv_date, "修改时间："+DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
+            holder.setText(R.id.tv_sketch, bean.getContent().isEmpty()?"请假原因：无":"请假原因："+bean.getContent());
         }
     };
 

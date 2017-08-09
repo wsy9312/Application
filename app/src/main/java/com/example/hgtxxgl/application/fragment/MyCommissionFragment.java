@@ -62,9 +62,9 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
     ListAdapter<PeopleLeaveEntity.PeopleLeaveRrdBean> adapter = new ListAdapter<PeopleLeaveEntity.PeopleLeaveRrdBean>((ArrayList<PeopleLeaveEntity.PeopleLeaveRrdBean>) entityList, R.layout.layout_my_todo_too) {
         @Override
         public void bindView(ViewHolder holder, PeopleLeaveEntity.PeopleLeaveRrdBean bean) {
-            holder.setText(R.id.tv_title, getNameFormNo(bean.getNo()));
-            holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
-            holder.setText(R.id.tv_sketch, bean.getContent());
+            holder.setText(R.id.tv_title, "申请人："+getNameFormNo(bean.getNo()));
+            holder.setText(R.id.tv_date, "修改时间："+DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
+            holder.setText(R.id.tv_sketch, bean.getContent().isEmpty()?"请假原因：无":"请假原因："+bean.getContent());
         }
     };
 
@@ -154,6 +154,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
         peopleLeaveRrdBean.setEndNum(String.valueOf(endNum));
         peopleLeaveRrdBean.setNoIndex("?");
         peopleLeaveRrdBean.setModifyTime("?");
+        peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
         List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
         list.add(peopleLeaveRrdBean);
         peopleLeaveEntity.setPeopleLeaveRrd(list);

@@ -110,7 +110,7 @@ public class RestDetailPeopleFragment extends CommonFragment {
         final PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
         PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean =
                 new PeopleLeaveEntity.PeopleLeaveRrdBean(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo(),
-                        "?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?",noindex,"?","?");
+                        "?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?",noindex,"?","?","?");
         List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
         list.add(peopleLeaveRrdBean);
         peopleLeaveEntity.setPeopleLeaveRrd(list);

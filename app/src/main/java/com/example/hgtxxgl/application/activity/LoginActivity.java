@@ -6,6 +6,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -160,6 +161,7 @@ public class LoginActivity extends AppCompatActivity {
 
     //输入用户名密码登录
     private void login(final String username, final String password) {
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -198,13 +200,29 @@ public class LoginActivity extends AppCompatActivity {
                 //个人资料
                 PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
                 PeopleInfoEntity.PeopleInfoBean peopleInfoBean =
-                        new PeopleInfoEntity.PeopleInfoBean
-                                ("?","?","?","?","?","?","?","?","?","?",username,password,"?","?","?","?");
+                        new PeopleInfoEntity.PeopleInfoBean();
+                peopleInfoBean.setNo("?");
+                peopleInfoBean.setName("?");
+                peopleInfoBean.setCardNo("?");
+                peopleInfoBean.setPosition("?");
+                peopleInfoBean.setSex("?");
+                peopleInfoBean.setUnit("?");
+                peopleInfoBean.setArmyGroup("?");
+                peopleInfoBean.setPhoneNo("?");
+                peopleInfoBean.setTelNo("?");
+                peopleInfoBean.setGroupName("?");
+                peopleInfoBean.setLoginName(username);
+                peopleInfoBean.setPassword(password);
+                peopleInfoBean.setAuthority("?");
+                peopleInfoBean.setModifyTime("?");
+                peopleInfoBean.setRegisterTime("?");
+                peopleInfoBean.setNoIndex("?");
                 List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
                 beanList.add(peopleInfoBean);
                 peopleEntity.setPeopleInfo(beanList);
                 String json = new Gson().toJson(peopleEntity);
                 String s1 = "get " + json;
+                Log.e(TAG,"个人资料获取："+s1);
                 HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
                     @Override
                     public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {

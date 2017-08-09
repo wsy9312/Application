@@ -59,73 +59,13 @@ public class NewsInfoEntity {
         private String BeginNum;
         private String EndNum;
         private String NoIndex;
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            NewsRrdBean that = (NewsRrdBean) o;
-
-            if (Title != null ? !Title.equals(that.Title) : that.Title != null) return false;
-            if (Content != null ? !Content.equals(that.Content) : that.Content != null)
-                return false;
-            if (Picture1 != null ? !Picture1.equals(that.Picture1) : that.Picture1 != null)
-                return false;
-            if (Picture2 != null ? !Picture2.equals(that.Picture2) : that.Picture2 != null)
-                return false;
-            if (Picture3 != null ? !Picture3.equals(that.Picture3) : that.Picture3 != null)
-                return false;
-            if (Picture4 != null ? !Picture4.equals(that.Picture4) : that.Picture4 != null)
-                return false;
-            if (Picture5 != null ? !Picture5.equals(that.Picture5) : that.Picture5 != null)
-                return false;
-            if (Picture1Len != null ? !Picture1Len.equals(that.Picture1Len) : that.Picture1Len != null)
-                return false;
-            if (Picture2Len != null ? !Picture2Len.equals(that.Picture2Len) : that.Picture2Len != null)
-                return false;
-            if (Picture3Len != null ? !Picture3Len.equals(that.Picture3Len) : that.Picture3Len != null)
-                return false;
-            if (Picture4Len != null ? !Picture4Len.equals(that.Picture4Len) : that.Picture4Len != null)
-                return false;
-            if (Picture5Len != null ? !Picture5Len.equals(that.Picture5Len) : that.Picture5Len != null)
-                return false;
-            if (ModifyTime != null ? !ModifyTime.equals(that.ModifyTime) : that.ModifyTime != null)
-                return false;
-            if (RegisterTime != null ? !RegisterTime.equals(that.RegisterTime) : that.RegisterTime != null)
-                return false;
-            if (BeginNum != null ? !BeginNum.equals(that.BeginNum) : that.BeginNum != null)
-                return false;
-            return EndNum != null ? EndNum.equals(that.EndNum) : that.EndNum == null;
-
-        }
-
-        @Override
-        public int hashCode() {
-            int result = Title != null ? Title.hashCode() : 0;
-            result = 31 * result + (Content != null ? Content.hashCode() : 0);
-            result = 31 * result + (Picture1 != null ? Picture1.hashCode() : 0);
-            result = 31 * result + (Picture2 != null ? Picture2.hashCode() : 0);
-            result = 31 * result + (Picture3 != null ? Picture3.hashCode() : 0);
-            result = 31 * result + (Picture4 != null ? Picture4.hashCode() : 0);
-            result = 31 * result + (Picture5 != null ? Picture5.hashCode() : 0);
-            result = 31 * result + (Picture1Len != null ? Picture1Len.hashCode() : 0);
-            result = 31 * result + (Picture2Len != null ? Picture2Len.hashCode() : 0);
-            result = 31 * result + (Picture3Len != null ? Picture3Len.hashCode() : 0);
-            result = 31 * result + (Picture4Len != null ? Picture4Len.hashCode() : 0);
-            result = 31 * result + (Picture5Len != null ? Picture5Len.hashCode() : 0);
-            result = 31 * result + (ModifyTime != null ? ModifyTime.hashCode() : 0);
-            result = 31 * result + (RegisterTime != null ? RegisterTime.hashCode() : 0);
-            result = 31 * result + (BeginNum != null ? BeginNum.hashCode() : 0);
-            result = 31 * result + (EndNum != null ? EndNum.hashCode() : 0);
-            return result;
-        }
+        private String AuthenticationNo;
 
         public NewsRrdBean() {
 
         }
 
-        public NewsRrdBean(String title, String content, String picture1, String picture2, String picture3, String picture4, String picture5, String picture1Len, String picture2Len, String picture3Len, String picture4Len, String picture5Len, String modifyTime, String registerTime, String beginNum, String endNum, String noIndex) {
+        public NewsRrdBean(String title, String content, String picture1, String picture2, String picture3, String picture4, String picture5, String picture1Len, String picture2Len, String picture3Len, String picture4Len, String picture5Len, String modifyTime, String registerTime, String beginNum, String endNum, String noIndex, String authenticationNo) {
             Title = title;
             Content = content;
             Picture1 = picture1;
@@ -143,28 +83,7 @@ public class NewsInfoEntity {
             BeginNum = beginNum;
             EndNum = endNum;
             NoIndex = noIndex;
-        }
-
-        @Override
-        public String toString() {
-            return "NewsRrdBean{" +
-                    "Title='" + Title + '\'' +
-                    ", Content='" + Content + '\'' +
-                    ", Picture1='" + Picture1 + '\'' +
-                    ", Picture2='" + Picture2 + '\'' +
-                    ", Picture3='" + Picture3 + '\'' +
-                    ", Picture4='" + Picture4 + '\'' +
-                    ", Picture5='" + Picture5 + '\'' +
-                    ", Picture1Len='" + Picture1Len + '\'' +
-                    ", Picture2Len='" + Picture2Len + '\'' +
-                    ", Picture3Len='" + Picture3Len + '\'' +
-                    ", Picture4Len='" + Picture4Len + '\'' +
-                    ", Picture5Len='" + Picture5Len + '\'' +
-                    ", ModifyTime='" + ModifyTime + '\'' +
-                    ", RegisterTime='" + RegisterTime + '\'' +
-                    ", BeginNum='" + BeginNum + '\'' +
-                    ", EndNum='" + EndNum + '\'' +
-                    '}';
+            AuthenticationNo = authenticationNo;
         }
 
         public String getTitle() {
@@ -301,6 +220,14 @@ public class NewsInfoEntity {
 
         public void setNoIndex(String noIndex) {
             NoIndex = noIndex;
+        }
+
+        public String getAuthenticationNo() {
+            return AuthenticationNo;
+        }
+
+        public void setAuthenticationNo(String authenticationNo) {
+            AuthenticationNo = authenticationNo;
         }
 
     }

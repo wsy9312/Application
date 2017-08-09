@@ -54,7 +54,7 @@ public class RestApplyPeopleFragment extends CommonFragment {
             PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
             PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean =
                     new PeopleLeaveEntity.PeopleLeaveRrdBean
-                            (NO,"?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?");
+                            (NO,"?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?");
             List<PeopleLeaveEntity.PeopleLeaveRrdBean> beanList = new ArrayList<>();
             beanList.add(peopleLeaveRrdBean);
             peopleLeaveEntity.setPeopleLeaveRrd(beanList);

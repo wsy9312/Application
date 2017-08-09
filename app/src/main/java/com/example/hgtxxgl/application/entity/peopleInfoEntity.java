@@ -54,11 +54,12 @@ public class PeopleInfoEntity {
         private String ModifyTime;
         private String RegisterTime;
         private String NoIndex;
+        private String AuthenticationNo;
 
         public PeopleInfoBean() {
         }
 
-        public PeopleInfoBean(String no, String name, String cardNo, String position, String sex, String unit, String armyGroup, String phoneNo, String telNo, String groupName, String loginName, String password, String authority, String modifyTime, String registerTime, String noIndex) {
+        public PeopleInfoBean(String no, String name, String cardNo, String position, String sex, String unit, String armyGroup, String phoneNo, String telNo, String groupName, String loginName, String password, String authority, String modifyTime, String registerTime, String noIndex, String authenticationNo) {
             No = no;
             Name = name;
             CardNo = cardNo;
@@ -75,6 +76,7 @@ public class PeopleInfoEntity {
             ModifyTime = modifyTime;
             RegisterTime = registerTime;
             NoIndex = noIndex;
+            AuthenticationNo = authenticationNo;
         }
 
         public String getNo() {
@@ -204,6 +206,15 @@ public class PeopleInfoEntity {
         public void setNoIndex(String noIndex) {
             NoIndex = noIndex;
         }
+
+        public String getAuthenticationNo() {
+            return AuthenticationNo;
+        }
+
+        public void setAuthenticationNo(String authenticationNo) {
+            AuthenticationNo = authenticationNo;
+        }
+
 
     }
 }
