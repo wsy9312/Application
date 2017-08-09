@@ -53,11 +53,12 @@ public class PeopleInfoEntity {
         private String Authority;
         private String ModifyTime;
         private String RegisterTime;
+        private String NoIndex;
 
         public PeopleInfoBean() {
         }
 
-        public PeopleInfoBean(String no, String name, String cardNo, String position, String sex, String unit, String armyGroup, String phoneNo, String telNo, String groupName, String loginName, String password, String authority, String modifyTime, String registerTime) {
+        public PeopleInfoBean(String no, String name, String cardNo, String position, String sex, String unit, String armyGroup, String phoneNo, String telNo, String groupName, String loginName, String password, String authority, String modifyTime, String registerTime, String noIndex) {
             No = no;
             Name = name;
             CardNo = cardNo;
@@ -73,6 +74,7 @@ public class PeopleInfoEntity {
             Authority = authority;
             ModifyTime = modifyTime;
             RegisterTime = registerTime;
+            NoIndex = noIndex;
         }
 
         public String getNo() {
@@ -194,5 +196,14 @@ public class PeopleInfoEntity {
         public void setRegisterTime(String RegisterTime) {
             this.RegisterTime = RegisterTime;
         }
+
+        public String getNoIndex() {
+            return NoIndex;
+        }
+
+        public void setNoIndex(String noIndex) {
+            NoIndex = noIndex;
+        }
+
     }
 }

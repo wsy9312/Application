@@ -58,6 +58,7 @@ public class NewsInfoEntity {
         private String RegisterTime;
         private String BeginNum;
         private String EndNum;
+        private String NoIndex;
 
         @Override
         public boolean equals(Object o) {
@@ -124,7 +125,7 @@ public class NewsInfoEntity {
 
         }
 
-        public NewsRrdBean(String title, String content, String picture1, String picture2, String picture3, String picture4, String picture5, String picture1Len, String picture2Len, String picture3Len, String picture4Len, String picture5Len, String modifyTime, String registerTime, String beginNum, String endNum) {
+        public NewsRrdBean(String title, String content, String picture1, String picture2, String picture3, String picture4, String picture5, String picture1Len, String picture2Len, String picture3Len, String picture4Len, String picture5Len, String modifyTime, String registerTime, String beginNum, String endNum, String noIndex) {
             Title = title;
             Content = content;
             Picture1 = picture1;
@@ -141,6 +142,7 @@ public class NewsInfoEntity {
             RegisterTime = registerTime;
             BeginNum = beginNum;
             EndNum = endNum;
+            NoIndex = noIndex;
         }
 
         @Override
@@ -292,5 +294,14 @@ public class NewsInfoEntity {
         public void setEndNum(String endNum) {
             EndNum = endNum;
         }
+
+        public String getNoIndex() {
+            return NoIndex;
+        }
+
+        public void setNoIndex(String noIndex) {
+            NoIndex = noIndex;
+        }
+
     }
 }

@@ -199,7 +199,7 @@ public class LoginActivity extends AppCompatActivity {
                 PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
                 PeopleInfoEntity.PeopleInfoBean peopleInfoBean =
                         new PeopleInfoEntity.PeopleInfoBean
-                                ("?","?","?","?","?","?","?","?","?","?",username,password,"?","?","?");
+                                ("?","?","?","?","?","?","?","?","?","?",username,password,"?","?","?","?");
                 List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
                 beanList.add(peopleInfoBean);
                 peopleEntity.setPeopleInfo(beanList);
