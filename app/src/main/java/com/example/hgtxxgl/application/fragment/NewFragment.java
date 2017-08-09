@@ -5,7 +5,6 @@ import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +22,6 @@ import com.example.hgtxxgl.application.utils.hand.ListAdapter;
 import com.example.hgtxxgl.application.view.SimpleListView;
 import com.google.gson.Gson;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,46 +63,7 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        tabIndex = getArguments().getInt(DetailFragment.ARG_TAB);
-//        for (int i = 0; i < 2; i++) {
-//            if (entityList.isEmpty()){
-//                loadData(1,6);
-//            }else{
-//                return;
-//            }
-//        }
         loadData(1,6);
-//        loaddata();
-
-    }
-
-    private void loaddata() {
-        NewsInfoEntity newsInfoEntity = new NewsInfoEntity();
-        NewsInfoEntity.NewsRrdBean newsRrdBean = new NewsInfoEntity.NewsRrdBean();
-        newsRrdBean.setTitle("人民");
-        newsRrdBean.setContent("中华");
-        List<NewsInfoEntity.NewsRrdBean> list = new ArrayList<>();
-        list.add(newsRrdBean);
-        newsInfoEntity.setNewsRrd(list);
-        String json = new Gson().toJson(newsInfoEntity);
-        final String s = "new " + json;
-        Log.e(TAG, "loaddata123: "+s);
-        final String url = CommonValues.BASE_URL_NEWS;
-        try {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        HttpManager.getInstance().requestResultForm(url,s);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -147,7 +106,6 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
         newsInfoEntity.setNewsRrd(list);
         String json = new Gson().toJson(newsInfoEntity);
         final String s = "get " + json;
-//        Log.e(TAG, "loadData: "+s);
         String url = CommonValues.BASE_URL;
         HttpManager.getInstance().requestResultForm(url, s, NewsInfoEntity.class,new HttpManager.ResultCallback<NewsInfoEntity>() {
                     @Override
@@ -181,7 +139,7 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
 
                     @Override
                     public void onResponse(String response) {
-
+                        ivEmpty.setVisibility(View.VISIBLE);
                     }
         });
 
@@ -241,7 +199,7 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
         checkDetail(position);
 
     }
-        private void checkDetail(int position) {
+    private void checkDetail(int position) {
         Intent intent = new Intent(getActivity(), NewsItemActivity.class);
         intent.putExtra("title", adapter.getItem(position).getTitle());
         intent.putExtra("content", adapter.getItem(position).getContent());
@@ -295,11 +253,11 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
 
     @Override
     public void onPullRefresh() {
-        pb.setVisibility(View.VISIBLE);
         hasMore = true;
         beginNum = 1;
         endNum = 6;
         loadData(beginNum, endNum);
+        lv.completeRefresh();
     }
 
 

@@ -30,6 +30,8 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.hgtxxgl.application.R.id.iv_empty;
+
 public class MyCommissionFragment extends Fragment implements AdapterView.OnItemClickListener, SimpleListView.OnRefreshListener {
 
     private int tabIndex;
@@ -116,7 +118,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.main_listview_libmain, null, false);
         lv = (SimpleListView) view.findViewById(R.id.viewpager_listview);
-        ivEmpty = (ImageView) view.findViewById(R.id.iv_empty);
+        ivEmpty = (ImageView) view.findViewById(iv_empty);
         pb = (ProgressBar) view.findViewById(R.id.mycommission_pb);
         lv.setAdapter(adapter);
         adapter.registerDataSetObserver(new DataSetObserver() {
@@ -189,7 +191,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
 
             @Override
             public void onResponse(String response) {
-
+                ivEmpty.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -416,18 +418,14 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
 
     }
 
-
     @Override
     public void onPullRefresh() {
-//        pb.setVisibility(View.VISIBLE);
         hasMore = true;
         beginNum = 1;
         endNum = 6;
         loadData(beginNum, endNum);
         lv.completeRefresh();
     }
-
-
 
     @Override
     public void onLoadingMore() {

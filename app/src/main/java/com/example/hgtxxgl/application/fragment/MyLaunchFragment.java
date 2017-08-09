@@ -149,6 +149,7 @@ public class MyLaunchFragment extends Fragment implements SimpleListView.OnRefre
 
             @Override
             public void onResponse(String response) {
+                ivEmpty.setVisibility(View.VISIBLE);
             }
         });
     }
