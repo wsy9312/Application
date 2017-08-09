@@ -90,7 +90,11 @@ public class RestApprovePeopleFragment extends CommonFragment {
         super.onCreate(savedInstanceState);
 //        SN = getArguments().getString("SN");
         loadData();
-        getNameFromNo(no);
+        if (no.isEmpty()){
+            return;
+        }else{
+            getNameFromNo(no);
+        }
     }
 
     private void show(final String msg) {

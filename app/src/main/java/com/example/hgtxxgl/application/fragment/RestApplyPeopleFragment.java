@@ -3,6 +3,7 @@ package com.example.hgtxxgl.application.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
@@ -123,8 +124,7 @@ public class RestApplyPeopleFragment extends CommonFragment {
 
     @Override
     public void setToolbar(HandToolbar toolbar) {
-        toolbar.setDisplayHomeAsUpEnabled(true, getActivity());
-        toolbar.setTitle("人员请假申请");
+        toolbar.setVisibility(View.GONE);
     }
 
     @Override

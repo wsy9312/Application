@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.ItemActivity;
+import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
 import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
@@ -38,6 +39,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
     private ImageView ivEmpty;
     private ProgressBar pb;
     private static final String TAG = "MyCommissionFragment";
+    private String name1;
 
     public MyCommissionFragment() {
 
@@ -58,7 +60,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
     ListAdapter<PeopleLeaveEntity.PeopleLeaveRrdBean> adapter = new ListAdapter<PeopleLeaveEntity.PeopleLeaveRrdBean>((ArrayList<PeopleLeaveEntity.PeopleLeaveRrdBean>) entityList, R.layout.layout_my_todo_too) {
         @Override
         public void bindView(ViewHolder holder, PeopleLeaveEntity.PeopleLeaveRrdBean bean) {
-            holder.setText(R.id.tv_title, bean.getNo());
+            holder.setText(R.id.tv_title, getNameFormNo(bean.getNo()));
             holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
             holder.setText(R.id.tv_sketch, bean.getContent());
         }
@@ -71,6 +73,41 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
         tabIndex = getArguments().getInt(DetailFragment.ARG_TAB);
 //        loadData(tabIndex, index, 10);
         loadData(beginNum, endNum);
+
+    }
+
+    private String getNameFormNo(String no) {
+        PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
+        PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
+        peopleInfoBean.setNo(no);
+        peopleInfoBean.setName("?");
+        List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
+        beanList.add(peopleInfoBean);
+        peopleEntity.setPeopleInfo(beanList);
+        String json = new Gson().toJson(peopleEntity);
+        String s1 = "get " + json;
+        Log.e(TAG,"1名字："+s1);
+        HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
+            @Override
+            public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
+                if (peopleInfoEntity != null){
+                    name1 = peopleInfoEntity.getPeopleInfo().get(0).getName();
+                    hasMore = true;
+                    Log.e(TAG,"2名字："+name1);
+                }
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+
+            @Override
+            public void onResponse(String response) {
+
+            }
+        });
+        return name1;
     }
 
     SimpleListView lv;
@@ -250,7 +287,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
         intent.putExtra(PageConfig.PAGE_CODE, pageApplyBleave);
         Bundle bundle = new Bundle();
         bundle.putString("no", adapter.getItem(position).getNo());
-//        Log.e(TAG,"NO号码："+adapter.getItem(position).getNo());
+        Log.e(TAG,"NO号码："+adapter.getItem(position).getNo());
         bundle.putString("outtime",adapter.getItem(position).getOutTime());
         bundle.putString("intime", adapter.getItem(position).getInTime());
         bundle.putString("content", adapter.getItem(position).getContent());

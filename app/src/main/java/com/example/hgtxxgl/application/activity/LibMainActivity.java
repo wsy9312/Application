@@ -123,7 +123,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
 
     //初始化设置toolbar标题
     private void initTitle() {
-        title = new String[]{"新闻","通知","审批","查看"/*,"车辆"*/,"人员","我的"};
+        title = new String[]{"新闻","通知","审批","查看"/*,"车辆"*/,"请假","我的"};
     }
 
     @Override
