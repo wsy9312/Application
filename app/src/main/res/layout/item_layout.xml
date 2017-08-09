@@ -51,14 +51,12 @@
 
             <ImageView
                 android:layout_below="@+id/tv_news_body"
-                android:background="@drawable/ic_logo_geely"
                 android:id="@+id/image_news_one"
                 android:layout_gravity="center"
                 android:layout_width="280dp"
                 android:layout_height="180dp"/>
             <ImageView
                 android:layout_below="@+id/image_news_one"
-                android:background="@drawable/ic_logo_geely"
                 android:id="@+id/image_news_two"
                 android:layout_marginLeft="20dp"
                 android:layout_gravity="center"
@@ -66,7 +64,6 @@
                 android:layout_height="180dp"/>
             <ImageView
                 android:layout_below="@+id/image_news_two"
-                android:background="@drawable/ic_logo_geely"
                 android:id="@+id/image_news_three"
                 android:layout_marginLeft="20dp"
                 android:layout_gravity="center"
@@ -74,7 +71,6 @@
                 android:layout_height="180dp"/>
             <ImageView
                 android:layout_below="@+id/image_news_three"
-                android:background="@drawable/ic_logo_geely"
                 android:id="@+id/image_news_four"
                 android:layout_marginLeft="20dp"
                 android:layout_gravity="center"
@@ -82,7 +78,6 @@
                 android:layout_height="180dp"/>
             <ImageView
                 android:layout_below="@+id/image_news_four"
-                android:background="@mipmap/ic_login"
                 android:id="@+id/image_news_five"
                 android:layout_marginLeft="20dp"
                 android:layout_gravity="center"

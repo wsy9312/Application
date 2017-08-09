@@ -20,6 +20,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
@@ -28,11 +29,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hgtxxgl.application.R;
-import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
 import com.example.hgtxxgl.application.utils.SysExitUtil;
-import com.example.hgtxxgl.application.utils.hand.CacheManger;
-import com.example.hgtxxgl.application.utils.hand.CommonValues;
-import com.example.hgtxxgl.application.utils.hand.GsonUtil;
+import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.ImgUtils;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
@@ -206,18 +204,16 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         tvResult = (TextView) findViewById(R.id.textView);
         imageView = (ImageView) findViewById(R.id.imageView);
         llqrimage = (RelativeLayout) findViewById(R.id.ll_qr_image);
-        String data = CacheManger.getInstance().getData(CommonValues.BASE_URL_PEOPLE_SAVE);
-        PeopleInfoEntity entity = GsonUtil.parseJsonToBean(data, PeopleInfoEntity.class);
-        no = entity.getPeopleInfo().get(0).getNo();
-        name = entity.getPeopleInfo().get(0).getName();
-        cardNo = entity.getPeopleInfo().get(0).getCardNo();
-//        position = entity.getPeopleInfo().get(0).getPosition();
-        sex = entity.getPeopleInfo().get(0).getSex();
+        no = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo();
+        name = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName();
+        cardNo = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getCardNo();
+//        position = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0)
+        sex = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getSex();
         /*//所属单位
-        unit = entity.getPeopleInfo().get(0).getUnit();
+        unit = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0)
         //所属部门
-        armyGroup = entity.getPeopleInfo().get(0).getArmyGroup();*/
-        data = "编号: "+ no + "\r\n"
+        armyGroup = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0)*/
+        String data = "编号: "+ no + "\r\n"
                 +"姓名: "+ name + "\r\n"
                 +"身份证号: "+ cardNo + "\r\n"
 //                +"职务: "+ position + "\r\n"
@@ -291,7 +287,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
                 startActivityForResult(intent, PICK_CONTACT);
             }
         });
-// TODO 单击二维码识别暂时注释
+// 单击二维码识别暂时注释
 //        imageView.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -316,7 +312,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
                     //二维码类型
                     .setParsedResultType(TextUtils.isEmpty(qrContent) ? ParsedResultType.URI : ParsedResultType.TEXT)
                     //二维码内容
-                    .setContents(TextUtils.isEmpty(qrContent) ? "https://www.baidu.com" : qrContent)
+                    .setContents(TextUtils.isEmpty(qrContent) ? "当前信息显示错误" : qrContent)
 //                        .setSize(100)
 //                        .setLogoBitmap(logoBitmap,90)
                     .build().encodeAsBitmap();
@@ -334,9 +330,18 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
             if (requestCode == ScannerActivity.REQUEST_CODE_SCANNER) {
                 if (data != null) {
                     String stringExtra = data.getStringExtra(Intents.Scan.RESULT);
-                    tvResult.setText(stringExtra);
-                    tvResult.setTextSize(20);
-                    imageView.setVisibility(View.GONE);
+//                    tvResult.setText(stringExtra);
+//                    tvResult.setTextSize(20);
+//                    imageView.setVisibility(View.GONE);
+
+                    AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                    alertDialog.show();
+                    Window window = alertDialog.getWindow();
+                    window.setContentView(R.layout.layout_qrcode_result);
+                    TextView tv_title = (TextView) window.findViewById(R.id.tv_dialog_title);
+                    tv_title.setText("详细信息");
+                    TextView tv_message = (TextView) window.findViewById(R.id.tv_dialog_message);
+                    tv_message.setText(stringExtra);
                     /*ViewGroup.LayoutParams para = imageView.getLayoutParams();
                     para.height = 0;
                     imageView.setLayoutParams(para);

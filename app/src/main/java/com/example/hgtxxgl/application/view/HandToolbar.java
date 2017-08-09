@@ -50,6 +50,9 @@ public class HandToolbar extends FrameLayout {
                     activity.onBackPressed();
                 }
             });
+        }else{
+            setLeftButton(null);
+            tvLeft.setVisibility(INVISIBLE);
         }
     }
 

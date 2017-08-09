@@ -426,7 +426,7 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
         }else {
             customDatePicker.show(holder.getRealValue());
         }
-
+        notifyDataSetChanged();
     }
 
     private void initDatePicker(final HandInputGroup.Holder holder, final boolean bolean) {
@@ -472,130 +472,14 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
     public void notifyDataSetChanged() {
         if (adpter != null)
             adpter.notifyDataSetChanged();
-        stubEmpty.setVisibility(View.GONE);
-//        if (groupList != null && groupList.size() <= 0) {
-//            stubEmpty.setVisibility(View.VISIBLE);
-//        } else if (groupList != null && groupList.size() > 0) {
-//            stubEmpty.setVisibility(View.GONE);
-//        }
+            stubEmpty.setVisibility(View.GONE);
+        if (groupList != null && groupList.size() <= 0) {
+            stubEmpty.setVisibility(View.VISIBLE);
+        } else if (groupList != null && groupList.size() > 0) {
+            stubEmpty.setVisibility(View.GONE);
+        }
     }
 
-    /*public void lookAttachmentInDetailFragment(final AttachmentListEntity entity){
-        new AsyncTask<Void, Integer, Boolean>(){
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        showDialog("加载中,请稍后...",0);
-                    }
-                });
-            }
-
-            @Override
-            protected Boolean doInBackground(Void... voids) {
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                return true;
-            }
-
-            @Override
-            protected void onPostExecute(Boolean aBoolean) {
-                super.onPostExecute(aBoolean);
-                if (aBoolean){
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Map<String, Object> param = CommonValues.getCommonParams(getActivity());
-                            param.put("attachmentId", entity.getId());
-                            HttpManager.getInstance().requestResultForm(CommonValues.CLICK_LOOK_DATA,param,AttachmentSingleEntity.class, new HttpManager.ResultCallback<AttachmentSingleEntity>() {
-                                @Override
-                                public void onSuccess(final String content, final AttachmentSingleEntity attachmentListEntity){
-                                    getActivity().runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            if (attachmentListEntity != null && attachmentListEntity.getRetData() != null) {
-                                                if (attachmentListEntity.getCode().equals("100")){
-                                                    String attachment = attachmentListEntity.getRetData().getAttachment();
-                                                    String attachType = attachmentListEntity.getRetData().getType();
-                                                    File file = null;
-                                                    if (attachType.endsWith("jpg")||attachType.endsWith("jpeg")||
-                                                            attachType.endsWith("png")||attachType.endsWith("bmp")||
-                                                            attachType.endsWith("gif")){
-                                                        int index = attachType.indexOf("/");
-                                                        String substring = attachType.substring(index+1);
-                                                        file = DataUtil.base64ToFile(attachment,substring);
-                                                        DataUtil.openFile(getContent(),file);
-                                                    }else {
-                                                        int index = attachType.indexOf("/");
-                                                        String substring = attachType.substring(index+1);
-                                                        file = DataUtil.base64ToFile(attachment,substring);
-                                                        DataUtil.openFile(getContent(),file);
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    });
-                                }
-
-                                @Override
-                                public void onFailure(String msg) {
-
-                                }
-                            });
-
-                        }
-                    });
-                }
-                hideDialog();
-            }
-
-        }.execute();
-    }
-    public void lookAttachmentData(AttachmentListEntity entity){
-        Map<String, Object> param = CommonValues.getCommonParams(getActivity());
-        param.put("attachmentId", entity.getId());
-        ToastUtil.showToast(getContent(),"正在加载中...");
-        HttpManager.getInstance().requestResultForm(CommonValues.CLICK_LOOK_DATA,param,AttachmentSingleEntity.class, new HttpManager.ResultCallback<AttachmentSingleEntity>() {
-            @Override
-            public void onSuccess(final String content, final AttachmentSingleEntity attachmentListEntity){
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (attachmentListEntity != null && attachmentListEntity.getRetData() != null) {
-                            if (attachmentListEntity.getCode().equals("100")){
-                                String attachment = attachmentListEntity.getRetData().getAttachment();
-                                String attachType = attachmentListEntity.getRetData().getType();
-                                File file = null;
-                                if (attachType.endsWith("jpg")||attachType.endsWith("jpeg")||
-                                        attachType.endsWith("png")||attachType.endsWith("bmp")||
-                                        attachType.endsWith("gif")){
-                                    int index = attachType.indexOf("/");
-                                    String substring = attachType.substring(index+1);
-                                    file = DataUtil.base64ToFile(attachment,substring);
-                                    DataUtil.openFile(getContent(),file);
-                                }else {
-                                    int index = attachType.indexOf("/");
-                                    String substring = attachType.substring(index+1);
-                                    file = DataUtil.base64ToFile(attachment,substring);
-                                    DataUtil.openFile(getContent(),file);
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-
-            @Override
-            public void onFailure(String msg) {
-
-            }
-        });
-    }*/
     /**
      * 根组设置
      */

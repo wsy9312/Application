@@ -1,9 +1,11 @@
 package com.example.hgtxxgl.application.fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -121,9 +123,25 @@ public class PersonalFragment extends Fragment implements View.OnClickListener{
     private void skipToQR() {
         startActivity(new Intent(getContext(), MainActivity.class));
     }
+
     private void logOut() {
-        startActivity(new Intent(getContext(), LoginActivity.class));
-        SysExitUtil.exit();
+        AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
+        builder.setMessage("是否确认退出当前账户?");
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                startActivity(new Intent(getContext(), LoginActivity.class));
+                SysExitUtil.exit();
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.create().show();
     }
 
     @Override

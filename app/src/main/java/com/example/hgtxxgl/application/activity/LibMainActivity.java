@@ -1,6 +1,7 @@
 package com.example.hgtxxgl.application.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,6 +9,7 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -196,7 +198,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         setContentView(R.layout.lib_activity_main);
         //pb = (ProgressBar) findViewById(R.id.lib_pb);
         handToolbar = (HandToolbar) findViewById(R.id.toolbar);
-        handToolbar.setDisplayHomeAsUpEnabled(true, this);
+        handToolbar.setDisplayHomeAsUpEnabled(false, this);
         handToolbar.setTitleSize(20);
         bottomBar = (RadioGroup) findViewById(R.id.bottom_bar);
         newsCenter = (RadioButton) findViewById(R.id.rb_main_news_center);
@@ -295,4 +297,23 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
 
     }
 
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);  //先得到构造器
+        builder.setMessage("是否确认退出?"); //设置内容
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() { //设置确定按钮
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss(); //关闭dialog
+                LibMainActivity.super.onBackPressed();
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() { //设置取消按钮
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.create().show();
+    }
 }

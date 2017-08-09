@@ -1,9 +1,11 @@
 package com.example.hgtxxgl.application.fragment;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
 import com.example.hgtxxgl.application.activity.LibMainActivity;
@@ -145,6 +147,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
             }
         });
     }
+
     public void loadData() {
         no = getArguments().getString("no");
         String outtime = getArguments().getString("outtime");
@@ -195,92 +198,13 @@ public class RestApprovePeopleFragment extends CommonFragment {
             @Override
             public void onResponse(String response) {
                 show(response);
-
             }
         });
-
-//        Map<String, Object> param = CommonValues.getCommonParams(getActivity());
-//        param.put("userId",getArguments().getString("userId"));
-//        param.put("barCode", getArguments().getString("barCode"));
-//        param.put("workflowType", getArguments().getString("workflowType"));
-//        HttpManager.getInstance().requestResultForm(CommonValues.REQ_REST_DETAIL, param, RestDetailBean.class, new HttpManager.ResultCallback<RestDetailBean>() {
-//            @Override
-//            public void onSuccess(String content, final RestDetailBean restDetailBean) {
-//                getActivity().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if (restDetailBean != null && restDetailBean.getRetData() != null) {
-//                            if (restDetailBean.getCode().equals("100")) {
-//                                setEntity(restDetailBean.getRetData());
-//                                setGroup(getGroupList());
-//                                setPb(false);
-//                                setButtonllEnable(true);
-//                                setDisplayTabs(true);
-//                                notifyDataSetChanged();
-//                                return;
-//
-//                            }
-//                        }else {
-//                            ToastUtil.showToast(getContext(),restDetailBean.getMsg());
-//                        }
-//                    }
-//                });
-//            }
-//
-//            @Override
-//            public void onFailure(String content) {
-//                getActivity().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        ToastUtil.showToast(getContext(),"请检查网络");
-//                    }
-//                });
-//
-//            }
-//
-//            @Override
-//            public void onResponse(String response) {
-//
-//            }
-//        });
-//        param.put("uid",getArguments().getString("SubmitBy"));
-//        HttpManager.getInstance().requestResultForm(CommonValues.GET_USER_PHOTO, param, UserPhotoEntity.class, new HttpManager.ResultCallback<UserPhotoEntity>() {
-//            @Override
-//            public void onSuccess(String content, final UserPhotoEntity entity) {
-//                getActivity().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if (entity != null && entity.getRetData() != null) {
-//                            if (entity.getCode().equals("100")) {
-//                                photo = entity.getRetData();
-//                                if (getGroup().size() > 0){
-//                                    getGroup().get(0).setDrawable(photo);
-//                                    notifyGroupChanged(0,1);
-//                                }
-//                                return;
-//                            }
-//                        }
-//                    }
-//                });
-//
-//            }
-//
-//            @Override
-//            public void onFailure(String content) {
-//
-//            }
-//
-//            @Override
-//            public void onResponse(String response) {
-//
-//            }
-//        });
     }
 
     @Override
     public void onBottomButtonsClick(String title, List<Group> groups) {
         setButtonllEnable(false);
-
         PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
         PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
         peopleLeaveRrdBean.setCurrentApproveNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
@@ -290,13 +214,28 @@ public class RestApprovePeopleFragment extends CommonFragment {
         }else {
             peopleLeaveRrdBean.setResult("0");
         }
-        ToastUtil.showToast(getContext(),peopleLeaveRrdBean.getCurrentApproveNo()+" "+peopleLeaveRrdBean.getResult()+" "+noindex);
+//        ToastUtil.showToast(getContext(),peopleLeaveRrdBean.getCurrentApproveNo()+" "+peopleLeaveRrdBean.getResult()+" "+noindex);
         List<PeopleLeaveEntity.PeopleLeaveRrdBean> beanList = new ArrayList<>();
         beanList.add(peopleLeaveRrdBean);
         peopleLeaveEntity.setPeopleLeaveRrd(beanList);
         String json = new Gson().toJson(peopleLeaveEntity);
-        String s1 = "approve " + json;
-        approveStart(CommonValues.BASE_URL,s1);
+        final String s1 = "approve " + json;
+        AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
+        builder.setMessage("是否确认?");
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                approveStart(CommonValues.BASE_URL,s1);
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.create().show();
 
         }
 
@@ -340,9 +279,5 @@ public class RestApprovePeopleFragment extends CommonFragment {
 
     public void setEntity(PeopleLeaveEntity.PeopleLeaveRrdBean entity) {
         this.entity = entity;
-    }
-
-    public String getSN(){
-        return SN;
     }
 }

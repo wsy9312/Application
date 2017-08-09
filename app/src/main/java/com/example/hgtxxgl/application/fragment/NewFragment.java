@@ -40,10 +40,6 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
     }
 
     public static NewFragment newInstance() {
-//        Bundle args = new Bundle();
-//        NewFragment fragment = new NewFragment();
-//        args.putInt(DetailFragment.ARG_TAB, tabIndex);
-//        fragment.setArguments(args);
         NewFragment fragment = new NewFragment();
         return fragment;
     }
@@ -63,7 +59,7 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadData(1,6);
+        loadData(beginNum,endNum);
     }
 
     @Override
