@@ -63,7 +63,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
         @Override
         public void bindView(ViewHolder holder, PeopleLeaveEntity.PeopleLeaveRrdBean bean) {
             holder.setText(R.id.tv_title, "申请人："+getNameFormNo(bean.getNo()));
-            holder.setText(R.id.tv_date, "修改时间："+DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
+            holder.setText(R.id.tv_date, "修改时间："+ DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
             holder.setText(R.id.tv_sketch, bean.getContent().isEmpty()?"请假原因：无":"请假原因："+bean.getContent());
         }
     };
@@ -83,6 +83,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
         PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
         peopleInfoBean.setNo(no);
         peopleInfoBean.setName("?");
+        peopleInfoBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
         List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
         beanList.add(peopleInfoBean);
         peopleEntity.setPeopleInfo(beanList);
@@ -154,7 +155,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
         peopleLeaveRrdBean.setEndNum(String.valueOf(endNum));
         peopleLeaveRrdBean.setNoIndex("?");
         peopleLeaveRrdBean.setModifyTime("?");
-        peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
+        peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
         List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
         list.add(peopleLeaveRrdBean);
         peopleLeaveEntity.setPeopleLeaveRrd(list);
@@ -197,67 +198,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
         });
     }
 
-//    void loadData(int tabIndex, final int pageIndex, int pageSize) {
-//        if (callback != null) {
-//            callback.onLoadData();
-//        }
-//        HashMap<String, Object> map = (HashMap<String, Object>) CommonValues.getCommonParams(getActivity());
-////6023        map.put("userId", GeelyApp.getLoginEntity().getUserId());
-//        map.put("userId", "");
-//        map.put("keyWord", "");
-//        String url = null;
-//        if (tabIndex == 0) {
-//            url = CommonValues.REQ_WAITING_TODO_NOT_FINSHED;
-//        } else if (tabIndex == 1) {
-//            url = CommonValues.REQ_WAITING_TODO_FINSHED;
-//        }
-//        map.put("pageIndex", pageIndex);
-//        map.put("pageSize", pageSize);
-//        if (map.get("userId") != null){
-//            HttpManager.getInstance().requestResultForm(url, map, MyCommissionListEntity.class, new HttpManager.ResultCallback<MyCommissionListEntity>() {
-//                @Override
-//                public void onSuccess(String content, final MyCommissionListEntity entity) {
-//                    getActivity().runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            if (entity != null && entity.getRetData().size() > 0) {
-//                                if (pageIndex == 1){
-//                                    entityList.clear();
-//                                }
-//                                hasMore = true;
-//                                entityList.addAll(entity.getRetData());
-//                                adapter.notifyDataSetChanged();
-//                            } else {
-//                                hasMore = false;
-//                            }
-//                            pb.setVisibility(View.GONE);
-////                            lv.completeRefresh();
-//                        }
-//                    });
-//
-//
-//                }
-//
-//                @Override
-//                public void onFailure(String content) {
-//                    getActivity().runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-////                            lv.completeRefresh();
-////                            pb.setVisibility(View.GONE);
-//                        }
-//                    });
-//
-//                }
-//
-//                @Override
-//                public void onResponse(String response) {
-//
-//                }
-//            });
-//        }
-//
-//    }
+
 
     private void loadMore() {
         if (hasMore) {
@@ -269,14 +210,6 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
         }
     }
 
-//    private void loadMore() {
-//        if (hasMore) {
-//            index += 1;
-//            loadData(tabIndex, index, 10);
-//        } else {
-////            lv.completeRefresh();
-//        }
-//    }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -294,8 +227,8 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
         bundle.putString("outtime",adapter.getItem(position).getOutTime());
         bundle.putString("intime", adapter.getItem(position).getInTime());
         bundle.putString("content", adapter.getItem(position).getContent());
-        bundle.putString("levelnum", adapter.getItem(position).getContent());
-        bundle.putString("process", adapter.getItem(position).getContent());
+        bundle.putString("levelnum", adapter.getItem(position).getLevelNum());
+        bundle.putString("process", adapter.getItem(position).getProcess());
         bundle.putString("multiLevelResult",adapter.getItem(position).getMultiLevelResult());
         bundle.putString("modifyTime",adapter.getItem(position).getModifyTime());
         bundle.putString("bcancel",adapter.getItem(position).getBCancel());
@@ -399,10 +332,13 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
             }
             List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
             for (PeopleLeaveEntity.PeopleLeaveRrdBean bean : baseEntityList) {
-                if (bean.getContent().replace(" ", "").contains(key)) {
+                if (("申请人："+getNameFormNo(bean.getNo())).replace(" ", "").contains(key)){
                     list.add(bean);
                 }
-                if (DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss").replace(" ", "").contains(key)) {
+                if (("修改时间："+ DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss")).replace(" ", "").contains(key)) {
+                    list.add(bean);
+                }
+                if ((bean.getContent().isEmpty()?"请假原因：无":"请假原因："+bean.getContent()).replace(" ", "").contains(key)) {
                     list.add(bean);
                 }
             }

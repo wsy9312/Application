@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.entity.NewsInfoEntity;
 import com.example.hgtxxgl.application.utils.SysExitUtil;
+import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
@@ -99,6 +100,7 @@ public class NewsItemActivity extends AppCompatActivity {
         newsRrdBean.setPicture3Len("?");
         newsRrdBean.setPicture4Len("?");
         newsRrdBean.setPicture5Len("?");
+        newsRrdBean.setAuthenticationNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
         List<NewsInfoEntity.NewsRrdBean> list = new ArrayList<>();
         list.add(newsRrdBean);
         newsInfoEntity.setNewsRrd(list);

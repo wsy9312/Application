@@ -64,8 +64,6 @@ public class PersonalFragment extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_personal_center, container, false);
-//        String data = CacheManger.getInstance().getData(CommonValues.BASE_URL_PEOPLE_SAVE);
-//        peopleInfoEntity = GsonUtil.parseJsonToBean(data, PeopleInfoEntity.class);
         initView();
         return view;
     }

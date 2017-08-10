@@ -12,6 +12,7 @@ import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
+import com.example.hgtxxgl.application.utils.hyutils.L;
 import com.example.hgtxxgl.application.view.HandToolbar;
 import com.google.gson.Gson;
 
@@ -106,21 +107,42 @@ public class RestDetailPeopleFragment extends CommonFragment {
         String modifyTime = getArguments().getString("modifyTime");
         String bcancel = getArguments().getString("bcancel");
         String bfillup = getArguments().getString("bfillup");
-        final String noindex = getArguments().getString("noindex");
-        final PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
-        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean =
-                new PeopleLeaveEntity.PeopleLeaveRrdBean(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo(),
-                        "?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?",noindex,"?","?","?");
+        String noindex = getArguments().getString("noindex");
+        PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
+        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
+        peopleLeaveRrdBean.setNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
+        peopleLeaveRrdBean.setCurrentApproveNo("?");
+        peopleLeaveRrdBean.setApprover1No("?");
+        peopleLeaveRrdBean.setApprover2No("?");
+        peopleLeaveRrdBean.setApprover3No("?");
+        peopleLeaveRrdBean.setApprover4No("?");
+        peopleLeaveRrdBean.setApprover5No("?");
+        peopleLeaveRrdBean.setRegisterTime("?");
+        peopleLeaveRrdBean.setOutTime("?");
+        peopleLeaveRrdBean.setInTime("?");
+        peopleLeaveRrdBean.setContent("?");
+        peopleLeaveRrdBean.setActualOutTime("?");
+        peopleLeaveRrdBean.setActualInTime("?");
+        peopleLeaveRrdBean.setModifyTime("?");
+        peopleLeaveRrdBean.setMultiLevelResult("?");
+        peopleLeaveRrdBean.setProcess("?");
+        peopleLeaveRrdBean.setLevelNum("?");
+        peopleLeaveRrdBean.setBFillup("?");
+        peopleLeaveRrdBean.setBCancel("?");
+        peopleLeaveRrdBean.setNoIndex(noindex);
+        peopleLeaveRrdBean.setBeginNum("?");
+        peopleLeaveRrdBean.setEndNum("?");
+        peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
         List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
         list.add(peopleLeaveRrdBean);
         peopleLeaveEntity.setPeopleLeaveRrd(list);
         String toJson = new Gson().toJson(peopleLeaveEntity);
         String s="get "+toJson;
+        L.e(TAG,"申请后详情："+s);
         String url = CommonValues.BASE_URL;
         HttpManager.getInstance().requestResultForm(url, s, PeopleLeaveEntity.class, new HttpManager.ResultCallback<PeopleLeaveEntity>() {
             @Override
             public void onSuccess(String json, final PeopleLeaveEntity peopleLeaveEntity1) throws InterruptedException {
-                show(json);
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -148,82 +170,6 @@ public class RestDetailPeopleFragment extends CommonFragment {
             }
         });
 
-//        Map<String, Object> param = CommonValues.getCommonParams(getActivity());
-//        param.put("userId",getArguments().getString("userId"));
-//        param.put("barCode", getArguments().getString("barCode"));
-//        param.put("workflowType", getArguments().getString("workflowType"));
-//        HttpManager.getInstance().requestResultForm(CommonValues.REQ_REST_DETAIL, param, RestDetailBean.class, new HttpManager.ResultCallback<RestDetailBean>() {
-//            @Override
-//            public void onSuccess(String content, final RestDetailBean restDetailBean) {
-//                getActivity().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if (restDetailBean != null && restDetailBean.getRetData() != null) {
-//                            if (restDetailBean.getCode().equals("100")) {
-//                                setEntity(restDetailBean.getRetData());
-//                                setGroup(getGroupList());
-//                                setPb(false);
-//                                setButtonllEnable(true);
-//                                setDisplayTabs(true);
-//                                notifyDataSetChanged();
-//                                return;
-//
-//                            }
-//                        }else {
-//                            ToastUtil.showToast(getContext(),restDetailBean.getMsg());
-//                        }
-//                    }
-//                });
-//            }
-//
-//            @Override
-//            public void onFailure(String content) {
-//                getActivity().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        ToastUtil.showToast(getContext(),"请检查网络");
-//                    }
-//                });
-//
-//            }
-//
-//            @Override
-//            public void onResponse(String response) {
-//
-//            }
-//        });
-//        param.put("uid",getArguments().getString("SubmitBy"));
-//        HttpManager.getInstance().requestResultForm(CommonValues.GET_USER_PHOTO, param, UserPhotoEntity.class, new HttpManager.ResultCallback<UserPhotoEntity>() {
-//            @Override
-//            public void onSuccess(String content, final UserPhotoEntity entity) {
-//                getActivity().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if (entity != null && entity.getRetData() != null) {
-//                            if (entity.getCode().equals("100")) {
-//                                photo = entity.getRetData();
-//                                if (getGroup().size() > 0){
-//                                    getGroup().get(0).setDrawable(photo);
-//                                    notifyGroupChanged(0,1);
-//                                }
-//                                return;
-//                            }
-//                        }
-//                    }
-//                });
-//
-//            }
-//
-//            @Override
-//            public void onFailure(String content) {
-//
-//            }
-//
-//            @Override
-//            public void onResponse(String response) {
-//
-//            }
-//        });
     }
 
     public PeopleLeaveEntity.PeopleLeaveRrdBean getEntity() {

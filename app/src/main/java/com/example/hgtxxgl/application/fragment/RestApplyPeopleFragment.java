@@ -45,16 +45,37 @@ public class RestApplyPeopleFragment extends CommonFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadData();
+//        loadData();
     }
 
     private void loadData() {
         if (getArguments() != null) {
             String NO = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo();
             PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
-            PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean =
-                    new PeopleLeaveEntity.PeopleLeaveRrdBean
-                            (NO,"?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?");
+            PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
+            peopleLeaveRrdBean.setNo(NO);
+            peopleLeaveRrdBean.setCurrentApproveNo("?");
+            peopleLeaveRrdBean.setApprover1No("?");
+            peopleLeaveRrdBean.setApprover2No("?");
+            peopleLeaveRrdBean.setApprover3No("?");
+            peopleLeaveRrdBean.setApprover4No("?");
+            peopleLeaveRrdBean.setApprover5No("?");
+            peopleLeaveRrdBean.setRegisterTime("?");
+            peopleLeaveRrdBean.setOutTime("?");
+            peopleLeaveRrdBean.setInTime("?");
+            peopleLeaveRrdBean.setContent("?");
+            peopleLeaveRrdBean.setActualOutTime("?");
+            peopleLeaveRrdBean.setActualInTime("?");
+            peopleLeaveRrdBean.setModifyTime("?");
+            peopleLeaveRrdBean.setMultiLevelResult("?");
+            peopleLeaveRrdBean.setProcess("?");
+            peopleLeaveRrdBean.setLevelNum("?");
+            peopleLeaveRrdBean.setBFillup("?");
+            peopleLeaveRrdBean.setBCancel("?");
+            peopleLeaveRrdBean.setNoIndex("?");
+            peopleLeaveRrdBean.setBeginNum("?");
+            peopleLeaveRrdBean.setEndNum("?");
+            peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
             List<PeopleLeaveEntity.PeopleLeaveRrdBean> beanList = new ArrayList<>();
             beanList.add(peopleLeaveRrdBean);
             peopleLeaveEntity.setPeopleLeaveRrd(beanList);
@@ -166,6 +187,7 @@ public class RestApplyPeopleFragment extends CommonFragment {
                         peopleLeaveRrdBean.setContent(realValuecontent);
                         peopleLeaveRrdBean.setBCancel(realValueCancel.equals("否")?"0":"1");
                         peopleLeaveRrdBean.setBFillup(realValueFillup.equals("否")?"0":"1");
+                        peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
                         List<PeopleLeaveEntity.PeopleLeaveRrdBean> beanList = new ArrayList<>();
                         beanList.add(peopleLeaveRrdBean);
                         peopleLeaveEntity.setPeopleLeaveRrd(beanList);

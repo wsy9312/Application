@@ -98,6 +98,36 @@ public class PeopleLeaveEntity {
             AuthenticationNo = authenticationNo;
         }
 
+        @Override
+        public String toString() {
+            return "PeopleLeaveRrdBean{" +
+                    "No='" + No + '\'' +
+                    ", Result='" + Result + '\'' +
+                    ", CurrentApproveNo='" + CurrentApproveNo + '\'' +
+                    ", Approver1No='" + Approver1No + '\'' +
+                    ", Approver2No='" + Approver2No + '\'' +
+                    ", Approver3No='" + Approver3No + '\'' +
+                    ", Approver4No='" + Approver4No + '\'' +
+                    ", Approver5No='" + Approver5No + '\'' +
+                    ", RegisterTime='" + RegisterTime + '\'' +
+                    ", OutTime='" + OutTime + '\'' +
+                    ", InTime='" + InTime + '\'' +
+                    ", Content='" + Content + '\'' +
+                    ", ActualOutTime='" + ActualOutTime + '\'' +
+                    ", ActualInTime='" + ActualInTime + '\'' +
+                    ", ModifyTime='" + ModifyTime + '\'' +
+                    ", MultiLevelResult='" + MultiLevelResult + '\'' +
+                    ", Process='" + Process + '\'' +
+                    ", LevelNum='" + LevelNum + '\'' +
+                    ", bCancel='" + bCancel + '\'' +
+                    ", bFillup='" + bFillup + '\'' +
+                    ", NoIndex='" + NoIndex + '\'' +
+                    ", BeginNum='" + BeginNum + '\'' +
+                    ", EndNum='" + EndNum + '\'' +
+                    ", AuthenticationNo='" + AuthenticationNo + '\'' +
+                    '}';
+        }
+
         public String getResult() {
             return Result;
         }

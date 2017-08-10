@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.entity.LoginEntity;
+import com.example.hgtxxgl.application.entity.NewLoginEntity;
 import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
@@ -175,10 +176,15 @@ public class LoginActivity extends AppCompatActivity {
                 String toJson = new Gson().toJson(loginEntity);
                 String s="Login "+toJson;
                 String url = CommonValues.BASE_URL;
-                HttpManager.getInstance().requestResultForm(url, s, LoginEntity.class, new HttpManager.ResultCallback<LoginEntity>() {
+                HttpManager.getInstance().requestResultForm(url, s, NewLoginEntity.class, new HttpManager.ResultCallback<NewLoginEntity>() {
                     @Override
-                    public void onSuccess(String json, LoginEntity loginEntity) throws InterruptedException {
-                        show(json);
+                    public void onSuccess(String json, NewLoginEntity loginEntity) throws InterruptedException {
+                        if (loginEntity != null){
+                            ApplicationApp.setNewLoginEntity(loginEntity);
+                            Thread.sleep(300);
+                            toLibMainActivity(username,password);
+                        }
+                        Log.e(TAG,"登录"+json);
                     }
 
                     @Override
@@ -188,19 +194,16 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onResponse(String response) {
-                        if (response.toLowerCase().contains("ok")){
-                            show("登录成功");
-                            toLibMainActivity(username,password);
-                        }else{
-                            show("登录失败");
-                        }
                     }
                 });
-
+                try {
+                    Thread.sleep(300);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 //个人资料
                 PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
-                PeopleInfoEntity.PeopleInfoBean peopleInfoBean =
-                        new PeopleInfoEntity.PeopleInfoBean();
+                PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
                 peopleInfoBean.setNo("?");
                 peopleInfoBean.setName("?");
                 peopleInfoBean.setCardNo("?");
@@ -217,6 +220,7 @@ public class LoginActivity extends AppCompatActivity {
                 peopleInfoBean.setModifyTime("?");
                 peopleInfoBean.setRegisterTime("?");
                 peopleInfoBean.setNoIndex("?");
+                peopleInfoBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
                 List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
                 beanList.add(peopleInfoBean);
                 peopleEntity.setPeopleInfo(beanList);

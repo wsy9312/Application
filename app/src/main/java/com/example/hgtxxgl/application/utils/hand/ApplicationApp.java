@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.StrictMode;
 
+import com.example.hgtxxgl.application.entity.NewLoginEntity;
 import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
 
 public class ApplicationApp extends Application {
@@ -17,6 +18,8 @@ public class ApplicationApp extends Application {
     private String UPLOAD_URL="http:";
 
     private static PeopleInfoEntity peopleInfoEntity;
+
+    private static NewLoginEntity newLoginEntity;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -46,6 +49,13 @@ public class ApplicationApp extends Application {
         ApplicationApp.peopleInfoEntity = peopleInfoEntity;
     }
 
+    public static NewLoginEntity getNewLoginEntity() {
+        return newLoginEntity;
+    }
+
+    public static void setNewLoginEntity(NewLoginEntity newLoginEntity) {
+        ApplicationApp.newLoginEntity = newLoginEntity;
+    }
 //        checkFirstIn();
 
 

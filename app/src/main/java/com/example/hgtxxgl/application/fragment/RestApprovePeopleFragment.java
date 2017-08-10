@@ -123,6 +123,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
                 new PeopleInfoEntity.PeopleInfoBean();
         peopleInfoBean.setNo(no);
         peopleInfoBean.setName("?");
+        peopleInfoBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
         List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
         beanList.add(peopleInfoBean);
         peopleEntity.setPeopleInfo(beanList);
@@ -162,9 +163,30 @@ public class RestApprovePeopleFragment extends CommonFragment {
         String bfillup = getArguments().getString("bfillup");
         noindex = getArguments().getString("noindex");
         final PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
-        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean =
-                new PeopleLeaveEntity.PeopleLeaveRrdBean(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo(),
-                        "?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?",noindex,"?","?","?");
+        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
+        peopleLeaveRrdBean.setNo(no);
+        peopleLeaveRrdBean.setCurrentApproveNo("?");
+        peopleLeaveRrdBean.setApprover1No("?");
+        peopleLeaveRrdBean.setApprover2No("?");
+        peopleLeaveRrdBean.setApprover3No("?");
+        peopleLeaveRrdBean.setApprover4No("?");
+        peopleLeaveRrdBean.setApprover5No("?");
+        peopleLeaveRrdBean.setRegisterTime("?");
+        peopleLeaveRrdBean.setOutTime("?");
+        peopleLeaveRrdBean.setInTime("?");
+        peopleLeaveRrdBean.setContent("?");
+        peopleLeaveRrdBean.setActualOutTime("?");
+        peopleLeaveRrdBean.setActualInTime("?");
+        peopleLeaveRrdBean.setModifyTime("?");
+        peopleLeaveRrdBean.setMultiLevelResult("?");
+        peopleLeaveRrdBean.setProcess("?");
+        peopleLeaveRrdBean.setLevelNum("?");
+        peopleLeaveRrdBean.setBCancel("?");
+        peopleLeaveRrdBean.setBFillup("?");
+        peopleLeaveRrdBean.setNoIndex(noindex);
+        peopleLeaveRrdBean.setBeginNum("?");
+        peopleLeaveRrdBean.setEndNum("?");
+        peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
         List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
         list.add(peopleLeaveRrdBean);
         peopleLeaveEntity.setPeopleLeaveRrd(list);
@@ -215,6 +237,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
         }else {
             peopleLeaveRrdBean.setResult("0");
         }
+        peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
 //        ToastUtil.showToast(getContext(),peopleLeaveRrdBean.getCurrentApproveNo()+" "+peopleLeaveRrdBean.getResult()+" "+noindex);
         List<PeopleLeaveEntity.PeopleLeaveRrdBean> beanList = new ArrayList<>();
         beanList.add(peopleLeaveRrdBean);

@@ -17,7 +17,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -39,13 +38,10 @@ import com.google.zxing.client.result.ParsedResultType;
 import com.mylhyl.zxing.scanner.common.Intents;
 import com.mylhyl.zxing.scanner.encode.QREncode;
 
-import java.util.List;
-
-import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
 //二维码首页
-public class MainActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks{
+public class MainActivity extends AppCompatActivity{
     private static final int PICK_CONTACT = 1;
     private TextView tvResult;
     private ImageView imageView;
@@ -110,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
                 );
             }
         } else {
-            saveImage();
+                saveImage();
         }
     }
 
@@ -121,33 +117,6 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
             Toast.makeText(mContext, "保存图片成功", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(mContext, "保存图片失败，请稍后重试", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    //授权结果，分发下去
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        // Forward results to EasyPermissions
-        //跳转到onPermissionsGranted或者onPermissionsDenied去回调授权结果
-        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
-    }
-
-
-    //同意授权
-    @Override
-    public void onPermissionsGranted(int requestCode, List<String> list) {
-        Log.i(TAG, "onPermissionsGranted:" + requestCode + ":" + list.size());
-        saveImage();
-    }
-
-    //拒绝授权
-    @Override
-    public void onPermissionsDenied(int requestCode, List<String> perms) {
-        Log.i(TAG, "onPermissionsDenied:" + requestCode + ":" + perms.size());
-        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
-            //打开系统设置，手动授权
-            new AppSettingsDialog.Builder(this,"").build().show();
         }
     }
 
