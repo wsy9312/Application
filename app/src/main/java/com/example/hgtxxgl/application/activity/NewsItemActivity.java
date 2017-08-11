@@ -100,7 +100,7 @@ public class NewsItemActivity extends AppCompatActivity {
         newsRrdBean.setPicture3Len("?");
         newsRrdBean.setPicture4Len("?");
         newsRrdBean.setPicture5Len("?");
-        newsRrdBean.setAuthenticationNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
+        newsRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
         List<NewsInfoEntity.NewsRrdBean> list = new ArrayList<>();
         list.add(newsRrdBean);
         newsInfoEntity.setNewsRrd(list);

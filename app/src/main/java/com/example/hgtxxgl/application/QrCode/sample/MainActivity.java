@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity{
         tvResult = (TextView) findViewById(R.id.textView);
         imageView = (ImageView) findViewById(R.id.imageView);
         llqrimage = (RelativeLayout) findViewById(R.id.ll_qr_image);
-        no = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo();
+        no = ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo();
         name = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName();
         cardNo = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getCardNo();
 //        position = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0)

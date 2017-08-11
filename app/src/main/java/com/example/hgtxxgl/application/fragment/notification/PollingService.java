@@ -66,7 +66,6 @@ public class PollingService extends Service {
 			count ++;
 			if (count % 1 == 0) {
 				showNotification();
-
 				System.out.println("New message!");
 			}
 		}
