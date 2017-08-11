@@ -91,7 +91,7 @@ public class PersonalFragment extends Fragment implements View.OnClickListener{
         mTelNumber = (TextView) view.findViewById(R.id.tv_message_militaryrank);
         rlQRcode.setOnClickListener(this);
         mLogout.setOnClickListener(this);
-        showData();
+//        showData();
     }
 
     private void showData() {

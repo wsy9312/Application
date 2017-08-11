@@ -14,7 +14,7 @@ import android.widget.ProgressBar;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.NewsItemActivity;
-import com.example.hgtxxgl.application.entity.NewsInfoEntity;
+import com.example.hgtxxgl.application.entity.MessageEntity;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.DataUtil;
@@ -46,13 +46,12 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
         return fragment;
     }
 
-    private List<NewsInfoEntity.NewsRrdBean> entityList = new ArrayList<>();
-    private List<NewsInfoEntity.NewsRrdBean> baseEntityList;
+    private List<MessageEntity.MessageRrdBean> entityList = new ArrayList<>();
+    private List<MessageEntity.MessageRrdBean> baseEntityList;
 
-    ListAdapter<NewsInfoEntity.NewsRrdBean> adapter = new ListAdapter<NewsInfoEntity.NewsRrdBean>((ArrayList<NewsInfoEntity.NewsRrdBean>) entityList, R.layout.layout_my_todo_too) {
+    ListAdapter<MessageEntity.MessageRrdBean> adapter = new ListAdapter<MessageEntity.MessageRrdBean>((ArrayList<MessageEntity.MessageRrdBean>) entityList, R.layout.layout_my_todo_too) {
         @Override
-        public void bindView(ViewHolder holder, NewsInfoEntity.NewsRrdBean bean) {
-            holder.setText(R.id.tv_title, bean.getTitle());
+        public void bindView(ViewHolder holder, MessageEntity.MessageRrdBean bean) {
             holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
             holder.setText(R.id.tv_sketch, bean.getContent());
         }
@@ -92,29 +91,29 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
         if (callback != null) {
             callback.onLoadData();
         }
-        NewsInfoEntity newsInfoEntity = new NewsInfoEntity();
-        NewsInfoEntity.NewsRrdBean newsRrdBean = new NewsInfoEntity.NewsRrdBean();
-        newsRrdBean.setTitle("?");
-        newsRrdBean.setContent("?");
-        newsRrdBean.setModifyTime("?");
-        newsRrdBean.setBeginNum(beginNum+"");
-        newsRrdBean.setEndNum(endNum+"");
-        newsRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-        List<NewsInfoEntity.NewsRrdBean> list = new ArrayList<>();
-        list.add(newsRrdBean);
-        newsInfoEntity.setNewsRrd(list);
-        String json = new Gson().toJson(newsInfoEntity);
-        final String s = "get " + json;
+        MessageEntity messageEntity = new MessageEntity();
+        MessageEntity.MessageRrdBean messageRrdBean = new MessageEntity.MessageRrdBean();
+        messageRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        messageRrdBean.setTime("");
+        messageRrdBean.setContent("?");
+        messageRrdBean.setModifyTime("?");
+        messageRrdBean.setObjects("?");
+        messageRrdBean.setNoIndex("?");
+        List<MessageEntity.MessageRrdBean> list = new ArrayList<>();
+        list.add(messageRrdBean);
+        messageEntity.setMessageRrd(list);
+        String json = new Gson().toJson(messageEntity);
+        String s = "get " + json;
         String url = CommonValues.BASE_URL;
-        HttpManager.getInstance().requestResultForm(url, s, NewsInfoEntity.class,new HttpManager.ResultCallback<NewsInfoEntity>() {
+        HttpManager.getInstance().requestResultForm(url, s, MessageEntity.class, new HttpManager.ResultCallback<MessageEntity>() {
             @Override
-            public void onSuccess(final String json, final NewsInfoEntity newsInfoEntity) throws InterruptedException {
-                if (newsInfoEntity != null && newsInfoEntity.getNewsRrd().size() > 0) {
+            public void onSuccess(String json, MessageEntity messageEntity) throws InterruptedException {
+                if (messageEntity != null && messageEntity.getMessageRrd().size() > 0){
                     if (beginNum == 1 && endNum == 6){
                         entityList.clear();
                     }
                     hasMore = true;
-                    entityList.addAll(newsInfoEntity.getNewsRrd());
+                    entityList.addAll(messageEntity.getMessageRrd());
                     adapter.notifyDataSetChanged();
                 } else {
                     hasMore = false;
@@ -140,6 +139,54 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
             }
         });
 
+//        NewsInfoEntity newsInfoEntity = new NewsInfoEntity();
+//        NewsInfoEntity.NewsRrdBean newsRrdBean = new NewsInfoEntity.NewsRrdBean();
+//        newsRrdBean.setTitle("?");
+//        newsRrdBean.setContent("?");
+//        newsRrdBean.setModifyTime("?");
+//        newsRrdBean.setBeginNum(beginNum+"");
+//        newsRrdBean.setEndNum(endNum+"");
+//        newsRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+//        List<NewsInfoEntity.NewsRrdBean> list = new ArrayList<>();
+//        list.add(newsRrdBean);
+//        newsInfoEntity.setNewsRrd(list);
+//        String json = new Gson().toJson(newsInfoEntity);
+//        final String s = "get " + json;
+//        String url = CommonValues.BASE_URL;
+//        HttpManager.getInstance().requestResultForm(url, s, NewsInfoEntity.class,new HttpManager.ResultCallback<NewsInfoEntity>() {
+//            @Override
+//            public void onSuccess(final String json, final NewsInfoEntity newsInfoEntity) throws InterruptedException {
+//                if (newsInfoEntity != null && newsInfoEntity.getNewsRrd().size() > 0) {
+//                    if (beginNum == 1 && endNum == 6){
+//                        entityList.clear();
+//                    }
+//                    hasMore = true;
+//                    entityList.addAll(newsInfoEntity.getNewsRrd());
+//                    adapter.notifyDataSetChanged();
+//                } else {
+//                    hasMore = false;
+//                }
+//                pb.setVisibility(View.GONE);
+//                lv.completeRefresh();
+//            }
+//
+//            @Override
+//            public void onFailure(String msg) {
+//                getActivity().runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        lv.completeRefresh();
+//                        pb.setVisibility(View.GONE);
+//                    }
+//                });
+//            }
+//
+//            @Override
+//            public void onResponse(String response) {
+//                ivEmpty.setVisibility(View.VISIBLE);
+//            }
+//        });
+
     }
 
     private void loadMore() {
@@ -160,17 +207,11 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
         checkDetail(position);
 
     }
+
     private void checkDetail(int position) {
         Intent intent = new Intent(getActivity(), NewsItemActivity.class);
-        intent.putExtra("title", adapter.getItem(position).getTitle());
         intent.putExtra("content", adapter.getItem(position).getContent());
         intent.putExtra("modifyTime",adapter.getItem(position).getModifyTime());
-//        intent.putExtra("picture1", adapter.getItem(position).getPicture1());
-//        intent.putExtra("picture2", adapter.getItem(position).getPicture2());
-//        intent.putExtra("picture3", adapter.getItem(position).getPicture3());
-//        intent.putExtra("picture4", adapter.getItem(position).getPicture4());
-//        intent.putExtra("picture5", adapter.getItem(position).getPicture5());
-//        intent.putExtra("data", bundle);
         startActivity(intent);
     }
 
@@ -187,11 +228,8 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
                 baseEntityList = new ArrayList<>();
                 baseEntityList.addAll(entityList);
             }
-            List<NewsInfoEntity.NewsRrdBean> list = new ArrayList<>();
-            for (NewsInfoEntity.NewsRrdBean bean : baseEntityList) {
-                if (bean.getTitle().replace(" ", "").contains(key)) {
-                    list.add(bean);
-                }
+            List<MessageEntity.MessageRrdBean> list = new ArrayList<>();
+            for (MessageEntity.MessageRrdBean bean : baseEntityList) {
                 if (bean.getContent().replace(" ", "").contains(key)) {
                     list.add(bean);
                 }
@@ -208,7 +246,6 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
                 entityList.addAll(baseEntityList);
                 adapter.notifyDataSetChanged();
             }
-
         }
     }
 

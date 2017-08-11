@@ -112,9 +112,9 @@ public class RestApplyPeopleFragment extends CommonFragment {
 
     @Override
     public List<CommonFragment.Group> getGroupList() {
-        if (!ApplicationApp.getPeopleInfoEntity().getPeopleInfo().isEmpty()){
-            name = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName();
-            no = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo();
+        if (!ApplicationApp.getNewLoginEntity().getLogin().isEmpty()){
+            name = ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo();
+            no = ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo();
         }
         List<CommonFragment.Group> groups = new ArrayList<>();
         if (entity == null) {

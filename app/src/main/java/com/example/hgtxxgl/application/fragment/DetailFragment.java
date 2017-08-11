@@ -187,6 +187,8 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
             ((MyCommissionFragment) f).filter(str);
         } else if (f instanceof NewFragment) {
             ((NewFragment) f).filter(str);
+        } else if (f instanceof NotificationFragment){
+            ((NotificationFragment) f).filter(str);
         }
     }
 
