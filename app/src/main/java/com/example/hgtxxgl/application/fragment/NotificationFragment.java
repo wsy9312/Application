@@ -5,6 +5,7 @@ import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,9 @@ import android.widget.ProgressBar;
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.NewsItemActivity;
 import com.example.hgtxxgl.application.entity.MessageEntity;
+import com.example.hgtxxgl.application.fragment.notification.PollingService;
+import com.example.hgtxxgl.application.fragment.notification.PollingUtils;
+import com.example.hgtxxgl.application.utils.DateUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.DataUtil;
@@ -24,6 +28,7 @@ import com.example.hgtxxgl.application.view.SimpleListView;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 //通知中心
@@ -60,6 +65,7 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        PollingUtils.startPollingService(getContext(), 1, PollingService.class, PollingService.ACTION);
         loadData(beginNum,endNum);
     }
 
@@ -94,16 +100,17 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
         MessageEntity messageEntity = new MessageEntity();
         MessageEntity.MessageRrdBean messageRrdBean = new MessageEntity.MessageRrdBean();
         messageRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-        messageRrdBean.setTime("");
+        messageRrdBean.setTime("2017-08-14 11:13:35&&"+ DateUtil.getCurrentDate());
         messageRrdBean.setContent("?");
         messageRrdBean.setModifyTime("?");
-        messageRrdBean.setObjects("?");
+        messageRrdBean.setObjects(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
         messageRrdBean.setNoIndex("?");
         List<MessageEntity.MessageRrdBean> list = new ArrayList<>();
         list.add(messageRrdBean);
         messageEntity.setMessageRrd(list);
-        String json = new Gson().toJson(messageEntity);
+        String json = new Gson().toJson(messageEntity).replace("\\u0026","&");
         String s = "get " + json;
+        Log.e(TAG, "loadData: "+s );
         String url = CommonValues.BASE_URL;
         HttpManager.getInstance().requestResultForm(url, s, MessageEntity.class, new HttpManager.ResultCallback<MessageEntity>() {
             @Override
@@ -113,6 +120,7 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
                         entityList.clear();
                     }
                     hasMore = true;
+                    Collections.reverse(messageEntity.getMessageRrd());
                     entityList.addAll(messageEntity.getMessageRrd());
                     adapter.notifyDataSetChanged();
                 } else {
@@ -190,13 +198,19 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
     }
 
     private void loadMore() {
-        if (hasMore) {
-            beginNum += 6;
-            endNum += 6;
-            loadData(beginNum, endNum);
-        } else {
-            lv.completeRefresh();
-        }
+        hasMore = true;
+        beginNum = 1;
+        endNum = 6;
+        loadData(beginNum, endNum);
+        lv.completeRefresh();
+
+//        if (hasMore) {
+//            beginNum += 6;
+//            endNum += 6;
+//            loadData(beginNum, endNum);
+//        } else {
+//            lv.completeRefresh();
+//        }
     }
 
 

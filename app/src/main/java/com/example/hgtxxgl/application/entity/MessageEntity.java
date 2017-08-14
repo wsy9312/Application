@@ -18,6 +18,13 @@ public class MessageEntity {
         this.MessageRrd = MessageRrd;
     }
 
+    @Override
+    public String toString() {
+        return "MessageEntity{" +
+                "MessageRrd=" + MessageRrd +
+                '}';
+    }
+
     public static class MessageRrdBean {
         /**
          * Time : 2017-8-10 12:00:00
@@ -34,6 +41,18 @@ public class MessageEntity {
         private String ModifyTime;
         private String NoIndex;
         private String AuthenticationNo;
+
+        @Override
+        public String toString() {
+            return "MessageRrdBean{" +
+                    "Time='" + Time + '\'' +
+                    ", Content='" + Content + '\'' +
+                    ", Objects='" + Objects + '\'' +
+                    ", ModifyTime='" + ModifyTime + '\'' +
+                    ", NoIndex='" + NoIndex + '\'' +
+                    ", AuthenticationNo='" + AuthenticationNo + '\'' +
+                    '}';
+        }
 
         public String getTime() {
             return Time;

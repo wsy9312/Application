@@ -155,13 +155,18 @@ public class MyLaunchFragment extends Fragment implements SimpleListView.OnRefre
     }
 
     private void loadMore() {
-        if (hasMore) {
-            beginNum += 6;
-            endNum += 6;
-            loadData(beginNum, endNum);
-        } else {
-            lv.completeRefresh();
-        }
+        hasMore = true;
+        beginNum = 1;
+        endNum = 6;
+        loadData(beginNum, endNum);
+        lv.completeRefresh();
+//        if (hasMore) {
+//            beginNum += 6;
+//            endNum += 6;
+//            loadData(beginNum, endNum);
+//        } else {
+//            lv.completeRefresh();
+//        }
     }
 
 
