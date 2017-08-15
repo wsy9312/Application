@@ -68,10 +68,11 @@ public class PeopleLeaveEntity {
         private String BeginNum;
         private String EndNum;
         private String AuthenticationNo;
+        private String IsAndroid;
 
         public PeopleLeaveRrdBean() {}
 
-        public PeopleLeaveRrdBean(String no, String result, String currentApproveNo, String approver1No, String approver2No, String approver3No, String approver4No, String approver5No, String registerTime, String outTime, String inTime, String content, String actualOutTime, String actualInTime, String modifyTime, String multiLevelResult, String process, String levelNum, String bCancel, String bFillup, String noIndex, String beginNum, String endNum, String authenticationNo) {
+        public PeopleLeaveRrdBean(String no, String result, String currentApproveNo, String approver1No, String approver2No, String approver3No, String approver4No, String approver5No, String registerTime, String outTime, String inTime, String content, String actualOutTime, String actualInTime, String modifyTime, String multiLevelResult, String process, String levelNum, String bCancel, String bFillup, String noIndex, String beginNum, String endNum, String authenticationNo, String isAndroid) {
             No = no;
             Result = result;
             CurrentApproveNo = currentApproveNo;
@@ -96,6 +97,7 @@ public class PeopleLeaveEntity {
             BeginNum = beginNum;
             EndNum = endNum;
             AuthenticationNo = authenticationNo;
+            IsAndroid = isAndroid;
         }
 
         @Override
@@ -125,7 +127,16 @@ public class PeopleLeaveEntity {
                     ", BeginNum='" + BeginNum + '\'' +
                     ", EndNum='" + EndNum + '\'' +
                     ", AuthenticationNo='" + AuthenticationNo + '\'' +
+                    ", IsAndroid='" + IsAndroid + '\'' +
                     '}';
+        }
+
+        public String getIsAndroid() {
+            return IsAndroid;
+        }
+
+        public void setIsAndroid(String isAndroid) {
+            IsAndroid = isAndroid;
         }
 
         public String getResult() {

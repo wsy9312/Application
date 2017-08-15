@@ -55,11 +55,12 @@ public class PeopleInfoEntity {
         private String RegisterTime;
         private String NoIndex;
         private String AuthenticationNo;
+        private String IsAndroid;
 
         public PeopleInfoBean() {
         }
 
-        public PeopleInfoBean(String no, String name, String cardNo, String position, String sex, String unit, String armyGroup, String phoneNo, String telNo, String groupName, String loginName, String password, String authority, String modifyTime, String registerTime, String noIndex, String authenticationNo) {
+        public PeopleInfoBean(String no, String name, String cardNo, String position, String sex, String unit, String armyGroup, String phoneNo, String telNo, String groupName, String loginName, String password, String authority, String modifyTime, String registerTime, String noIndex, String authenticationNo, String isAndroid) {
             No = no;
             Name = name;
             CardNo = cardNo;
@@ -77,6 +78,7 @@ public class PeopleInfoEntity {
             RegisterTime = registerTime;
             NoIndex = noIndex;
             AuthenticationNo = authenticationNo;
+            IsAndroid = isAndroid;
         }
 
         public String getNo() {
@@ -215,6 +217,13 @@ public class PeopleInfoEntity {
             AuthenticationNo = authenticationNo;
         }
 
+        public String getIsAndroid() {
+            return IsAndroid;
+        }
+
+        public void setIsAndroid(String isAndroid) {
+            IsAndroid = isAndroid;
+        }
 
     }
 }

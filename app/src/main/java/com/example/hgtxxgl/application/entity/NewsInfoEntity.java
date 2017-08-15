@@ -60,12 +60,13 @@ public class NewsInfoEntity {
         private String EndNum;
         private String NoIndex;
         private String AuthenticationNo;
+        private String IsAndroid;
 
         public NewsRrdBean() {
 
         }
 
-        public NewsRrdBean(String title, String content, String picture1, String picture2, String picture3, String picture4, String picture5, String picture1Len, String picture2Len, String picture3Len, String picture4Len, String picture5Len, String modifyTime, String registerTime, String beginNum, String endNum, String noIndex, String authenticationNo) {
+        public NewsRrdBean(String title, String content, String picture1, String picture2, String picture3, String picture4, String picture5, String picture1Len, String picture2Len, String picture3Len, String picture4Len, String picture5Len, String modifyTime, String registerTime, String beginNum, String endNum, String noIndex, String authenticationNo, String isAndroid) {
             Title = title;
             Content = content;
             Picture1 = picture1;
@@ -84,6 +85,15 @@ public class NewsInfoEntity {
             EndNum = endNum;
             NoIndex = noIndex;
             AuthenticationNo = authenticationNo;
+            IsAndroid = isAndroid;
+        }
+
+        public String getIsAndroid() {
+            return IsAndroid;
+        }
+
+        public void setIsAndroid(String isAndroid) {
+            IsAndroid = isAndroid;
         }
 
         public String getTitle() {

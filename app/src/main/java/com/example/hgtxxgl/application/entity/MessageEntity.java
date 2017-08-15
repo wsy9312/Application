@@ -41,6 +41,7 @@ public class MessageEntity {
         private String ModifyTime;
         private String NoIndex;
         private String AuthenticationNo;
+        private String IsAndroid;
 
         @Override
         public String toString() {
@@ -51,7 +52,16 @@ public class MessageEntity {
                     ", ModifyTime='" + ModifyTime + '\'' +
                     ", NoIndex='" + NoIndex + '\'' +
                     ", AuthenticationNo='" + AuthenticationNo + '\'' +
+                    ", IsAndroid='" + IsAndroid + '\'' +
                     '}';
+        }
+
+        public String getIsAndroid() {
+            return IsAndroid;
+        }
+
+        public void setIsAndroid(String isAndroid) {
+            IsAndroid = isAndroid;
         }
 
         public String getTime() {

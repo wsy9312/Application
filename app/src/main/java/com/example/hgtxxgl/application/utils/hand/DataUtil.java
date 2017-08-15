@@ -11,8 +11,6 @@ import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.hgtxxgl.application.entity.DataListEntity;
-
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -67,55 +65,6 @@ public class DataUtil {
         }
 
     }
-
-    public static String getDicodeByDescr(List<DataListEntity> data, String descr) {
-        if (data == null || descr.isEmpty() || descr == null) {
-            return "";
-        }
-        for (int i = 0; i < data.size(); i++) {
-            if (data.get(i).getDicDesc().equals(descr)) {
-                return data.get(i).getDicCode();
-            }
-        }
-        return "";
-    }
-    public static String getDicIdByDescr(List<DataListEntity> data, String descr) {
-        if (data == null) {
-            return "0";
-        }
-        String dicId = "";
-        for (int i = 0; i < data.size(); i++) {
-            if (data.get(i).getDicDesc().equals(descr)) {
-                dicId = data.get(i).getDicId();
-            }
-        }
-        return dicId;
-
-    }
-
-    public static String[] getDescr(List<DataListEntity> beans) {
-        if (beans == null || beans.size() == 0) {
-            return new String[]{};
-        }
-        String[] args = new String[beans.size()];
-        for (int i = 0; i < beans.size(); i++) {
-            args[i] = beans.get(i).getDicDesc();
-        }
-        return args;
-    }
-
-
-    public static String[] getDescrWithDicCode(List<DataListEntity> beans) {
-        if (beans == null || beans.size() == 0) {
-            return new String[]{};
-        }
-        String[] args = new String[beans.size()];
-        for (int i = 0; i < beans.size(); i++) {
-            args[i] = beans.get(i).getDicCode() + " " + beans.get(i).getDicDesc();
-        }
-        return args;
-    }
-
 
     /**
      * 转换字符串到正整型，转换失败或者为负数则返回-1

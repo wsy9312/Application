@@ -30,6 +30,15 @@ public class LoginEntity {
         private String ModifyTime;
         private String NoIndex;
         private String AuthenticationNo;
+        private String IsAndroid;
+
+        public String getIsAndroid() {
+            return IsAndroid;
+        }
+
+        public void setIsAndroid(String isAndroid) {
+            IsAndroid = isAndroid;
+        }
 
         public String getAuthenticationNo() {
             return AuthenticationNo;
