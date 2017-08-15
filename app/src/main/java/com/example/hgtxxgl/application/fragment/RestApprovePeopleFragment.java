@@ -124,6 +124,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
         peopleInfoBean.setNo(no);
         peopleInfoBean.setName("?");
         peopleInfoBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        peopleInfoBean.setIsAndroid("1");
         List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
         beanList.add(peopleInfoBean);
         peopleEntity.setPeopleInfo(beanList);
@@ -187,6 +188,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
         peopleLeaveRrdBean.setBeginNum("?");
         peopleLeaveRrdBean.setEndNum("?");
         peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        peopleLeaveRrdBean.setIsAndroid("1");
         List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
         list.add(peopleLeaveRrdBean);
         peopleLeaveEntity.setPeopleLeaveRrd(list);
@@ -201,7 +203,6 @@ public class RestApprovePeopleFragment extends CommonFragment {
                     @Override
                     public void run() {
                         if (peopleLeaveEntity1 != null){
-                            show("人员请假信息获取成功");
                             setEntity(peopleLeaveEntity1.getPeopleLeaveRrd().get(0));
                             setGroup(getGroupList());
                             setPb(false);
@@ -238,6 +239,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
             peopleLeaveRrdBean.setResult("0");
         }
         peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        peopleLeaveRrdBean.setIsAndroid("1");
 //        ToastUtil.showToast(getContext(),peopleLeaveRrdBean.getCurrentApproveNo()+" "+peopleLeaveRrdBean.getResult()+" "+noindex);
         List<PeopleLeaveEntity.PeopleLeaveRrdBean> beanList = new ArrayList<>();
         beanList.add(peopleLeaveRrdBean);

@@ -170,6 +170,7 @@ public class LoginActivity extends AppCompatActivity {
                 LoginEntity.LoginBean loginBean = new LoginEntity.LoginBean();
                 loginBean.setLoginName(username);
                 loginBean.setPassword(password);
+                loginBean.setIsAndroid("1");
                 List<LoginEntity.LoginBean> list = new ArrayList<>();
                 list.add(loginBean);
                 loginEntity.setLogin(list);
@@ -221,6 +222,7 @@ public class LoginActivity extends AppCompatActivity {
                 peopleInfoBean.setRegisterTime("?");
                 peopleInfoBean.setNoIndex("?");
                 peopleInfoBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+                peopleInfoBean.setIsAndroid("1");
                 List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
                 beanList.add(peopleInfoBean);
                 peopleEntity.setPeopleInfo(beanList);

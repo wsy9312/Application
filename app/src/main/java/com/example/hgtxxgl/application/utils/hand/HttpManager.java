@@ -83,8 +83,8 @@ public class HttpManager {
                             Log.e(TAG,"onResponse: "+response);
                             String s = new String(Base64.decode(response.getBytes(), Base64.DEFAULT));
                             Log.e(TAG,"base64: "+s);
-                            if (response.contains("\"")) {
-                                substring = response.substring(response.indexOf("{"), response.length());
+                            if (s.contains("\"")) {
+                                substring = s.substring(s.indexOf("{"), s.length());
                                 setJson(substring);
                                 t = parseJson(substring, clazz);
                                 if (t != null) {
@@ -93,7 +93,7 @@ public class HttpManager {
                                     callback.onFailure(substring);
                                 }
                             }else{
-                                callback.onResponse(response);
+                                callback.onResponse(s);
                             }
                         }catch (Exception e){
                             e.printStackTrace();

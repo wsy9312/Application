@@ -76,6 +76,7 @@ public class RestApplyPeopleFragment extends CommonFragment {
             peopleLeaveRrdBean.setBeginNum("?");
             peopleLeaveRrdBean.setEndNum("?");
             peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+            peopleLeaveRrdBean.setIsAndroid("1");
             List<PeopleLeaveEntity.PeopleLeaveRrdBean> beanList = new ArrayList<>();
             beanList.add(peopleLeaveRrdBean);
             peopleLeaveEntity.setPeopleLeaveRrd(beanList);
@@ -188,6 +189,7 @@ public class RestApplyPeopleFragment extends CommonFragment {
                         peopleLeaveRrdBean.setBCancel(realValueCancel.equals("否")?"0":"1");
                         peopleLeaveRrdBean.setBFillup(realValueFillup.equals("否")?"0":"1");
                         peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+                        peopleLeaveRrdBean.setIsAndroid("1");
                         List<PeopleLeaveEntity.PeopleLeaveRrdBean> beanList = new ArrayList<>();
                         beanList.add(peopleLeaveRrdBean);
                         peopleLeaveEntity.setPeopleLeaveRrd(beanList);

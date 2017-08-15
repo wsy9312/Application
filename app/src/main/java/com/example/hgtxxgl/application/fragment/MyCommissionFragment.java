@@ -84,6 +84,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
         peopleInfoBean.setNo(no);
         peopleInfoBean.setName("?");
         peopleInfoBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        peopleInfoBean.setIsAndroid("1");
         List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
         beanList.add(peopleInfoBean);
         peopleEntity.setPeopleInfo(beanList);
@@ -156,6 +157,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
         peopleLeaveRrdBean.setNoIndex("?");
         peopleLeaveRrdBean.setModifyTime("?");
         peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        peopleLeaveRrdBean.setIsAndroid("1");
         List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
         list.add(peopleLeaveRrdBean);
         peopleLeaveEntity.setPeopleLeaveRrd(list);

@@ -81,6 +81,7 @@ public class PollingService extends Service {
 		messageRrdBean.setModifyTime("?");
 		messageRrdBean.setObjects(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
 		messageRrdBean.setNoIndex("?");
+		messageRrdBean.setIsAndroid("1");
 		List<MessageEntity.MessageRrdBean> list = new ArrayList<>();
 		list.add(messageRrdBean);
 		messageEntity.setMessageRrd(list);

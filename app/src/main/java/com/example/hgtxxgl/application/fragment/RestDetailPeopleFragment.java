@@ -133,6 +133,7 @@ public class RestDetailPeopleFragment extends CommonFragment {
         peopleLeaveRrdBean.setBeginNum("?");
         peopleLeaveRrdBean.setEndNum("?");
         peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        peopleLeaveRrdBean.setIsAndroid("1");
         List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
         list.add(peopleLeaveRrdBean);
         peopleLeaveEntity.setPeopleLeaveRrd(list);
@@ -147,7 +148,6 @@ public class RestDetailPeopleFragment extends CommonFragment {
                     @Override
                     public void run() {
                         if (peopleLeaveEntity1 != null){
-                            show("人员请假信息获取成功");
                             setEntity(peopleLeaveEntity1.getPeopleLeaveRrd().get(0));
                             setGroup(getGroupList());
                             setPb(false);
