@@ -19,10 +19,6 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Oliver on 2016/10/12.
- */
-
 public class RestDetailPeopleFragment extends CommonFragment {
 
     private final static String TAG = "RestDetailPeopleFragment";

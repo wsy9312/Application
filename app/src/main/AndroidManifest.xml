@@ -41,8 +41,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".fragment.notification.MessageActivity"/>
-
         <!-- Polling Service -->
         <service android:name=".fragment.notification.PollingService">
             <intent-filter>
@@ -92,17 +90,25 @@
             android:windowSoftInputMode="adjustPan" />
 
     </application>
-    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.FLASHLIGHT" />
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
+    <!--允许程序访问联系人通讯录信息-->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <!--允许程序调用相机进行拍摄-->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!--允许访问闪光灯-->
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <!--允许程序振动-->
     <uses-permission android:name="android.permission.VIBRATE" />
+    <!--允许程序在手机屏幕关闭后后台进程仍然运行-->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!--程序可以读取设备外部存储空间-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!--程序可以写入设备外部存储空间-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!--允许程序访问网络连接，可能产生GPRS流量-->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!--允许程序获取当前WiFi接入的状态以及WLAN热点的信息-->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-
 </manifest>

@@ -1045,7 +1045,7 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
                         map.put("fileName", fileName);
                         map.put("picLocalId", index);
                         map.put("fileBase64", fileBase64);
-                        HttpManager.getInstance().requestResultFormSync(CommonValues.REQ_ADD_ATTACHMENT, map, AddAttachmentEntity.class);
+//                        HttpManager.getInstance().requestResultFormSync(CommonValues.REQ_ADD_ATTACHMENT, map, AddAttachmentEntity.class);
                     }
                 }
                 return true;
@@ -1155,51 +1155,51 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
         setButtonllEnable(true);
     }
 
-    public void getBottomTitles() {
-        Map<String, Object> param = CommonValues.getCommonParams(getActivity());
-        param.put("barCode", getArguments().getString("barCode"));
-        param.put("sn", getArguments().getString("SN"));
-        param.put("identifier",getArguments().getString("WorkflowIdentifier"));
-        HttpManager.getInstance().requestResultForm(CommonValues.GET_PROCESS_ACTION, param, ProcessActionEmtity.class, new HttpManager.ResultCallback<ProcessActionEmtity>() {
-            @Override
-            public void onSuccess(String content, final ProcessActionEmtity entity) {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (entity != null && entity.getRetData() != null) {
-                            if (entity.getCode().equals("100")) {
-                                List<String> retData = entity.getRetData();
-                                String[] bottomString = new String[retData.size()];
-                                for (int i = 0; i < retData.size(); i++) {
-                                    if (retData.get(i).equals("拒绝")){
-                                        bottomString[i] = "驳回";
-                                    }else if (retData.get(i).equals("转签")){
-                                        bottomString[i] = "转办";
-                                    }else {
-                                        bottomString[i] = retData.get(i);
-                                    }
-                                }
-                                setButtonsTitles(bottomString);
-                                setButtonllEnable(true);
-                                notifyDataSetChanged();
-                                return;
-                            }
-                        } else {
-                            Toast.makeText(getActivity(), entity.getMsg(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-            }
-
-            @Override
-            public void onFailure(String content) {
-            }
-
-            @Override
-            public void onResponse(String response) {
-
-            }
-        });
-    }
+//    public void getBottomTitles() {
+//        Map<String, Object> param = CommonValues.getCommonParams(getActivity());
+//        param.put("barCode", getArguments().getString("barCode"));
+//        param.put("sn", getArguments().getString("SN"));
+//        param.put("identifier",getArguments().getString("WorkflowIdentifier"));
+//        HttpManager.getInstance().requestResultForm(CommonValues.GET_PROCESS_ACTION, param, ProcessActionEmtity.class, new HttpManager.ResultCallback<ProcessActionEmtity>() {
+//            @Override
+//            public void onSuccess(String content, final ProcessActionEmtity entity) {
+//                getActivity().runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        if (entity != null && entity.getRetData() != null) {
+//                            if (entity.getCode().equals("100")) {
+//                                List<String> retData = entity.getRetData();
+//                                String[] bottomString = new String[retData.size()];
+//                                for (int i = 0; i < retData.size(); i++) {
+//                                    if (retData.get(i).equals("拒绝")){
+//                                        bottomString[i] = "驳回";
+//                                    }else if (retData.get(i).equals("转签")){
+//                                        bottomString[i] = "转办";
+//                                    }else {
+//                                        bottomString[i] = retData.get(i);
+//                                    }
+//                                }
+//                                setButtonsTitles(bottomString);
+//                                setButtonllEnable(true);
+//                                notifyDataSetChanged();
+//                                return;
+//                            }
+//                        } else {
+//                            Toast.makeText(getActivity(), entity.getMsg(), Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
+//            }
+//
+//            @Override
+//            public void onFailure(String content) {
+//            }
+//
+//            @Override
+//            public void onResponse(String response) {
+//
+//            }
+//        });
+//    }
 
 }

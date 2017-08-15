@@ -159,7 +159,14 @@ public class MainActivity extends AppCompatActivity{
                             }
                             imageView.setDrawingCacheEnabled(false);
                         }else{
-                            ScannerActivity.gotoActivity(MainActivity.this, true, 1);
+                            if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA)
+                                    != PackageManager.PERMISSION_GRANTED) {
+                                //权限还没有授予，需要在这里写申请权限的代码
+                                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CAMERA}, 60);
+                            } else {
+                                //权限已经被授予，在这里直接写要执行的相应方法即可
+                                ScannerActivity.gotoActivity(MainActivity.this, true, 1);
+                            }
                         }
                     }
                 });
@@ -308,7 +315,7 @@ public class MainActivity extends AppCompatActivity{
                     Window window = alertDialog.getWindow();
                     window.setContentView(R.layout.layout_qrcode_result);
                     TextView tv_title = (TextView) window.findViewById(R.id.tv_dialog_title);
-                    tv_title.setText("详细信息");
+                    tv_title.setText("个人详细信息");
                     TextView tv_message = (TextView) window.findViewById(R.id.tv_dialog_message);
                     tv_message.setText(stringExtra);
                     /*ViewGroup.LayoutParams para = imageView.getLayoutParams();

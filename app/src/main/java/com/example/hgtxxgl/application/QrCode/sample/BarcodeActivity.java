@@ -4,14 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSON;
-import com.bumptech.glide.Glide;
-import com.example.hgtxxgl.application.QrCode.sample.entities.Barcode;
 import com.example.hgtxxgl.application.R;
 import com.litesuits.http.LiteHttp;
 import com.litesuits.http.exception.HttpException;
@@ -121,19 +117,19 @@ public class BarcodeActivity extends BasicActivity {
     }
 
     private void onSuccessDone(String result) {
-        Log.i(TAG, "onSuccessDone: " + result);
-        Barcode barcode = JSON.parseObject(result, Barcode.class);
-        if (barcode == null) {
-            Log.e(TAG, "product is null");
-            return;
-        }
-        mTextView4.setText("名称：" + barcode.name);
-        mTextView5.setText("价格：" + barcode.price);
-        mTextView6.setText("规格：" + barcode.spec);
-        mTextView7.setText("品牌：" + barcode.brand);
-        mTextView8.setText("国家：" + barcode.country);
-        mTextView9.setText("公司：" + barcode.company);
-        Glide.with(this).load(barcode.gtin).into(mImageView);
+//        Log.i(TAG, "onSuccessDone: " + result);
+//        Barcode barcode = JSON.parseObject(result, Barcode.class);
+//        if (barcode == null) {
+//            Log.e(TAG, "product is null");
+//            return;
+//        }
+//        mTextView4.setText("名称：" + barcode.name);
+//        mTextView5.setText("价格：" + barcode.price);
+//        mTextView6.setText("规格：" + barcode.spec);
+//        mTextView7.setText("品牌：" + barcode.brand);
+//        mTextView8.setText("国家：" + barcode.country);
+//        mTextView9.setText("公司：" + barcode.company);
+//        Glide.with(this).load(barcode.gtin).into(mImageView);
     }
 
     public static void gotoActivity(Activity activity, Bundle bundle) {

@@ -20,10 +20,6 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by HGTXxgl on 2017/8/2.
- */
-
 public class RestApplyCarFragment extends CommonFragment{
 
     private CarLeaveEntity entity;
