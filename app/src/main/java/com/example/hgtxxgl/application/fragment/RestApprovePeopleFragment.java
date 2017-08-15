@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 
 import com.example.hgtxxgl.application.activity.LibMainActivity;
 import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
@@ -194,7 +193,6 @@ public class RestApprovePeopleFragment extends CommonFragment {
         peopleLeaveEntity.setPeopleLeaveRrd(list);
         String toJson = new Gson().toJson(peopleLeaveEntity);
         String s="get "+toJson;
-        Log.e("测试approve",s);
         String url = CommonValues.BASE_URL;
         HttpManager.getInstance().requestResultForm(url, s, PeopleLeaveEntity.class, new HttpManager.ResultCallback<PeopleLeaveEntity>() {
             @Override
