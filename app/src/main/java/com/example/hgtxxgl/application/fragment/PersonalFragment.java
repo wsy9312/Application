@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +16,7 @@ import android.widget.TextView;
 import com.example.hgtxxgl.application.QrCode.sample.MainActivity;
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.LoginActivity;
+import com.example.hgtxxgl.application.utils.NumberFormatUtil;
 import com.example.hgtxxgl.application.utils.SysExitUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 
@@ -37,7 +36,6 @@ public class PersonalFragment extends Fragment implements View.OnClickListener{
     private TextView mDepartment;
     private TextView mGDNumber;
     private TextView mTelNumber;
-    private String s;
 
     public PersonalFragment() {
 
@@ -103,9 +101,43 @@ public class PersonalFragment extends Fragment implements View.OnClickListener{
         mPostion.setText(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getPosition());
         mSex.setText(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getSex().equals("0")?"男":"女");
         mCompany.setText(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getUnit());
-        mDepartment.setText(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getArmyGroup());
+        mDepartment.setText(getDepartmentData(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getArmyGroup()));
         mGDNumber.setText(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getPhoneNo());
         mTelNumber.setText(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getTelNo());
+    }
+
+    public String getDepartmentData(String string){
+        String a = string.substring(0,1);
+        String b = string.substring(1,2);
+        String c = string.substring(2,3);
+        String d = string.substring(3,4);
+        if (Integer.parseInt(a) == 0){
+            return null;
+        }else{
+            a = NumberFormatUtil.formatInteger(Integer.parseInt(a))+"营";
+        }
+
+        if (Integer.parseInt(b) == 0){
+            b = "";
+            c = "";
+            d = "";
+        }else{
+            b = NumberFormatUtil.formatInteger(Integer.parseInt(b))+"连";
+        }
+
+        if (Integer.parseInt(c) == 0){
+            c = "";
+            d = "";
+        }else{
+            c = NumberFormatUtil.formatInteger(Integer.parseInt(c))+"排";
+        }
+
+        if (Integer.parseInt(d) == 0){
+            d = "";
+        }else{
+            d = NumberFormatUtil.formatInteger(Integer.parseInt(d))+"班";
+        }
+        return a+b+c+d;
     }
 
     @Override
