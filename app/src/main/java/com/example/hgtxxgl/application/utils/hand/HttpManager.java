@@ -81,6 +81,8 @@ public class HttpManager {
                             T t = null;
                             String substring = "";
                             Log.e(TAG,"onResponse: "+response);
+                            String s = new String(Base64.decode(response.getBytes(), Base64.DEFAULT));
+                            Log.e(TAG,"base64: "+s);
                             if (response.contains("\"")) {
                                 substring = response.substring(response.indexOf("{"), response.length());
                                 setJson(substring);

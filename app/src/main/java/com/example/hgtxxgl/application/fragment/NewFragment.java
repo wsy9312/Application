@@ -140,8 +140,8 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
                         ivEmpty.setVisibility(View.VISIBLE);
                     }
         });
-
     }
+
     public static String str2HexStr(String str)
     {
 
@@ -179,6 +179,7 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
         }
         return new String(bytes);
     }
+
     private void loadMore() {
         if (hasMore) {
             beginNum += 6;

@@ -54,7 +54,7 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
     private List<MessageEntity.MessageRrdBean> entityList = new ArrayList<>();
     private List<MessageEntity.MessageRrdBean> baseEntityList;
 
-    ListAdapter<MessageEntity.MessageRrdBean> adapter = new ListAdapter<MessageEntity.MessageRrdBean>((ArrayList<MessageEntity.MessageRrdBean>) entityList, R.layout.layout_my_todo_too) {
+    ListAdapter<MessageEntity.MessageRrdBean> adapter = new ListAdapter<MessageEntity.MessageRrdBean>((ArrayList<MessageEntity.MessageRrdBean>) entityList, R.layout.layout_notification) {
         @Override
         public void bindView(ViewHolder holder, MessageEntity.MessageRrdBean bean) {
             holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
@@ -65,8 +65,8 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        PollingUtils.startPollingService(getContext(), 1, PollingService.class, PollingService.ACTION);
         loadData(beginNum,endNum);
+        PollingUtils.startPollingService(getContext(), 1, PollingService.class, PollingService.ACTION);
     }
 
     @Override
