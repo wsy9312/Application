@@ -45,70 +45,6 @@ public class RestApplyPeopleFragment extends CommonFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        loadData();
-    }
-
-    private void loadData() {
-        if (getArguments() != null) {
-            String NO = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo();
-            PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
-            PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
-            peopleLeaveRrdBean.setNo(NO);
-            peopleLeaveRrdBean.setCurrentApproveNo("?");
-            peopleLeaveRrdBean.setApprover1No("?");
-            peopleLeaveRrdBean.setApprover2No("?");
-            peopleLeaveRrdBean.setApprover3No("?");
-            peopleLeaveRrdBean.setApprover4No("?");
-            peopleLeaveRrdBean.setApprover5No("?");
-            peopleLeaveRrdBean.setRegisterTime("?");
-            peopleLeaveRrdBean.setOutTime("?");
-            peopleLeaveRrdBean.setInTime("?");
-            peopleLeaveRrdBean.setContent("?");
-            peopleLeaveRrdBean.setActualOutTime("?");
-            peopleLeaveRrdBean.setActualInTime("?");
-            peopleLeaveRrdBean.setModifyTime("?");
-            peopleLeaveRrdBean.setMultiLevelResult("?");
-            peopleLeaveRrdBean.setProcess("?");
-            peopleLeaveRrdBean.setLevelNum("?");
-            peopleLeaveRrdBean.setBFillup("?");
-            peopleLeaveRrdBean.setBCancel("?");
-            peopleLeaveRrdBean.setNoIndex("?");
-            peopleLeaveRrdBean.setBeginNum("?");
-            peopleLeaveRrdBean.setEndNum("?");
-            peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-            peopleLeaveRrdBean.setIsAndroid("1");
-            List<PeopleLeaveEntity.PeopleLeaveRrdBean> beanList = new ArrayList<>();
-            beanList.add(peopleLeaveRrdBean);
-            peopleLeaveEntity.setPeopleLeaveRrd(beanList);
-            String json = new Gson().toJson(peopleLeaveEntity);
-            String s1 = "get " + json;
-            Log.e(TAG,"loadData()查看个人申请记录状态:"+s1);
-            HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL,s1,PeopleLeaveEntity.class,new HttpManager.ResultCallback<PeopleLeaveEntity>() {
-                @Override
-                public void onSuccess(String json, PeopleLeaveEntity peopleLeaveEntity1) throws InterruptedException {
-                    if (peopleLeaveEntity1 != null){
-                        entity = peopleLeaveEntity1;
-                        setGroup(getGroupList());
-                        setPb(false);
-                        setButtonllEnable(true);
-                        notifyDataSetChanged();
-                    }else{
-                        show("人员请假信息实体转换异常");
-                    }
-                }
-
-                @Override
-                public void onFailure(final String msg) {
-                    Log.e(TAG,"loadData()-onFailure():"+msg);
-                }
-
-                @Override
-                public void onResponse(String response) {
-                    Log.e(TAG,"loadData()-onFailure():"+response);
-                }
-            });
-
-        }
     }
 
     @Override
@@ -124,7 +60,7 @@ public class RestApplyPeopleFragment extends CommonFragment {
             baseHolder.add(new HandInputGroup.Holder("预计外出时间",true,false,"",HandInputGroup.VALUE_TYPE.DATE));
             baseHolder.add(new HandInputGroup.Holder("预计归来时间",true,false,"",HandInputGroup.VALUE_TYPE.DATE));
             baseHolder.add(new HandInputGroup.Holder("请假原因",false,false,"",HandInputGroup.VALUE_TYPE.TEXTFILED));
-            baseHolder.add(new HandInputGroup.Holder("是否取消请假",false,false,"否",HandInputGroup.VALUE_TYPE.SELECT));
+//            baseHolder.add(new HandInputGroup.Holder("是否取消请假",false,false,"否",HandInputGroup.VALUE_TYPE.SELECT));
             baseHolder.add(new HandInputGroup.Holder("是否后补请假",false,false,"否",HandInputGroup.VALUE_TYPE.SELECT));
             groups.add(0,new CommonFragment.Group("基本信息", null,true,null,baseHolder));
         } else {
@@ -139,7 +75,7 @@ public class RestApplyPeopleFragment extends CommonFragment {
             subHolder1.add(new HandInputGroup.Holder("预计外出时间", true, false, outTime, HandInputGroup.VALUE_TYPE.DATE));
             subHolder1.add(new HandInputGroup.Holder("预计归来时间", true, false, inTime, HandInputGroup.VALUE_TYPE.DATE));
             subHolder1.add(new HandInputGroup.Holder("请假原因", false, false, content, HandInputGroup.VALUE_TYPE.TEXTFILED));
-            subHolder1.add(new HandInputGroup.Holder("是否取消请假", false, false, bCancel.equals("0") ? "否" : "是", HandInputGroup.VALUE_TYPE.SELECT));
+//            subHolder1.add(new HandInputGroup.Holder("是否取消请假", false, false, bCancel.equals("0") ? "否" : "是", HandInputGroup.VALUE_TYPE.SELECT));
             subHolder1.add(new HandInputGroup.Holder("是否后补请假", false, false, bFillup.equals("0") ? "否" : "是", HandInputGroup.VALUE_TYPE.SELECT));
             groups.add(0, new CommonFragment.Group("基本信息", null, true, null, subHolder1));
         }
@@ -177,8 +113,8 @@ public class RestApplyPeopleFragment extends CommonFragment {
                         String realValueoutTime = holders.get(1).getRealValue()+":00";
                         String realValueinTime = holders.get(2).getRealValue()+":00";
                         String realValuecontent = holders.get(3).getRealValue();
-                        String realValueCancel = holders.get(4).getRealValue();
-                        String realValueFillup = holders.get(5).getRealValue();
+//                        String realValueCancel = holders.get(4).getRealValue();
+                        String realValueFillup = holders.get(4).getRealValue();
 //                        ToastUtil.showToast(getContext(),realValueNO+" /"+realValueoutTime+" /"+realValueinTime+" /"+realValuecontent+" /"+realValueCancel+" /"+realValueFillup);
                         PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
                         PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
@@ -186,7 +122,7 @@ public class RestApplyPeopleFragment extends CommonFragment {
                         peopleLeaveRrdBean.setOutTime(realValueoutTime);
                         peopleLeaveRrdBean.setInTime(realValueinTime);
                         peopleLeaveRrdBean.setContent(realValuecontent);
-                        peopleLeaveRrdBean.setBCancel(realValueCancel.equals("否")?"0":"1");
+//                        peopleLeaveRrdBean.setBCancel(realValueCancel.equals("否")?"0":"1");
                         peopleLeaveRrdBean.setBFillup(realValueFillup.equals("否")?"0":"1");
                         peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
                         peopleLeaveRrdBean.setIsAndroid("1");

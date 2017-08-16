@@ -1,7 +1,9 @@
 package com.example.hgtxxgl.application.fragment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
@@ -54,7 +56,7 @@ public class RestDetailPeopleFragment extends CommonFragment {
             }else{
                 list.add(new HandInputGroup.Holder("审批结果", true, false, "审批拒绝", HandInputGroup.VALUE_TYPE.TEXT));
             }
-
+            setButtonsTitles(stringnull);
         }
         groups.add(new Group("流程摘要-摘要内容", null, false, null, list));
 
@@ -74,6 +76,69 @@ public class RestDetailPeopleFragment extends CommonFragment {
         toolbar.setDisplayHomeAsUpEnabled(true, getActivity());
         toolbar.setTitle("人员请假详情");
         toolbar.setTitleSize(18);
+    }
+    private String[] stringbutton = new String[]{"(是否取消请假)是","否"};
+    private String[] stringnull = new String[]{""};
+    @Override
+    public String[] getBottomButtonsTitles() {
+        return stringbutton;
+    }
+
+    @Override
+    public void onBottomButtonsClick(String title, List<Group> groups) {
+        PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
+        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
+        String noindex = getArguments().getString("noindex");
+        peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        peopleLeaveRrdBean.setIsAndroid("1");
+        peopleLeaveRrdBean.setNoIndex(noindex);
+        if (title.equals("(是否取消请假)是")){
+            peopleLeaveRrdBean.setBCancel("1");
+        }else {
+            peopleLeaveRrdBean.setBCancel("0");
+        }
+        List<PeopleLeaveEntity.PeopleLeaveRrdBean> beanList = new ArrayList<>();
+        beanList.add(peopleLeaveRrdBean);
+        peopleLeaveEntity.setPeopleLeaveRrd(beanList);
+        String json = new Gson().toJson(peopleLeaveEntity);
+        final String s1 = "modify " + json;
+        AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
+        builder.setMessage("是否确认?");
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                applyModify(CommonValues.BASE_URL,s1);
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.create().show();
+    }
+
+    private void applyModify(String baseUrl, String s1) {
+        HttpManager.getInstance().requestResultForm(baseUrl, s1, PeopleLeaveEntity.class, new HttpManager.ResultCallback<PeopleLeaveEntity>() {
+            @Override
+            public void onSuccess(String json, final PeopleLeaveEntity peopleLeaveEntity) throws InterruptedException {
+            }
+
+            @Override
+            public void onFailure(final String msg) {
+            }
+
+            @Override
+            public void onResponse(String response) {
+                if (response.toLowerCase().contains("ok")) {
+                    show("取消成功");
+                }else{
+                    show("取消失败");
+                }
+            }
+        });
     }
 
     @Override

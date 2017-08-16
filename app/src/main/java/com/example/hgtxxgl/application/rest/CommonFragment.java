@@ -110,8 +110,9 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
             Button reject = (Button) vsActionBar.findViewById(R.id.btn_reject);
             Button approve = (Button) vsActionBar.findViewById(R.id.btn_approve);
             Button toother = (Button) vsActionBar.findViewById(R.id.btn_toother);
+            Button toother1 = (Button) vsActionBar.findViewById(R.id.btn_toother1);
             Button again = (Button) vsActionBar.findViewById(R.id.btn_again);
-            Button[] buttons = new Button[]{start,save,reject,approve,toother,again};
+            Button[] buttons = new Button[]{start,save,reject,approve,toother,toother1,again};
             List<String> strings = Arrays.asList(buttonsTitles);
             for (final Button button : buttons) {
                 if (strings.contains(button.getText())){
@@ -136,6 +137,8 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
         approve.setEnabled(eable);
         Button toother = (Button) buttonll.findViewById(R.id.btn_toother);
         toother.setEnabled(eable);
+        Button toother1 = (Button) buttonll.findViewById(R.id.btn_toother1);
+        toother1.setEnabled(eable);
         Button start = (Button) buttonll.findViewById(R.id.btn_start);
         start.setEnabled(eable);
         Button save = (Button) buttonll.findViewById(R.id.btn_save);

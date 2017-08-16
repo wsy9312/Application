@@ -41,10 +41,21 @@
         android:padding="@dimen/activity_horizontal_margin"
         android:textColor="#3a699b"
         android:id="@+id/btn_toother"
-        android:drawableLeft="@drawable/ic_transfer"
-        android:drawableStart="@drawable/ic_transfer"
         android:background="@drawable/rec_normal_gray"
-        android:text="转办"
+        android:text="(是否取消请假)是"
+        />
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_weight="1"
+        android:enabled="false"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:textColor="#3a699b"
+        android:id="@+id/btn_toother1"
+        android:background="@drawable/rec_normal_gray"
+        android:text="否"
         />
     <Button
         android:layout_width="0dp"

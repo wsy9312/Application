@@ -83,7 +83,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
         holderList.add(new HandInputGroup.Holder("预计外出时间", true, false, entity.getOutTime(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("预计归来时间", true, false, entity.getInTime(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("请假原因", true, false, entity.getContent(), HandInputGroup.VALUE_TYPE.TEXT));
-        holderList.add(new HandInputGroup.Holder("是否取消请假", true, false, entity.getBCancel().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
+//        holderList.add(new HandInputGroup.Holder("是否取消请假", true, false, entity.getBCancel().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("是否后补请假", true, false, entity.getBFillup().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
         groups.add(new Group("详细信息-基本信息", null, false, null, holderList));
         return groups;
@@ -98,10 +98,9 @@ public class RestApprovePeopleFragment extends CommonFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        SN = getArguments().getString("SN");
         loadData();
         if (no.isEmpty()){
-            return;
+            setPb(true);
         }else{
             getNameFromNo(no);
         }
@@ -213,8 +212,9 @@ public class RestApprovePeopleFragment extends CommonFragment {
                     @Override
                     public void run() {
                         if (peopleLeaveEntity1 != null){
-                            setEntity(peopleLeaveEntity1.getPeopleLeaveRrd().get(0));
-
+                            if (peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getBCancel().equals("0")){
+                                setEntity(peopleLeaveEntity1.getPeopleLeaveRrd().get(0));
+                            }
                         }
                     }
                 });

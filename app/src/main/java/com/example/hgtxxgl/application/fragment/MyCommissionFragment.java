@@ -73,7 +73,6 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         tabIndex = getArguments().getInt(DetailFragment.ARG_TAB);
-//        loadData(tabIndex, index, 10);
         loadData(beginNum, endNum);
 
     }
@@ -140,12 +139,13 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
         return view;
     }
 
-    void loadData(final int beginNum, final int endNum) {
+    public void loadData(final int beginNum, final int endNum) {
         if (callback != null) {
             callback.onLoadData();
         }
         PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
         PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
+        peopleLeaveRrdBean.setBCancel("?");
         peopleLeaveRrdBean.setNo("?");
         peopleLeaveRrdBean.setCurrentApproveNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
         peopleLeaveRrdBean.setMultiLevelResult("?");
@@ -169,12 +169,18 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
             @Override
             public void onSuccess(final String json, final PeopleLeaveEntity peopleLeaveEntity1) throws InterruptedException {
                 if (peopleLeaveEntity1 != null && peopleLeaveEntity1.getPeopleLeaveRrd().size() > 0) {
+                    for (int i = 0; i < endNum; i++) {
+                        Log.e(TAG,"&*#"+peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getBCancel());
+                        if (peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getBCancel().equals("0")){
+                            hasMore = true;
+                            entityList.add(peopleLeaveEntity1.getPeopleLeaveRrd().get(i));
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
                     if (beginNum == 1 && endNum == 6){
                         entityList.clear();
                     }
-                    hasMore = true;
-                    entityList.addAll(peopleLeaveEntity1.getPeopleLeaveRrd());
-                    adapter.notifyDataSetChanged();
+
                 } else {
                     hasMore = false;
                 }
