@@ -23,17 +23,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RestApprovePeopleFragment extends CommonFragment {
-    private String SN;
     private final static String TAG = "RestApprovePeopleFragment";
     private String noindex;
     private String no;
-    private String name;
 
     public RestApprovePeopleFragment(){
 
     }
 
     private PeopleLeaveEntity.PeopleLeaveRrdBean entity = null;
+
+    public PeopleInfoEntity.PeopleInfoBean getBean() {
+        return bean;
+    }
+
+    public void setBean(PeopleInfoEntity.PeopleInfoBean bean) {
+        this.bean = bean;
+    }
+
+    private PeopleInfoEntity.PeopleInfoBean bean = null;
 
     public static RestApprovePeopleFragment newInstance(Bundle bundle) {
         RestApprovePeopleFragment fragment = new RestApprovePeopleFragment();
@@ -48,7 +56,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
 
     @Override
     public List<Group> getGroupList() {
-        if (entity == null) return new ArrayList<>();
+        if (entity == null || bean == null) return null;
         List<Group> groups = new ArrayList<>();
         String levelNumStr = entity.getLevelNum();
         String processStr = entity.getProcess();
@@ -71,7 +79,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
 
         List<HandInputGroup.Holder> holderList = new ArrayList<>();
         holderList.add(new HandInputGroup.Holder("流程内容",true,false, "人员请假",HandInputGroup.VALUE_TYPE.TEXT));
-        holderList.add(new HandInputGroup.Holder("申请人", true, false, getName(), HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("申请人", true, false, bean.getName(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("预计外出时间", true, false, entity.getOutTime(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("预计归来时间", true, false, entity.getInTime(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("请假原因", true, false, entity.getContent(), HandInputGroup.VALUE_TYPE.TEXT));
@@ -108,15 +116,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
         });
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    void getNameFromNo(String no){
+    private void getNameFromNo(String no){
         PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
         PeopleInfoEntity.PeopleInfoBean peopleInfoBean =
                 new PeopleInfoEntity.PeopleInfoBean();
@@ -133,8 +133,20 @@ public class RestApprovePeopleFragment extends CommonFragment {
             @Override
             public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
                 if (peopleInfoEntity != null){
-                    String name = peopleInfoEntity.getPeopleInfo().get(0).getName();
-                    setName(name);
+                    setBean(peopleInfoEntity.getPeopleInfo().get(0));
+                    if(getGroupList() == null){
+                        setGroup(getGroupList());
+                        setPb(true);
+                        setButtonllEnable(false);
+                        setDisplayTabs(false);
+                        notifyDataSetChanged();
+                    }else{
+                        setGroup(getGroupList());
+                        setPb(false);
+                        setButtonllEnable(true);
+                        setDisplayTabs(true);
+                        notifyDataSetChanged();
+                    }
                 }
             }
 
@@ -202,11 +214,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
                     public void run() {
                         if (peopleLeaveEntity1 != null){
                             setEntity(peopleLeaveEntity1.getPeopleLeaveRrd().get(0));
-                            setGroup(getGroupList());
-                            setPb(false);
-                            setButtonllEnable(true);
-                            setDisplayTabs(true);
-                            notifyDataSetChanged();
+
                         }
                     }
                 });
