@@ -56,11 +56,29 @@ public class PeopleInfoEntity {
         private String NoIndex;
         private String AuthenticationNo;
         private String IsAndroid;
+        private String BeginNum;
+        private String EndNum;
+
+        public String getBeginNum() {
+            return BeginNum;
+        }
+
+        public void setBeginNum(String beginNum) {
+            BeginNum = beginNum;
+        }
+
+        public String getEndNum() {
+            return EndNum;
+        }
+
+        public void setEndNum(String endNum) {
+            EndNum = endNum;
+        }
 
         public PeopleInfoBean() {
         }
 
-        public PeopleInfoBean(String no, String name, String cardNo, String position, String sex, String unit, String armyGroup, String phoneNo, String telNo, String groupName, String loginName, String password, String authority, String modifyTime, String registerTime, String noIndex, String authenticationNo, String isAndroid) {
+        public PeopleInfoBean(String no, String name, String cardNo, String position, String sex, String unit, String armyGroup, String phoneNo, String telNo, String groupName, String loginName, String password, String authority, String modifyTime, String registerTime, String noIndex, String authenticationNo, String isAndroid, String beginNum, String endNum) {
             No = no;
             Name = name;
             CardNo = cardNo;
@@ -79,6 +97,8 @@ public class PeopleInfoEntity {
             NoIndex = noIndex;
             AuthenticationNo = authenticationNo;
             IsAndroid = isAndroid;
+            BeginNum = beginNum;
+            EndNum = endNum;
         }
 
         public String getNo() {
