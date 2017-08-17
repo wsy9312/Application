@@ -34,9 +34,8 @@ import static com.example.hgtxxgl.application.R.id.iv_empty;
 
 public class MyCommissionFragment extends Fragment implements AdapterView.OnItemClickListener, SimpleListView.OnRefreshListener {
 
-    private int tabIndex;
     private int beginNum = 1;
-    private int endNum = 6;
+    private int endNum = 300;
     private boolean hasMore = true;
     private ImageView ivEmpty;
     private ProgressBar pb;
@@ -62,7 +61,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
     ListAdapter<PeopleLeaveEntity.PeopleLeaveRrdBean> adapter = new ListAdapter<PeopleLeaveEntity.PeopleLeaveRrdBean>((ArrayList<PeopleLeaveEntity.PeopleLeaveRrdBean>) entityList, R.layout.layout_my_todo_too) {
         @Override
         public void bindView(ViewHolder holder, PeopleLeaveEntity.PeopleLeaveRrdBean bean) {
-            holder.setText(R.id.tv_title, "序号"+bean.getNoIndex());
+            holder.setText(R.id.tv_title, "申请时间"+bean.getApprover1No());
             holder.setText(R.id.tv_date, "修改时间："+ DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
             holder.setText(R.id.tv_sketch, bean.getContent().isEmpty()?"请假原因：无":"请假原因："+bean.getContent());
         }
@@ -72,9 +71,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        tabIndex = getArguments().getInt(DetailFragment.ARG_TAB);
         loadData(beginNum, endNum);
-
     }
 
     private String getNameFormNo(String no) {
@@ -169,16 +166,15 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
             @Override
             public void onSuccess(final String json, final PeopleLeaveEntity peopleLeaveEntity1) throws InterruptedException {
                 if (peopleLeaveEntity1 != null && peopleLeaveEntity1.getPeopleLeaveRrd().size() > 0) {
-                    for (int i = 0; i < endNum; i++) {
-                        Log.e(TAG,"&*#"+peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getBCancel());
+                    if (beginNum == 1 && endNum == 300){
+                        entityList.clear();
+                    }
+                    for (int i = beginNum-1; i < endNum+1; i++) {
                         if (peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getBCancel().equals("0")){
-                            hasMore = true;
                             entityList.add(peopleLeaveEntity1.getPeopleLeaveRrd().get(i));
+                            hasMore = true;
                             adapter.notifyDataSetChanged();
                         }
-                    }
-                    if (beginNum == 1 && endNum == 6){
-                        entityList.clear();
                     }
 
                 } else {
@@ -206,22 +202,15 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
         });
     }
 
-
-
     private void loadMore() {
-        hasMore = true;
-        beginNum = 1;
-        endNum = 6;
-        loadData(beginNum, endNum);
-        lv.completeRefresh();
-
-//        if (hasMore) {
-//            beginNum += 6;
-//            endNum += 6;
+        if (hasMore) {
+            beginNum += 10;
+            endNum += 10;
 //            loadData(beginNum, endNum);
-//        } else {
-//            lv.completeRefresh();
-//        }
+            lv.completeRefresh();
+        } else {
+            lv.completeRefresh();
+        }
     }
 
 
@@ -237,7 +226,6 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
         intent.putExtra(PageConfig.PAGE_CODE, pageApplyBleave);
         Bundle bundle = new Bundle();
         bundle.putString("no", adapter.getItem(position).getNo());
-        Log.e(TAG,"NO号码："+adapter.getItem(position).getNo());
         bundle.putString("outtime",adapter.getItem(position).getOutTime());
         bundle.putString("intime", adapter.getItem(position).getInTime());
         bundle.putString("content", adapter.getItem(position).getContent());
@@ -275,26 +263,6 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
         }
     }
 
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == CommonValues.MYCOMM){
-//            if (resultCode == Activity.RESULT_OK){
-//                final int item = data.getExtras().getInt("item");
-//                final int tabIndex = data.getExtras().getInt("tabIndex");
-//                getActivity().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if (tabIndex == 0){
-//                            entityList.remove(item);
-//                            adapter.notifyDataSetChanged();
-//                        }
-//                    }
-//                });
-//
-//            }
-//        }
-//    }
 
     private DetailFragment.DataCallback callback;
 
@@ -303,39 +271,6 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
         return this;
     }
 
-//    public void filter(String key) {
-//        if (entityList != null && !key.equals("")) {
-//            if (baseEntityList == null) {
-//                baseEntityList = new ArrayList<>();
-//                baseEntityList.addAll(entityList);
-//            }
-//            List<MyCommissionListEntity.RetDataBean> list = new ArrayList<>();
-//            for (MyCommissionListEntity.RetDataBean bean : baseEntityList) {
-//                if (bean.getProcessNameCN().replace(" ", "").contains(key)) {
-//                    list.add(bean);
-//                }
-//                if (bean.getSummary().replace(" ", "").contains(key)) {
-//                    list.add(bean);
-//                }
-//                if (DataUtil.parseDateByFormat(bean.getUpdateTime(), "yyyy-MM-dd HH:mm").replace(" ", "").contains(key)) {
-//                    list.add(bean);
-//                }
-//                if (bean.getApplicantName().replace(" ", "").contains(key)) {
-//                    list.add(bean);
-//                }
-//            }
-//            entityList.clear();
-//            entityList.addAll(list);
-//            adapter.notifyDataSetChanged();
-//        } else if (entityList != null) {
-//            if (baseEntityList != null) {
-//                entityList.clear();
-//                entityList.addAll(baseEntityList);
-//                adapter.notifyDataSetChanged();
-//            }
-//
-//        }
-//    }
 
     public void filter(String key) {
         if (lv == null || key == null) return;
@@ -373,14 +308,15 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
     public void onPullRefresh() {
         hasMore = true;
         beginNum = 1;
-        endNum = 6;
+        endNum = 300;
         loadData(beginNum, endNum);
         lv.completeRefresh();
     }
 
     @Override
     public void onLoadingMore() {
-        loadMore();
+        lv.completeRefresh();
+//        loadMore();
     }
 
     @Override
