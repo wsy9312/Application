@@ -1,34 +1,32 @@
 package com.example.hgtxxgl.application.utils;
 
-import java.util.Calendar;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * Created by HGTXxgl on 2017/8/14.
- */
-
 public class DateUtil {
-
+    //获取当前系统时间
     public static String getCurrentDate(){
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH)+1;
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        int minute = calendar.get(Calendar.MINUTE);
-        int second = calendar.get(Calendar.SECOND);
-        return year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second;
+        long time=System.currentTimeMillis();
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date d1=new Date(time);
+        String t1=format.format(d1);
+        return t1;
     }
+    //获取当前前两分钟系统时间
     public static String getCurrentDateBefore(){
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH)+1;
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        calendar.add(Calendar.MINUTE,-2);
-        int minute = calendar.get(Calendar.MINUTE);
-        int second = calendar.get(Calendar.SECOND);
-        return year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second;
+        long time=System.currentTimeMillis()-120000;
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date d1=new Date(time);
+        String t1=format.format(d1);
+        return t1;
+    }
+
+    //获取当前前两分钟系统时间
+    public static String getCurrentDateLater(){
+        long time=System.currentTimeMillis()+120000;
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date d1=new Date(time);
+        String t1=format.format(d1);
+        return t1;
     }
 }

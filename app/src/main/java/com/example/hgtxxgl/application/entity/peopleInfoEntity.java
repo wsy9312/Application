@@ -19,6 +19,13 @@ public class PeopleInfoEntity {
         this.PeopleInfo = PeopleInfo;
     }
 
+    @Override
+    public String toString() {
+        return "PeopleInfoEntity{" +
+                "PeopleInfo=" + PeopleInfo +
+                '}';
+    }
+
     public static class PeopleInfoBean {
         /**
          * No : 个人唯一编号
@@ -76,6 +83,32 @@ public class PeopleInfoEntity {
         }
 
         public PeopleInfoBean() {
+        }
+
+        @Override
+        public String toString() {
+            return "PeopleInfoBean{" +
+                    "No='" + No + '\'' +
+                    ", Name='" + Name + '\'' +
+                    ", CardNo='" + CardNo + '\'' +
+                    ", Position='" + Position + '\'' +
+                    ", Sex='" + Sex + '\'' +
+                    ", Unit='" + Unit + '\'' +
+                    ", ArmyGroup='" + ArmyGroup + '\'' +
+                    ", PhoneNo='" + PhoneNo + '\'' +
+                    ", TelNo='" + TelNo + '\'' +
+                    ", GroupName='" + GroupName + '\'' +
+                    ", LoginName='" + LoginName + '\'' +
+                    ", Password='" + Password + '\'' +
+                    ", Authority='" + Authority + '\'' +
+                    ", ModifyTime='" + ModifyTime + '\'' +
+                    ", RegisterTime='" + RegisterTime + '\'' +
+                    ", NoIndex='" + NoIndex + '\'' +
+                    ", AuthenticationNo='" + AuthenticationNo + '\'' +
+                    ", IsAndroid='" + IsAndroid + '\'' +
+                    ", BeginNum='" + BeginNum + '\'' +
+                    ", EndNum='" + EndNum + '\'' +
+                    '}';
         }
 
         public PeopleInfoBean(String no, String name, String cardNo, String position, String sex, String unit, String armyGroup, String phoneNo, String telNo, String groupName, String loginName, String password, String authority, String modifyTime, String registerTime, String noIndex, String authenticationNo, String isAndroid, String beginNum, String endNum) {

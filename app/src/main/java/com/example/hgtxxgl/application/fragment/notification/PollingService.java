@@ -5,6 +5,9 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.graphics.Color;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -50,18 +53,24 @@ public class PollingService extends Service {
 		builder = new NotificationCompat.Builder(this)
 				.setSmallIcon(R.mipmap.app_logo)
 				//设置通知标题
-				.setContentTitle("您收到一条最新消息")
+				.setContentTitle("您收到一条通知")
 				//设置通知内容
-				.setContentText("请点击查看消息详情")
-				.setDefaults(Notification.DEFAULT_VIBRATE)
-				.setAutoCancel(true);
+				.setContentText("请点击查看详情");
 	}
 
 	private void showNotification() {
 		Intent i = new Intent(this, LoginActivity.class);
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, i, 0);
 		builder.setWhen(System.currentTimeMillis()).setContentIntent(pendingIntent);
-		mManager.notify(1, builder.build());
+		Notification notification = builder.build();
+		notification.ledARGB = Color.GREEN;
+		notification.ledOnMS = 1000;
+		notification.ledOffMS = 1000;
+		notification.flags = Notification.FLAG_SHOW_LIGHTS;
+		Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+		notification.sound = uri;
+		notification.flags |= Notification.FLAG_AUTO_CANCEL;
+		mManager.notify(1, notification);
 	}
 
 	class PollingThread extends Thread {

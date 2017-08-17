@@ -70,6 +70,20 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        loadData(beginNum,endNum);
+        adapter.notifyDataSetChanged();
+    }
+
+//    @Override
+//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//        loadData(beginNum,endNum);
+//        adapter.notifyDataSetChanged();
+//    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.main_listview_libmain, null, false);
         lv = (SimpleListView) view.findViewById(R.id.viewpager_listview);
@@ -100,7 +114,7 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
         MessageEntity messageEntity = new MessageEntity();
         MessageEntity.MessageRrdBean messageRrdBean = new MessageEntity.MessageRrdBean();
         messageRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-        messageRrdBean.setTime("2017-08-14 11:13:35&&"+ DateUtil.getCurrentDate());
+        messageRrdBean.setTime("2017-01-01 00:00:00&&"+ DateUtil.getCurrentDate());
         messageRrdBean.setContent("?");
         messageRrdBean.setModifyTime("?");
         messageRrdBean.setObjects(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
@@ -145,6 +159,7 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
             @Override
             public void onResponse(String response) {
                 ivEmpty.setVisibility(View.VISIBLE);
+                adapter.notifyDataSetChanged();
             }
         });
 

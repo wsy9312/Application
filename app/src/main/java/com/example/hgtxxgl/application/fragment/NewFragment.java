@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NewFragment extends Fragment implements SimpleListView.OnRefreshListener, AdapterView.OnItemClickListener {
-//    private int tabIndex;
     private int beginNum = 1;
     private int endNum = 6;
     private boolean hasMore = true;
@@ -48,12 +47,12 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
     private List<NewsInfoEntity.NewsRrdBean> entityList = new ArrayList<>();
     private List<NewsInfoEntity.NewsRrdBean> baseEntityList;
 
-    ListAdapter<NewsInfoEntity.NewsRrdBean> adapter = new ListAdapter<NewsInfoEntity.NewsRrdBean>((ArrayList<NewsInfoEntity.NewsRrdBean>) entityList, R.layout.layout_my_todo_too) {
+    ListAdapter<NewsInfoEntity.NewsRrdBean> adapter = new ListAdapter<NewsInfoEntity.NewsRrdBean>((ArrayList<NewsInfoEntity.NewsRrdBean>) entityList, R.layout.layout_news) {
         @Override
         public void bindView(ViewHolder holder, NewsInfoEntity.NewsRrdBean bean) {
             holder.setText(R.id.tv_title, bean.getTitle());
-            holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
             holder.setText(R.id.tv_sketch, bean.getContent());
+            holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
         }
     };
 
@@ -115,8 +114,6 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
                             }
                             hasMore = true;
                             entityList.addAll(newsInfoEntity.getNewsRrd());
-                            String s1 = str2HexStr(newsInfoEntity.getNewsRrd().get(0).getTitle());
-//                            Log.e("字符串转16进制",s1);
                             adapter.notifyDataSetChanged();
                         } else {
                             hasMore = false;
@@ -143,44 +140,6 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
         });
     }
 
-    public static String str2HexStr(String str)
-    {
-
-        char[] chars = "0123456789ABCDEF".toCharArray();
-        StringBuilder sb = new StringBuilder("");
-        byte[] bs = str.getBytes();
-        int bit;
-
-        for (int i = 0; i < bs.length; i++)
-        {
-            bit = (bs[i] & 0x0f0) >> 4;
-            sb.append(chars[bit]);
-            bit = bs[i] & 0x0f;
-            sb.append(chars[bit]);
-            sb.append(' ');
-        }
-        return sb.toString().trim();
-    }
-    /**
-     * 十六进制转换字符串
-     * @return String 对应的字符串
-     */
-    public static String hexStr2Str(String hexStr)
-    {
-        String str = "0123456789ABCDEF";
-        char[] hexs = hexStr.toCharArray();
-        byte[] bytes = new byte[hexStr.length() / 2];
-        int n;
-
-        for (int i = 0; i < bytes.length; i++)
-        {
-            n = str.indexOf(hexs[2 * i]) * 16;
-            n += str.indexOf(hexs[2 * i + 1]);
-            bytes[i] = (byte) (n & 0xff);
-        }
-        return new String(bytes);
-    }
-
     private void loadMore() {
         if (hasMore) {
             beginNum += 6;
@@ -191,6 +150,14 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
         }
     }
 
+    @Override
+    public void onPullRefresh() {
+        hasMore = true;
+        beginNum = 1;
+        endNum = 6;
+        loadData(beginNum, endNum);
+        lv.completeRefresh();
+    }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -251,14 +218,6 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
         }
     }
 
-    @Override
-    public void onPullRefresh() {
-        hasMore = true;
-        beginNum = 1;
-        endNum = 6;
-        loadData(beginNum, endNum);
-        lv.completeRefresh();
-    }
 
     @Override
     public void onLoadingMore() {

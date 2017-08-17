@@ -165,6 +165,14 @@ public class MyLaunchFragment extends Fragment implements SimpleListView.OnRefre
         }
     }
 
+    @Override
+    public void onPullRefresh() {
+        hasMore = true;
+        beginNum = 1;
+        endNum = 6;
+        loadData(beginNum, endNum);
+        lv.completeRefresh();
+    }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -253,18 +261,6 @@ public class MyLaunchFragment extends Fragment implements SimpleListView.OnRefre
         }
 
     }
-
-    @Override
-    public void onPullRefresh() {
-//        pb.setVisibility(View.VISIBLE);
-        hasMore = true;
-        beginNum = 1;
-        endNum = 6;
-        loadData(beginNum, endNum);
-        lv.completeRefresh();
-    }
-
-
 
     @Override
     public void onLoadingMore() {

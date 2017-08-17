@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@drawable/bg_blue_ring_stroke"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="80dp">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textSize="15sp"
+        android:textColor="#333333"
+        tools:text="这是新闻标题" />
+    <TextView
+        android:padding="1dp"
+        android:layout_below="@+id/tv_title"
+        android:text="这是新闻概括这是新闻概括这新闻概括这新闻概括这新闻概括这新闻概括这新闻概括这新闻概括这新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括"
+        android:id="@+id/tv_sketch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="11sp"
+        android:maxLines="3"
+        android:ellipsize="end"
+        android:textColor="#0967AE"/>
+    <TextView
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:id="@+id/tv_date"
+        android:text="这是日期"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="0dp"
+        android:ellipsize="end"
+        android:lineSpacingExtra="5sp"
+        android:textSize="11sp"
+        android:textColor="#999999"/>
+</RelativeLayout>
