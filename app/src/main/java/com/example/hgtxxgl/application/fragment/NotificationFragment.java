@@ -29,13 +29,17 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
+
+import static com.example.hgtxxgl.application.utils.DateUtil.getCurrentDateLater;
 
 //通知中心
 public class NotificationFragment extends Fragment implements AdapterView.OnItemClickListener, SimpleListView.OnRefreshListener {
 
-    private int beginNum = 1;
-    private int endNum = 6;
+    private int beginNum = -1;
+    private int endNum = 0;
     private boolean hasMore = true;
     private ImageView ivEmpty;
     private ProgressBar pb;
@@ -57,7 +61,7 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
     ListAdapter<MessageEntity.MessageRrdBean> adapter = new ListAdapter<MessageEntity.MessageRrdBean>((ArrayList<MessageEntity.MessageRrdBean>) entityList, R.layout.layout_notification) {
         @Override
         public void bindView(ViewHolder holder, MessageEntity.MessageRrdBean bean) {
-            holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
+            holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getTime(), "yyyy-MM-dd HH:mm:ss"));
             holder.setText(R.id.tv_sketch, bean.getContent());
         }
     };
@@ -114,7 +118,8 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
         MessageEntity messageEntity = new MessageEntity();
         MessageEntity.MessageRrdBean messageRrdBean = new MessageEntity.MessageRrdBean();
         messageRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-        messageRrdBean.setTime("2017-01-01 00:00:00&&"+ DateUtil.getCurrentDate());
+        messageRrdBean.setTime(getCurrentDateLater(beginNum)+"&&"+ getCurrentDateLater(endNum));
+        Log.e(TAG,"通知刷新时间:"+ getCurrentDateLater(beginNum)+"&&"+ getCurrentDateLater(endNum));
         messageRrdBean.setContent("?");
         messageRrdBean.setModifyTime("?");
         messageRrdBean.setObjects(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
@@ -131,11 +136,23 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
             @Override
             public void onSuccess(String json, MessageEntity messageEntity) throws InterruptedException {
                 if (messageEntity != null && messageEntity.getMessageRrd().size() > 0){
-                    if (beginNum == 1 && endNum == 6){
+                    if (beginNum == -1 && endNum == 0){
                         entityList.clear();
                     }
                     hasMore = true;
-                    Collections.reverse(messageEntity.getMessageRrd());
+//                    Collections.reverse(messageEntity.getMessageRrd());
+                    Collections.sort(messageEntity.getMessageRrd(), new Comparator<MessageEntity.MessageRrdBean>() {
+                        @Override
+                        public int compare(MessageEntity.MessageRrdBean lhs, MessageEntity.MessageRrdBean rhs) {
+                            Date date1 = DateUtil.stringToDate(lhs.getTime());
+                            Date date2 = DateUtil.stringToDate(rhs.getTime());
+                            // 对日期字段进行升序，如果欲降序可采用after方法
+                            if (date1.before(date2)) {
+                                return 1;
+                            }
+                            return -1;
+                        }
+                    });
                     entityList.addAll(messageEntity.getMessageRrd());
                     adapter.notifyDataSetChanged();
                 } else {
@@ -160,73 +177,25 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
             public void onResponse(String response) {
                 ivEmpty.setVisibility(View.VISIBLE);
                 adapter.notifyDataSetChanged();
+                lv.completeRefresh();
             }
         });
-
-//        NewsInfoEntity newsInfoEntity = new NewsInfoEntity();
-//        NewsInfoEntity.NewsRrdBean newsRrdBean = new NewsInfoEntity.NewsRrdBean();
-//        newsRrdBean.setTitle("?");
-//        newsRrdBean.setContent("?");
-//        newsRrdBean.setModifyTime("?");
-//        newsRrdBean.setBeginNum(beginNum+"");
-//        newsRrdBean.setEndNum(endNum+"");
-//        newsRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-//        List<NewsInfoEntity.NewsRrdBean> list = new ArrayList<>();
-//        list.add(newsRrdBean);
-//        newsInfoEntity.setNewsRrd(list);
-//        String json = new Gson().toJson(newsInfoEntity);
-//        final String s = "get " + json;
-//        String url = CommonValues.BASE_URL;
-//        HttpManager.getInstance().requestResultForm(url, s, NewsInfoEntity.class,new HttpManager.ResultCallback<NewsInfoEntity>() {
-//            @Override
-//            public void onSuccess(final String json, final NewsInfoEntity newsInfoEntity) throws InterruptedException {
-//                if (newsInfoEntity != null && newsInfoEntity.getNewsRrd().size() > 0) {
-//                    if (beginNum == 1 && endNum == 6){
-//                        entityList.clear();
-//                    }
-//                    hasMore = true;
-//                    entityList.addAll(newsInfoEntity.getNewsRrd());
-//                    adapter.notifyDataSetChanged();
-//                } else {
-//                    hasMore = false;
-//                }
-//                pb.setVisibility(View.GONE);
-//                lv.completeRefresh();
-//            }
-//
-//            @Override
-//            public void onFailure(String msg) {
-//                getActivity().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        lv.completeRefresh();
-//                        pb.setVisibility(View.GONE);
-//                    }
-//                });
-//            }
-//
-//            @Override
-//            public void onResponse(String response) {
-//                ivEmpty.setVisibility(View.VISIBLE);
-//            }
-//        });
-
     }
 
     private void loadMore() {
-        hasMore = true;
-        beginNum = 1;
-        endNum = 6;
-        loadData(beginNum, endNum);
-        lv.completeRefresh();
+//        hasMore = true;
+//        beginNum = 1;
+//        endNum = 6;
+//        loadData(beginNum, endNum);
+//        lv.completeRefresh();
 
-//        if (hasMore) {
-//            beginNum += 6;
-//            endNum += 6;
-//            loadData(beginNum, endNum);
-//        } else {
-//            lv.completeRefresh();
-//        }
+        if (hasMore) {
+            endNum -= 1;
+            beginNum -= 1;
+            loadData(beginNum, endNum);
+        } else {
+            lv.completeRefresh();
+        }
     }
 
 
@@ -263,7 +232,7 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
                 if (bean.getContent().replace(" ", "").contains(key)) {
                     list.add(bean);
                 }
-                if (DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss").replace(" ", "").contains(key)) {
+                if (DataUtil.parseDateByFormat(bean.getTime(), "yyyy-MM-dd HH:mm:ss").replace(" ", "").contains(key)) {
                     list.add(bean);
                 }
             }
@@ -282,8 +251,8 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
     @Override
     public void onPullRefresh() {
         hasMore = true;
-        beginNum = 1;
-        endNum = 6;
+        beginNum = -1;
+        endNum = 0;
         loadData(beginNum, endNum);
         lv.completeRefresh();
     }

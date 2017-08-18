@@ -61,7 +61,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
     ListAdapter<PeopleLeaveEntity.PeopleLeaveRrdBean> adapter = new ListAdapter<PeopleLeaveEntity.PeopleLeaveRrdBean>((ArrayList<PeopleLeaveEntity.PeopleLeaveRrdBean>) entityList, R.layout.layout_my_todo_too) {
         @Override
         public void bindView(ViewHolder holder, PeopleLeaveEntity.PeopleLeaveRrdBean bean) {
-            holder.setText(R.id.tv_title, "申请时间"+bean.getApprover1No());
+            holder.setText(R.id.tv_title, "申请人"+bean.getNo());
             holder.setText(R.id.tv_date, "修改时间："+ DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
             holder.setText(R.id.tv_sketch, bean.getContent().isEmpty()?"请假原因：无":"请假原因："+bean.getContent());
         }
@@ -92,6 +92,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
             public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
                 if (peopleInfoEntity != null){
                     name1 = peopleInfoEntity.getPeopleInfo().get(0).getName();
+                    adapter.notifyDataSetChanged();
                     hasMore = true;
                     Log.e(TAG,"2名字："+name1);
                 }

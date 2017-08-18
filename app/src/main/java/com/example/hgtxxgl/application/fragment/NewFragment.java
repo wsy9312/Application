@@ -136,6 +136,7 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
                     @Override
                     public void onResponse(String response) {
                         ivEmpty.setVisibility(View.VISIBLE);
+                        lv.completeRefresh();
                     }
         });
     }
