@@ -21,6 +21,7 @@ import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.Fields;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
+import com.example.hgtxxgl.application.utils.hand.NetworkHttpManager;
 import com.example.hgtxxgl.application.utils.hand.SpUtils;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
@@ -124,19 +125,29 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SpUtils.saveisBoolean(getApplicationContext(), Fields.SAVE_PASSWORD,savepassword.isChecked());
-                login(etUsername.getText().toString(), etPassword.getText().toString());
-                SpUtils.saveString(getApplicationContext(), Fields.USERID,etUsername.getText().toString());
-                if (savepassword.isChecked()){
-                    SpUtils.saveString(getApplicationContext(),Fields.PASSWORD,etPassword.getText().toString());
+                int apnType = NetworkHttpManager.getAPNType(getApplicationContext());
+                if (apnType != 1){
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ToastUtil.showToast(getApplicationContext(),"当前无可用网络");
+                        }
+                    });
                 }else {
-                    SpUtils.saveString(getApplicationContext(),Fields.PASSWORD,"");
+                    SpUtils.saveisBoolean(getApplicationContext(), Fields.SAVE_PASSWORD,savepassword.isChecked());
+                    login(etUsername.getText().toString(), etPassword.getText().toString());
+                    SpUtils.saveString(getApplicationContext(), Fields.USERID,etUsername.getText().toString());
+                    if (savepassword.isChecked()){
+                        SpUtils.saveString(getApplicationContext(),Fields.PASSWORD,etPassword.getText().toString());
+                    }else {
+                        SpUtils.saveString(getApplicationContext(),Fields.PASSWORD,"");
+                    }
+                    pb.setVisibility(View.INVISIBLE);
+                    savepassword.setEnabled(true);
+                    btnLogin.setEnabled(true);
+                    etUsername.setEnabled(true);
+                    etPassword.setEnabled(true);
                 }
-                pb.setVisibility(View.INVISIBLE);
-                savepassword.setEnabled(true);
-                btnLogin.setEnabled(true);
-                etUsername.setEnabled(true);
-                etPassword.setEnabled(true);
             }
         });
 
