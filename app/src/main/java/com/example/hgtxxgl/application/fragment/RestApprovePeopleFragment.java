@@ -234,7 +234,6 @@ public class RestApprovePeopleFragment extends CommonFragment {
 
     @Override
     public void onBottomButtonsClick(String title, List<Group> groups) {
-        setButtonllEnable(false);
         PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
         PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
         peopleLeaveRrdBean.setCurrentApproveNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());

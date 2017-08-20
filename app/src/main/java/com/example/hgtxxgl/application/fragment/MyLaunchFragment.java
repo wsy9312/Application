@@ -57,7 +57,7 @@ public class MyLaunchFragment extends Fragment implements SimpleListView.OnRefre
     ListAdapter<PeopleLeaveEntity.PeopleLeaveRrdBean> adapter = new ListAdapter<PeopleLeaveEntity.PeopleLeaveRrdBean>((ArrayList<PeopleLeaveEntity.PeopleLeaveRrdBean>) entityList, R.layout.layout_my_todo_too) {
         @Override
         public void bindView(ViewHolder holder, PeopleLeaveEntity.PeopleLeaveRrdBean bean) {
-            holder.setText(R.id.tv_title, "申请人:"+ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName());
+            holder.setText(R.id.tv_title, "审批进度:"+(bean.getProcess().equals("1")?"已结束":"未结束"));
             holder.setText(R.id.tv_date, "修改时间:"+DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
             holder.setText(R.id.tv_sketch, bean.getContent().isEmpty()?"请假原因:无":"请假原因:"+bean.getContent());
         }
@@ -240,7 +240,7 @@ public class MyLaunchFragment extends Fragment implements SimpleListView.OnRefre
             }
             List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
             for (PeopleLeaveEntity.PeopleLeaveRrdBean bean : baseEntityList) {
-                if (("申请人:"+ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName()).replace(" ", "").contains(key)){
+                if (("审批进度:"+(bean.getProcess().equals("1")?"已结束":"未结束")).replace(" ", "").contains(key)){
                     list.add(bean);
                 }
                 if ((bean.getContent().isEmpty()?"请假原因:无":"请假原因:"+bean.getContent()).replace(" ", "").contains(key)) {
