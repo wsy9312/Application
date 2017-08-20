@@ -45,15 +45,6 @@ public class PeopleLeaveEntity {
          */
 
         private String No;
-
-        public String getName() {
-            return Name;
-        }
-
-        public void setName(String name) {
-            Name = name;
-        }
-
         private String Name;
         private String Result;
         private String CurrentApproveNo;
@@ -82,8 +73,9 @@ public class PeopleLeaveEntity {
 
         public PeopleLeaveRrdBean() {}
 
-        public PeopleLeaveRrdBean(String no, String result, String currentApproveNo, String approver1No, String approver2No, String approver3No, String approver4No, String approver5No, String registerTime, String outTime, String inTime, String content, String actualOutTime, String actualInTime, String modifyTime, String multiLevelResult, String process, String levelNum, String bCancel, String bFillup, String noIndex, String beginNum, String endNum, String authenticationNo, String isAndroid) {
+        public PeopleLeaveRrdBean(String no, String name, String result, String currentApproveNo, String approver1No, String approver2No, String approver3No, String approver4No, String approver5No, String registerTime, String outTime, String inTime, String content, String actualOutTime, String actualInTime, String modifyTime, String multiLevelResult, String process, String levelNum, String bCancel, String bFillup, String noIndex, String beginNum, String endNum, String authenticationNo, String isAndroid) {
             No = no;
+            Name = name;
             Result = result;
             CurrentApproveNo = currentApproveNo;
             Approver1No = approver1No;
@@ -110,37 +102,6 @@ public class PeopleLeaveEntity {
             IsAndroid = isAndroid;
         }
 
-        @Override
-        public String toString() {
-            return "PeopleLeaveRrdBean{" +
-                    "No='" + No + '\'' +
-                    ", Result='" + Result + '\'' +
-                    ", CurrentApproveNo='" + CurrentApproveNo + '\'' +
-                    ", Approver1No='" + Approver1No + '\'' +
-                    ", Approver2No='" + Approver2No + '\'' +
-                    ", Approver3No='" + Approver3No + '\'' +
-                    ", Approver4No='" + Approver4No + '\'' +
-                    ", Approver5No='" + Approver5No + '\'' +
-                    ", RegisterTime='" + RegisterTime + '\'' +
-                    ", OutTime='" + OutTime + '\'' +
-                    ", InTime='" + InTime + '\'' +
-                    ", Content='" + Content + '\'' +
-                    ", ActualOutTime='" + ActualOutTime + '\'' +
-                    ", ActualInTime='" + ActualInTime + '\'' +
-                    ", ModifyTime='" + ModifyTime + '\'' +
-                    ", MultiLevelResult='" + MultiLevelResult + '\'' +
-                    ", Process='" + Process + '\'' +
-                    ", LevelNum='" + LevelNum + '\'' +
-                    ", bCancel='" + bCancel + '\'' +
-                    ", bFillup='" + bFillup + '\'' +
-                    ", NoIndex='" + NoIndex + '\'' +
-                    ", BeginNum='" + BeginNum + '\'' +
-                    ", EndNum='" + EndNum + '\'' +
-                    ", AuthenticationNo='" + AuthenticationNo + '\'' +
-                    ", IsAndroid='" + IsAndroid + '\'' +
-                    '}';
-        }
-
         public String getIsAndroid() {
             return IsAndroid;
         }
@@ -163,6 +124,14 @@ public class PeopleLeaveEntity {
 
         public void setNo(String No) {
             this.No = No;
+        }
+
+        public String getName() {
+            return Name;
+        }
+
+        public void setName(String name) {
+            Name = name;
         }
 
         public String getCurrentApproveNo() {
