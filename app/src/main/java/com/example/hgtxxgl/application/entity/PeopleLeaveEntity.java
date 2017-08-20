@@ -45,6 +45,16 @@ public class PeopleLeaveEntity {
          */
 
         private String No;
+
+        public String getName() {
+            return Name;
+        }
+
+        public void setName(String name) {
+            Name = name;
+        }
+
+        private String Name;
         private String Result;
         private String CurrentApproveNo;
         private String Approver1No;

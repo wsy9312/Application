@@ -18,6 +18,7 @@ import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.ItemActivity;
 import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
 import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
+import com.example.hgtxxgl.application.utils.DateUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.DataUtil;
@@ -28,6 +29,9 @@ import com.example.hgtxxgl.application.view.SimpleListView;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import static com.example.hgtxxgl.application.R.id.iv_empty;
@@ -61,7 +65,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
     ListAdapter<PeopleLeaveEntity.PeopleLeaveRrdBean> adapter = new ListAdapter<PeopleLeaveEntity.PeopleLeaveRrdBean>((ArrayList<PeopleLeaveEntity.PeopleLeaveRrdBean>) entityList, R.layout.layout_my_todo_too) {
         @Override
         public void bindView(ViewHolder holder, PeopleLeaveEntity.PeopleLeaveRrdBean bean) {
-            holder.setText(R.id.tv_title, "申请人"+bean.getNo());
+            holder.setText(R.id.tv_title, "申请人"+bean.getName());
             holder.setText(R.id.tv_date, "修改时间："+ DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
             holder.setText(R.id.tv_sketch, bean.getContent().isEmpty()?"请假原因：无":"请假原因："+bean.getContent());
         }
@@ -172,12 +176,55 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
                     }
                     for (int i = beginNum-1; i < endNum+1; i++) {
                         if (peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getBCancel().equals("0")){
-                            entityList.add(peopleLeaveEntity1.getPeopleLeaveRrd().get(i));
-                            hasMore = true;
-                            adapter.notifyDataSetChanged();
+                            PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
+                            PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
+                            peopleInfoBean.setNo(peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getNo());
+                            peopleInfoBean.setName("?");
+                            peopleInfoBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+                            peopleInfoBean.setIsAndroid("1");
+                            List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
+                            beanList.add(peopleInfoBean);
+                            peopleEntity.setPeopleInfo(beanList);
+                            String json1 = new Gson().toJson(peopleEntity);
+                            String s1 = "get " + json1;
+                            Log.e(TAG,"1名字："+s1);
+                            final int finalI = i;
+                            HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
+                                @Override
+                                public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
+                                    if (peopleInfoEntity != null){
+                                        peopleLeaveEntity1.getPeopleLeaveRrd().get(finalI).setName(peopleInfoEntity.getPeopleInfo().get(0).getName());
+                                        entityList.add(peopleLeaveEntity1.getPeopleLeaveRrd().get(finalI));
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(String msg) {
+
+                                }
+
+                                @Override
+                                public void onResponse(String response) {
+
+                                }
+                            });
                         }
                     }
 
+                    Collections.sort(entityList, new Comparator<PeopleLeaveEntity.PeopleLeaveRrdBean>() {
+                        @Override
+                        public int compare(PeopleLeaveEntity.PeopleLeaveRrdBean lhs, PeopleLeaveEntity.PeopleLeaveRrdBean rhs) {
+                            Date date1 = DateUtil.stringToDate(lhs.getModifyTime());
+                            Date date2 = DateUtil.stringToDate(rhs.getModifyTime());
+                            // 对日期字段进行升序，如果欲降序可采用after方法
+                            if (date1.before(date2)) {
+                                return 1;
+                            }
+                            return -1;
+                        }
+                    });
+                    adapter.notifyDataSetChanged();
+                    hasMore = true;
                 } else {
                     hasMore = false;
                 }
