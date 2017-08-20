@@ -25,7 +25,6 @@ public class RestApplyPeopleFragment extends CommonFragment {
 
     private PeopleLeaveEntity entity;
     private String name;
-    private String no;
     private final static String TAG = "RestApplyCarFragment";
 
     public RestApplyPeopleFragment() {
@@ -51,7 +50,6 @@ public class RestApplyPeopleFragment extends CommonFragment {
     public List<CommonFragment.Group> getGroupList() {
         if (!ApplicationApp.getPeopleInfoEntity().getPeopleInfo().isEmpty()){
             name = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName();
-            no = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo();
         }
         List<CommonFragment.Group> groups = new ArrayList<>();
         if (entity == null) {
@@ -95,7 +93,6 @@ public class RestApplyPeopleFragment extends CommonFragment {
     @SuppressWarnings("unchecked")
     @Override
     public void onBottomButtonsClick(final String title, final List<CommonFragment.Group> groups) {
-        setButtonllEnable(false);
         if (title.equals("提交")){
             AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
             builder.setMessage("是否确认提交?");
@@ -115,7 +112,6 @@ public class RestApplyPeopleFragment extends CommonFragment {
                         String realValuecontent = holders.get(3).getRealValue();
 //                        String realValueCancel = holders.get(4).getRealValue();
                         String realValueFillup = holders.get(4).getRealValue();
-//                        ToastUtil.showToast(getContext(),realValueNO+" /"+realValueoutTime+" /"+realValueinTime+" /"+realValuecontent+" /"+realValueCancel+" /"+realValueFillup);
                         PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
                         PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
                         peopleLeaveRrdBean.setNo(realValueNO);
