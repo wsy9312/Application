@@ -984,7 +984,6 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
                     return false;
                 }
                 map.put("fileBase64", fileBase64);
-                CommonDataEntity entity = HttpManager.getInstance().requestResultFormSync(CommonValues.REQ_ADD_ATTACHMENT, map, CommonDataEntity.class);
                 return true;
             }
 

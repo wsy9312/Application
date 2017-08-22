@@ -122,6 +122,7 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
                             hasMore = false;
                         }
                         pb.setVisibility(View.GONE);
+                        ivEmpty.setVisibility(View.GONE);
                         lv.completeRefresh();
                     }
 

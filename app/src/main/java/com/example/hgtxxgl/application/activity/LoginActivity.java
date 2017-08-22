@@ -209,6 +209,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         if (response.contains("error")){
                             show("用户名或密码错误!");
+                            return;
                         }
                     }
                 });
@@ -219,7 +220,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void getPeopleInfo(String username,String password,String no){
+    private void getPeopleInfo(final String username, final String password, final String no){
         //个人资料
         PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
         PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
@@ -264,7 +265,33 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(String response) {
-
+                if (response.contains("error")){
+                    PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
+                    PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
+                    peopleInfoBean.setNo("");
+                    peopleInfoBean.setName("");
+                    peopleInfoBean.setCardNo("");
+                    peopleInfoBean.setPosition("");
+                    peopleInfoBean.setSex("");
+                    peopleInfoBean.setUnit("");
+                    peopleInfoBean.setArmyGroup("");
+                    peopleInfoBean.setPhoneNo("");
+                    peopleInfoBean.setTelNo("");
+                    peopleInfoBean.setGroupName("");
+                    peopleInfoBean.setLoginName(username);
+                    peopleInfoBean.setPassword(password);
+                    peopleInfoBean.setAuthority("");
+                    peopleInfoBean.setModifyTime("");
+                    peopleInfoBean.setRegisterTime("");
+                    peopleInfoBean.setNoIndex("");
+                    peopleInfoBean.setAuthenticationNo("");
+                    peopleInfoBean.setIsAndroid("1");
+                    List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
+                    beanList.add(peopleInfoBean);
+                    peopleEntity.setPeopleInfo(beanList);
+                    ApplicationApp.setPeopleInfoEntity(peopleEntity);
+                    show("个人资料获取错误");
+                }
             }
         });
     }

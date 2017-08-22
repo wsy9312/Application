@@ -59,7 +59,12 @@ public class RestDetailPeopleFragment extends CommonFragment {
                 list.add(new HandInputGroup.Holder("审批结果", true, false, "审批拒绝", HandInputGroup.VALUE_TYPE.TEXT));
             }
             setButtonsTitles(stringnull);
+        }else if (process == 0){
+            if(multiLevelResultStr.startsWith("1")){
+                setButtonsTitles(stringnull);
+            }
         }
+
         groups.add(new Group("流程摘要-摘要内容", null, false, null, list));
 
         List<HandInputGroup.Holder> holderList = new ArrayList<>();
@@ -104,6 +109,7 @@ public class RestDetailPeopleFragment extends CommonFragment {
         peopleLeaveEntity.setPeopleLeaveRrd(beanList);
         String json = new Gson().toJson(peopleLeaveEntity);
         final String s1 = "modify " + json;
+        L.e(TAG,s1);
         AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
         builder.setMessage("是否确认?");
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -134,7 +140,7 @@ public class RestDetailPeopleFragment extends CommonFragment {
 
             @Override
             public void onResponse(String response) {
-                if (response.toLowerCase().contains("ok")) {
+                if (response.contains("ok")) {
                     show("取消成功");
                 }else{
                     show("取消失败");
@@ -212,6 +218,7 @@ public class RestDetailPeopleFragment extends CommonFragment {
                     public void run() {
                         if (peopleLeaveEntity1 != null){
                             setEntity(peopleLeaveEntity1.getPeopleLeaveRrd().get(0));
+                            L.e(TAG,entity.getProcess()+" "+entity.getMultiLevelResult()+" "+entity.getLevelNum());
                             setGroup(getGroupList());
                             setPb(false);
                             setButtonllEnable(true);
