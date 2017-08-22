@@ -193,7 +193,8 @@ public class LoginActivity extends AppCompatActivity {
                     public void onSuccess(String json, NewLoginEntity loginEntity) throws InterruptedException {
                         if (loginEntity != null){
                             ApplicationApp.setNewLoginEntity(loginEntity);
-                            Thread.sleep(300);
+                            String no = loginEntity.getLogin().get(0).getAuthenticationNo();
+                            getPeopleInfo(username,password,no);
                             toLibMainActivity(username,password);
                         }
                         Log.e(TAG,"登录"+json);
@@ -206,66 +207,68 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onResponse(String response) {
-                    }
-                });
-                try {
-                    Thread.sleep(300);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                //个人资料
-                PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
-                PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
-                peopleInfoBean.setNo("?");
-                peopleInfoBean.setName("?");
-                peopleInfoBean.setCardNo("?");
-                peopleInfoBean.setPosition("?");
-                peopleInfoBean.setSex("?");
-                peopleInfoBean.setUnit("?");
-                peopleInfoBean.setArmyGroup("?");
-                peopleInfoBean.setPhoneNo("?");
-                peopleInfoBean.setTelNo("?");
-                peopleInfoBean.setGroupName("?");
-                peopleInfoBean.setLoginName(username);
-                peopleInfoBean.setPassword(password);
-                peopleInfoBean.setAuthority("?");
-                peopleInfoBean.setModifyTime("?");
-                peopleInfoBean.setRegisterTime("?");
-                peopleInfoBean.setNoIndex("?");
-                peopleInfoBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-                peopleInfoBean.setIsAndroid("1");
-                List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
-                beanList.add(peopleInfoBean);
-                peopleEntity.setPeopleInfo(beanList);
-                String json = new Gson().toJson(peopleEntity);
-                String s1 = "get " + json;
-                Log.e(TAG,"个人资料获取："+s1);
-                HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
-                    @Override
-                    public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
-                        if (peopleInfoEntity != null){
-                            ApplicationApp.setPeopleInfoEntity(peopleInfoEntity);
-                            Log.e(TAG,"个人资料1:"+ json);
-                            Log.e(TAG,"个人资料2:"+ peopleInfoEntity.toString());
-                            show("个人资料保存成功");
+                        if (response.contains("error")){
+                            show("用户名或密码错误!");
                         }
                     }
-
-                    @Override
-                    public void onFailure(String msg) {
-
-                    }
-
-                    @Override
-                    public void onResponse(String response) {
-
-                    }
                 });
+
+
             }
         }).start();
 
     }
 
+    private void getPeopleInfo(String username,String password,String no){
+        //个人资料
+        PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
+        PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
+        peopleInfoBean.setNo("?");
+        peopleInfoBean.setName("?");
+        peopleInfoBean.setCardNo("?");
+        peopleInfoBean.setPosition("?");
+        peopleInfoBean.setSex("?");
+        peopleInfoBean.setUnit("?");
+        peopleInfoBean.setArmyGroup("?");
+        peopleInfoBean.setPhoneNo("?");
+        peopleInfoBean.setTelNo("?");
+        peopleInfoBean.setGroupName("?");
+        peopleInfoBean.setLoginName(username);
+        peopleInfoBean.setPassword(password);
+        peopleInfoBean.setAuthority("?");
+        peopleInfoBean.setModifyTime("?");
+        peopleInfoBean.setRegisterTime("?");
+        peopleInfoBean.setNoIndex("?");
+        peopleInfoBean.setAuthenticationNo(no);
+        peopleInfoBean.setIsAndroid("1");
+        List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
+        beanList.add(peopleInfoBean);
+        peopleEntity.setPeopleInfo(beanList);
+        String json = new Gson().toJson(peopleEntity);
+        String s1 = "get " + json;
+        Log.e(TAG,"个人资料获取："+s1);
+        HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
+            @Override
+            public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
+                if (peopleInfoEntity != null){
+                    ApplicationApp.setPeopleInfoEntity(peopleInfoEntity);
+                    Log.e(TAG,"个人资料1:"+ json);
+                    Log.e(TAG,"个人资料2:"+ peopleInfoEntity.toString());
+                    show("个人资料保存成功");
+                }
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+
+            @Override
+            public void onResponse(String response) {
+
+            }
+        });
+    }
     //跳转到首页activity
     private void toLibMainActivity(String username, String password) {
         LibMainActivity.startActivity(this,username,password);

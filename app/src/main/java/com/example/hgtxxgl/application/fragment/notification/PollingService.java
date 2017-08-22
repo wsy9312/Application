@@ -121,7 +121,7 @@ public class PollingService extends Service {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		System.out.println("Service:onDestroy");
+		Log.e(TAG, "Service:onDestroy" );
 	}
 
 }
