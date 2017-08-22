@@ -315,7 +315,7 @@ public class MainActivity extends AppCompatActivity{
                     Window window = alertDialog.getWindow();
                     window.setContentView(R.layout.layout_qrcode_result);
                     TextView tv_title = (TextView) window.findViewById(R.id.tv_dialog_title);
-                    tv_title.setText("个人详细信息");
+                    tv_title.setText("人员基本信息");
                     TextView tv_message = (TextView) window.findViewById(R.id.tv_dialog_message);
                     tv_message.setText(stringExtra);
                     /*ViewGroup.LayoutParams para = imageView.getLayoutParams();

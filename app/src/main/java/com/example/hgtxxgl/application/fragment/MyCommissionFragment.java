@@ -274,6 +274,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
         intent.putExtra(PageConfig.PAGE_CODE, pageApplyBleave);
         Bundle bundle = new Bundle();
         bundle.putString("no", adapter.getItem(position).getNo());
+        bundle.putString("name", adapter.getItem(position).getName());
         bundle.putString("outtime",adapter.getItem(position).getOutTime());
         bundle.putString("intime", adapter.getItem(position).getInTime());
         bundle.putString("content", adapter.getItem(position).getContent());

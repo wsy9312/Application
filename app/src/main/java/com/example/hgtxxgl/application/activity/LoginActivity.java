@@ -254,7 +254,6 @@ public class LoginActivity extends AppCompatActivity {
                     ApplicationApp.setPeopleInfoEntity(peopleInfoEntity);
                     Log.e(TAG,"个人资料1:"+ json);
                     Log.e(TAG,"个人资料2:"+ peopleInfoEntity.toString());
-                    show("个人资料保存成功");
                 }
             }
 
