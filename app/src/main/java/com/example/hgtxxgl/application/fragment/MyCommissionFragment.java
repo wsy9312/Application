@@ -18,7 +18,6 @@ import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.ItemActivity;
 import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
 import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
-import com.example.hgtxxgl.application.utils.DateUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.DataUtil;
@@ -29,9 +28,6 @@ import com.example.hgtxxgl.application.view.SimpleListView;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 import static com.example.hgtxxgl.application.R.id.iv_empty;
@@ -210,19 +206,19 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
                             });
                         }
                     }
-
-                    Collections.sort(entityList, new Comparator<PeopleLeaveEntity.PeopleLeaveRrdBean>() {
-                        @Override
-                        public int compare(PeopleLeaveEntity.PeopleLeaveRrdBean lhs, PeopleLeaveEntity.PeopleLeaveRrdBean rhs) {
-                            Date date1 = DateUtil.stringToDate(lhs.getModifyTime());
-                            Date date2 = DateUtil.stringToDate(rhs.getModifyTime());
-                            // 对日期字段进行升序，如果欲降序可采用after方法
-                            if (date1.before(date2)) {
-                                return 1;
-                            }
-                            return -1;
-                        }
-                    });
+//
+//                    Collections.sort(entityList, new Comparator<PeopleLeaveEntity.PeopleLeaveRrdBean>() {
+//                        @Override
+//                        public int compare(PeopleLeaveEntity.PeopleLeaveRrdBean lhs, PeopleLeaveEntity.PeopleLeaveRrdBean rhs) {
+//                            Date date1 = DateUtil.stringToDate(lhs.getModifyTime());
+//                            Date date2 = DateUtil.stringToDate(rhs.getModifyTime());
+//                            // 对日期字段进行升序，如果欲降序可采用after方法
+//                            if (date1.before(date2)) {
+//                                return 1;
+//                            }
+//                            return -1;
+//                        }
+//                    });
                     adapter.notifyDataSetChanged();
                     hasMore = true;
                 } else {
@@ -251,14 +247,14 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
     }
 
     private void loadMore() {
-        if (hasMore) {
-            beginNum += 10;
-            endNum += 10;
-//            loadData(beginNum, endNum);
-            lv.completeRefresh();
-        } else {
-            lv.completeRefresh();
-        }
+//        if (hasMore) {
+//            beginNum += 10;
+//            endNum += 10;
+////            loadData(beginNum, endNum);
+//            lv.completeRefresh();
+//        } else {
+//            lv.completeRefresh();
+//        }
     }
 
 
@@ -275,6 +271,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
         Bundle bundle = new Bundle();
         bundle.putString("no", adapter.getItem(position).getNo());
         bundle.putString("name", adapter.getItem(position).getName());
+        Log.e(TAG,"name = "+adapter.getItem(position).getName());
         bundle.putString("outtime",adapter.getItem(position).getOutTime());
         bundle.putString("intime", adapter.getItem(position).getInTime());
         bundle.putString("content", adapter.getItem(position).getContent());
@@ -356,9 +353,10 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
     @Override
     public void onPullRefresh() {
         hasMore = true;
-        beginNum = 1;
-        endNum = 300;
+//        beginNum = 1;
+//        endNum = 300;
         loadData(beginNum, endNum);
+        adapter.notifyDataSetChanged();
         lv.completeRefresh();
     }
 

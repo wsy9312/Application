@@ -57,7 +57,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
 
     @Override
     public List<Group> getGroupList() {
-        if (entity == null || bean == null) return null;
+        if (entity == null/* || bean == null*/) return null;
         List<Group> groups = new ArrayList<>();
         String levelNumStr = entity.getLevelNum();
         String processStr = entity.getProcess();
@@ -80,7 +80,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
 
         List<HandInputGroup.Holder> holderList = new ArrayList<>();
         holderList.add(new HandInputGroup.Holder("流程内容",true,false, "人员请假",HandInputGroup.VALUE_TYPE.TEXT));
-        holderList.add(new HandInputGroup.Holder("申请人", true, false, bean.getName(), HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("申请人", true, false, getArguments().getString("name"), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("预计外出时间", true, false, entity.getOutTime(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("预计归来时间", true, false, entity.getInTime(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("请假原因", true, false, entity.getContent(), HandInputGroup.VALUE_TYPE.TEXT));
@@ -100,11 +100,11 @@ public class RestApprovePeopleFragment extends CommonFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadData();
-        if (no.isEmpty()){
-            setPb(true);
-        }else{
-            getNameFromNo(no);
-        }
+//        if (no.isEmpty()){
+//            setPb(true);
+//        }else{
+//            getNameFromNo(no);
+//        }
     }
 
     private void show(final String msg) {
@@ -216,6 +216,11 @@ public class RestApprovePeopleFragment extends CommonFragment {
                         if (peopleLeaveEntity1 != null){
                             if (peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getBCancel().equals("0")){
                                 setEntity(peopleLeaveEntity1.getPeopleLeaveRrd().get(0));
+                                setGroup(getGroupList());
+                                setPb(false);
+                                setButtonllEnable(true);
+                                setDisplayTabs(true);
+                                notifyDataSetChanged();
                             }
                         }
                     }
