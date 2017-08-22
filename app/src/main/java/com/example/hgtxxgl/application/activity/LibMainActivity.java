@@ -150,8 +150,6 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         password = getIntent().getStringExtra(PASS_WORD);
         if (username != null && password != null) {
             login(username,password);
-        } else {
-            show("未输入登陆用户");
         }
     }
 

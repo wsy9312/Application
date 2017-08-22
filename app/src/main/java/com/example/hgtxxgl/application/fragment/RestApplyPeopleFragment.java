@@ -21,6 +21,8 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.dmoral.toasty.Toasty;
+
 public class RestApplyPeopleFragment extends CommonFragment {
 
     private PeopleLeaveEntity entity;
@@ -171,7 +173,7 @@ public class RestApplyPeopleFragment extends CommonFragment {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getActivity(),msg, Toast.LENGTH_SHORT).show();
+                Toasty.success(getContext(),msg, Toast.LENGTH_SHORT,true).show();
             }
         });
     }

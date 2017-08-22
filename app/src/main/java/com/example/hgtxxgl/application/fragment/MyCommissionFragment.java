@@ -11,8 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.ItemActivity;
@@ -37,7 +37,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
     private int beginNum = 1;
     private int endNum = 300;
     private boolean hasMore = true;
-    private ImageView ivEmpty;
+    private TextView ivEmpty;
     private ProgressBar pb;
     private static final String TAG = "MyCommissionFragment";
     private String name1;
@@ -117,7 +117,8 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.main_listview_libmain, null, false);
         lv = (SimpleListView) view.findViewById(R.id.viewpager_listview);
-        ivEmpty = (ImageView) view.findViewById(iv_empty);
+        ivEmpty = (TextView) view.findViewById(iv_empty);
+        ivEmpty.setText("当前暂无需要审批的记录");
         pb = (ProgressBar) view.findViewById(R.id.mycommission_pb);
         lv.setAdapter(adapter);
         adapter.registerDataSetObserver(new DataSetObserver() {

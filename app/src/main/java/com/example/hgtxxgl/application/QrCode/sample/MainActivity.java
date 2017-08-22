@@ -38,6 +38,7 @@ import com.google.zxing.client.result.ParsedResultType;
 import com.mylhyl.zxing.scanner.common.Intents;
 import com.mylhyl.zxing.scanner.encode.QREncode;
 
+import es.dmoral.toasty.Toasty;
 import pub.devrel.easypermissions.EasyPermissions;
 
 //二维码首页
@@ -112,12 +113,18 @@ public class MainActivity extends AppCompatActivity{
 
     //保存图片
     private void saveImage() {
-        boolean isSaveSuccess = ImgUtils.saveImageToGallery(mContext, bitmap);
-        if (isSaveSuccess) {
-            Toast.makeText(mContext, "保存图片成功", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(mContext, "保存图片失败，请稍后重试", Toast.LENGTH_SHORT).show();
-        }
+        final boolean isSaveSuccess = ImgUtils.saveImageToGallery(mContext, bitmap);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (isSaveSuccess) {
+                    Toasty.success(getApplicationContext(),"保存图片成功", Toast.LENGTH_SHORT,true).show();
+                } else {
+                    Toasty.success(getApplicationContext(),"保存图片失败，请稍后重试", Toast.LENGTH_SHORT,true).show();
+                }
+            }
+        });
+
     }
 
 //    @Override

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.widget.Toast;
 
 import com.example.hgtxxgl.application.activity.LibMainActivity;
 import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
@@ -15,13 +16,14 @@ import com.example.hgtxxgl.application.rest.HandInputGroup;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
-import com.example.hgtxxgl.application.utils.hand.ToastUtil;
 import com.example.hgtxxgl.application.utils.hyutils.L;
 import com.example.hgtxxgl.application.view.HandToolbar;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import es.dmoral.toasty.Toasty;
 
 public class RestApprovePeopleFragment extends CommonFragment {
     private final static String TAG = "RestApprovePeopleFragment";
@@ -111,7 +113,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                ToastUtil.showToast(getContext(),msg);
+                Toasty.success(getContext(),msg, Toast.LENGTH_SHORT,true).show();
             }
         });
     }
@@ -229,12 +231,12 @@ public class RestApprovePeopleFragment extends CommonFragment {
 
             @Override
             public void onFailure(String msg) {
-                show(msg);
+//                show(msg);
             }
 
             @Override
             public void onResponse(String response) {
-                show(response);
+//                show(response);
             }
         });
     }

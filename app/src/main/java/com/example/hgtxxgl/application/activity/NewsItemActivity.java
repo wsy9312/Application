@@ -44,6 +44,7 @@ public class NewsItemActivity extends AppCompatActivity {
     private TextView tvDate;
     private TextView tvBody;
     private ProgressBar pb;
+    private String tab;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,6 +53,7 @@ public class NewsItemActivity extends AppCompatActivity {
         StatusBarUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
         SysExitUtil.activityList.add(NewsItemActivity.this);
         Intent intent = getIntent();
+        tab = intent.getStringExtra("tab");
         title = intent.getStringExtra("title");
         content = intent.getStringExtra("content");
         modifytime = intent.getStringExtra("modifyTime");
@@ -71,7 +73,7 @@ public class NewsItemActivity extends AppCompatActivity {
         handToolbar = (HandToolbar) findViewById(R.id.itemactivity_handtoolbar);
         handToolbar.setDisplayHomeAsUpEnabled(true, this);
         handToolbar.setBackHome(false,this,0);
-        handToolbar.setTitle("新闻内容");
+        handToolbar.setTitle(tab);
         handToolbar.setTitleSize(20);
         this.runOnUiThread(new Runnable() {
             @Override

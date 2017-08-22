@@ -10,8 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.NewsItemActivity;
@@ -31,7 +31,7 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
     private int beginNum = 1;
     private int endNum = 6;
     private boolean hasMore = true;
-    private ImageView ivEmpty;
+    private TextView ivEmpty;
     private ProgressBar pb;
     private static final String TAG = "NewFragment";
     SimpleListView lv;
@@ -67,7 +67,8 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.main_listview_libmain, null, false);
         lv = (SimpleListView) view.findViewById(R.id.viewpager_listview);
-        ivEmpty = (ImageView) view.findViewById(R.id.iv_empty);
+        ivEmpty = (TextView) view.findViewById(R.id.iv_empty);
+        ivEmpty.setText("当前暂无新闻");
         pb = (ProgressBar) view.findViewById(R.id.mycommission_pb);
         lv.setAdapter(adapter);
         adapter.registerDataSetObserver(new DataSetObserver() {
@@ -171,6 +172,7 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
     }
     private void checkDetail(int position) {
         Intent intent = new Intent(getActivity(), NewsItemActivity.class);
+        intent.putExtra("tab", "新闻内容");
         intent.putExtra("title", adapter.getItem(position).getTitle());
         intent.putExtra("content", adapter.getItem(position).getContent());
         intent.putExtra("modifyTime",adapter.getItem(position).getModifyTime());
