@@ -26,7 +26,6 @@ import es.dmoral.toasty.Toasty;
 
 public class RestApplyPeopleFragment extends CommonFragment {
 
-    private PeopleLeaveEntity entity;
     private String name;
     private final static String TAG = "RestApplyCarFragment";
 
