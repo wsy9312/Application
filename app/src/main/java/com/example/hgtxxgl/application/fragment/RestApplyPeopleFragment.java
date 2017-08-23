@@ -59,7 +59,7 @@ public class RestApplyPeopleFragment extends CommonFragment {
         List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
         baseHolder.add(new HandInputGroup.Holder("申请人",true,false,name,HandInputGroup.VALUE_TYPE.TEXTFILED));
         baseHolder.add(new HandInputGroup.Holder("请假类别",true,false,"人员请假",HandInputGroup.VALUE_TYPE.SELECT));
-        baseHolder.add(new HandInputGroup.Holder("车辆号牌",false,false,"",HandInputGroup.VALUE_TYPE.TEXTFILED));
+        baseHolder.add(new HandInputGroup.Holder("车辆号牌",false,false,"沪A11111",HandInputGroup.VALUE_TYPE.TEXTFILED));
         baseHolder.add(new HandInputGroup.Holder("预计外出时间",true,false,"",HandInputGroup.VALUE_TYPE.DATE));
         baseHolder.add(new HandInputGroup.Holder("预计归来时间",true,false,"",HandInputGroup.VALUE_TYPE.DATE));
         baseHolder.add(new HandInputGroup.Holder("请假原因",false,false,"",HandInputGroup.VALUE_TYPE.TEXTFILED));

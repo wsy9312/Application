@@ -97,7 +97,7 @@ public class MyLaunchFragment extends Fragment implements SimpleListView.OnRefre
         return view;
     }
 
-    void loadData(final int beginNum, final int endNum) {
+    private void loadData(final int beginNum, final int endNum) {
         if (callback != null) {
             callback.onLoadData();
         }
