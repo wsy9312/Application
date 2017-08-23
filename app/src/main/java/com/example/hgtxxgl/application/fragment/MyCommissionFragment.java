@@ -74,42 +74,42 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
         loadData(beginNum, endNum);
     }
 
-    private String getNameFormNo(String no) {
-        PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
-        PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
-        peopleInfoBean.setNo(no);
-        peopleInfoBean.setName("?");
-        peopleInfoBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-        peopleInfoBean.setIsAndroid("1");
-        List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
-        beanList.add(peopleInfoBean);
-        peopleEntity.setPeopleInfo(beanList);
-        String json = new Gson().toJson(peopleEntity);
-        String s1 = "get " + json;
-        Log.e(TAG,"1名字："+s1);
-        HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
-            @Override
-            public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
-                if (peopleInfoEntity != null){
-                    name1 = peopleInfoEntity.getPeopleInfo().get(0).getName();
-                    adapter.notifyDataSetChanged();
-                    hasMore = true;
-                    Log.e(TAG,"2名字："+name1);
-                }
-            }
-
-            @Override
-            public void onFailure(String msg) {
-
-            }
-
-            @Override
-            public void onResponse(String response) {
-
-            }
-        });
-        return name1;
-    }
+//    private String getNameFormNo(String no) {
+//        PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
+//        PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
+//        peopleInfoBean.setNo(no);
+//        peopleInfoBean.setName("?");
+//        peopleInfoBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+//        peopleInfoBean.setIsAndroid("1");
+//        List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
+//        beanList.add(peopleInfoBean);
+//        peopleEntity.setPeopleInfo(beanList);
+//        String json = new Gson().toJson(peopleEntity);
+//        String s1 = "get " + json;
+//        Log.e(TAG,"1名字："+s1);
+//        HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
+//            @Override
+//            public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
+//                if (peopleInfoEntity != null){
+//                    name1 = peopleInfoEntity.getPeopleInfo().get(0).getName();
+//                    adapter.notifyDataSetChanged();
+//                    hasMore = true;
+//                    Log.e(TAG,"2名字："+name1);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(String msg) {
+//
+//            }
+//
+//            @Override
+//            public void onResponse(String response) {
+//
+//            }
+//        });
+//        return name1;
+//    }
 
     SimpleListView lv;
 

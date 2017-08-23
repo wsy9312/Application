@@ -54,7 +54,7 @@ public class RestApplyCarFragment extends CommonFragment{
             CarLeaveEntity carLeaveEntity = new CarLeaveEntity();
             CarLeaveEntity.CarLeaveRrdBean carLeaveRrdBean =
                     new CarLeaveEntity.CarLeaveRrdBean
-                            (NO,"?","?","?","?","?","?","?","?","?","?","?","?","?","?");
+                            (NO,"?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?");
             List<CarLeaveEntity.CarLeaveRrdBean> beanList = new ArrayList<>();
             beanList.add(carLeaveRrdBean);
             carLeaveEntity.setCarLeaveRrd(beanList);
@@ -120,8 +120,8 @@ public class RestApplyCarFragment extends CommonFragment{
             String inTime = carLeaveRrdBean.getInTime();
             String content = carLeaveRrdBean.getContent();
             String carNo = carLeaveRrdBean.getCarNo();
-            String bCancel = carLeaveRrdBean.getBCancel();
-            String bFillup = carLeaveRrdBean.getBFillup();
+            String bCancel = carLeaveRrdBean.getbCancel();
+            String bFillup = carLeaveRrdBean.getbFillup();
             List<HandInputGroup.Holder> subHolder1 = new ArrayList<>();
             subHolder1.add(new HandInputGroup.Holder("申请人", true, false, name, HandInputGroup.VALUE_TYPE.TEXTFILED));
             subHolder1.add(new HandInputGroup.Holder("申请车辆号牌", true, false, carNo, HandInputGroup.VALUE_TYPE.TEXTFILED));
@@ -175,8 +175,8 @@ public class RestApplyCarFragment extends CommonFragment{
                 carLeaveRrdBean.setOutTime(realValueoutTime);
                 carLeaveRrdBean.setInTime(realValueinTime);
                 carLeaveRrdBean.setContent(realValuecontent);
-                carLeaveRrdBean.setBCancel(realValueCancel.equals("否")?"0":"1");
-                carLeaveRrdBean.setBFillup(realValueFillup.equals("否")?"0":"1");
+                carLeaveRrdBean.setbCancel(realValueCancel.equals("否")?"0":"1");
+                carLeaveRrdBean.setbFillup(realValueFillup.equals("否")?"0":"1");
                 List<CarLeaveEntity.CarLeaveRrdBean> beanList = new ArrayList<>();
                 beanList.add(carLeaveRrdBean);
                 carLeaveEntity.setCarLeaveRrd(beanList);

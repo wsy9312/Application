@@ -38,6 +38,7 @@ public class CarLeaveEntity {
          */
 
         private String No;
+        private String Name;
         private String ApproverNo;
         private String CarNo;
         private String Process;
@@ -52,12 +53,17 @@ public class CarLeaveEntity {
         private String ActualInTime;
         private String ModifyTime;
         private String NoIndex;
-
+        private String BeginNum;
+        private String EndNum;
+        private String AuthenticationNo;
+        private String IsAndroid;
         public CarLeaveRrdBean() {
         }
 
-        public CarLeaveRrdBean(String no, String approverNo, String carNo, String process, String result, String bCancel, String bFillup, String registerTime, String outTime, String inTime, String content, String actualOutTime, String actualInTime, String modifyTime, String noIndex) {
+
+        public CarLeaveRrdBean(String no, String name, String approverNo, String carNo, String process, String result, String bCancel, String bFillup, String registerTime, String outTime, String inTime, String content, String actualOutTime, String actualInTime, String modifyTime, String noIndex, String beginNum, String endNum, String authenticationNo, String isAndroid) {
             No = no;
+            Name = name;
             ApproverNo = approverNo;
             CarNo = carNo;
             Process = process;
@@ -72,61 +78,73 @@ public class CarLeaveEntity {
             ActualInTime = actualInTime;
             ModifyTime = modifyTime;
             NoIndex = noIndex;
+            BeginNum = beginNum;
+            EndNum = endNum;
+            AuthenticationNo = authenticationNo;
+            IsAndroid = isAndroid;
         }
 
         public String getNo() {
             return No;
         }
 
-        public void setNo(String No) {
-            this.No = No;
+        public void setNo(String no) {
+            No = no;
+        }
+
+        public String getName() {
+            return Name;
+        }
+
+        public void setName(String name) {
+            Name = name;
         }
 
         public String getApproverNo() {
             return ApproverNo;
         }
 
-        public void setApproverNo(String ApproverNo) {
-            this.ApproverNo = ApproverNo;
+        public void setApproverNo(String approverNo) {
+            ApproverNo = approverNo;
         }
 
         public String getCarNo() {
             return CarNo;
         }
 
-        public void setCarNo(String CarNo) {
-            this.CarNo = CarNo;
+        public void setCarNo(String carNo) {
+            CarNo = carNo;
         }
 
         public String getProcess() {
             return Process;
         }
 
-        public void setProcess(String Process) {
-            this.Process = Process;
+        public void setProcess(String process) {
+            Process = process;
         }
 
         public String getResult() {
             return Result;
         }
 
-        public void setResult(String Result) {
-            this.Result = Result;
+        public void setResult(String result) {
+            Result = result;
         }
 
-        public String getBCancel() {
+        public String getbCancel() {
             return bCancel;
         }
 
-        public void setBCancel(String bCancel) {
+        public void setbCancel(String bCancel) {
             this.bCancel = bCancel;
         }
 
-        public String getBFillup() {
+        public String getbFillup() {
             return bFillup;
         }
 
-        public void setBFillup(String bFillup) {
+        public void setbFillup(String bFillup) {
             this.bFillup = bFillup;
         }
 
@@ -134,64 +152,96 @@ public class CarLeaveEntity {
             return RegisterTime;
         }
 
-        public void setRegisterTime(String RegisterTime) {
-            this.RegisterTime = RegisterTime;
+        public void setRegisterTime(String registerTime) {
+            RegisterTime = registerTime;
         }
 
         public String getOutTime() {
             return OutTime;
         }
 
-        public void setOutTime(String OutTime) {
-            this.OutTime = OutTime;
+        public void setOutTime(String outTime) {
+            OutTime = outTime;
         }
 
         public String getInTime() {
             return InTime;
         }
 
-        public void setInTime(String InTime) {
-            this.InTime = InTime;
+        public void setInTime(String inTime) {
+            InTime = inTime;
         }
 
         public String getContent() {
             return Content;
         }
 
-        public void setContent(String Content) {
-            this.Content = Content;
+        public void setContent(String content) {
+            Content = content;
         }
 
         public String getActualOutTime() {
             return ActualOutTime;
         }
 
-        public void setActualOutTime(String ActualOutTime) {
-            this.ActualOutTime = ActualOutTime;
+        public void setActualOutTime(String actualOutTime) {
+            ActualOutTime = actualOutTime;
         }
 
         public String getActualInTime() {
             return ActualInTime;
         }
 
-        public void setActualInTime(String ActualInTime) {
-            this.ActualInTime = ActualInTime;
-        }
-
-        public String getModifyTime() {
-            return ModifyTime;
-        }
-
-        public void setModifyTime(String ModifyTime) {
-            this.ModifyTime = ModifyTime;
+        public void setActualInTime(String actualInTime) {
+            ActualInTime = actualInTime;
         }
 
         public String getNoIndex() {
             return NoIndex;
         }
 
-        public void setNoIndex(String NoIndex) {
-            this.NoIndex = NoIndex;
+        public void setNoIndex(String noIndex) {
+            NoIndex = noIndex;
+        }
+
+        public String getModifyTime() {
+            return ModifyTime;
+        }
+
+        public void setModifyTime(String modifyTime) {
+            ModifyTime = modifyTime;
+        }
+
+        public String getBeginNum() {
+            return BeginNum;
+        }
+
+        public void setBeginNum(String beginNum) {
+            BeginNum = beginNum;
+        }
+
+        public String getEndNum() {
+            return EndNum;
+        }
+
+        public void setEndNum(String endNum) {
+            EndNum = endNum;
+        }
+
+        public String getAuthenticationNo() {
+            return AuthenticationNo;
+        }
+
+        public void setAuthenticationNo(String authenticationNo) {
+            AuthenticationNo = authenticationNo;
+        }
+
+        public String getIsAndroid() {
+            return IsAndroid;
+        }
+
+        public void setIsAndroid(String isAndroid) {
+            IsAndroid = isAndroid;
         }
     }
 }
