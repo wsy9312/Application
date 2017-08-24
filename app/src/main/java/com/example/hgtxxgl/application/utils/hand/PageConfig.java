@@ -67,4 +67,6 @@ public class PageConfig {
     public static final int PAGE_DISPLAY_UNIFIED = 25;//通用
 
 
+    public static final int PAGE_LAUNCH_PEOPLE = 1;
+    public static final int PAGE_LAUNCH_CAR = 2;
 }
