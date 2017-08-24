@@ -13,15 +13,15 @@ import com.example.hgtxxgl.application.R;
  * Created by HGTXxgl on 2017/8/23.
  */
 public class MyLaunchPeopleFragment extends Fragment {
-    public static MyLaunchPeopleFragment newInstance() {
-        return null;
-    }
-    private MyLaunchFragment.DataCallback callback;
-
-    public MyLaunchPeopleFragment setCallback(MyLaunchFragment.DataCallback callback) {
-        this.callback = callback;
-        return this;
-    }
+//    public static MyLaunchPeopleFragment newInstance() {
+//        return null;
+//    }
+//    private MyLaunchFragment.DataCallback callback;
+//
+//    public MyLaunchPeopleFragment setCallback(MyLaunchFragment.DataCallback callback) {
+//        this.callback = callback;
+//        return this;
+//    }
 
     public void filter(String str) {
 
