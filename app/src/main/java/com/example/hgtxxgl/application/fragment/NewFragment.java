@@ -43,8 +43,11 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
 
     }
 
-    public static NewFragment newInstance() {
+    public static NewFragment newInstance(int tabIndex) {
+        Bundle args = new Bundle();
         NewFragment fragment = new NewFragment();
+        args.putInt(DetailFragment.ARG_TAB, tabIndex);
+        fragment.setArguments(args);
         return fragment;
     }
 

@@ -42,12 +42,11 @@ public class MyLaunchFragment extends Fragment implements SimpleListView.OnRefre
 
     }
 
-    public static MyLaunchFragment newInstance() {
-//        Bundle args = new Bundle();
-//        NewFragment fragment = new NewFragment();
-//        args.putInt(DetailFragment.ARG_TAB, tabIndex);
-//        fragment.setArguments(args);
+    public static MyLaunchFragment newInstance(int tabIndex) {
+        Bundle args = new Bundle();
         MyLaunchFragment fragment = new MyLaunchFragment();
+        args.putInt(DetailFragment.ARG_TAB, tabIndex);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -273,6 +272,5 @@ public class MyLaunchFragment extends Fragment implements SimpleListView.OnRefre
     public void onScrollOutside() {
 
     }
-
 
 }

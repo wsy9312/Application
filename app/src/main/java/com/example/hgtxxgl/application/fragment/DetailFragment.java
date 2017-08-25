@@ -88,23 +88,26 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
         public Fragment getItem(int position) {
             if (currentPage == PageConfig.PAGE_NEWS) {
                 llEtSearch.setVisibility(GONE);
-                return NewFragment.newInstance().setCallback(this);
+                return NewFragment.newInstance(position).setCallback(this);
             } else if (currentPage == PageConfig.PAGE_NOTIFICATION) {
                 llEtSearch.setVisibility(GONE);
-                return NotificationFragment.newInstance().setCallback(this);
-            } else if (currentPage == PageConfig.PAGE_ME) {
-                return PersonalFragment.newInstance(position).setCallback(this);
-            } else if (currentPage == PageConfig.PAGE_TODO) {
+                return NotificationFragment.newInstance(position).setCallback(this);
+            } else if (currentPage == PageConfig.PAGE_TODO_CAR) {
+                llEtSearch.setVisibility(GONE);
+                return MyCommissionCarFragment.newInstance(position).setCallback(this);
+            } else if (currentPage == PageConfig.PAGE_LAUNCH_CAR){
+                llEtSearch.setVisibility(GONE);
+                return MyLaunchCarFragment.newInstance(position).setCallback(this);
+            } else if (currentPage == PageConfig.PAGE_TODO_PEOPLE) {
                 llEtSearch.setVisibility(GONE);
                 return MyCommissionFragment.newInstance(position).setCallback(this);
-            } else if (currentPage == PageConfig.PAGE_LAUNCH){
+            } else if (currentPage == PageConfig.PAGE_LAUNCH_PEOPLE){
                 llEtSearch.setVisibility(GONE);
-                return MyLaunchFragment.newInstance().setCallback(this);
-            } /*else if (currentPage == PageConfig.PAGE_APPLY_CAR){
-                return new RestApplyCarFragment();
-//                return new RestDetailCarFragment();
-            }*/ else if (currentPage == PageConfig.PAGE_APPLY_PEOPLE){
+                return MyLaunchFragment.newInstance(position).setCallback(this);
+            } else if (currentPage == PageConfig.PAGE_APPLY){
                 return new RestApplyPeopleFragment();
+            } else if (currentPage == PageConfig.PAGE_ME) {
+                return PersonalFragment.newInstance(position).setCallback(this);
             }
             return null;
         }
@@ -117,13 +120,15 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
                 return 1;
             } else if (currentPage == PageConfig.PAGE_NOTIFICATION) {
                 return 1;
-            } else if (currentPage == PageConfig.PAGE_TODO) {
+            } else if (currentPage == PageConfig.PAGE_TODO_CAR) {
                 return 2;
-            } else if (currentPage == PageConfig.PAGE_LAUNCH) {
+            } else if (currentPage == PageConfig.PAGE_LAUNCH_CAR) {
                 return 2;
-            } /*else if (currentPage == PageConfig.PAGE_APPLY_CAR) {
-                return 1;
-            } */else if (currentPage == PageConfig.PAGE_APPLY_PEOPLE) {
+            } else if (currentPage == PageConfig.PAGE_TODO_PEOPLE) {
+                return 2;
+            } else if (currentPage == PageConfig.PAGE_LAUNCH_PEOPLE) {
+                return 2;
+            } else if (currentPage == PageConfig.PAGE_APPLY) {
                 return 1;
             } else if (currentPage == PageConfig.PAGE_ME)
                 return 1;
@@ -182,8 +187,12 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
     //搜索逻辑跳转到子fragment界面进行搜索
     public void doFilter(String str){
         Fragment f = fragments[currentTab];
-        if (f instanceof MyLaunchFragment) {
-//            ((MyLaunchFragment) f).filter(str);
+        if (f instanceof MyLaunchCarFragment) {
+            ((MyLaunchCarFragment) f).filter(str);
+        } else if (f instanceof MyCommissionCarFragment){
+            ((MyCommissionCarFragment) f).filter(str);
+        } else if (f instanceof MyLaunchFragment) {
+            ((MyLaunchFragment) f).filter(str);
         } else if (f instanceof MyCommissionFragment){
             ((MyCommissionFragment) f).filter(str);
         } else if (f instanceof NewFragment) {
@@ -227,22 +236,22 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
             case PageConfig.PAGE_NOTIFICATION:
                 group.setVisibility(GONE);
                 break;
-            case PageConfig.PAGE_TODO:
+            case PageConfig.PAGE_TODO_CAR:
+                group.setVisibility(GONE);
+                break;
+            case PageConfig.PAGE_LAUNCH_CAR:
+                group.setVisibility(GONE);
+                break;
+            case PageConfig.PAGE_TODO_PEOPLE:
 //                if (checkButtons) {
 //                    setRadioButtons("待处理", "已处理");
 //                }
                 group.setVisibility(GONE);
                 break;
-            case PageConfig.PAGE_LAUNCH:
-//                if (checkButtons) {
-//                    setRadioButtons("未完成", "已完成");
-//                }
+            case PageConfig.PAGE_LAUNCH_PEOPLE:
                 group.setVisibility(GONE);
                 break;
-//            case PageConfig.PAGE_APPLY_CAR:
-//                group.setVisibility(GONE);
-//                break;
-            case PageConfig.PAGE_APPLY_PEOPLE:
+            case PageConfig.PAGE_APPLY:
                 group.setVisibility(GONE);
                 break;
             case PageConfig.PAGE_ME:

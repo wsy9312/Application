@@ -50,8 +50,11 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
 
     }
 
-    public static NotificationFragment newInstance() {
+    public static NotificationFragment newInstance(int tabIndex) {
+        Bundle args = new Bundle();
         NotificationFragment fragment = new NotificationFragment();
+        args.putInt(DetailFragment.ARG_TAB, tabIndex);
+        fragment.setArguments(args);
         return fragment;
     }
 

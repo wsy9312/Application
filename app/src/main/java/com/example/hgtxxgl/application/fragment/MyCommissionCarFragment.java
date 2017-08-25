@@ -32,22 +32,25 @@ import java.util.List;
 
 import static com.example.hgtxxgl.application.R.id.iv_empty;
 
-public class MyCommissionFragment extends Fragment implements AdapterView.OnItemClickListener, SimpleListView.OnRefreshListener {
+/**
+ * Created by HGTXxgl on 2017/8/25.
+ */
 
+public class MyCommissionCarFragment extends Fragment implements AdapterView.OnItemClickListener, SimpleListView.OnRefreshListener{
     private int beginNum = 1;
     private int endNum = 300;
     private boolean hasMore = true;
     private TextView ivEmpty;
     private ProgressBar pb;
-    private static final String TAG = "MyCommissionFragment";
+    private static final String TAG = "MyCommissionCarFragment";
 
-    public MyCommissionFragment() {
+    public MyCommissionCarFragment() {
 
     }
 
-    public static MyCommissionFragment newInstance(int tabIndex) {
+    public static MyCommissionCarFragment newInstance(int tabIndex) {
         Bundle args = new Bundle();
-        MyCommissionFragment fragment = new MyCommissionFragment();
+        MyCommissionCarFragment fragment = new MyCommissionCarFragment();
         args.putInt(DetailFragment.ARG_TAB, tabIndex);
         fragment.setArguments(args);
         return fragment;
@@ -311,7 +314,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
 
     private DetailFragment.DataCallback callback;
 
-    public MyCommissionFragment setCallback(DetailFragment.DataCallback callback) {
+    public MyCommissionCarFragment setCallback(DetailFragment.DataCallback callback) {
         this.callback = callback;
         return this;
     }
@@ -369,5 +372,4 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
     public void onScrollOutside() {
 
     }
-
 }
