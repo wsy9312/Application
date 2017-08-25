@@ -11,81 +11,89 @@
         android:id="@+id/toolbar"
         android:layout_height="wrap_content" />
 
+    <HorizontalScrollView
+        android:scrollbars="none"
+        android:layout_below="@+id/toolbar"
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <RadioGroup
+            android:id="@+id/bottom_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/rb_main_news_center"
+                style="@style/BottomBarItem"
+                android:checked="true"
+                android:enabled="false"
+                android:drawableTop="@drawable/home_page_radio_button_my_news"
+                android:text="新闻" />
+
+            <RadioButton
+                android:id="@+id/rb_main_notification_center"
+                style="@style/BottomBarItem"
+                android:enabled="false"
+                android:drawableTop="@drawable/home_page_radio_button_my_notification"
+                android:text="通知" />
+
+            <RadioButton
+                android:id="@+id/rb_main_leave_todo_center"
+                style="@style/BottomBarItem"
+                android:enabled="false"
+                android:drawableTop="@drawable/home_page_radio_button_my_comm"
+                android:text="审批" />
+            <RadioButton
+                android:enabled="false"
+                android:id="@+id/rb_main_leave_launch_center"
+                style="@style/BottomBarItem"
+                android:drawableTop="@drawable/home_page_radio_button_my_launch"
+                android:text="查看" />
+            <!--<RadioButton
+                android:enabled="false"
+                android:id="@+id/rb_main_leave_apply_car_center"
+                style="@style/BottomBarItem"
+                android:drawableTop="@drawable/home_page_radio_button_car_apply"
+                android:text="车辆外出" />-->
+            <RadioButton
+                android:enabled="false"
+                android:id="@+id/rb_main_leave_apply_people_center"
+                style="@style/BottomBarItem"
+                android:drawableTop="@drawable/home_page_radio_button_post_flow"
+                android:text="请假" />
+            <RadioButton
+                android:enabled="false"
+                android:id="@+id/rb_main_personal_center"
+                style="@style/BottomBarItem"
+                android:drawableTop="@drawable/home_page_radio_button_post_personal"
+                android:text="我的" />
+
+        </RadioGroup>
+    </HorizontalScrollView>
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CBCBCB"
+        android:layout_below="@+id/scrollview"/>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:id="@+id/fl_container"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
-        android:layout_above="@+id/image" />
+        android:layout_below="@+id/image" />
 
     <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/lib_pb"
         android:visibility="gone"
-        android:layout_centerInParent="true"
-        android:layout_below="@+id/toolbar"
-        android:layout_above="@+id/image"/>
+        android:layout_centerInParent="true" />
 
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#CBCBCB"
-        android:layout_above="@+id/bottom_bar"/>
 
-    <RadioGroup
-        android:id="@+id/bottom_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal" >
 
-        <RadioButton
-            android:id="@+id/rb_main_news_center"
-            style="@style/BottomBarItem"
-            android:checked="true"
-            android:enabled="false"
-            android:drawableTop="@drawable/home_page_radio_button_my_news"
-            android:text="新闻" />
 
-        <RadioButton
-            android:id="@+id/rb_main_notification_center"
-            style="@style/BottomBarItem"
-            android:enabled="false"
-            android:drawableTop="@drawable/home_page_radio_button_my_notification"
-            android:text="通知" />
-
-        <RadioButton
-            android:id="@+id/rb_main_leave_todo_center"
-            style="@style/BottomBarItem"
-            android:enabled="false"
-            android:drawableTop="@drawable/home_page_radio_button_my_comm"
-            android:text="审批" />
-        <RadioButton
-            android:enabled="false"
-            android:id="@+id/rb_main_leave_launch_center"
-            style="@style/BottomBarItem"
-            android:drawableTop="@drawable/home_page_radio_button_my_launch"
-            android:text="查看" />
-        <!--<RadioButton
-            android:enabled="false"
-            android:id="@+id/rb_main_leave_apply_car_center"
-            style="@style/BottomBarItem"
-            android:drawableTop="@drawable/home_page_radio_button_car_apply"
-            android:text="车辆外出" />-->
-        <RadioButton
-            android:enabled="false"
-            android:id="@+id/rb_main_leave_apply_people_center"
-            style="@style/BottomBarItem"
-            android:drawableTop="@drawable/home_page_radio_button_post_flow"
-            android:text="请假" />
-        <RadioButton
-            android:enabled="false"
-            android:id="@+id/rb_main_personal_center"
-            style="@style/BottomBarItem"
-            android:drawableTop="@drawable/home_page_radio_button_post_personal"
-            android:text="我的" />
-    </RadioGroup>
 
 </RelativeLayout>

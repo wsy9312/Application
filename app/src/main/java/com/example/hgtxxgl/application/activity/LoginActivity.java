@@ -195,7 +195,6 @@ public class LoginActivity extends AppCompatActivity {
                             ApplicationApp.setNewLoginEntity(loginEntity);
                             String no = loginEntity.getLogin().get(0).getAuthenticationNo();
                             getPeopleInfo(username,password,no);
-                            toLibMainActivity(username,password);
                         }
                         Log.e(TAG,"登录"+json);
                     }
@@ -253,6 +252,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
                 if (peopleInfoEntity != null){
                     ApplicationApp.setPeopleInfoEntity(peopleInfoEntity);
+                    toLibMainActivity(username,password);
                     Log.e(TAG,"个人资料1:"+ json);
                     Log.e(TAG,"个人资料2:"+ peopleInfoEntity.toString());
                 }

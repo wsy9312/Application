@@ -11,6 +11,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
+import android.view.Display;
+import android.widget.HorizontalScrollView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -52,6 +55,12 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
     private RadioGroup.OnCheckedChangeListener listener = new RadioGroup.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(RadioGroup group, int checkedId) {
+            int scrollX = scrollView.getScrollX();
+            RadioButton rb = (RadioButton) findViewById(checkedId);
+            int left = rb.getLeft();
+            int leftScreen = left-scrollX;
+            scrollView.smoothScrollBy((leftScreen-screenHalf), 0);
+
             lastIndex = currentIndex;
             //角标选中新闻中心radiobutton
             if (checkedId == R.id.rb_main_news_center) {
@@ -110,6 +119,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
             }
         }
     };
+    private int screenHalf;
 
     /**
      * 调用入口
@@ -142,6 +152,12 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         initFragment(false);
         StatusBarUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
         SysExitUtil.activityList.add(LibMainActivity.this);
+
+        Display d = getWindowManager().getDefaultDisplay();
+        DisplayMetrics dm = new DisplayMetrics();
+        d.getMetrics(dm);
+        //屏幕宽度的一半
+        screenHalf = d.getWidth()/5;
     }
 
     //接收登录界面传递的用户名密码参数
@@ -190,7 +206,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         transaction.show(frag);
         transaction.commitNow();
     }
-
+    HorizontalScrollView scrollView;
     //填充布局、初始化控件
     private void initView() {
         setContentView(R.layout.lib_activity_main);
@@ -198,6 +214,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         handToolbar = (HandToolbar) findViewById(R.id.toolbar);
         handToolbar.setDisplayHomeAsUpEnabled(false, this);
         handToolbar.setTitleSize(20);
+        scrollView = (HorizontalScrollView) findViewById(R.id.scrollview);
         bottomBar = (RadioGroup) findViewById(R.id.bottom_bar);
         newsCenter = (RadioButton) findViewById(R.id.rb_main_news_center);
         notificationCenter = (RadioButton) findViewById(R.id.rb_main_notification_center);

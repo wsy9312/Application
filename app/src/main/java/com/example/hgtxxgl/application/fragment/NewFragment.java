@@ -54,8 +54,8 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
     ListAdapter<NewsInfoEntity.NewsRrdBean> adapter = new ListAdapter<NewsInfoEntity.NewsRrdBean>((ArrayList<NewsInfoEntity.NewsRrdBean>) entityList, R.layout.layout_news) {
         @Override
         public void bindView(ViewHolder holder, NewsInfoEntity.NewsRrdBean bean) {
-            holder.setBitmap(R.id.image_news,stringtoBitmap(bean.getPicture1()));
             holder.setText(R.id.tv_title, bean.getTitle());
+            holder.setBitmap(R.id.image_news,stringtoBitmap(bean.getPicture1()));
             holder.setText(R.id.tv_sketch, bean.getContent());
             holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
         }

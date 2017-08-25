@@ -21,6 +21,7 @@ public abstract class ListAdapter<T> extends BaseAdapter {
     public ListAdapter() {
     }
 
+
     public ListAdapter(ArrayList<T> mData, int mLayoutRes) {
         this.mData = mData;
         this.mLayoutRes = mLayoutRes;

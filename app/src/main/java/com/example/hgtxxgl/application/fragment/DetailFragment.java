@@ -87,18 +87,18 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
         @Override
         public Fragment getItem(int position) {
             if (currentPage == PageConfig.PAGE_NEWS) {
-                llEtSearch.setVisibility(VISIBLE);
+                llEtSearch.setVisibility(GONE);
                 return NewFragment.newInstance().setCallback(this);
             } else if (currentPage == PageConfig.PAGE_NOTIFICATION) {
-                llEtSearch.setVisibility(VISIBLE);
+                llEtSearch.setVisibility(GONE);
                 return NotificationFragment.newInstance().setCallback(this);
             } else if (currentPage == PageConfig.PAGE_ME) {
                 return PersonalFragment.newInstance(position).setCallback(this);
             } else if (currentPage == PageConfig.PAGE_TODO) {
-                llEtSearch.setVisibility(VISIBLE);
+                llEtSearch.setVisibility(GONE);
                 return MyCommissionFragment.newInstance(position).setCallback(this);
             } else if (currentPage == PageConfig.PAGE_LAUNCH){
-                llEtSearch.setVisibility(VISIBLE);
+                llEtSearch.setVisibility(GONE);
                 return MyLaunchFragment.newInstance().setCallback(this);
             } /*else if (currentPage == PageConfig.PAGE_APPLY_CAR){
                 return new RestApplyCarFragment();
