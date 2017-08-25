@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -111,33 +112,23 @@ public class PersonalFragment extends Fragment implements View.OnClickListener{
         String b = string.substring(1,2);
         String c = string.substring(2,3);
         String d = string.substring(3,4);
-        if (Integer.parseInt(a) == 0){
-            return null;
-        }else{
-            a = NumberFormatUtil.formatInteger(Integer.parseInt(a))+"营";
+        Log.e(TAG,"所属单位a:"+a);
+        Log.e(TAG,"所属单位b:"+b);
+        Log.e(TAG,"所属单位c:"+c);
+        Log.e(TAG,"所属单位d:"+d);
+        if (Integer.parseInt(a.trim()) == 0){
+            return "";
+        } else if (Integer.parseInt(b.trim()) == 0){
+            return NumberFormatUtil.formatInteger(Integer.parseInt(a.trim()))+"营";
+        } else if (Integer.parseInt(c.trim()) == 0){
+            return NumberFormatUtil.formatInteger(Integer.parseInt(a.trim()))+"营"+NumberFormatUtil.formatInteger(Integer.parseInt(b.trim()))+"连";
+        } else if (Integer.parseInt(d.trim()) == 0){
+            return NumberFormatUtil.formatInteger(Integer.parseInt(a.trim()))+"营"+NumberFormatUtil.formatInteger(Integer.parseInt(b.trim()))+"连"+
+                    NumberFormatUtil.formatInteger(Integer.parseInt(c.trim()))+"排";
+        } else {
+            return NumberFormatUtil.formatInteger(Integer.parseInt(a.trim()))+"营"+NumberFormatUtil.formatInteger(Integer.parseInt(b.trim()))+"连"+
+                    NumberFormatUtil.formatInteger(Integer.parseInt(c.trim()))+"排"+NumberFormatUtil.formatInteger(Integer.parseInt(d.trim()))+"班";
         }
-
-        if (Integer.parseInt(b) == 0){
-            b = "";
-            c = "";
-            d = "";
-        }else{
-            b = NumberFormatUtil.formatInteger(Integer.parseInt(b))+"连";
-        }
-
-        if (Integer.parseInt(c) == 0){
-            c = "";
-            d = "";
-        }else{
-            c = NumberFormatUtil.formatInteger(Integer.parseInt(c))+"排";
-        }
-
-        if (Integer.parseInt(d) == 0){
-            d = "";
-        }else{
-            d = NumberFormatUtil.formatInteger(Integer.parseInt(d))+"班";
-        }
-        return a+b+c+d;
     }
 
     @Override

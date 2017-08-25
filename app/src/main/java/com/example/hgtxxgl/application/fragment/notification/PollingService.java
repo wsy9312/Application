@@ -31,6 +31,7 @@ public class PollingService extends Service {
 
 	private NotificationManager mManager;
 	private NotificationCompat.Builder builder;
+	private NotificationCompat.Builder builder1;
 
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -39,6 +40,12 @@ public class PollingService extends Service {
 
 	@Override
 	public void onCreate() {
+		builder1 = new NotificationCompat.Builder(this)
+				.setSmallIcon(R.mipmap.app_logo)
+				//设置通知标题
+				.setContentTitle("management service at work");
+		Notification notification = builder1.build();
+		startForeground(110, notification);// 开始前台服务
 		initNotifiManager();
 	}
 
@@ -54,16 +61,17 @@ public class PollingService extends Service {
 		mManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		builder = new NotificationCompat.Builder(this)
 				.setSmallIcon(R.mipmap.app_logo)
-				//设置通知标题
-				.setContentTitle("您收到一条通知")
 				//设置通知内容
-				.setContentText("请点击查看详情");
+				.setContentTitle("您收到一条通知");
 	}
 
-	private void showNotification() {
+	private void showNotification(String content) {
 		Intent i = new Intent(this, LoginActivity.class);
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, i, 0);
-		builder.setWhen(System.currentTimeMillis()).setContentIntent(pendingIntent);
+		//设置通知标题
+		builder.setContentText(content)
+				.setWhen(System.currentTimeMillis())
+				.setContentIntent(pendingIntent);
 		Notification notification = builder.build();
 		notification.ledARGB = Color.GREEN;
 		notification.ledOnMS = 1000;
@@ -104,7 +112,9 @@ public class PollingService extends Service {
 			@Override
 			public void onSuccess(String json, MessageEntity messageEntity) throws InterruptedException {
 				if (messageEntity != null && messageEntity.getMessageRrd().size() > 0){
-					showNotification();
+					List<MessageEntity.MessageRrdBean> messageRrd = messageEntity.getMessageRrd();
+					String content = messageRrd.get(0).getContent();
+					showNotification(content);
 				}
 			}
 

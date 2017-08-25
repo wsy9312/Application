@@ -1,6 +1,7 @@
 package com.example.hgtxxgl.application.utils.hand;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -199,7 +200,13 @@ public abstract class ListAdapter<T> extends BaseAdapter {
             return this;
         }
 
-        //其他方法可自行扩展
+        public ViewHolder setBitmap(int id,Bitmap bm) {
+            View view = getView(id);
+            if (view instanceof ImageView){
+                ((ImageView)getView(id)).setImageBitmap(bm);
+            }
+            return  this;
+        }
 
     }
 

@@ -1,54 +1,228 @@
 package com.example.hgtxxgl.application.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.AdapterView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
+import com.example.hgtxxgl.application.activity.ItemActivity;
+import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
+import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
+import com.example.hgtxxgl.application.utils.hand.CommonValues;
+import com.example.hgtxxgl.application.utils.hand.DataUtil;
+import com.example.hgtxxgl.application.utils.hand.HttpManager;
+import com.example.hgtxxgl.application.utils.hand.ListAdapter;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
+import com.example.hgtxxgl.application.view.SimpleListView;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
-import static com.example.hgtxxgl.application.R.id.ll_et_search;
+public class MyLaunchFragment extends Fragment implements SimpleListView.OnRefreshListener, AdapterView.OnItemClickListener {
 
-public class MyLaunchFragment extends Fragment implements View.OnClickListener{
-//    private int currentPage;
-    private SearchView etSearch;
-    private TextView tvCancel;
-    private LinearLayout llEtSearch;
-    private RadioButton rbLeft, rbMid, rbRight;
-    private RadioGroup group;
-    private static int currentTab = 1;
-//    private MyLaunchFragment.SectionsPagerAdapter pagerAdapter;
-    public static final String ARG_TAB = "TABS";
-    private List<RadioButton> radioButtonList;
-    private Fragment[] fragments;
-    private FragmentManager manager;
+    private int beginNum = 1;
+    private int endNum = 6;
+    private boolean hasMore = true;
+    private TextView ivEmpty;
+    private ProgressBar pb;
+    private static final String TAG = "MyLaunchFragment";
 
-    public interface DataCallback {
-        void onLoadData();
+    public MyLaunchFragment() {
+
     }
 
-    //根据不同的pageCode实例化不同的fragment
-    public static DetailFragment newInstance(int pageCode) {
-        DetailFragment fragment = new DetailFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt(PageConfig.PAGE_CODE, pageCode);
-        fragment.setArguments(bundle);
+    public static MyLaunchFragment newInstance() {
+//        Bundle args = new Bundle();
+//        NewFragment fragment = new NewFragment();
+//        args.putInt(DetailFragment.ARG_TAB, tabIndex);
+//        fragment.setArguments(args);
+        MyLaunchFragment fragment = new MyLaunchFragment();
         return fragment;
+    }
+
+    private List<PeopleLeaveEntity.PeopleLeaveRrdBean> entityList = new ArrayList<>();
+    private List<PeopleLeaveEntity.PeopleLeaveRrdBean> baseEntityList;
+
+    ListAdapter<PeopleLeaveEntity.PeopleLeaveRrdBean> adapter = new ListAdapter<PeopleLeaveEntity.PeopleLeaveRrdBean>((ArrayList<PeopleLeaveEntity.PeopleLeaveRrdBean>) entityList, R.layout.layout_my_todo_too) {
+        @Override
+        public void bindView(ViewHolder holder, PeopleLeaveEntity.PeopleLeaveRrdBean bean) {
+            holder.setText(R.id.tv_title, "审批进度:"+(bean.getProcess().equals("1")?"已结束":"未结束"));
+            holder.setText(R.id.tv_date, "修改时间:"+DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
+            holder.setText(R.id.tv_sketch, bean.getContent().isEmpty()?"请假原因:无":"请假原因:"+bean.getContent());
+        }
+    };
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+//        tabIndex = getArguments().getInt(DetailFragment.ARG_TAB);
+        loadData(beginNum, endNum);
+    }
+
+    SimpleListView lv;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.main_listview_libmain, null, false);
+        lv = (SimpleListView) view.findViewById(R.id.viewpager_listview);
+        ivEmpty = (TextView) view.findViewById(R.id.iv_empty);
+        ivEmpty.setText("当前无请假申请记录");
+        pb = (ProgressBar) view.findViewById(R.id.mycommission_pb);
+        lv.setAdapter(adapter);
+        adapter.registerDataSetObserver(new DataSetObserver() {
+            @Override
+            public void onChanged() {
+                if (adapter.getCount() == 0) {
+                    ivEmpty.setVisibility(View.VISIBLE);
+                } else {
+                    ivEmpty.setVisibility(View.GONE);
+                }
+                pb.setVisibility(View.GONE);
+                super.onChanged();
+            }
+        });
+        lv.setOnRefreshListener(this);
+        lv.setOnItemClickListener(this);
+        return view;
+    }
+
+    void loadData(final int beginNum, final int endNum) {
+        if (callback != null) {
+            callback.onLoadData();
+        }
+        PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
+        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
+        peopleLeaveRrdBean.setNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
+        peopleLeaveRrdBean.setMultiLevelResult("?");
+        peopleLeaveRrdBean.setProcess("?");
+        peopleLeaveRrdBean.setLevelNum("?");
+        peopleLeaveRrdBean.setContent("?");
+        peopleLeaveRrdBean.setBeginNum(String.valueOf(beginNum));
+        peopleLeaveRrdBean.setEndNum(String.valueOf(endNum));
+        peopleLeaveRrdBean.setNoIndex("?");
+        peopleLeaveRrdBean.setModifyTime("?");
+        peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        peopleLeaveRrdBean.setIsAndroid("1");
+        List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
+        list.add(peopleLeaveRrdBean);
+        peopleLeaveEntity.setPeopleLeaveRrd(list);
+        String json = new Gson().toJson(peopleLeaveEntity);
+        final String s = "get " + json;
+        Log.e(TAG, "loadData()查看申请记录"+s);
+        String url = CommonValues.BASE_URL;
+        HttpManager.getInstance().requestResultForm(url, s, PeopleLeaveEntity.class,new HttpManager.ResultCallback<PeopleLeaveEntity>() {
+            @Override
+            public void onSuccess(final String json, final PeopleLeaveEntity peopleLeaveEntity1) throws InterruptedException {
+                if (peopleLeaveEntity1 != null && peopleLeaveEntity1.getPeopleLeaveRrd().size() > 0) {
+                    if (beginNum==1 && endNum == 6){
+                        entityList.clear();
+                    }
+                    hasMore = true;
+                    entityList.addAll(peopleLeaveEntity1.getPeopleLeaveRrd());
+                    adapter.notifyDataSetChanged();
+                } else {
+                    hasMore = false;
+                }
+                pb.setVisibility(View.GONE);
+                lv.completeRefresh();
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        lv.completeRefresh();
+                        pb.setVisibility(View.GONE);
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(String response) {
+                ivEmpty.setVisibility(View.VISIBLE);
+                lv.completeRefresh();
+            }
+        });
+    }
+
+    private void loadMore() {
+        if (hasMore) {
+            beginNum += 6;
+            endNum += 6;
+            loadData(beginNum, endNum);
+        } else {
+            lv.completeRefresh();
+        }
+    }
+
+    @Override
+    public void onPullRefresh() {
+        hasMore = true;
+        beginNum = 1;
+        endNum = 6;
+        loadData(beginNum, endNum);
+        lv.completeRefresh();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if (lv.getCurrentState() == 2) return;
+        position -= 1;
+        checkDetail(position, PageConfig.PAGE_LEAVE_DETAIL_PEOPLE);
+    }
+
+    private void checkDetail(int position, int pageApplyBleave) {
+        Intent intent = new Intent(getActivity(), ItemActivity.class);
+        intent.putExtra(PageConfig.PAGE_CODE, pageApplyBleave);
+        Bundle bundle = new Bundle();
+        bundle.putString("no", adapter.getItem(position).getNo());
+        bundle.putString("outtime",adapter.getItem(position).getOutTime());
+        bundle.putString("intime", adapter.getItem(position).getInTime());
+        bundle.putString("content", adapter.getItem(position).getContent());
+        bundle.putString("levelnum", adapter.getItem(position).getLevelNum());
+        bundle.putString("process", adapter.getItem(position).getProcess());
+        bundle.putString("multiLevelResult",adapter.getItem(position).getMultiLevelResult());
+        bundle.putString("modifyTime",adapter.getItem(position).getModifyTime());
+        bundle.putString("bcancel",adapter.getItem(position).getBCancel());
+        bundle.putString("bfillup",adapter.getItem(position).getBFillup());
+        bundle.putString("noindex",adapter.getItem(position).getNoIndex());
+        bundle.putInt("item",position);
+//        bundle.putInt("tabIndex",tabIndex);
+        intent.putExtra("data", bundle);
+        startActivityForResult(intent,CommonValues.MYLAUN);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CommonValues.MYLAUN){
+            if (resultCode == Activity.RESULT_OK){
+                final int item = data.getExtras().getInt("item");
+//                final int tabIndex = data.getExtras().getInt("tabIndex");
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+//                        if (tabIndex == 0){
+                        entityList.remove(item);
+                        adapter.notifyDataSetChanged();
+//                        }
+                    }
+                });
+
+            }
+        }
     }
 
     private DetailFragment.DataCallback callback;
@@ -58,162 +232,47 @@ public class MyLaunchFragment extends Fragment implements View.OnClickListener{
         return this;
     }
 
-    public static MyLaunchFragment newInstance() {
-        MyLaunchFragment fragment = new MyLaunchFragment();
-        return fragment;
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.flow_detail, container, false);
-        initView(root);
-        fragments = new Fragment[2];
-        fragments[0] = MyLaunchPeopleFragment.newInstance();
-        fragments[1] = MyLaunchCarFragment.newInstance();
-        return root;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    //初始化控件并设置搜索框的配置
-    private void initView(View view) {
-        group = (RadioGroup) view.findViewById(R.id.rg_items);
-        rbLeft = (RadioButton) view.findViewById(R.id.rb_left);
-        rbMid = (RadioButton) view.findViewById(R.id.rb_mid);
-        rbRight = (RadioButton) view.findViewById(R.id.rb_right);
-        llEtSearch = (LinearLayout) view.findViewById(ll_et_search);
-        etSearch = (SearchView) view.findViewById(R.id.et_search);
-        tvCancel = (TextView) view.findViewById(R.id.tv_cancel);
-        tvCancel.setOnClickListener(this);
-        etSearch.setSubmitButtonEnabled(true);
-        etSearch.setIconifiedByDefault(false);
-        etSearch.setFocusableInTouchMode(false);
-        etSearch.setFocusable(false);
-        etSearch.setOnClickListener(this);
-        etSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                doFilter(query);
-                return true;
+    public void filter(String key) {
+        if (lv == null || key == null) return;
+        if (entityList != null && !key.equals("")) {
+            if (baseEntityList == null) {
+                baseEntityList = new ArrayList<>();
+                baseEntityList.addAll(entityList);
             }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                doFilter(newText);
-                return true;
-            }
-        });
-        checkTabs(true);
-    }
-
-    //搜索逻辑跳转到子fragment界面进行搜索
-    public void doFilter(String str){
-        Fragment f = fragments[currentTab];
-        if (f instanceof MyLaunchPeopleFragment) {
-            ((MyLaunchPeopleFragment) f).filter(str);
-        } else if (f instanceof MyLaunchCarFragment){
-            ((MyLaunchCarFragment) f).filter(str);
-        }
-    }
-
-    //点击搜索图标或者搜索图标旁的取消按钮来控制搜索框的显示
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.et_search) {
-            etSearch.setFocusable(true);
-            toggleSearchBox(true);
-        } else if (v.getId() == R.id.tv_cancel) {
-            toggleSearchBox(false);
-        }
-    }
-
-    //搜索框开关
-    private void toggleSearchBox(boolean enable) {
-        if (enable) {
-            etSearch.setFocusableInTouchMode(true);
-            etSearch.requestFocus();
-            tvCancel.setVisibility(VISIBLE);
-        } else {
-            //  etSearch.setText("");
-            tvCancel.setVisibility(GONE);
-            etSearch.setFocusableInTouchMode(false);
-            etSearch.clearFocus();
-        }
-    }
-
-    //根据不同的int参数设置顶部导航栏的按钮数量(暂时设置GONE)
-    private void checkTabs(boolean checkButtons) {
-        group.setVisibility(VISIBLE);
-        if (checkButtons){
-            setRadioButtons("人员请假", "车辆外出");
-        }
-    }
-
-    //根据顶部按钮点击跳转到三个子fragment中的子fragment当中
-    public void onButtonClickListner(int radioIndex) {
-        if (radioIndex >= 0 && radioIndex <= 2) {
-            toggleSearchBox(false);
-            FragmentTransaction trans = getChildFragmentManager().beginTransaction();
-            for (int i = 0; i < fragments.length; i++) {
-                if (radioIndex == i) {
-                    trans.show(fragments[i]);
-                } else {
-                    trans.hide(fragments[i]);
+            List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
+            for (PeopleLeaveEntity.PeopleLeaveRrdBean bean : baseEntityList) {
+                if (("审批进度:"+(bean.getProcess().equals("1")?"已结束":"未结束")).replace(" ", "").contains(key)){
+                    list.add(bean);
+                }
+                if ((bean.getContent().isEmpty()?"请假原因:无":"请假原因:"+bean.getContent()).replace(" ", "").contains(key)) {
+                    list.add(bean);
+                }
+                if (("修改时间:"+DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss")).replace(" ", "").contains(key)) {
+                    list.add(bean);
                 }
             }
-            trans.commit();
-        }
-    }
-
-    /**
-     * 参数顺序为导航按钮从左至右的次序，参数数量2或者3
-     * @param titles
-     */
-    //设置顶部菜单栏的按钮
-    public void setRadioButtons(final String... titles) {
-        if (titles == null)
-            return;
-        if (titles.length < 2 || titles.length > 3) {
-            throw new IllegalArgumentException("参数数量为2或者3");
-        } else {
-            radioButtonList = new ArrayList<>();
-            if (titles.length == 2) {
-                rbMid.setVisibility(GONE);
-                rbLeft.setText(titles[0]);
-                rbRight.setText(titles[1]);
-                radioButtonList.add(rbLeft);
-                radioButtonList.add(rbRight);
-            } else {
-                rbMid.setVisibility(VISIBLE);
-                rbLeft.setText(titles[0]);
-                rbMid.setText(titles[1]);
-                rbRight.setText(titles[2]);
-                radioButtonList.add(rbLeft);
-                radioButtonList.add(rbMid);
-                radioButtonList.add(rbRight);
+            entityList.clear();
+            entityList.addAll(list);
+            adapter.notifyDataSetChanged();
+        } else if (entityList != null) {
+            if (baseEntityList != null) {
+                entityList.clear();
+                entityList.addAll(baseEntityList);
+                adapter.notifyDataSetChanged();
             }
-            group.setVisibility(VISIBLE);
-            group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(RadioGroup group, int checkedId) {
-                    if (checkedId == R.id.rb_left) {
-                        onButtonClickListner(0);
-                    } else if (checkedId == R.id.rb_mid) {
-                        onButtonClickListner(1);
-                    } else if (checkedId == R.id.rb_right) {
-                        if (titles.length == 2) {
-                            onButtonClickListner(1);
-                        } else {
-                            onButtonClickListner(2);
-                        }
-
-                    }
-                }
-            });
         }
+
     }
+
+    @Override
+    public void onLoadingMore() {
+        loadMore();
+    }
+
+    @Override
+    public void onScrollOutside() {
+
+    }
+
+
 }

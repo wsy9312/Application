@@ -2,9 +2,12 @@ package com.example.hgtxxgl.application.fragment;
 
 import android.content.Intent;
 import android.database.DataSetObserver;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,12 +54,25 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
     ListAdapter<NewsInfoEntity.NewsRrdBean> adapter = new ListAdapter<NewsInfoEntity.NewsRrdBean>((ArrayList<NewsInfoEntity.NewsRrdBean>) entityList, R.layout.layout_news) {
         @Override
         public void bindView(ViewHolder holder, NewsInfoEntity.NewsRrdBean bean) {
+            holder.setBitmap(R.id.image_news,stringtoBitmap(bean.getPicture1()));
             holder.setText(R.id.tv_title, bean.getTitle());
             holder.setText(R.id.tv_sketch, bean.getContent());
             holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
         }
     };
+    //将字符串转换成Bitmap类型
+    public Bitmap stringtoBitmap(String string){
+        Bitmap bitmap=null;
+        try {
+            byte[]bitmapArray;
+            bitmapArray= Base64.decode(string, Base64.DEFAULT);
+            bitmap= BitmapFactory.decodeByteArray(bitmapArray, 0, bitmapArray.length);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+        return bitmap;
+    }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
