@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -112,10 +111,6 @@ public class PersonalFragment extends Fragment implements View.OnClickListener{
         String b = string.substring(1,2);
         String c = string.substring(2,3);
         String d = string.substring(3,4);
-        Log.e(TAG,"所属单位a:"+a);
-        Log.e(TAG,"所属单位b:"+b);
-        Log.e(TAG,"所属单位c:"+c);
-        Log.e(TAG,"所属单位d:"+d);
         if (Integer.parseInt(a.trim()) == 0){
             return "";
         } else if (Integer.parseInt(b.trim()) == 0){
