@@ -43,7 +43,7 @@ public class PollingService extends Service {
 		builder1 = new NotificationCompat.Builder(this)
 				.setSmallIcon(R.mipmap.app_logo)
 				//设置通知标题
-				.setContentTitle("management service at work");
+				.setContentTitle("management system service is running");
 		Notification notification = builder1.build();
 		startForeground(110, notification);// 开始前台服务
 		initNotifiManager();

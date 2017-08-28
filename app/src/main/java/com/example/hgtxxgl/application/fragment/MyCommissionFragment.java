@@ -116,7 +116,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
         View view = inflater.inflate(R.layout.main_listview_libmain, null, false);
         lv = (SimpleListView) view.findViewById(R.id.viewpager_listview);
         ivEmpty = (TextView) view.findViewById(iv_empty);
-        ivEmpty.setText("当前暂无需要审批的记录");
+        ivEmpty.setText("当前无记录");
         pb = (ProgressBar) view.findViewById(R.id.mycommission_pb);
         lv.setAdapter(adapter);
         adapter.registerDataSetObserver(new DataSetObserver() {

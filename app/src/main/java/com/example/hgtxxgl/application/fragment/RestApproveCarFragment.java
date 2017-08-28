@@ -1,124 +1,261 @@
 package com.example.hgtxxgl.application.fragment;
 
-public class RestApproveCarFragment extends RestDetailCarFragment {
+import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
+import android.widget.Toast;
 
-//    private RestDetailBean.RetDataBean.DetailDataBean entitiy;
-//    private HandInputGroup.Holder mholder;
-//
-//    public RestApproveCarFragment() {
-//    }
-//
-//    public static RestApproveCarFragment newInstance(Bundle bundle) {
-//        RestApproveCarFragment fragment = new RestApproveCarFragment();
-//        fragment.setArguments(bundle);
-//        return fragment;
-//    }
-//
-//    @Override
-//    public void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-////        getBottomTitles();
-//    }
-//
-//    @Override
-//    public void setToolbar(HandToolbar toolbar) {
-//        toolbar.setTitle("请假审批");
-//        toolbar.setDisplayHomeAsUpEnabled(true, getActivity());
-//    }
-//
-//    @SuppressWarnings("unchecked")
-//    @Override
-//    public void onBottomButtonsClick(final String title, final List<Group> groups) {
-//        setButtonllEnable(true);
-//        if (title.equals("同意")){
-//            requestForPerson(title);
-//            return;
-//        }
-////        entitiy = getEntity().getDetailData();
-//        String over = isOver(groups);
-//        if (!title.equals("拒绝") && over != null){
-//            ToastUtil.showToast(getContext(),(this.getString(R.string.Please_Fill) + over));
-//            setButtonllEnable(true);
-//            return;
-//        }else {
-//            Map<String, Object> body = CommonValues.getCommonParams(getActivity());
-//            Map<String, Object> mainData = new HashMap<String, Object>();
-//            mainData.put("Identifier",entitiy.getIdentifier());
-//            mainData.put("BarCode",entitiy.getBarCode());
-//            mainData.put("Company",entitiy.getCompany());
-//            mainData.put("Position",entitiy.getPosition());
-//            mainData.put("EmployeeID",entitiy.getEmployeeID());
-//            mainData.put("Department",entitiy.getDepartment());
-//            mainData.put("SubmitBy",entitiy.getSubmitBy());
-//            mainData.put("TotalLeaveTime",entitiy.getTotalLeaveTime());
-//            mainData.put("Applicant",entitiy.getApplicant());
-//            mainData.put("UpdateTime", DescripUtil.formatDate(new Date()));
-//            mainData.put("CreateTime",entitiy.getCreateTime());
-//            mainData.put("Summary",entitiy.getSummary());
-//            mainData.put("UpdateBy", "");
-//            mainData.put("IsSelf",entitiy.isIsSelf());
-//            mainData.put("Id",entitiy.getId());
-//            if (entitiy.isIsSelf()){
-//                mainData.put("LeaveDays",entitiy.getLeaveDays());
-//            }else {
-//                mainData.put("laveYearDays", entitiy.getLaveYearDays());//年假剩余天数//18
-//                mainData.put("laveHours", entitiy.getLaveHours());//调休剩余小时数//19
-//                mainData.put("totalNumber", entitiy.getTotalNumber());//累积产前检查次数//20
-//                mainData.put("totalDays", entitiy.getTotalDays());//累计事假天数//21
-//            }
-//            String main = new Gson().toJson(mainData);
-//            body.put("mainData",main);
-//            List<Object> objects = new ArrayList<>();
-//            List<RestDetailBean.RetDataBean.DetailDataBean.LeaveRequestDetailBean> details = entitiy.getLeaveRequestDetail();
-//            for (RestDetailBean.RetDataBean.DetailDataBean.LeaveRequestDetailBean detail : details) {
-//                Map<String,Object> detailData = new HashMap<>();
-//                detailData.put("Id",detail.getId());
-//                detailData.put("LeaveTpyeName",detail.getLeaveTpyeName());
-//                detailData.put("WorkflowIdentifier",detail.getWorkflowIdentifier());
-//                detailData.put("LeaveType",detail.getLeaveType());
-//                detailData.put("StartTime",detail.getStartTime());
-//                detailData.put("EndTime",detail.getEndTime());
-//                detailData.put("LeaveTime",detail.getLeaveTime());
-//                detailData.put("LeaveCauses",detail.getLeaveCauses());
-//                detailData.put("Remark",detail.getRemark());
-//                objects.add(detailData);
-//            }
-//            String detail = new Gson().toJson(objects);
-//            body.put("detailData",detail);
-//            body.put("sn",getArguments().getString("SN"));
-//            applyApprove(CommonValues.REQ_REST_APPROVE, body, title);
-//        }
-//
-//    }
-//
-//    @Override
-//    public String[] getBottomButtonsTitles() {
-//        return new String[]{"同意","拒绝"};
-//    }
-//
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == CommonValues.CODE_OA_REQUEST) {
-//            if (data != null) {
-//                L.e("BPM-REST","keyOfHolder----" + data.getStringExtra("keyOfHolder") + ",empId----" + data.getStringExtra("empid"));
-//                String empid = data.getStringExtra("empId");//eid
-//                if (empid == null || empid.equals("")) {
-//                    Toast.makeText(getActivity(), "读取转办人信息失败", Toast.LENGTH_SHORT).show();
-//                    setButtonllEnable(true);
-//                    return;
-//                }
-//                if (empid != null) {
-//                    Map<String, Object> params = CommonValues.getCommonParams(getActivity());
-//                    params.put("barCode",getArguments().getString("barCode"));
-//                    params.put("sn",getArguments().getString("SN"));
-//                    params.put("approver",empid);
-//                    applyApprove(CommonValues.FOR_WARD_TASK_PROCESS, params, "转办");
-//                }
-//            } else {
-//                T.showShort(getActivity(),"读取人员信息失败");
+import com.example.hgtxxgl.application.activity.LibMainActivity;
+import com.example.hgtxxgl.application.entity.CarLeaveEntity;
+import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
+import com.example.hgtxxgl.application.rest.CommonFragment;
+import com.example.hgtxxgl.application.rest.HandInputGroup;
+import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
+import com.example.hgtxxgl.application.utils.hand.CommonValues;
+import com.example.hgtxxgl.application.utils.hand.HttpManager;
+import com.example.hgtxxgl.application.utils.hyutils.L;
+import com.example.hgtxxgl.application.view.HandToolbar;
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import es.dmoral.toasty.Toasty;
+
+public class RestApproveCarFragment extends CommonFragment {
+
+    private final static String TAG = "RestApproveCarFragment";
+    private String noindex;
+    private String no;
+
+    public RestApproveCarFragment(){
+
+    }
+
+    private CarLeaveEntity.CarLeaveRrdBean entity = null;
+
+    public PeopleInfoEntity.PeopleInfoBean getBean() {
+        return bean;
+    }
+
+    public void setBean(PeopleInfoEntity.PeopleInfoBean bean) {
+        this.bean = bean;
+    }
+
+    private PeopleInfoEntity.PeopleInfoBean bean = null;
+
+    public static RestApproveCarFragment newInstance(Bundle bundle) {
+        RestApproveCarFragment fragment = new RestApproveCarFragment();
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+    @Override
+    public String[] getBottomButtonsTitles() {
+        return new String[]{"同意","拒绝"};
+    }
+
+    @Override
+    public List<Group> getGroupList() {
+        if (entity == null/* || bean == null*/) return null;
+        List<Group> groups = new ArrayList<>();
+//        String processStr = entity.getProcess();
+//        String resultStr = entity.getResult();
+//        int result = Integer.parseInt(resultStr);
+//        int process = Integer.parseInt(processStr);
+        List<HandInputGroup.Holder> list = new ArrayList<>();
+        list.add(new HandInputGroup.Holder("流程内容", true, false, "车辆外出", HandInputGroup.VALUE_TYPE.TEXT));
+//        list.add(new HandInputGroup.Holder("审批进度", true, false, process == 0?"审批中":"审批结束", HandInputGroup.VALUE_TYPE.TEXT));
+//        if (process == 1){
+//            if (result == 1){
+//                list.add(new HandInputGroup.Holder("审批结果", true, false, "审批同意", HandInputGroup.VALUE_TYPE.TEXT));
+//            }else{
+//                list.add(new HandInputGroup.Holder("审批结果", true, false, "审批拒绝", HandInputGroup.VALUE_TYPE.TEXT));
 //            }
 //        }
-//    }
+        groups.add(new Group("流程摘要-摘要内容", null, false, null, list));
+
+        List<HandInputGroup.Holder> holderList = new ArrayList<>();
+        holderList.add(new HandInputGroup.Holder("申请人", true, false, getArguments().getString("name"), HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("申请车辆号牌", true, false, entity.getCarNo(), HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("预计外出时间", true, false, entity.getOutTime(), HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("预计归来时间", true, false, entity.getInTime(), HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("请假原因", true, false, entity.getContent(), HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("是否后补请假", true, false, entity.getbFillup().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
+        groups.add(new Group("详细信息-基本信息", null, false, null, holderList));
+        return groups;
+    }
+
+    public void setToolbar(HandToolbar toolbar) {
+        toolbar.setDisplayHomeAsUpEnabled(true, getActivity());
+        toolbar.setTitle("车辆请假审批");
+        toolbar.setTitleSize(18);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        loadData();
+    }
+
+    private void show(final String msg) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toasty.success(getContext(),msg, Toast.LENGTH_SHORT,true).show();
+            }
+        });
+    }
+
+    public void loadData() {
+        no = getArguments().getString("no");
+        String outtime = getArguments().getString("outtime");
+        String intime = getArguments().getString("intime");
+        String content = getArguments().getString("content");
+        String process = getArguments().getString("process");
+        String modifyTime = getArguments().getString("modifyTime");
+        String bcancel = getArguments().getString("bcancel");
+        String bfillup = getArguments().getString("bfillup");
+        noindex = getArguments().getString("noindex");
+        CarLeaveEntity carLeaveEntity = new CarLeaveEntity();
+        CarLeaveEntity.CarLeaveRrdBean carLeaveRrdBean = new CarLeaveEntity.CarLeaveRrdBean();
+        carLeaveRrdBean.setNo(no);
+        carLeaveRrdBean.setApproverNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        carLeaveRrdBean.setRegisterTime("?");
+        carLeaveRrdBean.setOutTime("?");
+        carLeaveRrdBean.setInTime("?");
+        carLeaveRrdBean.setContent("?");
+        carLeaveRrdBean.setActualOutTime("?");
+        carLeaveRrdBean.setActualInTime("?");
+        carLeaveRrdBean.setModifyTime("?");
+        carLeaveRrdBean.setProcess("?");
+        carLeaveRrdBean.setbCancel("?");
+        carLeaveRrdBean.setbFillup("?");
+        carLeaveRrdBean.setNoIndex(noindex);
+        carLeaveRrdBean.setBeginNum("?");
+        carLeaveRrdBean.setEndNum("?");
+        carLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        carLeaveRrdBean.setIsAndroid("1");
+        List<CarLeaveEntity.CarLeaveRrdBean> list = new ArrayList<>();
+        list.add(carLeaveRrdBean);
+        carLeaveEntity.setCarLeaveRrd(list);
+        String toJson = new Gson().toJson(carLeaveEntity);
+        String s="get "+toJson;
+        L.e(TAG,s);
+        String url = CommonValues.BASE_URL;
+        HttpManager.getInstance().requestResultForm(url, s, CarLeaveEntity.class, new HttpManager.ResultCallback<CarLeaveEntity>() {
+            @Override
+            public void onSuccess(String json, final CarLeaveEntity carLeaveEntity1) throws InterruptedException {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (carLeaveEntity1 != null){
+                            if (carLeaveEntity1.getCarLeaveRrd().get(0).getbCancel().equals("0")){
+                                setEntity(carLeaveEntity1.getCarLeaveRrd().get(0));
+                                setGroup(getGroupList());
+                                setPb(false);
+                                setButtonllEnable(true);
+                                setDisplayTabs(true);
+                                notifyDataSetChanged();
+                            }
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(String msg) {
+//                show(msg);
+            }
+
+            @Override
+            public void onResponse(String response) {
+//                show(response);
+            }
+        });
+    }
+
+    @Override
+    public void onBottomButtonsClick(String title, List<Group> groups) {
+        CarLeaveEntity carLeaveEntity = new CarLeaveEntity();
+        CarLeaveEntity.CarLeaveRrdBean carLeaveRrdBean = new CarLeaveEntity.CarLeaveRrdBean();
+        carLeaveRrdBean.setApproverNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
+        carLeaveRrdBean.setNoIndex(noindex);
+        if (title.equals("同意")){
+            carLeaveRrdBean.setResult("1");
+        }else {
+            carLeaveRrdBean.setResult("0");
+        }
+        carLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        carLeaveRrdBean.setIsAndroid("1");
+//        ToastUtil.showToast(getContext(),peopleLeaveRrdBean.getCurrentApproveNo()+" "+peopleLeaveRrdBean.getResult()+" "+noindex);
+        List<CarLeaveEntity.CarLeaveRrdBean> beanList = new ArrayList<>();
+        beanList.add(carLeaveRrdBean);
+        carLeaveEntity.setCarLeaveRrd(beanList);
+        String json = new Gson().toJson(carLeaveEntity);
+        final String s1 = "approve " + json;
+        AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
+        builder.setMessage("是否确认?");
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                approveStart(CommonValues.BASE_URL,s1);
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.create().show();
+
+    }
+
+    private void approveStart(String baseUrl, String s1) {
+        HttpManager.getInstance().requestResultForm(baseUrl, s1, CarLeaveEntity.class, new HttpManager.ResultCallback<CarLeaveEntity>() {
+            @Override
+            public void onSuccess(String json, final CarLeaveEntity carLeaveEntity) throws InterruptedException {
+            }
+
+            @Override
+            public void onFailure(final String msg) {
+            }
+
+            @Override
+            public void onResponse(String response) {
+                if (response.toLowerCase().contains("ok")) {
+                    show("审批成功");
+                    Intent intent = new Intent();
+                    intent.setClass(getContext(), LibMainActivity.class);
+                    intent.putExtra("item",getArguments().getInt("item"));
+                    intent.putExtra("tabIndex",getArguments().getInt("tabIndex"));
+                    getActivity().setResult(Activity.RESULT_OK,intent);
+                    getActivity().finish();
+                }else{
+                    show("审批失败");
+                    Intent intent = new Intent();
+                    intent.setClass(getContext(), LibMainActivity.class);
+                    intent.putExtra("item",getArguments().getInt("item"));
+                    intent.putExtra("tabIndex",getArguments().getInt("tabIndex"));
+                    getActivity().setResult(Activity.RESULT_OK,intent);
+                    getActivity().finish();
+                }
+            }
+        });
+
+    }
+
+    public CarLeaveEntity.CarLeaveRrdBean getEntity() {
+        return entity;
+    }
+
+    public void setEntity(CarLeaveEntity.CarLeaveRrdBean entity) {
+        this.entity = entity;
+    }
 
 }

@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.ItemActivity;
-import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
+import com.example.hgtxxgl.application.entity.CarLeaveEntity;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.DataUtil;
@@ -53,13 +53,13 @@ public class MyLaunchCarFragment extends Fragment implements SimpleListView.OnRe
         return fragment;
     }
 
-    private List<PeopleLeaveEntity.PeopleLeaveRrdBean> entityList = new ArrayList<>();
-    private List<PeopleLeaveEntity.PeopleLeaveRrdBean> baseEntityList;
+    private List<CarLeaveEntity.CarLeaveRrdBean> entityList = new ArrayList<>();
+    private List<CarLeaveEntity.CarLeaveRrdBean> baseEntityList;
 
-    ListAdapter<PeopleLeaveEntity.PeopleLeaveRrdBean> adapter = new ListAdapter<PeopleLeaveEntity.PeopleLeaveRrdBean>((ArrayList<PeopleLeaveEntity.PeopleLeaveRrdBean>) entityList, R.layout.layout_my_todo_too) {
+    ListAdapter<CarLeaveEntity.CarLeaveRrdBean> adapter = new ListAdapter<CarLeaveEntity.CarLeaveRrdBean>((ArrayList<CarLeaveEntity.CarLeaveRrdBean>) entityList, R.layout.layout_my_todo_too) {
         @Override
-        public void bindView(ViewHolder holder, PeopleLeaveEntity.PeopleLeaveRrdBean bean) {
-            holder.setText(R.id.tv_title, "审批进度:"+(bean.getProcess().equals("1")?"已结束":"未结束"));
+        public void bindView(ViewHolder holder, CarLeaveEntity.CarLeaveRrdBean bean) {
+//            holder.setText(R.id.tv_title, "审批进度:"+(bean.getProcess().equals("1")?"已结束":"未结束"));
             holder.setText(R.id.tv_date, "修改时间:"+ DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
             holder.setText(R.id.tv_sketch, bean.getContent().isEmpty()?"请假原因:无":"请假原因:"+bean.getContent());
         }
@@ -78,7 +78,7 @@ public class MyLaunchCarFragment extends Fragment implements SimpleListView.OnRe
         View view = inflater.inflate(R.layout.main_listview_libmain, null, false);
         lv = (SimpleListView) view.findViewById(R.id.viewpager_listview);
         ivEmpty = (TextView) view.findViewById(R.id.iv_empty);
-        ivEmpty.setText("当前无请假申请记录");
+        ivEmpty.setText("当前无记录");
         pb = (ProgressBar) view.findViewById(R.id.mycommission_pb);
         lv.setAdapter(adapter);
         adapter.registerDataSetObserver(new DataSetObserver() {
@@ -102,35 +102,33 @@ public class MyLaunchCarFragment extends Fragment implements SimpleListView.OnRe
         if (callback != null) {
             callback.onLoadData();
         }
-        PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
-        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
-        peopleLeaveRrdBean.setNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
-        peopleLeaveRrdBean.setMultiLevelResult("?");
-        peopleLeaveRrdBean.setProcess("?");
-        peopleLeaveRrdBean.setLevelNum("?");
-        peopleLeaveRrdBean.setContent("?");
-        peopleLeaveRrdBean.setBeginNum(String.valueOf(beginNum));
-        peopleLeaveRrdBean.setEndNum(String.valueOf(endNum));
-        peopleLeaveRrdBean.setNoIndex("?");
-        peopleLeaveRrdBean.setModifyTime("?");
-        peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-        peopleLeaveRrdBean.setIsAndroid("1");
-        List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
-        list.add(peopleLeaveRrdBean);
-        peopleLeaveEntity.setPeopleLeaveRrd(list);
-        String json = new Gson().toJson(peopleLeaveEntity);
+        CarLeaveEntity carLeaveEntity = new CarLeaveEntity();
+        CarLeaveEntity.CarLeaveRrdBean carLeaveRrdBean = new CarLeaveEntity.CarLeaveRrdBean();
+        carLeaveRrdBean.setNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
+        carLeaveRrdBean.setProcess("?");
+        carLeaveRrdBean.setContent("?");
+        carLeaveRrdBean.setBeginNum(String.valueOf(beginNum));
+        carLeaveRrdBean.setEndNum(String.valueOf(endNum));
+        carLeaveRrdBean.setNoIndex("?");
+        carLeaveRrdBean.setModifyTime("?");
+        carLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        carLeaveRrdBean.setIsAndroid("1");
+        List<CarLeaveEntity.CarLeaveRrdBean> list = new ArrayList<>();
+        list.add(carLeaveRrdBean);
+        carLeaveEntity.setCarLeaveRrd(list);
+        String json = new Gson().toJson(carLeaveEntity);
         final String s = "get " + json;
         Log.e(TAG, "loadData()查看申请记录"+s);
         String url = CommonValues.BASE_URL;
-        HttpManager.getInstance().requestResultForm(url, s, PeopleLeaveEntity.class,new HttpManager.ResultCallback<PeopleLeaveEntity>() {
+        HttpManager.getInstance().requestResultForm(url, s, CarLeaveEntity.class,new HttpManager.ResultCallback<CarLeaveEntity>() {
             @Override
-            public void onSuccess(final String json, final PeopleLeaveEntity peopleLeaveEntity1) throws InterruptedException {
-                if (peopleLeaveEntity1 != null && peopleLeaveEntity1.getPeopleLeaveRrd().size() > 0) {
+            public void onSuccess(final String json, final CarLeaveEntity carLeaveEntity1) throws InterruptedException {
+                if (carLeaveEntity1 != null && carLeaveEntity1.getCarLeaveRrd().size() > 0) {
                     if (beginNum==1 && endNum == 6){
                         entityList.clear();
                     }
                     hasMore = true;
-                    entityList.addAll(peopleLeaveEntity1.getPeopleLeaveRrd());
+                    entityList.addAll(carLeaveEntity1.getCarLeaveRrd());
                     adapter.notifyDataSetChanged();
                 } else {
                     hasMore = false;
@@ -181,7 +179,7 @@ public class MyLaunchCarFragment extends Fragment implements SimpleListView.OnRe
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (lv.getCurrentState() == 2) return;
         position -= 1;
-        checkDetail(position, PageConfig.PAGE_LEAVE_DETAIL_PEOPLE);
+        checkDetail(position, PageConfig.PAGE_LEAVE_DETAIL_CAR);
     }
 
     private void checkDetail(int position, int pageApplyBleave) {
@@ -192,12 +190,10 @@ public class MyLaunchCarFragment extends Fragment implements SimpleListView.OnRe
         bundle.putString("outtime",adapter.getItem(position).getOutTime());
         bundle.putString("intime", adapter.getItem(position).getInTime());
         bundle.putString("content", adapter.getItem(position).getContent());
-        bundle.putString("levelnum", adapter.getItem(position).getLevelNum());
         bundle.putString("process", adapter.getItem(position).getProcess());
-        bundle.putString("multiLevelResult",adapter.getItem(position).getMultiLevelResult());
         bundle.putString("modifyTime",adapter.getItem(position).getModifyTime());
-        bundle.putString("bcancel",adapter.getItem(position).getBCancel());
-        bundle.putString("bfillup",adapter.getItem(position).getBFillup());
+        bundle.putString("bcancel",adapter.getItem(position).getbCancel());
+        bundle.putString("bfillup",adapter.getItem(position).getbFillup());
         bundle.putString("noindex",adapter.getItem(position).getNoIndex());
         bundle.putInt("item",position);
 //        bundle.putInt("tabIndex",tabIndex);
@@ -240,8 +236,8 @@ public class MyLaunchCarFragment extends Fragment implements SimpleListView.OnRe
                 baseEntityList = new ArrayList<>();
                 baseEntityList.addAll(entityList);
             }
-            List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
-            for (PeopleLeaveEntity.PeopleLeaveRrdBean bean : baseEntityList) {
+            List<CarLeaveEntity.CarLeaveRrdBean> list = new ArrayList<>();
+            for (CarLeaveEntity.CarLeaveRrdBean bean : baseEntityList) {
                 if (("审批进度:"+(bean.getProcess().equals("1")?"已结束":"未结束")).replace(" ", "").contains(key)){
                     list.add(bean);
                 }

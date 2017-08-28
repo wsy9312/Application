@@ -3,12 +3,8 @@ package com.example.hgtxxgl.application.utils.hand;
 
 public class PageConfig {
 
-
     public static final String PAGE_CODE = "PAGE_CODE";
 
-    /**
-     * 流程首页三个按钮
-     */
     public static final int PAGE_NEWS = -1;
     public static final int PAGE_NOTIFICATION = -2;
     public static final int PAGE_TODO_CAR = -3;
@@ -18,9 +14,6 @@ public class PageConfig {
     public static final int PAGE_APPLY = -7;
     public static final int PAGE_ME = -8;
 
-    /**
-     * 请假流程首页三个按钮
-     */
     public static final int PAGE_LEAVE_APPLY_CAR = 1;
     public static final int PAGE_LEAVE_APPLY_PEOPLE = 2;
     public static final int PAGE_LEAVE_APPROVE_CAR = 3;

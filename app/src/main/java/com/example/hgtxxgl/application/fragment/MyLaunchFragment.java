@@ -76,7 +76,7 @@ public class MyLaunchFragment extends Fragment implements SimpleListView.OnRefre
         View view = inflater.inflate(R.layout.main_listview_libmain, null, false);
         lv = (SimpleListView) view.findViewById(R.id.viewpager_listview);
         ivEmpty = (TextView) view.findViewById(R.id.iv_empty);
-        ivEmpty.setText("当前无请假申请记录");
+        ivEmpty.setText("当前无记录");
         pb = (ProgressBar) view.findViewById(R.id.mycommission_pb);
         lv.setAdapter(adapter);
         adapter.registerDataSetObserver(new DataSetObserver() {
