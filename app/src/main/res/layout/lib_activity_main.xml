@@ -30,14 +30,14 @@
                 android:checked="true"
                 android:enabled="false"
                 android:drawableTop="@drawable/home_page_radio_button_my_news"
-                android:text="新闻" />
+                android:text="新闻中心" />
 
             <RadioButton
                 android:id="@+id/rb_main_notification_center"
                 style="@style/BottomBarItem"
                 android:enabled="false"
                 android:drawableTop="@drawable/home_page_radio_button_my_notification"
-                android:text="通知" />
+                android:text="通知中心" />
             <RadioButton
                 android:enabled="false"
                 android:id="@+id/rb_main_cartodo_center"
@@ -74,12 +74,12 @@
                 style="@style/BottomBarItem"
                 android:drawableTop="@drawable/home_page_radio_button_post_flow"
                 android:text="请假申请" />
-            <RadioButton
+            <!--<RadioButton
                 android:enabled="false"
                 android:id="@+id/rb_main_personal_center"
                 style="@style/BottomBarItem"
                 android:drawableTop="@drawable/home_page_radio_button_post_personal"
-                android:text="我的" />
+                android:text="我的" />-->
 
         </RadioGroup>
     </HorizontalScrollView>

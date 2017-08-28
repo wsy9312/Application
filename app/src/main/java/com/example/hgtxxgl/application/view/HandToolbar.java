@@ -82,16 +82,15 @@ public class HandToolbar extends FrameLayout {
         });
     }
 
-    public void setBackHome(boolean enable,final Activity activity,int drawableResId){
+    public void setBackHome(boolean enable, /*final Activity activity,*/ int drawableResId){
         if (enable) {
             setRightButton(drawableResId);
-//            setRightButton(R.mipmap.ic_more);
 //            tvRight.setOnClickListener(new OnClickListener() {
 //                @Override
 //                public void onClick(View v) {
 //                    Intent intent = new Intent();
 //                    try {
-//                        Class<?> clazz = Class.forName("com.example.hgtxxgl.seahigh.activity.LibMainActivity");
+////                        Class<?> clazz = Class.forName("com.example.hgtxxgl.application.fragment.PersonalActivity");
 //                        intent.setClass(activity, clazz);
 //                    } catch(Exception e){
 //                        e.printStackTrace();

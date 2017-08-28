@@ -131,7 +131,7 @@ public class HistoryActivity extends AppCompatActivity {
         toobar = (HandToolbar) findViewById(R.id.toolbar);
         toobar.setTitle("审批历史");
         toobar.setDisplayHomeAsUpEnabled(true, this);
-        toobar.setBackHome(true,this,0);
+        toobar.setBackHome(true,0);
         list = (ListView) findViewById(R.id.fl_container);
     }
 

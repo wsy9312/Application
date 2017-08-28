@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity{
         handToolbar = (HandToolbar) findViewById(R.id.qrcode_mainactivity_toolbar);
         handToolbar.setTitle("二维码名片");
         handToolbar.setDisplayHomeAsUpEnabled(true, this);
-        handToolbar.setBackHome(true,this,R.mipmap.ic_more);
+        handToolbar.setBackHome(true,R.mipmap.ic_more);
         handToolbar.setTitleSize(20);
         handToolbar.setButtonsClickCallback(new HandToolbar.OnButtonsClickCallback() {
             @Override

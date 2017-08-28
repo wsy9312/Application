@@ -235,7 +235,7 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
         setPb(getArguments() != null);
         setToolbar(toolbar);
         toolbar.setDisplayHomeAsUpEnabled(true, getActivity());
-        toolbar.setBackHome(true,getActivity(),0);
+        toolbar.setBackHome(true,0);
         stubEmpty = (RelativeLayout) layout.findViewById(R.id.vs_empty);
         stubEmpty.setVisibility(groupList == null || groupList.size() == 0 ? View.VISIBLE : View.GONE);
         stubEmpty.setVisibility(View.GONE);

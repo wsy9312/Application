@@ -43,7 +43,7 @@ public class ScannerActivity extends DeCodeActivity {
         handToolbar = (HandToolbar) findViewById(R.id.activity_scanner_qr_toolbar);
         handToolbar.setTitle("扫一扫");
         handToolbar.setDisplayHomeAsUpEnabled(true, this);
-        handToolbar.setBackHome(false,this,0);
+        handToolbar.setBackHome(false,0);
         handToolbar.setTitleSize(20);
 //        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         StatusBarUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);

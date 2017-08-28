@@ -106,9 +106,9 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
                 return MyLaunchFragment.newInstance(position).setCallback(this);
             } else if (currentPage == PageConfig.PAGE_APPLY){
                 return new RestApplyPeopleFragment();
-            } else if (currentPage == PageConfig.PAGE_ME) {
-                return PersonalFragment.newInstance(position).setCallback(this);
-            }
+            }/* else if (currentPage == PageConfig.PAGE_ME) {
+                return PersonalActivity.newInstance(position).setCallback(this);
+            }*/
             return null;
         }
 
@@ -130,8 +130,8 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
                 return 2;
             } else if (currentPage == PageConfig.PAGE_APPLY) {
                 return 1;
-            } else if (currentPage == PageConfig.PAGE_ME)
-                return 1;
+            } /*else if (currentPage == PageConfig.PAGE_ME)
+                return 1;*/
             else
                 return 0;
         }
@@ -254,9 +254,9 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
             case PageConfig.PAGE_APPLY:
                 group.setVisibility(GONE);
                 break;
-            case PageConfig.PAGE_ME:
+           /* case PageConfig.PAGE_ME:
                 group.setVisibility(GONE);
-                break;
+                break;*/
         }
     }
 

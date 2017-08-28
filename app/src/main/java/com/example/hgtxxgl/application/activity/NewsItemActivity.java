@@ -72,7 +72,7 @@ public class NewsItemActivity extends AppCompatActivity {
         pb = (ProgressBar) findViewById(R.id.news_pb);
         handToolbar = (HandToolbar) findViewById(R.id.itemactivity_handtoolbar);
         handToolbar.setDisplayHomeAsUpEnabled(true, this);
-        handToolbar.setBackHome(false,this,0);
+        handToolbar.setBackHome(false,0);
         handToolbar.setTitle(tab);
         handToolbar.setTitleSize(20);
         this.runOnUiThread(new Runnable() {

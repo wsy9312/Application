@@ -6,7 +6,6 @@
     android:orientation="vertical"
     tools:content=".QrCode.sample.MainActivity">
 
-    <!--<include layout="@layout/include_toolbar" />-->
     <com.example.hgtxxgl.application.view.HandToolbar
         android:id="@+id/qrcode_mainactivity_toolbar"
         android:layout_width="match_parent"
@@ -35,9 +34,6 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true" />
     </RelativeLayout>
-
-
-
 
     <Button
         android:visibility="gone"
