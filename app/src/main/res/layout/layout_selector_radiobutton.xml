@@ -66,7 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
-                    android:text="@string/Yes" />
+                    android:text="人员请假" />
 
                 <RadioButton
                     android:drawableLeft="@drawable/radiobutton_selector"
@@ -77,7 +77,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
-                    android:text="@string/No" />
+                    android:text="车辆外出" />
             </RadioGroup>
         </LinearLayout>
     </LinearLayout>

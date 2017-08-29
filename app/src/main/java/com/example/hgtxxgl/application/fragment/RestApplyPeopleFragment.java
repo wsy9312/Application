@@ -57,12 +57,10 @@ public class RestApplyPeopleFragment extends CommonFragment {
 
         List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
         baseHolder.add(new HandInputGroup.Holder("申请人",true,false,name,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-        baseHolder.add(new HandInputGroup.Holder("请假类别",true,false,"人员请假",HandInputGroup.VALUE_TYPE.SELECT));
-        baseHolder.add(new HandInputGroup.Holder("车辆号牌",false,false,"沪A11111",HandInputGroup.VALUE_TYPE.TEXTFILED));
+        baseHolder.add(new HandInputGroup.Holder("请假类别",true,false,"人员请假",HandInputGroup.VALUE_TYPE.BUTTONS));
         baseHolder.add(new HandInputGroup.Holder("预计外出时间",true,false,"",HandInputGroup.VALUE_TYPE.DATE));
         baseHolder.add(new HandInputGroup.Holder("预计归来时间",true,false,"",HandInputGroup.VALUE_TYPE.DATE));
         baseHolder.add(new HandInputGroup.Holder("请假原因",false,false,"",HandInputGroup.VALUE_TYPE.TEXTFILED));
-//            baseHolder.add(new HandInputGroup.Holder("是否取消请假",false,false,"否",HandInputGroup.VALUE_TYPE.SELECT));
         baseHolder.add(new HandInputGroup.Holder("是否后补请假",false,false,"否",HandInputGroup.VALUE_TYPE.SELECT));
         groups.add(0,new Group("基本信息", null,true,null,baseHolder));
 
@@ -94,21 +92,18 @@ public class RestApplyPeopleFragment extends CommonFragment {
                         ToastUtil.showToast(getContext(),"请填写" + over);
                         setButtonllEnable(true);
                     }else {
-                        List<HandInputGroup.Holder> holders = groups.get(0).getHolders();
                         //申请人ID
                         String realValueNO = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo();
                         //申请类型
-                        String realValueType = holders.get(1).getRealValue();
-                        //申请车辆号牌
-                        String realValueCardNo = holders.get(2).getRealValue();
+                        String realValueType = getDisplayValueByKey("请假类别").getRealValue();
                         //预计外出时间
-                        String realValueoutTime = holders.get(3).getRealValue()+":00";
+                        String realValueoutTime = getDisplayValueByKey("预计外出时间").getRealValue()+":00";
                         //预计归来时间
-                        String realValueinTime = holders.get(4).getRealValue()+":00";
+                        String realValueinTime = getDisplayValueByKey("预计归来时间").getRealValue()+":00";
                         //请假原因
-                        String realValueContent = holders.get(5).getRealValue();
+                        String realValueContent = getDisplayValueByKey("请假原因").getRealValue();
                         //是否后补请假
-                        String realValueFillup = holders.get(6).getRealValue();
+                        String realValueFillup = getDisplayValueByKey("是否后补请假").getRealValue();
                         if (realValueType.equals("人员请假")){
                             PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
                             PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
@@ -128,6 +123,8 @@ public class RestApplyPeopleFragment extends CommonFragment {
                             Log.e(TAG,"人员请假请假:"+s1);
                             applyStart(0,CommonValues.BASE_URL,s1);
                         }else if(realValueType.equals("车辆外出")){
+                            //申请车辆号牌
+                            String realValueCardNo = getDisplayValueByKey("车辆号牌").getRealValue();
                             CarLeaveEntity carLeaveEntity = new CarLeaveEntity();
                             CarLeaveEntity.CarLeaveRrdBean carLeaveRrdBean = new CarLeaveEntity.CarLeaveRrdBean();
                             carLeaveRrdBean.setNo(realValueNO);
@@ -216,7 +213,7 @@ public class RestApplyPeopleFragment extends CommonFragment {
             }
         });
     }
-
+    private boolean mIsDomestic;
     @Override
     public void onClickItemContentSetter(final HandInputGroup.Holder holder) {
         if (holder.getType() == HandInputGroup.VALUE_TYPE.DATE) {
@@ -226,57 +223,37 @@ public class RestApplyPeopleFragment extends CommonFragment {
         } else if (holder.getKey().equals("是否后补请假")){
             showSelector(holder,new String[]{"是","否"});
         } else if (holder.getKey().equals("请假类别")){
-            showSelector(holder,new String[]{"人员请假","车辆外出"});
+            checkedButton(holder, new OnSelectedResultCallback() {
+                @Override
+                public void onSelected(Group ownGroup, HandInputGroup.Holder holder, int mainIndex, int itemIndex) {
+                    if (holder.getRealValue().equals("人员请假")) {
+                        mIsDomestic = true;
+                        insertItems(mIsDomestic);
+                    } else if (holder.getRealValue().equals("车辆外出")){
+                        mIsDomestic = false;
+                        insertItems(mIsDomestic);
+                    }
+                }
+            });
         }
     }
 
-//    @Override
-//    public void onHolderTextChanged(int main, int index, HandInputGroup.Holder holder) {
-//        final String key = holder.getKey();
-//        if (key.equals(this.getString(R.string.Leave_Time))){
-//            double sum = 0;
-//            List<CommonFragment.Group> groupsByTitle = getGroupsByTitle(this.getString(R.string.Details_Information));
-//            for (CommonFragment.Group group : groupsByTitle) {
-//                double v = 0;
-//                if (group.getHolders().get(0).getRealValue().equals("调休")){
-//                    v = Double.parseDouble(group.getHolders().get(3).getRealValue().isEmpty() ? "0" : group.getHolders().get(3).getRealValue())/8.0;
-//                }else {
-//                    v = Double.parseDouble(group.getHolders().get(3).getRealValue().isEmpty() ? "0" : group.getHolders().get(3).getRealValue());
-//                }
-//                sum += v;
-//            }
-//            getGroupsByTitle(this.getString(R.string.Total)).get(0).setGroupTopRightTitle(sum + "天");
-//            notifyGroupChanged(getGroup().size()-2, 1);
-//        }
-//    }
-
-//    @Override
-//    public void onDataChanged(HandInputGroup.Holder holder) throws ParseException {
-//        int getitemnum = getitemnum(holder);
-//        CommonFragment.Group group = getGroup().get(getitemnum);
-//        if (holder.getKey().equals(this.getString(R.string.Starting_Time))){
-//            HandInputGroup.Holder holder1 = group.getHolders().get(2);
-//            if (!holder1.getRealValue().isEmpty()){
-//                String starttime = holder.getRealValue();
-//                String overtime = holder1.getRealValue();
-//                int getday = getday(starttime, overtime);
-//                if (getday == -1){
-//                    holder.setDispayValue("/" + this.getString(R.string.Please_Select));
-//                    ToastUtil.showToast(getContext(),"请正确选择第" + getitemnum+ "条明细信息中的开始、结束时间");
-//                }
-//            }
-//        }else if (holder.getKey().equals(this.getString(R.string.Ending_Time))){
-//            HandInputGroup.Holder holder1 = group.getHolders().get(1);
-//            if (!holder1.getRealValue().isEmpty()){
-//                String starttime = holder1.getRealValue();
-//                String overtime = holder.getRealValue();
-//                int getday = getday(starttime, overtime);
-//                if (getday == -1){
-//                    holder.setDispayValue("/" + this.getString(R.string.Please_Select));
-//                    ToastUtil.showToast(getContext(),"请正确选择第" + getitemnum+ "条明细信息中的开始、结束时间");
-//                }
-//            }
-//        }
-//    }
+    private void insertItems(boolean mIsDomestic) {
+        List<HandInputGroup.Holder> holders = getGroup().get(0).getHolders();
+        if (mIsDomestic) {
+            if (holders.size() == 6){
+                holders.add(2,new HandInputGroup.Holder("车辆号牌", true, false, "", HandInputGroup.VALUE_TYPE.TEXTFILED));
+            }else if (holders.size() == 7){
+                holders.remove(2);
+            }
+        } else {
+            if (holders.size() == 7){
+                holders.remove(2);
+            }else if (holders.size() == 6){
+                holders.add(2,new HandInputGroup.Holder("车辆号牌", true, false, "", HandInputGroup.VALUE_TYPE.TEXTFILED));
+            }
+        }
+        notifyDataSetChanged();
+    }
 
 }
