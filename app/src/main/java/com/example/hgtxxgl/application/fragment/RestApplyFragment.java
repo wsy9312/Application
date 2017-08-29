@@ -58,6 +58,7 @@ public class RestApplyFragment extends CommonFragment {
         List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
         baseHolder.add(new HandInputGroup.Holder("申请人",true,false,name,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
         baseHolder.add(new HandInputGroup.Holder("请假类别",true,false,"人员请假",HandInputGroup.VALUE_TYPE.BUTTONS));
+        baseHolder.add(new HandInputGroup.Holder("请假类型",true,false,"因公外出/请假",HandInputGroup.VALUE_TYPE.SELECT));
         baseHolder.add(new HandInputGroup.Holder("预计外出时间",true,false,"",HandInputGroup.VALUE_TYPE.DATE));
         baseHolder.add(new HandInputGroup.Holder("预计归来时间",true,false,"",HandInputGroup.VALUE_TYPE.DATE));
         baseHolder.add(new HandInputGroup.Holder("请假原因",false,false,"",HandInputGroup.VALUE_TYPE.TEXTFILED));
@@ -104,17 +105,19 @@ public class RestApplyFragment extends CommonFragment {
                         String realValueContent = getDisplayValueByKey("请假原因").getRealValue();
                         //是否后补请假
                         String realValueFillup = getDisplayValueByKey("是否后补请假").getRealValue();
+                        //因公或因私外出/请假
+                        String realValuetype = getDisplayValueByKey("请假类型").getRealValue();
                         if (realValueType.equals("人员请假")){
                             PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
                             PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
                             peopleLeaveRrdBean.setNo(realValueNO);
+                            peopleLeaveRrdBean.setOnduty(realValuetype.equals("因公外出/请假")?"1":"0");
                             peopleLeaveRrdBean.setOutTime(realValueoutTime);
                             peopleLeaveRrdBean.setInTime(realValueinTime);
                             peopleLeaveRrdBean.setContent(realValueContent);
                             peopleLeaveRrdBean.setBFillup(realValueFillup.equals("否")?"0":"1");
                             peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
                             peopleLeaveRrdBean.setIsAndroid("1");
-
                             List<PeopleLeaveEntity.PeopleLeaveRrdBean> beanList = new ArrayList<>();
                             beanList.add(peopleLeaveRrdBean);
                             peopleLeaveEntity.setPeopleLeaveRrd(beanList);
@@ -128,6 +131,7 @@ public class RestApplyFragment extends CommonFragment {
                             CarLeaveEntity carLeaveEntity = new CarLeaveEntity();
                             CarLeaveEntity.CarLeaveRrdBean carLeaveRrdBean = new CarLeaveEntity.CarLeaveRrdBean();
                             carLeaveRrdBean.setNo(realValueNO);
+                            carLeaveRrdBean.setOnduty(realValuetype.equals("因公外出/请假")?"1":"0");
                             carLeaveRrdBean.setCarNo(realValueCardNo);
                             carLeaveRrdBean.setOutTime(realValueoutTime);
                             carLeaveRrdBean.setInTime(realValueinTime);
@@ -135,7 +139,6 @@ public class RestApplyFragment extends CommonFragment {
                             carLeaveRrdBean.setbFillup(realValueFillup.equals("否")?"0":"1");
                             carLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
                             carLeaveRrdBean.setIsAndroid("1");
-
                             List<CarLeaveEntity.CarLeaveRrdBean> beanList = new ArrayList<>();
                             beanList.add(carLeaveRrdBean);
                             carLeaveEntity.setCarLeaveRrd(beanList);
@@ -205,6 +208,7 @@ public class RestApplyFragment extends CommonFragment {
             });
         }
     }
+
     public void show(final String msg){
         getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -213,7 +217,9 @@ public class RestApplyFragment extends CommonFragment {
             }
         });
     }
+
     private boolean mIsDomestic;
+
     @Override
     public void onClickItemContentSetter(final HandInputGroup.Holder holder) {
         if (holder.getType() == HandInputGroup.VALUE_TYPE.DATE) {
@@ -222,6 +228,8 @@ public class RestApplyFragment extends CommonFragment {
             showSelector(holder,new String[]{"是","否"});
         } else if (holder.getKey().equals("是否后补请假")){
             showSelector(holder,new String[]{"是","否"});
+        } else if (holder.getKey().equals("请假类型")){
+            showSelector(holder,new String[]{"因公外出/请假","因私外出/请假"});
         } else if (holder.getKey().equals("请假类别")){
             checkedButton(holder, new OnSelectedResultCallback() {
                 @Override
@@ -241,15 +249,15 @@ public class RestApplyFragment extends CommonFragment {
     private void insertItems(boolean mIsDomestic) {
         List<HandInputGroup.Holder> holders = getGroup().get(0).getHolders();
         if (mIsDomestic) {
-            if (holders.size() == 6){
+            if (holders.size() == 7){
                 holders.add(2,new HandInputGroup.Holder("车辆号牌", true, false, "", HandInputGroup.VALUE_TYPE.TEXTFILED));
-            }else if (holders.size() == 7){
+            }else if (holders.size() == 8){
                 holders.remove(2);
             }
         } else {
-            if (holders.size() == 7){
+            if (holders.size() == 8){
                 holders.remove(2);
-            }else if (holders.size() == 6){
+            }else if (holders.size() == 7){
                 holders.add(2,new HandInputGroup.Holder("车辆号牌", true, false, "", HandInputGroup.VALUE_TYPE.TEXTFILED));
             }
         }

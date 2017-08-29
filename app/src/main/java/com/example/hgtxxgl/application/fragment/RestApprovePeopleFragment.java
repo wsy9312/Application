@@ -82,10 +82,10 @@ public class RestApprovePeopleFragment extends CommonFragment {
 
         List<HandInputGroup.Holder> holderList = new ArrayList<>();
         holderList.add(new HandInputGroup.Holder("申请人", true, false, getArguments().getString("name"), HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("请假类型", true, false, entity.getOnduty().equals("1")?"因公外出/请假":"因私外出/请假", HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("预计外出时间", true, false, entity.getOutTime(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("预计归来时间", true, false, entity.getInTime(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("请假原因", true, false, entity.getContent(), HandInputGroup.VALUE_TYPE.TEXT));
-//        holderList.add(new HandInputGroup.Holder("是否取消请假", true, false, entity.getBCancel().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("是否后补请假", true, false, entity.getBFillup().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
         groups.add(new Group("详细信息-基本信息", null, false, null, holderList));
         return groups;
@@ -140,6 +140,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
         peopleLeaveRrdBean.setApprover5No("?");
         peopleLeaveRrdBean.setRegisterTime("?");
         peopleLeaveRrdBean.setOutTime("?");
+        peopleLeaveRrdBean.setOnduty("?");
         peopleLeaveRrdBean.setInTime("?");
         peopleLeaveRrdBean.setContent("?");
         peopleLeaveRrdBean.setActualOutTime("?");
@@ -207,7 +208,6 @@ public class RestApprovePeopleFragment extends CommonFragment {
         }
         peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
         peopleLeaveRrdBean.setIsAndroid("1");
-//        ToastUtil.showToast(getContext(),peopleLeaveRrdBean.getCurrentApproveNo()+" "+peopleLeaveRrdBean.getResult()+" "+noindex);
         List<PeopleLeaveEntity.PeopleLeaveRrdBean> beanList = new ArrayList<>();
         beanList.add(peopleLeaveRrdBean);
         peopleLeaveEntity.setPeopleLeaveRrd(beanList);
