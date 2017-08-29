@@ -65,7 +65,7 @@ public class RestDetailPeopleFragment extends CommonFragment {
             if(multiLevelResultStr.startsWith("1")){
                 setButtonsTitles(stringnull);
             }
-            list.add(new HandInputGroup.Holder("审批级数", true, false, entity.getLevelNum()+"级", HandInputGroup.VALUE_TYPE.TEXT));
+            list.add(new HandInputGroup.Holder("审批总级数", true, false, entity.getLevelNum()+"级", HandInputGroup.VALUE_TYPE.TEXT));
             int i = Integer.parseInt(multiLevelResultStr);
             int one = (i/10000)%10;
             int two = (i/1000)%10;
@@ -73,16 +73,15 @@ public class RestDetailPeopleFragment extends CommonFragment {
             int four = (i/10)%10;
             int five =  i%10;
             if (four == 1){
-                list.add(new HandInputGroup.Holder("审批进度", true, false, "第5级", HandInputGroup.VALUE_TYPE.TEXT));
-            }
-            if (three == 1){
-                list.add(new HandInputGroup.Holder("审批进度", true, false, "第4级", HandInputGroup.VALUE_TYPE.TEXT));
-            }
-            if (two == 1){
-                list.add(new HandInputGroup.Holder("审批进度", true, false, "第3级", HandInputGroup.VALUE_TYPE.TEXT));
-            }
-            if (one == 1){
-                list.add(new HandInputGroup.Holder("审批进度", true, false, "第2级", HandInputGroup.VALUE_TYPE.TEXT));
+                list.add(new HandInputGroup.Holder("当前待审批等级", true, false, "第5级", HandInputGroup.VALUE_TYPE.TEXT));
+            } else if (three == 1){
+                list.add(new HandInputGroup.Holder("当前待审批等级", true, false, "第4级", HandInputGroup.VALUE_TYPE.TEXT));
+            } else if  (two == 1){
+                list.add(new HandInputGroup.Holder("当前待审批等级", true, false, "第3级", HandInputGroup.VALUE_TYPE.TEXT));
+            } else if  (one == 1){
+                list.add(new HandInputGroup.Holder("当前待审批等级", true, false, "第2级", HandInputGroup.VALUE_TYPE.TEXT));
+            } else if  (one == 0){
+                list.add(new HandInputGroup.Holder("当前待审批等级", true, false, "第1级", HandInputGroup.VALUE_TYPE.TEXT));
             }
             /*if (bCancel.equals("0")){
                 int i = Integer.parseInt(multiLevelResultStr);

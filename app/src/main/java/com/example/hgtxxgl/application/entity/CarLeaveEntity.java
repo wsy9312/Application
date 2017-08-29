@@ -39,6 +39,7 @@ public class CarLeaveEntity {
 
         private String No;
         private String Name;
+        private String Onduty;
         private String ApproverNo;
         private String CarNo;
         private String Process;
@@ -57,31 +58,8 @@ public class CarLeaveEntity {
         private String EndNum;
         private String AuthenticationNo;
         private String IsAndroid;
+
         public CarLeaveRrdBean() {
-        }
-
-
-        public CarLeaveRrdBean(String no, String name, String approverNo, String carNo, String process, String result, String bCancel, String bFillup, String registerTime, String outTime, String inTime, String content, String actualOutTime, String actualInTime, String modifyTime, String noIndex, String beginNum, String endNum, String authenticationNo, String isAndroid) {
-            No = no;
-            Name = name;
-            ApproverNo = approverNo;
-            CarNo = carNo;
-            Process = process;
-            Result = result;
-            this.bCancel = bCancel;
-            this.bFillup = bFillup;
-            RegisterTime = registerTime;
-            OutTime = outTime;
-            InTime = inTime;
-            Content = content;
-            ActualOutTime = actualOutTime;
-            ActualInTime = actualInTime;
-            ModifyTime = modifyTime;
-            NoIndex = noIndex;
-            BeginNum = beginNum;
-            EndNum = endNum;
-            AuthenticationNo = authenticationNo;
-            IsAndroid = isAndroid;
         }
 
         public String getNo() {
@@ -98,6 +76,14 @@ public class CarLeaveEntity {
 
         public void setName(String name) {
             Name = name;
+        }
+
+        public String getOnduty() {
+            return Onduty;
+        }
+
+        public void setOnduty(String onduty) {
+            Onduty = onduty;
         }
 
         public String getApproverNo() {

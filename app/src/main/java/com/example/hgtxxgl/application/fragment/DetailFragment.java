@@ -105,7 +105,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
                 llEtSearch.setVisibility(VISIBLE);
                 return MyLaunchFragment.newInstance(position).setCallback(this);
             } else if (currentPage == PageConfig.PAGE_APPLY){
-                return new RestApplyPeopleFragment();
+                return new RestApplyFragment();
             }/* else if (currentPage == PageConfig.PAGE_ME) {
                 return PersonalActivity.newInstance(position).setCallback(this);
             }*/

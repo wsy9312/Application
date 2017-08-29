@@ -24,21 +24,21 @@ import java.util.List;
 
 import es.dmoral.toasty.Toasty;
 
-public class RestApplyPeopleFragment extends CommonFragment {
+public class RestApplyFragment extends CommonFragment {
 
     private String name;
     private final static String TAG = "RestApplyCarFragment";
 
-    public RestApplyPeopleFragment() {
+    public RestApplyFragment() {
     }
 
-    public static RestApplyPeopleFragment newInstance() {
-        RestApplyPeopleFragment restApplyPeopleFragment = new RestApplyPeopleFragment();
-        return restApplyPeopleFragment;
+    public static RestApplyFragment newInstance() {
+        RestApplyFragment restApplyFragment = new RestApplyFragment();
+        return restApplyFragment;
     }
 
-    public static RestApplyPeopleFragment newInstance(Bundle bundle) {
-        RestApplyPeopleFragment fragment = new RestApplyPeopleFragment();
+    public static RestApplyFragment newInstance(Bundle bundle) {
+        RestApplyFragment fragment = new RestApplyFragment();
         fragment.setArguments(bundle);
         return fragment;
     }

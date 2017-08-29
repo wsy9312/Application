@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.hgtxxgl.application.R;
-import com.example.hgtxxgl.application.fragment.RestApplyPeopleFragment;
+import com.example.hgtxxgl.application.fragment.RestApplyFragment;
 import com.example.hgtxxgl.application.fragment.RestApproveCarFragment;
 import com.example.hgtxxgl.application.fragment.RestApprovePeopleFragment;
 import com.example.hgtxxgl.application.fragment.RestDetailCarFragment;
@@ -41,7 +41,7 @@ public class ItemActivity extends AppCompatActivity {
 //                checkFragment(RestApplyCarFragment.newInstance(getIntent().getBundleExtra("data")));
 //                break;
             case PageConfig.PAGE_LEAVE_APPLY_PEOPLE:
-                checkFragment(RestApplyPeopleFragment.newInstance(getIntent().getBundleExtra("data")));
+                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_LEAVE_APPROVE_CAR:
                 checkFragment(RestApproveCarFragment.newInstance(getIntent().getBundleExtra("data")));
