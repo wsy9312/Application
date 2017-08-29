@@ -59,7 +59,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
 
     @Override
     public List<Group> getGroupList() {
-        if (entity == null/* || bean == null*/) return null;
+        if (entity == null) return null;
         List<Group> groups = new ArrayList<>();
         String levelNumStr = entity.getLevelNum();
         String processStr = entity.getProcess();
@@ -68,7 +68,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
         int process = Integer.parseInt(processStr);
         List<HandInputGroup.Holder> list = new ArrayList<>();
         list.add(new HandInputGroup.Holder("流程内容", true, false, "人员请假", HandInputGroup.VALUE_TYPE.TEXT));
-        list.add(new HandInputGroup.Holder("审批进度", true, false, process == 0?"审批中":"审批结束", HandInputGroup.VALUE_TYPE.TEXT));
+        list.add(new HandInputGroup.Holder("审批状态", true, false, process == 0?"审批中":"审批结束", HandInputGroup.VALUE_TYPE.TEXT));
         if (process == 1){
             String substring = multiLevelResultStr.substring(0, levelNum);
             if (substring.endsWith("1")){
@@ -113,52 +113,6 @@ public class RestApprovePeopleFragment extends CommonFragment {
             @Override
             public void run() {
                 Toasty.success(getContext(),msg, Toast.LENGTH_SHORT,true).show();
-            }
-        });
-    }
-
-    private void getNameFromNo(String no){
-        PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
-        PeopleInfoEntity.PeopleInfoBean peopleInfoBean =
-                new PeopleInfoEntity.PeopleInfoBean();
-        peopleInfoBean.setNo(no);
-        peopleInfoBean.setName("?");
-        peopleInfoBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-        peopleInfoBean.setIsAndroid("1");
-        List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
-        beanList.add(peopleInfoBean);
-        peopleEntity.setPeopleInfo(beanList);
-        String json = new Gson().toJson(peopleEntity);
-        String s1 = "get " + json;
-        HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
-            @Override
-            public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
-                if (peopleInfoEntity != null){
-                    setBean(peopleInfoEntity.getPeopleInfo().get(0));
-                    if(getGroupList() == null){
-                        setGroup(getGroupList());
-                        setPb(true);
-                        setButtonllEnable(false);
-                        setDisplayTabs(false);
-                        notifyDataSetChanged();
-                    }else{
-                        setGroup(getGroupList());
-                        setPb(false);
-                        setButtonllEnable(true);
-                        setDisplayTabs(true);
-                        notifyDataSetChanged();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(String msg) {
-
-            }
-
-            @Override
-            public void onResponse(String response) {
-
             }
         });
     }

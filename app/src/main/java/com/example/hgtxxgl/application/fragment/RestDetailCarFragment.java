@@ -48,7 +48,7 @@ public class RestDetailCarFragment extends CommonFragment {
         int process = Integer.parseInt(processStr);
         List<HandInputGroup.Holder> list = new ArrayList<>();
         list.add(new HandInputGroup.Holder("流程内容", true, false, "车辆外出", HandInputGroup.VALUE_TYPE.TEXT));
-        list.add(new HandInputGroup.Holder("审批进度", true, false, process == 0?"审批中":"审批结束", HandInputGroup.VALUE_TYPE.TEXT));
+        list.add(new HandInputGroup.Holder("审批状态", true, false, process == 0?"审批中":"审批结束", HandInputGroup.VALUE_TYPE.TEXT));
         if (process == 1){
             if (result.endsWith("1")){
                 list.add(new HandInputGroup.Holder("审批结果", true, false, "审批同意", HandInputGroup.VALUE_TYPE.TEXT));
@@ -175,7 +175,6 @@ public class RestDetailCarFragment extends CommonFragment {
         carLeaveRrdBean.setRegisterTime("?");
         carLeaveRrdBean.setOutTime("?");
         carLeaveRrdBean.setInTime("?");
-        carLeaveRrdBean.setCarNo("?");
         carLeaveRrdBean.setContent("?");
         carLeaveRrdBean.setActualOutTime("?");
         carLeaveRrdBean.setActualInTime("?");

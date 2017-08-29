@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
 import com.example.hgtxxgl.application.R;
+import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
 import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
 import com.example.hgtxxgl.application.rest.CommonFragment;
 import com.example.hgtxxgl.application.rest.HandInputGroup;
@@ -46,11 +47,12 @@ public class RestDetailPeopleFragment extends CommonFragment {
         String levelNumStr = entity.getLevelNum();
         String processStr = entity.getProcess();
         String multiLevelResultStr = entity.getMultiLevelResult();
+        String bCancel = entity.getBCancel();
         int levelNum = Integer.parseInt(levelNumStr);
         int process = Integer.parseInt(processStr);
         List<HandInputGroup.Holder> list = new ArrayList<>();
         list.add(new HandInputGroup.Holder("流程内容", true, false, "人员请假", HandInputGroup.VALUE_TYPE.TEXT));
-        list.add(new HandInputGroup.Holder("审批进度", true, false, process == 0?"审批中":"审批结束", HandInputGroup.VALUE_TYPE.TEXT));
+        list.add(new HandInputGroup.Holder("审批状态", true, false, process == 0?"审批中":"审批结束", HandInputGroup.VALUE_TYPE.TEXT));
         if (process == 1){
             String substring = multiLevelResultStr.substring(0, levelNum);
             if (substring.endsWith("1")){
@@ -63,6 +65,54 @@ public class RestDetailPeopleFragment extends CommonFragment {
             if(multiLevelResultStr.startsWith("1")){
                 setButtonsTitles(stringnull);
             }
+            list.add(new HandInputGroup.Holder("审批级数", true, false, entity.getLevelNum()+"级", HandInputGroup.VALUE_TYPE.TEXT));
+            int i = Integer.parseInt(multiLevelResultStr);
+            int one = (i/10000)%10;
+            int two = (i/1000)%10;
+            int three = (i/100)%10;
+            int four = (i/10)%10;
+            int five =  i%10;
+            if (four == 1){
+                list.add(new HandInputGroup.Holder("审批进度", true, false, "第5级", HandInputGroup.VALUE_TYPE.TEXT));
+            }
+            if (three == 1){
+                list.add(new HandInputGroup.Holder("审批进度", true, false, "第4级", HandInputGroup.VALUE_TYPE.TEXT));
+            }
+            if (two == 1){
+                list.add(new HandInputGroup.Holder("审批进度", true, false, "第3级", HandInputGroup.VALUE_TYPE.TEXT));
+            }
+            if (one == 1){
+                list.add(new HandInputGroup.Holder("审批进度", true, false, "第2级", HandInputGroup.VALUE_TYPE.TEXT));
+            }
+            /*if (bCancel.equals("0")){
+                int i = Integer.parseInt(multiLevelResultStr);
+                int one = (i/10000)%10;
+                int two = (i/1000)%10;
+                int three = (i/100)%10;
+                int four = (i/10)%10;
+                int five =  i%10;
+                Log.e("one",one+""+two+""+three+""+four+""+five);
+                if (one == 1){
+                    list.add(new HandInputGroup.Holder("已审批人", true, false, entity.getApprover1Name(), HandInputGroup.VALUE_TYPE.TEXT));
+                    list.add(new HandInputGroup.Holder("待审批人", true, false, entity.getApprover2Name(), HandInputGroup.VALUE_TYPE.TEXT));
+                }else if (two == 1){
+                    list.add(new HandInputGroup.Holder("已审批人", true, false, entity.getApprover1No(), HandInputGroup.VALUE_TYPE.TEXT));
+                    list.add(new HandInputGroup.Holder("已审批人", true, false, entity.getApprover2No(), HandInputGroup.VALUE_TYPE.TEXT));
+                    list.add(new HandInputGroup.Holder("待审批人", true, false, entity.getApprover3No(), HandInputGroup.VALUE_TYPE.TEXT));
+                }else if (three == 1){
+                    list.add(new HandInputGroup.Holder("已审批人", true, false, entity.getApprover1No(), HandInputGroup.VALUE_TYPE.TEXT));
+                    list.add(new HandInputGroup.Holder("已审批人", true, false, entity.getApprover2No(), HandInputGroup.VALUE_TYPE.TEXT));
+                    list.add(new HandInputGroup.Holder("已审批人", true, false, entity.getApprover3No(), HandInputGroup.VALUE_TYPE.TEXT));
+                    list.add(new HandInputGroup.Holder("待审批人", true, false, entity.getApprover4No(), HandInputGroup.VALUE_TYPE.TEXT));
+                }else if (four == 1){
+                    list.add(new HandInputGroup.Holder("已审批人", true, false, entity.getApprover1No(), HandInputGroup.VALUE_TYPE.TEXT));
+                    list.add(new HandInputGroup.Holder("已审批人", true, false, entity.getApprover2No(), HandInputGroup.VALUE_TYPE.TEXT));
+                    list.add(new HandInputGroup.Holder("已审批人", true, false, entity.getApprover3No(), HandInputGroup.VALUE_TYPE.TEXT));
+                    list.add(new HandInputGroup.Holder("已审批人", true, false, entity.getApprover4No(), HandInputGroup.VALUE_TYPE.TEXT));
+                    list.add(new HandInputGroup.Holder("待审批人", true, false, entity.getApprover5No(), HandInputGroup.VALUE_TYPE.TEXT));
+                }
+
+            }*/
         }
 
         groups.add(new Group("流程摘要-摘要内容", null, false, null, list));
@@ -78,13 +128,70 @@ public class RestDetailPeopleFragment extends CommonFragment {
         return groups;
     }
 
+    private void getNameFromApproveNo(final int no, String approveNo){
+        PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
+        PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
+        peopleInfoBean.setNo(approveNo);
+        peopleInfoBean.setName("?");
+        peopleInfoBean.setAuthenticationNo(approveNo);
+        peopleInfoBean.setIsAndroid("1");
+        List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
+        beanList.add(peopleInfoBean);
+        peopleEntity.setPeopleInfo(beanList);
+        String json1 = new Gson().toJson(peopleEntity);
+        String s1 = "get " + json1;
+        L.e(TAG,"s1"+s1);
+        HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
+            @Override
+            public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
+                if (peopleInfoEntity != null){
+                    switch (no){
+                        case 1:
+                            entity.setApprover1Name(peopleInfoEntity.getPeopleInfo().get(0).getName());
+                            break;
+                        case 2:
+                            entity.setApprover2Name(peopleInfoEntity.getPeopleInfo().get(0).getName());
+                            break;
+                        case 3:
+                            entity.setApprover3Name(peopleInfoEntity.getPeopleInfo().get(0).getName());
+                            break;
+                        case 4:
+                            entity.setApprover4Name(peopleInfoEntity.getPeopleInfo().get(0).getName());
+                            break;
+                        case 5:
+                            entity.setApprover5Name(peopleInfoEntity.getPeopleInfo().get(0).getName());
+                            break;
+                    }
+
+                    L.e(TAG, "onSuccess: "+entity.getApprover1Name());
+                    L.e(TAG, "onSuccess: "+entity.getApprover2Name());
+                    L.e(TAG, "onSuccess: "+entity.getApprover3Name());
+                    L.e(TAG, "onSuccess: "+entity.getApprover4Name());
+                    L.e(TAG, "onSuccess: "+entity.getApprover5Name());
+                }
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+
+            @Override
+            public void onResponse(String response) {
+
+            }
+        });
+    }
+
     public void setToolbar(HandToolbar toolbar) {
         toolbar.setDisplayHomeAsUpEnabled(true, getActivity());
         toolbar.setTitle("请假详情");
         toolbar.setTitleSize(18);
     }
+
     private String[] stringbutton = new String[]{"(是否取消请假)是","否"};
     private String[] stringnull = new String[]{""};
+
     @Override
     public String[] getBottomButtonsTitles() {
         return stringbutton;
@@ -219,6 +326,11 @@ public class RestDetailPeopleFragment extends CommonFragment {
                         if (peopleLeaveEntity1 != null){
                             setEntity(peopleLeaveEntity1.getPeopleLeaveRrd().get(0));
                             L.e(TAG,entity.getProcess()+" "+entity.getMultiLevelResult()+" "+entity.getLevelNum());
+//                            getNameFromApproveNo(1,peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover1No());
+//                            getNameFromApproveNo(2,peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover2No());
+//                            getNameFromApproveNo(3,peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover3No());
+//                            getNameFromApproveNo(4,peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover4No());
+//                            getNameFromApproveNo(5,peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover5No());
                             setGroup(getGroupList());
                             setPb(false);
                             setButtonllEnable(true);

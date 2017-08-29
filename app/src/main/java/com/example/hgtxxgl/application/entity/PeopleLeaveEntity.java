@@ -53,6 +53,52 @@ public class PeopleLeaveEntity {
         private String Approver3No;
         private String Approver4No;
         private String Approver5No;
+
+        public String getApprover1Name() {
+            return Approver1Name;
+        }
+
+        public void setApprover1Name(String approver1Name) {
+            Approver1Name = approver1Name;
+        }
+
+        public String getApprover2Name() {
+            return Approver2Name;
+        }
+
+        public void setApprover2Name(String approver2Name) {
+            Approver2Name = approver2Name;
+        }
+
+        public String getApprover3Name() {
+            return Approver3Name;
+        }
+
+        public void setApprover3Name(String approver3Name) {
+            Approver3Name = approver3Name;
+        }
+
+        public String getApprover4Name() {
+            return Approver4Name;
+        }
+
+        public void setApprover4Name(String approver4Name) {
+            Approver4Name = approver4Name;
+        }
+
+        public String getApprover5Name() {
+            return Approver5Name;
+        }
+
+        public void setApprover5Name(String approver5Name) {
+            Approver5Name = approver5Name;
+        }
+
+        private String Approver1Name;
+        private String Approver2Name;
+        private String Approver3Name;
+        private String Approver4Name;
+        private String Approver5Name;
         private String RegisterTime;
         private String OutTime;
         private String InTime;
