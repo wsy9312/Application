@@ -60,22 +60,13 @@ public class RestApproveCarFragment extends CommonFragment {
 
     @Override
     public List<Group> getGroupList() {
-        if (entity == null/* || bean == null*/) return null;
+        if (entity == null) return null;
         List<Group> groups = new ArrayList<>();
-//        String processStr = entity.getProcess();
-//        String resultStr = entity.getResult();
-//        int result = Integer.parseInt(resultStr);
-//        int process = Integer.parseInt(processStr);
+        String processStr = entity.getProcess();
+        int process = Integer.parseInt(processStr);
         List<HandInputGroup.Holder> list = new ArrayList<>();
         list.add(new HandInputGroup.Holder("流程内容", true, false, "车辆外出", HandInputGroup.VALUE_TYPE.TEXT));
-//        list.add(new HandInputGroup.Holder("审批进度", true, false, process == 0?"审批中":"审批结束", HandInputGroup.VALUE_TYPE.TEXT));
-//        if (process == 1){
-//            if (result == 1){
-//                list.add(new HandInputGroup.Holder("审批结果", true, false, "审批同意", HandInputGroup.VALUE_TYPE.TEXT));
-//            }else{
-//                list.add(new HandInputGroup.Holder("审批结果", true, false, "审批拒绝", HandInputGroup.VALUE_TYPE.TEXT));
-//            }
-//        }
+        list.add(new HandInputGroup.Holder("审批进度", true, false, process == 0?"审批中":"审批结束", HandInputGroup.VALUE_TYPE.TEXT));
         groups.add(new Group("流程摘要-摘要内容", null, false, null, list));
 
         List<HandInputGroup.Holder> holderList = new ArrayList<>();
@@ -127,6 +118,7 @@ public class RestApproveCarFragment extends CommonFragment {
         carLeaveRrdBean.setRegisterTime("?");
         carLeaveRrdBean.setOutTime("?");
         carLeaveRrdBean.setInTime("?");
+        carLeaveRrdBean.setCarNo("?");
         carLeaveRrdBean.setContent("?");
         carLeaveRrdBean.setActualOutTime("?");
         carLeaveRrdBean.setActualInTime("?");
@@ -191,7 +183,6 @@ public class RestApproveCarFragment extends CommonFragment {
         }
         carLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
         carLeaveRrdBean.setIsAndroid("1");
-//        ToastUtil.showToast(getContext(),peopleLeaveRrdBean.getCurrentApproveNo()+" "+peopleLeaveRrdBean.getResult()+" "+noindex);
         List<CarLeaveEntity.CarLeaveRrdBean> beanList = new ArrayList<>();
         beanList.add(carLeaveRrdBean);
         carLeaveEntity.setCarLeaveRrd(beanList);

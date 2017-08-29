@@ -59,7 +59,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
     ListAdapter<PeopleLeaveEntity.PeopleLeaveRrdBean> adapter = new ListAdapter<PeopleLeaveEntity.PeopleLeaveRrdBean>((ArrayList<PeopleLeaveEntity.PeopleLeaveRrdBean>) entityList, R.layout.layout_my_todo_too) {
         @Override
         public void bindView(ViewHolder holder, PeopleLeaveEntity.PeopleLeaveRrdBean bean) {
-            holder.setText(R.id.tv_title, "申请人"+bean.getName());
+            holder.setText(R.id.tv_title, "申请人:"+bean.getName());
             holder.setText(R.id.tv_date, "修改时间："+ DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
             holder.setText(R.id.tv_sketch, bean.getContent().isEmpty()?"请假原因：无":"请假原因："+bean.getContent());
         }
@@ -205,19 +205,6 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
                             });
                         }
                     }
-//
-//                    Collections.sort(entityList, new Comparator<PeopleLeaveEntity.PeopleLeaveRrdBean>() {
-//                        @Override
-//                        public int compare(PeopleLeaveEntity.PeopleLeaveRrdBean lhs, PeopleLeaveEntity.PeopleLeaveRrdBean rhs) {
-//                            Date date1 = DateUtil.stringToDate(lhs.getModifyTime());
-//                            Date date2 = DateUtil.stringToDate(rhs.getModifyTime());
-//                            // 对日期字段进行升序，如果欲降序可采用after方法
-//                            if (date1.before(date2)) {
-//                                return 1;
-//                            }
-//                            return -1;
-//                        }
-//                    });
                     adapter.notifyDataSetChanged();
                     hasMore = true;
                 } else {
@@ -326,7 +313,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
             }
             List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
             for (PeopleLeaveEntity.PeopleLeaveRrdBean bean : baseEntityList) {
-                if (("序号"+bean.getNoIndex()).replace(" ", "").contains(key)){
+                if (("申请人:"+bean.getName()).replace(" ", "").contains(key)){
                     list.add(bean);
                 }
                 if (("修改时间："+ DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss")).replace(" ", "").contains(key)) {

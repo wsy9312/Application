@@ -44,8 +44,8 @@ public class RestDetailCarFragment extends CommonFragment {
         if (entity == null) return new ArrayList<>();
         List<Group> groups = new ArrayList<>();
         String processStr = entity.getProcess();
-        String result = /*entity.getResult()*/"1";
-        int process = 1/*Integer.parseInt(processStr)*/;
+        String result = entity.getResult();
+        int process = Integer.parseInt(processStr);
         List<HandInputGroup.Holder> list = new ArrayList<>();
         list.add(new HandInputGroup.Holder("流程内容", true, false, "车辆外出", HandInputGroup.VALUE_TYPE.TEXT));
         list.add(new HandInputGroup.Holder("审批进度", true, false, process == 0?"审批中":"审批结束", HandInputGroup.VALUE_TYPE.TEXT));
@@ -56,12 +56,7 @@ public class RestDetailCarFragment extends CommonFragment {
                 list.add(new HandInputGroup.Holder("审批结果", true, false, "审批拒绝", HandInputGroup.VALUE_TYPE.TEXT));
             }
             setButtonsTitles(stringnull);
-        }else if (process == 0){
-            if(result.startsWith("1")){
-                setButtonsTitles(stringnull);
-            }
         }
-
         groups.add(new Group("流程摘要-摘要内容", null, false, null, list));
 
         List<HandInputGroup.Holder> holderList = new ArrayList<>();
@@ -94,6 +89,7 @@ public class RestDetailCarFragment extends CommonFragment {
         CarLeaveEntity.CarLeaveRrdBean carLeaveRrdBean = new CarLeaveEntity.CarLeaveRrdBean();
         String noindex = getArguments().getString("noindex");
         carLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        carLeaveRrdBean.setNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
         carLeaveRrdBean.setIsAndroid("1");
         carLeaveRrdBean.setNoIndex(noindex);
         if (title.equals("(是否取消外出)是")){
@@ -179,11 +175,13 @@ public class RestDetailCarFragment extends CommonFragment {
         carLeaveRrdBean.setRegisterTime("?");
         carLeaveRrdBean.setOutTime("?");
         carLeaveRrdBean.setInTime("?");
+        carLeaveRrdBean.setCarNo("?");
         carLeaveRrdBean.setContent("?");
         carLeaveRrdBean.setActualOutTime("?");
         carLeaveRrdBean.setActualInTime("?");
         carLeaveRrdBean.setModifyTime("?");
         carLeaveRrdBean.setProcess("?");
+        carLeaveRrdBean.setResult("?");
         carLeaveRrdBean.setbCancel("?");
         carLeaveRrdBean.setbFillup("?");
         carLeaveRrdBean.setNoIndex(noindex);

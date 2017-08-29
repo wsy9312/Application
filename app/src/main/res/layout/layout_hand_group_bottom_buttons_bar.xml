@@ -44,6 +44,20 @@
         android:id="@+id/btn_toother"
         android:background="@drawable/rec_normal_gray"
         android:text="(是否取消请假)是"
+
+        />
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:layout_weight="1"
+        android:enabled="false"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:drawableLeft="@drawable/ic_approve"
+        android:textColor="#579257"
+        android:id="@+id/btn_toother2"
+        android:background="@drawable/rec_normal_gray"
+        android:text="(是否取消外出)是"
         />
 
     <Button
@@ -59,6 +73,8 @@
         android:background="@drawable/rec_normal_gray"
         android:text="否"
         />
+
+
     <Button
         android:layout_width="0dp"
         android:layout_height="wrap_content"

@@ -196,7 +196,6 @@ public class LoginActivity extends AppCompatActivity {
                             String no = loginEntity.getLogin().get(0).getAuthenticationNo();
                             getPeopleInfo(username,password,no);
                         }
-                        Log.e(TAG,"登录"+json);
                     }
 
                     @Override
@@ -253,8 +252,6 @@ public class LoginActivity extends AppCompatActivity {
                 if (peopleInfoEntity != null){
                     ApplicationApp.setPeopleInfoEntity(peopleInfoEntity);
                     toLibMainActivity(username,password);
-                    Log.e(TAG,"个人资料1:"+ json);
-                    Log.e(TAG,"个人资料2:"+ peopleInfoEntity.toString());
                 }
             }
 

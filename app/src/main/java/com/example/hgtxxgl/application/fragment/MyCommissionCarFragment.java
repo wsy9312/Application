@@ -62,55 +62,17 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
     ListAdapter<CarLeaveEntity.CarLeaveRrdBean> adapter = new ListAdapter<CarLeaveEntity.CarLeaveRrdBean>((ArrayList<CarLeaveEntity.CarLeaveRrdBean>) entityList, R.layout.layout_my_todo_too) {
         @Override
         public void bindView(ViewHolder holder, CarLeaveEntity.CarLeaveRrdBean bean) {
-            holder.setText(R.id.tv_title, "申请人"+bean.getName());
+            holder.setText(R.id.tv_title, "申请人:"+bean.getName());
             holder.setText(R.id.tv_date, "修改时间："+ DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
             holder.setText(R.id.tv_sketch, bean.getContent().isEmpty()?"请假原因：无":"请假原因："+bean.getContent());
         }
     };
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadData(beginNum, endNum);
     }
-
-//    private String getNameFormNo(String no) {
-//        PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
-//        PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
-//        peopleInfoBean.setNo(no);
-//        peopleInfoBean.setName("?");
-//        peopleInfoBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-//        peopleInfoBean.setIsAndroid("1");
-//        List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
-//        beanList.add(peopleInfoBean);
-//        peopleEntity.setPeopleInfo(beanList);
-//        String json = new Gson().toJson(peopleEntity);
-//        String s1 = "get " + json;
-//        Log.e(TAG,"1名字："+s1);
-//        HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
-//            @Override
-//            public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
-//                if (peopleInfoEntity != null){
-//                    name1 = peopleInfoEntity.getPeopleInfo().get(0).getName();
-//                    adapter.notifyDataSetChanged();
-//                    hasMore = true;
-//                    Log.e(TAG,"2名字："+name1);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(String msg) {
-//
-//            }
-//
-//            @Override
-//            public void onResponse(String response) {
-//
-//            }
-//        });
-//        return name1;
-//    }
 
     SimpleListView lv;
 
@@ -311,7 +273,7 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
             }
             List<CarLeaveEntity.CarLeaveRrdBean> list = new ArrayList<>();
             for (CarLeaveEntity.CarLeaveRrdBean bean : baseEntityList) {
-                if (("序号"+bean.getNoIndex()).replace(" ", "").contains(key)){
+                if (("申请人:"+bean.getName()).replace(" ", "").contains(key)){
                     list.add(bean);
                 }
                 if (("修改时间："+ DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss")).replace(" ", "").contains(key)) {

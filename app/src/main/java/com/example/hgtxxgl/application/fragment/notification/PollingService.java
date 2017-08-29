@@ -14,7 +14,10 @@ import android.util.Log;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.LoginActivity;
+import com.example.hgtxxgl.application.entity.CarLeaveEntity;
 import com.example.hgtxxgl.application.entity.MessageEntity;
+import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
+import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
 import com.example.hgtxxgl.application.utils.DateUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
@@ -86,12 +89,166 @@ public class PollingService extends Service {
 	class PollingThread extends Thread {
 		@Override
 		public void run() {
-			getDataAlarm();
+			getDataAlarmMessage();
+			getDataAlarmApproveCar();
+			getDataAlarmApprovePeople();
 		}
 	}
 
-	private void getDataAlarm() {
-		Log.e(TAG,"当前时间service:"+DateUtil.getCurrentDateBefore()+"&&"+DateUtil.getCurrentDate());
+	private void getDataAlarmApprovePeople() {
+		Log.e(TAG,"当前时间service:_getDataAlarmApprovePeople "+DateUtil.getCurrentDateBefore()+"&&"+DateUtil.getCurrentDate());
+		PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
+		PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
+		peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+		peopleLeaveRrdBean.setBeginNum("1");
+		peopleLeaveRrdBean.setContent("?");
+		peopleLeaveRrdBean.setCurrentApproveNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+		peopleLeaveRrdBean.setEndNum("100");
+		peopleLeaveRrdBean.setIsAndroid("1");
+		peopleLeaveRrdBean.setLevelNum("?");
+		peopleLeaveRrdBean.setModifyTime("?");
+		peopleLeaveRrdBean.setMultiLevelResult("?");
+		peopleLeaveRrdBean.setNo("?");
+		peopleLeaveRrdBean.setNoIndex("?");
+		peopleLeaveRrdBean.setProcess("?");
+		peopleLeaveRrdBean.setBCancel("?");
+		List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
+		list.add(peopleLeaveRrdBean);
+		peopleLeaveEntity.setPeopleLeaveRrd(list);
+		String json = new Gson().toJson(peopleLeaveEntity);
+		final String s = "get " + json;
+		Log.e(TAG, "当前时间service:_getDataAlarmApprovePeople "+s);
+		String url = CommonValues.BASE_URL;
+		HttpManager.getInstance().requestResultForm(url, s, PeopleLeaveEntity.class,new HttpManager.ResultCallback<PeopleLeaveEntity>() {
+			@Override
+			public void onSuccess(final String json, final PeopleLeaveEntity peopleLeaveEntity1) throws InterruptedException {
+				if (peopleLeaveEntity1 != null && peopleLeaveEntity1.getPeopleLeaveRrd().size() > 0) {
+					for (int i = 0; i < 100; i++) {
+						if (peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getBCancel().equals("0") && peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getProcess().equals("0")) {
+							PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
+							PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
+							peopleInfoBean.setNo(peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getNo());
+							peopleInfoBean.setName("?");
+							peopleInfoBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+							peopleInfoBean.setIsAndroid("1");
+							List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
+							beanList.add(peopleInfoBean);
+							peopleEntity.setPeopleInfo(beanList);
+							String json1 = new Gson().toJson(peopleEntity);
+							String s1 = "get " + json1;
+							Log.e(TAG, "当前时间service:_getDataAlarmApprovePeople " + s1);
+							HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL, s1, PeopleInfoEntity.class, new HttpManager.ResultCallback<PeopleInfoEntity>() {
+								@Override
+								public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
+									if (peopleInfoEntity != null) {
+										List<PeopleInfoEntity.PeopleInfoBean> peopleInfoBeen = peopleInfoEntity.getPeopleInfo();
+										String content = peopleInfoBeen.get(0).getName();
+										showNotification(content+"发来一条请假外出申请");
+									}
+								}
+
+								@Override
+								public void onFailure(String msg) {
+
+								}
+
+								@Override
+								public void onResponse(String response) {
+
+								}
+							});
+						}
+					}
+				}
+			}
+
+			@Override
+			public void onFailure(String msg) {
+			}
+
+			@Override
+			public void onResponse(String response) {
+			}
+		});
+	}
+
+	private void getDataAlarmApproveCar() {
+		Log.e(TAG,"当前时间service:_getDataAlarmApproveCar"+DateUtil.getCurrentDateBefore()+"&&"+DateUtil.getCurrentDate());
+		CarLeaveEntity carLeaveEntity = new CarLeaveEntity();
+		CarLeaveEntity.CarLeaveRrdBean carLeaveRrdBean = new CarLeaveEntity.CarLeaveRrdBean();
+		carLeaveRrdBean.setApproverNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+		carLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+		carLeaveRrdBean.setBeginNum("1");
+		carLeaveRrdBean.setEndNum("100");
+		carLeaveRrdBean.setContent("?");
+		carLeaveRrdBean.setIsAndroid("1");
+		carLeaveRrdBean.setModifyTime("?");
+		carLeaveRrdBean.setNo("?");
+		carLeaveRrdBean.setNoIndex("?");
+		carLeaveRrdBean.setProcess("?");
+		carLeaveRrdBean.setbCancel("?");
+		List<CarLeaveEntity.CarLeaveRrdBean> list = new ArrayList<>();
+		list.add(carLeaveRrdBean);
+		carLeaveEntity.setCarLeaveRrd(list);
+		String json = new Gson().toJson(carLeaveEntity);
+		String s = "get " + json;
+		Log.e(TAG,"当前时间service:_getDataAlarmApproveCar"+s);
+		String url = CommonValues.BASE_URL;
+		HttpManager.getInstance().requestResultForm(url, s, CarLeaveEntity.class,new HttpManager.ResultCallback<CarLeaveEntity>() {
+			@Override
+			public void onSuccess(final String json, final CarLeaveEntity carLeaveEntity1) throws InterruptedException {
+				if (carLeaveEntity1 != null && carLeaveEntity1.getCarLeaveRrd().size() > 0) {
+					for (int i = 0; i < 100; i++) {
+						if (carLeaveEntity1.getCarLeaveRrd().get(i).getbCancel().equals("0") && carLeaveEntity1.getCarLeaveRrd().get(i).getProcess().equals("0")) {
+							PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
+							PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
+							peopleInfoBean.setNo(carLeaveEntity1.getCarLeaveRrd().get(i).getNo());
+							peopleInfoBean.setName("?");
+							peopleInfoBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+							peopleInfoBean.setIsAndroid("1");
+							List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
+							beanList.add(peopleInfoBean);
+							peopleEntity.setPeopleInfo(beanList);
+							String json1 = new Gson().toJson(peopleEntity);
+							String s1 = "get " + json1;
+							Log.e(TAG,"当前时间service:_getDataAlarmApproveCar"+json1);
+							HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL, s1, PeopleInfoEntity.class, new HttpManager.ResultCallback<PeopleInfoEntity>() {
+								@Override
+								public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
+									if (peopleInfoEntity != null) {
+										List<PeopleInfoEntity.PeopleInfoBean> peopleInfoBeen = peopleInfoEntity.getPeopleInfo();
+										String content = peopleInfoBeen.get(0).getName();
+										showNotification(content+"发来一条车辆外出申请");
+									}
+								}
+
+								@Override
+								public void onFailure(String msg) {
+
+								}
+
+								@Override
+								public void onResponse(String response) {
+
+								}
+							});
+						}
+					}
+				}
+			}
+
+			@Override
+			public void onFailure(String msg) {
+			}
+
+			@Override
+			public void onResponse(String response) {
+			}
+		});
+	}
+
+	private void getDataAlarmMessage() {
+		Log.e(TAG,"当前时间service:_getDataAlarmMessage"+DateUtil.getCurrentDateBefore()+"&&"+DateUtil.getCurrentDate());
 		MessageEntity messageEntity = new MessageEntity();
 		MessageEntity.MessageRrdBean messageRrdBean = new MessageEntity.MessageRrdBean();
 		messageRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
