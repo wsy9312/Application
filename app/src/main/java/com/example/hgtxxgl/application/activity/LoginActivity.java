@@ -17,6 +17,7 @@ import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.entity.LoginEntity;
 import com.example.hgtxxgl.application.entity.NewLoginEntity;
 import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
+import com.example.hgtxxgl.application.utils.SysExitUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.Fields;
@@ -49,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         StatusBarUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
         initView();
+        SysExitUtil.activityList.add(LoginActivity.this);
         etUsername.setText(SpUtils.getString(getApplicationContext(), Fields.USERID));
         savePassword = SpUtils.getisBoolean_false(getApplicationContext(), Fields.SAVE_PASSWORD,false);
         etPassword.setText(SpUtils.getString(getApplicationContext(),Fields.PASSWORD));

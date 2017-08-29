@@ -321,13 +321,17 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
 
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder builder=new AlertDialog.Builder(this);  //先得到构造器
-        builder.setMessage("是否确认退出?"); //设置内容
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() { //设置确定按钮
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setMessage("是否确认退出?");
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss(); //关闭dialog
-                LibMainActivity.super.onBackPressed();
+                dialog.dismiss();
+                ApplicationApp.setNewLoginEntity(null);
+                ApplicationApp.setPeopleInfoEntity(null);
+//                startActivity(new Intent(LibMainActivity.this, LoginActivity.class));
+                finish();
+                SysExitUtil.exit();
             }
         });
         builder.setNegativeButton("取消", new DialogInterface.OnClickListener() { //设置取消按钮
