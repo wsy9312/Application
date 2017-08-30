@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:background="@drawable/bg_blue_ring_stroke"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="80dp">
+    android:layout_height="80dp"
+    android:orientation="horizontal">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/image_news"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentLeft="true"/>
+
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
@@ -35,7 +33,7 @@
             android:textColor="#0967AE"/>
         <TextView
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="true"
             android:id="@+id/tv_date"
             android:text="这是日期"
             android:layout_width="wrap_content"
@@ -46,5 +44,13 @@
             android:textSize="11sp"
             android:textColor="#999999"/>
     </RelativeLayout>
+    <ImageView
+        android:id="@+id/image_news"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_margin="5dp"
+        android:visibility="gone"
+        android:background="@color/white"
+        android:layout_alignParentRight="true"/>
 
-</RelativeLayout>
+</LinearLayout>

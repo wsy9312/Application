@@ -55,17 +55,33 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
     private List<NewsInfoEntity.NewsRrdBean> baseEntityList;
 
     ListAdapter<NewsInfoEntity.NewsRrdBean> adapter = new ListAdapter<NewsInfoEntity.NewsRrdBean>((ArrayList<NewsInfoEntity.NewsRrdBean>) entityList, R.layout.layout_news) {
+
+        private Bitmap bitmap;
+
         @Override
         public void bindView(ViewHolder holder, NewsInfoEntity.NewsRrdBean bean) {
+            bitmap = stringtoBitmap(bean.getPicture1());
             holder.setText(R.id.tv_title, bean.getTitle());
-            holder.setBitmap(R.id.image_news,stringtoBitmap(bean.getPicture1()));
+            holder.setBitmap(R.id.image_news,bitmap);
             holder.setText(R.id.tv_sketch, bean.getContent());
             holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View view = super.getView(position, convertView, parent);
+            View image = view.findViewById(R.id.image_news);
+            if (bitmap==null){
+                image.setVisibility(View.GONE);
+            }else{
+                image.setVisibility(View.VISIBLE);
+            }
+            return view;
         }
     };
     //将字符串转换成Bitmap类型
     public Bitmap stringtoBitmap(String string){
-        Bitmap bitmap=null;
+        Bitmap bitmap = null;
         try {
             byte[]bitmapArray;
             bitmapArray= Base64.decode(string, Base64.DEFAULT);
@@ -84,7 +100,7 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.main_listview_libmain, null, false);
+        View view = inflater.inflate(R.layout.main_listview_news, null, false);
         lv = (SimpleListView) view.findViewById(R.id.viewpager_listview);
         ivEmpty = (TextView) view.findViewById(R.id.iv_empty);
         ivEmpty.setText("当前无新闻");
@@ -116,6 +132,11 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
         newsRrdBean.setTitle("?");
         newsRrdBean.setContent("?");
         newsRrdBean.setModifyTime("?");
+        newsRrdBean.setPicture5("?");
+        newsRrdBean.setPicture4("?");
+        newsRrdBean.setPicture3("?");
+        newsRrdBean.setPicture2("?");
+        newsRrdBean.setPicture1("?");
         newsRrdBean.setBeginNum(beginNum+"");
         newsRrdBean.setEndNum(endNum+"");
         newsRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
