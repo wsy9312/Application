@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.example.hgtxxgl.application.view.HandToolbar
+    <com.example.hgtxxgl.application.view.PersonalHandToolbar
         android:id="@+id/personal_handtoolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -21,6 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:clickable="true"
+        android:visibility="gone"
         android:background="@drawable/selector_bg_qrcode"
         android:layout_weight="1.3">
         <TextView
@@ -75,6 +76,7 @@
         android:background="@color/grey"/>
     <RelativeLayout
         android:id="@+id/rl_name"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -312,7 +314,7 @@
         android:background="@color/grey">
         <Button
             android:id="@+id/btn_logout"
-            android:text="退出当前账户"
+            android:text="退出登录"
             android:textSize="16sp"
             android:background="@drawable/rec_normal_logout_btn"
             android:layout_margin="30dp"

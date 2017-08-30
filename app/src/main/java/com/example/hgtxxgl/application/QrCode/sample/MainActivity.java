@@ -17,7 +17,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.CheckBox;
@@ -60,32 +59,6 @@ public class MainActivity extends AppCompatActivity{
     private String unit;
     private String armyGroup;
     private RelativeLayout llqrimage;
-
-    private void initTotal() {
-        mContext = this;
-        toolbar.inflateMenu(R.menu.base_toolbar_menu);//设置右上角的填充菜单
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                int menuItemId = item.getItemId();
-                if (menuItemId == R.id.action_item1) {
-                    imageView.setDrawingCacheEnabled(true);
-                    if (imageView.getDrawingCache() != null){
-                        bitmap = Bitmap.createBitmap(imageView.getDrawingCache());
-                        requestPermission();
-                    }else{
-                        ToastUtil.showToast(mContext,"图片不能为空");
-                    }
-                    imageView.setDrawingCacheEnabled(false);
-                } else if (menuItemId == R.id.action_item2) {
-                    ScannerActivity.gotoActivity(MainActivity.this, true, 1);
-
-                }
-                return true;
-            }
-        });
-    }
-
 
     /**
      * 请求读取sd卡的权限

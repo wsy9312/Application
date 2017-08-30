@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#0067AE">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:id="@+id/tv_left"
+            tools:visibility="visible"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/ic_saomiao"
+            android:layout_height="80dp"
+            android:textAppearance="?attr/textAppearanceListItemSmall"
+            android:layout_gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            tools:visibility="visible"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="名字"
+            android:layout_toRightOf="@+id/tv_left"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+
+        <ImageView
+            android:id="@+id/tv_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:layout_toLeftOf="@+id/tv_right"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:src="@mipmap/ic_saomiao"/>
+
+        <ImageView
+            android:id="@+id/tv_right"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_baocun"
+            tools:visibility="visible"/>
+
+    </RelativeLayout>
+</FrameLayout>
