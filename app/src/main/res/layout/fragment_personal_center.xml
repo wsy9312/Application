@@ -314,7 +314,7 @@
             android:id="@+id/btn_logout"
             android:text="退出当前账户"
             android:textSize="16sp"
-            android:background="@color/red"
+            android:background="@drawable/rec_normal_logout_btn"
             android:layout_margin="30dp"
             android:textColor="@color/colorWindowBackground"
             android:layout_width="match_parent"

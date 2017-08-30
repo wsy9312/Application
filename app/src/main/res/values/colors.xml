@@ -40,6 +40,10 @@
     <color name="text1">#59B29C</color>
     <color name="text2">#333333</color>
 
+    <color name="greenbtn">#579257</color>
+    <color name="redbtn">#e94546</color>
+    <color name="btnstroke">#f7f7f7</color>
+
     <color name="color1">#F0F0F0</color>
     <color name="color2">#FFFFFF</color>
     <color name="color3">#B0B0B0</color>

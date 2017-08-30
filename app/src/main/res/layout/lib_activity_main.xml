@@ -19,6 +19,7 @@
         android:layout_height="wrap_content" >
 
         <RadioGroup
+            android:background="@color/main_page_green_pressed"
             android:id="@+id/bottom_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,39 +30,38 @@
                 style="@style/BottomBarItem"
                 android:checked="true"
                 android:enabled="false"
-                android:drawableTop="@drawable/home_page_radio_button_my_news"
                 android:text="新闻中心" />
-
+            <!--android:drawableTop="@drawable/home_page_radio_button_my_news"-->
             <RadioButton
                 android:id="@+id/rb_main_notification_center"
                 style="@style/BottomBarItem"
                 android:enabled="false"
-                android:drawableTop="@drawable/home_page_radio_button_my_notification"
                 android:text="通知中心" />
+            <!--android:drawableTop="@drawable/home_page_radio_button_my_notification"-->
             <RadioButton
                 android:enabled="false"
                 android:id="@+id/rb_main_cartodo_center"
                 style="@style/BottomBarItem"
-                android:drawableTop="@drawable/home_page_radio_button_my_todo_car"
                 android:text="车辆审批" />
+            <!--android:drawableTop="@drawable/home_page_radio_button_my_todo_car"-->
             <RadioButton
                 android:enabled="false"
                 android:id="@+id/rb_main_carlaunch_center"
                 style="@style/BottomBarItem"
-                android:drawableTop="@drawable/home_page_radio_button_my_launch_car"
                 android:text="车辆查看" />
+            <!--android:drawableTop="@drawable/home_page_radio_button_my_launch_car"-->
             <RadioButton
                 android:id="@+id/rb_main_leave_todo_center"
                 style="@style/BottomBarItem"
                 android:enabled="false"
-                android:drawableTop="@drawable/home_page_radio_button_my_comm"
                 android:text="人员审批" />
+            <!--android:drawableTop="@drawable/home_page_radio_button_my_comm"-->
             <RadioButton
                 android:enabled="false"
                 android:id="@+id/rb_main_leave_launch_center"
                 style="@style/BottomBarItem"
-                android:drawableTop="@drawable/home_page_radio_button_my_launch"
                 android:text="人员查看" />
+            <!--android:drawableTop="@drawable/home_page_radio_button_my_launch"-->
             <!--<RadioButton
                 android:enabled="false"
                 android:id="@+id/rb_main_leave_apply_car_center"
@@ -72,8 +72,8 @@
                 android:enabled="false"
                 android:id="@+id/rb_main_leave_apply_people_center"
                 style="@style/BottomBarItem"
-                android:drawableTop="@drawable/home_page_radio_button_post_flow"
                 android:text="请假申请" />
+            <!--android:drawableTop="@drawable/home_page_radio_button_post_flow"-->
             <!--<RadioButton
                 android:enabled="false"
                 android:id="@+id/rb_main_personal_center"

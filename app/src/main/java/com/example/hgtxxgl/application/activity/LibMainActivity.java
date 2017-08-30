@@ -329,7 +329,6 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                 dialog.dismiss();
                 ApplicationApp.setNewLoginEntity(null);
                 ApplicationApp.setPeopleInfoEntity(null);
-//                startActivity(new Intent(LibMainActivity.this, LoginActivity.class));
                 finish();
                 SysExitUtil.exit();
             }
