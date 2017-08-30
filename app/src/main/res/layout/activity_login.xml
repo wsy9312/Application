@@ -66,7 +66,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/pressed_blue_white"
-                android:text="@string/land"
+                android:text="登录"
                 android:enabled="false"
                 android:foreground="?attr/selectableItemBackgroundBorderless"
                 android:background="@drawable/selector_bg_login_button"

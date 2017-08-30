@@ -4,6 +4,20 @@
     android:layout_width="match_parent"
     android:id="@+id/llayout_bottom_buttons_bar"
     android:layout_height="wrap_content">
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:enabled="false"
+        android:textSize="16sp"
+        android:id="@+id/btn_approve"
+        android:textColor="@color/white"
+        android:background="@drawable/rec_normal_submin"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:text="同意"
+        android:visibility="gone" />
+    <!--android:drawableLeft="@drawable/ic_approve"
+    android:drawableStart="@drawable/ic_approve"-->
 
     <Button
         android:layout_width="0dp"
@@ -19,21 +33,6 @@
         android:background="@drawable/rec_normal_no_cancelleave" />
     <!--android:drawableStart="@drawable/ic_reject"
     android:drawableLeft="@drawable/ic_reject"-->
-
-    <Button
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:enabled="false"
-        android:textSize="16sp"
-        android:id="@+id/btn_approve"
-        android:textColor="@color/white"
-        android:background="@drawable/rec_normal_submin"
-        android:padding="@dimen/activity_horizontal_margin"
-        android:text="同意"
-        android:visibility="gone" />
-    <!--android:drawableLeft="@drawable/ic_approve"
-    android:drawableStart="@drawable/ic_approve"-->
 
     <Button
         android:layout_width="0dp"

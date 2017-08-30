@@ -5,9 +5,15 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Handler;
 import android.os.StrictMode;
+import android.util.DisplayMetrics;
 
+import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.entity.NewLoginEntity;
 import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class ApplicationApp extends Application {
     //handler
@@ -20,6 +26,9 @@ public class ApplicationApp extends Application {
     private static PeopleInfoEntity peopleInfoEntity;
 
     private static NewLoginEntity newLoginEntity;
+
+    public static List<?> images=new ArrayList<>();
+    public static int H,W;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -28,7 +37,10 @@ public class ApplicationApp extends Application {
             StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
             StrictMode.setVmPolicy(builder.build());
         }
-
+        getScreen(this);
+        String[] urls = getResources().getStringArray(R.array.url);
+        List list = Arrays.asList(urls);
+        images = new ArrayList(list);
 //        //upload logfile , post params.
 //        HttpParameters params = new HttpParameters();
 //        params.add("key1", "value1");
@@ -40,6 +52,11 @@ public class ApplicationApp extends Application {
 //        boolean isDebug = true;
 //        LogCollector.setDebugMode(isDebug);
 //        LogCollector.init(getApplicationContext(), UPLOAD_URL, params);//params can be null
+    }
+    public void getScreen(Context aty) {
+        DisplayMetrics dm = aty.getResources().getDisplayMetrics();
+        H=dm.heightPixels;
+        W=dm.widthPixels;
     }
     public static PeopleInfoEntity getPeopleInfoEntity() {
         return peopleInfoEntity;

@@ -51,6 +51,7 @@ dependencies {
     compile 'com.alibaba:fastjson:1.1.52.android'
     compile 'com.squareup.okhttp3:okhttp-urlconnection:3.2.0'
     compile 'com.github.GrenderG:Toasty:1.2.5'
+    compile 'com.youth.banner:banner:1.4.9'
     compile project(':zxingscanner')
     compile project(':okhttputils')
     compile project(':pulltorefresh')

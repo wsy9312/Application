@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.NewsItemActivity;
 import com.example.hgtxxgl.application.entity.NewsInfoEntity;
+import com.example.hgtxxgl.application.utils.GlideImageLoader;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.DataUtil;
@@ -26,11 +27,13 @@ import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.ListAdapter;
 import com.example.hgtxxgl.application.view.SimpleListView;
 import com.google.gson.Gson;
+import com.youth.banner.Banner;
+import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewFragment extends Fragment implements SimpleListView.OnRefreshListener, AdapterView.OnItemClickListener {
+public class NewFragment extends Fragment implements SimpleListView.OnRefreshListener, AdapterView.OnItemClickListener, OnBannerListener {
     private int beginNum = 1;
     private int endNum = 6;
     private boolean hasMore = true;
@@ -38,6 +41,7 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
     private ProgressBar pb;
     private static final String TAG = "NewFragment";
     SimpleListView lv;
+    private Banner banner;
 
     public NewFragment() {
 
@@ -101,6 +105,17 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.main_listview_news, null, false);
+
+
+        Banner banner = (Banner) view.findViewById(R.id.banner);
+        //设置图片加载器
+        banner.setImageLoader(new GlideImageLoader());
+        //设置图片集合
+        banner.setImages(ApplicationApp.images);
+        //banner设置方法全部调用完毕时最后调用
+        banner.start();
+
+
         lv = (SimpleListView) view.findViewById(R.id.viewpager_listview);
         ivEmpty = (TextView) view.findViewById(R.id.iv_empty);
         ivEmpty.setText("当前无新闻");
@@ -275,4 +290,8 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
 
     }
 
+    @Override
+    public void OnBannerClick(int position) {
+
+    }
 }

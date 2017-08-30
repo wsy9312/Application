@@ -83,13 +83,6 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
         adapter.notifyDataSetChanged();
     }
 
-//    @Override
-//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//        loadData(beginNum,endNum);
-//        adapter.notifyDataSetChanged();
-//    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.main_listview_libmain, null, false);
