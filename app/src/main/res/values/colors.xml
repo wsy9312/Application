@@ -28,6 +28,7 @@
     <color name="bottom_bar_grad_end">#475b93</color>
     <color name="radio_btn">#0967ae</color>
     <color name="add">#346497</color>
+    <color name="add1">#1E90FF</color>
     <color name="alert">#ff0000</color>
     <color name="window_background">#f2f1f0</color>
     <color name="group_title_color">#e4ebf4</color>
@@ -39,6 +40,17 @@
     <color name="split_line">#11112233</color>
     <color name="text1">#59B29C</color>
     <color name="text2">#333333</color>
+
+    <color name="black_semi_transparent">#B2000000</color>
+    <color name="background_fbc">#e5e5e5</color>
+    <color name="half_black">#808080</color>
+    <color name="white_fbc">#fafafa</color>
+    <color name="white_pressed">#f1f1f1</color>
+    <color name="pink">#e91e63</color>
+    <color name="pink_pressed">#ec407a</color>
+    <color name="blue_semi_transparent">#805677fc</color>
+    <color name="blue_semi_transparent_pressed">#80738ffe</color>
+
 
     <color name="greenbtn">#579257</color>
     <color name="redbtn">#e94546</color>

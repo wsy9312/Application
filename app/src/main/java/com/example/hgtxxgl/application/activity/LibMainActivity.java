@@ -209,8 +209,8 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
     HorizontalScrollView scrollView;
     //填充布局、初始化控件
     private void initView() {
-        setContentView(R.layout.lib_activity_main);
-        //pb = (ProgressBar) findViewById(R.id.lib_pb);
+        setContentView(R.layout.layout_lib_main);
+        //pb = (ProgressBar) findViewById(R.id.lib_pb);fl_container
         handToolbar = (HandToolbar) findViewById(R.id.toolbar);
         handToolbar.setDisplayHomeAsUpEnabled(false, this);
         handToolbar.setBackHome(true,R.mipmap.ic_me);
