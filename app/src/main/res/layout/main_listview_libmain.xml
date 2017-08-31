@@ -48,7 +48,7 @@
         android:layout_margin="10dp"
         fab:fab_addButtonColorNormal="@color/add1"
         fab:fab_addButtonColorPressed="@color/main_page_blue_light_pressed"
-        fab:fab_addButtonPlusIconColor="@color/half_black"
+        fab:fab_addButtonPlusIconColor="@color/white"
         fab:fab_addButtonSize="normal"
         fab:fab_expandDirection="up"
         fab:fab_labelStyle="@style/menu_labels_style" >
