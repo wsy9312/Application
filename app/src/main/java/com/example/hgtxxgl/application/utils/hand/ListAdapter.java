@@ -21,6 +21,10 @@ public abstract class ListAdapter<T> extends BaseAdapter {
     public ListAdapter() {
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
+    }
 
     public ListAdapter(ArrayList<T> mData, int mLayoutRes) {
         this.mData = mData;

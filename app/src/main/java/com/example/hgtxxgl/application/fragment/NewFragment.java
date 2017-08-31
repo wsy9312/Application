@@ -41,7 +41,7 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
     private ProgressBar pb;
     private static final String TAG = "NewFragment";
     SimpleListView lv;
-    private Banner banner;
+    private List<Bitmap> bitmapList;
 
     public NewFragment() {
 
@@ -106,15 +106,14 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.main_listview_news, null, false);
 
-
         Banner banner = (Banner) view.findViewById(R.id.banner);
         //设置图片加载器
         banner.setImageLoader(new GlideImageLoader());
         //设置图片集合
         banner.setImages(ApplicationApp.images);
+        banner.setDelayTime(4000);
         //banner设置方法全部调用完毕时最后调用
         banner.start();
-
 
         lv = (SimpleListView) view.findViewById(R.id.viewpager_listview);
         ivEmpty = (TextView) view.findViewById(R.id.iv_empty);
@@ -172,6 +171,7 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
                             }
                             hasMore = true;
                             entityList.addAll(newsInfoEntity.getNewsRrd());
+                            setBannerBitmap();
                             adapter.notifyDataSetChanged();
                         } else {
                             hasMore = false;
@@ -198,6 +198,25 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
                         lv.completeRefresh();
                     }
         });
+    }
+
+    private void setBannerBitmap() {
+        bitmapList = new ArrayList<>();
+        String picture1 = entityList.get(0).getPicture1();
+        String picture2 = entityList.get(0).getPicture2();
+        String picture3 = entityList.get(0).getPicture3();
+        String picture4 = entityList.get(0).getPicture4();
+        String picture5 = entityList.get(0).getPicture5();
+        Bitmap stringtoBitmap = stringtoBitmap(picture1);
+        Bitmap stringtoBitmap1 = stringtoBitmap(picture2);
+        Bitmap stringtoBitmap2 = stringtoBitmap(picture3);
+        Bitmap stringtoBitmap3 = stringtoBitmap(picture4);
+        Bitmap stringtoBitmap4 = stringtoBitmap(picture5);
+        bitmapList.add(0,stringtoBitmap);
+        bitmapList.add(1,stringtoBitmap1);
+        bitmapList.add(2,stringtoBitmap2);
+        bitmapList.add(3,stringtoBitmap3);
+        bitmapList.add(4,stringtoBitmap4);
     }
 
     private void loadMore() {

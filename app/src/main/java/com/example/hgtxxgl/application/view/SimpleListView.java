@@ -59,7 +59,6 @@ public class SimpleListView extends ListView implements AbsListView.OnScrollList
         initFooterView();
     }
 
-
     private void initHeaderView() {
         headerView = View.inflate(getContext(), R.layout.layout_loading, null);
         iv_arrow = (ImageView) headerView.findViewById(R.id.iv_arrow);
@@ -74,7 +73,6 @@ public class SimpleListView extends ListView implements AbsListView.OnScrollList
     }
 
     private void initRotateAnimation() {
-
         upAnimation = new RotateAnimation(0, -180,
                 RotateAnimation.RELATIVE_TO_SELF, 0.5f,
                 RotateAnimation.RELATIVE_TO_SELF, 0.5f);
@@ -229,7 +227,6 @@ public class SimpleListView extends ListView implements AbsListView.OnScrollList
 
     }
 
-
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem,
                          int visibleItemCount, int totalItemCount) {
@@ -239,4 +236,5 @@ public class SimpleListView extends ListView implements AbsListView.OnScrollList
     public void setOnClickListener(OnClickListener l) {
         super.setOnClickListener(l);
     }
+
 }
