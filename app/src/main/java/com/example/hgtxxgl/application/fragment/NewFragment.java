@@ -152,6 +152,7 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
         switch (v.getId()){
             case R.id.button_fbc_people:
                 startActivity(new Intent(getContext(),PersonalActivity.class));
+                fbcMenu.collapse();
                 break;
             case R.id.button_fbc_apply:
                 break;

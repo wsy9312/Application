@@ -24,12 +24,14 @@ import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.ListAdapter;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
 import com.example.hgtxxgl.application.view.SimpleListView;
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyLaunchFragment extends Fragment implements SimpleListView.OnRefreshListener, AdapterView.OnItemClickListener {
+public class MyLaunchFragment extends Fragment implements SimpleListView.OnRefreshListener, AdapterView.OnItemClickListener, View.OnClickListener {
 
     private int beginNum = 1;
     private int endNum = 6;
@@ -37,6 +39,9 @@ public class MyLaunchFragment extends Fragment implements SimpleListView.OnRefre
     private TextView ivEmpty;
     private ProgressBar pb;
     private static final String TAG = "MyLaunchFragment";
+    private FloatingActionButton fbcPeople;
+    private FloatingActionButton fbcApply;
+    private FloatingActionsMenu fbcMenu;
 
     public MyLaunchFragment() {
 
@@ -93,7 +98,24 @@ public class MyLaunchFragment extends Fragment implements SimpleListView.OnRefre
         });
         lv.setOnRefreshListener(this);
         lv.setOnItemClickListener(this);
+        fbcPeople = (FloatingActionButton) view.findViewById(R.id.button_fbc_people);
+        fbcApply = (FloatingActionButton) view.findViewById(R.id.button_fbc_apply);
+        fbcMenu = (FloatingActionsMenu) view.findViewById(R.id.multiple_actions_up);
+        fbcPeople.setOnClickListener(this);
+        fbcApply.setOnClickListener(this);
         return view;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.button_fbc_people:
+                startActivity(new Intent(getContext(),PersonalActivity.class));
+                fbcMenu.collapse();
+                break;
+            case R.id.button_fbc_apply:
+                break;
+        }
     }
 
     void loadData(final int beginNum, final int endNum) {
