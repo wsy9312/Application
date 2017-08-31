@@ -40,7 +40,7 @@
         android:layout_height="wrap_content" />
 
     <com.getbase.floatingactionbutton.FloatingActionsMenu
-        android:id="@+id/multiple_actions_down"
+        android:id="@+id/multiple_actions_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -54,7 +54,7 @@
         fab:fab_labelStyle="@style/menu_labels_style" >
 
         <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/button_remove"
+            android:id="@+id/button_fbc_people"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             fab:fab_colorNormal="@color/main_page_blue_light_pressed"
@@ -63,6 +63,7 @@
             fab:fab_title="个人资料展示" />
 
         <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/button_fbc_apply"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             fab:fab_colorNormal="@color/blue_semi_transparent"
