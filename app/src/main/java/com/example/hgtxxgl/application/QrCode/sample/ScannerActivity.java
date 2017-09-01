@@ -44,7 +44,7 @@ public class ScannerActivity extends DeCodeActivity {
         handToolbar.setTitle("扫一扫");
         handToolbar.setDisplayHomeAsUpEnabled(true, this);
         handToolbar.setBackHome(false,0);
-        handToolbar.setTitleSize(20);
+        handToolbar.setTitleSize(18);
 //        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         StatusBarUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
         mScannerView = (ScannerView) findViewById(R.id.scanner_view);
@@ -76,7 +76,7 @@ public class ScannerActivity extends DeCodeActivity {
             laserMode = extras.getInt(EXTRA_LASER_LINE_MODE);
         }
         mScannerView.setMediaResId(R.raw.weixin_beep);//设置扫描成功的声音
-        mScannerView.setDrawText("将二维码放入框内",true);
+        mScannerView.setDrawText("请将二维码放入框内",true);
         mScannerView.setDrawTextColor(Color.RED);
         mScannerView.setLaserFrameTopMargin(150);//扫描框与屏幕上方距离
         mScannerView.setLaserFrameSize(220, 220);//扫描框大小

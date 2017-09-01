@@ -71,6 +71,8 @@ public class RestApplyFragment extends CommonFragment {
     @Override
     public void setToolbar(HandToolbar toolbar) {
         toolbar.setVisibility(View.VISIBLE);
+        toolbar.setTitle("请假外出申请");
+        toolbar.setTitleSize(18);
     }
 
     @Override

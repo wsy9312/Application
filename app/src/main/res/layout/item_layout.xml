@@ -50,31 +50,41 @@
                 android:layout_height="wrap_content" />
 
             <ImageView
-                android:layout_margin="10dp"
+                android:scaleType="fitXY"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="10dp"
                 android:layout_below="@+id/tv_news_body"
                 android:id="@+id/image_news_one"
                 android:layout_width="280dp"
                 android:layout_height="180dp"/>
             <ImageView
-                android:layout_margin="10dp"
+                android:scaleType="fitXY"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="10dp"
                 android:layout_below="@+id/image_news_one"
                 android:id="@+id/image_news_two"
                 android:layout_width="280dp"
                 android:layout_height="180dp"/>
             <ImageView
-                android:layout_margin="10dp"
+                android:scaleType="fitXY"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="10dp"
                 android:layout_below="@+id/image_news_two"
                 android:id="@+id/image_news_three"
                 android:layout_width="280dp"
                 android:layout_height="180dp"/>
             <ImageView
-                android:layout_margin="10dp"
+                android:scaleType="fitXY"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="10dp"
                 android:layout_below="@+id/image_news_three"
                 android:id="@+id/image_news_four"
                 android:layout_width="280dp"
                 android:layout_height="180dp"/>
             <ImageView
-                android:layout_margin="10dp"
+                android:scaleType="fitXY"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="10dp"
                 android:layout_below="@+id/image_news_four"
                 android:id="@+id/image_news_five"
                 android:layout_width="280dp"
