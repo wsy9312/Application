@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.hgtxxgl.application.R.id.iv_empty;
+import static com.example.hgtxxgl.application.utils.hand.PageConfig.PAGE_LEAVE_APPLY_PEOPLE;
 
 /**
  * Created by HGTXxgl on 2017/8/25.
@@ -119,6 +120,10 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
                 fbcMenu.collapse();
                 break;
             case R.id.button_fbc_apply:
+                Intent intent = new Intent(getActivity(), ItemActivity.class);
+                intent.putExtra(PageConfig.PAGE_CODE, PAGE_LEAVE_APPLY_PEOPLE);
+                startActivity(intent);
+                fbcMenu.collapse();
                 break;
         }
     }

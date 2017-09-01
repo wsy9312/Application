@@ -70,7 +70,7 @@ public class RestApplyFragment extends CommonFragment {
 
     @Override
     public void setToolbar(HandToolbar toolbar) {
-        toolbar.setVisibility(View.GONE);
+        toolbar.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -180,6 +180,7 @@ public class RestApplyFragment extends CommonFragment {
                 public void onResponse(String response) {
                     if (response.toLowerCase().contains("ok")) {
                         show("提交成功");
+                        getActivity().finish();
                     }else{
                         show("提交失败");
                     }
@@ -201,6 +202,7 @@ public class RestApplyFragment extends CommonFragment {
                 public void onResponse(String response) {
                     if (response.toLowerCase().contains("ok")) {
                         show("提交成功");
+                        getActivity().finish();
                     }else{
                         show("提交失败");
                     }
@@ -250,7 +252,7 @@ public class RestApplyFragment extends CommonFragment {
         List<HandInputGroup.Holder> holders = getGroup().get(0).getHolders();
         if (mIsDomestic) {
             if (holders.size() == 7){
-                holders.add(2,new HandInputGroup.Holder("车辆号牌", true, false, "", HandInputGroup.VALUE_TYPE.TEXTFILED));
+                holders.add(2,new HandInputGroup.Holder("车辆号牌", true, false, "沪A11111", HandInputGroup.VALUE_TYPE.TEXTFILED));
             }else if (holders.size() == 8){
                 holders.remove(2);
             }
@@ -258,7 +260,7 @@ public class RestApplyFragment extends CommonFragment {
             if (holders.size() == 8){
                 holders.remove(2);
             }else if (holders.size() == 7){
-                holders.add(2,new HandInputGroup.Holder("车辆号牌", true, false, "", HandInputGroup.VALUE_TYPE.TEXTFILED));
+                holders.add(2,new HandInputGroup.Holder("车辆号牌", true, false, "沪A11111", HandInputGroup.VALUE_TYPE.TEXTFILED));
             }
         }
         notifyDataSetChanged();

@@ -77,6 +77,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
 
         return root;
     }
+
     //fragmentPagerAdapter设置对应的fragment
     public class SectionsPagerAdapter extends FragmentPagerAdapter implements DataCallback {
 
@@ -104,9 +105,9 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
             } else if (currentPage == PageConfig.PAGE_LAUNCH_PEOPLE){
                 llEtSearch.setVisibility(VISIBLE);
                 return MyLaunchFragment.newInstance(position).setCallback(this);
-            } else if (currentPage == PageConfig.PAGE_APPLY){
+            } /*else if (currentPage == PageConfig.PAGE_APPLY){
                 return new RestApplyFragment();
-            }/* else if (currentPage == PageConfig.PAGE_ME) {
+            }*//* else if (currentPage == PageConfig.PAGE_ME) {
                 return PersonalActivity.newInstance(position).setCallback(this);
             }*/
             return null;
@@ -128,9 +129,9 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
                 return 2;
             } else if (currentPage == PageConfig.PAGE_LAUNCH_PEOPLE) {
                 return 2;
-            } else if (currentPage == PageConfig.PAGE_APPLY) {
+            }/* else if (currentPage == PageConfig.PAGE_APPLY) {
                 return 1;
-            } /*else if (currentPage == PageConfig.PAGE_ME)
+            }*/ /*else if (currentPage == PageConfig.PAGE_ME)
                 return 1;*/
             else
                 return 0;
@@ -251,9 +252,9 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
             case PageConfig.PAGE_LAUNCH_PEOPLE:
                 group.setVisibility(GONE);
                 break;
-            case PageConfig.PAGE_APPLY:
+           /* case PageConfig.PAGE_APPLY:
                 group.setVisibility(GONE);
-                break;
+                break;*/
            /* case PageConfig.PAGE_ME:
                 group.setVisibility(GONE);
                 break;*/

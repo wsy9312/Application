@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.hgtxxgl.application.R.id.iv_empty;
+import static com.example.hgtxxgl.application.utils.hand.PageConfig.PAGE_LEAVE_APPLY_PEOPLE;
 
 public class MyCommissionFragment extends Fragment implements AdapterView.OnItemClickListener, SimpleListView.OnRefreshListener, View.OnClickListener {
 
@@ -154,6 +155,10 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
                 fbcMenu.collapse();
                 break;
             case R.id.button_fbc_apply:
+                Intent intent = new Intent(getActivity(), ItemActivity.class);
+                intent.putExtra(PageConfig.PAGE_CODE, PAGE_LEAVE_APPLY_PEOPLE);
+                startActivity(intent);
+                fbcMenu.collapse();
                 break;
         }
     }

@@ -37,7 +37,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
     public static final String PASS_WORD = "PASS_WORD";
     private boolean loginSucceed = false;
     private RadioGroup bottomBar;
-    private Fragment[] fragments = new Fragment[7];
+    private Fragment[] fragments = new Fragment[6];
     private FragmentManager supportFragmentManager;
     private int lastIndex = -1, currentIndex;
     private static final int LOGIN_SUCESS = 0;
@@ -50,7 +50,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
     private RadioButton launchCar;
     private RadioButton todoCenter;
     private RadioButton launchCenter;
-    private RadioButton applyPeoPleCenter;
+//    private RadioButton applyPeoPleCenter;
 //    private RadioButton personalCenter;
     private int screenHalf;
 
@@ -105,13 +105,13 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                 fragments[5].onPause();
                 handToolbar.setTitle(title[5]);
 
-            } else if (checkedId == R.id.rb_main_leave_apply_people_center){
+            } /*else if (checkedId == R.id.rb_main_leave_apply_people_center){
                 currentIndex = 6;
                 changeFragment(fragments[6]);
                 fragments[6].onPause();
                 handToolbar.setTitle(title[6]);
 
-            } /*else if (checkedId == R.id.rb_main_personal_center) {
+            }*/ /*else if (checkedId == R.id.rb_main_personal_center) {
                 currentIndex = 7;
                 changeFragment(fragments[7]);
                 fragments[7].onPause();
@@ -135,7 +135,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
 
     //初始化设置toolbar标题
     private void initTitle() {
-        title = new String[]{"新闻中心","通知中心","车辆审批","车辆查看","人员审批","人员查看","请假申请"/*,"我的"*/};
+        title = new String[]{"新闻中心","通知中心","车辆审批","车辆查看","人员审批","人员查看"/*,"请假申请"*//*,"我的"*/};
     }
 
     @Override
@@ -224,7 +224,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         launchCar = (RadioButton) findViewById(R.id.rb_main_carlaunch_center);
         todoCenter = (RadioButton) findViewById(R.id.rb_main_leave_todo_center);
         launchCenter = (RadioButton) findViewById(R.id.rb_main_leave_launch_center);
-        applyPeoPleCenter = (RadioButton) findViewById(R.id.rb_main_leave_apply_people_center);
+//        applyPeoPleCenter = (RadioButton) findViewById(R.id.rb_main_leave_apply_people_center);
 //        personalCenter = (RadioButton) findViewById(R.id.rb_main_personal_center);
         bottomBar.setOnCheckedChangeListener(listener);
     }
@@ -243,7 +243,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
             fragments[3] = DetailFragment.newInstance(PageConfig.PAGE_LAUNCH_CAR);
             fragments[4] = DetailFragment.newInstance(PageConfig.PAGE_TODO_PEOPLE);
             fragments[5] = DetailFragment.newInstance(PageConfig.PAGE_LAUNCH_PEOPLE);
-            fragments[6] = DetailFragment.newInstance(PageConfig.PAGE_APPLY);
+//            fragments[6] = DetailFragment.newInstance(PageConfig.PAGE_APPLY);
 //            fragments[7] = DetailFragment.newInstance(PageConfig.PAGE_ME);
             for (int i = 0; i < fragments.length; i++) {
                 transaction.add(R.id.fl_container, fragments[i]);
@@ -279,8 +279,8 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                         todoCenter.setBackgroundColor(0xffffff);
                         launchCenter.setEnabled(true);
                         launchCenter.setBackgroundColor(0xffffff);
-                        applyPeoPleCenter.setEnabled(true);
-                        applyPeoPleCenter.setBackgroundColor(0xffffff);
+//                        applyPeoPleCenter.setEnabled(true);
+//                        applyPeoPleCenter.setBackgroundColor(0xffffff);
 //                        personalCenter.setEnabled(true);
 //                        personalCenter.setBackgroundColor(0xffffff);
                     }
@@ -302,8 +302,8 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                         todoCenter.setBackgroundColor(0xd4d4d4);
                         launchCenter.setEnabled(false);
                         launchCenter.setBackgroundColor(0xd4d4d4);
-                        applyPeoPleCenter.setEnabled(false);
-                        applyPeoPleCenter.setBackgroundColor(0xd4d4d4);
+//                        applyPeoPleCenter.setEnabled(false);
+//                        applyPeoPleCenter.setBackgroundColor(0xd4d4d4);
 //                        personalCenter.setEnabled(false);
 //                        personalCenter.setBackgroundColor(0xd4d4d4);
                     }

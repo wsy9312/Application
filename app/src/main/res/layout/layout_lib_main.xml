@@ -68,11 +68,11 @@
                 style="@style/BottomBarItem"
                 android:drawableTop="@drawable/home_page_radio_button_car_apply"
                 android:text="车辆外出" />-->
-            <RadioButton
+            <!--<RadioButton
                 android:enabled="false"
                 android:id="@+id/rb_main_leave_apply_people_center"
                 style="@style/BottomBarItem"
-                android:text="请假申请" />
+                android:text="请假申请" />-->
             <!--android:drawableTop="@drawable/home_page_radio_button_post_flow"-->
             <!--<RadioButton
                 android:enabled="false"

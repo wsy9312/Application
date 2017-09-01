@@ -31,6 +31,8 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.hgtxxgl.application.utils.hand.PageConfig.PAGE_LEAVE_APPLY_PEOPLE;
+
 /**
  * Created by HGTXxgl on 2017/8/23.
  */
@@ -116,6 +118,10 @@ public class MyLaunchCarFragment extends Fragment implements SimpleListView.OnRe
                 fbcMenu.collapse();
                 break;
             case R.id.button_fbc_apply:
+                Intent intent = new Intent(getActivity(), ItemActivity.class);
+                intent.putExtra(PageConfig.PAGE_CODE, PAGE_LEAVE_APPLY_PEOPLE);
+                startActivity(intent);
+                fbcMenu.collapse();
                 break;
         }
     }

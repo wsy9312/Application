@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
+import com.example.hgtxxgl.application.activity.ItemActivity;
 import com.example.hgtxxgl.application.activity.NewsItemActivity;
 import com.example.hgtxxgl.application.entity.MessageEntity;
 import com.example.hgtxxgl.application.fragment.notification.PollingService;
@@ -24,6 +25,7 @@ import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.DataUtil;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.ListAdapter;
+import com.example.hgtxxgl.application.utils.hand.PageConfig;
 import com.example.hgtxxgl.application.view.SimpleListView;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
@@ -36,6 +38,7 @@ import java.util.Date;
 import java.util.List;
 
 import static com.example.hgtxxgl.application.utils.DateUtil.getCurrentDateLater;
+import static com.example.hgtxxgl.application.utils.hand.PageConfig.PAGE_LEAVE_APPLY_PEOPLE;
 
 //通知中心
 public class NotificationFragment extends Fragment implements AdapterView.OnItemClickListener, SimpleListView.OnRefreshListener, View.OnClickListener {
@@ -126,6 +129,10 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
                 fbcMenu.collapse();
                 break;
             case R.id.button_fbc_apply:
+                Intent intent = new Intent(getActivity(), ItemActivity.class);
+                intent.putExtra(PageConfig.PAGE_CODE, PAGE_LEAVE_APPLY_PEOPLE);
+                startActivity(intent);
+                fbcMenu.collapse();
                 break;
         }
     }
