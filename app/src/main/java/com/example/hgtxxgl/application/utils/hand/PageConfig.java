@@ -22,4 +22,6 @@ public class PageConfig {
     public static final int PAGE_LEAVE_DETAIL_PEOPLE = 6;
     public static final int PAGE_ITEM_NEWS = 7;
 
+    public static final int PAGE_LAUNCH_TOTAL = 8;
+    public static final int PAGE_TODO_TOTAL = 9;
 }

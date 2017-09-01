@@ -37,7 +37,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
     public static final String PASS_WORD = "PASS_WORD";
     private boolean loginSucceed = false;
     private RadioGroup bottomBar;
-    private Fragment[] fragments = new Fragment[6];
+    private Fragment[] fragments = new Fragment[4];
     private FragmentManager supportFragmentManager;
     private int lastIndex = -1, currentIndex;
     private static final int LOGIN_SUCESS = 0;
@@ -50,8 +50,8 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
     private RadioButton launchCar;
     private RadioButton todoCenter;
     private RadioButton launchCenter;
-//    private RadioButton applyPeoPleCenter;
-//    private RadioButton personalCenter;
+    private RadioButton launchTotal;
+    private RadioButton todoTotal;
     private int screenHalf;
 
     //底部菜单栏单选按钮监听器
@@ -81,43 +81,43 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                 fragments[1].onPause();
                 handToolbar.setTitle(title[1]);
 
-            } else if (checkedId == R.id.rb_main_cartodo_center) {
+            }/* else if (checkedId == R.id.rb_main_cartodo_center) {
                 currentIndex = 2;
                 changeFragment(fragments[2]);
                 fragments[2].onPause();
                 handToolbar.setTitle(title[2]);
 
-            } else if (checkedId == R.id.rb_main_carlaunch_center) {
+            }*/ /*else if (checkedId == R.id.rb_main_carlaunch_center) {
                 currentIndex = 3;
                 changeFragment(fragments[3]);
                 fragments[3].onPause();
                 handToolbar.setTitle(title[3]);
 
-            }  else if (checkedId == R.id.rb_main_leave_todo_center) {
-                currentIndex = 4;
-                changeFragment(fragments[4]);
-                fragments[4].onPause();
-                handToolbar.setTitle(title[4]);
+            } */ /*else if (checkedId == R.id.rb_main_leave_todo_center) {
+                currentIndex = 3;
+                changeFragment(fragments[3]);
+                fragments[3].onPause();
+                handToolbar.setTitle(title[3]);
 
-            } else if (checkedId == R.id.rb_main_leave_launch_center){
+            }*/ /*else if (checkedId == R.id.rb_main_leave_launch_center){
                 currentIndex = 5;
                 changeFragment(fragments[5]);
                 fragments[5].onPause();
                 handToolbar.setTitle(title[5]);
 
-            } /*else if (checkedId == R.id.rb_main_leave_apply_people_center){
-                currentIndex = 6;
-                changeFragment(fragments[6]);
-                fragments[6].onPause();
-                handToolbar.setTitle(title[6]);
+            }*/ else if (checkedId == R.id.rb_main_leave_launch_total){
+                currentIndex = 2;
+                changeFragment(fragments[2]);
+                fragments[2].onPause();
+                handToolbar.setTitle(title[2]);
 
-            }*/ /*else if (checkedId == R.id.rb_main_personal_center) {
-                currentIndex = 7;
-                changeFragment(fragments[7]);
-                fragments[7].onPause();
-                handToolbar.setTitle(title[7]);
+            } else if (checkedId == R.id.rb_main_leave_todo_total) {
+                currentIndex = 3;
+                changeFragment(fragments[3]);
+                fragments[3].onPause();
+                handToolbar.setTitle(title[3]);
 
-            }*/
+            }
         }
     };
 
@@ -135,7 +135,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
 
     //初始化设置toolbar标题
     private void initTitle() {
-        title = new String[]{"新闻中心","通知中心","车辆审批","车辆查看","人员审批","人员查看"/*,"请假申请"*//*,"我的"*/};
+        title = new String[]{"新闻中心","通知中心"/*,"车辆审批"*//*,"车辆查看"*//*,"人员审批"*//*,"人员查看"*/,"查看申请","查看审批"};
     }
 
     @Override
@@ -220,12 +220,12 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         bottomBar = (RadioGroup) findViewById(R.id.bottom_bar);
         newsCenter = (RadioButton) findViewById(R.id.rb_main_news_center);
         notificationCenter = (RadioButton) findViewById(R.id.rb_main_notification_center);
-        todoCar = (RadioButton) findViewById(R.id.rb_main_cartodo_center);
-        launchCar = (RadioButton) findViewById(R.id.rb_main_carlaunch_center);
-        todoCenter = (RadioButton) findViewById(R.id.rb_main_leave_todo_center);
-        launchCenter = (RadioButton) findViewById(R.id.rb_main_leave_launch_center);
-//        applyPeoPleCenter = (RadioButton) findViewById(R.id.rb_main_leave_apply_people_center);
-//        personalCenter = (RadioButton) findViewById(R.id.rb_main_personal_center);
+//        todoCar = (RadioButton) findViewById(R.id.rb_main_cartodo_center);
+//        launchCar = (RadioButton) findViewById(R.id.rb_main_carlaunch_center);
+//        todoCenter = (RadioButton) findViewById(R.id.rb_main_leave_todo_center);
+//        launchCenter = (RadioButton) findViewById(R.id.rb_main_leave_launch_center);
+        launchTotal = (RadioButton) findViewById(R.id.rb_main_leave_launch_total);
+        todoTotal = (RadioButton) findViewById(R.id.rb_main_leave_todo_total);
         bottomBar.setOnCheckedChangeListener(listener);
     }
 
@@ -239,12 +239,12 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
             FragmentTransaction transaction = supportFragmentManager.beginTransaction();
             fragments[0] = DetailFragment.newInstance(PageConfig.PAGE_NEWS);
             fragments[1] = DetailFragment.newInstance(PageConfig.PAGE_NOTIFICATION);
-            fragments[2] = DetailFragment.newInstance(PageConfig.PAGE_TODO_CAR);
-            fragments[3] = DetailFragment.newInstance(PageConfig.PAGE_LAUNCH_CAR);
-            fragments[4] = DetailFragment.newInstance(PageConfig.PAGE_TODO_PEOPLE);
-            fragments[5] = DetailFragment.newInstance(PageConfig.PAGE_LAUNCH_PEOPLE);
-//            fragments[6] = DetailFragment.newInstance(PageConfig.PAGE_APPLY);
-//            fragments[7] = DetailFragment.newInstance(PageConfig.PAGE_ME);
+//            fragments[2] = DetailFragment.newInstance(PageConfig.PAGE_TODO_CAR);
+//            fragments[3] = DetailFragment.newInstance(PageConfig.PAGE_LAUNCH_CAR);
+//            fragments[3] = DetailFragment.newInstance(PageConfig.PAGE_TODO_PEOPLE);
+//            fragments[5] = DetailFragment.newInstance(PageConfig.PAGE_LAUNCH_PEOPLE);
+            fragments[2] = DetailFragment.newInstance(PageConfig.PAGE_LAUNCH_TOTAL);
+            fragments[3] = DetailFragment.newInstance(PageConfig.PAGE_TODO_TOTAL);
             for (int i = 0; i < fragments.length; i++) {
                 transaction.add(R.id.fl_container, fragments[i]);
                 transaction.hide(fragments[i]);
@@ -271,18 +271,18 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                         newsCenter.setBackgroundColor(0xffffff);
                         notificationCenter.setEnabled(true);
                         notificationCenter.setBackgroundColor(0xffffff);
-                        todoCar.setEnabled(true);
-                        todoCar.setBackgroundColor(0xffffff);
-                        launchCar.setEnabled(true);
-                        launchCar.setBackgroundColor(0xffffff);
-                        todoCenter.setEnabled(true);
-                        todoCenter.setBackgroundColor(0xffffff);
-                        launchCenter.setEnabled(true);
-                        launchCenter.setBackgroundColor(0xffffff);
-//                        applyPeoPleCenter.setEnabled(true);
-//                        applyPeoPleCenter.setBackgroundColor(0xffffff);
-//                        personalCenter.setEnabled(true);
-//                        personalCenter.setBackgroundColor(0xffffff);
+//                        todoCar.setEnabled(true);
+//                        todoCar.setBackgroundColor(0xffffff);
+//                        launchCar.setEnabled(true);
+//                        launchCar.setBackgroundColor(0xffffff);
+//                        todoCenter.setEnabled(true);
+//                        todoCenter.setBackgroundColor(0xffffff);
+//                        launchCenter.setEnabled(true);
+//                        launchCenter.setBackgroundColor(0xffffff);
+                        launchTotal.setEnabled(true);
+                        launchTotal.setBackgroundColor(0xffffff);
+                        todoTotal.setEnabled(true);
+                        todoTotal.setBackgroundColor(0xffffff);
                     }
                 });
             } else if (what == LOGIN_FAILED) {
@@ -294,18 +294,18 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                         newsCenter.setBackgroundColor(0xd4d4d4);
                         notificationCenter.setEnabled(false);
                         notificationCenter.setBackgroundColor(0xd4d4d4);
-                        todoCar.setEnabled(false);
-                        todoCar.setBackgroundColor(0xd4d4d4);
-                        launchCar.setEnabled(false);
-                        launchCar.setBackgroundColor(0xd4d4d4);
-                        todoCenter.setEnabled(false);
-                        todoCenter.setBackgroundColor(0xd4d4d4);
-                        launchCenter.setEnabled(false);
-                        launchCenter.setBackgroundColor(0xd4d4d4);
-//                        applyPeoPleCenter.setEnabled(false);
-//                        applyPeoPleCenter.setBackgroundColor(0xd4d4d4);
-//                        personalCenter.setEnabled(false);
-//                        personalCenter.setBackgroundColor(0xd4d4d4);
+//                        todoCar.setEnabled(false);
+//                        todoCar.setBackgroundColor(0xd4d4d4);
+//                        launchCar.setEnabled(false);
+//                        launchCar.setBackgroundColor(0xd4d4d4);
+//                        todoCenter.setEnabled(false);
+//                        todoCenter.setBackgroundColor(0xd4d4d4);
+//                        launchCenter.setEnabled(false);
+//                        launchCenter.setBackgroundColor(0xd4d4d4);
+                        launchTotal.setEnabled(false);
+                        launchTotal.setBackgroundColor(0xd4d4d4);
+                        todoTotal.setEnabled(false);
+                        todoTotal.setBackgroundColor(0xd4d4d4);
                     }
                 });
             }

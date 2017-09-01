@@ -21,12 +21,12 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.example.hgtxxgl.application.R.id.ll_et_search;
 
-public class LaunchDetailFragment extends Fragment implements RadioGroup.OnCheckedChangeListener,View.OnClickListener {
+public class CommissionDetailFragment extends Fragment implements RadioGroup.OnCheckedChangeListener,View.OnClickListener {
     RadioGroup group;
     RadioButton rbLeft,rbMid;
     private ArrayList<Fragment> fragments;
 
-    public LaunchDetailFragment() {
+    public CommissionDetailFragment() {
     }
 
     @Override
@@ -81,10 +81,10 @@ public class LaunchDetailFragment extends Fragment implements RadioGroup.OnCheck
         Fragment f1 = fragments.get(0);
         Fragment f2 = fragments.get(1);
         if (f1 instanceof MyLaunchFragment) {
-            ((MyLaunchFragment) f1).filter(str);
+            ((MyCommissionFragment) f1).filter(str);
         }
         if (f2 instanceof MyLaunchCarFragment) {
-            ((MyLaunchCarFragment) f2).filter(str);
+            ((MyCommissionCarFragment) f2).filter(str);
         }
     }
 
@@ -105,7 +105,6 @@ public class LaunchDetailFragment extends Fragment implements RadioGroup.OnCheck
             etSearch.requestFocus();
             tvCancel.setVisibility(VISIBLE);
         } else {
-            //  etSearch.setText("");
             tvCancel.setVisibility(GONE);
             etSearch.setFocusableInTouchMode(false);
             etSearch.clearFocus();
@@ -113,8 +112,8 @@ public class LaunchDetailFragment extends Fragment implements RadioGroup.OnCheck
     }
 
     private void addFragment() {
-        fragments.add(new MyLaunchFragment());
-        fragments.add(new MyLaunchCarFragment());
+        fragments.add(new MyCommissionFragment());
+        fragments.add(new MyCommissionCarFragment());
     }
 
     public void switchFragment(int position) {
