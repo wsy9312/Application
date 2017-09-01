@@ -28,7 +28,7 @@
             android:background="@drawable/selector_check_tabs_blue_gray"
             android:button="@null"
             android:checked="true"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:padding="10dp"
             android:text="待处理"
             android:textColor="@color/checked_blue_white" />
@@ -43,7 +43,7 @@
             android:button="@null"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:checked="false"
             android:padding="10dp"
             android:text="已处理"
@@ -60,7 +60,8 @@
             android:layout_height="wrap_content"
             android:button="@null"
             android:checked="false"
-            android:textSize="18sp"
+            android:text="@string/Add_Detail"
+            android:textSize="16sp"
             android:padding="10dp"
             android:textColor="@color/checked_blue_white" />
 
