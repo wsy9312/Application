@@ -250,7 +250,9 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
                 group.setVisibility(GONE);
                 break;
             case PageConfig.PAGE_LAUNCH_PEOPLE:
-                group.setVisibility(GONE);
+                if (checkButtons) {
+                    setRadioButtons("人员", "车辆");
+                }
                 break;
            /* case PageConfig.PAGE_APPLY:
                 group.setVisibility(GONE);
