@@ -11,8 +11,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
-import android.view.Display;
 import android.widget.HorizontalScrollView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -58,11 +56,11 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
     private RadioGroup.OnCheckedChangeListener listener = new RadioGroup.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(RadioGroup group, int checkedId) {
-            int scrollX = scrollView.getScrollX();
-            RadioButton rb = (RadioButton) findViewById(checkedId);
-            int left = rb.getLeft();
-            int leftScreen = left-scrollX;
-            scrollView.smoothScrollBy((leftScreen-screenHalf), 0);
+//            int scrollX = scrollView.getScrollX();
+//            RadioButton rb = (RadioButton) findViewById(checkedId);
+//            int left = rb.getLeft();
+//            int leftScreen = left-scrollX;
+//            scrollView.smoothScrollBy((leftScreen-screenHalf), 0);
 
             lastIndex = currentIndex;
             //角标选中新闻中心radiobutton
@@ -135,7 +133,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
 
     //初始化设置toolbar标题
     private void initTitle() {
-        title = new String[]{"新闻中心","通知中心"/*,"车辆审批"*//*,"车辆查看"*//*,"人员审批"*//*,"人员查看"*/,"查看申请","查看审批"};
+        title = new String[]{"新闻中心","通知中心"/*,"车辆审批"*//*,"车辆查看"*//*,"人员审批"*//*,"人员查看"*/,"我申请的","我的待办"};
     }
 
     @Override
@@ -153,11 +151,11 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         StatusBarUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
         SysExitUtil.activityList.add(LibMainActivity.this);
 
-        Display d = getWindowManager().getDefaultDisplay();
-        DisplayMetrics dm = new DisplayMetrics();
-        d.getMetrics(dm);
-        //屏幕宽度的一半
-        screenHalf = d.getWidth()/5;
+//        Display d = getWindowManager().getDefaultDisplay();
+//        DisplayMetrics dm = new DisplayMetrics();
+//        d.getMetrics(dm);
+//        //屏幕宽度的一半
+//        screenHalf = d.getWidth()/5;
     }
 
     //接收登录界面传递的用户名密码参数

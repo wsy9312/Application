@@ -8,99 +8,106 @@
     <com.example.hgtxxgl.application.view.HandToolbar
         android:layout_width="match_parent"
         android:id="@+id/toolbar"
-        android:visibility="gone"
         android:layout_height="wrap_content" />
-
-    <HorizontalScrollView
-        android:scrollbars="none"
-        android:layout_below="@+id/toolbar"
-        android:id="@+id/scrollview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <RadioGroup
-            android:background="@color/mainColor_blue"
-            android:id="@+id/bottom_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <RadioButton
-                android:id="@+id/rb_main_news_center"
-                style="@style/BottomBarItem"
-                android:checked="true"
-                android:enabled="false"
-                android:text="新闻中心" />
-            <!--android:drawableTop="@drawable/home_page_radio_button_my_news"-->
-            <RadioButton
-                android:id="@+id/rb_main_notification_center"
-                style="@style/BottomBarItem"
-                android:enabled="false"
-                android:text="通知中心" />
-            <!--android:drawableTop="@drawable/home_page_radio_button_my_notification"-->
-            <!--<RadioButton
-                android:enabled="false"
-                android:id="@+id/rb_main_cartodo_center"
-                style="@style/BottomBarItem"
-                android:text="车辆审批" />-->
-            <!--android:drawableTop="@drawable/home_page_radio_button_my_todo_car"-->
-            <!--<RadioButton
-                android:enabled="false"
-                android:id="@+id/rb_main_carlaunch_center"
-                style="@style/BottomBarItem"
-                android:text="车辆查看" />-->
-            <!--android:drawableTop="@drawable/home_page_radio_button_my_launch_car"-->
-            <!--<RadioButton
-                android:id="@+id/rb_main_leave_todo_center"
-                style="@style/BottomBarItem"
-                android:enabled="false"
-                android:text="人员审批" />-->
-            <!--android:drawableTop="@drawable/home_page_radio_button_my_comm"-->
-            <!--<RadioButton
-                android:enabled="false"
-                android:id="@+id/rb_main_leave_launch_center"
-                style="@style/BottomBarItem"
-                android:text="人员查看" />-->
-            <!--android:drawableTop="@drawable/home_page_radio_button_my_launch"-->
-            <!--<RadioButton
-                android:enabled="false"
-                android:id="@+id/rb_main_leave_apply_car_center"
-                style="@style/BottomBarItem"
-                android:drawableTop="@drawable/home_page_radio_button_car_apply"
-                android:text="车辆外出" />-->
-            <RadioButton
-                android:enabled="false"
-                android:id="@+id/rb_main_leave_launch_total"
-                style="@style/BottomBarItem"
-                android:text="查看申请" />
-            <!--android:drawableTop="@drawable/home_page_radio_button_post_flow"-->
-            <RadioButton
-                android:enabled="false"
-                android:id="@+id/rb_main_leave_todo_total"
-                style="@style/BottomBarItem"
-                android:text="查看审批" />
-            <!--android:drawableTop="@drawable/home_page_radio_button_post_personal"-->
-
-        </RadioGroup>
-    </HorizontalScrollView>
-
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#CBCBCB"
-        android:layout_below="@+id/scrollview"/>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:id="@+id/fl_container"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/image" />
-
+        android:layout_below="@+id/toolbar"
+        android:layout_above="@+id/image"  />
     <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/lib_pb"
         android:visibility="gone"
-        android:layout_centerInParent="true" />
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/toolbar"
+        android:layout_above="@+id/image"/>
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/cc"
+        android:layout_below="@+id/bottom_bar"/>
+    <RadioGroup
+        android:background="@color/mainColor_blue"
+        android:id="@+id/bottom_bar"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        <!--   <HorizontalScrollView
+               android:scrollbars="none"
+               android:layout_below="@+id/toolbar"
+               android:id="@+id/scrollview"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content" >-->
+        <RadioButton
+            android:id="@+id/rb_main_news_center"
+            style="@style/BottomBarItem"
+            android:checked="true"
+            android:enabled="false"
+            android:text="新闻中心"
+            android:drawableTop="@drawable/home_page_radio_button_my_news"/>
+
+        <RadioButton
+            android:id="@+id/rb_main_notification_center"
+            style="@style/BottomBarItem"
+            android:enabled="false"
+            android:drawableTop="@drawable/home_page_radio_button_my_notification"
+            android:text="通知中心" />
+
+        <!--<RadioButton
+            android:enabled="false"
+            android:id="@+id/rb_main_cartodo_center"
+            style="@style/BottomBarItem"
+            android:text="车辆审批" />-->
+        <!--android:drawableTop="@drawable/home_page_radio_button_my_todo_car"-->
+        <!--<RadioButton
+            android:enabled="false"
+            android:id="@+id/rb_main_carlaunch_center"
+            style="@style/BottomBarItem"
+            android:text="车辆查看" />-->
+        <!--android:drawableTop="@drawable/home_page_radio_button_my_launch_car"-->
+        <!--<RadioButton
+            android:id="@+id/rb_main_leave_todo_center"
+            style="@style/BottomBarItem"
+            android:enabled="false"
+            android:text="人员审批" />-->
+        <!--android:drawableTop="@drawable/home_page_radio_button_my_comm"-->
+        <!--<RadioButton
+            android:enabled="false"
+            android:id="@+id/rb_main_leave_launch_center"
+            style="@style/BottomBarItem"
+            android:text="人员查看" />-->
+        <!--android:drawableTop="@drawable/home_page_radio_button_my_launch"-->
+        <!--<RadioButton
+            android:enabled="false"
+            android:id="@+id/rb_main_leave_apply_car_center"
+            style="@style/BottomBarItem"
+            android:drawableTop="@drawable/home_page_radio_button_car_apply"
+            android:text="车辆外出" />-->
+        <RadioButton
+            android:enabled="false"
+            android:id="@+id/rb_main_leave_launch_total"
+            style="@style/BottomBarItem"
+            android:drawableTop="@drawable/home_page_radio_button_post_flow"
+            android:text="我申请的" />
+
+        <RadioButton
+            android:enabled="false"
+            android:id="@+id/rb_main_leave_todo_total"
+            style="@style/BottomBarItem"
+            android:drawableTop="@drawable/home_page_radio_button_post_personal"
+            android:text="我的待办" />
+
+    </RadioGroup>
+ <!--   </HorizontalScrollView>-->
+
+
+
+
+
+
 </RelativeLayout>

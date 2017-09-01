@@ -13,6 +13,8 @@ public class PageConfig {
     public static final int PAGE_LAUNCH_PEOPLE = -6;
     public static final int PAGE_APPLY = -7;
     public static final int PAGE_ME = -8;
+    public static final int PAGE_LAUNCH_TOTAL = -9;
+    public static final int PAGE_TODO_TOTAL = -10;
 
     public static final int PAGE_LEAVE_APPLY_CAR = 1;
     public static final int PAGE_LEAVE_APPLY_PEOPLE = 2;
@@ -22,6 +24,5 @@ public class PageConfig {
     public static final int PAGE_LEAVE_DETAIL_PEOPLE = 6;
     public static final int PAGE_ITEM_NEWS = 7;
 
-    public static final int PAGE_LAUNCH_TOTAL = 8;
-    public static final int PAGE_TODO_TOTAL = 9;
+
 }
