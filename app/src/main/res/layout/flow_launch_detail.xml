@@ -22,8 +22,8 @@
             android:id="@+id/rb_left"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
             android:layout_height="wrap_content"
             android:background="@drawable/selector_check_tabs_blue_gray"
             android:button="@null"
@@ -31,7 +31,7 @@
             android:textSize="16sp"
             android:padding="10dp"
             android:text="人员"
-            android:textColor="@color/checked_blue_white" />
+            android:textColor="@color/mainColor_blue" />
 
         <RadioButton
             android:background="@drawable/selector_check_tabs_blue_gray"
@@ -41,13 +41,13 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:button="@null"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
             android:textSize="16sp"
             android:checked="false"
             android:padding="10dp"
             android:text="车辆"
-            android:textColor="@color/checked_blue_white" />
+            android:textColor="@color/mainColor_blue" />
 
     </RadioGroup>
     <LinearLayout

@@ -50,17 +50,18 @@ public class RestDetailPeopleFragment extends CommonFragment {
         String bCancel = entity.getBCancel();
         int levelNum = Integer.parseInt(levelNumStr);
         int process = Integer.parseInt(processStr);
+
         List<HandInputGroup.Holder> list = new ArrayList<>();
-        list.add(new HandInputGroup.Holder("流程内容", true, false, "人员请假", HandInputGroup.VALUE_TYPE.TEXT));
+        list.add(new HandInputGroup.Holder("流程类型", true, false, "人员请假", HandInputGroup.VALUE_TYPE.TEXT));
         list.add(new HandInputGroup.Holder("审批状态", true, false, process == 0?"审批中":"审批结束", HandInputGroup.VALUE_TYPE.TEXT));
         if (process == 1){
+            setButtonsTitles(stringnull);
             String substring = multiLevelResultStr.substring(0, levelNum);
             if (substring.endsWith("1")){
                 list.add(new HandInputGroup.Holder("审批结果", true, false, "审批同意", HandInputGroup.VALUE_TYPE.TEXT));
             }else{
                 list.add(new HandInputGroup.Holder("审批结果", true, false, "审批拒绝", HandInputGroup.VALUE_TYPE.TEXT));
             }
-            setButtonsTitles(stringnull);
         }else if (process == 0){
             if(multiLevelResultStr.startsWith("1")){
                 setButtonsTitles(stringnull);
@@ -114,7 +115,7 @@ public class RestDetailPeopleFragment extends CommonFragment {
             }*/
         }
 
-        groups.add(new Group("流程摘要-摘要内容", null, false, null, list));
+        groups.add(new Group("流程信息", null, false, null, list));
 
         List<HandInputGroup.Holder> holderList = new ArrayList<>();
         holderList.add(new HandInputGroup.Holder("申请人", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName(), HandInputGroup.VALUE_TYPE.TEXT));
@@ -124,7 +125,7 @@ public class RestDetailPeopleFragment extends CommonFragment {
         holderList.add(new HandInputGroup.Holder("请假原因", true, false, entity.getContent(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("是否取消请假", true, false, entity.getBCancel().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("是否后补请假", true, false, entity.getBFillup().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
-        groups.add(new Group("详细信息-基本信息", null, false, null, holderList));
+        groups.add(new Group("基本信息", null, false, null, holderList));
         return groups;
     }
 
@@ -335,7 +336,6 @@ public class RestDetailPeopleFragment extends CommonFragment {
                             setGroup(getGroupList());
                             setPb(false);
                             setButtonllEnable(true);
-                            setDisplayTabs(true);
                             notifyDataSetChanged();
                         }
                     }

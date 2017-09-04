@@ -54,11 +54,10 @@ public class RestApplyFragment extends CommonFragment {
             name = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName();
         }
         List<CommonFragment.Group> groups = new ArrayList<>();
-
         List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
         baseHolder.add(new HandInputGroup.Holder("申请人",true,false,name,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-        baseHolder.add(new HandInputGroup.Holder("请假类别",true,false,"人员请假",HandInputGroup.VALUE_TYPE.BUTTONS));
-        baseHolder.add(new HandInputGroup.Holder("请假类型",true,false,"因公外出/请假",HandInputGroup.VALUE_TYPE.SELECT));
+        baseHolder.add(new HandInputGroup.Holder("请假外出类别",true,false,"人员请假",HandInputGroup.VALUE_TYPE.BUTTONS));
+        baseHolder.add(new HandInputGroup.Holder("请假外出类型",true,false,"因公外出/请假",HandInputGroup.VALUE_TYPE.SELECT));
         baseHolder.add(new HandInputGroup.Holder("预计外出时间",true,false,"",HandInputGroup.VALUE_TYPE.DATE));
         baseHolder.add(new HandInputGroup.Holder("预计归来时间",true,false,"",HandInputGroup.VALUE_TYPE.DATE));
         baseHolder.add(new HandInputGroup.Holder("请假原因",false,false,"",HandInputGroup.VALUE_TYPE.TEXTFILED));
@@ -232,9 +231,9 @@ public class RestApplyFragment extends CommonFragment {
             showSelector(holder,new String[]{"是","否"});
         } else if (holder.getKey().equals("是否后补请假")){
             showSelector(holder,new String[]{"是","否"});
-        } else if (holder.getKey().equals("请假类型")){
+        } else if (holder.getKey().equals("请假外出类型")){
             showSelector(holder,new String[]{"因公外出/请假","因私外出/请假"});
-        } else if (holder.getKey().equals("请假类别")){
+        } else if (holder.getKey().equals("请假外出类别")){
             checkedButton(holder, new OnSelectedResultCallback() {
                 @Override
                 public void onSelected(Group ownGroup, HandInputGroup.Holder holder, int mainIndex, int itemIndex) {

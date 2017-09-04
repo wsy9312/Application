@@ -47,7 +47,7 @@ public class RestDetailCarFragment extends CommonFragment {
         String result = entity.getResult();
         int process = Integer.parseInt(processStr);
         List<HandInputGroup.Holder> list = new ArrayList<>();
-        list.add(new HandInputGroup.Holder("流程内容", true, false, "车辆外出", HandInputGroup.VALUE_TYPE.TEXT));
+        list.add(new HandInputGroup.Holder("流程类型", true, false, "车辆外出", HandInputGroup.VALUE_TYPE.TEXT));
         list.add(new HandInputGroup.Holder("审批状态", true, false, process == 0?"审批中":"审批结束", HandInputGroup.VALUE_TYPE.TEXT));
         if (process == 1){
             if (result.endsWith("1")){
@@ -57,7 +57,7 @@ public class RestDetailCarFragment extends CommonFragment {
             }
             setButtonsTitles(stringnull);
         }
-        groups.add(new Group("流程摘要-摘要内容", null, false, null, list));
+        groups.add(new Group("流程信息", null, false, null, list));
 
         List<HandInputGroup.Holder> holderList = new ArrayList<>();
         holderList.add(new HandInputGroup.Holder("申请人", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName(), HandInputGroup.VALUE_TYPE.TEXT));
@@ -68,7 +68,7 @@ public class RestDetailCarFragment extends CommonFragment {
         holderList.add(new HandInputGroup.Holder("请假原因", true, false, entity.getContent(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("是否取消外出", true, false, entity.getbCancel().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("是否后补请假", true, false, entity.getbFillup().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
-        groups.add(new Group("详细信息-基本信息", null, false, null, holderList));
+        groups.add(new Group("基本信息", null, false, null, holderList));
         return groups;
     }
 
@@ -209,7 +209,6 @@ public class RestDetailCarFragment extends CommonFragment {
                             setGroup(getGroupList());
                             setPb(false);
                             setButtonllEnable(true);
-                            setDisplayTabs(true);
                             notifyDataSetChanged();
                         }
                     }
