@@ -65,12 +65,16 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
     private List<CarLeaveEntity.CarLeaveRrdBean> entityList = new ArrayList<>();
     private List<CarLeaveEntity.CarLeaveRrdBean> baseEntityList;
 
-    ListAdapter<CarLeaveEntity.CarLeaveRrdBean> adapter = new ListAdapter<CarLeaveEntity.CarLeaveRrdBean>((ArrayList<CarLeaveEntity.CarLeaveRrdBean>) entityList, R.layout.layout_my_todo_too) {
+    ListAdapter<CarLeaveEntity.CarLeaveRrdBean> adapter = new ListAdapter<CarLeaveEntity.CarLeaveRrdBean>
+            ((ArrayList<CarLeaveEntity.CarLeaveRrdBean>) entityList, R.layout.layout_commission) {
         @Override
         public void bindView(ViewHolder holder, CarLeaveEntity.CarLeaveRrdBean bean) {
             holder.setText(R.id.tv_title, "申请人:"+bean.getName());
-            holder.setText(R.id.tv_date, "修改时间："+ DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
-            holder.setText(R.id.tv_sketch, bean.getContent().isEmpty()?"请假原因：无":"请假原因："+bean.getContent());
+            holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
+            holder.setText(R.id.tv_sketch, bean.getContent().isEmpty()?"申请事由：无":"申请事由："+bean.getContent());
+            if (bean.getbCancel().equals("0")){
+                holder.setImageResource(R.id.image_flow,bean.getProcess().equals("1")?R.drawable.ic_approved:R.drawable.ic_no_approve);
+            }
         }
     };
 
@@ -303,10 +307,10 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
                 if (("申请人:"+bean.getName()).replace(" ", "").contains(key)){
                     list.add(bean);
                 }
-                if (("修改时间："+ DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss")).replace(" ", "").contains(key)) {
+                if ((DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss")).replace(" ", "").contains(key)) {
                     list.add(bean);
                 }
-                if ((bean.getContent().isEmpty()?"请假原因：无":"请假原因："+bean.getContent()).replace(" ", "").contains(key)) {
+                if ((bean.getContent().isEmpty()?"申请事由：无":"申请事由："+bean.getContent()).replace(" ", "").contains(key)) {
                     list.add(bean);
                 }
             }

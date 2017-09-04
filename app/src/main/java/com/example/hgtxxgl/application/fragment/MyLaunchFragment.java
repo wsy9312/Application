@@ -60,12 +60,21 @@ public class MyLaunchFragment extends Fragment implements SimpleListView.OnRefre
     private List<PeopleLeaveEntity.PeopleLeaveRrdBean> entityList = new ArrayList<>();
     private List<PeopleLeaveEntity.PeopleLeaveRrdBean> baseEntityList;
 
-    ListAdapter<PeopleLeaveEntity.PeopleLeaveRrdBean> adapter = new ListAdapter<PeopleLeaveEntity.PeopleLeaveRrdBean>((ArrayList<PeopleLeaveEntity.PeopleLeaveRrdBean>) entityList, R.layout.layout_my_todo_too) {
+    ListAdapter<PeopleLeaveEntity.PeopleLeaveRrdBean> adapter = new ListAdapter<PeopleLeaveEntity.PeopleLeaveRrdBean>
+            ((ArrayList<PeopleLeaveEntity.PeopleLeaveRrdBean>) entityList, R.layout.layout_my_todo_too) {
         @Override
         public void bindView(ViewHolder holder, PeopleLeaveEntity.PeopleLeaveRrdBean bean) {
-            holder.setText(R.id.tv_title, "审批进度:"+(bean.getProcess().equals("1")?"已结束":"未结束"));
-            holder.setText(R.id.tv_date, "修改时间:"+DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
-            holder.setText(R.id.tv_sketch, bean.getContent().isEmpty()?"请假原因:无":"请假原因:"+bean.getContent());
+            holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
+            holder.setText(R.id.tv_sketch, bean.getContent().isEmpty()?"申请事由:无":"申请事由:"+bean.getContent());
+            if (bean.getBCancel().equals("0")){
+                if (bean.getProcess().equals("1")){
+                    holder.setImageResource(R.id.image_flow,R.drawable.ic_done);
+                }else{
+                    holder.setImageResource(R.id.image_flow,R.drawable.ic_running);
+                }
+            }else{
+                holder.setImageResource(R.id.image_flow,R.drawable.ic_canceled);
+            }
         }
     };
 
@@ -141,6 +150,7 @@ public class MyLaunchFragment extends Fragment implements SimpleListView.OnRefre
         peopleLeaveRrdBean.setModifyTime("?");
         peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
         peopleLeaveRrdBean.setIsAndroid("1");
+        peopleLeaveRrdBean.setBCancel("?");
         List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
         list.add(peopleLeaveRrdBean);
         peopleLeaveEntity.setPeopleLeaveRrd(list);
@@ -268,13 +278,10 @@ public class MyLaunchFragment extends Fragment implements SimpleListView.OnRefre
             }
             List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
             for (PeopleLeaveEntity.PeopleLeaveRrdBean bean : baseEntityList) {
-                if (("审批进度:"+(bean.getProcess().equals("1")?"已结束":"未结束")).replace(" ", "").contains(key)){
+                if ((bean.getContent().isEmpty()?"申请事由:无":"申请事由:"+bean.getContent()).replace(" ", "").contains(key)) {
                     list.add(bean);
                 }
-                if ((bean.getContent().isEmpty()?"请假原因:无":"请假原因:"+bean.getContent()).replace(" ", "").contains(key)) {
-                    list.add(bean);
-                }
-                if (("修改时间:"+DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss")).replace(" ", "").contains(key)) {
+                if ((DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss")).replace(" ", "").contains(key)) {
                     list.add(bean);
                 }
             }

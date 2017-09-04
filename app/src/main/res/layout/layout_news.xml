@@ -15,13 +15,16 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="2dp"
             android:ellipsize="end"
             android:lines="1"
             android:textSize="15sp"
             android:textColor="#333333"
             tools:text="这是新闻标题" />
         <TextView
-            android:padding="1dp"
+            android:paddingBottom="1dp"
+            android:paddingTop="1dp"
+            android:paddingLeft="2dp"
             android:layout_below="@+id/tv_title"
             android:text="这是新闻概括这是新闻概括这新闻概括这新闻概括这新闻概括这新闻概括这新闻概括这新闻概括这新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括"
             android:id="@+id/tv_sketch"
@@ -32,6 +35,7 @@
             android:ellipsize="end"
             android:textColor="#0967AE"/>
         <TextView
+            android:paddingLeft="2dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:id="@+id/tv_date"
