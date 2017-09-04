@@ -97,7 +97,7 @@ public class RestApplyFragment extends CommonFragment {
                         //申请人ID
                         String realValueNO = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo();
                         //申请类型
-                        String realValueType = getDisplayValueByKey("请假类别").getRealValue();
+                        String realValueType = getDisplayValueByKey("请假外出类别").getRealValue();
                         //预计外出时间
                         String realValueoutTime = getDisplayValueByKey("预计外出时间").getRealValue()+":00";
                         //预计归来时间
@@ -107,7 +107,7 @@ public class RestApplyFragment extends CommonFragment {
                         //是否后补请假
                         String realValueFillup = getDisplayValueByKey("是否后补请假").getRealValue();
                         //因公或因私外出/请假
-                        String realValuetype = getDisplayValueByKey("请假类型").getRealValue();
+                        String realValuetype = getDisplayValueByKey("请假外出类型").getRealValue();
                         if (realValueType.equals("人员请假")){
                             PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
                             PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();

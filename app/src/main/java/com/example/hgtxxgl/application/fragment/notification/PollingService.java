@@ -35,6 +35,8 @@ public class PollingService extends Service {
 	private NotificationManager mManager;
 	private NotificationCompat.Builder builder;
 	private NotificationCompat.Builder builder1;
+	private List<String> list1;
+	private List<String> list2;
 
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -50,6 +52,8 @@ public class PollingService extends Service {
 		Notification notification = builder1.build();
 		startForeground(110, notification);// 开始前台服务
 		initNotifiManager();
+		list1 = new ArrayList<>();
+		list2 = new ArrayList<>();
 	}
 
 	@Override
@@ -112,51 +116,55 @@ public class PollingService extends Service {
 		peopleLeaveRrdBean.setNoIndex("?");
 		peopleLeaveRrdBean.setProcess("?");
 		peopleLeaveRrdBean.setBCancel("?");
-		List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
+		final List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
 		list.add(peopleLeaveRrdBean);
 		peopleLeaveEntity.setPeopleLeaveRrd(list);
 		String json = new Gson().toJson(peopleLeaveEntity);
 		final String s = "get " + json;
-		Log.e(TAG, "当前时间service:_getDataAlarmApprovePeople "+s);
 		String url = CommonValues.BASE_URL;
 		HttpManager.getInstance().requestResultForm(url, s, PeopleLeaveEntity.class,new HttpManager.ResultCallback<PeopleLeaveEntity>() {
 			@Override
 			public void onSuccess(final String json, final PeopleLeaveEntity peopleLeaveEntity1) throws InterruptedException {
 				if (peopleLeaveEntity1 != null && peopleLeaveEntity1.getPeopleLeaveRrd().size() > 0) {
-					for (int i = 0; i < 100; i++) {
-						if (peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getBCancel().equals("0") && peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getProcess().equals("0")) {
-							PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
-							PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
-							peopleInfoBean.setNo(peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getNo());
-							peopleInfoBean.setName("?");
-							peopleInfoBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-							peopleInfoBean.setIsAndroid("1");
-							List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
-							beanList.add(peopleInfoBean);
-							peopleEntity.setPeopleInfo(beanList);
-							String json1 = new Gson().toJson(peopleEntity);
-							String s1 = "get " + json1;
-							Log.e(TAG, "当前时间service:_getDataAlarmApprovePeople " + s1);
-							HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL, s1, PeopleInfoEntity.class, new HttpManager.ResultCallback<PeopleInfoEntity>() {
-								@Override
-								public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
-									if (peopleInfoEntity != null) {
-										List<PeopleInfoEntity.PeopleInfoBean> peopleInfoBeen = peopleInfoEntity.getPeopleInfo();
-										String content = peopleInfoBeen.get(0).getName();
-										showNotification(content+"发来一条请假外出申请");
+					List<PeopleLeaveEntity.PeopleLeaveRrdBean> peopleLeaveRrd = peopleLeaveEntity1.getPeopleLeaveRrd();
+					String modifyTime = peopleLeaveRrd.get(0).getModifyTime();
+					if (!list1.contains(modifyTime)){
+						list1.add(modifyTime);
+						for (int i = 0; i < 100; i++) {
+							if (peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getBCancel().equals("0") && peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getProcess().equals("0")) {
+								PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
+								PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
+								peopleInfoBean.setNo(peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getNo());
+								peopleInfoBean.setName("?");
+								peopleInfoBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+								peopleInfoBean.setIsAndroid("1");
+								List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
+								beanList.add(peopleInfoBean);
+								peopleEntity.setPeopleInfo(beanList);
+								String json1 = new Gson().toJson(peopleEntity);
+								String s1 = "get " + json1;
+								Log.e(TAG, "当前时间service:_getDataAlarmApprovePeople " + s1);
+								HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL, s1, PeopleInfoEntity.class, new HttpManager.ResultCallback<PeopleInfoEntity>() {
+									@Override
+									public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
+										if (peopleInfoEntity != null) {
+											List<PeopleInfoEntity.PeopleInfoBean> peopleInfoBeen = peopleInfoEntity.getPeopleInfo();
+											String content = peopleInfoBeen.get(0).getName();
+											showNotification(content+"发来一条请假外出申请");
+										}
 									}
-								}
 
-								@Override
-								public void onFailure(String msg) {
+									@Override
+									public void onFailure(String msg) {
 
-								}
+									}
 
-								@Override
-								public void onResponse(String response) {
+									@Override
+									public void onResponse(String response) {
 
-								}
-							});
+									}
+								});
+							}
 						}
 					}
 				}
@@ -198,40 +206,45 @@ public class PollingService extends Service {
 			@Override
 			public void onSuccess(final String json, final CarLeaveEntity carLeaveEntity1) throws InterruptedException {
 				if (carLeaveEntity1 != null && carLeaveEntity1.getCarLeaveRrd().size() > 0) {
-					for (int i = 0; i < 100; i++) {
-						if (carLeaveEntity1.getCarLeaveRrd().get(i).getbCancel().equals("0") && carLeaveEntity1.getCarLeaveRrd().get(i).getProcess().equals("0")) {
-							PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
-							PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
-							peopleInfoBean.setNo(carLeaveEntity1.getCarLeaveRrd().get(i).getNo());
-							peopleInfoBean.setName("?");
-							peopleInfoBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-							peopleInfoBean.setIsAndroid("1");
-							List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
-							beanList.add(peopleInfoBean);
-							peopleEntity.setPeopleInfo(beanList);
-							String json1 = new Gson().toJson(peopleEntity);
-							String s1 = "get " + json1;
-							Log.e(TAG,"当前时间service:_getDataAlarmApproveCar"+json1);
-							HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL, s1, PeopleInfoEntity.class, new HttpManager.ResultCallback<PeopleInfoEntity>() {
-								@Override
-								public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
-									if (peopleInfoEntity != null) {
-										List<PeopleInfoEntity.PeopleInfoBean> peopleInfoBeen = peopleInfoEntity.getPeopleInfo();
-										String content = peopleInfoBeen.get(0).getName();
-										showNotification(content+"发来一条车辆外出申请");
+					List<CarLeaveEntity.CarLeaveRrdBean> carLeaveRrd = carLeaveEntity1.getCarLeaveRrd();
+					String modifyTime = carLeaveRrd.get(0).getModifyTime();
+					if (!list2.contains(modifyTime)) {
+						list2.add(modifyTime);
+						for (int i = 0; i < 100; i++) {
+							if (carLeaveEntity1.getCarLeaveRrd().get(i).getbCancel().equals("0") && carLeaveEntity1.getCarLeaveRrd().get(i).getProcess().equals("0")) {
+								PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
+								PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
+								peopleInfoBean.setNo(carLeaveEntity1.getCarLeaveRrd().get(i).getNo());
+								peopleInfoBean.setName("?");
+								peopleInfoBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+								peopleInfoBean.setIsAndroid("1");
+								List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
+								beanList.add(peopleInfoBean);
+								peopleEntity.setPeopleInfo(beanList);
+								String json1 = new Gson().toJson(peopleEntity);
+								String s1 = "get " + json1;
+								Log.e(TAG,"当前时间service:_getDataAlarmApproveCar"+json1);
+								HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL, s1, PeopleInfoEntity.class, new HttpManager.ResultCallback<PeopleInfoEntity>() {
+									@Override
+									public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
+										if (peopleInfoEntity != null) {
+											List<PeopleInfoEntity.PeopleInfoBean> peopleInfoBeen = peopleInfoEntity.getPeopleInfo();
+											String content = peopleInfoBeen.get(0).getName();
+											showNotification(content+"发来一条车辆外出申请");
+										}
 									}
-								}
 
-								@Override
-								public void onFailure(String msg) {
+									@Override
+									public void onFailure(String msg) {
 
-								}
+									}
 
-								@Override
-								public void onResponse(String response) {
+									@Override
+									public void onResponse(String response) {
 
-								}
-							});
+									}
+								});
+							}
 						}
 					}
 				}
