@@ -40,6 +40,7 @@
                 android:layout_width="match_parent"
                 android:padding="5dp"
                 android:layout_height="wrap_content"
+                app:passwordToggleEnabled="true"
                 app:errorTextAppearance="@android:color/holo_red_dark"
                 app:errorEnabled="true"
                 android:id="@+id/tilyout_password">
@@ -67,6 +68,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/pressed_blue_white"
                 android:text="登录"
+                android:textSize="18sp"
                 android:enabled="false"
                 android:foreground="?attr/selectableItemBackgroundBorderless"
                 android:background="@drawable/selector_bg_login_button"

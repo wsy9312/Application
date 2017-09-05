@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.KeyEvent;
 import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -23,7 +24,7 @@ import com.mylhyl.zxing.scanner.decode.QRDecode;
 /**
  * 扫描
  */
-public class ScannerActivity extends DeCodeActivity {
+public class ScannerActivity extends DeCodeActivity implements CompoundButton.OnCheckedChangeListener {
 
     public static final String EXTRA_LASER_LINE_MODE = "laser_line_mode";
     public static final int EXTRA_LASER_LINE_MODE_0 = 0;
@@ -35,6 +36,9 @@ public class ScannerActivity extends DeCodeActivity {
     private Result mLastResult;
     private int laserMode;
     private HandToolbar handToolbar;
+    private ToggleButton toggleButton;
+    private Switch aSwitch;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,14 +54,15 @@ public class ScannerActivity extends DeCodeActivity {
         mScannerView = (ScannerView) findViewById(R.id.scanner_view);
         mScannerView.setOnScannerCompletionListener(this);
 
-        ToggleButton toggleButton = (ToggleButton) findViewById(R.id.toggleButton);
+        toggleButton = (ToggleButton) findViewById(R.id.toggleButton);
         toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 mScannerView.toggleLight(isChecked);
             }
         });
-
+        aSwitch = (Switch) findViewById(R.id.swicth_draggable);
+        aSwitch.setOnCheckedChangeListener(this);
         /*findViewById(R.id.button4).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,7 +81,7 @@ public class ScannerActivity extends DeCodeActivity {
             laserMode = extras.getInt(EXTRA_LASER_LINE_MODE);
         }
         mScannerView.setMediaResId(R.raw.weixin_beep);//设置扫描成功的声音
-        mScannerView.setDrawText("请将二维码放入框内",true);
+        mScannerView.setDrawText("将扫描框对准二维码，即可自动扫描",true);
         mScannerView.setDrawTextColor(Color.RED);
         mScannerView.setLaserFrameTopMargin(150);//扫描框与屏幕上方距离
         mScannerView.setLaserFrameSize(220, 220);//扫描框大小
@@ -160,5 +165,12 @@ public class ScannerActivity extends DeCodeActivity {
                         .putExtra(ScannerActivity.EXTRA_RETURN_SCANNER_RESULT, isBackResult)
                         .putExtra(EXTRA_LASER_LINE_MODE, laserMode)
                 , ScannerActivity.REQUEST_CODE_SCANNER);
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (buttonView == aSwitch){
+            mScannerView.toggleLight(isChecked);
+        }
     }
 }

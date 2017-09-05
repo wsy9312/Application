@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     tools:content=".QrCode.sample.ScannerActivity">
 
-
     <com.mylhyl.zxing.scanner.ScannerView
         android:id="@+id/scanner_view"
         android:layout_width="match_parent"
@@ -17,11 +16,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="90dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="是否开启闪光灯:"
+            android:textSize="16sp"
+            android:textColor="@color/mainColor_blue" />
+
+        <Switch
+            android:id="@+id/swicth_draggable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp" />
+
+    </LinearLayout>
     <ToggleButton
         android:id="@+id/toggleButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textOn="关闭闪光灯"
+        android:visibility="gone"
         android:textOff="开启闪光灯"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
