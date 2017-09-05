@@ -111,27 +111,28 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/btn_news"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:visibility="invisible" />
 
         <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#00000000"
-            android:visibility="invisible" />
-
-        <Button
-            android:id="@+id/btn_msg"
+            android:id="@+id/btn_notif"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:visibility="invisible" />
 
         <Button
-            android:id="@+id/btn_my"
+            android:id="@+id/btn_start"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/btn_todo"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

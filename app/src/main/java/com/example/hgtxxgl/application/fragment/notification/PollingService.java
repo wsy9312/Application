@@ -27,6 +27,8 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.hgtxxgl.application.activity.LibMainActivity.FLAG;
+
 public class PollingService extends Service {
 
 	public static final String ACTION = "com.ryantang.service.PollingService";
@@ -128,6 +130,7 @@ public class PollingService extends Service {
 				if (peopleLeaveEntity1 != null && peopleLeaveEntity1.getPeopleLeaveRrd().size() > 0) {
 					List<PeopleLeaveEntity.PeopleLeaveRrdBean> peopleLeaveRrd = peopleLeaveEntity1.getPeopleLeaveRrd();
 					String modifyTime = peopleLeaveRrd.get(0).getModifyTime();
+					Log.e("123123",peopleLeaveRrd.size()+"");
 					if (!list1.contains(modifyTime)){
 						list1.add(modifyTime);
 						for (int i = 0; i < 100; i++) {
@@ -151,6 +154,9 @@ public class PollingService extends Service {
 											List<PeopleInfoEntity.PeopleInfoBean> peopleInfoBeen = peopleInfoEntity.getPeopleInfo();
 											String content = peopleInfoBeen.get(0).getName();
 											showNotification(content+"发来一条请假外出申请");
+											Intent intent = new Intent();
+											intent.setAction(FLAG);
+											sendBroadcast(intent);
 										}
 									}
 
@@ -231,6 +237,9 @@ public class PollingService extends Service {
 											List<PeopleInfoEntity.PeopleInfoBean> peopleInfoBeen = peopleInfoEntity.getPeopleInfo();
 											String content = peopleInfoBeen.get(0).getName();
 											showNotification(content+"发来一条车辆外出申请");
+											Intent intent = new Intent();
+											intent.setAction(FLAG);
+											sendBroadcast(intent);
 										}
 									}
 

@@ -31,7 +31,7 @@
             android:textSize="16sp"
             android:padding="10dp"
             android:text="人员"
-            android:textColor="@color/mainColor_blue" />
+            android:textColor="@color/selector_top_bar_item_text_color" />
 
         <RadioButton
             android:background="@drawable/selector_check_tabs_blue_gray"
@@ -47,7 +47,7 @@
             android:checked="false"
             android:padding="10dp"
             android:text="车辆"
-            android:textColor="@color/mainColor_blue" />
+            android:textColor="@color/selector_top_bar_item_text_color" />
 
     </RadioGroup>
     <LinearLayout

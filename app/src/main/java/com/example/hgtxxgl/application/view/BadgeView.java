@@ -357,7 +357,7 @@ public class BadgeView extends AppCompatTextView {
                 break;
             case POSITION_CUSTOM:
                 lp.gravity = Gravity.RIGHT | Gravity.TOP;
-                lp.setMargins(0, 1, 20, 0);
+                lp.setMargins(0, 2, 90, 0);
             default:
                 break;
         }
