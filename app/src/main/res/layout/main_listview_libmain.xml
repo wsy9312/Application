@@ -61,7 +61,7 @@
             fab:fab_colorNormal="@color/main_page_blue_light_pressed"
             fab:fab_colorPressed="@color/blue_semi_transparent_pressed"
             fab:fab_icon="@mipmap/ic_me"
-            fab:fab_title="个人资料展示" />
+            fab:fab_title="个人资料" />
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/button_fbc_apply"
@@ -70,7 +70,7 @@
             fab:fab_colorNormal="@color/blue_semi_transparent"
             fab:fab_colorPressed="@color/blue_semi_transparent_pressed"
             fab:fab_icon="@mipmap/ic_action_edit"
-            fab:fab_title="请假外出申请" />
+            fab:fab_title="发起申请" />
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
 </RelativeLayout>

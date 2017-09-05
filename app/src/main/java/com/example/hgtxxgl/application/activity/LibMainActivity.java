@@ -22,7 +22,9 @@ import android.widget.Toast;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
-import com.example.hgtxxgl.application.fragment.MyBroadcast;
+import com.example.hgtxxgl.application.fragment.NotificationBroadcast;
+import com.example.hgtxxgl.application.fragment.OnUpdateUINO;
+import com.example.hgtxxgl.application.fragment.TodoTotalBroadcast;
 import com.example.hgtxxgl.application.fragment.OnUpdateUI;
 import com.example.hgtxxgl.application.fragment.PersonalActivity;
 import com.example.hgtxxgl.application.utils.SysExitUtil;
@@ -60,7 +62,9 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
     private int screenHalf;
     private BadgeView badgeViewTodo;
     public static final String FLAG = "UPDATE";
-    MyBroadcast myBroadcast;
+    public static final String FLAGNOT = "UPDATENOT";
+    TodoTotalBroadcast todoTotalBroadcast;
+    NotificationBroadcast notificationBroadcast;
     HorizontalScrollView scrollView;
 
     //底部菜单栏单选按钮监听器
@@ -81,7 +85,6 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                 //根据fragment实例改变当前界面的fragment
                 changeFragment(fragments[0]);
                 fragments[0].onPause();
-                //根据当前的fragment自定义toolbar动态设定标题
                 handToolbar.setTitle(title[0]);
 
             } else if (checkedId == R.id.rb_main_notification_center) {
@@ -89,6 +92,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                 changeFragment(fragments[1]);
                 fragments[1].onPause();
                 handToolbar.setTitle(title[1]);
+                badgeViewNoti.hide();
 
             }/* else if (checkedId == R.id.rb_main_cartodo_center) {
                 currentIndex = 2;
@@ -129,6 +133,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
             }
         }
     };
+    private BadgeView badgeViewNoti;
 
     /**
      * 调用入口
@@ -162,17 +167,28 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         StatusBarUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
         SysExitUtil.activityList.add(LibMainActivity.this);
 
-        myBroadcast = new MyBroadcast();
+        todoTotalBroadcast = new TodoTotalBroadcast();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(FLAG);
-        registerReceiver(myBroadcast, intentFilter);
-        myBroadcast.SetOnUpdateUI(new OnUpdateUI() {
+        registerReceiver(todoTotalBroadcast, intentFilter);
+        todoTotalBroadcast.SetOnUpdateUI(new OnUpdateUI() {
             @Override
             public void updateUI(String i) {
                 badgeViewTodo.show();
             }
         });
 
+        notificationBroadcast = new NotificationBroadcast();
+        IntentFilter intentFilter1 = new IntentFilter();
+        intentFilter1.addAction(FLAGNOT);
+        registerReceiver(notificationBroadcast, intentFilter1);
+        notificationBroadcast.SetOnUpdateUI(new OnUpdateUINO() {
+            @Override
+            public void updateUINO(String i) {
+                badgeViewNoti.show();
+            }
+
+        });
 //        Display d = getWindowManager().getDefaultDisplay();
 //        DisplayMetrics dm = new DisplayMetrics();
 //        d.getMetrics(dm);
@@ -248,17 +264,29 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         todoTotal = (RadioButton) findViewById(R.id.rb_main_leave_todo_total);
         bottomBar.setOnCheckedChangeListener(listener);
         Button btnTodo = (Button) findViewById(R.id.btn_todo);
+        Button btnNotification = (Button) findViewById(R.id.btn_notif);
         remindTodo(btnTodo);
+        remindNoti(btnNotification);
+    }
+
+    private void remindNoti(View view) {
+        badgeViewNoti = new BadgeView(this,view);
+        badgeViewNoti.setText("");
+        badgeViewNoti.setBadgePosition(BadgeView.POSITION_CUSTOM);
+        badgeViewNoti.setTextColor(Color.WHITE);
+        badgeViewNoti.setBadgeBackgroundColor(Color.RED);
+        badgeViewNoti.setTextSize(7);
+        badgeViewNoti.setBadgeMargin(1);
     }
 
     private void remindTodo(View view) {
         badgeViewTodo = new BadgeView(this, view);
-        badgeViewTodo.setText(""); // 需要显示的提醒类容
-        badgeViewTodo.setBadgePosition(BadgeView.POSITION_CUSTOM);// 显示的位置.右上角,BadgeView.POSITION_BOTTOM_LEFT,下左，还有其他几个属性
-        badgeViewTodo.setTextColor(Color.WHITE); // 文本颜色
-        badgeViewTodo.setBadgeBackgroundColor(Color.RED); // 提醒信息的背景颜色，自己设置
-        badgeViewTodo.setTextSize(7); // 文本大小
-        badgeViewTodo.setBadgeMargin(1); //各边间隔
+        badgeViewTodo.setText("");
+        badgeViewTodo.setBadgePosition(BadgeView.POSITION_CUSTOM);
+        badgeViewTodo.setTextColor(Color.WHITE);
+        badgeViewTodo.setBadgeBackgroundColor(Color.RED);
+        badgeViewTodo.setTextSize(7);
+        badgeViewTodo.setBadgeMargin(1);
     }
 
     //初始化首页三个子fragment

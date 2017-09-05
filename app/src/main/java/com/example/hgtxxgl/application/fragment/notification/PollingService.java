@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.hgtxxgl.application.activity.LibMainActivity.FLAG;
+import static com.example.hgtxxgl.application.activity.LibMainActivity.FLAGNOT;
 
 public class PollingService extends Service {
 
@@ -69,7 +70,8 @@ public class PollingService extends Service {
 	private void initNotifiManager() {
 		mManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		builder = new NotificationCompat.Builder(this)
-				.setSmallIcon(R.mipmap.app_logo);
+				.setSmallIcon(R.mipmap.app_logo)
+				.setContentTitle("            ");
 	}
 
 	private void showNotification(String content) {
@@ -288,6 +290,9 @@ public class PollingService extends Service {
 					List<MessageEntity.MessageRrdBean> messageRrd = messageEntity.getMessageRrd();
 					String content = messageRrd.get(0).getContent();
 					showNotification(content);
+					Intent intent = new Intent();
+					intent.setAction(FLAGNOT);
+					sendBroadcast(intent);
 				}
 			}
 

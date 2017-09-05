@@ -8,7 +8,7 @@ import android.content.Intent;
  * Created by HGTXxgl on 2017/9/5.
  */
 
-public class MyBroadcast extends BroadcastReceiver {
+public class TodoTotalBroadcast extends BroadcastReceiver {
 
     OnUpdateUI onUpdateUI;
     @Override
