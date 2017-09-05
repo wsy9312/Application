@@ -69,9 +69,7 @@ public class PollingService extends Service {
 	private void initNotifiManager() {
 		mManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		builder = new NotificationCompat.Builder(this)
-				.setSmallIcon(R.mipmap.app_logo)
-				//设置通知内容
-				.setContentTitle("您收到一条通知");
+				.setSmallIcon(R.mipmap.app_logo);
 	}
 
 	private void showNotification(String content) {
@@ -151,9 +149,7 @@ public class PollingService extends Service {
 									@Override
 									public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
 										if (peopleInfoEntity != null) {
-											List<PeopleInfoEntity.PeopleInfoBean> peopleInfoBeen = peopleInfoEntity.getPeopleInfo();
-											String content = peopleInfoBeen.get(0).getName();
-											showNotification(content+"发来一条请假外出申请");
+											showNotification("收到一条请假外出申请");
 											Intent intent = new Intent();
 											intent.setAction(FLAG);
 											sendBroadcast(intent);
@@ -234,9 +230,7 @@ public class PollingService extends Service {
 									@Override
 									public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
 										if (peopleInfoEntity != null) {
-											List<PeopleInfoEntity.PeopleInfoBean> peopleInfoBeen = peopleInfoEntity.getPeopleInfo();
-											String content = peopleInfoBeen.get(0).getName();
-											showNotification(content+"发来一条车辆外出申请");
+											showNotification("收到一条车辆外出申请");
 											Intent intent = new Intent();
 											intent.setAction(FLAG);
 											sendBroadcast(intent);
