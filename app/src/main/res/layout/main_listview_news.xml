@@ -16,11 +16,11 @@
 
     <com.youth.banner.Banner
         android:id="@+id/banner"
+        android:visibility="gone"
         android:layout_width="match_parent"
-        android:layout_height="150dp"/>
+        android:layout_height="wrap_content"/>
 
     <com.example.hgtxxgl.application.view.SimpleListView
-        android:layout_marginTop="150dp"
         android:layout_width="match_parent"
         android:id="@+id/viewpager_listview"
         android:divider="@null"

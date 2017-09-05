@@ -3,6 +3,7 @@ package com.example.hgtxxgl.application.activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,6 +12,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -23,6 +26,7 @@ import com.example.hgtxxgl.application.utils.SysExitUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
+import com.example.hgtxxgl.application.view.BadgeView;
 import com.example.hgtxxgl.application.view.HandToolbar;
 
 //首页
@@ -114,10 +118,11 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                 changeFragment(fragments[3]);
                 fragments[3].onPause();
                 handToolbar.setTitle(title[3]);
-
+                badgeViewTodo.hide();
             }
         }
     };
+    private BadgeView badgeViewTodo;
 
     /**
      * 调用入口
@@ -225,6 +230,24 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         launchTotal = (RadioButton) findViewById(R.id.rb_main_leave_launch_total);
         todoTotal = (RadioButton) findViewById(R.id.rb_main_leave_todo_total);
         bottomBar.setOnCheckedChangeListener(listener);
+        Button button5 = (Button) findViewById(R.id.btn_my);
+        remind(button5);
+    }
+
+    private void remind(View view) { //BadgeView的具体使用
+        // 创建一个BadgeView对象，view为你需要显示提醒的控件
+        badgeViewTodo = new BadgeView(this, view);
+        badgeViewTodo.setText("12"); // 需要显示的提醒类容
+        badgeViewTodo.setBadgePosition(BadgeView.POSITION_CUSTOM);// 显示的位置.右上角,BadgeView.POSITION_BOTTOM_LEFT,下左，还有其他几个属性
+        badgeViewTodo.setTextColor(Color.WHITE); // 文本颜色
+        badgeViewTodo.setBadgeBackgroundColor(Color.RED); // 提醒信息的背景颜色，自己设置
+        //badgeViewTodo.setBackgroundResource(R.mipmap.icon_message_png); //设置背景图片
+        badgeViewTodo.setTextSize(10); // 文本大小
+        //badgeViewTodo.setBadgeMargin(3, 3); // 水平和竖直方向的间距
+        badgeViewTodo.setBadgeMargin(1); //各边间隔
+        // badgeViewTodo.toggle(); //显示效果，如果已经显示，则影藏，如果影藏，则显示
+        badgeViewTodo.show();// 只有显示
+        // badgeViewTodo.hide();//影藏显示
     }
 
     //初始化首页三个子fragment
