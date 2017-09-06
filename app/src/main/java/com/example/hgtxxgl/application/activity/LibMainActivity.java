@@ -18,21 +18,23 @@ import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
 import com.example.hgtxxgl.application.fragment.NotificationBroadcast;
-import com.example.hgtxxgl.application.fragment.OnUpdateUINO;
-import com.example.hgtxxgl.application.fragment.TodoTotalBroadcast;
 import com.example.hgtxxgl.application.fragment.OnUpdateUI;
+import com.example.hgtxxgl.application.fragment.OnUpdateUINO;
 import com.example.hgtxxgl.application.fragment.PersonalActivity;
+import com.example.hgtxxgl.application.fragment.TodoTotalBroadcast;
 import com.example.hgtxxgl.application.utils.SysExitUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
+import com.example.hgtxxgl.application.utils.hand.ToastUtil;
 import com.example.hgtxxgl.application.view.BadgeView;
 import com.example.hgtxxgl.application.view.HandToolbar;
+
+import static org.litepal.LitePalApplication.getContext;
 
 //首页
 public class LibMainActivity extends AppCompatActivity implements HandToolbar.OnButtonsClickCallback {
@@ -221,7 +223,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(ApplicationApp.context,msg, Toast.LENGTH_SHORT).show();
+                ToastUtil.showToast(getContext(),msg);
             }
         });
     }

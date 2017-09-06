@@ -9,17 +9,19 @@ import android.support.annotation.NonNull;
 import android.view.KeyEvent;
 import android.widget.CompoundButton;
 import android.widget.Switch;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.utils.SysExitUtil;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
+import com.example.hgtxxgl.application.utils.hand.ToastUtil;
 import com.example.hgtxxgl.application.view.HandToolbar;
 import com.google.zxing.Result;
 import com.mylhyl.zxing.scanner.ScannerView;
 import com.mylhyl.zxing.scanner.common.Intents;
 import com.mylhyl.zxing.scanner.decode.QRDecode;
+
+import static org.litepal.LitePalApplication.getContext;
 
 /**
  * 扫描
@@ -109,7 +111,7 @@ public class ScannerActivity extends DeCodeActivity implements CompoundButton.On
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 PickPictureTotalActivity.gotoActivity(ScannerActivity.this);
             } else {
-                Toast.makeText(ScannerActivity.this, "请给予权限", Toast.LENGTH_LONG).show();
+                ToastUtil.showToast(getContext(),"请给予权限");
             }
         }
     }

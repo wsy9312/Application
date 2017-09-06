@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:text="是否开启闪光灯:"
             android:textSize="16sp"
-            android:textColor="@color/mainColor_blue" />
+            android:textColor="@color/white" />
 
         <Switch
             android:id="@+id/swicth_draggable"

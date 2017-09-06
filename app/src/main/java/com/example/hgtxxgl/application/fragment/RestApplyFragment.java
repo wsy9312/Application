@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.hgtxxgl.application.entity.CarLeaveEntity;
 import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
@@ -21,8 +20,6 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import es.dmoral.toasty.Toasty;
 
 public class RestApplyFragment extends CommonFragment {
 
@@ -216,7 +213,7 @@ public class RestApplyFragment extends CommonFragment {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toasty.success(getContext(),msg, Toast.LENGTH_SHORT,true).show();
+                ToastUtil.showToast(getContext(),msg);
             }
         });
     }

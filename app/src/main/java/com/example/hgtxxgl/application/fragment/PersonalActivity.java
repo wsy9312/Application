@@ -20,7 +20,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.hgtxxgl.application.QrCode.sample.ScannerActivity;
 import com.example.hgtxxgl.application.R;
@@ -36,8 +35,9 @@ import com.google.zxing.client.result.ParsedResultType;
 import com.mylhyl.zxing.scanner.common.Intents;
 import com.mylhyl.zxing.scanner.encode.QREncode;
 
-import es.dmoral.toasty.Toasty;
 import pub.devrel.easypermissions.EasyPermissions;
+
+import static org.litepal.LitePalApplication.getContext;
 
 //个人资料首页
 public class PersonalActivity extends AppCompatActivity implements View.OnClickListener, PersonalHandToolbar.OnButtonsClickCallback {
@@ -295,9 +295,9 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void run() {
                 if (isSaveSuccess) {
-                    Toasty.success(getApplicationContext(),"保存图片成功", Toast.LENGTH_SHORT,true).show();
+                    ToastUtil.showToast(getContext(),"保存成功");
                 } else {
-                    Toasty.success(getApplicationContext(),"保存图片失败，请稍后重试", Toast.LENGTH_SHORT,true).show();
+                    ToastUtil.showToast(getContext(),"保存失败");
                 }
             }
         });

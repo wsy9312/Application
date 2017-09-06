@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.widget.Toast;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
@@ -15,14 +14,13 @@ import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
+import com.example.hgtxxgl.application.utils.hand.ToastUtil;
 import com.example.hgtxxgl.application.utils.hyutils.L;
 import com.example.hgtxxgl.application.view.HandToolbar;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import es.dmoral.toasty.Toasty;
 
 public class RestDetailPeopleFragment extends CommonFragment {
 
@@ -268,7 +266,7 @@ public class RestDetailPeopleFragment extends CommonFragment {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toasty.success(getContext(),msg, Toast.LENGTH_SHORT,true).show();
+                ToastUtil.showToast(getContext(),msg);
             }
         });
     }

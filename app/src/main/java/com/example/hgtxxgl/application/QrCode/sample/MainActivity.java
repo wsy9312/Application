@@ -24,7 +24,6 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.utils.SysExitUtil;
@@ -37,8 +36,9 @@ import com.google.zxing.client.result.ParsedResultType;
 import com.mylhyl.zxing.scanner.common.Intents;
 import com.mylhyl.zxing.scanner.encode.QREncode;
 
-import es.dmoral.toasty.Toasty;
 import pub.devrel.easypermissions.EasyPermissions;
+
+import static org.litepal.LitePalApplication.getContext;
 
 //二维码首页
 public class MainActivity extends AppCompatActivity{
@@ -91,9 +91,9 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void run() {
                 if (isSaveSuccess) {
-                    Toasty.success(getApplicationContext(),"保存图片成功", Toast.LENGTH_SHORT,true).show();
+                    ToastUtil.showToast(getContext(),"保存成功");
                 } else {
-                    Toasty.success(getApplicationContext(),"保存图片失败，请稍后重试", Toast.LENGTH_SHORT,true).show();
+                    ToastUtil.showToast(getContext(),"保存失败");
                 }
             }
         });

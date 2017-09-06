@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.widget.Toast;
 
+import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.LibMainActivity;
 import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
 import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
@@ -16,14 +16,13 @@ import com.example.hgtxxgl.application.rest.HandInputGroup;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
+import com.example.hgtxxgl.application.utils.hand.ToastUtil;
 import com.example.hgtxxgl.application.utils.hyutils.L;
 import com.example.hgtxxgl.application.view.HandToolbar;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import es.dmoral.toasty.Toasty;
 
 public class RestApprovePeopleFragment extends CommonFragment {
     private final static String TAG = "RestApprovePeopleFragment";
@@ -67,14 +66,14 @@ public class RestApprovePeopleFragment extends CommonFragment {
         int levelNum = Integer.parseInt(levelNumStr);
         int process = Integer.parseInt(processStr);
         List<HandInputGroup.Holder> list = new ArrayList<>();
-        list.add(new HandInputGroup.Holder("流程类型", true, false, "人员请假", HandInputGroup.VALUE_TYPE.TEXT));
-        list.add(new HandInputGroup.Holder("审批状态", true, false, process == 0?"审批中":"审批结束", HandInputGroup.VALUE_TYPE.TEXT));
+        list.add(new HandInputGroup.Holder("流程类型", true, false, "人员请假", HandInputGroup.VALUE_TYPE.TEXT).setColor(R.color.red));
+        list.add(new HandInputGroup.Holder("审批状态", true, false, process == 0?"待审批":"审批结束", HandInputGroup.VALUE_TYPE.TEXT).setColor(R.color.red));
         if (process == 1){
             String substring = multiLevelResultStr.substring(0, levelNum);
             if (substring.endsWith("1")){
-                list.add(new HandInputGroup.Holder("审批结果", true, false, "审批同意", HandInputGroup.VALUE_TYPE.TEXT));
+                list.add(new HandInputGroup.Holder("审批结果", true, false, "审批同意", HandInputGroup.VALUE_TYPE.TEXT).setColor(R.color.red));
             }else{
-                list.add(new HandInputGroup.Holder("审批结果", true, false, "审批拒绝", HandInputGroup.VALUE_TYPE.TEXT));
+                list.add(new HandInputGroup.Holder("审批结果", true, false, "审批拒绝", HandInputGroup.VALUE_TYPE.TEXT).setColor(R.color.red));
             }
         }
         groups.add(new Group("流程信息", null, false, null, list));
@@ -111,7 +110,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toasty.success(getContext(),msg, Toast.LENGTH_SHORT,true).show();
+                ToastUtil.showToast(getContext(),msg);
             }
         });
     }
@@ -251,7 +250,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
                     getActivity().setResult(Activity.RESULT_OK,intent);
                     getActivity().finish();
                 }else{
-                    show("审批失败");
+                    show("审批流程已结束,审批失败");
                     Intent intent = new Intent();
                     intent.setClass(getContext(), LibMainActivity.class);
                     intent.putExtra("item",getArguments().getInt("item"));
