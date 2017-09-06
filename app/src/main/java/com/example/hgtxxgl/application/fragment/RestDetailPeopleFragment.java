@@ -1,6 +1,7 @@
 package com.example.hgtxxgl.application.fragment;
 
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -50,15 +51,15 @@ public class RestDetailPeopleFragment extends CommonFragment {
         int process = Integer.parseInt(processStr);
 
         List<HandInputGroup.Holder> list = new ArrayList<>();
-        list.add(new HandInputGroup.Holder("流程类型", true, false, "人员请假", HandInputGroup.VALUE_TYPE.TEXT));
-        list.add(new HandInputGroup.Holder("审批状态", true, false, process == 0?"审批中":"审批结束", HandInputGroup.VALUE_TYPE.TEXT));
+        list.add(new HandInputGroup.Holder("流程类型", true, false, "人员请假", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
+        list.add(new HandInputGroup.Holder("审批状态", true, false, process == 0?"审批中":"已结束", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
         if (process == 1){
             setButtonsTitles(stringnull);
             String substring = multiLevelResultStr.substring(0, levelNum);
             if (substring.endsWith("1")){
-                list.add(new HandInputGroup.Holder("审批结果", true, false, "审批同意", HandInputGroup.VALUE_TYPE.TEXT));
+                list.add(new HandInputGroup.Holder("审批结果", true, false, "已同意", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
             }else{
-                list.add(new HandInputGroup.Holder("审批结果", true, false, "审批拒绝", HandInputGroup.VALUE_TYPE.TEXT));
+                list.add(new HandInputGroup.Holder("审批结果", true, false, "已拒绝", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
             }
         }else if (process == 0){
             if(multiLevelResultStr.startsWith("1")){

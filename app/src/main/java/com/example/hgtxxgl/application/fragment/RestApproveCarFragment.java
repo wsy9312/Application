@@ -3,11 +3,11 @@ package com.example.hgtxxgl.application.fragment;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 
-import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.LibMainActivity;
 import com.example.hgtxxgl.application.entity.CarLeaveEntity;
 import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
@@ -66,11 +66,16 @@ public class RestApproveCarFragment extends CommonFragment {
         String resultStr = entity.getResult();
         int result = Integer.parseInt(resultStr);
         List<HandInputGroup.Holder> list = new ArrayList<>();
-        list.add(new HandInputGroup.Holder("流程类型", true, false, "车辆外出", HandInputGroup.VALUE_TYPE.TEXT).setColor(R.color.red));
-        list.add(new HandInputGroup.Holder("审批状态", true, false, process == 0?"待审批":"审批结束", HandInputGroup.VALUE_TYPE.TEXT).setColor(R.color.red));
-        if (result == 1){
-            list.add(new HandInputGroup.Holder("审批结果", true, false, "已同意", HandInputGroup.VALUE_TYPE.TEXT).setColor(R.color.red));
+        list.add(new HandInputGroup.Holder("流程类型", true, false, "车辆外出", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
+        list.add(new HandInputGroup.Holder("审批状态", true, false, process == 0?"待审批":"已结束", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
+        if (process == 1){
+            if (result == 1){
+                list.add(new HandInputGroup.Holder("审批结果", true, false, "已同意", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
+            }else{
+                list.add(new HandInputGroup.Holder("审批结果", true, false, "已拒绝", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
+            }
         }
+
         groups.add(new Group("流程信息", null, false, null, list));
 
         List<HandInputGroup.Holder> holderList = new ArrayList<>();
