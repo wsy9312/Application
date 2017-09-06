@@ -63,11 +63,12 @@ public class MyLaunchCarFragment extends Fragment implements SimpleListView.OnRe
     private List<CarLeaveEntity.CarLeaveRrdBean> entityList = new ArrayList<>();
     private List<CarLeaveEntity.CarLeaveRrdBean> baseEntityList;
 
-    ListAdapter<CarLeaveEntity.CarLeaveRrdBean> adapter = new ListAdapter<CarLeaveEntity.CarLeaveRrdBean>((ArrayList<CarLeaveEntity.CarLeaveRrdBean>) entityList, R.layout.layout_my_todo_too) {
+    ListAdapter<CarLeaveEntity.CarLeaveRrdBean> adapter = new ListAdapter<CarLeaveEntity.CarLeaveRrdBean>
+            ((ArrayList<CarLeaveEntity.CarLeaveRrdBean>) entityList, R.layout.layout_my_todo_too) {
         @Override
         public void bindView(ViewHolder holder, CarLeaveEntity.CarLeaveRrdBean bean) {
-            holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
-            holder.setText(R.id.tv_sketch, bean.getContent().isEmpty()?"申请事由:无":"申请事由:"+bean.getContent());
+            holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss"));
+            holder.setText(R.id.tv_sketch, "申请事由:"+(bean.getContent().isEmpty()?"无":bean.getContent()));
             if (bean.getbCancel().equals("0")){
                 if (bean.getProcess().equals("1")){
                     holder.setImageResource(R.id.image_flow,R.drawable.ic_done);
@@ -83,7 +84,7 @@ public class MyLaunchCarFragment extends Fragment implements SimpleListView.OnRe
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadData(beginNum, endNum);
+        loadData(1, 1000);
     }
 
     SimpleListView lv;
@@ -147,6 +148,7 @@ public class MyLaunchCarFragment extends Fragment implements SimpleListView.OnRe
         carLeaveRrdBean.setEndNum(String.valueOf(endNum));
         carLeaveRrdBean.setNoIndex("?");
         carLeaveRrdBean.setModifyTime("?");
+        carLeaveRrdBean.setRegisterTime("?");
         carLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
         carLeaveRrdBean.setIsAndroid("1");
         carLeaveRrdBean.setbCancel("?");
@@ -275,10 +277,10 @@ public class MyLaunchCarFragment extends Fragment implements SimpleListView.OnRe
             }
             List<CarLeaveEntity.CarLeaveRrdBean> list = new ArrayList<>();
             for (CarLeaveEntity.CarLeaveRrdBean bean : baseEntityList) {
-                if ((bean.getContent().isEmpty()?"申请事由:无":"申请事由:"+bean.getContent()).replace(" ", "").contains(key)) {
+                if ((bean.getContent().isEmpty()?"无":bean.getContent()).replace(" ", "").contains(key)) {
                     list.add(bean);
                 }
-                if ((DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss")).replace(" ", "").contains(key)) {
+                if ((DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss")).replace(" ", "").contains(key)) {
                     list.add(bean);
                 }
             }

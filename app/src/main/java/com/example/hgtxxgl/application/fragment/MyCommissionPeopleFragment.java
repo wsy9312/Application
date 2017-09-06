@@ -6,7 +6,6 @@ import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +23,7 @@ import com.example.hgtxxgl.application.utils.hand.DataUtil;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.ListAdapter;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
+import com.example.hgtxxgl.application.utils.hyutils.L;
 import com.example.hgtxxgl.application.view.SimpleListView;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
@@ -35,25 +35,25 @@ import java.util.List;
 import static com.example.hgtxxgl.application.R.id.iv_empty;
 import static com.example.hgtxxgl.application.utils.hand.PageConfig.PAGE_LEAVE_APPLY_PEOPLE;
 
-public class MyCommissionFragment extends Fragment implements AdapterView.OnItemClickListener, SimpleListView.OnRefreshListener, View.OnClickListener {
+public class MyCommissionPeopleFragment extends Fragment implements AdapterView.OnItemClickListener, SimpleListView.OnRefreshListener, View.OnClickListener {
 
     private int beginNum = 1;
     private int endNum = 300;
     private boolean hasMore = true;
     private TextView ivEmpty;
     private ProgressBar pb;
-    private static final String TAG = "MyCommissionFragment";
+    private static final String TAG = "MyCommissionPeopleFragment";
     private FloatingActionButton fbcPeople;
     private FloatingActionButton fbcApply;
     private FloatingActionsMenu fbcMenu;
 
-    public MyCommissionFragment() {
+    public MyCommissionPeopleFragment() {
 
     }
 
-    public static MyCommissionFragment newInstance(int tabIndex) {
+    public static MyCommissionPeopleFragment newInstance(int tabIndex) {
         Bundle args = new Bundle();
-        MyCommissionFragment fragment = new MyCommissionFragment();
+        MyCommissionPeopleFragment fragment = new MyCommissionPeopleFragment();
         args.putInt(DetailFragment.ARG_TAB, tabIndex);
         fragment.setArguments(args);
         return fragment;
@@ -67,8 +67,8 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
         @Override
         public void bindView(ViewHolder holder, PeopleLeaveEntity.PeopleLeaveRrdBean bean) {
             holder.setText(R.id.tv_title, "申请人:"+bean.getName());
-            holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
-            holder.setText(R.id.tv_sketch, bean.getContent().isEmpty()?"申请事由：无":"申请事由："+bean.getContent());
+            holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss"));
+            holder.setText(R.id.tv_sketch, "申请事由:"+(bean.getContent().isEmpty()?"无":bean.getContent()));
             if (bean.getBCancel().equals("0")){
                 holder.setImageResource(R.id.image_flow,bean.getProcess().equals("1")?R.drawable.ic_approved:R.drawable.ic_no_approve);
             }
@@ -184,6 +184,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
         peopleLeaveRrdBean.setEndNum(String.valueOf(endNum));
         peopleLeaveRrdBean.setNoIndex("?");
         peopleLeaveRrdBean.setModifyTime("?");
+        peopleLeaveRrdBean.setRegisterTime("?");
         peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
         peopleLeaveRrdBean.setIsAndroid("1");
         List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
@@ -191,7 +192,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
         peopleLeaveEntity.setPeopleLeaveRrd(list);
         String json = new Gson().toJson(peopleLeaveEntity);
         final String s = "get " + json;
-        Log.e(TAG, "loadData()查看申请记录"+s);
+        L.e(TAG, "loadData()查看申请记录"+s);
         String url = CommonValues.BASE_URL;
         HttpManager.getInstance().requestResultForm(url, s, PeopleLeaveEntity.class,new HttpManager.ResultCallback<PeopleLeaveEntity>() {
             @Override
@@ -213,7 +214,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
                             peopleEntity.setPeopleInfo(beanList);
                             String json1 = new Gson().toJson(peopleEntity);
                             String s1 = "get " + json1;
-                            Log.e(TAG,"1名字："+s1);
+                            L.e(TAG,"1名字："+s1);
                             final int finalI = i;
                             HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
                                 @Override
@@ -288,7 +289,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
         Bundle bundle = new Bundle();
         bundle.putString("no", adapter.getItem(position).getNo());
         bundle.putString("name", adapter.getItem(position).getName());
-        Log.e(TAG,"name = "+adapter.getItem(position).getName());
+        L.e(TAG,"name = "+adapter.getItem(position).getName());
         bundle.putString("outtime",adapter.getItem(position).getOutTime());
         bundle.putString("intime", adapter.getItem(position).getInTime());
         bundle.putString("content", adapter.getItem(position).getContent());
@@ -329,7 +330,7 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
 
     private DetailFragment.DataCallback callback;
 
-    public MyCommissionFragment setCallback(DetailFragment.DataCallback callback) {
+    public MyCommissionPeopleFragment setCallback(DetailFragment.DataCallback callback) {
         this.callback = callback;
         return this;
     }
@@ -347,10 +348,10 @@ public class MyCommissionFragment extends Fragment implements AdapterView.OnItem
                 if (("申请人:"+bean.getName()).replace(" ", "").contains(key)){
                     list.add(bean);
                 }
-                if ((DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss")).replace(" ", "").contains(key)) {
+                if ((DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss")).replace(" ", "").contains(key)) {
                     list.add(bean);
                 }
-                if ((bean.getContent().isEmpty()?"申请事由：无":"申请事由："+bean.getContent()).replace(" ", "").contains(key)) {
+                if ((bean.getContent().isEmpty()?"无":bean.getContent()).replace(" ", "").contains(key)) {
                     list.add(bean);
                 }
             }

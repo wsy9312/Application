@@ -33,25 +33,25 @@ import java.util.List;
 
 import static com.example.hgtxxgl.application.utils.hand.PageConfig.PAGE_LEAVE_APPLY_PEOPLE;
 
-public class MyLaunchFragment extends Fragment implements SimpleListView.OnRefreshListener, AdapterView.OnItemClickListener, View.OnClickListener {
+public class MyLaunchPeopleFragment extends Fragment implements SimpleListView.OnRefreshListener, AdapterView.OnItemClickListener, View.OnClickListener {
 
     private int beginNum = 1;
     private int endNum = 6;
     private boolean hasMore = true;
     private TextView ivEmpty;
     private ProgressBar pb;
-    private static final String TAG = "MyLaunchFragment";
+    private static final String TAG = "MyLaunchPeopleFragment";
     private FloatingActionButton fbcPeople;
     private FloatingActionButton fbcApply;
     private FloatingActionsMenu fbcMenu;
 
-    public MyLaunchFragment() {
+    public MyLaunchPeopleFragment() {
 
     }
 
-    public static MyLaunchFragment newInstance(int tabIndex) {
+    public static MyLaunchPeopleFragment newInstance(int tabIndex) {
         Bundle args = new Bundle();
-        MyLaunchFragment fragment = new MyLaunchFragment();
+        MyLaunchPeopleFragment fragment = new MyLaunchPeopleFragment();
         args.putInt(DetailFragment.ARG_TAB, tabIndex);
         fragment.setArguments(args);
         return fragment;
@@ -64,8 +64,8 @@ public class MyLaunchFragment extends Fragment implements SimpleListView.OnRefre
             ((ArrayList<PeopleLeaveEntity.PeopleLeaveRrdBean>) entityList, R.layout.layout_my_todo_too) {
         @Override
         public void bindView(ViewHolder holder, PeopleLeaveEntity.PeopleLeaveRrdBean bean) {
-            holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
-            holder.setText(R.id.tv_sketch, bean.getContent().isEmpty()?"申请事由:无":"申请事由:"+bean.getContent());
+            holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss"));
+            holder.setText(R.id.tv_sketch, "申请事由:"+(bean.getContent().isEmpty()?"无":bean.getContent()));
             if (bean.getBCancel().equals("0")){
                 if (bean.getProcess().equals("1")){
                     holder.setImageResource(R.id.image_flow,R.drawable.ic_done);
@@ -82,7 +82,7 @@ public class MyLaunchFragment extends Fragment implements SimpleListView.OnRefre
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        tabIndex = getArguments().getInt(DetailFragment.ARG_TAB);
-        loadData(beginNum, endNum);
+        loadData(1, 1000);
     }
 
     SimpleListView lv;
@@ -148,6 +148,7 @@ public class MyLaunchFragment extends Fragment implements SimpleListView.OnRefre
         peopleLeaveRrdBean.setEndNum(String.valueOf(endNum));
         peopleLeaveRrdBean.setNoIndex("?");
         peopleLeaveRrdBean.setModifyTime("?");
+        peopleLeaveRrdBean.setRegisterTime("?");
         peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
         peopleLeaveRrdBean.setIsAndroid("1");
         peopleLeaveRrdBean.setBCancel("?");
@@ -264,7 +265,7 @@ public class MyLaunchFragment extends Fragment implements SimpleListView.OnRefre
 
     private DetailFragment.DataCallback callback;
 
-    public MyLaunchFragment setCallback(DetailFragment.DataCallback callback) {
+    public MyLaunchPeopleFragment setCallback(DetailFragment.DataCallback callback) {
         this.callback = callback;
         return this;
     }
@@ -278,10 +279,10 @@ public class MyLaunchFragment extends Fragment implements SimpleListView.OnRefre
             }
             List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
             for (PeopleLeaveEntity.PeopleLeaveRrdBean bean : baseEntityList) {
-                if ((bean.getContent().isEmpty()?"申请事由:无":"申请事由:"+bean.getContent()).replace(" ", "").contains(key)) {
+                if ((bean.getContent().isEmpty()?"无":bean.getContent()).replace(" ", "").contains(key)) {
                     list.add(bean);
                 }
-                if ((DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss")).replace(" ", "").contains(key)) {
+                if ((DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss")).replace(" ", "").contains(key)) {
                     list.add(bean);
                 }
             }

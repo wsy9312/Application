@@ -70,8 +70,8 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
         @Override
         public void bindView(ViewHolder holder, CarLeaveEntity.CarLeaveRrdBean bean) {
             holder.setText(R.id.tv_title, "申请人:"+bean.getName());
-            holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
-            holder.setText(R.id.tv_sketch, bean.getContent().isEmpty()?"申请事由：无":"申请事由："+bean.getContent());
+            holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss"));
+            holder.setText(R.id.tv_sketch, "申请事由:"+(bean.getContent().isEmpty()?"无":bean.getContent()));
             if (bean.getbCancel().equals("0")){
                 holder.setImageResource(R.id.image_flow,bean.getProcess().equals("1")?R.drawable.ic_approved:R.drawable.ic_no_approve);
             }
@@ -147,6 +147,7 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
         carLeaveRrdBean.setEndNum(String.valueOf(endNum));
         carLeaveRrdBean.setNoIndex("?");
         carLeaveRrdBean.setModifyTime("?");
+        carLeaveRrdBean.setRegisterTime("?");
         carLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
         carLeaveRrdBean.setIsAndroid("1");
         List<CarLeaveEntity.CarLeaveRrdBean> list = new ArrayList<>();
@@ -307,10 +308,10 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
                 if (("申请人:"+bean.getName()).replace(" ", "").contains(key)){
                     list.add(bean);
                 }
-                if ((DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss")).replace(" ", "").contains(key)) {
+                if ((DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss")).replace(" ", "").contains(key)) {
                     list.add(bean);
                 }
-                if ((bean.getContent().isEmpty()?"申请事由：无":"申请事由："+bean.getContent()).replace(" ", "").contains(key)) {
+                if ((bean.getContent().isEmpty()?"无":bean.getContent()).replace(" ", "").contains(key)) {
                     list.add(bean);
                 }
             }

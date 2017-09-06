@@ -101,10 +101,10 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
                 return MyLaunchCarFragment.newInstance(position).setCallback(this);
             } *//*else if (currentPage == PageConfig.PAGE_TODO_PEOPLE) {
                 llEtSearch.setVisibility(VISIBLE);
-                return MyCommissionFragment.newInstance(position).setCallback(this);
+                return MyCommissionPeopleFragment.newInstance(position).setCallback(this);
             }*/ /*else if (currentPage == PageConfig.PAGE_LAUNCH_PEOPLE){
                 llEtSearch.setVisibility(VISIBLE);
-                return MyLaunchFragment.newInstance(position).setCallback(this);
+                return MyLaunchPeopleFragment.newInstance(position).setCallback(this);
             } */else if (currentPage == PageConfig.PAGE_LAUNCH_TOTAL){
                 return new LaunchDetailFragment();
             } else if (currentPage == PageConfig.PAGE_TODO_TOTAL) {
@@ -192,10 +192,10 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
             ((MyLaunchCarFragment) f).filter(str);
         } else*/ /*if (f instanceof MyCommissionCarFragment){
             ((MyCommissionCarFragment) f).filter(str);
-        }*/ /*else if (f instanceof MyLaunchFragment) {
-            ((MyLaunchFragment) f).filter(str);
-        } *//*else if (f instanceof MyCommissionFragment){
-            ((MyCommissionFragment) f).filter(str);
+        }*/ /*else if (f instanceof MyLaunchPeopleFragment) {
+            ((MyLaunchPeopleFragment) f).filter(str);
+        } *//*else if (f instanceof MyCommissionPeopleFragment){
+            ((MyCommissionPeopleFragment) f).filter(str);
         } else*/ if (f instanceof NewFragment) {
             ((NewFragment) f).filter(str);
         } else if (f instanceof NotificationFragment){

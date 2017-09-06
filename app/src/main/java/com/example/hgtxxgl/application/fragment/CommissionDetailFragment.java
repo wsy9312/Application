@@ -80,8 +80,8 @@ public class CommissionDetailFragment extends Fragment implements RadioGroup.OnC
     public void doFilter(String str){
         Fragment f1 = fragments.get(0);
         Fragment f2 = fragments.get(1);
-        if (f1 instanceof MyCommissionFragment) {
-            ((MyCommissionFragment) f1).filter(str);
+        if (f1 instanceof MyCommissionPeopleFragment) {
+            ((MyCommissionPeopleFragment) f1).filter(str);
         }
         if (f2 instanceof MyCommissionCarFragment) {
             ((MyCommissionCarFragment) f2).filter(str);
@@ -112,7 +112,7 @@ public class CommissionDetailFragment extends Fragment implements RadioGroup.OnC
     }
 
     private void addFragment() {
-        fragments.add(new MyCommissionFragment());
+        fragments.add(new MyCommissionPeopleFragment());
         fragments.add(new MyCommissionCarFragment());
     }
 
