@@ -30,6 +30,8 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import static com.example.hgtxxgl.application.R.id.iv_empty;
@@ -41,7 +43,7 @@ import static com.example.hgtxxgl.application.utils.hand.PageConfig.PAGE_LEAVE_A
 
 public class MyCommissionCarFragment extends Fragment implements AdapterView.OnItemClickListener, SimpleListView.OnRefreshListener, View.OnClickListener {
     private int beginNum = 1;
-    private int endNum = 300;
+    private int endNum = 500;
     private boolean hasMore = true;
     private TextView ivEmpty;
     private ProgressBar pb;
@@ -161,9 +163,6 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
             @Override
             public void onSuccess(final String json, final CarLeaveEntity carLeaveEntity1) throws InterruptedException {
                 if (carLeaveEntity1 != null && carLeaveEntity1.getCarLeaveRrd().size() > 0) {
-                    if (beginNum == 1 && endNum == 300){
-                        entityList.clear();
-                    }
                     for (int i = beginNum-1; i < endNum+1; i++) {
                         if (carLeaveEntity1.getCarLeaveRrd().get(i).getbCancel().equals("0")){
                             PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
@@ -185,6 +184,19 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
                                     if (peopleInfoEntity != null){
                                         carLeaveEntity1.getCarLeaveRrd().get(finalI).setName(peopleInfoEntity.getPeopleInfo().get(0).getName());
                                         entityList.add(carLeaveEntity1.getCarLeaveRrd().get(finalI));
+                                        Comparator<CarLeaveEntity.CarLeaveRrdBean> comparator = new Comparator<CarLeaveEntity.CarLeaveRrdBean>() {
+                                            @Override
+                                            public int compare(CarLeaveEntity.CarLeaveRrdBean o1, CarLeaveEntity.CarLeaveRrdBean o2) {
+                                                int i1 = Integer.parseInt(o1.getNoIndex());
+                                                int i2 = Integer.parseInt(o2.getNoIndex());
+                                                if (i1 != i2) {
+                                                    return i2 - i1;
+                                                }
+                                                return 0;
+                                            }
+                                        } ;
+                                        Collections.sort(entityList, comparator);
+                                        adapter.notifyDataSetChanged();
                                     }
                                 }
 
@@ -200,10 +212,7 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
                             });
                         }
                     }
-                    adapter.notifyDataSetChanged();
-                    hasMore = true;
-                } else {
-                    hasMore = false;
+
                 }
                 pb.setVisibility(View.GONE);
                 lv.completeRefresh();
@@ -330,11 +339,10 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
 
     @Override
     public void onPullRefresh() {
-        hasMore = true;
-//        beginNum = 1;
-//        endNum = 300;
+        if (beginNum == 1 && endNum == 500){
+            entityList.clear();
+        }
         loadData(beginNum, endNum);
-        adapter.notifyDataSetChanged();
         lv.completeRefresh();
     }
 

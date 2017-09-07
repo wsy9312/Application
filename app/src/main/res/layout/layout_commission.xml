@@ -18,7 +18,7 @@
             android:ellipsize="end"
             android:lines="1"
             android:textSize="15sp"
-            android:textColor="@color/redbtn"
+            android:textColor="@color/bottom_bar_grad_end"
             tools:text="这是新闻标题" />
         <TextView
             android:layout_alignParentRight="true"
