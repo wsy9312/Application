@@ -181,6 +181,7 @@ public class RestApplyFragment extends CommonFragment {
                         getActivity().finish();
                     }else{
                         show("提交失败");
+                        getActivity().finish();
                     }
                 }
             });
@@ -203,6 +204,7 @@ public class RestApplyFragment extends CommonFragment {
                         getActivity().finish();
                     }else{
                         show("提交失败");
+                        getActivity().finish();
                     }
                 }
             });

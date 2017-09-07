@@ -135,9 +135,11 @@ public class RestDetailCarFragment extends CommonFragment {
             @Override
             public void onResponse(String response) {
                 if (response.contains("ok")) {
-                    show("取消成功");
+                    show("修改成功");
+                    getActivity().finish();
                 }else{
-                    show("取消失败");
+                    show("修改失败");
+                    getActivity().finish();
                 }
             }
         });
