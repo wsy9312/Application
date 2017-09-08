@@ -39,7 +39,7 @@ import static com.example.hgtxxgl.application.utils.hand.PageConfig.PAGE_LEAVE_A
 public class MyLaunchCarFragment extends Fragment implements SimpleListView.OnRefreshListener, AdapterView.OnItemClickListener, View.OnClickListener {
 
     private int beginNum = 1;
-    private int endNum = 6;
+    private int endNum = 50;
     private boolean hasMore = true;
     private TextView ivEmpty;
     private ProgressBar pb;
@@ -84,7 +84,7 @@ public class MyLaunchCarFragment extends Fragment implements SimpleListView.OnRe
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadData(1, 1000);
+        loadData(beginNum, endNum);
     }
 
     SimpleListView lv;
@@ -157,13 +157,13 @@ public class MyLaunchCarFragment extends Fragment implements SimpleListView.OnRe
         carLeaveEntity.setCarLeaveRrd(list);
         String json = new Gson().toJson(carLeaveEntity);
         final String s = "get " + json;
-        Log.e(TAG, "loadData()查看申请记录"+s);
+        Log.e(TAG, "车辆外出初次加载数据:"+s);
         String url = CommonValues.BASE_URL;
         HttpManager.getInstance().requestResultForm(url, s, CarLeaveEntity.class,new HttpManager.ResultCallback<CarLeaveEntity>() {
             @Override
             public void onSuccess(final String json, final CarLeaveEntity carLeaveEntity1) throws InterruptedException {
                 if (carLeaveEntity1 != null && carLeaveEntity1.getCarLeaveRrd().size() > 0) {
-                    if (beginNum==1 && endNum == 6){
+                    if (beginNum==1 && endNum == 50){
                         entityList.clear();
                     }
                     hasMore = true;
@@ -197,8 +197,8 @@ public class MyLaunchCarFragment extends Fragment implements SimpleListView.OnRe
 
     private void loadMore() {
         if (hasMore) {
-            beginNum += 6;
-            endNum += 6;
+            beginNum += 50;
+            endNum += 50;
             loadData(beginNum, endNum);
         } else {
             lv.completeRefresh();
@@ -209,7 +209,7 @@ public class MyLaunchCarFragment extends Fragment implements SimpleListView.OnRe
     public void onPullRefresh() {
         hasMore = true;
         beginNum = 1;
-        endNum = 6;
+        endNum = 50;
         loadData(beginNum, endNum);
         lv.completeRefresh();
     }

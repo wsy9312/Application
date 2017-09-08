@@ -36,7 +36,7 @@ import static com.example.hgtxxgl.application.utils.hand.PageConfig.PAGE_LEAVE_A
 public class MyLaunchPeopleFragment extends Fragment implements SimpleListView.OnRefreshListener, AdapterView.OnItemClickListener, View.OnClickListener {
 
     private int beginNum = 1;
-    private int endNum = 6;
+    private int endNum = 50;
     private boolean hasMore = true;
     private TextView ivEmpty;
     private ProgressBar pb;
@@ -82,7 +82,7 @@ public class MyLaunchPeopleFragment extends Fragment implements SimpleListView.O
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        tabIndex = getArguments().getInt(DetailFragment.ARG_TAB);
-        loadData(1, 1000);
+        loadData(beginNum, endNum);
     }
 
     SimpleListView lv;
@@ -157,13 +157,13 @@ public class MyLaunchPeopleFragment extends Fragment implements SimpleListView.O
         peopleLeaveEntity.setPeopleLeaveRrd(list);
         String json = new Gson().toJson(peopleLeaveEntity);
         final String s = "get " + json;
-        Log.e(TAG, "loadData()查看申请记录"+s);
+        Log.e(TAG, "人员请假初次加载数据:"+s);
         String url = CommonValues.BASE_URL;
         HttpManager.getInstance().requestResultForm(url, s, PeopleLeaveEntity.class,new HttpManager.ResultCallback<PeopleLeaveEntity>() {
             @Override
             public void onSuccess(final String json, final PeopleLeaveEntity peopleLeaveEntity1) throws InterruptedException {
                 if (peopleLeaveEntity1 != null && peopleLeaveEntity1.getPeopleLeaveRrd().size() > 0) {
-                    if (beginNum==1 && endNum == 6){
+                    if (beginNum==1 && endNum == 50){
                         entityList.clear();
                     }
                     hasMore = true;
@@ -197,8 +197,8 @@ public class MyLaunchPeopleFragment extends Fragment implements SimpleListView.O
 
     private void loadMore() {
         if (hasMore) {
-            beginNum += 6;
-            endNum += 6;
+            beginNum += 50;
+            endNum += 50;
             loadData(beginNum, endNum);
         } else {
             lv.completeRefresh();
@@ -209,7 +209,7 @@ public class MyLaunchPeopleFragment extends Fragment implements SimpleListView.O
     public void onPullRefresh() {
         hasMore = true;
         beginNum = 1;
-        endNum = 6;
+        endNum = 50;
         loadData(beginNum, endNum);
         lv.completeRefresh();
     }
