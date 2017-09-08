@@ -26,7 +26,7 @@ import java.util.List;
 public class RestDetailPeopleFragment extends CommonFragment {
 
     private final static String TAG = "RestDetailPeopleFragment";
-
+    private String name = null;
     public RestDetailPeopleFragment(){
 
     }
@@ -65,56 +65,9 @@ public class RestDetailPeopleFragment extends CommonFragment {
             if(multiLevelResultStr.startsWith("1")){
                 setButtonsTitles(stringnull);
             }
-            list.add(new HandInputGroup.Holder("审批总级数", true, false, entity.getLevelNum()+"级", HandInputGroup.VALUE_TYPE.TEXT));
-            int i = Integer.parseInt(multiLevelResultStr);
-            int one = (i/10000)%10;
-            int two = (i/1000)%10;
-            int three = (i/100)%10;
-            int four = (i/10)%10;
-            int five =  i%10;
-            if (four == 1){
-                list.add(new HandInputGroup.Holder("当前待审批等级", true, false, "第5级", HandInputGroup.VALUE_TYPE.TEXT));
-            } else if (three == 1){
-                list.add(new HandInputGroup.Holder("当前待审批等级", true, false, "第4级", HandInputGroup.VALUE_TYPE.TEXT));
-            } else if  (two == 1){
-                list.add(new HandInputGroup.Holder("当前待审批等级", true, false, "第3级", HandInputGroup.VALUE_TYPE.TEXT));
-            } else if  (one == 1){
-                list.add(new HandInputGroup.Holder("当前待审批等级", true, false, "第2级", HandInputGroup.VALUE_TYPE.TEXT));
-            } else if  (one == 0){
-                list.add(new HandInputGroup.Holder("当前待审批等级", true, false, "第1级", HandInputGroup.VALUE_TYPE.TEXT));
-            }
-            /*if (bCancel.equals("0")){
-                int i = Integer.parseInt(multiLevelResultStr);
-                int one = (i/10000)%10;
-                int two = (i/1000)%10;
-                int three = (i/100)%10;
-                int four = (i/10)%10;
-                int five =  i%10;
-                Log.e("one",one+""+two+""+three+""+four+""+five);
-                if (one == 1){
-                    list.add(new HandInputGroup.Holder("已审批人", true, false, entity.getApprover1Name(), HandInputGroup.VALUE_TYPE.TEXT));
-                    list.add(new HandInputGroup.Holder("待审批人", true, false, entity.getApprover2Name(), HandInputGroup.VALUE_TYPE.TEXT));
-                }else if (two == 1){
-                    list.add(new HandInputGroup.Holder("已审批人", true, false, entity.getApprover1No(), HandInputGroup.VALUE_TYPE.TEXT));
-                    list.add(new HandInputGroup.Holder("已审批人", true, false, entity.getApprover2No(), HandInputGroup.VALUE_TYPE.TEXT));
-                    list.add(new HandInputGroup.Holder("待审批人", true, false, entity.getApprover3No(), HandInputGroup.VALUE_TYPE.TEXT));
-                }else if (three == 1){
-                    list.add(new HandInputGroup.Holder("已审批人", true, false, entity.getApprover1No(), HandInputGroup.VALUE_TYPE.TEXT));
-                    list.add(new HandInputGroup.Holder("已审批人", true, false, entity.getApprover2No(), HandInputGroup.VALUE_TYPE.TEXT));
-                    list.add(new HandInputGroup.Holder("已审批人", true, false, entity.getApprover3No(), HandInputGroup.VALUE_TYPE.TEXT));
-                    list.add(new HandInputGroup.Holder("待审批人", true, false, entity.getApprover4No(), HandInputGroup.VALUE_TYPE.TEXT));
-                }else if (four == 1){
-                    list.add(new HandInputGroup.Holder("已审批人", true, false, entity.getApprover1No(), HandInputGroup.VALUE_TYPE.TEXT));
-                    list.add(new HandInputGroup.Holder("已审批人", true, false, entity.getApprover2No(), HandInputGroup.VALUE_TYPE.TEXT));
-                    list.add(new HandInputGroup.Holder("已审批人", true, false, entity.getApprover3No(), HandInputGroup.VALUE_TYPE.TEXT));
-                    list.add(new HandInputGroup.Holder("已审批人", true, false, entity.getApprover4No(), HandInputGroup.VALUE_TYPE.TEXT));
-                    list.add(new HandInputGroup.Holder("待审批人", true, false, entity.getApprover5No(), HandInputGroup.VALUE_TYPE.TEXT));
-                }
 
-            }*/
         }
-
-        groups.add(new Group("流程信息", null, false, null, list));
+        groups.add(0,new Group("流程信息", null, false, null, list));
 
         List<HandInputGroup.Holder> holderList = new ArrayList<>();
         holderList.add(new HandInputGroup.Holder("申请人", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName(), HandInputGroup.VALUE_TYPE.TEXT));
@@ -124,63 +77,8 @@ public class RestDetailPeopleFragment extends CommonFragment {
         holderList.add(new HandInputGroup.Holder("请假原因", true, false, entity.getContent(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("是否取消请假", true, false, entity.getBCancel().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("是否后补请假", true, false, entity.getBFillup().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
-        groups.add(new Group("基本信息", null, false, null, holderList));
+        groups.add(1,new Group("基本信息", null, false, null, holderList));
         return groups;
-    }
-
-    private void getNameFromApproveNo(final int no, String approveNo){
-        PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
-        PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
-        peopleInfoBean.setNo(approveNo);
-        peopleInfoBean.setName("?");
-        peopleInfoBean.setAuthenticationNo(approveNo);
-        peopleInfoBean.setIsAndroid("1");
-        List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
-        beanList.add(peopleInfoBean);
-        peopleEntity.setPeopleInfo(beanList);
-        String json1 = new Gson().toJson(peopleEntity);
-        String s1 = "get " + json1;
-        L.e(TAG,"s1"+s1);
-        HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
-            @Override
-            public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
-                if (peopleInfoEntity != null){
-                    switch (no){
-                        case 1:
-                            entity.setApprover1Name(peopleInfoEntity.getPeopleInfo().get(0).getName());
-                            break;
-                        case 2:
-                            entity.setApprover2Name(peopleInfoEntity.getPeopleInfo().get(0).getName());
-                            break;
-                        case 3:
-                            entity.setApprover3Name(peopleInfoEntity.getPeopleInfo().get(0).getName());
-                            break;
-                        case 4:
-                            entity.setApprover4Name(peopleInfoEntity.getPeopleInfo().get(0).getName());
-                            break;
-                        case 5:
-                            entity.setApprover5Name(peopleInfoEntity.getPeopleInfo().get(0).getName());
-                            break;
-                    }
-
-                    L.e(TAG, "onSuccess: "+entity.getApprover1Name());
-                    L.e(TAG, "onSuccess: "+entity.getApprover2Name());
-                    L.e(TAG, "onSuccess: "+entity.getApprover3Name());
-                    L.e(TAG, "onSuccess: "+entity.getApprover4Name());
-                    L.e(TAG, "onSuccess: "+entity.getApprover5Name());
-                }
-            }
-
-            @Override
-            public void onFailure(String msg) {
-
-            }
-
-            @Override
-            public void onResponse(String response) {
-
-            }
-        });
     }
 
     public void setToolbar(HandToolbar toolbar) {
@@ -327,13 +225,61 @@ public class RestDetailPeopleFragment extends CommonFragment {
                     @Override
                     public void run() {
                         if (peopleLeaveEntity1 != null){
+                            String approver1No = peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover1No();
+                            String approver2No = peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover2No();
+                            String approver3No = peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover3No();
+                            String approver4No = peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover4No();
+                            String approver5No = peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover5No();
+                            ArrayList<String> approveNoList = new ArrayList<>();
+                            if (!approver1No.isEmpty()){
+                                approveNoList.add(0,approver1No);
+                            } if (!approver2No.isEmpty()){
+                                approveNoList.add(1,approver2No);
+                            } if (!approver3No.isEmpty()){
+                                approveNoList.add(2,approver3No);
+                            } if (!approver4No.isEmpty()){
+                                approveNoList.add(3,approver4No);
+                            } if (!approver5No.isEmpty()){
+                                approveNoList.add(4,approver5No);
+                            }
+                            for (int i = 0; i < approveNoList.size(); i++) {
+                                L.e(TAG,"当前:"+approveNoList.get(i));
+                                PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
+                                PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
+                                peopleInfoBean.setNo(approveNoList.get(i));
+                                peopleInfoBean.setName("?");
+                                peopleInfoBean.setAuthenticationNo(approveNoList.get(i));
+                                peopleInfoBean.setIsAndroid("1");
+                                List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
+                                beanList.add(peopleInfoBean);
+                                peopleEntity.setPeopleInfo(beanList);
+                                String json1 = new Gson().toJson(peopleEntity);
+                                String s1 = "get " + json1;
+                                L.e(TAG,"s1"+s1);
+                                HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
+                                    @Override
+                                    public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
+                                        if (peopleInfoEntity != null){
+                                            L.e(TAG,"namenamename:   "+peopleInfoEntity.getPeopleInfo().get(0).getName());
+                                            peopleLeaveEntity1.getPeopleLeaveRrd().get(0).setApprover1Name(peopleInfoEntity.getPeopleInfo().get(0).getName());
+                                            L.e(TAG,"namename:   "+peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover1Name());
+                                            name = peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover1Name();
+                                            L.e(TAG,"name:   "+name);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(String msg) {
+
+                                    }
+
+                                    @Override
+                                    public void onResponse(String response) {
+
+                                    }
+                                });
+                            }
                             setEntity(peopleLeaveEntity1.getPeopleLeaveRrd().get(0));
-                            L.e(TAG,entity.getProcess()+" "+entity.getMultiLevelResult()+" "+entity.getLevelNum());
-//                            getNameFromApproveNo(1,peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover1No());
-//                            getNameFromApproveNo(2,peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover2No());
-//                            getNameFromApproveNo(3,peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover3No());
-//                            getNameFromApproveNo(4,peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover4No());
-//                            getNameFromApproveNo(5,peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover5No());
                             setGroup(getGroupList());
                             setPb(false);
                             setButtonllEnable(true);
@@ -353,7 +299,6 @@ public class RestDetailPeopleFragment extends CommonFragment {
 //                show(response);
             }
         });
-
     }
 
     public PeopleLeaveEntity.PeopleLeaveRrdBean getEntity() {
