@@ -185,6 +185,7 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
         newsRrdBean.setEndNum(endNum+"");
         newsRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
         newsRrdBean.setIsAndroid("1");
+        newsRrdBean.setNoIndex("?");
         List<NewsInfoEntity.NewsRrdBean> list = new ArrayList<>();
         list.add(newsRrdBean);
         newsInfoEntity.setNewsRrd(list);
@@ -281,6 +282,7 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
         intent.putExtra("title", adapter.getItem(position).getTitle());
         intent.putExtra("content", adapter.getItem(position).getContent());
         intent.putExtra("modifyTime",adapter.getItem(position).getModifyTime());
+        intent.putExtra("NoIndex",adapter.getItem(position).getNoIndex());
 //        intent.putExtra("picture1", adapter.getItem(position).getPicture1());
 //        intent.putExtra("picture2", adapter.getItem(position).getPicture2());
 //        intent.putExtra("picture3", adapter.getItem(position).getPicture3());

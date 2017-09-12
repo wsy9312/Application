@@ -45,6 +45,7 @@ public class NewsItemActivity extends AppCompatActivity {
     private TextView tvBody;
     private ProgressBar pb;
     private String tab;
+    private String noIndex;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,6 +58,7 @@ public class NewsItemActivity extends AppCompatActivity {
         title = intent.getStringExtra("title");
         content = intent.getStringExtra("content");
         modifytime = intent.getStringExtra("modifyTime");
+        noIndex = intent.getStringExtra("NoIndex");
         initview();
     }
 
@@ -74,7 +76,7 @@ public class NewsItemActivity extends AppCompatActivity {
         handToolbar.setDisplayHomeAsUpEnabled(true, this);
         handToolbar.setBackHome(false,0);
         handToolbar.setTitle(tab);
-        handToolbar.setTitleSize(20);
+        handToolbar.setTitleSize(18);
         this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -83,15 +85,16 @@ public class NewsItemActivity extends AppCompatActivity {
                 tvBody.setText(content);
             }
         });
-        getPictureFromTitle(title,modifytime,content);
+        pb.setVisibility(View.VISIBLE);
+        getPictureFromTitle();
     }
 
-    private void getPictureFromTitle(String title, String modifytime, String content) {
+    private void getPictureFromTitle() {
         NewsInfoEntity newsInfoEntity = new NewsInfoEntity();
         NewsInfoEntity.NewsRrdBean newsRrdBean = new NewsInfoEntity.NewsRrdBean();
-        newsRrdBean.setTitle(title);
-        newsRrdBean.setContent(content);
-        newsRrdBean.setModifyTime(modifytime);
+        newsRrdBean.setTitle("?");
+        newsRrdBean.setContent("?");
+        newsRrdBean.setModifyTime("?");
         newsRrdBean.setPicture1("?");
         newsRrdBean.setPicture2("?");
         newsRrdBean.setPicture3("?");
@@ -104,6 +107,7 @@ public class NewsItemActivity extends AppCompatActivity {
         newsRrdBean.setPicture5Len("?");
         newsRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
         newsRrdBean.setIsAndroid("1");
+        newsRrdBean.setNoIndex(noIndex);
         List<NewsInfoEntity.NewsRrdBean> list = new ArrayList<>();
         list.add(newsRrdBean);
         newsInfoEntity.setNewsRrd(list);
@@ -115,7 +119,6 @@ public class NewsItemActivity extends AppCompatActivity {
             @Override
             public void onSuccess(String json, NewsInfoEntity newsInfoEntity) throws InterruptedException {
                 if (newsInfoEntity != null && newsInfoEntity.getNewsRrd().size() > 0) {
-                    pb.setVisibility(View.GONE);
                     String picture1 = newsInfoEntity.getNewsRrd().get(0).getPicture1();
                     String picture2 = newsInfoEntity.getNewsRrd().get(0).getPicture2();
                     String picture3 = newsInfoEntity.getNewsRrd().get(0).getPicture3();
@@ -129,28 +132,34 @@ public class NewsItemActivity extends AppCompatActivity {
                     if (TextUtils.isEmpty(picture1)||picture1Len.equals("-9999")){
                         image1.setVisibility(View.GONE);
                     }else{
+                        image1.setVisibility(View.VISIBLE);
                         image1.setImageBitmap(stringtoBitmap(picture1));
                     }
                     if (TextUtils.isEmpty(picture2)||picture2Len.equals("-9999")){
                         image2.setVisibility(View.GONE);
                     }else{
+                        image2.setVisibility(View.VISIBLE);
                         image2.setImageBitmap(stringtoBitmap(picture2));
                     }
                     if (TextUtils.isEmpty(picture3)||picture3Len.equals("-9999")){
                         image3.setVisibility(View.GONE);
                     }else{
+                        image3.setVisibility(View.VISIBLE);
                         image3.setImageBitmap(stringtoBitmap(picture3));
                     }
                     if (TextUtils.isEmpty(picture4)||picture4Len.equals("-9999")){
                         image4.setVisibility(View.GONE);
                     }else{
+                        image4.setVisibility(View.VISIBLE);
                         image4.setImageBitmap(stringtoBitmap(picture4));
                     }
                     if (TextUtils.isEmpty(picture5)||picture5Len.equals("-9999")){
                         image5.setVisibility(View.GONE);
                     }else{
+                        image5.setVisibility(View.VISIBLE);
                         image5.setImageBitmap(stringtoBitmap(picture5));
                     }
+                    pb.setVisibility(View.GONE);
                 }
             }
 

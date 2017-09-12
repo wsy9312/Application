@@ -50,43 +50,53 @@
                 android:layout_height="wrap_content" />
 
             <ImageView
+                android:visibility="gone"
                 android:scaleType="fitXY"
                 android:layout_marginLeft="20dp"
                 android:layout_marginBottom="10dp"
                 android:layout_below="@+id/tv_news_body"
                 android:id="@+id/image_news_one"
+                android:src="@mipmap/ic_new_default"
                 android:layout_width="280dp"
                 android:layout_height="180dp"/>
             <ImageView
+                android:visibility="gone"
                 android:scaleType="fitXY"
                 android:layout_marginLeft="20dp"
                 android:layout_marginBottom="10dp"
                 android:layout_below="@+id/image_news_one"
                 android:id="@+id/image_news_two"
+                android:src="@mipmap/ic_new_default"
                 android:layout_width="280dp"
                 android:layout_height="180dp"/>
             <ImageView
+                android:visibility="gone"
                 android:scaleType="fitXY"
                 android:layout_marginLeft="20dp"
                 android:layout_marginBottom="10dp"
                 android:layout_below="@+id/image_news_two"
                 android:id="@+id/image_news_three"
+                android:src="@mipmap/ic_new_default"
                 android:layout_width="280dp"
                 android:layout_height="180dp"/>
             <ImageView
+                android:visibility="gone"
                 android:scaleType="fitXY"
                 android:layout_marginLeft="20dp"
                 android:layout_marginBottom="10dp"
                 android:layout_below="@+id/image_news_three"
                 android:id="@+id/image_news_four"
+                android:src="@mipmap/ic_new_default"
                 android:layout_width="280dp"
                 android:layout_height="180dp"/>
             <ImageView
+                android:visibility="gone"
                 android:scaleType="fitXY"
                 android:layout_marginLeft="20dp"
                 android:layout_marginBottom="10dp"
                 android:layout_below="@+id/image_news_four"
                 android:id="@+id/image_news_five"
+                android:src="@mipmap/ic_new_default"
                 android:layout_width="280dp"
                 android:layout_height="180dp"/>
         </LinearLayout>
@@ -94,8 +104,8 @@
 
     <ProgressBar
         android:id="@+id/news_pb"
-        android:layout_centerInParent="true"
-        android:visibility="gone"
+        android:layout_gravity="center"
+        android:visibility="visible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </LinearLayout>

@@ -1,14 +1,11 @@
 package com.example.hgtxxgl.application.fragment;
 
-import android.app.Activity;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 
-import com.example.hgtxxgl.application.activity.LibMainActivity;
 import com.example.hgtxxgl.application.entity.CarLeaveEntity;
 import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
 import com.example.hgtxxgl.application.rest.CommonFragment;
@@ -56,6 +53,7 @@ public class RestApproveCarFragment extends CommonFragment {
     public String[] getBottomButtonsTitles() {
         return new String[]{"同意","拒绝"};
     }
+    private String[] stringnull = new String[]{""};
 
     @Override
     public List<Group> getGroupList() {
@@ -69,6 +67,7 @@ public class RestApproveCarFragment extends CommonFragment {
         list.add(new HandInputGroup.Holder("流程类型", true, false, "车辆外出", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
         list.add(new HandInputGroup.Holder("审批状态", true, false, process == 0?"待审批":"已结束", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
         if (process == 1){
+            setButtonsTitles(stringnull);
             if (result == 1){
                 list.add(new HandInputGroup.Holder("审批结果", true, false, "已同意", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
             }else{
@@ -232,19 +231,19 @@ public class RestApproveCarFragment extends CommonFragment {
             public void onResponse(String response) {
                 if (response.toLowerCase().contains("ok")) {
                     show("审批成功");
-                    Intent intent = new Intent();
-                    intent.setClass(getContext(), LibMainActivity.class);
-                    intent.putExtra("item",getArguments().getInt("item"));
-                    intent.putExtra("tabIndex",getArguments().getInt("tabIndex"));
-                    getActivity().setResult(Activity.RESULT_OK,intent);
+//                    Intent intent = new Intent();
+//                    intent.setClass(getContext(), LibMainActivity.class);
+//                    intent.putExtra("item",getArguments().getInt("item"));
+//                    intent.putExtra("tabIndex",getArguments().getInt("tabIndex"));
+//                    getActivity().setResult(Activity.RESULT_OK,intent);
                     getActivity().finish();
                 }else{
                     show("审批流程已结束,审批失败");
-                    Intent intent = new Intent();
-                    intent.setClass(getContext(), LibMainActivity.class);
-                    intent.putExtra("item",getArguments().getInt("item"));
-                    intent.putExtra("tabIndex",getArguments().getInt("tabIndex"));
-                    getActivity().setResult(Activity.RESULT_OK,intent);
+//                    Intent intent = new Intent();
+//                    intent.setClass(getContext(), LibMainActivity.class);
+//                    intent.putExtra("item",getArguments().getInt("item"));
+//                    intent.putExtra("tabIndex",getArguments().getInt("tabIndex"));
+//                    getActivity().setResult(Activity.RESULT_OK,intent);
                     getActivity().finish();
                 }
             }
@@ -259,5 +258,6 @@ public class RestApproveCarFragment extends CommonFragment {
     public void setEntity(CarLeaveEntity.CarLeaveRrdBean entity) {
         this.entity = entity;
     }
+
 
 }

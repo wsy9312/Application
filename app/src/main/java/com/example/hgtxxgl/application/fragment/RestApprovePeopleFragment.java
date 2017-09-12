@@ -1,14 +1,11 @@
 package com.example.hgtxxgl.application.fragment;
 
-import android.app.Activity;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 
-import com.example.hgtxxgl.application.activity.LibMainActivity;
 import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
 import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
 import com.example.hgtxxgl.application.rest.CommonFragment;
@@ -55,6 +52,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
     public String[] getBottomButtonsTitles() {
         return new String[]{"同意","拒绝"};
     }
+    private String[] stringnull = new String[]{""};
 
     @Override
     public List<Group> getGroupList() {
@@ -69,6 +67,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
         list.add(new HandInputGroup.Holder("流程类型", true, false, "人员请假", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
         list.add(new HandInputGroup.Holder("审批状态", true, false, process == 0?"待审批":"已结束", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
         if (process == 1){
+            setButtonsTitles(stringnull);
             String substring = multiLevelResultStr.substring(0, levelNum);
             if (substring.endsWith("1")){
                 list.add(new HandInputGroup.Holder("审批结果", true, false, "已同意", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
@@ -121,45 +120,277 @@ public class RestApprovePeopleFragment extends CommonFragment {
         String intime = getArguments().getString("intime");
         String content = getArguments().getString("content");
         String levelnum = getArguments().getString("levelnum");
-        String process = getArguments().getString("process");
         String multiLevelResult = getArguments().getString("multiLevelResult");
         String modifyTime = getArguments().getString("modifyTime");
         String bcancel = getArguments().getString("bcancel");
         String bfillup = getArguments().getString("bfillup");
+        String process = getArguments().getString("process");
+        L.e(TAG,"审批levelnum:"+levelnum);
+        L.e(TAG,"审批multiLevelResult:"+multiLevelResult);
+        L.e(TAG,"审批process:"+process);
         noindex = getArguments().getString("noindex");
-        final PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
-        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
-        peopleLeaveRrdBean.setNo(no);
-        peopleLeaveRrdBean.setCurrentApproveNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-        peopleLeaveRrdBean.setApprover1No("?");
-        peopleLeaveRrdBean.setApprover2No("?");
-        peopleLeaveRrdBean.setApprover3No("?");
-        peopleLeaveRrdBean.setApprover4No("?");
-        peopleLeaveRrdBean.setApprover5No("?");
-        peopleLeaveRrdBean.setRegisterTime("?");
-        peopleLeaveRrdBean.setOutTime("?");
-        peopleLeaveRrdBean.setOnduty("?");
-        peopleLeaveRrdBean.setInTime("?");
-        peopleLeaveRrdBean.setContent("?");
-        peopleLeaveRrdBean.setActualOutTime("?");
-        peopleLeaveRrdBean.setActualInTime("?");
-        peopleLeaveRrdBean.setModifyTime("?");
-        peopleLeaveRrdBean.setMultiLevelResult("?");
-        peopleLeaveRrdBean.setProcess("?");
-        peopleLeaveRrdBean.setLevelNum("?");
-        peopleLeaveRrdBean.setBCancel("?");
-        peopleLeaveRrdBean.setBFillup("?");
-        peopleLeaveRrdBean.setNoIndex(noindex);
-        peopleLeaveRrdBean.setBeginNum("?");
-        peopleLeaveRrdBean.setEndNum("?");
-        peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-        peopleLeaveRrdBean.setIsAndroid("1");
+        PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
+        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean1 = new PeopleLeaveEntity.PeopleLeaveRrdBean();
+        peopleLeaveRrdBean1.setRegisterTime("?");
+        peopleLeaveRrdBean1.setOutTime("?");
+        peopleLeaveRrdBean1.setOnduty("?");
+        peopleLeaveRrdBean1.setInTime("?");
+        peopleLeaveRrdBean1.setContent("?");
+        peopleLeaveRrdBean1.setActualOutTime("?");
+        peopleLeaveRrdBean1.setActualInTime("?");
+        peopleLeaveRrdBean1.setModifyTime("?");
+        peopleLeaveRrdBean1.setMultiLevelResult("?");
+        peopleLeaveRrdBean1.setProcess("?");
+        peopleLeaveRrdBean1.setLevelNum("?");
+        peopleLeaveRrdBean1.setBCancel("?");
+        peopleLeaveRrdBean1.setBFillup("?");
+        peopleLeaveRrdBean1.setBeginNum("?");
+        peopleLeaveRrdBean1.setEndNum("?");
+        peopleLeaveRrdBean1.setIsAndroid("1");
+        peopleLeaveRrdBean1.setNoIndex(noindex);
+        peopleLeaveRrdBean1.setNo(no);
+        peopleLeaveRrdBean1.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+
+        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean2 = new PeopleLeaveEntity.PeopleLeaveRrdBean();
+        peopleLeaveRrdBean2.setRegisterTime("?");
+        peopleLeaveRrdBean2.setOutTime("?");
+        peopleLeaveRrdBean2.setOnduty("?");
+        peopleLeaveRrdBean2.setInTime("?");
+        peopleLeaveRrdBean2.setContent("?");
+        peopleLeaveRrdBean2.setActualOutTime("?");
+        peopleLeaveRrdBean2.setActualInTime("?");
+        peopleLeaveRrdBean2.setModifyTime("?");
+        peopleLeaveRrdBean2.setMultiLevelResult("?");
+        peopleLeaveRrdBean2.setProcess("?");
+        peopleLeaveRrdBean2.setLevelNum("?");
+        peopleLeaveRrdBean2.setBCancel("?");
+        peopleLeaveRrdBean2.setBFillup("?");
+        peopleLeaveRrdBean2.setBeginNum("?");
+        peopleLeaveRrdBean2.setEndNum("?");
+        peopleLeaveRrdBean2.setIsAndroid("1");
+        peopleLeaveRrdBean2.setNoIndex(noindex);
+        peopleLeaveRrdBean2.setNo(no);
+        peopleLeaveRrdBean2.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+
+        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean3 = new PeopleLeaveEntity.PeopleLeaveRrdBean();
+        peopleLeaveRrdBean3.setRegisterTime("?");
+        peopleLeaveRrdBean3.setOutTime("?");
+        peopleLeaveRrdBean3.setOnduty("?");
+        peopleLeaveRrdBean3.setInTime("?");
+        peopleLeaveRrdBean3.setContent("?");
+        peopleLeaveRrdBean3.setActualOutTime("?");
+        peopleLeaveRrdBean3.setActualInTime("?");
+        peopleLeaveRrdBean3.setModifyTime("?");
+        peopleLeaveRrdBean3.setMultiLevelResult("?");
+        peopleLeaveRrdBean3.setProcess("?");
+        peopleLeaveRrdBean3.setLevelNum("?");
+        peopleLeaveRrdBean3.setBCancel("?");
+        peopleLeaveRrdBean3.setBFillup("?");
+        peopleLeaveRrdBean3.setBeginNum("?");
+        peopleLeaveRrdBean3.setEndNum("?");
+        peopleLeaveRrdBean3.setIsAndroid("1");
+        peopleLeaveRrdBean3.setNoIndex(noindex);
+        peopleLeaveRrdBean3.setNo(no);
+        peopleLeaveRrdBean3.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+
+        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean4 = new PeopleLeaveEntity.PeopleLeaveRrdBean();
+        peopleLeaveRrdBean4.setRegisterTime("?");
+        peopleLeaveRrdBean4.setOutTime("?");
+        peopleLeaveRrdBean4.setOnduty("?");
+        peopleLeaveRrdBean4.setInTime("?");
+        peopleLeaveRrdBean4.setContent("?");
+        peopleLeaveRrdBean4.setActualOutTime("?");
+        peopleLeaveRrdBean4.setActualInTime("?");
+        peopleLeaveRrdBean4.setModifyTime("?");
+        peopleLeaveRrdBean4.setMultiLevelResult("?");
+        peopleLeaveRrdBean4.setProcess("?");
+        peopleLeaveRrdBean4.setLevelNum("?");
+        peopleLeaveRrdBean4.setBCancel("?");
+        peopleLeaveRrdBean4.setBFillup("?");
+        peopleLeaveRrdBean4.setBeginNum("?");
+        peopleLeaveRrdBean4.setEndNum("?");
+        peopleLeaveRrdBean4.setIsAndroid("1");
+        peopleLeaveRrdBean4.setNoIndex(noindex);
+        peopleLeaveRrdBean4.setNo(no);
+        peopleLeaveRrdBean4.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+
+        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean5 = new PeopleLeaveEntity.PeopleLeaveRrdBean();
+        peopleLeaveRrdBean5.setRegisterTime("?");
+        peopleLeaveRrdBean5.setOutTime("?");
+        peopleLeaveRrdBean5.setOnduty("?");
+        peopleLeaveRrdBean5.setInTime("?");
+        peopleLeaveRrdBean5.setContent("?");
+        peopleLeaveRrdBean5.setActualOutTime("?");
+        peopleLeaveRrdBean5.setActualInTime("?");
+        peopleLeaveRrdBean5.setModifyTime("?");
+        peopleLeaveRrdBean5.setMultiLevelResult("?");
+        peopleLeaveRrdBean5.setProcess("?");
+        peopleLeaveRrdBean5.setLevelNum("?");
+        peopleLeaveRrdBean5.setBCancel("?");
+        peopleLeaveRrdBean5.setBFillup("?");
+        peopleLeaveRrdBean5.setBeginNum("?");
+        peopleLeaveRrdBean5.setEndNum("?");
+        peopleLeaveRrdBean5.setIsAndroid("1");
+        peopleLeaveRrdBean5.setNoIndex(noindex);
+        peopleLeaveRrdBean5.setNo(no);
+        peopleLeaveRrdBean5.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+//        if (process.equals("1")){
+            if (multiLevelResult.equals("00000")){
+                if (levelnum.equals("1")){
+                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+                }if (levelnum.equals("2")){
+                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+                }if (levelnum.equals("3")){
+                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+                }if (levelnum.equals("4")){
+                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+                }if (levelnum.equals("5")){
+                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+                }
+            }else if (multiLevelResult.equals("10000")){
+                if (levelnum.equals("1")){
+                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+                }if (levelnum.equals("2")){
+                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+                }if (levelnum.equals("3")){
+                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+                }if (levelnum.equals("4")){
+                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+                }if (levelnum.equals("5")){
+                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+                }
+            }else if(multiLevelResult.equals("11000")){
+                if (levelnum.equals("1")){
+                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+                }if (levelnum.equals("2")){
+                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+                }if (levelnum.equals("3")){
+                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+                }if (levelnum.equals("4")){
+                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+                }if (levelnum.equals("5")){
+                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+                }
+            }else if(multiLevelResult.equals("11100")){
+                if (levelnum.equals("1")){
+                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+                }if (levelnum.equals("2")){
+                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+                }if (levelnum.equals("3")){
+                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+                }if (levelnum.equals("4")){
+                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+                }if (levelnum.equals("5")){
+                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+                }
+            }else if(multiLevelResult.equals("11110")){
+                if (levelnum.equals("1")){
+                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+                }if (levelnum.equals("2")){
+                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+                }if (levelnum.equals("3")){
+                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+                }if (levelnum.equals("4")){
+                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+                }if (levelnum.equals("5")){
+                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+                }
+            }else if(multiLevelResult.equals("11111")){
+                if (levelnum.equals("1")){
+                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+                }if (levelnum.equals("2")){
+                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+                }if (levelnum.equals("3")){
+                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+                }if (levelnum.equals("4")){
+                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+                }if (levelnum.equals("5")){
+                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+                }
+            }
+//        }else{
+//            if (levelnum.equals("5")){
+//                if (multiLevelResult.equals("00000")){
+//                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+//                }else if (multiLevelResult.equals("10000")){
+//                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+//                }else if (multiLevelResult.equals("11000")){
+//                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+//                }else if (multiLevelResult.equals("11100")){
+//                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+//                }else if (multiLevelResult.equals("11110")){
+//                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+//                }else{
+//                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+//                }
+//            } else if (levelnum.equals("4")){
+//                if (multiLevelResult.equals("00000")){
+//                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+//                }else if (multiLevelResult.equals("10000")){
+//                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+//                }else if (multiLevelResult.equals("11000")){
+//                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+//                }else if (multiLevelResult.equals("11100")){
+//                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+//                }else if (multiLevelResult.equals("11110")){
+//                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+//                }else{
+//                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+//                }
+//            } else if (levelnum.equals("3")){
+//                if (multiLevelResult.equals("00000")){
+//                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+//                }else if (multiLevelResult.equals("10000")){
+//                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+//                }else if (multiLevelResult.equals("11000")){
+//                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+//                }else if (multiLevelResult.equals("11100")){
+//                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+//                }else if (multiLevelResult.equals("11110")){
+//                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+//                }else{
+//                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+//                }
+//            } else if (levelnum.equals("2")){
+//                if (multiLevelResult.equals("00000")){
+//                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+//                }else if (multiLevelResult.equals("10000")){
+//                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+//                }else if (multiLevelResult.equals("11000")){
+//                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+//                }else if (multiLevelResult.equals("11100")){
+//                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+//                }else if (multiLevelResult.equals("11110")){
+//                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+//                }else{
+//                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+//                }
+//            } else if (levelnum.equals("1")){
+//                if (multiLevelResult.equals("00000")){
+//                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+//                }else if (multiLevelResult.equals("10000")){
+//                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+//                }else if (multiLevelResult.equals("11000")){
+//                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+//                }else if (multiLevelResult.equals("11100")){
+//                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+//                }else if (multiLevelResult.equals("11110")){
+//                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+//                }else{
+//                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+//                }
+//            }
+//        }
         List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
-        list.add(peopleLeaveRrdBean);
+        list.add(0,peopleLeaveRrdBean1);
+        list.add(1,peopleLeaveRrdBean2);
+        list.add(2,peopleLeaveRrdBean3);
+        list.add(3,peopleLeaveRrdBean4);
+        list.add(4,peopleLeaveRrdBean5);
         peopleLeaveEntity.setPeopleLeaveRrd(list);
         String toJson = new Gson().toJson(peopleLeaveEntity);
         String s="get "+toJson;
-        L.e(TAG,s);
+        L.e(TAG,"人员审批详情:"+s);
         String url = CommonValues.BASE_URL;
         HttpManager.getInstance().requestResultForm(url, s, PeopleLeaveEntity.class, new HttpManager.ResultCallback<PeopleLeaveEntity>() {
             @Override
@@ -190,6 +421,42 @@ public class RestApprovePeopleFragment extends CommonFragment {
 //                show(response);
             }
         });
+    }
+
+    public void setApproveNo(PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean1,
+                             PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean2,
+                             PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean3,
+                             PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean4,
+                             PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean5){
+        peopleLeaveRrdBean1.setApprover1No(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        peopleLeaveRrdBean1.setApprover2No("?");
+        peopleLeaveRrdBean1.setApprover3No("?");
+        peopleLeaveRrdBean1.setApprover4No("?");
+        peopleLeaveRrdBean1.setApprover5No("?");
+
+        peopleLeaveRrdBean2.setApprover1No("?");
+        peopleLeaveRrdBean2.setApprover2No(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        peopleLeaveRrdBean2.setApprover3No("?");
+        peopleLeaveRrdBean2.setApprover4No("?");
+        peopleLeaveRrdBean2.setApprover5No("?");
+
+        peopleLeaveRrdBean3.setApprover1No("?");
+        peopleLeaveRrdBean3.setApprover2No("?");
+        peopleLeaveRrdBean3.setApprover3No(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        peopleLeaveRrdBean3.setApprover4No("?");
+        peopleLeaveRrdBean3.setApprover5No("?");
+
+        peopleLeaveRrdBean4.setApprover1No("?");
+        peopleLeaveRrdBean4.setApprover2No("?");
+        peopleLeaveRrdBean4.setApprover3No("?");
+        peopleLeaveRrdBean4.setApprover4No(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        peopleLeaveRrdBean4.setApprover5No("?");
+
+        peopleLeaveRrdBean5.setApprover1No("?");
+        peopleLeaveRrdBean5.setApprover2No("?");
+        peopleLeaveRrdBean5.setApprover3No("?");
+        peopleLeaveRrdBean5.setApprover4No("?");
+        peopleLeaveRrdBean5.setApprover5No(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
     }
 
     @Override
@@ -243,19 +510,19 @@ public class RestApprovePeopleFragment extends CommonFragment {
             public void onResponse(String response) {
                 if (response.toLowerCase().contains("ok")) {
                     show("审批成功");
-                    Intent intent = new Intent();
-                    intent.setClass(getContext(), LibMainActivity.class);
-                    intent.putExtra("item",getArguments().getInt("item"));
-                    intent.putExtra("tabIndex",getArguments().getInt("tabIndex"));
-                    getActivity().setResult(Activity.RESULT_OK,intent);
+//                    Intent intent = new Intent();
+//                    intent.setClass(getContext(), LibMainActivity.class);
+//                    intent.putExtra("item",getArguments().getInt("item"));
+//                    intent.putExtra("tabIndex",getArguments().getInt("tabIndex"));
+//                    getActivity().setResult(Activity.RESULT_OK,intent);
                     getActivity().finish();
                 }else{
-                    show("审批流程已结束,审批失败");
-                    Intent intent = new Intent();
-                    intent.setClass(getContext(), LibMainActivity.class);
-                    intent.putExtra("item",getArguments().getInt("item"));
-                    intent.putExtra("tabIndex",getArguments().getInt("tabIndex"));
-                    getActivity().setResult(Activity.RESULT_OK,intent);
+                    show("您已审批,正在等待其他审批人审批");
+//                    Intent intent = new Intent();
+//                    intent.setClass(getContext(), LibMainActivity.class);
+//                    intent.putExtra("item",getArguments().getInt("item"));
+//                    intent.putExtra("tabIndex",getArguments().getInt("tabIndex"));
+//                    getActivity().setResult(Activity.RESULT_OK,intent);
                     getActivity().finish();
                 }
             }

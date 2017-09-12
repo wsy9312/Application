@@ -37,10 +37,6 @@ import java.util.List;
 import static com.example.hgtxxgl.application.R.id.iv_empty;
 import static com.example.hgtxxgl.application.utils.hand.PageConfig.PAGE_LEAVE_APPLY_PEOPLE;
 
-/**
- * Created by HGTXxgl on 2017/8/25.
- */
-
 public class MyCommissionCarFragment extends Fragment implements AdapterView.OnItemClickListener, SimpleListView.OnRefreshListener, View.OnClickListener {
     private int beginNum = 1;
     private int endNum = 500;
@@ -152,6 +148,7 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
         carLeaveRrdBean.setRegisterTime("?");
         carLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
         carLeaveRrdBean.setIsAndroid("1");
+        carLeaveRrdBean.setResult("?");
         List<CarLeaveEntity.CarLeaveRrdBean> list = new ArrayList<>();
         list.add(carLeaveRrdBean);
         carLeaveEntity.setCarLeaveRrd(list);
@@ -163,6 +160,9 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
             @Override
             public void onSuccess(final String json, final CarLeaveEntity carLeaveEntity1) throws InterruptedException {
                 if (carLeaveEntity1 != null && carLeaveEntity1.getCarLeaveRrd().size() > 0) {
+                    if (beginNum == 1 && endNum == 500){
+                        entityList.clear();
+                    }
                     for (int i = beginNum-1; i < endNum+1; i++) {
                         if (carLeaveEntity1.getCarLeaveRrd().get(i).getbCancel().equals("0")){
                             PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
@@ -279,6 +279,11 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CommonValues.MYCOMM){
+            if (beginNum == 1 && endNum == 500){
+                entityList.clear();
+            }
+            loadData(1,20);
+            adapter.notifyDataSetChanged();
             if (resultCode == Activity.RESULT_OK){
                 final int item = data.getExtras().getInt("item");
 //                final int tabIndex = data.getExtras().getInt("tabIndex");
@@ -315,6 +320,9 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
             List<CarLeaveEntity.CarLeaveRrdBean> list = new ArrayList<>();
             for (CarLeaveEntity.CarLeaveRrdBean bean : baseEntityList) {
                 if (("申请人:"+bean.getName()).replace(" ", "").contains(key)){
+                    list.add(bean);
+                }
+                if ((bean.getResult().equals("1")?"已审批":"未审批").replace(" ","").contains(key)){
                     list.add(bean);
                 }
                 if ((DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss")).replace(" ", "").contains(key)) {
