@@ -37,8 +37,6 @@ import com.mylhyl.zxing.scanner.encode.QREncode;
 
 import pub.devrel.easypermissions.EasyPermissions;
 
-import static org.litepal.LitePalApplication.getContext;
-
 //个人资料首页
 public class PersonalActivity extends AppCompatActivity implements View.OnClickListener, PersonalHandToolbar.OnButtonsClickCallback {
 
@@ -295,9 +293,9 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void run() {
                 if (isSaveSuccess) {
-                    ToastUtil.showToast(getContext(),"保存成功");
+                    ToastUtil.showToast(getApplicationContext(),"保存成功");
                 } else {
-                    ToastUtil.showToast(getContext(),"保存失败");
+                    ToastUtil.showToast(getApplicationContext(),"保存失败");
                 }
             }
         });

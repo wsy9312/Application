@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.ItemActivity;
-import com.example.hgtxxgl.application.activity.NewsItemActivity;
+import com.example.hgtxxgl.application.activity.NotificationItemActivity;
 import com.example.hgtxxgl.application.entity.MessageEntity;
 import com.example.hgtxxgl.application.fragment.notification.PollingService;
 import com.example.hgtxxgl.application.fragment.notification.PollingUtils;
@@ -69,7 +69,8 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
     private List<MessageEntity.MessageRrdBean> entityList = new ArrayList<>();
     private List<MessageEntity.MessageRrdBean> baseEntityList;
 
-    ListAdapter<MessageEntity.MessageRrdBean> adapter = new ListAdapter<MessageEntity.MessageRrdBean>((ArrayList<MessageEntity.MessageRrdBean>) entityList, R.layout.layout_notification) {
+    ListAdapter<MessageEntity.MessageRrdBean> adapter = new ListAdapter<MessageEntity.MessageRrdBean>
+            ((ArrayList<MessageEntity.MessageRrdBean>) entityList, R.layout.layout_notification) {
         @Override
         public void bindView(ViewHolder holder, MessageEntity.MessageRrdBean bean) {
             holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getTime(), "yyyy-MM-dd HH:mm:ss"));
@@ -234,8 +235,8 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
     }
 
     private void checkDetail(int position) {
-        Intent intent = new Intent(getActivity(), NewsItemActivity.class);
-        intent.putExtra("tab", "通知消息");
+        Intent intent = new Intent(getActivity(), NotificationItemActivity.class);
+        intent.putExtra("tab", "通知内容");
         intent.putExtra("content", adapter.getItem(position).getContent());
         intent.putExtra("modifyTime",adapter.getItem(position).getModifyTime());
         startActivity(intent);

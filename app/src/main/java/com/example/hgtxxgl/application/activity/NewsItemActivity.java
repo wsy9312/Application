@@ -50,7 +50,7 @@ public class NewsItemActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.item_layout);
+        setContentView(R.layout.item_layout_news);
         StatusBarUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
         SysExitUtil.activityList.add(NewsItemActivity.this);
         Intent intent = getIntent();

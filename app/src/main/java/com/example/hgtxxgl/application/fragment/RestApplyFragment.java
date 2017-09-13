@@ -18,6 +18,7 @@ import com.example.hgtxxgl.application.utils.hand.ToastUtil;
 import com.example.hgtxxgl.application.view.HandToolbar;
 import com.google.gson.Gson;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +58,7 @@ public class RestApplyFragment extends CommonFragment {
         baseHolder.add(new HandInputGroup.Holder("请假外出类型",true,false,"因公外出/请假",HandInputGroup.VALUE_TYPE.SELECT));
         baseHolder.add(new HandInputGroup.Holder("预计外出时间",true,false,"",HandInputGroup.VALUE_TYPE.DATE));
         baseHolder.add(new HandInputGroup.Holder("预计归来时间",true,false,"",HandInputGroup.VALUE_TYPE.DATE));
-        baseHolder.add(new HandInputGroup.Holder("请假原因",false,false,"",HandInputGroup.VALUE_TYPE.TEXTFILED));
+        baseHolder.add(new HandInputGroup.Holder("申请事由",false,false,"",HandInputGroup.VALUE_TYPE.TEXTFILED));
         baseHolder.add(new HandInputGroup.Holder("是否后补请假",false,false,"否",HandInputGroup.VALUE_TYPE.SELECT));
         groups.add(0,new Group("基本信息", null,true,null,baseHolder));
 
@@ -100,7 +101,7 @@ public class RestApplyFragment extends CommonFragment {
                         //预计归来时间
                         String realValueinTime = getDisplayValueByKey("预计归来时间").getRealValue()+":00";
                         //请假原因
-                        String realValueContent = getDisplayValueByKey("请假原因").getRealValue();
+                        String realValueContent = getDisplayValueByKey("申请事由").getRealValue();
                         //是否后补请假
                         String realValueFillup = getDisplayValueByKey("是否后补请假").getRealValue();
                         //因公或因私外出/请假
@@ -266,4 +267,31 @@ public class RestApplyFragment extends CommonFragment {
         notifyDataSetChanged();
     }
 
+    @Override
+    public void onDataChanged(HandInputGroup.Holder holder) throws ParseException {
+        Group group = getGroup().get(0);
+        if (holder.getKey().equals("预计外出时间")){
+            HandInputGroup.Holder holder1 = group.getHolderByKey("预计归来时间");
+            if (!holder1.getRealValue().isEmpty()){
+                String leave = holder.getRealValue();
+                String returnt = holder1.getRealValue();
+                int getday = getday(leave, returnt);
+                if (getday == -1) {
+                    holder.setDispayValue("");
+                    ToastUtil.showToast(getContext(),"请正确选择外出、归来时间");
+                }
+            }
+        }else if (holder.getKey().equals("预计归来时间")){
+            HandInputGroup.Holder holder1 = group.getHolderByKey("预计外出时间");
+            if (!holder1.getRealValue().isEmpty()){
+                String returnt = holder.getRealValue();
+                String leave = holder1.getRealValue();
+                int getday = getday(leave, returnt);
+                if (getday == -1) {
+                    holder.setDispayValue("");
+                    ToastUtil.showToast(getContext(),"请正确选择外出、归来时间");
+                }
+            }
+        }
+    }
 }

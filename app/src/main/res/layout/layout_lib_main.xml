@@ -93,14 +93,14 @@
             android:id="@+id/rb_main_leave_launch_total"
             style="@style/BottomBarItem"
             android:drawableTop="@drawable/home_page_radio_button_post_flow"
-            android:text="我申请的" />
+            android:text="申请事项" />
 
         <RadioButton
             android:enabled="false"
             android:id="@+id/rb_main_leave_todo_total"
             style="@style/BottomBarItem"
             android:drawableTop="@drawable/home_page_radio_button_post_personal"
-            android:text="我的待办" />
+            android:text="审批事项" />
 
     </RadioGroup>
     <LinearLayout

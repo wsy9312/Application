@@ -67,7 +67,8 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
     private List<NewsInfoEntity.NewsRrdBean> entityList = new ArrayList<>();
     private List<NewsInfoEntity.NewsRrdBean> baseEntityList;
 
-    ListAdapter<NewsInfoEntity.NewsRrdBean> adapter = new ListAdapter<NewsInfoEntity.NewsRrdBean>((ArrayList<NewsInfoEntity.NewsRrdBean>) entityList, R.layout.layout_news) {
+    ListAdapter<NewsInfoEntity.NewsRrdBean> adapter = new ListAdapter<NewsInfoEntity.NewsRrdBean>
+            ((ArrayList<NewsInfoEntity.NewsRrdBean>) entityList, R.layout.layout_news) {
 
         private Bitmap bitmap;
 

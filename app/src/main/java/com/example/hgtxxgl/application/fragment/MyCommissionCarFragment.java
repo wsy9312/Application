@@ -282,7 +282,7 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
             if (beginNum == 1 && endNum == 500){
                 entityList.clear();
             }
-            loadData(1,20);
+            loadData(1,500);
             adapter.notifyDataSetChanged();
             if (resultCode == Activity.RESULT_OK){
                 final int item = data.getExtras().getInt("item");

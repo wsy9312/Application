@@ -151,7 +151,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
 
     //初始化设置toolbar标题
     private void initTitle() {
-        title = new String[]{"新闻中心","通知中心"/*,"车辆审批"*//*,"车辆查看"*//*,"人员审批"*//*,"人员查看"*/,"我申请的","我的待办"};
+        title = new String[]{"新闻中心","通知中心"/*,"车辆审批"*//*,"车辆查看"*//*,"人员审批"*//*,"人员查看"*/,"申请事项","审批事项"};
     }
 
     @Override
