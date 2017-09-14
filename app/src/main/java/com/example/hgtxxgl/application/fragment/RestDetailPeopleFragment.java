@@ -104,7 +104,7 @@ public class RestDetailPeopleFragment extends CommonFragment {
         peopleLeaveRrdBean.setNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
         peopleLeaveRrdBean.setIsAndroid("1");
         peopleLeaveRrdBean.setNoIndex(noindex);
-        if (title.equals("(是否取消请假)是")){
+        if (title.equals("(取消请假)是")){
             peopleLeaveRrdBean.setBCancel("1");
         }else {
             peopleLeaveRrdBean.setBCancel("0");

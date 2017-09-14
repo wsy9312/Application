@@ -18,7 +18,7 @@
             android:paddingLeft="2dp"
             android:ellipsize="end"
             android:lines="1"
-            android:textSize="15sp"
+            android:textSize="16sp"
             android:textColor="#333333"
             tools:text="这是新闻标题" />
         <TextView
@@ -30,8 +30,8 @@
             android:id="@+id/tv_sketch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="11sp"
-            android:maxLines="3"
+            android:textSize="13sp"
+            android:maxLines="2"
             android:ellipsize="end"
             android:textColor="#0967AE"/>
         <TextView
@@ -45,7 +45,7 @@
             android:paddingRight="0dp"
             android:ellipsize="end"
             android:lineSpacingExtra="5sp"
-            android:textSize="11sp"
+            android:textSize="13sp"
             android:textColor="#999999"/>
     </RelativeLayout>
     <ImageView
