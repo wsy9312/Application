@@ -87,7 +87,7 @@ public class RestDetailPeopleFragment extends CommonFragment {
         toolbar.setTitleSize(18);
     }
 
-    private String[] stringbutton = new String[]{"(是否取消请假)是","否"};
+    private String[] stringbutton = new String[]{"(取消请假)是","否"};
     private String[] stringnull = new String[]{""};
 
     @Override

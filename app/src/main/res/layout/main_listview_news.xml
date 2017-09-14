@@ -45,38 +45,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <com.getbase.floatingactionbutton.FloatingActionsMenu
-        android:id="@+id/multiple_actions_up"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="20dp"
-        fab:fab_addButtonColorNormal="@color/add1"
-        fab:fab_addButtonColorPressed="@color/main_page_blue_light_pressed"
-        fab:fab_addButtonPlusIconColor="@color/white"
-        fab:fab_addButtonSize="normal"
-        fab:fab_expandDirection="up"
-        fab:fab_labelStyle="@style/menu_labels_style" >
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/button_fbc_people"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            fab:fab_colorNormal="@color/main_page_blue_light_pressed"
-            fab:fab_colorPressed="@color/main_page_blue_light_pressed"
-            fab:fab_icon="@mipmap/ic_me"
-            fab:fab_title="个人中心" />
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/button_fbc_apply"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            fab:fab_colorNormal="@color/blue_semi_transparent"
-            fab:fab_colorPressed="@color/blue_semi_transparent_pressed"
-            fab:fab_icon="@mipmap/ic_action_edit"
-            fab:fab_title="发起申请" />
-    </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
 </RelativeLayout>

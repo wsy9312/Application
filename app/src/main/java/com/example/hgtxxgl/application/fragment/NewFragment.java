@@ -17,7 +17,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
-import com.example.hgtxxgl.application.activity.ItemActivity;
 import com.example.hgtxxgl.application.activity.NewsItemActivity;
 import com.example.hgtxxgl.application.entity.NewsInfoEntity;
 import com.example.hgtxxgl.application.utils.GlideImageLoader;
@@ -26,10 +25,7 @@ import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.DataUtil;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.ListAdapter;
-import com.example.hgtxxgl.application.utils.hand.PageConfig;
 import com.example.hgtxxgl.application.view.SimpleListView;
-import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.gson.Gson;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
@@ -37,9 +33,7 @@ import com.youth.banner.listener.OnBannerListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.hgtxxgl.application.utils.hand.PageConfig.PAGE_LEAVE_APPLY_PEOPLE;
-
-public class NewFragment extends Fragment implements SimpleListView.OnRefreshListener, AdapterView.OnItemClickListener, OnBannerListener, View.OnClickListener {
+public class NewFragment extends Fragment implements SimpleListView.OnRefreshListener, AdapterView.OnItemClickListener, OnBannerListener{
     private int beginNum = 1;
     private int endNum = 6;
     private boolean hasMore = true;
@@ -48,9 +42,6 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
     private static final String TAG = "NewFragment";
     SimpleListView lv;
     private List<Bitmap> bitmapList;
-    private FloatingActionButton fbcPeople;
-    private FloatingActionButton fbcApply;
-    private FloatingActionsMenu fbcMenu;
 
     public NewFragment() {
 
@@ -144,28 +135,7 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
         });
         lv.setOnRefreshListener(this);
         lv.setOnItemClickListener(this);
-        fbcPeople = (FloatingActionButton) view.findViewById(R.id.button_fbc_people);
-        fbcApply = (FloatingActionButton) view.findViewById(R.id.button_fbc_apply);
-        fbcMenu = (FloatingActionsMenu) view.findViewById(R.id.multiple_actions_up);
-        fbcPeople.setOnClickListener(this);
-        fbcApply.setOnClickListener(this);
         return view;
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.button_fbc_people:
-                startActivity(new Intent(getContext(),PersonalActivity.class));
-                fbcMenu.collapse();
-                break;
-            case R.id.button_fbc_apply:
-                Intent intent = new Intent(getActivity(), ItemActivity.class);
-                intent.putExtra(PageConfig.PAGE_CODE, PAGE_LEAVE_APPLY_PEOPLE);
-                startActivity(intent);
-                fbcMenu.collapse();
-                break;
-        }
     }
 
     void loadData(final int beginNum, final int endNum) {

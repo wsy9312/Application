@@ -45,7 +45,7 @@
         android:textColor="@color/background"
         android:id="@+id/btn_toother"
         android:background="@drawable/rec_normal_cancelleave"
-        android:text="(是否取消请假)是"
+        android:text="(取消请假)是"
         />
     <!--android:drawableLeft="@drawable/ic_approve"-->
     <Button
@@ -59,7 +59,7 @@
         android:textColor="@color/background"
         android:id="@+id/btn_toother2"
         android:background="@drawable/rec_normal_cancelleave"
-        android:text="(是否取消外出)是"
+        android:text="(取消外出)是"
         />
     <!--android:drawableLeft="@drawable/ic_approve"-->
     <Button

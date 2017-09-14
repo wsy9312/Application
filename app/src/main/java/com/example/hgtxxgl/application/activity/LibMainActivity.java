@@ -33,11 +33,14 @@ import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
 import com.example.hgtxxgl.application.view.BadgeView;
 import com.example.hgtxxgl.application.view.HandToolbar;
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
+import static com.example.hgtxxgl.application.utils.hand.PageConfig.PAGE_LEAVE_APPLY_PEOPLE;
 import static org.litepal.LitePalApplication.getContext;
 
 //首页
-public class LibMainActivity extends AppCompatActivity implements HandToolbar.OnButtonsClickCallback {
+public class LibMainActivity extends AppCompatActivity implements HandToolbar.OnButtonsClickCallback, View.OnClickListener {
 
     private static final String TAG = "LibMainActivity";
     private HandToolbar handToolbar;
@@ -68,6 +71,9 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
     TodoTotalBroadcast todoTotalBroadcast;
     NotificationBroadcast notificationBroadcast;
     HorizontalScrollView scrollView;
+    private FloatingActionButton fbcPeople;
+    private FloatingActionButton fbcApply;
+    private FloatingActionsMenu fbcMenu;
 
     //底部菜单栏单选按钮监听器
     private RadioGroup.OnCheckedChangeListener listener = new RadioGroup.OnCheckedChangeListener() {
@@ -191,6 +197,11 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
             }
 
         });
+        fbcPeople = (FloatingActionButton) findViewById(R.id.button_fbc_people);
+        fbcApply = (FloatingActionButton) findViewById(R.id.button_fbc_apply);
+        fbcMenu = (FloatingActionsMenu) findViewById(R.id.multiple_actions_up);
+        fbcPeople.setOnClickListener(this);
+        fbcApply.setOnClickListener(this);
 //        Display d = getWindowManager().getDefaultDisplay();
 //        DisplayMetrics dm = new DisplayMetrics();
 //        d.getMetrics(dm);
@@ -402,5 +413,21 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
             }
         });
         builder.create().show();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.button_fbc_people:
+                startActivity(new Intent(this,PersonalActivity.class));
+                fbcMenu.collapse();
+                break;
+            case R.id.button_fbc_apply:
+                Intent intent = new Intent(this, ItemActivity.class);
+                intent.putExtra(PageConfig.PAGE_CODE, PAGE_LEAVE_APPLY_PEOPLE);
+                startActivity(intent);
+                fbcMenu.collapse();
+                break;
+        }
     }
 }

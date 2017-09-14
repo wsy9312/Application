@@ -77,8 +77,9 @@ public class RestDetailCarFragment extends CommonFragment {
         toolbar.setTitleSize(18);
     }
 
-    private String[] stringbutton = new String[]{"(是否取消外出)是","否"};
+    private String[] stringbutton = new String[]{"(取消外出)是","否"};
     private String[] stringnull = new String[]{""};
+
     @Override
     public String[] getBottomButtonsTitles() {
         return stringbutton;
