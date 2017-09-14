@@ -30,6 +30,7 @@ import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.ImgUtils;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
+import com.example.hgtxxgl.application.view.MyImageDialog;
 import com.example.hgtxxgl.application.view.PersonalHandToolbar;
 import com.google.zxing.client.result.ParsedResultType;
 import com.mylhyl.zxing.scanner.common.Intents;
@@ -238,6 +239,9 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
                 //权限已经被授予，在这里直接写要执行的相应方法即可
                 ScannerActivity.gotoActivity(PersonalActivity.this, true, 1);
             }
+        }else if (views.equals(PersonalHandToolbar.VIEWS.LEFT_BUTTON)){
+            MyImageDialog dialog = new MyImageDialog(this,0,0,0,bitmap,R.style.AnimBottom);
+            dialog.show();
         }
     }
 

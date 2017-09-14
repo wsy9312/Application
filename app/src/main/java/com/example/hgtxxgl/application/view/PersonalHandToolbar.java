@@ -76,6 +76,13 @@ public class PersonalHandToolbar extends FrameLayout {
             return;
         }
         tvLeft.setVisibility(VISIBLE);
+        tvLeft.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (callback != null)
+                    callback.onButtonClickListner(VIEWS.LEFT_BUTTON, -1);
+            }
+        });
     }
 
     public void setRightButton(int resDrawable) {

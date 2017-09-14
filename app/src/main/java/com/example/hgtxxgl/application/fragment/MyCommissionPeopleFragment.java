@@ -75,9 +75,9 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
                 if (bean.getProcess().equals("1")){
                     holder.setImageResource(R.id.image_flow,R.drawable.ic_approved);
                 }else if (bean.getProcess().equals("0")){
-                    L.e(TAG,bean.getLevelNum());
-                    L.e(TAG,bean.getMultiLevelResult());
                     if (bean.getResult().equals("1")){
+                        L.e(TAG,"123312---"+bean.getLevelNum());
+                        L.e(TAG,bean.getMultiLevelResult());
                         holder.setImageResource(R.id.image_flow,R.drawable.ic_approved);
                     }else {
                         holder.setImageResource(R.id.image_flow,R.drawable.ic_no_approve);

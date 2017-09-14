@@ -22,13 +22,14 @@ import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.view.HandToolbar;
+import com.example.hgtxxgl.application.view.MyImageDialog;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 
 //新闻详情页
-public class NewsItemActivity extends AppCompatActivity {
+public class NewsItemActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "NewsItemActivity";
     private ImageView image1;
@@ -46,6 +47,11 @@ public class NewsItemActivity extends AppCompatActivity {
     private ProgressBar pb;
     private String tab;
     private String noIndex;
+    private Bitmap bitmap1;
+    private Bitmap bitmap2;
+    private Bitmap bitmap3;
+    private Bitmap bitmap4;
+    private Bitmap bitmap5;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,6 +77,11 @@ public class NewsItemActivity extends AppCompatActivity {
         image3 = (ImageView) findViewById(R.id.image_news_three);
         image4 = (ImageView) findViewById(R.id.image_news_four);
         image5 = (ImageView) findViewById(R.id.image_news_five);
+        image1.setOnClickListener(this);
+        image2.setOnClickListener(this);
+        image3.setOnClickListener(this);
+        image4.setOnClickListener(this);
+        image5.setOnClickListener(this);
         pb = (ProgressBar) findViewById(R.id.news_pb);
         handToolbar = (HandToolbar) findViewById(R.id.itemactivity_handtoolbar);
         handToolbar.setDisplayHomeAsUpEnabled(true, this);
@@ -129,35 +140,40 @@ public class NewsItemActivity extends AppCompatActivity {
                     String picture3Len = newsInfoEntity.getNewsRrd().get(0).getPicture3Len();
                     String picture4Len = newsInfoEntity.getNewsRrd().get(0).getPicture4Len();
                     String picture5Len = newsInfoEntity.getNewsRrd().get(0).getPicture5Len();
+                    bitmap1 = stringtoBitmap(picture1);
+                    bitmap2 = stringtoBitmap(picture2);
+                    bitmap3 = stringtoBitmap(picture3);
+                    bitmap4 = stringtoBitmap(picture4);
+                    bitmap5 = stringtoBitmap(picture5);
                     if (TextUtils.isEmpty(picture1)||picture1Len.equals("-9999")){
                         image1.setVisibility(View.GONE);
                     }else{
                         image1.setVisibility(View.VISIBLE);
-                        image1.setImageBitmap(stringtoBitmap(picture1));
+                        image1.setImageBitmap(bitmap1);
                     }
                     if (TextUtils.isEmpty(picture2)||picture2Len.equals("-9999")){
                         image2.setVisibility(View.GONE);
                     }else{
                         image2.setVisibility(View.VISIBLE);
-                        image2.setImageBitmap(stringtoBitmap(picture2));
+                        image2.setImageBitmap(bitmap2);
                     }
                     if (TextUtils.isEmpty(picture3)||picture3Len.equals("-9999")){
                         image3.setVisibility(View.GONE);
                     }else{
                         image3.setVisibility(View.VISIBLE);
-                        image3.setImageBitmap(stringtoBitmap(picture3));
+                        image3.setImageBitmap(bitmap3);
                     }
                     if (TextUtils.isEmpty(picture4)||picture4Len.equals("-9999")){
                         image4.setVisibility(View.GONE);
                     }else{
                         image4.setVisibility(View.VISIBLE);
-                        image4.setImageBitmap(stringtoBitmap(picture4));
+                        image4.setImageBitmap(bitmap4);
                     }
                     if (TextUtils.isEmpty(picture5)||picture5Len.equals("-9999")){
                         image5.setVisibility(View.GONE);
                     }else{
                         image5.setVisibility(View.VISIBLE);
-                        image5.setImageBitmap(stringtoBitmap(picture5));
+                        image5.setImageBitmap(bitmap5);
                     }
                     pb.setVisibility(View.GONE);
                 }
@@ -194,4 +210,24 @@ public class NewsItemActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.image_news_one:
+                new MyImageDialog(this,0,0,0,bitmap1,R.style.AlertDialog_AppCompat_Transparent).show();
+                break;
+            case R.id.image_news_two:
+                new MyImageDialog(this,0,0,0,bitmap2,R.style.AlertDialog_AppCompat_Transparent).show();
+                break;
+            case R.id.image_news_three:
+                new MyImageDialog(this,0,0,0,bitmap3,R.style.AlertDialog_AppCompat_Transparent).show();
+                break;
+            case R.id.image_news_four:
+                new MyImageDialog(this,0,0,0,bitmap4,R.style.AlertDialog_AppCompat_Transparent).show();
+                break;
+            case R.id.image_news_five:
+                new MyImageDialog(this,0,0,0,bitmap5,R.style.AlertDialog_AppCompat_Transparent).show();
+                break;
+        }
+    }
 }
