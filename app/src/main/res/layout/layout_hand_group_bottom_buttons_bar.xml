@@ -9,13 +9,15 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:enabled="false"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:id="@+id/btn_approve"
         android:textColor="@color/background"
         android:background="@drawable/rec_normal_submin"
         android:padding="@dimen/activity_horizontal_margin"
-        android:text="同意"
-        android:visibility="gone" />
+        android:text="同 意"
+        android:visibility="gone"
+        android:drawableStart="@drawable/ic_is"
+        android:drawableLeft="@drawable/ic_is"/>
     <!--android:drawableLeft="@drawable/ic_approve"
     android:drawableStart="@drawable/ic_approve"-->
 
@@ -23,71 +25,78 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="拒绝"
+        android:text="拒 绝"
         android:id="@+id/btn_reject"
         android:enabled="false"
         android:visibility="gone"
         android:textColor="@color/background"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:padding="@dimen/activity_horizontal_margin"
-        android:background="@drawable/rec_normal_no_cancelleave" />
+        android:background="@drawable/rec_normal_no_cancelleave"
+        android:drawableStart="@drawable/ic_no"
+        android:drawableLeft="@drawable/ic_no"/>
     <!--android:drawableStart="@drawable/ic_reject"
     android:drawableLeft="@drawable/ic_reject"-->
 
     <Button
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:visibility="visible"
-        android:textSize="16sp"
+        android:visibility="gone"
+        android:textSize="18sp"
         android:layout_weight="1"
         android:enabled="false"
         android:padding="@dimen/activity_horizontal_margin"
         android:textColor="@color/background"
         android:id="@+id/btn_toother"
         android:background="@drawable/rec_normal_cancelleave"
-        android:text="(取消请假)是"
-        />
+        android:text="(取消请假) 是"
+        android:drawableStart="@drawable/ic_is"
+        android:drawableLeft="@drawable/ic_is"/>
     <!--android:drawableLeft="@drawable/ic_approve"-->
     <Button
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:visibility="gone"
         android:layout_weight="1"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:enabled="false"
         android:padding="@dimen/activity_horizontal_margin"
         android:textColor="@color/background"
         android:id="@+id/btn_toother2"
         android:background="@drawable/rec_normal_cancelleave"
-        android:text="(取消外出)是"
-        />
+        android:text="(取消外出) 是"
+        android:drawableStart="@drawable/ic_is"
+        android:drawableLeft="@drawable/ic_is"/>
     <!--android:drawableLeft="@drawable/ic_approve"-->
     <Button
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:visibility="gone"
         android:layout_weight="1"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:enabled="false"
         android:padding="@dimen/activity_horizontal_margin"
         android:textColor="@color/background"
         android:id="@+id/btn_toother1"
         android:background="@drawable/rec_normal_no_cancelleave"
         android:text="否"
-        />
+        android:drawableStart="@drawable/ic_no"
+        android:drawableLeft="@drawable/ic_no"/>
     <!--android:drawableStart="@drawable/ic_reject"-->
     <Button
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="提交"
-        android:textSize="16sp"
+        android:text="提 交"
+        android:textSize="18sp"
         android:id="@+id/btn_start"
         android:enabled="false"
         android:visibility="gone"
         android:textColor="@color/background"
         android:padding="@dimen/activity_horizontal_margin"
-        android:background="@drawable/rec_normal_submin" />
+        android:background="@drawable/rec_normal_submin"
+        android:drawableStart="@drawable/ic_is"
+        android:drawableLeft="@drawable/ic_is"/>
     <!--android:drawableStart="@drawable/ic_start"
     android:drawableLeft="@drawable/ic_start"-->
     <Button

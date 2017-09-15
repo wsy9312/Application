@@ -77,7 +77,7 @@ public class RestDetailCarFragment extends CommonFragment {
         toolbar.setTitleSize(18);
     }
 
-    private String[] stringbutton = new String[]{"(取消外出)是","否"};
+    private String[] stringbutton = new String[]{"(取消外出) 是","否"};
     private String[] stringnull = new String[]{""};
 
     @Override
@@ -94,7 +94,7 @@ public class RestDetailCarFragment extends CommonFragment {
         carLeaveRrdBean.setNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
         carLeaveRrdBean.setIsAndroid("1");
         carLeaveRrdBean.setNoIndex(noindex);
-        if (title.equals("(取消外出)是")){
+        if (title.equals("(取消外出) 是")){
             carLeaveRrdBean.setbCancel("1");
         }else {
             carLeaveRrdBean.setbCancel("0");

@@ -74,13 +74,13 @@ public class RestApplyFragment extends CommonFragment {
 
     @Override
     public String[] getBottomButtonsTitles() {
-        return new String[]{"提交"};
+        return new String[]{"提 交"};
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public void onBottomButtonsClick(final String title, final List<CommonFragment.Group> groups) {
-        if (title.equals("提交")){
+        if (title.equals("提 交")){
             AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
             builder.setMessage("是否确认提交?");
             builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {

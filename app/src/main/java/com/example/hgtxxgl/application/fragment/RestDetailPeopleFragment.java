@@ -87,7 +87,7 @@ public class RestDetailPeopleFragment extends CommonFragment {
         toolbar.setTitleSize(18);
     }
 
-    private String[] stringbutton = new String[]{"(取消请假)是","否"};
+    private String[] stringbutton = new String[]{"(取消请假) 是","否"};
     private String[] stringnull = new String[]{""};
 
     @Override
@@ -104,7 +104,7 @@ public class RestDetailPeopleFragment extends CommonFragment {
         peopleLeaveRrdBean.setNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
         peopleLeaveRrdBean.setIsAndroid("1");
         peopleLeaveRrdBean.setNoIndex(noindex);
-        if (title.equals("(取消请假)是")){
+        if (title.equals("(取消请假) 是")){
             peopleLeaveRrdBean.setBCancel("1");
         }else {
             peopleLeaveRrdBean.setBCancel("0");

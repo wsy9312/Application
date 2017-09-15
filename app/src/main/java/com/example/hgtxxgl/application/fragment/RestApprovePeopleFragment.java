@@ -50,7 +50,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
 
     @Override
     public String[] getBottomButtonsTitles() {
-        return new String[]{"同意","拒绝"};
+        return new String[]{"同 意","拒 绝"};
     }
     private String[] stringnull = new String[]{""};
 
@@ -465,7 +465,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
         PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
         peopleLeaveRrdBean.setCurrentApproveNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
         peopleLeaveRrdBean.setNoIndex(noindex);
-        if (title.equals("同意")){
+        if (title.equals("同 意")){
             peopleLeaveRrdBean.setResult("1");
         }else {
             peopleLeaveRrdBean.setResult("0");

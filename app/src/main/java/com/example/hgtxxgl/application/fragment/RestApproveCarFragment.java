@@ -51,7 +51,7 @@ public class RestApproveCarFragment extends CommonFragment {
 
     @Override
     public String[] getBottomButtonsTitles() {
-        return new String[]{"同意","拒绝"};
+        return new String[]{"同 意","拒 绝"};
     }
     private String[] stringnull = new String[]{""};
 
@@ -186,7 +186,7 @@ public class RestApproveCarFragment extends CommonFragment {
         CarLeaveEntity.CarLeaveRrdBean carLeaveRrdBean = new CarLeaveEntity.CarLeaveRrdBean();
         carLeaveRrdBean.setApproverNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
         carLeaveRrdBean.setNoIndex(noindex);
-        if (title.equals("同意")){
+        if (title.equals("同 意")){
             carLeaveRrdBean.setResult("1");
         }else {
             carLeaveRrdBean.setResult("0");
