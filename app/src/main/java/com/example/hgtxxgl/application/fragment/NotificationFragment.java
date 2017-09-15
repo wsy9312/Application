@@ -19,6 +19,7 @@ import com.example.hgtxxgl.application.entity.MessageEntity;
 import com.example.hgtxxgl.application.fragment.notification.PollingService;
 import com.example.hgtxxgl.application.fragment.notification.PollingUtils;
 import com.example.hgtxxgl.application.utils.DateUtil;
+import com.example.hgtxxgl.application.utils.TimeUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.DataUtil;
@@ -65,7 +66,7 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
             ((ArrayList<MessageEntity.MessageRrdBean>) entityList, R.layout.layout_notification) {
         @Override
         public void bindView(ViewHolder holder, MessageEntity.MessageRrdBean bean) {
-            holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getTime(), "yyyy-MM-dd HH:mm:ss"));
+            holder.setText(R.id.tv_date, TimeUtil.getTimeFormatText(DataUtil.parseDateToText(bean.getModifyTime())));
             holder.setText(R.id.tv_sketch, bean.getContent());
         }
     };
@@ -231,7 +232,7 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
                 if (bean.getContent().replace(" ", "").contains(key)) {
                     list.add(bean);
                 }
-                if (DataUtil.parseDateByFormat(bean.getTime(), "yyyy-MM-dd HH:mm:ss").replace(" ", "").contains(key)) {
+                if (TimeUtil.getTimeFormatText(DataUtil.parseDateToText(bean.getModifyTime())).replace(" ", "").contains(key)) {
                     list.add(bean);
                 }
             }

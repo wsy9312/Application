@@ -65,6 +65,16 @@ public class DataUtil {
         }
 
     }
+    public static Date parseDateToText(String dateStr){
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date= null;
+        try {
+            date = sdf.parse(dateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
 
     /**
      * 转换字符串到正整型，转换失败或者为负数则返回-1

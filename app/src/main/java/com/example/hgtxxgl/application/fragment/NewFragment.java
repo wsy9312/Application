@@ -20,6 +20,7 @@ import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.NewsItemActivity;
 import com.example.hgtxxgl.application.entity.NewsInfoEntity;
 import com.example.hgtxxgl.application.utils.GlideImageLoader;
+import com.example.hgtxxgl.application.utils.TimeUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.DataUtil;
@@ -69,7 +70,8 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
             holder.setText(R.id.tv_title, bean.getTitle());
             holder.setBitmap(R.id.image_news,bitmap);
             holder.setText(R.id.tv_sketch, bean.getContent());
-            holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
+//            holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
+            holder.setText(R.id.tv_date, TimeUtil.getTimeFormatText(DataUtil.parseDateToText(bean.getModifyTime())));
         }
 
         @Override
@@ -284,7 +286,7 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
                 if (bean.getContent().replace(" ", "").contains(key)) {
                     list.add(bean);
                 }
-                if (DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss").replace(" ", "").contains(key)) {
+                if (TimeUtil.getTimeFormatText(DataUtil.parseDateToText(bean.getModifyTime())).replace(" ", "").contains(key)) {
                     list.add(bean);
                 }
             }

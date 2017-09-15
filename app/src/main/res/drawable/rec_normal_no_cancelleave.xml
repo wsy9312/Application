@@ -11,7 +11,7 @@
     <item android:state_pressed="true">
         <shape android:shape="rectangle">
             <stroke android:color="@color/grey" android:width="3dp" />
-            <solid android:color="@color/colorAccent" />
+            <solid android:color="@color/alert" />
             <corners android:radius="9dp"/>
 
         </shape>

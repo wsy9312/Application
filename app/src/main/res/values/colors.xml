@@ -38,7 +38,7 @@
     <color name="history_approved_color">#6ABB66</color>
     <color name="background">#FFFFFF</color>
     <color name="split_line">#11112233</color>
-    <color name="text1">#59B29C</color>
+    <color name="text1">#339966</color>
     <color name="text2">#333333</color>
 
     <color name="black_semi_transparent">#B2000000</color>
@@ -83,7 +83,7 @@
     <color name="cheng">#ffdc35</color>
     <color name="yellow">#ffbb74</color>
     <color name="zhong">#b87979</color>
-    <color name="grey">#e0e0e0</color>
+    <color name="grey">#f2f1f0</color>
     <color name="colorWindowBackground">#f0f0f0</color>
 
     <color name="colorPrimaryDark">#f57257</color>

@@ -39,7 +39,7 @@
                         android:layout_margin="9dp"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
-                        android:src="@drawable/ic_flow_jb"/>
+                        android:src="@drawable/ic_done"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
                         android:layout_margin="9dp"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
-                        android:src="@drawable/ic_flow_qj"/>
+                        android:src="@drawable/ic_canceled"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -77,7 +77,7 @@
                     android:background="#fff"
                     android:orientation="vertical">
                     <ImageView
-                        android:src="@drawable/ic_flow_gc"
+                        android:src="@drawable/ic_running"
                         android:layout_margin="9dp"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"/>

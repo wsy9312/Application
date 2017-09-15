@@ -41,6 +41,7 @@
             <TextView
                 android:layout_below="@+id/tv_news_date"
                 android:text="这是正文"
+                android:textSize="15sp"
                 android:id="@+id/tv_news_body"
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp"
