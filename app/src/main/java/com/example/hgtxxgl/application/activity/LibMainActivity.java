@@ -1,7 +1,6 @@
 package com.example.hgtxxgl.application.activity;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
@@ -11,13 +10,14 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
@@ -27,7 +27,6 @@ import com.example.hgtxxgl.application.fragment.OnUpdateUINO;
 import com.example.hgtxxgl.application.fragment.PersonalActivity;
 import com.example.hgtxxgl.application.fragment.TodoTotalBroadcast;
 import com.example.hgtxxgl.application.utils.SysExitUtil;
-import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
@@ -392,7 +391,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         startActivity(intent);
     }
 
-    @Override
+    /*@Override
     public void onBackPressed() {
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
         builder.setMessage("是否确认退出?");
@@ -413,6 +412,25 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
             }
         });
         builder.create().show();
+    }*/
+
+    private long time = 0;
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if ((System.currentTimeMillis() - time > 2000)) {
+                Toast.makeText(this, "再按一次返回桌面", Toast.LENGTH_SHORT).show();
+                time = System.currentTimeMillis();
+            } else {
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                SysExitUtil.exit();
+                startActivity(intent);
+            }
+            return true;
+        } else {
+            return super.onKeyDown(keyCode, event);
+        }
     }
 
     @Override

@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.hgtxxgl.application.QrCode.sample.ScannerActivity;
@@ -43,7 +42,6 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
 
     public static final String TAG = PersonalActivity.class.getSimpleName();
     private Button mLogout;
-    private RelativeLayout rlQRcode;
     private View view;
     private TextView mNumber;
     private TextView mName;
@@ -86,7 +84,6 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
 
     private void initView() {
         mLogout = (Button)findViewById(R.id.btn_logout);
-        rlQRcode = (RelativeLayout)findViewById(R.id.rl_qrcode);
         //编号
         mNumber = (TextView)findViewById(R.id.tv_message_number);
         //姓名
@@ -105,7 +102,6 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
         mGDNumber = (TextView)findViewById(R.id.tv_message_joindate);
         //手机号码
         mTelNumber = (TextView)findViewById(R.id.tv_message_militaryrank);
-        rlQRcode.setOnClickListener(this);
         mLogout.setOnClickListener(this);
         showData();
     }

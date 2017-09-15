@@ -54,8 +54,8 @@ public class RestApplyFragment extends CommonFragment {
         List<CommonFragment.Group> groups = new ArrayList<>();
         List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
         baseHolder.add(new HandInputGroup.Holder("申请人",true,false,name,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-        baseHolder.add(new HandInputGroup.Holder("请假外出类别",true,false,"人员请假",HandInputGroup.VALUE_TYPE.BUTTONS));
-        baseHolder.add(new HandInputGroup.Holder("请假外出类型",true,false,"因公外出/请假",HandInputGroup.VALUE_TYPE.SELECT));
+        baseHolder.add(new HandInputGroup.Holder("申请类别",true,false,"人员请假",HandInputGroup.VALUE_TYPE.SELECT));
+        baseHolder.add(new HandInputGroup.Holder("申请类型",true,false,"因公申请",HandInputGroup.VALUE_TYPE.SELECT));
         baseHolder.add(new HandInputGroup.Holder("预计外出时间",true,false,"",HandInputGroup.VALUE_TYPE.DATE));
         baseHolder.add(new HandInputGroup.Holder("预计归来时间",true,false,"",HandInputGroup.VALUE_TYPE.DATE));
         baseHolder.add(new HandInputGroup.Holder("申请事由",false,false,"",HandInputGroup.VALUE_TYPE.TEXTFILED));
@@ -68,7 +68,7 @@ public class RestApplyFragment extends CommonFragment {
     @Override
     public void setToolbar(HandToolbar toolbar) {
         toolbar.setVisibility(View.VISIBLE);
-        toolbar.setTitle("请假外出申请");
+        toolbar.setTitle("申请");
         toolbar.setTitleSize(18);
     }
 
@@ -95,7 +95,7 @@ public class RestApplyFragment extends CommonFragment {
                         //申请人ID
                         String realValueNO = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo();
                         //申请类型
-                        String realValueType = getDisplayValueByKey("请假外出类别").getRealValue();
+                        String realValueType = getDisplayValueByKey("申请类别").getRealValue();
                         //预计外出时间
                         String realValueoutTime = getDisplayValueByKey("预计外出时间").getRealValue()+":00";
                         //预计归来时间
@@ -105,12 +105,12 @@ public class RestApplyFragment extends CommonFragment {
                         //是否后补请假
                         String realValueFillup = getDisplayValueByKey("是否后补请假").getRealValue();
                         //因公或因私外出/请假
-                        String realValuetype = getDisplayValueByKey("请假外出类型").getRealValue();
+                        String realValuetype = getDisplayValueByKey("申请类型").getRealValue();
                         if (realValueType.equals("人员请假")){
                             PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
                             PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
                             peopleLeaveRrdBean.setNo(realValueNO);
-                            peopleLeaveRrdBean.setOnduty(realValuetype.equals("因公外出/请假")?"1":"0");
+                            peopleLeaveRrdBean.setOnduty(realValuetype.equals("因公申请")?"1":"0");
                             peopleLeaveRrdBean.setOutTime(realValueoutTime);
                             peopleLeaveRrdBean.setInTime(realValueinTime);
                             peopleLeaveRrdBean.setContent(realValueContent);
@@ -130,7 +130,7 @@ public class RestApplyFragment extends CommonFragment {
                             CarLeaveEntity carLeaveEntity = new CarLeaveEntity();
                             CarLeaveEntity.CarLeaveRrdBean carLeaveRrdBean = new CarLeaveEntity.CarLeaveRrdBean();
                             carLeaveRrdBean.setNo(realValueNO);
-                            carLeaveRrdBean.setOnduty(realValuetype.equals("因公外出/请假")?"1":"0");
+                            carLeaveRrdBean.setOnduty(realValuetype.equals("因公申请")?"1":"0");
                             carLeaveRrdBean.setCarNo(realValueCardNo);
                             carLeaveRrdBean.setOutTime(realValueoutTime);
                             carLeaveRrdBean.setInTime(realValueinTime);
@@ -231,10 +231,24 @@ public class RestApplyFragment extends CommonFragment {
             showSelector(holder,new String[]{"是","否"});
         } else if (holder.getKey().equals("是否后补请假")){
             showSelector(holder,new String[]{"是","否"});
-        } else if (holder.getKey().equals("请假外出类型")){
-            showSelector(holder,new String[]{"因公外出/请假","因私外出/请假"});
-        } else if (holder.getKey().equals("请假外出类别")){
+        } else if (holder.getKey().equals("申请类型")){
+            showSelector(holder,new String[]{"因公申请","因私申请"});
+        } /*else if (holder.getKey().equals("请假外出类别")){
             checkedButton(holder, new OnSelectedResultCallback() {
+                @Override
+                public void onSelected(Group ownGroup, HandInputGroup.Holder holder, int mainIndex, int itemIndex) {
+                    if (holder.getRealValue().equals("人员请假")) {
+                        mIsDomestic = true;
+                        insertItems(mIsDomestic);
+                    } else if (holder.getRealValue().equals("车辆外出")){
+                        mIsDomestic = false;
+                        insertItems(mIsDomestic);
+                    }
+                }
+            });
+        }*/
+        if (holder.getKey().equals("申请类别")){
+            showSelector(holder, new String[]{"人员请假", "车辆外出"}, new OnSelectedResultCallback() {
                 @Override
                 public void onSelected(Group ownGroup, HandInputGroup.Holder holder, int mainIndex, int itemIndex) {
                     if (holder.getRealValue().equals("人员请假")) {
