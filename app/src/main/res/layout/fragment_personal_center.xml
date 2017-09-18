@@ -31,6 +31,7 @@
             android:layout_margin="8dp"/>
         <TextView
             android:id="@+id/tv_message_number"
+            android:textColor="@color/half_black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -91,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:textColor="@color/shengrey"
+            android:textColor="@color/half_black"
             android:layout_centerVertical="true"
             android:layout_margin="8dp"/>
     </RelativeLayout>
@@ -120,7 +121,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:textColor="@color/shengrey"
+            android:textColor="@color/half_black"
             android:layout_centerVertical="true"
             android:layout_margin="8dp"/>
     </RelativeLayout>
@@ -150,7 +151,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:textColor="@color/shengrey"
+            android:textColor="@color/half_black"
             android:layout_margin="8dp"/>
     </RelativeLayout>
     <LinearLayout
@@ -179,7 +180,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:textColor="@color/shengrey"
+            android:textColor="@color/half_black"
             android:layout_margin="8dp"/>
     </RelativeLayout>
     <LinearLayout
@@ -207,7 +208,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:textColor="@color/shengrey"
+            android:textColor="@color/half_black"
             android:layout_centerVertical="true"
             android:layout_margin="8dp"/>
     </RelativeLayout>
@@ -236,7 +237,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:textColor="@color/shengrey"
+            android:textColor="@color/half_black"
             android:layout_centerVertical="true"
             android:layout_margin="8dp"/>
     </RelativeLayout>
@@ -265,7 +266,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:textColor="@color/shengrey"
+            android:textColor="@color/half_black"
             android:layout_centerVertical="true"
             android:layout_margin="8dp"/>
     </RelativeLayout>

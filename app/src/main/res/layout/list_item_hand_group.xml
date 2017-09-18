@@ -22,7 +22,7 @@
             android:textSize="14sp"
             android:maxEms="6"
             android:minEms="6"
-            android:textColor="#858E99"
+            android:textColor="@color/half_black"
             android:layout_marginRight="7dp"
             android:id="@+id/tv_title"
             android:gravity="left|center_vertical|start" />
