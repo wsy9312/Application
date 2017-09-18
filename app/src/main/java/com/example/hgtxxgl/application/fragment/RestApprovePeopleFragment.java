@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 
-import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
 import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
 import com.example.hgtxxgl.application.rest.CommonFragment;
 import com.example.hgtxxgl.application.rest.HandInputGroup;
@@ -31,16 +30,6 @@ public class RestApprovePeopleFragment extends CommonFragment {
     }
 
     private PeopleLeaveEntity.PeopleLeaveRrdBean entity = null;
-
-    public PeopleInfoEntity.PeopleInfoBean getBean() {
-        return bean;
-    }
-
-    public void setBean(PeopleInfoEntity.PeopleInfoBean bean) {
-        this.bean = bean;
-    }
-
-    private PeopleInfoEntity.PeopleInfoBean bean = null;
 
     public static RestApprovePeopleFragment newInstance(Bundle bundle) {
         RestApprovePeopleFragment fragment = new RestApprovePeopleFragment();
@@ -125,11 +114,31 @@ public class RestApprovePeopleFragment extends CommonFragment {
         String bcancel = getArguments().getString("bcancel");
         String bfillup = getArguments().getString("bfillup");
         String process = getArguments().getString("process");
-        L.e(TAG,"审批levelnum:"+levelnum);
-        L.e(TAG,"审批multiLevelResult:"+multiLevelResult);
-        L.e(TAG,"审批process:"+process);
         noindex = getArguments().getString("noindex");
         PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
+
+        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
+        peopleLeaveRrdBean.setRegisterTime("?");
+        peopleLeaveRrdBean.setOutTime("?");
+        peopleLeaveRrdBean.setOnduty("?");
+        peopleLeaveRrdBean.setInTime("?");
+        peopleLeaveRrdBean.setContent("?");
+        peopleLeaveRrdBean.setActualOutTime("?");
+        peopleLeaveRrdBean.setActualInTime("?");
+        peopleLeaveRrdBean.setModifyTime("?");
+        peopleLeaveRrdBean.setMultiLevelResult("?");
+        peopleLeaveRrdBean.setProcess("?");
+        peopleLeaveRrdBean.setLevelNum("?");
+        peopleLeaveRrdBean.setBCancel("?");
+        peopleLeaveRrdBean.setBFillup("?");
+        peopleLeaveRrdBean.setBeginNum("?");
+        peopleLeaveRrdBean.setEndNum("?");
+        peopleLeaveRrdBean.setIsAndroid("1");
+        peopleLeaveRrdBean.setNoIndex(noindex);
+        peopleLeaveRrdBean.setNo(no);
+        peopleLeaveRrdBean.setCurrentApproveNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+
         PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean1 = new PeopleLeaveEntity.PeopleLeaveRrdBean();
         peopleLeaveRrdBean1.setRegisterTime("?");
         peopleLeaveRrdBean1.setOutTime("?");
@@ -234,80 +243,9 @@ public class RestApprovePeopleFragment extends CommonFragment {
         peopleLeaveRrdBean5.setNoIndex(noindex);
         peopleLeaveRrdBean5.setNo(no);
         peopleLeaveRrdBean5.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-//        if (process.equals("1")){
-            if (multiLevelResult.equals("00000")){
-                if (levelnum.equals("1")){
-                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
-                }if (levelnum.equals("2")){
-                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
-                }if (levelnum.equals("3")){
-                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
-                }if (levelnum.equals("4")){
-                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
-                }if (levelnum.equals("5")){
-                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
-                }
-            }else if (multiLevelResult.equals("10000")){
-                if (levelnum.equals("1")){
-                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
-                }if (levelnum.equals("2")){
-                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
-                }if (levelnum.equals("3")){
-                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
-                }if (levelnum.equals("4")){
-                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
-                }if (levelnum.equals("5")){
-                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
-                }
-            }else if(multiLevelResult.equals("11000")){
-                if (levelnum.equals("1")){
-                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
-                }if (levelnum.equals("2")){
-                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
-                }if (levelnum.equals("3")){
-                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
-                }if (levelnum.equals("4")){
-                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
-                }if (levelnum.equals("5")){
-                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
-                }
-            }else if(multiLevelResult.equals("11100")){
-                if (levelnum.equals("1")){
-                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
-                }if (levelnum.equals("2")){
-                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
-                }if (levelnum.equals("3")){
-                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
-                }if (levelnum.equals("4")){
-                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
-                }if (levelnum.equals("5")){
-                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
-                }
-            }else if(multiLevelResult.equals("11110")){
-                if (levelnum.equals("1")){
-                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
-                }if (levelnum.equals("2")){
-                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
-                }if (levelnum.equals("3")){
-                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
-                }if (levelnum.equals("4")){
-                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
-                }if (levelnum.equals("5")){
-                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
-                }
-            }else if(multiLevelResult.equals("11111")){
-                if (levelnum.equals("1")){
-                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
-                }if (levelnum.equals("2")){
-                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
-                }if (levelnum.equals("3")){
-                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
-                }if (levelnum.equals("4")){
-                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
-                }if (levelnum.equals("5")){
-                    setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
-                }
-            }
+
+        setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
+
 //        }else{
 //            if (levelnum.equals("5")){
 //                if (multiLevelResult.equals("00000")){
@@ -382,11 +320,12 @@ public class RestApprovePeopleFragment extends CommonFragment {
 //            }
 //        }
         List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
-        list.add(0,peopleLeaveRrdBean1);
-        list.add(1,peopleLeaveRrdBean2);
-        list.add(2,peopleLeaveRrdBean3);
-        list.add(3,peopleLeaveRrdBean4);
-        list.add(4,peopleLeaveRrdBean5);
+        list.add(0,peopleLeaveRrdBean);
+        list.add(1,peopleLeaveRrdBean1);
+        list.add(2,peopleLeaveRrdBean2);
+        list.add(3,peopleLeaveRrdBean3);
+        list.add(4,peopleLeaveRrdBean4);
+        list.add(5,peopleLeaveRrdBean5);
         peopleLeaveEntity.setPeopleLeaveRrd(list);
         String toJson = new Gson().toJson(peopleLeaveEntity);
         String s="get "+toJson;
@@ -457,6 +396,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
         peopleLeaveRrdBean5.setApprover3No("?");
         peopleLeaveRrdBean5.setApprover4No("?");
         peopleLeaveRrdBean5.setApprover5No(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+
     }
 
     @Override
@@ -477,6 +417,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
         peopleLeaveEntity.setPeopleLeaveRrd(beanList);
         String json = new Gson().toJson(peopleLeaveEntity);
         final String s1 = "approve " + json;
+        L.e(TAG,"appppp__"+s1);
         AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
         builder.setMessage("是否确认?");
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
