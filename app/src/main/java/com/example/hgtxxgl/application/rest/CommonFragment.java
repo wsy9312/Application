@@ -22,6 +22,9 @@ import android.widget.Toast;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.LibMainActivity;
+import com.example.hgtxxgl.application.fragment.timeline.OrderStatus;
+import com.example.hgtxxgl.application.fragment.timeline.TimeLineAdapter;
+import com.example.hgtxxgl.application.fragment.timeline.TimeLineModel;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
@@ -50,6 +53,7 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
     private CustomDatePicker customDatePicker;
     public RelativeLayout pb;
     private LinearLayout buttonll;
+    private List<String> historyPer;
 
     public List<Group> getGroup() {
         return groupList;
@@ -479,7 +483,7 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
     public void notifyDataSetChanged() {
         if (adpter != null)
             adpter.notifyDataSetChanged();
-            stubEmpty.setVisibility(View.GONE);
+        stubEmpty.setVisibility(View.GONE);
         if (groupList != null && groupList.size() <= 0) {
             stubEmpty.setVisibility(View.VISIBLE);
         } else if (groupList != null && groupList.size() > 0) {
@@ -506,7 +510,16 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
         private Object value;
         private String oldBarcode;
         private String drawable;
+        private List<String> historyPer;
 
+        public List<String> getHistoryPer() {
+            return historyPer;
+        }
+
+        public Group setHistoryPer(List<String> historyPer) {
+            this.historyPer = historyPer;
+            return this;
+        }
         public Group() {
         }
 
@@ -551,15 +564,6 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
             this.groupTopRightTitle = groupTopRightTitle;
             this.holders = holders;
             this.rl = false;
-        }
-        public Group(String title, Integer drawableRes, Boolean hasExpanded, String groupTopRightTitle, List<HandInputGroup.Holder> holders, String drawable) {
-            this.title = title;
-            this.drawableRes = drawableRes;
-            this.hasExpanded = hasExpanded;
-            this.groupTopRightTitle = groupTopRightTitle;
-            this.holders = holders;
-            this.rl = false;
-            this.drawable = drawable;
         }
 
         public int getId() {
@@ -673,7 +677,15 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
             return drawable;
         }
     }
-
+    private List<TimeLineModel> mDataList = new ArrayList<>();
+    private void setDataListItems(){
+        mDataList.add(new TimeLineModel(historyPer.get(0), "", OrderStatus.ACTIVE));
+        mDataList.add(new TimeLineModel(historyPer.get(1), "", OrderStatus.COMPLETED));
+        mDataList.add(new TimeLineModel(historyPer.get(2), "", OrderStatus.COMPLETED));
+        mDataList.add(new TimeLineModel(historyPer.get(3), "", OrderStatus.COMPLETED));
+        mDataList.add(new TimeLineModel(historyPer.get(4), "", OrderStatus.COMPLETED));
+        mDataList.add(new TimeLineModel(historyPer.get(5), "", OrderStatus.COMPLETED));
+    }
     private class HolderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         private String title;
@@ -696,10 +708,10 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
         public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
             if (holder.getItemViewType() == 1) {
                 RecyclerView listView = ((HistoryViewHolder) holder).rvHistory;
-                Object value = groupList.get(position).getValue();
+                historyPer = groupList.get(position).getHistoryPer();
+                setDataListItems();
                 if (listView.getAdapter() == null) {
-//                    listView.setAdapter(new HistortFlowAdapter(getActivity(),
-//                            (HisDataBean) value));
+                    listView.setAdapter(new TimeLineAdapter(mDataList));
                 }
                 if (displayTabs) {
                     setVisibility(listView, groupList.get(position).isVisible());
@@ -797,7 +809,7 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
 
         @Override
         public int getItemViewType(int position) {
-            if (groupList.get(position).getTitle().equals("流程摘要-摘要")) {
+            if (groupList.get(position).getTitle().equals("历史记录")) {
                 return 1;
             }else if(groupList.get(position).getTitle().equals("流程摘要-摘要内容")){
                 return 2;

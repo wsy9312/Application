@@ -49,6 +49,7 @@ public class PeopleLeaveEntity {
         private String Onduty;
         private String Result;
         private String CurrentApproveNo;
+        private String CurrentApproveName;
         private String Approver1No;
         private String Approver2No;
         private String Approver3No;
@@ -125,6 +126,14 @@ public class PeopleLeaveEntity {
 
         public void setCurrentApproveNo(String currentApproveNo) {
             CurrentApproveNo = currentApproveNo;
+        }
+
+        public String getCurrentApproveName() {
+            return CurrentApproveName;
+        }
+
+        public void setCurrentApproveName(String currentApproveName) {
+            CurrentApproveName = currentApproveName;
         }
 
         public String getApprover1No() {
