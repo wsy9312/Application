@@ -26,18 +26,7 @@ import java.util.List;
 public class RestDetailPeopleFragment extends CommonFragment {
 
     private final static String TAG = "RestDetailPeopleFragment";
-    private List<String> hisPerList;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    private String name;
-
+    private String name = null;
     public RestDetailPeopleFragment(){
 
     }
@@ -89,15 +78,6 @@ public class RestDetailPeopleFragment extends CommonFragment {
         holderList.add(new HandInputGroup.Holder("是否取消请假", true, false, entity.getBCancel().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("是否后补请假", true, false, entity.getBFillup().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
         groups.add(1,new Group("基本信息", null, false, null, holderList));
-
-        hisPerList = new ArrayList<>();
-        hisPerList.add(0,"当前审批人:"+entity.getCurrentApproveName());
-        hisPerList.add(1,"已审批人:"+entity.getApprover1Name());
-        hisPerList.add(2,"已审批人:"+entity.getApprover2Name());
-        hisPerList.add(3,"已审批人:"+entity.getApprover3Name());
-        hisPerList.add(4,"已审批人:"+entity.getApprover4Name());
-        hisPerList.add(5,"已审批人:"+entity.getApprover5Name());
-        groups.add(2,new Group("历史记录",null,true,null,null).setHistoryPer(hisPerList));
         return groups;
     }
 
@@ -181,7 +161,6 @@ public class RestDetailPeopleFragment extends CommonFragment {
         super.onCreate(savedInstanceState);
         StatusBarUtils.setWindowStatusBarColor(getActivity(), R.color.mainColor_blue);
         loadData();
-//        getApproveNameFromNo();
     }
 
     private void show(final String msg) {
@@ -246,31 +225,62 @@ public class RestDetailPeopleFragment extends CommonFragment {
                     @Override
                     public void run() {
                         if (peopleLeaveEntity1 != null){
-                            setEntity(peopleLeaveEntity1.getPeopleLeaveRrd().get(0));
-                            ArrayList<String> tempList = new ArrayList<>();
-                            if (!peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getCurrentApproveNo().equals("")){
-                                tempList.add(peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getCurrentApproveNo());
+                            String approver1No = peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover1No();
+                            String approver2No = peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover2No();
+                            String approver3No = peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover3No();
+                            String approver4No = peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover4No();
+                            String approver5No = peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover5No();
+                            ArrayList<String> approveNoList = new ArrayList<>();
+                            if (!approver1No.isEmpty()){
+                                approveNoList.add(0,approver1No);
+                            } if (!approver2No.isEmpty()){
+                                approveNoList.add(1,approver2No);
+                            } if (!approver3No.isEmpty()){
+                                approveNoList.add(2,approver3No);
+                            } if (!approver4No.isEmpty()){
+                                approveNoList.add(3,approver4No);
+                            } if (!approver5No.isEmpty()){
+                                approveNoList.add(4,approver5No);
                             }
-                            if (!peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover1No().equals("")){
-                                tempList.add(peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover1No());
-                            }
-                            if (!peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover2No().equals("")){
-                                tempList.add(peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover2No());
-                            }
-                            if (!peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover3No().equals("")){
-                                tempList.add(peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover3No());
-                            }
-                            if (!peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover4No().equals("")){
-                                tempList.add(peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover4No());
-                            }
-                            if (!peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover5No().equals("")){
-                                tempList.add(peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover5No());
-                            }
+                            for (int i = 0; i < approveNoList.size(); i++) {
+                                L.e(TAG,"当前:"+approveNoList.get(i));
+                                PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
+                                PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
+                                peopleInfoBean.setNo(approveNoList.get(i));
+                                peopleInfoBean.setName("?");
+                                peopleInfoBean.setAuthenticationNo(approveNoList.get(i));
+                                peopleInfoBean.setIsAndroid("1");
+                                List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
+                                beanList.add(peopleInfoBean);
+                                peopleEntity.setPeopleInfo(beanList);
+                                String json1 = new Gson().toJson(peopleEntity);
+                                String s1 = "get " + json1;
+                                L.e(TAG,"s1"+s1);
+                                HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
+                                    @Override
+                                    public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
+                                        if (peopleInfoEntity != null){
+                                            L.e(TAG,"namenamename:   "+peopleInfoEntity.getPeopleInfo().get(0).getName());
+                                            peopleLeaveEntity1.getPeopleLeaveRrd().get(0).setApprover1Name(peopleInfoEntity.getPeopleInfo().get(0).getName());
+                                            L.e(TAG,"namename:   "+peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover1Name());
+                                            name = peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover1Name();
+                                            L.e(TAG,"name:   "+name);
+                                        }
+                                    }
 
-                            L.e(TAG,tempList.size()+"number");
-                            for (int i = 0; i < tempList.size(); i++) {
-                                getApproveNameFromNo(tempList.get(0),i);
+                                    @Override
+                                    public void onFailure(String msg) {
+
+                                    }
+
+                                    @Override
+                                    public void onResponse(String response) {
+
+                                    }
+                                });
                             }
+                            setEntity(peopleLeaveEntity1.getPeopleLeaveRrd().get(0));
+                            setGroup(getGroupList());
                             setPb(false);
                             setButtonllEnable(true);
                             notifyDataSetChanged();
@@ -287,52 +297,6 @@ public class RestDetailPeopleFragment extends CommonFragment {
             @Override
             public void onResponse(String response) {
 //                show(response);
-            }
-        });
-    }
-
-    private void getApproveNameFromNo(String temp, final int i) {
-        PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
-        PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
-        peopleInfoBean.setNo(temp);
-        peopleInfoBean.setName("?");
-        peopleInfoBean.setAuthenticationNo(temp);
-        peopleInfoBean.setIsAndroid("1");
-        List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
-        beanList.add(peopleInfoBean);
-        peopleEntity.setPeopleInfo(beanList);
-        String json1 = new Gson().toJson(peopleEntity);
-        String s1 = "get " + json1;
-        HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
-            @Override
-            public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
-                if (peopleInfoEntity != null){
-//                    setName(peopleInfoEntity.getPeopleInfo().get(0).getName());
-                    if (i == 0){
-                        entity.setCurrentApproveName(peopleInfoEntity.getPeopleInfo().get(0).getName());
-                    }else if (i == 1){
-                        entity.setApprover1Name(peopleInfoEntity.getPeopleInfo().get(0).getName());
-                    }else if (i == 2){
-                        entity.setApprover2Name(peopleInfoEntity.getPeopleInfo().get(0).getName());
-                    }else if (i == 3){
-                        entity.setApprover3Name(peopleInfoEntity.getPeopleInfo().get(0).getName());
-                    }else if (i == 4){
-                        entity.setApprover4Name(peopleInfoEntity.getPeopleInfo().get(0).getName());
-                    }else {
-                        entity.setApprover5Name(peopleInfoEntity.getPeopleInfo().get(0).getName());
-                    }
-                    setGroup(getGroupList());
-                }
-            }
-
-            @Override
-            public void onFailure(String msg) {
-
-            }
-
-            @Override
-            public void onResponse(String response) {
-
             }
         });
     }
