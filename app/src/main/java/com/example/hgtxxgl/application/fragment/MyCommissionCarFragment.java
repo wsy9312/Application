@@ -18,6 +18,7 @@ import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.ItemActivity;
 import com.example.hgtxxgl.application.entity.CarLeaveEntity;
 import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
+import com.example.hgtxxgl.application.utils.DateUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.DataUtil;
@@ -30,6 +31,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import static com.example.hgtxxgl.application.R.id.iv_empty;
@@ -160,12 +162,12 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
                                         Comparator<CarLeaveEntity.CarLeaveRrdBean> comparator = new Comparator<CarLeaveEntity.CarLeaveRrdBean>() {
                                             @Override
                                             public int compare(CarLeaveEntity.CarLeaveRrdBean o1, CarLeaveEntity.CarLeaveRrdBean o2) {
-                                                int i1 = Integer.parseInt(o1.getNoIndex());
-                                                int i2 = Integer.parseInt(o2.getNoIndex());
-                                                if (i1 != i2) {
-                                                    return i2 - i1;
+                                                Date date1 = DateUtil.stringToDate(o1.getRegisterTime());
+                                                Date date2 = DateUtil.stringToDate(o2.getRegisterTime());
+                                                if (date1.before(date2)) {
+                                                    return 1;
                                                 }
-                                                return 0;
+                                                return -1;
                                             }
                                         } ;
                                         Collections.sort(entityList, comparator);
@@ -292,10 +294,10 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
             }
             List<CarLeaveEntity.CarLeaveRrdBean> list = new ArrayList<>();
             for (CarLeaveEntity.CarLeaveRrdBean bean : baseEntityList) {
-                if (("申请人:"+bean.getName()).replace(" ", "").contains(key)){
+                if (bean.getName().replace(" ", "").contains(key)){
                     list.add(bean);
                 }
-                if ((bean.getResult().equals("1")?"已审批":"未审批").replace(" ","").contains(key)){
+                if ((bean.getProcess().equals("1")?"已审批":"未审批").replace(" ","").contains(key)){
                     list.add(bean);
                 }
                 if ((DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss")).replace(" ", "").contains(key)) {

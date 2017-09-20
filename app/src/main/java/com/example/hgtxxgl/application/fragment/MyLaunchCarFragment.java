@@ -255,6 +255,12 @@ public class MyLaunchCarFragment extends Fragment implements SimpleListView.OnRe
                 if ((DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss")).replace(" ", "").contains(key)) {
                     list.add(bean);
                 }
+                if ((bean.getProcess().equals("1")?"已完成":"未完成").replace(" ", "").contains(key)){
+                    list.add(bean);
+                }
+                if ((bean.getbCancel().equals("1")?"已取消":"").replace(" ", "").contains(key)){
+                    list.add(bean);
+                }
             }
             entityList.clear();
             entityList.addAll(list);

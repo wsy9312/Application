@@ -46,7 +46,7 @@
             android:ellipsize="end"
             android:lineSpacingExtra="5sp"
             android:textSize="13sp"
-            android:textColor="#999999"/>
+            android:textColor="@color/half_black"/>
     </RelativeLayout>
     <ImageView
         android:id="@+id/image_news"

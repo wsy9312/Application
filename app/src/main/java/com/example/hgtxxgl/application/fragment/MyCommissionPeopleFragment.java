@@ -1,6 +1,5 @@
 package com.example.hgtxxgl.application.fragment;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.database.DataSetObserver;
 import android.os.Bundle;
@@ -17,6 +16,7 @@ import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.ItemActivity;
 import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
 import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
+import com.example.hgtxxgl.application.utils.DateUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.DataUtil;
@@ -30,6 +30,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import static com.example.hgtxxgl.application.R.id.iv_empty;
@@ -198,12 +199,12 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
                                         Comparator<PeopleLeaveEntity.PeopleLeaveRrdBean> comparator = new Comparator<PeopleLeaveEntity.PeopleLeaveRrdBean>() {
                                             @Override
                                             public int compare(PeopleLeaveEntity.PeopleLeaveRrdBean o1, PeopleLeaveEntity.PeopleLeaveRrdBean o2) {
-                                                int i1 = Integer.parseInt(o1.getNoIndex());
-                                                int i2 = Integer.parseInt(o2.getNoIndex());
-                                                if (i1 != i2) {
-                                                    return i2 - i1;
+                                                Date date1 = DateUtil.stringToDate(o1.getRegisterTime());
+                                                Date date2 = DateUtil.stringToDate(o2.getRegisterTime());
+                                                if (date1.before(date2)) {
+                                                    return 1;
                                                 }
-                                                return 0;
+                                                return -1;
                                             }
                                         } ;
                                         Collections.sort(entityList, comparator);
@@ -315,7 +316,7 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
             }
             loadData(1,500);
             adapter.notifyDataSetChanged();
-            if (resultCode == Activity.RESULT_OK){
+          /*  if (resultCode == Activity.RESULT_OK){
                 final int item = data.getExtras().getInt("item");
 //                final int tabIndex = data.getExtras().getInt("tabIndex");
                 getActivity().runOnUiThread(new Runnable() {
@@ -326,8 +327,8 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
                         adapter.notifyDataSetChanged();
 //                        }
                     }
-                });
-            }
+                });*/
+//            }
         }
     }
 
@@ -349,10 +350,11 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
             }
             List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
             for (PeopleLeaveEntity.PeopleLeaveRrdBean bean : baseEntityList) {
-                if (("申请人:"+bean.getName()).replace(" ", "").contains(key)){
+                if (bean.getName().replace(" ", "").contains(key)){
                     list.add(bean);
                 }
-                if ((bean.getResult().equals("1")?"已审批":"未审批").replace(" ","").contains(key)){
+                if ((bean.getCurrentApproveNo().equals(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo())?"未审批":"已审批")
+                        .replace(" ","").contains(key)){
                     list.add(bean);
                 }
                 if ((DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss")).replace(" ", "").contains(key)) {
@@ -377,9 +379,9 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
 
     @Override
     public void onPullRefresh() {
-        hasMore = true;
+//        hasMore = true;
         loadData(beginNum, endNum);
-        adapter.notifyDataSetChanged();
+//        adapter.notifyDataSetChanged();
         lv.completeRefresh();
     }
 
