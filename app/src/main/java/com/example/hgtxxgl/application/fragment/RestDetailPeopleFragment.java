@@ -26,7 +26,18 @@ import java.util.List;
 public class RestDetailPeopleFragment extends CommonFragment {
 
     private final static String TAG = "RestDetailPeopleFragment";
-    private String name = null;
+    private List<String> hisPerList;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    private String name;
+
     public RestDetailPeopleFragment(){
 
     }
@@ -78,6 +89,26 @@ public class RestDetailPeopleFragment extends CommonFragment {
         holderList.add(new HandInputGroup.Holder("是否取消请假", true, false, entity.getBCancel().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("是否后补请假", true, false, entity.getBFillup().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
         groups.add(1,new Group("基本信息", null, false, null, holderList));
+
+        hisPerList = new ArrayList<>();
+/*
+        if (entity.getProcess().equals("1")){
+            hisPerList.add(0,entity.getApprover5Name());
+            hisPerList.add(1,entity.getApprover4Name());
+            hisPerList.add(2,entity.getApprover3Name());
+            hisPerList.add(3,entity.getApprover2Name());
+            hisPerList.add(4,entity.getApprover1Name());
+            groups.add(2,new Group("历史记录",null,true,null,null).setHistoryPer(hisPerList));
+        }else{*/
+            hisPerList.add(0,entity.getCurrentApproveName());
+            hisPerList.add(1,entity.getApprover5Name());
+            hisPerList.add(2,entity.getApprover4Name());
+            hisPerList.add(3,entity.getApprover3Name());
+            hisPerList.add(4,entity.getApprover2Name());
+            hisPerList.add(5,entity.getApprover1Name());
+            groups.add(2,new Group("历史记录",null,true,null,null).setHistoryPer(hisPerList));
+      /*  }*/
+
         return groups;
     }
 
@@ -161,6 +192,7 @@ public class RestDetailPeopleFragment extends CommonFragment {
         super.onCreate(savedInstanceState);
         StatusBarUtils.setWindowStatusBarColor(getActivity(), R.color.mainColor_blue);
         loadData();
+//        getApproveNameFromNo();
     }
 
     private void show(final String msg) {
@@ -225,62 +257,44 @@ public class RestDetailPeopleFragment extends CommonFragment {
                     @Override
                     public void run() {
                         if (peopleLeaveEntity1 != null){
-                            String approver1No = peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover1No();
-                            String approver2No = peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover2No();
-                            String approver3No = peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover3No();
-                            String approver4No = peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover4No();
-                            String approver5No = peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover5No();
-                            ArrayList<String> approveNoList = new ArrayList<>();
-                            if (!approver1No.isEmpty()){
-                                approveNoList.add(0,approver1No);
-                            } if (!approver2No.isEmpty()){
-                                approveNoList.add(1,approver2No);
-                            } if (!approver3No.isEmpty()){
-                                approveNoList.add(2,approver3No);
-                            } if (!approver4No.isEmpty()){
-                                approveNoList.add(3,approver4No);
-                            } if (!approver5No.isEmpty()){
-                                approveNoList.add(4,approver5No);
-                            }
-                            for (int i = 0; i < approveNoList.size(); i++) {
-                                L.e(TAG,"当前:"+approveNoList.get(i));
-                                PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
-                                PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
-                                peopleInfoBean.setNo(approveNoList.get(i));
-                                peopleInfoBean.setName("?");
-                                peopleInfoBean.setAuthenticationNo(approveNoList.get(i));
-                                peopleInfoBean.setIsAndroid("1");
-                                List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
-                                beanList.add(peopleInfoBean);
-                                peopleEntity.setPeopleInfo(beanList);
-                                String json1 = new Gson().toJson(peopleEntity);
-                                String s1 = "get " + json1;
-                                L.e(TAG,"s1"+s1);
-                                HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
-                                    @Override
-                                    public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
-                                        if (peopleInfoEntity != null){
-                                            L.e(TAG,"namenamename:   "+peopleInfoEntity.getPeopleInfo().get(0).getName());
-                                            peopleLeaveEntity1.getPeopleLeaveRrd().get(0).setApprover1Name(peopleInfoEntity.getPeopleInfo().get(0).getName());
-                                            L.e(TAG,"namename:   "+peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover1Name());
-                                            name = peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover1Name();
-                                            L.e(TAG,"name:   "+name);
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onFailure(String msg) {
-
-                                    }
-
-                                    @Override
-                                    public void onResponse(String response) {
-
-                                    }
-                                });
-                            }
                             setEntity(peopleLeaveEntity1.getPeopleLeaveRrd().get(0));
-                            setGroup(getGroupList());
+                            ArrayList<String> tempList = new ArrayList<>();
+                            if (!peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getCurrentApproveNo().equals("")){
+                                tempList.add(0,peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getCurrentApproveNo());
+                            }else{
+                                tempList.add(0,ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+                            }
+                            if (!peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover1No().equals("")){
+                                tempList.add(1,peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover1No());
+                            }else {
+                                tempList.add(1,ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+                            }
+                            if (!peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover2No().equals("")){
+                                tempList.add(2,peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover2No());
+                            }else {
+                                tempList.add(2,ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+                            }
+                            if (!peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover3No().equals("")){
+                                tempList.add(3,peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover3No());
+                            }else {
+                                tempList.add(3,ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+                            }
+                            if (!peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover4No().equals("")){
+                                tempList.add(4,peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover4No());
+                            }else {
+                                tempList.add(4,ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+                            }
+                            if (!peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover5No().equals("")){
+                                tempList.add(5,peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover5No());
+                            }else {
+                                tempList.add(5,ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+                            }
+
+                            L.e(TAG,tempList.size()+"number");
+                            for (int i = 0; i < tempList.size(); i++) {
+                                L.e(TAG,"o(>﹏<)o千万别"+tempList.get(i));
+                            }
+                            getApproveNameFromNo(tempList);
                             setPb(false);
                             setButtonllEnable(true);
                             notifyDataSetChanged();
@@ -297,6 +311,87 @@ public class RestDetailPeopleFragment extends CommonFragment {
             @Override
             public void onResponse(String response) {
 //                show(response);
+            }
+        });
+    }
+
+    private void getApproveNameFromNo(ArrayList<String> list) {
+        final PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
+        PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
+        peopleInfoBean.setNo(list.get(0));
+        peopleInfoBean.setName("?");
+        peopleInfoBean.setAuthenticationNo(list.get(0));
+        peopleInfoBean.setIsAndroid("1");
+
+        PeopleInfoEntity.PeopleInfoBean peopleInfoBean1 = new PeopleInfoEntity.PeopleInfoBean();
+        peopleInfoBean1.setNo(list.get(1));
+        peopleInfoBean1.setName("?");
+        peopleInfoBean1.setAuthenticationNo(list.get(1));
+        peopleInfoBean1.setIsAndroid("1");
+
+        PeopleInfoEntity.PeopleInfoBean peopleInfoBean2 = new PeopleInfoEntity.PeopleInfoBean();
+        peopleInfoBean2.setNo(list.get(2));
+        peopleInfoBean2.setName("?");
+        peopleInfoBean2.setAuthenticationNo(list.get(2));
+        peopleInfoBean2.setIsAndroid("1");
+
+        PeopleInfoEntity.PeopleInfoBean peopleInfoBean3 = new PeopleInfoEntity.PeopleInfoBean();
+        peopleInfoBean3.setNo(list.get(3));
+        peopleInfoBean3.setName("?");
+        peopleInfoBean3.setAuthenticationNo(list.get(3));
+        peopleInfoBean3.setIsAndroid("1");
+
+        PeopleInfoEntity.PeopleInfoBean peopleInfoBean4 = new PeopleInfoEntity.PeopleInfoBean();
+        peopleInfoBean4.setNo(list.get(4));
+        peopleInfoBean4.setName("?");
+        peopleInfoBean4.setAuthenticationNo(list.get(4));
+        peopleInfoBean4.setIsAndroid("1");
+
+        PeopleInfoEntity.PeopleInfoBean peopleInfoBean5 = new PeopleInfoEntity.PeopleInfoBean();
+        peopleInfoBean5.setNo(list.get(5));
+        peopleInfoBean5.setName("?");
+        peopleInfoBean5.setAuthenticationNo(list.get(5));
+        peopleInfoBean5.setIsAndroid("1");
+
+        List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
+        beanList.add(0,peopleInfoBean);
+        beanList.add(1,peopleInfoBean1);
+        beanList.add(2,peopleInfoBean2);
+        beanList.add(3,peopleInfoBean3);
+        beanList.add(4,peopleInfoBean4);
+        beanList.add(5,peopleInfoBean5);
+        peopleEntity.setPeopleInfo(beanList);
+        String json1 = new Gson().toJson(peopleEntity);
+        String s1 = "get " + json1;
+        L.e(TAG,"O(∩_∩)O哈哈哈~"+s1);
+        HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
+            @Override
+            public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
+                if (peopleInfoEntity != null){
+                    entity.setCurrentApproveName(peopleInfoEntity.getPeopleInfo().get(0).getName());
+                    entity.setApprover1Name(peopleInfoEntity.getPeopleInfo().get(1).getName());
+                    entity.setApprover2Name(peopleInfoEntity.getPeopleInfo().get(2).getName());
+                    entity.setApprover3Name(peopleInfoEntity.getPeopleInfo().get(3).getName());
+                    entity.setApprover4Name(peopleInfoEntity.getPeopleInfo().get(4).getName());
+                    entity.setApprover5Name(peopleInfoEntity.getPeopleInfo().get(5).getName());
+                    L.e(TAG,"$$$$$$$$"+entity.getCurrentApproveName());
+                    L.e(TAG,"$$$$$$$$"+entity.getApprover1Name());
+                    L.e(TAG,"$$$$$$$$"+entity.getApprover2Name());
+                    L.e(TAG,"$$$$$$$$"+entity.getApprover3Name());
+                    L.e(TAG,"$$$$$$$$"+entity.getApprover4Name());
+                    L.e(TAG,"$$$$$$$$"+entity.getApprover5Name());
+                    setGroup(getGroupList());
+                }
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+
+            @Override
+            public void onResponse(String response) {
+
             }
         });
     }
