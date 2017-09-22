@@ -175,7 +175,7 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
                     if (beginNum == 1 && endNum == 500){
                         entityList.clear();
                     }
-                    for (int i = beginNum-1; i < endNum+1; i++) {
+                    for (int i = beginNum - 1; i < endNum + 1; i++) {
                         if (peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getBCancel().equals("0")){
                             PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
                             PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();

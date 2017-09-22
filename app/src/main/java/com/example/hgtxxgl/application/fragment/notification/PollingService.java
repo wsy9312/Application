@@ -16,7 +16,6 @@ import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.LoginActivity;
 import com.example.hgtxxgl.application.entity.CarLeaveEntity;
 import com.example.hgtxxgl.application.entity.MessageEntity;
-import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
 import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
 import com.example.hgtxxgl.application.utils.DateUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
@@ -36,7 +35,9 @@ public class PollingService extends Service {
 	public static final String TAG = "PollingService";
 
 	private NotificationManager mManager;
+	//后台服务
 	private NotificationCompat.Builder builder;
+	//前台服务
 	private NotificationCompat.Builder builder1;
 	private List<String> list1;
 	private List<String> list2;
@@ -50,10 +51,9 @@ public class PollingService extends Service {
 	public void onCreate() {
 		builder1 = new NotificationCompat.Builder(this)
 				.setSmallIcon(R.mipmap.app_logo)
-				//设置通知标题
-				.setContentTitle("management system service is running");
+				.setContentTitle("Camp System Service正在运行");
 		Notification notification = builder1.build();
-		startForeground(110, notification);// 开始前台服务
+		startForeground(110, notification);
 		initNotifiManager();
 		list1 = new ArrayList<>();
 		list2 = new ArrayList<>();
@@ -133,7 +133,11 @@ public class PollingService extends Service {
 					Log.e("123123",peopleLeaveRrd.size()+"");
 					if (!list1.contains(modifyTime)){
 						list1.add(modifyTime);
-						for (int i = 0; i < 100; i++) {
+						showNotification("收到一条请假外出申请");
+						Intent intent = new Intent();
+						intent.setAction(FLAG);
+						sendBroadcast(intent);
+						/*for (int i = 0; i < 100; i++) {
 							if (peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getBCancel().equals("0") && peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getProcess().equals("0")) {
 								PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
 								PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
@@ -169,7 +173,7 @@ public class PollingService extends Service {
 									}
 								});
 							}
-						}
+						}*/
 					}
 				}
 			}
@@ -214,7 +218,11 @@ public class PollingService extends Service {
 					String modifyTime = carLeaveRrd.get(0).getModifyTime();
 					if (!list2.contains(modifyTime)) {
 						list2.add(modifyTime);
-						for (int i = 0; i < 100; i++) {
+						showNotification("收到一条车辆外出申请");
+						Intent intent = new Intent();
+						intent.setAction(FLAG);
+						sendBroadcast(intent);
+						/*for (int i = 0; i < 100; i++) {
 							if (carLeaveEntity1.getCarLeaveRrd().get(i).getbCancel().equals("0") && carLeaveEntity1.getCarLeaveRrd().get(i).getProcess().equals("0")) {
 								PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
 								PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
@@ -250,7 +258,7 @@ public class PollingService extends Service {
 									}
 								});
 							}
-						}
+						}*/
 					}
 				}
 			}
@@ -311,7 +319,6 @@ public class PollingService extends Service {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		Log.e(TAG, "Service:onDestroy" );
 	}
 
 }

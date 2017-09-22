@@ -138,7 +138,7 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
                     if (beginNum == 1 && endNum == 500){
                         entityList.clear();
                     }
-                    for (int i = beginNum-1; i < endNum+1; i++) {
+                    for (int i = beginNum - 1; i < endNum + 1; i++) {
                         if (carLeaveEntity1.getCarLeaveRrd().get(i).getbCancel().equals("0")){
                             PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
                             PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
