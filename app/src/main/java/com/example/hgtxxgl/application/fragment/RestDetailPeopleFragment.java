@@ -106,9 +106,19 @@ public class RestDetailPeopleFragment extends CommonFragment {
         peopleLeaveRrdBean.setIsAndroid("1");
         peopleLeaveRrdBean.setNoIndex(noindex);
         if (title.equals("(取消请假) 是")){
-            peopleLeaveRrdBean.setBCancel("1");
+            if (entity.getBCancel().equals("1")){
+                show("当前已是取消状态,请勿重复操作");
+                return;
+            }else{
+                peopleLeaveRrdBean.setBCancel("1");
+            }
         }else {
-            peopleLeaveRrdBean.setBCancel("0");
+            if (entity.getBCancel().equals("0")){
+                show("当前已是未取消状态,请勿重复操作");
+                return;
+            }else{
+                peopleLeaveRrdBean.setBCancel("0");
+            }
         }
         List<PeopleLeaveEntity.PeopleLeaveRrdBean> beanList = new ArrayList<>();
         beanList.add(peopleLeaveRrdBean);

@@ -35,7 +35,7 @@ import java.util.List;
 public class MyLaunchCarFragment extends Fragment implements SimpleListView.OnRefreshListener, AdapterView.OnItemClickListener {
 
     private int beginNum = 1;
-    private int endNum = 50;
+    private int endNum = 10;
     private boolean hasMore = true;
     private TextView ivEmpty;
     private ProgressBar pb;
@@ -135,7 +135,7 @@ public class MyLaunchCarFragment extends Fragment implements SimpleListView.OnRe
             @Override
             public void onSuccess(final String json, final CarLeaveEntity carLeaveEntity1) throws InterruptedException {
                 if (carLeaveEntity1 != null && carLeaveEntity1.getCarLeaveRrd().size() > 0) {
-                    if (beginNum==1 && endNum == 50){
+                    if (beginNum== 1 && endNum == 10){
                         entityList.clear();
                     }
                     hasMore = true;
@@ -169,8 +169,8 @@ public class MyLaunchCarFragment extends Fragment implements SimpleListView.OnRe
 
     private void loadMore() {
         if (hasMore) {
-            beginNum += 50;
-            endNum += 50;
+            beginNum += 10;
+            endNum += 10;
             loadData(beginNum, endNum);
         } else {
             lv.completeRefresh();
@@ -181,7 +181,7 @@ public class MyLaunchCarFragment extends Fragment implements SimpleListView.OnRe
     public void onPullRefresh() {
         hasMore = true;
         beginNum = 1;
-        endNum = 50;
+        endNum = 10;
         loadData(beginNum, endNum);
         lv.completeRefresh();
     }

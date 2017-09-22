@@ -97,9 +97,19 @@ public class RestDetailCarFragment extends CommonFragment {
         carLeaveRrdBean.setIsAndroid("1");
         carLeaveRrdBean.setNoIndex(noindex);
         if (title.equals("(取消外出) 是")){
-            carLeaveRrdBean.setbCancel("1");
+            if (entity.getbCancel().equals("1")){
+                show("当前已是取消状态,请勿重复操作");
+                return;
+            }else{
+                carLeaveRrdBean.setbCancel("1");
+            }
         }else {
-            carLeaveRrdBean.setbCancel("0");
+            if (entity.getbCancel().equals("0")){
+                show("当前已是未取消状态,请勿重复操作");
+                return;
+            }else{
+                carLeaveRrdBean.setbCancel("0");
+            }
         }
         List<CarLeaveEntity.CarLeaveRrdBean> beanList = new ArrayList<>();
         beanList.add(carLeaveRrdBean);

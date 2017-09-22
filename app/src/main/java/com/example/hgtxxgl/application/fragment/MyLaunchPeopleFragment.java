@@ -32,7 +32,7 @@ import java.util.List;
 public class MyLaunchPeopleFragment extends Fragment implements SimpleListView.OnRefreshListener, AdapterView.OnItemClickListener {
 
     private int beginNum = 1;
-    private int endNum = 50;
+    private int endNum = 10;
     private boolean hasMore = true;
     private TextView ivEmpty;
     private ProgressBar pb;
@@ -135,7 +135,7 @@ public class MyLaunchPeopleFragment extends Fragment implements SimpleListView.O
             @Override
             public void onSuccess(final String json, final PeopleLeaveEntity peopleLeaveEntity1) throws InterruptedException {
                 if (peopleLeaveEntity1 != null && peopleLeaveEntity1.getPeopleLeaveRrd().size() > 0) {
-                    if (beginNum==1 && endNum == 50){
+                    if (beginNum==1 && endNum == 10){
                         entityList.clear();
                     }
                     hasMore = true;
@@ -169,8 +169,8 @@ public class MyLaunchPeopleFragment extends Fragment implements SimpleListView.O
 
     private void loadMore() {
         if (hasMore) {
-            beginNum += 50;
-            endNum += 50;
+            beginNum += 10;
+            endNum += 10;
             loadData(beginNum, endNum);
         } else {
             lv.completeRefresh();
@@ -181,7 +181,7 @@ public class MyLaunchPeopleFragment extends Fragment implements SimpleListView.O
     public void onPullRefresh() {
         hasMore = true;
         beginNum = 1;
-        endNum = 50;
+        endNum = 10;
         loadData(beginNum, endNum);
         lv.completeRefresh();
     }
