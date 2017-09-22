@@ -41,6 +41,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
     public String[] getBottomButtonsTitles() {
         return new String[]{"同 意","拒 绝"};
     }
+
     private String[] stringnull = new String[]{""};
 
     @Override
@@ -53,17 +54,21 @@ public class RestApprovePeopleFragment extends CommonFragment {
         int levelNum = Integer.parseInt(levelNumStr);
         int process = Integer.parseInt(processStr);
         List<HandInputGroup.Holder> list = new ArrayList<>();
-        list.add(new HandInputGroup.Holder("流程类别", true, false, "人员请假", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
-        list.add(new HandInputGroup.Holder("审批状态", true, false, process == 0?"待审批":"已结束", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
+        list.add(new HandInputGroup.Holder("流程内容", true, false, "人员请假", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
+        list.add(new HandInputGroup.Holder("审批状态", true, false, process == 0?"未结束":"已结束", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
+
         if (process == 1){
             setButtonsTitles(stringnull);
             String substring = multiLevelResultStr.substring(0, levelNum);
             if (substring.endsWith("1")){
-                list.add(new HandInputGroup.Holder("审批结果", true, false, "已同意", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
+                list.add(new HandInputGroup.Holder("审批结果", true, false, "同意", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
             }else{
-                list.add(new HandInputGroup.Holder("审批结果", true, false, "已拒绝", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
+                list.add(new HandInputGroup.Holder("审批结果", true, false, "拒绝", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
             }
+        }else{
+            list.add(new HandInputGroup.Holder("审批结果", true, false, "暂无", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
         }
+
         groups.add(new Group("流程信息", null, false, null, list));
 
         List<HandInputGroup.Holder> holderList = new ArrayList<>();
@@ -298,7 +303,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
 //                    getActivity().setResult(Activity.RESULT_OK,intent);
                     getActivity().finish();
                 }else{
-                    show("您已审批,正在等待其他审批人审批");
+                    show("您的审批已完成,正在等待其他人审批");
 //                    Intent intent = new Intent();
 //                    intent.setClass(getContext(), LibMainActivity.class);
 //                    intent.putExtra("item",getArguments().getInt("item"));
