@@ -316,22 +316,9 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
             }
             loadData(1,500);
             adapter.notifyDataSetChanged();
-          /*  if (resultCode == Activity.RESULT_OK){
-                final int item = data.getExtras().getInt("item");
-//                final int tabIndex = data.getExtras().getInt("tabIndex");
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-//                        if (tabIndex == 0){
-                        entityList.remove(item);
-                        adapter.notifyDataSetChanged();
-//                        }
-                    }
-                });*/
-//            }
+
         }
     }
-
 
     private DetailFragment.DataCallback callback;
 

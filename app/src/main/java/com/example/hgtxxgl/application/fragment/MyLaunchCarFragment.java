@@ -1,6 +1,5 @@
 package com.example.hgtxxgl.application.fragment;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.database.DataSetObserver;
 import android.os.Bundle;
@@ -216,20 +215,11 @@ public class MyLaunchCarFragment extends Fragment implements SimpleListView.OnRe
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CommonValues.MYLAUN){
-            if (resultCode == Activity.RESULT_OK){
-                final int item = data.getExtras().getInt("item");
-//                final int tabIndex = data.getExtras().getInt("tabIndex");
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-//                        if (tabIndex == 0){
-                        entityList.remove(item);
-                        adapter.notifyDataSetChanged();
-//                        }
-                    }
-                });
-
+            if (beginNum == 1 && endNum == 10){
+                entityList.clear();
             }
+            loadData(1,10);
+            adapter.notifyDataSetChanged();
         }
     }
 
