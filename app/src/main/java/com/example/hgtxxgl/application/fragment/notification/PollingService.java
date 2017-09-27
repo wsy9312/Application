@@ -70,15 +70,15 @@ public class PollingService extends Service {
 	private void initNotifiManager() {
 		mManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		builder = new NotificationCompat.Builder(this)
-				.setSmallIcon(R.mipmap.app_logo)
-				.setContentTitle("            ");
+				.setSmallIcon(R.mipmap.app_logo);
 	}
 
 	private void showNotification(String content) {
 		Intent i = new Intent(this, LoginActivity.class);
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, i, 0);
 		//设置通知标题
-		builder.setContentText(content)
+		builder.setContentText("点击查看")
+				.setContentTitle(content)
 				.setWhen(System.currentTimeMillis())
 				.setContentIntent(pendingIntent);
 		Notification notification = builder.build();
