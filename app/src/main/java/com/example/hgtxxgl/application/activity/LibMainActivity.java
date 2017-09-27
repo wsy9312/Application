@@ -424,7 +424,6 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
             } else {
                 Intent intent = new Intent(Intent.ACTION_MAIN);
                 intent.addCategory(Intent.CATEGORY_HOME);
-                SysExitUtil.exit();
                 startActivity(intent);
             }
             return true;

@@ -38,18 +38,12 @@
                 android:paddingTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-            <TextView
-                android:layout_below="@+id/tv_news_date"
-                android:text="这是正文"
-                android:textSize="15sp"
-                android:id="@+id/tv_news_body"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:layout_width="match_parent"
+            <ProgressBar
+                android:id="@+id/news_pb"
+                android:layout_gravity="center"
+                android:visibility="visible"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-
             <ImageView
                 android:visibility="gone"
                 android:scaleType="fitXY"
@@ -100,13 +94,20 @@
                 android:src="@mipmap/ic_new_default"
                 android:layout_width="280dp"
                 android:layout_height="180dp"/>
+
+            <TextView
+                android:layout_below="@+id/tv_news_date"
+                android:text="这是正文"
+                android:textSize="15sp"
+                android:id="@+id/tv_news_body"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
         </LinearLayout>
     </ScrollView>
 
-    <ProgressBar
-        android:id="@+id/news_pb"
-        android:layout_gravity="center"
-        android:visibility="visible"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 </LinearLayout>

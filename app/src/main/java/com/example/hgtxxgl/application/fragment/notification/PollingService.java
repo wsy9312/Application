@@ -13,7 +13,7 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.example.hgtxxgl.application.R;
-import com.example.hgtxxgl.application.activity.LoginActivity;
+import com.example.hgtxxgl.application.activity.LibMainActivity;
 import com.example.hgtxxgl.application.entity.CarLeaveEntity;
 import com.example.hgtxxgl.application.entity.MessageEntity;
 import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
@@ -41,6 +41,7 @@ public class PollingService extends Service {
 	private NotificationCompat.Builder builder1;
 	private List<String> list1;
 	private List<String> list2;
+	private List<String> list3;
 
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -57,6 +58,7 @@ public class PollingService extends Service {
 		initNotifiManager();
 		list1 = new ArrayList<>();
 		list2 = new ArrayList<>();
+		list3 = new ArrayList<>();
 	}
 
 	@Override
@@ -74,7 +76,7 @@ public class PollingService extends Service {
 	}
 
 	private void showNotification(String content) {
-		Intent i = new Intent(this, LoginActivity.class);
+		Intent i = new Intent(this, LibMainActivity.class);
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, i, 0);
 		//设置通知标题
 		builder.setContentText("点击查看")
@@ -133,10 +135,14 @@ public class PollingService extends Service {
 					Log.e("123123",peopleLeaveRrd.size()+"");
 					if (!list1.contains(modifyTime)){
 						list1.add(modifyTime);
-						showNotification("收到一条请假外出申请");
-						Intent intent = new Intent();
-						intent.setAction(FLAG);
-						sendBroadcast(intent);
+						for (int i = 0; i < 500; i++) {
+							if (peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getBCancel().equals("0") && peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getProcess().equals("0")) {
+								showNotification("收到一条请假外出申请");
+								Intent intent = new Intent();
+								intent.setAction(FLAG);
+								sendBroadcast(intent);
+							}
+						}
 						/*for (int i = 0; i < 100; i++) {
 							if (peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getBCancel().equals("0") && peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getProcess().equals("0")) {
 								PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
@@ -218,10 +224,15 @@ public class PollingService extends Service {
 					String modifyTime = carLeaveRrd.get(0).getModifyTime();
 					if (!list2.contains(modifyTime)) {
 						list2.add(modifyTime);
-						showNotification("收到一条车辆外出申请");
-						Intent intent = new Intent();
-						intent.setAction(FLAG);
-						sendBroadcast(intent);
+						for (int i = 0; i < 500; i++) {
+							if (carLeaveEntity1.getCarLeaveRrd().get(i).getbCancel().equals("0") && carLeaveEntity1.getCarLeaveRrd().get(i).getProcess().equals("0")) {
+								showNotification("收到一条车辆外出申请");
+								Intent intent = new Intent();
+								intent.setAction(FLAG);
+								sendBroadcast(intent);
+							}
+						}
+
 						/*for (int i = 0; i < 100; i++) {
 							if (carLeaveEntity1.getCarLeaveRrd().get(i).getbCancel().equals("0") && carLeaveEntity1.getCarLeaveRrd().get(i).getProcess().equals("0")) {
 								PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
@@ -296,11 +307,15 @@ public class PollingService extends Service {
 			public void onSuccess(String json, MessageEntity messageEntity) throws InterruptedException {
 				if (messageEntity != null && messageEntity.getMessageRrd().size() > 0){
 					List<MessageEntity.MessageRrdBean> messageRrd = messageEntity.getMessageRrd();
-					String content = messageRrd.get(0).getContent();
-					showNotification(content);
-					Intent intent = new Intent();
-					intent.setAction(FLAGNOT);
-					sendBroadcast(intent);
+					String modifyTime = messageRrd.get(0).getModifyTime();
+					if (!list3.contains(modifyTime)) {
+						list3.add(modifyTime);
+						String content = messageRrd.get(0).getContent();
+						showNotification(content);
+						Intent intent = new Intent();
+						intent.setAction(FLAGNOT);
+						sendBroadcast(intent);
+					}
 				}
 			}
 

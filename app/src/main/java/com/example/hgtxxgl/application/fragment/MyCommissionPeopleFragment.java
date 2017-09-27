@@ -224,11 +224,9 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
                             });
                         }
                     }
-                    hasMore = true;
-                } else {
-                    hasMore = false;
                 }
                 pb.setVisibility(View.GONE);
+                ivEmpty.setVisibility(View.GONE);
                 lv.completeRefresh();
             }
 
@@ -366,9 +364,7 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
 
     @Override
     public void onPullRefresh() {
-//        hasMore = true;
         loadData(beginNum, endNum);
-//        adapter.notifyDataSetChanged();
         lv.completeRefresh();
     }
 

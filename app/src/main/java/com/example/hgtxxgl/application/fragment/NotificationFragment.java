@@ -254,7 +254,6 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
         beginNum = -1;
         endNum = 0;
         loadData(beginNum, endNum);
-        lv.completeRefresh();
     }
 
     @Override

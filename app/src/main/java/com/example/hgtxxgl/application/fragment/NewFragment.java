@@ -149,10 +149,10 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
         newsRrdBean.setTitle("?");
         newsRrdBean.setContent("?");
         newsRrdBean.setModifyTime("?");
-        newsRrdBean.setPicture5("?");
-        newsRrdBean.setPicture4("?");
-        newsRrdBean.setPicture3("?");
-        newsRrdBean.setPicture2("?");
+//        newsRrdBean.setPicture5("?");
+//        newsRrdBean.setPicture4("?");
+//        newsRrdBean.setPicture3("?");
+//        newsRrdBean.setPicture2("?");
         newsRrdBean.setPicture1("?");
         newsRrdBean.setBeginNum(beginNum+"");
         newsRrdBean.setEndNum(endNum+"");
@@ -239,7 +239,7 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
         beginNum = 1;
         endNum = 6;
         loadData(beginNum, endNum);
-        lv.completeRefresh();
+
     }
 
     @Override
