@@ -90,13 +90,13 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                 //设置当前按钮角标位置
                 currentIndex = 0;
                 //根据fragment实例改变当前界面的fragment
-                changeFragment(fragments[0]);
+                changeFragment(0);
                 fragments[0].onPause();
                 handToolbar.setTitle(title[0]);
 
             } else if (checkedId == R.id.rb_main_notification_center) {
                 currentIndex = 1;
-                changeFragment(fragments[1]);
+                changeFragment(1);
                 fragments[1].onPause();
                 handToolbar.setTitle(title[1]);
                 badgeViewNoti.hide();
@@ -127,13 +127,13 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
 
             }*/ else if (checkedId == R.id.rb_main_leave_launch_total){
                 currentIndex = 2;
-                changeFragment(fragments[2]);
+                changeFragment(2);
                 fragments[2].onPause();
                 handToolbar.setTitle(title[2]);
 
             } else if (checkedId == R.id.rb_main_leave_todo_total) {
                 currentIndex = 3;
-                changeFragment(fragments[3]);
+                changeFragment(3);
                 fragments[3].onPause();
                 handToolbar.setTitle(title[3]);
                 badgeViewTodo.hide();
@@ -239,8 +239,8 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
     }
 
     //根据fragment实例改变当前界面的fragment
-    public void changeFragment(Fragment frag) {
-        if (frag == null) return;
+    public void changeFragment(int i) {
+        if (fragments[i] == null) return;
         if (lastIndex == currentIndex) {
             return;
         }
@@ -251,7 +251,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
             transaction.setCustomAnimations(R.anim.fragment_slide_left_in, R.anim.fragment_slide_right_out, R.anim.fragment_slide_left_out, R.anim.fragment_slide_right_in);
         }
         transaction.hide(fragments[lastIndex]);
-        transaction.show(frag);
+        transaction.show(fragments[i]);
         transaction.commitNow();
     }
 
