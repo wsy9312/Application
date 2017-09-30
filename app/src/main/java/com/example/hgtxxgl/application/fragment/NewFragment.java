@@ -34,7 +34,7 @@ import com.youth.banner.listener.OnBannerListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewFragment extends Fragment implements SimpleListView.OnRefreshListener, AdapterView.OnItemClickListener, OnBannerListener{
+public class NewFragment extends Fragment implements SimpleListView.OnRefreshListener, AdapterView.OnItemClickListener, OnBannerListener {
     private int beginNum = 1;
     private int endNum = 6;
     private boolean hasMore = true;
@@ -140,7 +140,7 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
         return view;
     }
 
-    void loadData(final int beginNum, final int endNum) {
+    public void loadData(final int beginNum, final int endNum) {
         if (callback != null) {
             callback.onLoadData();
         }

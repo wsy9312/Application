@@ -20,8 +20,11 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.hgtxxgl.application.R;
+import com.example.hgtxxgl.application.fragment.CommissionDetailFragment;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
+import com.example.hgtxxgl.application.fragment.LaunchDetailFragment;
 import com.example.hgtxxgl.application.fragment.NotificationBroadcast;
+import com.example.hgtxxgl.application.fragment.NotificationFragment;
 import com.example.hgtxxgl.application.fragment.OnUpdateUI;
 import com.example.hgtxxgl.application.fragment.OnUpdateUINO;
 import com.example.hgtxxgl.application.fragment.PersonalActivity;
@@ -310,13 +313,13 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
             }
             FragmentTransaction transaction = supportFragmentManager.beginTransaction();
             fragments[0] = DetailFragment.newInstance(PageConfig.PAGE_NEWS);
-            fragments[1] = DetailFragment.newInstance(PageConfig.PAGE_NOTIFICATION);
+            fragments[1] = NotificationFragment.newInstance(PageConfig.PAGE_NOTIFICATION);
 //            fragments[2] = DetailFragment.newInstance(PageConfig.PAGE_TODO_CAR);
 //            fragments[3] = DetailFragment.newInstance(PageConfig.PAGE_LAUNCH_CAR);
 //            fragments[3] = DetailFragment.newInstance(PageConfig.PAGE_TODO_PEOPLE);
 //            fragments[5] = DetailFragment.newInstance(PageConfig.PAGE_LAUNCH_PEOPLE);
-            fragments[2] = DetailFragment.newInstance(PageConfig.PAGE_LAUNCH_TOTAL);
-            fragments[3] = DetailFragment.newInstance(PageConfig.PAGE_TODO_TOTAL);
+            fragments[2] = LaunchDetailFragment.newInstance(PageConfig.PAGE_LAUNCH_TOTAL);
+            fragments[3] = CommissionDetailFragment.newInstance(PageConfig.PAGE_TODO_TOTAL);
             for (int i = 0; i < fragments.length; i++) {
                 transaction.add(R.id.fl_container, fragments[i]);
                 transaction.hide(fragments[i]);

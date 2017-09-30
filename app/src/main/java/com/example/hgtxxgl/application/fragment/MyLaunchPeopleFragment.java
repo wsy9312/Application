@@ -276,5 +276,17 @@ public class MyLaunchPeopleFragment extends Fragment implements SimpleListView.O
     public void onScrollOutside() {
 
     }
-
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden){
+            Log.e("人才","隐藏-车辆申请");
+        }else {
+            Log.e("人才","显示-车辆申请");
+            if (entityList != null){
+                entityList.clear();
+                onPullRefresh();
+            }
+        }
+    }
 }

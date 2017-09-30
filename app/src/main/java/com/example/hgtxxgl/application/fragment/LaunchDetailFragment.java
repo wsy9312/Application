@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -154,6 +155,21 @@ public class LaunchDetailFragment extends Fragment implements RadioGroup.OnCheck
             case R.id.rb_mid:
                 switchFragment(1);
                 break;
+        }
+    }
+
+    public static Fragment newInstance(int pageTodoTotal) {
+        LaunchDetailFragment fragment = new LaunchDetailFragment();
+        return fragment;
+    }
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden){
+            Log.e("人才","隐藏-申请");
+        }else {
+            Log.e("人才","显示-申请");
+            switchFragment(0);
         }
     }
 }

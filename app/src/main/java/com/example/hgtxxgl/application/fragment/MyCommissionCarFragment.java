@@ -339,4 +339,17 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
     public void onScrollOutside() {
 
     }
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden){
+            Log.e("人才","隐藏-车辆审批");
+        }else {
+            Log.e("人才","显示-车辆审批");
+            if (entityList != null){
+                entityList.clear();
+                onPullRefresh();
+            }
+        }
+    }
 }

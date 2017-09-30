@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -153,6 +154,21 @@ public class CommissionDetailFragment extends Fragment implements RadioGroup.OnC
             case R.id.rb_mid:
                 switchFragment(1);
                 break;
+        }
+    }
+
+    public static Fragment newInstance(int pageTodoTotal) {
+        CommissionDetailFragment fragment = new CommissionDetailFragment();
+        return fragment;
+    }
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden){
+            Log.e("人才","隐藏-审批");
+        }else {
+            Log.e("人才","显示-审批");
+            switchFragment(0);
         }
     }
 }
