@@ -52,10 +52,10 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
     }
 
     public static NotificationFragment newInstance(int tabIndex) {
-//        Bundle args = new Bundle();
+        Bundle args = new Bundle();
         NotificationFragment fragment = new NotificationFragment();
-//        args.putInt(DetailFragment.ARG_TAB, tabIndex);
-//        fragment.setArguments(args);
+        args.putInt(DetailFragment.ARG_TAB, tabIndex);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -264,18 +264,5 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
     @Override
     public void onScrollOutside() {
 
-    }
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        if (hidden){
-            Log.e("人才","隐藏-通知");
-        }else {
-            Log.e("人才","显示-通知");
-            if (entityList != null){
-                entityList.clear();
-                onPullRefresh();
-            }
-        }
     }
 }

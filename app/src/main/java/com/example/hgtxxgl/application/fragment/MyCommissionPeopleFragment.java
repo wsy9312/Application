@@ -5,7 +5,6 @@ import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -379,17 +378,5 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
     public void onScrollOutside() {
 
     }
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        if (hidden){
-            Log.e("人才","隐藏-人员审批");
-        }else {
-            Log.e("人才","显示-人员审批");
-            if (entityList != null){
-                entityList.clear();
-                onPullRefresh();
-            }
-        }
-    }
+
 }
