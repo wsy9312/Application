@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CommonValues {
-    public static final String BASE_URL = "http://192.168.1.149:8080/";
+    public static final String BASE_URL = "http://192.168.1.155:8080/";
 
     public static final int CODE_OA_REQUEST = 2333;
     public static final int MYCOMM = 9527;

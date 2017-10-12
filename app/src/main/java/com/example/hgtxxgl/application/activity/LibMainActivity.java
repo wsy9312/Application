@@ -156,7 +156,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
 
     //初始化设置toolbar标题
     private void initTitle() {
-        title = new String[]{"新闻中心","通知中心"/*,"车辆审批"*//*,"车辆查看"*//*,"人员审批"*//*,"人员查看"*/,"申请事项","审批事项"};
+        title = new String[]{"新闻中心","通知中心","申请事项","审批事项"};
     }
 
     @Override
@@ -301,7 +301,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         badgeViewTodo.setBadgeMargin(1);
     }
 
-    //初始化首页三个子fragment
+    //初始化首页四个子fragment
     private void initFragment(boolean loginSucceed) {
         if(fragments == null) return;
         if (loginSucceed) {
