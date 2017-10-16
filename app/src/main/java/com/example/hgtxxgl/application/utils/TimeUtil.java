@@ -40,7 +40,7 @@ public class TimeUtil {
         }
         if (diff > hour) {
             r = (diff / hour);
-            return r + "个小时前";
+            return r + "小时前";
         }
         if (diff > minute) {
             r = (diff / minute);

@@ -184,8 +184,8 @@ public class SimpleListView extends ListView implements AbsListView.OnScrollList
             pb_rotate.setVisibility(View.GONE);
             iv_arrow.setVisibility(View.VISIBLE);
             tv_state.setText("下拉刷新");
-            String currentTime = getCurrentTime();
-            tv_time.setText("最后刷新：" + currentTime);
+//            String currentTime = getCurrentTime();
+//            tv_time.setText("最后刷新：" + currentTime);
         }
         isPullRefreshed = false;
     }

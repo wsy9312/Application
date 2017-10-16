@@ -65,6 +65,11 @@ public class RestDetailPeopleFragment extends CommonFragment {
             if(multiLevelResultStr.startsWith("1")){
                 setButtonsTitles(stringnull);
             }
+            if(bCancel.equals("1")){
+                setButtonsTitles(stringnull);
+            }else if (bCancel.equals("0")){
+                setButtonsTitles(stringbutton);
+            }
             list.add(new HandInputGroup.Holder("审批结果", true, false, "暂无", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
         }
         list.add(new HandInputGroup.Holder("是否已取消", true, false, bCancel.equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
@@ -88,7 +93,7 @@ public class RestDetailPeopleFragment extends CommonFragment {
         toolbar.setTitleSize(18);
     }
 
-    private String[] stringbutton = new String[]{"(取消请假) 是","否"};
+    private String[] stringbutton = new String[]{"(取消请假) 是"/*,"否"*/};
     private String[] stringnull = new String[]{""};
 
     @Override
@@ -107,19 +112,18 @@ public class RestDetailPeopleFragment extends CommonFragment {
         peopleLeaveRrdBean.setNoIndex(noindex);
         if (title.equals("(取消请假) 是")){
             if (entity.getBCancel().equals("1")){
-                show("当前已是取消状态,请勿重复操作");
                 return;
             }else{
                 peopleLeaveRrdBean.setBCancel("1");
             }
-        }else {
+        }/*else {
             if (entity.getBCancel().equals("0")){
                 show("当前已是未取消状态,请勿重复操作");
                 return;
             }else{
                 peopleLeaveRrdBean.setBCancel("0");
             }
-        }
+        }*/
         List<PeopleLeaveEntity.PeopleLeaveRrdBean> beanList = new ArrayList<>();
         beanList.add(peopleLeaveRrdBean);
         peopleLeaveEntity.setPeopleLeaveRrd(beanList);

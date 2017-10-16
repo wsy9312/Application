@@ -44,6 +44,7 @@ public class RestDetailCarFragment extends CommonFragment {
         List<Group> groups = new ArrayList<>();
         String processStr = entity.getProcess();
         String result = entity.getResult();
+        String bCancel = entity.getbCancel();
         int process = Integer.parseInt(processStr);
         List<HandInputGroup.Holder> list = new ArrayList<>();
         list.add(new HandInputGroup.Holder("流程内容", true, false, "车辆外出", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
@@ -56,6 +57,11 @@ public class RestDetailCarFragment extends CommonFragment {
             }
             setButtonsTitles(stringnull);
         } else {
+            if(bCancel.equals("1")){
+                setButtonsTitles(stringnull);
+            }else if (bCancel.equals("0")){
+                setButtonsTitles(stringbutton);
+            }
             list.add(new HandInputGroup.Holder("审批结果", true, false, "暂无", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
         }
         list.add(new HandInputGroup.Holder("是否已取消", true, false, entity.getbCancel().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
@@ -79,7 +85,7 @@ public class RestDetailCarFragment extends CommonFragment {
         toolbar.setTitleSize(18);
     }
 
-    private String[] stringbutton = new String[]{"(取消外出) 是","否"};
+    private String[] stringbutton = new String[]{"(取消外出) 是"/*,"否"*/};
     private String[] stringnull = new String[]{""};
 
     @Override
@@ -98,19 +104,19 @@ public class RestDetailCarFragment extends CommonFragment {
         carLeaveRrdBean.setNoIndex(noindex);
         if (title.equals("(取消外出) 是")){
             if (entity.getbCancel().equals("1")){
-                show("当前已是取消状态,请勿重复操作");
+                /*show("当前已是取消状态,请勿重复操作");*/
                 return;
             }else{
                 carLeaveRrdBean.setbCancel("1");
             }
-        }else {
+        }/*else {
             if (entity.getbCancel().equals("0")){
                 show("当前已是未取消状态,请勿重复操作");
                 return;
             }else{
                 carLeaveRrdBean.setbCancel("0");
             }
-        }
+        }*/
         List<CarLeaveEntity.CarLeaveRrdBean> beanList = new ArrayList<>();
         beanList.add(carLeaveRrdBean);
         carLeaveEntity.setCarLeaveRrd(beanList);
