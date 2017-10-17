@@ -25,7 +25,6 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.example.hgtxxgl.application.R.id.ll_et_search;
 
-//首页六个fragment的通类
 public class DetailFragment extends Fragment implements View.OnClickListener {
     private int currentPage;
     private SearchView etSearch;
@@ -93,19 +92,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
             } else if (currentPage == PageConfig.PAGE_NOTIFICATION) {
                 llEtSearch.setVisibility(VISIBLE);
                 return NotificationFragment.newInstance(position).setCallback(this);
-            } /*else if (currentPage == PageConfig.PAGE_TODO_CAR) {
-                llEtSearch.setVisibility(VISIBLE);
-                return MyCommissionCarFragment.newInstance(position).setCallback(this);
-            } *//*else if (currentPage == PageConfig.PAGE_LAUNCH_CAR){
-                llEtSearch.setVisibility(VISIBLE);
-                return MyLaunchCarFragment.newInstance(position).setCallback(this);
-            } *//*else if (currentPage == PageConfig.PAGE_TODO_PEOPLE) {
-                llEtSearch.setVisibility(VISIBLE);
-                return MyCommissionPeopleFragment.newInstance(position).setCallback(this);
-            }*/ /*else if (currentPage == PageConfig.PAGE_LAUNCH_PEOPLE){
-                llEtSearch.setVisibility(VISIBLE);
-                return MyLaunchPeopleFragment.newInstance(position).setCallback(this);
-            } */else if (currentPage == PageConfig.PAGE_LAUNCH_TOTAL){
+            } else if (currentPage == PageConfig.PAGE_LAUNCH_TOTAL){
                 return new LaunchDetailFragment();
             } else if (currentPage == PageConfig.PAGE_TODO_TOTAL) {
                 return new CommissionDetailFragment();
@@ -121,15 +108,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
                 return 1;
             } else if (currentPage == PageConfig.PAGE_NOTIFICATION) {
                 return 1;
-            }/* else if (currentPage == PageConfig.PAGE_TODO_CAR) {
-                return 2;
-            }*//* else if (currentPage == PageConfig.PAGE_LAUNCH_CAR) {
-                return 2;
-            } *//*else if (currentPage == PageConfig.PAGE_TODO_PEOPLE) {
-                return 2;
-            } *//*else if (currentPage == PageConfig.PAGE_LAUNCH_PEOPLE) {
-                return 2;
-            }*/ else if (currentPage == PageConfig.PAGE_LAUNCH_TOTAL) {
+            } else if (currentPage == PageConfig.PAGE_LAUNCH_TOTAL) {
                 return 1;
             } else if (currentPage == PageConfig.PAGE_TODO_TOTAL)
                 return 1;
@@ -188,15 +167,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
     //搜索逻辑跳转到子fragment界面进行搜索
     public void doFilter(String str){
         Fragment f = fragments[currentTab];
-        /*if (f instanceof MyLaunchCarFragment) {
-            ((MyLaunchCarFragment) f).filter(str);
-        } else*/ /*if (f instanceof MyCommissionCarFragment){
-            ((MyCommissionCarFragment) f).filter(str);
-        }*/ /*else if (f instanceof MyLaunchPeopleFragment) {
-            ((MyLaunchPeopleFragment) f).filter(str);
-        } *//*else if (f instanceof MyCommissionPeopleFragment){
-            ((MyCommissionPeopleFragment) f).filter(str);
-        } else*/ if (f instanceof NewFragment) {
+        if (f instanceof NewFragment) {
             ((NewFragment) f).filter(str);
         } else if (f instanceof NotificationFragment){
             ((NotificationFragment) f).filter(str);
@@ -237,18 +208,6 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
             case PageConfig.PAGE_NOTIFICATION:
                 group.setVisibility(GONE);
                 break;
-            /*case PageConfig.PAGE_TODO_CAR:
-                group.setVisibility(GONE);
-                break;*/
-           /* case PageConfig.PAGE_LAUNCH_CAR:
-                group.setVisibility(GONE);
-                break;*/
-            /*case PageConfig.PAGE_TODO_PEOPLE:
-                group.setVisibility(GONE);
-                break;*/
-            /*case PageConfig.PAGE_LAUNCH_PEOPLE:
-                group.setVisibility(GONE);
-                break;*/
             case PageConfig.PAGE_LAUNCH_TOTAL:
                 group.setVisibility(GONE);
                 break;

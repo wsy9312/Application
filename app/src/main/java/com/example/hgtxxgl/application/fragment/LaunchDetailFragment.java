@@ -118,30 +118,22 @@ public class LaunchDetailFragment extends Fragment implements RadioGroup.OnCheck
     }
 
     public void switchFragment(int position) {
-        //开启事务
         FragmentTransaction fragmentTransaction =
                 getChildFragmentManager().beginTransaction();
-        //遍历集合
         for (int i = 0; i <fragments.size() ; i++) {
             Fragment fragment = fragments.get(i);
             if (i==position){
-                //显示fragment
                 if (fragment.isAdded()){
-                    //如果这个fragment已经被事务添加,显示
                     fragmentTransaction.show(fragment);
                 }else{
-                    //如果这个fragment没有被事务添加过,添加
                     fragmentTransaction.add(R.id.container,fragment);
                 }
             }else{
-                //隐藏fragment
                 if (fragment.isAdded()){
-                    //如果这个fragment已经被事务添加,隐藏
                     fragmentTransaction.hide(fragment);
                 }
             }
         }
-        //提交事务
         fragmentTransaction.commit();
     }
 

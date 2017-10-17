@@ -101,31 +101,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                 handToolbar.setTitle(title[1]);
                 badgeViewNoti.hide();
 
-            }/* else if (checkedId == R.id.rb_main_cartodo_center) {
-                currentIndex = 2;
-                changeFragment(fragments[2]);
-                fragments[2].onPause();
-                handToolbar.setTitle(title[2]);
-
-            }*/ /*else if (checkedId == R.id.rb_main_carlaunch_center) {
-                currentIndex = 3;
-                changeFragment(fragments[3]);
-                fragments[3].onPause();
-                handToolbar.setTitle(title[3]);
-
-            } */ /*else if (checkedId == R.id.rb_main_leave_todo_center) {
-                currentIndex = 3;
-                changeFragment(fragments[3]);
-                fragments[3].onPause();
-                handToolbar.setTitle(title[3]);
-
-            }*/ /*else if (checkedId == R.id.rb_main_leave_launch_center){
-                currentIndex = 5;
-                changeFragment(fragments[5]);
-                fragments[5].onPause();
-                handToolbar.setTitle(title[5]);
-
-            }*/ else if (checkedId == R.id.rb_main_leave_launch_total){
+            } else if (checkedId == R.id.rb_main_leave_launch_total){
                 currentIndex = 2;
                 changeFragment(2);
                 fragments[2].onPause();
@@ -268,10 +244,6 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         bottomBar = (RadioGroup) findViewById(R.id.bottom_bar);
         newsCenter = (RadioButton) findViewById(R.id.rb_main_news_center);
         notificationCenter = (RadioButton) findViewById(R.id.rb_main_notification_center);
-//        todoCar = (RadioButton) findViewById(R.id.rb_main_cartodo_center);
-//        launchCar = (RadioButton) findViewById(R.id.rb_main_carlaunch_center);
-//        todoCenter = (RadioButton) findViewById(R.id.rb_main_leave_todo_center);
-//        launchCenter = (RadioButton) findViewById(R.id.rb_main_leave_launch_center);
         launchTotal = (RadioButton) findViewById(R.id.rb_main_leave_launch_total);
         todoTotal = (RadioButton) findViewById(R.id.rb_main_leave_todo_total);
         bottomBar.setOnCheckedChangeListener(listener);
@@ -311,10 +283,6 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
             FragmentTransaction transaction = supportFragmentManager.beginTransaction();
             fragments[0] = DetailFragment.newInstance(PageConfig.PAGE_NEWS);
             fragments[1] = DetailFragment.newInstance(PageConfig.PAGE_NOTIFICATION);
-//            fragments[2] = DetailFragment.newInstance(PageConfig.PAGE_TODO_CAR);
-//            fragments[3] = DetailFragment.newInstance(PageConfig.PAGE_LAUNCH_CAR);
-//            fragments[3] = DetailFragment.newInstance(PageConfig.PAGE_TODO_PEOPLE);
-//            fragments[5] = DetailFragment.newInstance(PageConfig.PAGE_LAUNCH_PEOPLE);
             fragments[2] = DetailFragment.newInstance(PageConfig.PAGE_LAUNCH_TOTAL);
             fragments[3] = DetailFragment.newInstance(PageConfig.PAGE_TODO_TOTAL);
             for (int i = 0; i < fragments.length; i++) {
@@ -343,14 +311,6 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                         newsCenter.setBackgroundColor(0xffffff);
                         notificationCenter.setEnabled(true);
                         notificationCenter.setBackgroundColor(0xffffff);
-//                        todoCar.setEnabled(true);
-//                        todoCar.setBackgroundColor(0xffffff);
-//                        launchCar.setEnabled(true);
-//                        launchCar.setBackgroundColor(0xffffff);
-//                        todoCenter.setEnabled(true);
-//                        todoCenter.setBackgroundColor(0xffffff);
-//                        launchCenter.setEnabled(true);
-//                        launchCenter.setBackgroundColor(0xffffff);
                         launchTotal.setEnabled(true);
                         launchTotal.setBackgroundColor(0xffffff);
                         todoTotal.setEnabled(true);
@@ -366,14 +326,6 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                         newsCenter.setBackgroundColor(0xd4d4d4);
                         notificationCenter.setEnabled(false);
                         notificationCenter.setBackgroundColor(0xd4d4d4);
-//                        todoCar.setEnabled(false);
-//                        todoCar.setBackgroundColor(0xd4d4d4);
-//                        launchCar.setEnabled(false);
-//                        launchCar.setBackgroundColor(0xd4d4d4);
-//                        todoCenter.setEnabled(false);
-//                        todoCenter.setBackgroundColor(0xd4d4d4);
-//                        launchCenter.setEnabled(false);
-//                        launchCenter.setBackgroundColor(0xd4d4d4);
                         launchTotal.setEnabled(false);
                         launchTotal.setBackgroundColor(0xd4d4d4);
                         todoTotal.setEnabled(false);
@@ -390,29 +342,6 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         Intent intent = new Intent(this, PersonalActivity.class);
         startActivity(intent);
     }
-
-    /*@Override
-    public void onBackPressed() {
-        AlertDialog.Builder builder=new AlertDialog.Builder(this);
-        builder.setMessage("是否确认退出?");
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                ApplicationApp.setNewLoginEntity(null);
-                ApplicationApp.setPeopleInfoEntity(null);
-                finish();
-                SysExitUtil.exit();
-            }
-        });
-        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() { //设置取消按钮
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        builder.create().show();
-    }*/
 
     private long time = 0;
     @Override

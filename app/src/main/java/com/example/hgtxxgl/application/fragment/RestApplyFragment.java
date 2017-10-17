@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.View;
 
 import com.example.hgtxxgl.application.entity.CarLeaveEntity;
@@ -61,7 +60,6 @@ public class RestApplyFragment extends CommonFragment {
         baseHolder.add(new HandInputGroup.Holder("申请事由",false,false,"",HandInputGroup.VALUE_TYPE.TEXTFILED));
         baseHolder.add(new HandInputGroup.Holder("是否后补请假",false,false,"否",HandInputGroup.VALUE_TYPE.SELECT));
         groups.add(0,new Group("基本信息", null,true,null,baseHolder));
-
         return groups;
     }
 
@@ -122,7 +120,6 @@ public class RestApplyFragment extends CommonFragment {
                             peopleLeaveEntity.setPeopleLeaveRrd(beanList);
                             String json = new Gson().toJson(peopleLeaveEntity);
                             String s1 = "apply " + json;
-                            Log.e(TAG,"人员请假请假:"+s1);
                             applyStart(0,CommonValues.BASE_URL,s1);
                         }else if(realValueType.equals("车辆外出")){
                             //申请车辆号牌
@@ -143,7 +140,6 @@ public class RestApplyFragment extends CommonFragment {
                             carLeaveEntity.setCarLeaveRrd(beanList);
                             String json = new Gson().toJson(carLeaveEntity);
                             String s1 = "apply " + json;
-                            Log.e(TAG,"车辆外出请假:"+s1);
                             applyStart(1,CommonValues.BASE_URL,s1);
                         }
 
@@ -167,12 +163,10 @@ public class RestApplyFragment extends CommonFragment {
             HttpManager.getInstance().requestResultForm(baseUrl, s1, CarLeaveEntity.class, new HttpManager.ResultCallback<CarLeaveEntity>() {
                 @Override
                 public void onSuccess(String json, CarLeaveEntity carLeaveEntity) throws InterruptedException {
-                    Log.e(TAG,"applyStart()-onSuccess():"+json);
                 }
 
                 @Override
                 public void onFailure(String msg) {
-                    Log.e(TAG,"applyStart()-onFailure():"+msg);
                 }
 
                 @Override
@@ -190,12 +184,10 @@ public class RestApplyFragment extends CommonFragment {
             HttpManager.getInstance().requestResultForm(baseUrl, s1, PeopleLeaveEntity.class, new HttpManager.ResultCallback<PeopleLeaveEntity>() {
                 @Override
                 public void onSuccess(String json, final PeopleLeaveEntity peopleLeaveEntity) throws InterruptedException {
-                    Log.e(TAG,"applyStart()-onSuccess():"+json);
                 }
 
                 @Override
                 public void onFailure(final String msg) {
-                    Log.e(TAG,"applyStart()-onFailure():"+msg);
                 }
 
                 @Override
@@ -233,20 +225,7 @@ public class RestApplyFragment extends CommonFragment {
             showSelector(holder,new String[]{"是","否"});
         } else if (holder.getKey().equals("申请类型")){
             showSelector(holder,new String[]{"因公申请","因私申请"});
-        } /*else if (holder.getKey().equals("请假外出类别")){
-            checkedButton(holder, new OnSelectedResultCallback() {
-                @Override
-                public void onSelected(Group ownGroup, HandInputGroup.Holder holder, int mainIndex, int itemIndex) {
-                    if (holder.getRealValue().equals("人员请假")) {
-                        mIsDomestic = true;
-                        insertItems(mIsDomestic);
-                    } else if (holder.getRealValue().equals("车辆外出")){
-                        mIsDomestic = false;
-                        insertItems(mIsDomestic);
-                    }
-                }
-            });
-        }*/
+        }
         if (holder.getKey().equals("申请类别")){
             showSelector(holder, new String[]{"人员请假", "车辆外出"}, new OnSelectedResultCallback() {
                 @Override

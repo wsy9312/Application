@@ -14,7 +14,6 @@ import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
-import com.example.hgtxxgl.application.utils.hyutils.L;
 import com.example.hgtxxgl.application.view.HandToolbar;
 import com.google.gson.Gson;
 
@@ -149,7 +148,6 @@ public class RestApproveCarFragment extends CommonFragment {
         carLeaveEntity.setCarLeaveRrd(list);
         String toJson = new Gson().toJson(carLeaveEntity);
         String s="get "+toJson;
-        L.e(TAG,s);
         String url = CommonValues.BASE_URL;
         HttpManager.getInstance().requestResultForm(url, s, CarLeaveEntity.class, new HttpManager.ResultCallback<CarLeaveEntity>() {
             @Override
@@ -172,12 +170,10 @@ public class RestApproveCarFragment extends CommonFragment {
 
             @Override
             public void onFailure(String msg) {
-//                show(msg);
             }
 
             @Override
             public void onResponse(String response) {
-//                show(response);
             }
         });
     }
@@ -233,19 +229,9 @@ public class RestApproveCarFragment extends CommonFragment {
             public void onResponse(String response) {
                 if (response.toLowerCase().contains("ok")) {
                     show("审批成功");
-//                    Intent intent = new Intent();
-//                    intent.setClass(getContext(), LibMainActivity.class);
-//                    intent.putExtra("item",getArguments().getInt("item"));
-//                    intent.putExtra("tabIndex",getArguments().getInt("tabIndex"));
-//                    getActivity().setResult(Activity.RESULT_OK,intent);
                     getActivity().finish();
                 }else{
                     show("审批流程已结束,审批失败");
-//                    Intent intent = new Intent();
-//                    intent.setClass(getContext(), LibMainActivity.class);
-//                    intent.putExtra("item",getArguments().getInt("item"));
-//                    intent.putExtra("tabIndex",getArguments().getInt("tabIndex"));
-//                    getActivity().setResult(Activity.RESULT_OK,intent);
                     getActivity().finish();
                 }
             }

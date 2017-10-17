@@ -5,7 +5,6 @@ import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -118,7 +117,6 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
         MessageEntity.MessageRrdBean messageRrdBean = new MessageEntity.MessageRrdBean();
         messageRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
         messageRrdBean.setTime(getCurrentDateLater(beginNum)+"&&"+ getCurrentDateLater(endNum));
-        Log.e(TAG,"通知刷新时间:"+ getCurrentDateLater(beginNum)+"&&"+ getCurrentDateLater(endNum));
         messageRrdBean.setContent("?");
         messageRrdBean.setModifyTime("?");
         messageRrdBean.setObjects(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
@@ -129,7 +127,6 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
         messageEntity.setMessageRrd(list);
         String json = new Gson().toJson(messageEntity).replace("\\u0026","&");
         String s = "get " + json;
-        Log.e(TAG, "loadData: "+s );
         String url = CommonValues.BASE_URL;
         HttpManager.getInstance().requestResultForm(url, s, MessageEntity.class, new HttpManager.ResultCallback<MessageEntity>() {
             @Override

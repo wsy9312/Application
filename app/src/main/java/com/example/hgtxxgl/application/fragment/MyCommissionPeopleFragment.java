@@ -265,6 +265,7 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
         peopleLeaveRrdBean1.setResult("?");
         peopleLeaveRrdBean1.setCurrentApproveNo("?");
     }
+
     private void loadMore() {
 //        if (hasMore) {
 //            beginNum += 10;

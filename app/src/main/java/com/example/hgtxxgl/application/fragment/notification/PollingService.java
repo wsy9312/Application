@@ -104,7 +104,6 @@ public class PollingService extends Service {
 	}
 
 	private void getDataAlarmApprovePeople() {
-		Log.e(TAG,"当前时间service:_getDataAlarmApprovePeople "+DateUtil.getCurrentDateBefore()+"&&"+DateUtil.getCurrentDate());
 		PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
 		PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
 		peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
@@ -195,7 +194,6 @@ public class PollingService extends Service {
 	}
 
 	private void getDataAlarmApproveCar() {
-		Log.e(TAG,"当前时间service:_getDataAlarmApproveCar"+DateUtil.getCurrentDateBefore()+"&&"+DateUtil.getCurrentDate());
 		CarLeaveEntity carLeaveEntity = new CarLeaveEntity();
 		CarLeaveEntity.CarLeaveRrdBean carLeaveRrdBean = new CarLeaveEntity.CarLeaveRrdBean();
 		carLeaveRrdBean.setApproverNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
@@ -285,7 +283,6 @@ public class PollingService extends Service {
 	}
 
 	private void getDataAlarmMessage() {
-		Log.e(TAG,"当前时间service:_getDataAlarmMessage"+DateUtil.getCurrentDateBefore()+"&&"+DateUtil.getCurrentDate());
 		MessageEntity messageEntity = new MessageEntity();
 		MessageEntity.MessageRrdBean messageRrdBean = new MessageEntity.MessageRrdBean();
 		messageRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());

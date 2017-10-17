@@ -5,7 +5,6 @@ import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -128,7 +127,6 @@ public class MyLaunchCarFragment extends Fragment implements SimpleListView.OnRe
         carLeaveEntity.setCarLeaveRrd(list);
         String json = new Gson().toJson(carLeaveEntity);
         final String s = "get " + json;
-        Log.e(TAG, "车辆外出初次加载数据:"+s);
         String url = CommonValues.BASE_URL;
         HttpManager.getInstance().requestResultForm(url, s, CarLeaveEntity.class,new HttpManager.ResultCallback<CarLeaveEntity>() {
             @Override

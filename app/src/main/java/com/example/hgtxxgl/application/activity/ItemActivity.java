@@ -37,9 +37,6 @@ public class ItemActivity extends AppCompatActivity {
 
     void checkFragmentForLoading(int pageCode) {
         switch (pageCode) {
-//            case PageConfig.PAGE_LEAVE_APPLY_CAR:
-//                checkFragment(RestApplyCarFragment.newInstance(getIntent().getBundleExtra("data")));
-//                break;
             case PageConfig.PAGE_LEAVE_APPLY_PEOPLE:
                 checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
@@ -67,28 +64,5 @@ public class ItemActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         ItemActivity.super.onBackPressed();
-//        int intExtra = getIntent().getIntExtra(PageConfig.PAGE_CODE, -1);
-//        if (intExtra == PageConfig.PAGE_LEAVE_APPROVE_PEOPLE || intExtra == PageConfig.PAGE_LEAVE_DETAIL_PEOPLE
-//                || intExtra == PageConfig.PAGE_LEAVE_APPROVE_CAR || intExtra == PageConfig.PAGE_LEAVE_DETAIL_CAR){
-//            AlertDialog.Builder builder=new AlertDialog.Builder(this);  //先得到构造器
-//            builder.setMessage("是否确认退出?"); //设置内容
-//            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() { //设置确定按钮
-//                @Override
-//                public void onClick(DialogInterface dialog, int which) {
-//                    dialog.dismiss(); //关闭dialog
-//                    ItemActivity.super.onBackPressed();
-//                }
-//            });
-//            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() { //设置取消按钮
-//                @Override
-//                public void onClick(DialogInterface dialog, int which) {
-//                    dialog.dismiss();
-//                }
-//            });
-//            builder.create().show();
-//
-//        }else {
-//            super.onBackPressed();
-//        }
     }
 }
