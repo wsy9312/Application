@@ -13,7 +13,6 @@ import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
-import com.example.hgtxxgl.application.utils.hyutils.L;
 import com.example.hgtxxgl.application.view.HandToolbar;
 import com.google.gson.Gson;
 
@@ -153,7 +152,6 @@ public class RestApprovePeopleFragment extends CommonFragment {
         peopleLeaveEntity.setPeopleLeaveRrd(list);
         String toJson = new Gson().toJson(peopleLeaveEntity);
         String s="get "+toJson;
-        L.e(TAG,"人员审批详情:"+s);
         String url = CommonValues.BASE_URL;
         HttpManager.getInstance().requestResultForm(url, s, PeopleLeaveEntity.class, new HttpManager.ResultCallback<PeopleLeaveEntity>() {
             @Override
@@ -176,12 +174,10 @@ public class RestApprovePeopleFragment extends CommonFragment {
 
             @Override
             public void onFailure(String msg) {
-//                show(msg);
             }
 
             @Override
             public void onResponse(String response) {
-//                show(response);
             }
         });
     }
@@ -262,7 +258,6 @@ public class RestApprovePeopleFragment extends CommonFragment {
         peopleLeaveEntity.setPeopleLeaveRrd(beanList);
         String json = new Gson().toJson(peopleLeaveEntity);
         final String s1 = "approve " + json;
-        L.e(TAG,"appppp__"+s1);
         AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
         builder.setMessage("是否确认?");
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -296,19 +291,9 @@ public class RestApprovePeopleFragment extends CommonFragment {
             public void onResponse(String response) {
                 if (response.toLowerCase().contains("ok")) {
                     show("审批成功");
-//                    Intent intent = new Intent();
-//                    intent.setClass(getContext(), LibMainActivity.class);
-//                    intent.putExtra("item",getArguments().getInt("item"));
-//                    intent.putExtra("tabIndex",getArguments().getInt("tabIndex"));
-//                    getActivity().setResult(Activity.RESULT_OK,intent);
                     getActivity().finish();
                 }else{
                     show("您的审批已完成,正在等待其他人审批");
-//                    Intent intent = new Intent();
-//                    intent.setClass(getContext(), LibMainActivity.class);
-//                    intent.putExtra("item",getArguments().getInt("item"));
-//                    intent.putExtra("tabIndex",getArguments().getInt("tabIndex"));
-//                    getActivity().setResult(Activity.RESULT_OK,intent);
                     getActivity().finish();
                 }
             }

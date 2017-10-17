@@ -6,7 +6,6 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -249,7 +248,6 @@ public class LoginActivity extends AppCompatActivity {
         peopleEntity.setPeopleInfo(beanList);
         String json = new Gson().toJson(peopleEntity);
         String s1 = "get " + json;
-        Log.e(TAG,"个人资料获取："+s1);
         HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
             @Override
             public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {

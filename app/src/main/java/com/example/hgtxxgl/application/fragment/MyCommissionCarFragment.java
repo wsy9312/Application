@@ -129,7 +129,6 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
         carLeaveEntity.setCarLeaveRrd(list);
         String json = new Gson().toJson(carLeaveEntity);
         final String s = "get " + json;
-        Log.e(TAG, "loadData()查看申请记录"+s);
         String url = CommonValues.BASE_URL;
         HttpManager.getInstance().requestResultForm(url, s, CarLeaveEntity.class,new HttpManager.ResultCallback<CarLeaveEntity>() {
             @Override

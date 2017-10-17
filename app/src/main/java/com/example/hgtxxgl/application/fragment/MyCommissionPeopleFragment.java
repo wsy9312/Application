@@ -23,7 +23,6 @@ import com.example.hgtxxgl.application.utils.hand.DataUtil;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.ListAdapter;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
-import com.example.hgtxxgl.application.utils.hyutils.L;
 import com.example.hgtxxgl.application.view.SimpleListView;
 import com.google.gson.Gson;
 
@@ -166,7 +165,6 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
         peopleLeaveEntity.setPeopleLeaveRrd(list);
         String json = new Gson().toJson(peopleLeaveEntity);
         final String s = "get " + json;
-        L.e(TAG, "loadData()查看申请记录"+s);
         String url = CommonValues.BASE_URL;
         HttpManager.getInstance().requestResultForm(url, s, PeopleLeaveEntity.class,new HttpManager.ResultCallback<PeopleLeaveEntity>() {
             @Override
@@ -188,7 +186,6 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
                             peopleEntity.setPeopleInfo(beanList);
                             String json1 = new Gson().toJson(peopleEntity);
                             String s1 = "get " + json1;
-                            L.e(TAG,"1名字："+s1);
                             final int finalI = i;
                             HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
                                 @Override

@@ -42,7 +42,6 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
 
     public static final String TAG = PersonalActivity.class.getSimpleName();
     private Button mLogout;
-    private View view;
     private TextView mNumber;
     private TextView mName;
     private TextView mSFZnumber;
@@ -54,6 +53,10 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
     private TextView mTelNumber;
     private Bitmap bitmap;
     private PersonalHandToolbar handToolBar;
+    private String no;
+    private String name;
+    private String cardNo;
+    private String sex;
 
     public PersonalActivity() {
 
@@ -105,10 +108,7 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
         mLogout.setOnClickListener(this);
         showData();
     }
-    private String no;
-    private String name;
-    private String cardNo;
-    private String sex;
+
     private void showData() {
         no = ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo();
         name = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName();

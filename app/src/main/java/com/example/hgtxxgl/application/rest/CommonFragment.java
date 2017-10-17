@@ -1,6 +1,5 @@
 package com.example.hgtxxgl.application.rest;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -21,7 +20,6 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.hgtxxgl.application.R;
-import com.example.hgtxxgl.application.activity.LibMainActivity;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
@@ -837,126 +835,6 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
         //输入框改变事件回调，重写此方法
     }
 
-    public void applyApprove(final String url, final Map<String, Object> param, final String title) {
-        toolbar.setEnabled(false);
-        InputHolder holder = new InputHolder("审批意见", "确定", "请输入" + title + "内容", title.equals("同意") ? "同意" : "", title.equals("驳回"));
-        InputActivity.showBottomInputTextField(getActivity(),
-                holder, new InputActivity.Callback() {
-                    @Override
-                    public void onResult(String value) {
-                        setPb(true);
-                        if (title.equals("驳回")) {
-                            param.put("actionType", "Reject");
-                        }  else if (title.equals("同意")) {
-                            param.put("actionType", "Approve");
-                        } else if (title.equals("提交")) {
-                            param.put("actionType", "Submit");
-                        }
-                        param.put("comment", value);
-                        System.out.println(param.toString());
-                        HttpManager.getInstance().requestResultForm(url, param, CommonDataEntity.class, new HttpManager.ResultCallback<CommonDataEntity>() {
-                            @Override
-                            public void onSuccess(String json, final CommonDataEntity commonDataEntity) {
-                                getActivity().runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        if (commonDataEntity != null && commonDataEntity.getCode().equals("100")) {
-                                            Toast.makeText(getActivity(), "审批成功", Toast.LENGTH_SHORT).show();
-                                            Intent intent = new Intent();
-                                            intent.setClass(getContext(), LibMainActivity.class);
-                                            intent.putExtra("item",getArguments().getInt("item"));
-                                            intent.putExtra("tabIndex",getArguments().getInt("tabIndex"));
-                                            getActivity().setResult(Activity.RESULT_OK,intent);
-                                            getActivity().finish();
-                                        } else {
-                                            Toast.makeText(getActivity(), "审批失败" + commonDataEntity.getMsg() + "，请重新提交", Toast.LENGTH_SHORT).show();
-                                        }
-                                        setPb(false);
-                                        setButtonllEnable(true);
-                                    }
-                                });
-                            }
-                            @Override
-                            public void onFailure(final String msg) {
-                                getActivity().runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Toast.makeText(getActivity(), "审批失败，请检查网络" + msg, Toast.LENGTH_SHORT).show();
-                                        setPb(false);
-                                        setButtonllEnable(true);
-                                    }
-                                });
-
-                            }
-
-                            @Override
-                            public void onResponse(String response) {
-
-                            }
-                        });
-                    }
-                }
-        );
-    }
-
-    public void applySaveOrStart(final String url, final Map<String, Object> param, final String title) {
-        setPb(true);
-        toolbar.setEnabled(false);
-        if (title.equals("保存")) {
-            param.put("actionType", "Save");
-        } else if (title.equals("提交")) {
-            param.put("actionType", "Start");
-        }else if (title.equals("重新提交")){
-            param.put("actionType", "Submit");
-        }
-        HttpManager.getInstance().requestResultForm(url, param, CommonDataEntity.class, new HttpManager.ResultCallback<CommonDataEntity>() {
-            @Override
-            public void onSuccess(String json, final CommonDataEntity commonDataEntity) {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        hideDialog();
-                        if (commonDataEntity != null && commonDataEntity.getCode().equals("100")) {
-                            Toast.makeText(getActivity(), title + "成功", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent();
-                            if (getArguments() == null || title.equals("保存")){
-                                getActivity().finish();
-                            }else {
-                                intent.setClass(getContext(), LibMainActivity.class);
-                                intent.putExtra("item",getArguments().getInt("item"));
-                                intent.putExtra("tabIndex",getArguments().getInt("tabIndex"));
-                                getActivity().setResult(Activity.RESULT_OK,intent);
-                                getActivity().finish();
-                            }
-
-                        } else {
-                            Toast.makeText(getActivity(), title + "失败" + "，请重新"+title, Toast.LENGTH_SHORT).show();
-                        }
-                        setPb(false);
-                        setButtonllEnable(true);
-                    }
-                });
-            }
-            @Override
-            public void onFailure(String msg) {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        hideDialog();
-                        Toast.makeText(getActivity(), title + "失败，请检查网络", Toast.LENGTH_SHORT).show();
-                        setPb(true);
-                        setButtonllEnable(true);
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(String response) {
-
-            }
-        });
-    }
-
     public void uploadSingleFileAndData(final Uri uri, final String uuid, final String workflowType, final String fileGroupName, final String fileGroupValue){
         new AsyncTask<Void, Integer, Boolean>() {
             @Override
@@ -1059,7 +937,7 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
             protected void onPostExecute(Boolean aVoid) {
                 super.onPostExecute(aVoid);
                 if (aVoid) {
-                    applySaveOrStart(applyUrl, allParams, title);
+//                    applySaveOrStart(applyUrl, allParams, title);
                 } else {
                     updateDialog("上传失败", 0);
                     itemCont.postDelayed(new Runnable() {

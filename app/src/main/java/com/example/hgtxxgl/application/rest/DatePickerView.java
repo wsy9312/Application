@@ -69,7 +69,6 @@ public class DatePickerView extends View {
                     performSelect();
                 }
             } else {
-                // 这里mMoveLen / Math.abs(mMoveLen)是为了保有mMoveLen的正负号，以实现上滚或下滚
                 mMoveLen = mMoveLen - mMoveLen / Math.abs(mMoveLen) * SPEED;
             }
             invalidate();

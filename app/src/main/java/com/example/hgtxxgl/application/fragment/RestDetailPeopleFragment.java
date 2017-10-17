@@ -129,7 +129,6 @@ public class RestDetailPeopleFragment extends CommonFragment {
         peopleLeaveEntity.setPeopleLeaveRrd(beanList);
         String json = new Gson().toJson(peopleLeaveEntity);
         final String s1 = "modify " + json;
-        L.e(TAG,s1);
         AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
         builder.setMessage("是否确认?");
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -231,7 +230,6 @@ public class RestDetailPeopleFragment extends CommonFragment {
         peopleLeaveEntity.setPeopleLeaveRrd(list);
         String toJson = new Gson().toJson(peopleLeaveEntity);
         String s="get "+toJson;
-        L.e(TAG,"申请后详情："+s);
         String url = CommonValues.BASE_URL;
         HttpManager.getInstance().requestResultForm(url, s, PeopleLeaveEntity.class, new HttpManager.ResultCallback<PeopleLeaveEntity>() {
             @Override
@@ -258,7 +256,6 @@ public class RestDetailPeopleFragment extends CommonFragment {
                                 approveNoList.add(4,approver5No);
                             }
                             for (int i = 0; i < approveNoList.size(); i++) {
-                                L.e(TAG,"当前:"+approveNoList.get(i));
                                 PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
                                 PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
                                 peopleInfoBean.setNo(approveNoList.get(i));
@@ -270,16 +267,12 @@ public class RestDetailPeopleFragment extends CommonFragment {
                                 peopleEntity.setPeopleInfo(beanList);
                                 String json1 = new Gson().toJson(peopleEntity);
                                 String s1 = "get " + json1;
-                                L.e(TAG,"s1"+s1);
                                 HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
                                     @Override
                                     public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
                                         if (peopleInfoEntity != null){
-                                            L.e(TAG,"namenamename:   "+peopleInfoEntity.getPeopleInfo().get(0).getName());
                                             peopleLeaveEntity1.getPeopleLeaveRrd().get(0).setApprover1Name(peopleInfoEntity.getPeopleInfo().get(0).getName());
-                                            L.e(TAG,"namename:   "+peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover1Name());
                                             name = peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover1Name();
-                                            L.e(TAG,"name:   "+name);
                                         }
                                     }
 
@@ -306,12 +299,10 @@ public class RestDetailPeopleFragment extends CommonFragment {
 
             @Override
             public void onFailure(String msg) {
-//                show(msg);
             }
 
             @Override
             public void onResponse(String response) {
-//                show(response);
             }
         });
     }

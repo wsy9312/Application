@@ -122,7 +122,6 @@ public class RestDetailCarFragment extends CommonFragment {
         carLeaveEntity.setCarLeaveRrd(beanList);
         String json = new Gson().toJson(carLeaveEntity);
         final String s1 = "modify " + json;
-        L.e(TAG,s1);
         AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
         builder.setMessage("是否确认?");
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -217,7 +216,6 @@ public class RestDetailCarFragment extends CommonFragment {
         carLeaveEntity.setCarLeaveRrd(list);
         String toJson = new Gson().toJson(carLeaveEntity);
         String s="get "+toJson;
-        L.e(TAG,"申请后详情："+s);
         String url = CommonValues.BASE_URL;
         HttpManager.getInstance().requestResultForm(url, s, CarLeaveEntity.class, new HttpManager.ResultCallback<CarLeaveEntity>() {
             @Override
@@ -238,12 +236,10 @@ public class RestDetailCarFragment extends CommonFragment {
 
             @Override
             public void onFailure(String msg) {
-//                show(msg);
             }
 
             @Override
             public void onResponse(String response) {
-//                show(response);
             }
         });
 

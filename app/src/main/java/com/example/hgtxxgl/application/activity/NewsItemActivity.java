@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -124,7 +123,6 @@ public class NewsItemActivity extends AppCompatActivity implements View.OnClickL
         newsInfoEntity.setNewsRrd(list);
         String json = new Gson().toJson(newsInfoEntity);
         String s = "get " + json;
-        Log.e(TAG, "新闻图片: " + s);
         String url = CommonValues.BASE_URL;
         HttpManager.getInstance().requestResultForm(url, s, NewsInfoEntity.class, new HttpManager.ResultCallback<NewsInfoEntity>() {
             @Override
