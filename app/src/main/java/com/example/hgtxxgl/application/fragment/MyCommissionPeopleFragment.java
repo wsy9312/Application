@@ -164,7 +164,7 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
         list.add(5,peopleLeaveRrdBean5);
         peopleLeaveEntity.setPeopleLeaveRrd(list);
         String json = new Gson().toJson(peopleLeaveEntity);
-        final String s = "get " + json;
+        String s = "get " + json;
         String url = CommonValues.BASE_URL;
         HttpManager.getInstance().requestResultForm(url, s, PeopleLeaveEntity.class,new HttpManager.ResultCallback<PeopleLeaveEntity>() {
             @Override

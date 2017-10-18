@@ -132,7 +132,7 @@ public class MyLaunchPeopleFragment extends Fragment implements SimpleListView.O
             @Override
             public void onSuccess(final String json, final PeopleLeaveEntity peopleLeaveEntity1) throws InterruptedException {
                 if (peopleLeaveEntity1 != null && peopleLeaveEntity1.getPeopleLeaveRrd().size() > 0) {
-                    if (beginNum==1 && endNum == 10){
+                    if (beginNum == 1 && endNum == 10){
                         entityList.clear();
                     }
                     hasMore = true;

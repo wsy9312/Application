@@ -18,9 +18,6 @@ public class CommonValues {
      * 公用请求
      */
 
-    public static String DEVICE_TYPE = "Android";
-    public static String NET;
-
     public static String getLocalMacAddressFromBusybox(){
         String result = "";
         String Mac = "";
