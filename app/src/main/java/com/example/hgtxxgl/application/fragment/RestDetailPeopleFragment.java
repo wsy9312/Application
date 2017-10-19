@@ -16,7 +16,6 @@ import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
-import com.example.hgtxxgl.application.utils.hyutils.L;
 import com.example.hgtxxgl.application.view.HandToolbar;
 import com.google.gson.Gson;
 
@@ -163,7 +162,7 @@ public class RestDetailPeopleFragment extends CommonFragment {
                     show("修改成功");
                     getActivity().finish();
                 }else{
-                    show("修改失败");
+                    show("已在审批当中,修改失败");
                     getActivity().finish();
                 }
             }

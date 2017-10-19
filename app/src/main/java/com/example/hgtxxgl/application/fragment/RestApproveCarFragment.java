@@ -231,7 +231,7 @@ public class RestApproveCarFragment extends CommonFragment {
                     show("审批成功");
                     getActivity().finish();
                 }else{
-                    show("审批流程已结束,审批失败");
+                    show("申请人已取消申请,审批结束");
                     getActivity().finish();
                 }
             }

@@ -55,9 +55,9 @@ public class RestApplyFragment extends CommonFragment {
         baseHolder.add(new HandInputGroup.Holder("申请人",true,false,name,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
         baseHolder.add(new HandInputGroup.Holder("申请类别",true,false,"人员请假",HandInputGroup.VALUE_TYPE.SELECT));
         baseHolder.add(new HandInputGroup.Holder("申请类型",true,false,"因公申请",HandInputGroup.VALUE_TYPE.SELECT));
-        baseHolder.add(new HandInputGroup.Holder("预计外出时间",true,false,"",HandInputGroup.VALUE_TYPE.DATE));
-        baseHolder.add(new HandInputGroup.Holder("预计归来时间",true,false,"",HandInputGroup.VALUE_TYPE.DATE));
-        baseHolder.add(new HandInputGroup.Holder("申请事由",false,false,"",HandInputGroup.VALUE_TYPE.TEXTFILED));
+        baseHolder.add(new HandInputGroup.Holder("预计外出时间",true,false,"/请选择",HandInputGroup.VALUE_TYPE.DATE));
+        baseHolder.add(new HandInputGroup.Holder("预计归来时间",true,false,"/请选择",HandInputGroup.VALUE_TYPE.DATE));
+        baseHolder.add(new HandInputGroup.Holder("申请事由",false,false,"/请填写",HandInputGroup.VALUE_TYPE.TEXTFILED));
         baseHolder.add(new HandInputGroup.Holder("是否后补请假",false,false,"否",HandInputGroup.VALUE_TYPE.SELECT));
         groups.add(0,new Group("基本信息", null,true,null,baseHolder));
         return groups;
@@ -175,7 +175,7 @@ public class RestApplyFragment extends CommonFragment {
                         show("提交成功");
                         getActivity().finish();
                     }else{
-                        show("提交失败");
+                        show("提交失败,请核实车辆信息无误后提交");
                         getActivity().finish();
                     }
                 }
@@ -246,7 +246,7 @@ public class RestApplyFragment extends CommonFragment {
         List<HandInputGroup.Holder> holders = getGroup().get(0).getHolders();
         if (mIsDomestic) {
             if (holders.size() == 7){
-                holders.add(2,new HandInputGroup.Holder("车辆号牌", true, false, "沪A11111", HandInputGroup.VALUE_TYPE.TEXTFILED));
+                holders.add(2,new HandInputGroup.Holder("车辆号牌", true, false, "/请填写", HandInputGroup.VALUE_TYPE.TEXTFILED));
             }else if (holders.size() == 8){
                 holders.remove(2);
             }
@@ -254,7 +254,7 @@ public class RestApplyFragment extends CommonFragment {
             if (holders.size() == 8){
                 holders.remove(2);
             }else if (holders.size() == 7){
-                holders.add(2,new HandInputGroup.Holder("车辆号牌", true, false, "沪A11111", HandInputGroup.VALUE_TYPE.TEXTFILED));
+                holders.add(2,new HandInputGroup.Holder("车辆号牌", true, false, "/请填写", HandInputGroup.VALUE_TYPE.TEXTFILED));
             }
         }
         notifyDataSetChanged();
@@ -287,4 +287,5 @@ public class RestApplyFragment extends CommonFragment {
             }
         }
     }
+
 }

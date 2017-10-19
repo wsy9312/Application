@@ -68,6 +68,17 @@ public class RestApprovePeopleFragment extends CommonFragment {
             list.add(new HandInputGroup.Holder("审批结果", true, false, "暂无", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
         }
 
+        if (entity.getBCancel().equals("0")){
+            if (entity.getProcess().equals("1")){
+                setButtonsTitles(stringnull);
+            }else if (entity.getProcess().equals("0")){
+                if (entity.getCurrentApproveNo().equals(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo())){
+                }else {
+                    setButtonsTitles(stringnull);
+                }
+            }
+        }
+
         groups.add(new Group("流程信息", null, false, null, list));
 
         List<HandInputGroup.Holder> holderList = new ArrayList<>();
@@ -293,7 +304,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
                     show("审批成功");
                     getActivity().finish();
                 }else{
-                    show("您的审批已完成,正在等待其他人审批");
+                    show("申请人已取消申请,审批结束");
                     getActivity().finish();
                 }
             }

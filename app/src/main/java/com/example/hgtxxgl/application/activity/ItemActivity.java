@@ -1,8 +1,10 @@
 package com.example.hgtxxgl.application.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.hgtxxgl.application.R;
@@ -63,6 +65,27 @@ public class ItemActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        ItemActivity.super.onBackPressed();
+        int intExtra = getIntent().getIntExtra(PageConfig.PAGE_CODE, -1);
+        if (intExtra == PageConfig.PAGE_LEAVE_APPLY_PEOPLE ){
+            AlertDialog.Builder builder=new AlertDialog.Builder(this);
+            builder.setMessage("是否确认退出?");
+            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss(); //关闭dialog
+                    ItemActivity.super.onBackPressed();
+                }
+            });
+            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            builder.create().show();
+
+        }else {
+            super.onBackPressed();
+        }
     }
 }
