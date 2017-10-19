@@ -21,14 +21,13 @@ import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.view.HandToolbar;
-import com.example.hgtxxgl.application.view.MyImageDialog;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 
 //新闻详情页
-public class NewsItemActivity extends AppCompatActivity implements View.OnClickListener {
+public class NewsItemActivity extends AppCompatActivity{
 
     private static final String TAG = "NewsItemActivity";
     private ImageView image1;
@@ -76,11 +75,6 @@ public class NewsItemActivity extends AppCompatActivity implements View.OnClickL
         image3 = (ImageView) findViewById(R.id.image_news_three);
         image4 = (ImageView) findViewById(R.id.image_news_four);
         image5 = (ImageView) findViewById(R.id.image_news_five);
-        image1.setOnClickListener(this);
-        image2.setOnClickListener(this);
-        image3.setOnClickListener(this);
-        image4.setOnClickListener(this);
-        image5.setOnClickListener(this);
         pb = (ProgressBar) findViewById(R.id.news_pb);
         handToolbar = (HandToolbar) findViewById(R.id.itemactivity_handtoolbar);
         handToolbar.setDisplayHomeAsUpEnabled(true, this);
@@ -208,24 +202,4 @@ public class NewsItemActivity extends AppCompatActivity implements View.OnClickL
         super.onDestroy();
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.image_news_one:
-                new MyImageDialog(this,0,0,0,bitmap1,R.style.AlertDialog_AppCompat_Transparent).show();
-                break;
-            case R.id.image_news_two:
-                new MyImageDialog(this,0,0,0,bitmap2,R.style.AlertDialog_AppCompat_Transparent).show();
-                break;
-            case R.id.image_news_three:
-                new MyImageDialog(this,0,0,0,bitmap3,R.style.AlertDialog_AppCompat_Transparent).show();
-                break;
-            case R.id.image_news_four:
-                new MyImageDialog(this,0,0,0,bitmap4,R.style.AlertDialog_AppCompat_Transparent).show();
-                break;
-            case R.id.image_news_five:
-                new MyImageDialog(this,0,0,0,bitmap5,R.style.AlertDialog_AppCompat_Transparent).show();
-                break;
-        }
-    }
 }
