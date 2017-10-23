@@ -197,4 +197,25 @@
         <item name="android:background">@drawable/fab_label_background</item>
         <item name="android:textColor">@color/white</item>
     </style>
+    <style name="item_title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textColor">@color/color_item_title</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+    <style name="item_title_subtitle">
+        <item name="android:textColor">@color/color_item_subtitle</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+    <style name="CommonDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.1dp</item>
+        <item name="android:background">@color/color_divider</item>
+    </style>
+    <style name="item_intro_long">
+        <!--<item name="android:minLines">5</item>-->
+        <item name="android:maxLines">5</item>
+    </style>
 </resources>

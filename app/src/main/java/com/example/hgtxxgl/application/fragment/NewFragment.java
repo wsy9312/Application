@@ -61,14 +61,34 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
     ListAdapter<NewsInfoEntity.NewsRrdBean> adapter = new ListAdapter<NewsInfoEntity.NewsRrdBean>
             ((ArrayList<NewsInfoEntity.NewsRrdBean>) entityList, R.layout.layout_news) {
 
-        private Bitmap bitmap;
+        private Bitmap bitmap1;
+        private Bitmap bitmap2;
+        private Bitmap bitmap3;
 
         @Override
         public void bindView(ViewHolder holder, NewsInfoEntity.NewsRrdBean bean) {
-            bitmap = stringtoBitmap(bean.getPicture1());
+            if (bean.getPicture1() != null){
+                bitmap1 = stringtoBitmap(bean.getPicture1());
+            }
+            if (bean.getPicture2() != null){
+                bitmap2 = stringtoBitmap(bean.getPicture2());
+            }
+            if (bean.getPicture3() != null){
+                bitmap3 = stringtoBitmap(bean.getPicture3());
+            }
             holder.setText(R.id.tv_title, bean.getTitle());
-            holder.setBitmap(R.id.image_news,bitmap);
-            holder.setText(R.id.tv_sketch, bean.getContent());
+            if (bitmap1 == null && bitmap2 == null && bitmap3 == null){
+                holder.setText(R.id.tv_sketch, bean.getContent());
+            }else if (bitmap1 != null && bitmap2 == null && bitmap3 == null){
+                holder.setBitmap(R.id.item_single_picture,bitmap1);
+            }else if (bitmap1 != null && bitmap2 != null && bitmap3 == null){
+                holder.setBitmap(R.id.item_multiple_picture_left,bitmap1);
+                holder.setBitmap(R.id.item_multiple_picture_right,bitmap2);
+            }else{
+                holder.setBitmap(R.id.item_three_picture_left,bitmap1);
+                holder.setBitmap(R.id.item_three_picture_middle,bitmap2);
+                holder.setBitmap(R.id.item_three_picture_right,bitmap3);
+            }
 //            holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
             holder.setText(R.id.tv_date, TimeUtil.getTimeFormatText(DataUtil.parseDateToText(bean.getModifyTime())));
         }
@@ -76,12 +96,37 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View view = super.getView(position, convertView, parent);
-            View image = view.findViewById(R.id.image_news);
-            if (bitmap==null){
-                image.setVisibility(View.GONE);
-            }else{
-                image.setVisibility(View.VISIBLE);
+            View tvSketch = view.findViewById(R.id.tv_sketch);
+            View imageOne = view.findViewById(R.id.item_single_picture);
+            View imageTwoLeft = view.findViewById(R.id.item_multiple_picture_left);
+            View imageTwoRight = view.findViewById(R.id.item_multiple_picture_right);
+            View three = view.findViewById(R.id.ll_three);
+            if (bitmap1 == null && bitmap2 == null && bitmap3 == null){
+                tvSketch.setVisibility(View.VISIBLE);
+                imageOne.setVisibility(View.GONE);
+                three.setVisibility(view.GONE);
+                imageTwoLeft.setVisibility(View.GONE);
+                imageTwoRight.setVisibility(View.GONE);
+            }else if (bitmap1 != null && bitmap2 == null && bitmap3 == null){
+                tvSketch.setVisibility(View.GONE);
+                imageOne.setVisibility(View.VISIBLE);
+                three.setVisibility(view.GONE);
+                imageTwoLeft.setVisibility(View.GONE);
+                imageTwoRight.setVisibility(View.GONE);
+            }else if (bitmap1 != null && bitmap2 != null && bitmap3 == null){
+                tvSketch.setVisibility(View.GONE);
+                imageOne.setVisibility(View.GONE);
+                three.setVisibility(view.GONE);
+                imageTwoLeft.setVisibility(View.VISIBLE);
+                imageTwoRight.setVisibility(View.VISIBLE);
+            }else {
+                tvSketch.setVisibility(View.GONE);
+                imageOne.setVisibility(View.GONE);
+                imageTwoLeft.setVisibility(View.GONE);
+                imageTwoRight.setVisibility(View.GONE);
+                three.setVisibility(view.VISIBLE);
             }
+
             return view;
         }
     };
@@ -95,7 +140,6 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return bitmap;
     }
     @Override
@@ -150,9 +194,10 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
         newsRrdBean.setModifyTime("?");
 //        newsRrdBean.setPicture5("?");
 //        newsRrdBean.setPicture4("?");
-//        newsRrdBean.setPicture3("?");
-//        newsRrdBean.setPicture2("?");
+        newsRrdBean.setPicture3("?");
+        newsRrdBean.setPicture2("?");
         newsRrdBean.setPicture1("?");
+        newsRrdBean.setPicture1Len("?");
         newsRrdBean.setBeginNum(beginNum+"");
         newsRrdBean.setEndNum(endNum+"");
         newsRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
@@ -173,7 +218,7 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
                             }
                             hasMore = true;
                             entityList.addAll(newsInfoEntity.getNewsRrd());
-                            setBannerBitmap();
+//                            setBannerBitmap();
                             adapter.notifyDataSetChanged();
                         } else {
                             hasMore = false;
