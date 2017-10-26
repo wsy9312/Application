@@ -2,6 +2,7 @@ package com.example.hgtxxgl.application.fragment;
 
 import android.content.Intent;
 import android.database.DataSetObserver;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -68,11 +69,17 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
             if (bean.getBCancel().equals("0")){
                 if (bean.getProcess().equals("1")){
                     holder.setImageResource(R.id.image_flow,R.drawable.ic_approved);
+                    holder.setTextColor(R.id.tv_sketch, Color.rgb(0,128,0));
+                    holder.setTextColor(R.id.tv_title, Color.rgb(0,128,0));
                 }else if (bean.getProcess().equals("0")){
                     if (bean.getCurrentApproveNo().equals(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo())){
                         holder.setImageResource(R.id.image_flow,R.drawable.ic_no_approve);
+                        holder.setTextColor(R.id.tv_sketch, Color.rgb(214,16,24));
+                        holder.setTextColor(R.id.tv_title, Color.rgb(214,16,24));
                     }else {
                         holder.setImageResource(R.id.image_flow,R.drawable.ic_approved);
+                        holder.setTextColor(R.id.tv_sketch, Color.rgb(0,128,0));
+                        holder.setTextColor(R.id.tv_title, Color.rgb(0,128,0));
                     }
                 }
             }

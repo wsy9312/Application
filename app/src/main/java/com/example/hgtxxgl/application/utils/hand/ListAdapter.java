@@ -210,7 +210,15 @@ public abstract class ListAdapter<T> extends BaseAdapter {
             if (view instanceof ImageView){
                 ((ImageView)getView(id)).setImageBitmap(bm);
             }
-            return  this;
+            return this;
+        }
+
+        public ViewHolder setTextColor(int id ,int color){
+            View view = getView(id);
+            if (view instanceof  TextView){
+                ((TextView)getView(id)).setTextColor(color);
+            }
+            return this;
         }
 
     }

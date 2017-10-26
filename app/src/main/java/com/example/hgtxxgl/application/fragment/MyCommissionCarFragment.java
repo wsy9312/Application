@@ -3,6 +3,7 @@ package com.example.hgtxxgl.application.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.DataSetObserver;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -68,6 +69,8 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
             holder.setText(R.id.tv_sketch, "申请事由:"+(bean.getContent().isEmpty()?"无":bean.getContent()));
             if (bean.getbCancel().equals("0")){
                 holder.setImageResource(R.id.image_flow,bean.getProcess().equals("1")?R.drawable.ic_approved:R.drawable.ic_no_approve);
+                holder.setTextColor(R.id.tv_sketch,bean.getProcess().equals("1")? Color.rgb(0,128,0):Color.rgb(214,16,24));
+                holder.setTextColor(R.id.tv_title,bean.getProcess().equals("1")? Color.rgb(0,128,0):Color.rgb(214,16,24));
             }
         }
     };

@@ -2,6 +2,7 @@ package com.example.hgtxxgl.application.fragment;
 
 import android.content.Intent;
 import android.database.DataSetObserver;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -63,11 +64,14 @@ public class MyLaunchCarFragment extends Fragment implements SimpleListView.OnRe
             if (bean.getbCancel().equals("0")){
                 if (bean.getProcess().equals("1")){
                     holder.setImageResource(R.id.image_flow,R.drawable.ic_done);
+                    holder.setTextColor(R.id.tv_sketch, Color.rgb(0,128,0));
                 }else{
                     holder.setImageResource(R.id.image_flow,R.drawable.ic_running);
+                    holder.setTextColor(R.id.tv_sketch, Color.rgb(214,16,24));
                 }
             }else{
                 holder.setImageResource(R.id.image_flow,R.drawable.ic_canceled);
+                holder.setTextColor(R.id.tv_sketch, Color.rgb(0,103,174));
             }
         }
     };

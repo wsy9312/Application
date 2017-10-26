@@ -18,7 +18,6 @@
             android:ellipsize="end"
             android:lines="1"
             android:textSize="16sp"
-            android:textColor="@color/bottom_bar_grad_end"
             tools:text="这是新闻标题" />
         <TextView
             android:layout_alignParentRight="true"
@@ -42,8 +41,7 @@
         android:layout_height="wrap_content"
         android:textSize="13sp"
         android:maxLines="3"
-        android:ellipsize="end"
-        android:textColor="#0967AE"/>
+        android:ellipsize="end" />
     <ImageView
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
