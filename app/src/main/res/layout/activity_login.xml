@@ -4,7 +4,14 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@mipmap/ic_login">
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:textSize="25sp"
+        android:textColor="@color/gray"
+        android:text="营房移动管理系统"/>
     <RelativeLayout
         android:paddingBottom="50dp"
         android:layout_width="wrap_content"
