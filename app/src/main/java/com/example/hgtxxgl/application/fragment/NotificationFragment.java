@@ -38,7 +38,7 @@ import static com.example.hgtxxgl.application.utils.DateUtil.getCurrentDateLater
 //通知中心
 public class NotificationFragment extends Fragment implements AdapterView.OnItemClickListener, SimpleListView.OnRefreshListener{
 
-    private int beginNum = -1;
+    private int beginNum = -2;
     private int endNum = 0;
     private boolean hasMore = true;
     private TextView ivEmpty;
@@ -132,7 +132,7 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
             @Override
             public void onSuccess(String json, MessageEntity messageEntity) throws InterruptedException {
                 if (messageEntity != null && messageEntity.getMessageRrd().size() > 0){
-                    if (beginNum == -1 && endNum == 0){
+                    if (beginNum == -2 && endNum == 0){
                         entityList.clear();
                     }
                     hasMore = true;
@@ -186,8 +186,8 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
 //        lv.completeRefresh();
 
         if (hasMore) {
-            endNum -= 1;
-            beginNum -= 1;
+            endNum -= 2;
+            beginNum -= 2;
             loadData(beginNum, endNum);
         } else {
             lv.completeRefresh();
@@ -248,7 +248,7 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
     @Override
     public void onPullRefresh() {
         hasMore = true;
-        beginNum = -1;
+        beginNum = -2;
         endNum = 0;
         loadData(beginNum, endNum);
     }

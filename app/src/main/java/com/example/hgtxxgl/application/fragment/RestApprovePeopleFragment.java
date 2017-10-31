@@ -13,6 +13,7 @@ import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
+import com.example.hgtxxgl.application.utils.hyutils.L;
 import com.example.hgtxxgl.application.view.HandToolbar;
 import com.google.gson.Gson;
 
@@ -71,11 +72,6 @@ public class RestApprovePeopleFragment extends CommonFragment {
         if (entity.getBCancel().equals("0")){
             if (entity.getProcess().equals("1")){
                 setButtonsTitles(stringnull);
-            }else if (entity.getProcess().equals("0")){
-                if (entity.getCurrentApproveNo().equals(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo())){
-                }else {
-                    setButtonsTitles(stringnull);
-                }
             }
         }
 
@@ -163,6 +159,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
         peopleLeaveEntity.setPeopleLeaveRrd(list);
         String toJson = new Gson().toJson(peopleLeaveEntity);
         String s="get "+toJson;
+        L.e(TAG,"人员审批详情："+s);
         String url = CommonValues.BASE_URL;
         HttpManager.getInstance().requestResultForm(url, s, PeopleLeaveEntity.class, new HttpManager.ResultCallback<PeopleLeaveEntity>() {
             @Override
@@ -304,7 +301,8 @@ public class RestApprovePeopleFragment extends CommonFragment {
                     show("审批成功");
                     getActivity().finish();
                 }else{
-                    show("申请人已取消申请,审批结束");
+//                    show("申请人已取消申请,审批结束");
+                    show("审批已完成,正在等待其他人审批");
                     getActivity().finish();
                 }
             }

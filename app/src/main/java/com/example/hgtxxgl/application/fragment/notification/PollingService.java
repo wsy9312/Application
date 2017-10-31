@@ -308,7 +308,7 @@ public class PollingService extends Service {
 					if (!list3.contains(modifyTime)) {
 						list3.add(modifyTime);
 						String content = messageRrd.get(0).getContent();
-						showNotification(content);
+						showNotification("收到一条通知:"+content);
 						Intent intent = new Intent();
 						intent.setAction(FLAGNOT);
 						sendBroadcast(intent);
