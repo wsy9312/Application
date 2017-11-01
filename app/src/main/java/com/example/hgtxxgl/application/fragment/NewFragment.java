@@ -21,7 +21,6 @@ import com.example.hgtxxgl.application.entity.NewsInfoEntity;
 import com.example.hgtxxgl.application.utils.GlideImageLoader;
 import com.example.hgtxxgl.application.utils.TimeUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
-import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.DataUtil;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.ListAdapter;
@@ -163,7 +162,8 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
         newsInfoEntity.setNewsRrd(list);
         String json = new Gson().toJson(newsInfoEntity);
         String s = "get " + json;
-        String url = CommonValues.BASE_URL;
+        //        String url = CommonValues.BASE_URL;
+        String url = ApplicationApp.getIP();
         HttpManager.getInstance().requestResultForm(url, s, NewsInfoEntity.class,new HttpManager.ResultCallback<NewsInfoEntity>() {
             @Override
             public void onSuccess(final String json, final NewsInfoEntity newsInfoEntity) throws InterruptedException {

@@ -131,7 +131,8 @@ public class MyLaunchCarFragment extends Fragment implements SimpleListView.OnRe
         carLeaveEntity.setCarLeaveRrd(list);
         String json = new Gson().toJson(carLeaveEntity);
         final String s = "get " + json;
-        String url = CommonValues.BASE_URL;
+        //        String url = CommonValues.BASE_URL;
+        String url = ApplicationApp.getIP();
         HttpManager.getInstance().requestResultForm(url, s, CarLeaveEntity.class,new HttpManager.ResultCallback<CarLeaveEntity>() {
             @Override
             public void onSuccess(final String json, final CarLeaveEntity carLeaveEntity1) throws InterruptedException {

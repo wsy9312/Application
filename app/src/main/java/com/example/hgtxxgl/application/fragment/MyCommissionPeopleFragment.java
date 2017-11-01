@@ -172,7 +172,8 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
         peopleLeaveEntity.setPeopleLeaveRrd(list);
         String json = new Gson().toJson(peopleLeaveEntity);
         String s = "get " + json;
-        String url = CommonValues.BASE_URL;
+        //        String url = CommonValues.BASE_URL;
+        String url = ApplicationApp.getIP();
         HttpManager.getInstance().requestResultForm(url, s, PeopleLeaveEntity.class,new HttpManager.ResultCallback<PeopleLeaveEntity>() {
             @Override
             public void onSuccess(final String json, final PeopleLeaveEntity peopleLeaveEntity1) throws InterruptedException {
@@ -194,7 +195,9 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
                             String json1 = new Gson().toJson(peopleEntity);
                             String s1 = "get " + json1;
                             final int finalI = i;
-                            HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
+                            //        String url = CommonValues.BASE_URL;
+                            String url = ApplicationApp.getIP();
+                            HttpManager.getInstance().requestResultForm(url,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
                                 @Override
                                 public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
                                     if (peopleInfoEntity != null){

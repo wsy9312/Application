@@ -29,6 +29,16 @@ public class ApplicationApp extends Application {
 
     public static List<?> images=new ArrayList<>();
     public static int H,W;
+
+    public static String getIP() {
+        return IP;
+    }
+
+    public static void setIP(String IP) {
+        ApplicationApp.IP = IP;
+    }
+
+    private static String IP ="";
     @Override
     public void onCreate() {
         super.onCreate();

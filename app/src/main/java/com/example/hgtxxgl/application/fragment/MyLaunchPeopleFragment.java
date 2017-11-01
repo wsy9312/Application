@@ -131,7 +131,8 @@ public class MyLaunchPeopleFragment extends Fragment implements SimpleListView.O
         peopleLeaveEntity.setPeopleLeaveRrd(list);
         String json = new Gson().toJson(peopleLeaveEntity);
         final String s = "get " + json;
-        String url = CommonValues.BASE_URL;
+        //        String url = CommonValues.BASE_URL;
+        String url = ApplicationApp.getIP();
         HttpManager.getInstance().requestResultForm(url, s, PeopleLeaveEntity.class,new HttpManager.ResultCallback<PeopleLeaveEntity>() {
             @Override
             public void onSuccess(final String json, final PeopleLeaveEntity peopleLeaveEntity1) throws InterruptedException {

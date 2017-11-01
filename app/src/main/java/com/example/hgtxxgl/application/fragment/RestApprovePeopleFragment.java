@@ -10,7 +10,6 @@ import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
 import com.example.hgtxxgl.application.rest.CommonFragment;
 import com.example.hgtxxgl.application.rest.HandInputGroup;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
-import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
 import com.example.hgtxxgl.application.utils.hyutils.L;
@@ -160,7 +159,8 @@ public class RestApprovePeopleFragment extends CommonFragment {
         String toJson = new Gson().toJson(peopleLeaveEntity);
         String s="get "+toJson;
         L.e(TAG,"人员审批详情："+s);
-        String url = CommonValues.BASE_URL;
+        //        String url = CommonValues.BASE_URL;
+        String url = ApplicationApp.getIP();
         HttpManager.getInstance().requestResultForm(url, s, PeopleLeaveEntity.class, new HttpManager.ResultCallback<PeopleLeaveEntity>() {
             @Override
             public void onSuccess(String json, final PeopleLeaveEntity peopleLeaveEntity1) throws InterruptedException {
@@ -250,6 +250,8 @@ public class RestApprovePeopleFragment extends CommonFragment {
 
     @Override
     public void onBottomButtonsClick(String title, List<Group> groups) {
+        //        String url = CommonValues.BASE_URL;
+        final String url = ApplicationApp.getIP();
         PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
         PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
         peopleLeaveRrdBean.setCurrentApproveNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
@@ -271,7 +273,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                approveStart(CommonValues.BASE_URL,s1);
+                approveStart(url,s1);
                 dialog.dismiss();
             }
         });

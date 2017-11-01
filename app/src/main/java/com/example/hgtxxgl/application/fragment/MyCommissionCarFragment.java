@@ -132,7 +132,8 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
         carLeaveEntity.setCarLeaveRrd(list);
         String json = new Gson().toJson(carLeaveEntity);
         final String s = "get " + json;
-        String url = CommonValues.BASE_URL;
+//        String url = CommonValues.BASE_URL;
+        String url = ApplicationApp.getIP();
         HttpManager.getInstance().requestResultForm(url, s, CarLeaveEntity.class,new HttpManager.ResultCallback<CarLeaveEntity>() {
             @Override
             public void onSuccess(final String json, final CarLeaveEntity carLeaveEntity1) throws InterruptedException {
@@ -155,7 +156,9 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
                             String s1 = "get " + json1;
                             Log.e(TAG,"1名字："+s1);
                             final int finalI = i;
-                            HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
+                            //        String url = CommonValues.BASE_URL;
+                            String url = ApplicationApp.getIP();
+                            HttpManager.getInstance().requestResultForm(url,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
                                 @Override
                                 public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
                                     if (peopleInfoEntity != null){

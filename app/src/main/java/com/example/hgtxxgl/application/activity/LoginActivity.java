@@ -1,17 +1,22 @@
 package com.example.hgtxxgl.application.activity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.entity.LoginEntity;
@@ -19,7 +24,6 @@ import com.example.hgtxxgl.application.entity.NewLoginEntity;
 import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
 import com.example.hgtxxgl.application.utils.SysExitUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
-import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.Fields;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.NetworkHttpManager;
@@ -43,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
     private boolean savePassword;
     private ProgressBar pb;
     private CheckBox savepassword;
+    private ImageView settingIP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +66,7 @@ public class LoginActivity extends AppCompatActivity {
     //初始化控件
     private void initView() {
         pb = (ProgressBar) findViewById(R.id.login_pb);
+        settingIP = (ImageView) findViewById(R.id.setting_ip);
         etUsername = (TextInputEditText) findViewById(R.id.et_username);
         etPassword = (TextInputEditText) findViewById(R.id.et_password);
         btnLogin = (Button) findViewById(R.id.btn_login);
@@ -130,13 +136,10 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 int apnType = NetworkHttpManager.getAPNType(getApplicationContext());
                 if (apnType != 1){
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            ToastUtil.showToast(getApplicationContext(),"当前无可用网络");
-                        }
-                    });
-                }else {
+                    show("当前无可用网络");
+                }else if (TextUtils.isEmpty(ApplicationApp.getIP())){
+                    show("首次登录请设置IP地址及端口号");
+                }else{
                     SpUtils.saveisBoolean(getApplicationContext(), Fields.SAVE_PASSWORD,savepassword.isChecked());
                     login(etUsername.getText().toString(), etPassword.getText().toString());
                     SpUtils.saveString(getApplicationContext(), Fields.USERID,etUsername.getText().toString());
@@ -154,6 +157,27 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        settingIP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final EditText et = new EditText(LoginActivity.this);
+                new AlertDialog.Builder(LoginActivity.this)
+                        .setTitle("请设置IP地址及端口号")
+                        .setView(et)
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                String ip = "http://"+ et.getText().toString()+"/";
+                                if (ip.equals("")){
+                                    Toast.makeText(getApplicationContext(), "地址不能为空!", Toast.LENGTH_LONG).show();
+                                }else{
+                                    ApplicationApp.setIP(ip);
+                                }
+                            }
+                        })
+                        .setNegativeButton("取消", null)
+                        .show();
+            }
+        });
     }
 
     //用户名密码判空
@@ -190,7 +214,8 @@ public class LoginActivity extends AppCompatActivity {
                 loginEntity.setLogin(list);
                 String toJson = new Gson().toJson(loginEntity);
                 String s="Login "+toJson;
-                String url = CommonValues.BASE_URL;
+//                String url = CommonValues.BASE_URL;
+                String url = ApplicationApp.getIP();
                 HttpManager.getInstance().requestResultForm(url, s, NewLoginEntity.class, new HttpManager.ResultCallback<NewLoginEntity>() {
                     @Override
                     public void onSuccess(String json, NewLoginEntity loginEntity) throws InterruptedException {
@@ -248,7 +273,7 @@ public class LoginActivity extends AppCompatActivity {
         peopleEntity.setPeopleInfo(beanList);
         String json = new Gson().toJson(peopleEntity);
         String s1 = "get " + json;
-        HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
+        HttpManager.getInstance().requestResultForm(ApplicationApp.getIP(),s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
             @Override
             public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
                 if (peopleInfoEntity != null){

@@ -17,7 +17,6 @@ import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.entity.NewsInfoEntity;
 import com.example.hgtxxgl.application.utils.SysExitUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
-import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.view.HandToolbar;
@@ -117,7 +116,8 @@ public class NewsItemActivity extends AppCompatActivity{
         newsInfoEntity.setNewsRrd(list);
         String json = new Gson().toJson(newsInfoEntity);
         String s = "get " + json;
-        String url = CommonValues.BASE_URL;
+        //        String url = CommonValues.BASE_URL;
+        String url = ApplicationApp.getIP();
         HttpManager.getInstance().requestResultForm(url, s, NewsInfoEntity.class, new HttpManager.ResultCallback<NewsInfoEntity>() {
             @Override
             public void onSuccess(String json, NewsInfoEntity newsInfoEntity) throws InterruptedException {

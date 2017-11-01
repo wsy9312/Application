@@ -11,7 +11,6 @@ import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
 import com.example.hgtxxgl.application.rest.CommonFragment;
 import com.example.hgtxxgl.application.rest.HandInputGroup;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
-import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
 import com.example.hgtxxgl.application.view.HandToolbar;
@@ -104,6 +103,8 @@ public class RestApplyFragment extends CommonFragment {
                         String realValueFillup = getDisplayValueByKey("是否后补请假").getRealValue();
                         //因公或因私外出/请假
                         String realValuetype = getDisplayValueByKey("申请类型").getRealValue();
+                        //        String url = CommonValues.BASE_URL;
+                        String url = ApplicationApp.getIP();
                         if (realValueType.equals("人员请假")){
                             PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
                             PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
@@ -120,7 +121,7 @@ public class RestApplyFragment extends CommonFragment {
                             peopleLeaveEntity.setPeopleLeaveRrd(beanList);
                             String json = new Gson().toJson(peopleLeaveEntity);
                             String s1 = "apply " + json;
-                            applyStart(0,CommonValues.BASE_URL,s1);
+                            applyStart(0,url,s1);
                         }else if(realValueType.equals("车辆外出")){
                             //申请车辆号牌
                             String realValueCardNo = getDisplayValueByKey("车辆号牌").getRealValue();
@@ -140,7 +141,7 @@ public class RestApplyFragment extends CommonFragment {
                             carLeaveEntity.setCarLeaveRrd(beanList);
                             String json = new Gson().toJson(carLeaveEntity);
                             String s1 = "apply " + json;
-                            applyStart(1,CommonValues.BASE_URL,s1);
+                            applyStart(1,url,s1);
                         }
 
                     }

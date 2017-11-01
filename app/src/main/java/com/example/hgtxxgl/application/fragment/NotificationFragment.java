@@ -20,7 +20,6 @@ import com.example.hgtxxgl.application.fragment.notification.PollingUtils;
 import com.example.hgtxxgl.application.utils.DateUtil;
 import com.example.hgtxxgl.application.utils.TimeUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
-import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.DataUtil;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.ListAdapter;
@@ -127,7 +126,8 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
         messageEntity.setMessageRrd(list);
         String json = new Gson().toJson(messageEntity).replace("\\u0026","&");
         String s = "get " + json;
-        String url = CommonValues.BASE_URL;
+        //        String url = CommonValues.BASE_URL;
+        String url = ApplicationApp.getIP();
         HttpManager.getInstance().requestResultForm(url, s, MessageEntity.class, new HttpManager.ResultCallback<MessageEntity>() {
             @Override
             public void onSuccess(String json, MessageEntity messageEntity) throws InterruptedException {

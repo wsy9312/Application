@@ -19,7 +19,6 @@ import com.example.hgtxxgl.application.entity.MessageEntity;
 import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
 import com.example.hgtxxgl.application.utils.DateUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
-import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.google.gson.Gson;
 
@@ -124,7 +123,8 @@ public class PollingService extends Service {
 		peopleLeaveEntity.setPeopleLeaveRrd(list);
 		String json = new Gson().toJson(peopleLeaveEntity);
 		final String s = "get " + json;
-		String url = CommonValues.BASE_URL;
+		//        String url = CommonValues.BASE_URL;
+		String url = ApplicationApp.getIP();
 		HttpManager.getInstance().requestResultForm(url, s, PeopleLeaveEntity.class,new HttpManager.ResultCallback<PeopleLeaveEntity>() {
 			@Override
 			public void onSuccess(final String json, final PeopleLeaveEntity peopleLeaveEntity1) throws InterruptedException {
@@ -213,7 +213,8 @@ public class PollingService extends Service {
 		String json = new Gson().toJson(carLeaveEntity);
 		String s = "get " + json;
 		Log.e(TAG,"当前时间service:_getDataAlarmApproveCar"+s);
-		String url = CommonValues.BASE_URL;
+		//        String url = CommonValues.BASE_URL;
+		String url = ApplicationApp.getIP();
 		HttpManager.getInstance().requestResultForm(url, s, CarLeaveEntity.class,new HttpManager.ResultCallback<CarLeaveEntity>() {
 			@Override
 			public void onSuccess(final String json, final CarLeaveEntity carLeaveEntity1) throws InterruptedException {
@@ -298,7 +299,8 @@ public class PollingService extends Service {
 		String json = new Gson().toJson(messageEntity).replace("\\u0026","&");
 		String s = "get " + json;
 		Log.e(TAG, "getDataAlarm--"+s );
-		String url = CommonValues.BASE_URL;
+		//        String url = CommonValues.BASE_URL;
+		String url = ApplicationApp.getIP();
 		HttpManager.getInstance().requestResultForm(url, s, MessageEntity.class, new HttpManager.ResultCallback<MessageEntity>() {
 			@Override
 			public void onSuccess(String json, MessageEntity messageEntity) throws InterruptedException {
