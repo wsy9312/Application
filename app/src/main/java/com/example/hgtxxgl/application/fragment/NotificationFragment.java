@@ -1,6 +1,7 @@
 package com.example.hgtxxgl.application.fragment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -32,7 +33,10 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+import static com.example.hgtxxgl.application.R.array.url;
 import static com.example.hgtxxgl.application.utils.DateUtil.getCurrentDateLater;
+import static com.example.hgtxxgl.application.utils.hand.Fields.SAVE_IP;
 
 //通知中心
 public class NotificationFragment extends Fragment implements AdapterView.OnItemClickListener, SimpleListView.OnRefreshListener{
@@ -127,8 +131,10 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
         String json = new Gson().toJson(messageEntity).replace("\\u0026","&");
         String s = "get " + json;
         //        String url = CommonValues.BASE_URL;
-        String url = ApplicationApp.getIP();
-        HttpManager.getInstance().requestResultForm(url, s, MessageEntity.class, new HttpManager.ResultCallback<MessageEntity>() {
+//        String url = ApplicationApp.getIP();
+        SharedPreferences share = getActivity().getSharedPreferences(SAVE_IP, MODE_PRIVATE);
+        String tempIP = share.getString("tempIP", "IP address is empty");
+        HttpManager.getInstance().requestResultForm(tempIP, s, MessageEntity.class, new HttpManager.ResultCallback<MessageEntity>() {
             @Override
             public void onSuccess(String json, MessageEntity messageEntity) throws InterruptedException {
                 if (messageEntity != null && messageEntity.getMessageRrd().size() > 0){

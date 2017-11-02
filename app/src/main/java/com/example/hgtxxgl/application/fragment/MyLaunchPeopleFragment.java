@@ -1,6 +1,7 @@
 package com.example.hgtxxgl.application.fragment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.DataSetObserver;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -27,6 +28,9 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
+import static com.example.hgtxxgl.application.utils.hand.Fields.SAVE_IP;
 
 public class MyLaunchPeopleFragment extends Fragment implements SimpleListView.OnRefreshListener, AdapterView.OnItemClickListener {
 
@@ -132,8 +136,10 @@ public class MyLaunchPeopleFragment extends Fragment implements SimpleListView.O
         String json = new Gson().toJson(peopleLeaveEntity);
         final String s = "get " + json;
         //        String url = CommonValues.BASE_URL;
-        String url = ApplicationApp.getIP();
-        HttpManager.getInstance().requestResultForm(url, s, PeopleLeaveEntity.class,new HttpManager.ResultCallback<PeopleLeaveEntity>() {
+//        String url = ApplicationApp.getIP();
+        SharedPreferences share = getActivity().getSharedPreferences(SAVE_IP, MODE_PRIVATE);
+        String tempIP = share.getString("tempIP", "IP address is empty");
+        HttpManager.getInstance().requestResultForm(tempIP, s, PeopleLeaveEntity.class,new HttpManager.ResultCallback<PeopleLeaveEntity>() {
             @Override
             public void onSuccess(final String json, final PeopleLeaveEntity peopleLeaveEntity1) throws InterruptedException {
                 if (peopleLeaveEntity1 != null && peopleLeaveEntity1.getPeopleLeaveRrd().size() > 0) {

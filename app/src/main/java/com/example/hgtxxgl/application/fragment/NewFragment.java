@@ -1,6 +1,7 @@
 package com.example.hgtxxgl.application.fragment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.DataSetObserver;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -31,6 +32,9 @@ import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
+import static com.example.hgtxxgl.application.utils.hand.Fields.SAVE_IP;
 
 public class NewFragment extends Fragment implements SimpleListView.OnRefreshListener, AdapterView.OnItemClickListener, OnBannerListener {
     private int beginNum = 1;
@@ -163,8 +167,10 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
         String json = new Gson().toJson(newsInfoEntity);
         String s = "get " + json;
         //        String url = CommonValues.BASE_URL;
-        String url = ApplicationApp.getIP();
-        HttpManager.getInstance().requestResultForm(url, s, NewsInfoEntity.class,new HttpManager.ResultCallback<NewsInfoEntity>() {
+//        String url = ApplicationApp.getIP();
+        SharedPreferences share = getActivity().getSharedPreferences(SAVE_IP, MODE_PRIVATE);
+        String tempIP = share.getString("tempIP", "IP address is empty");
+        HttpManager.getInstance().requestResultForm(tempIP, s, NewsInfoEntity.class,new HttpManager.ResultCallback<NewsInfoEntity>() {
             @Override
             public void onSuccess(final String json, final NewsInfoEntity newsInfoEntity) throws InterruptedException {
                 if (newsInfoEntity != null && newsInfoEntity.getNewsRrd().size() > 0) {

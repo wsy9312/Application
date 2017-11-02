@@ -31,11 +31,11 @@ public class ApplicationApp extends Application {
     public static int H,W;
 
     public static String getIP() {
-        return IP;
+        return "http://"+ "192.168.6.107:8080"+"/";
     }
 
     public static void setIP(String IP) {
-        ApplicationApp.IP = IP;
+      //  ApplicationApp.IP = IP;
     }
 
     private static String IP ="";

@@ -23,6 +23,7 @@ import java.util.List;
 public class RestDetailCarFragment extends CommonFragment {
 
     private final static String TAG = "RestDetailCarFragment";
+//    private String tempIP;
 
     public RestDetailCarFragment(){
 
@@ -120,12 +121,14 @@ public class RestDetailCarFragment extends CommonFragment {
         carLeaveEntity.setCarLeaveRrd(beanList);
         String json = new Gson().toJson(carLeaveEntity);
         final String s1 = "modify " + json;
+//        SharedPreferences share = getActivity().getSharedPreferences(SAVE_IP, MODE_PRIVATE);
+//        tempIP = share.getString("tempIP", "IP address is empty");
         AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
         builder.setMessage("是否确认?");
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                applyModify(ApplicationApp.getIP(),s1);
+                applyModify(getTempIP(),s1);
                 dialog.dismiss();
             }
         });
@@ -214,8 +217,8 @@ public class RestDetailCarFragment extends CommonFragment {
         carLeaveEntity.setCarLeaveRrd(list);
         String toJson = new Gson().toJson(carLeaveEntity);
         String s="get "+toJson;
-        String url = ApplicationApp.getIP();
-        HttpManager.getInstance().requestResultForm(url, s, CarLeaveEntity.class, new HttpManager.ResultCallback<CarLeaveEntity>() {
+//        String url = ApplicationApp.getIP();
+        HttpManager.getInstance().requestResultForm(getTempIP(), s, CarLeaveEntity.class, new HttpManager.ResultCallback<CarLeaveEntity>() {
             @Override
             public void onSuccess(String json, final CarLeaveEntity carLeaveEntity1) throws InterruptedException {
                 getActivity().runOnUiThread(new Runnable() {

@@ -24,6 +24,7 @@ public class RestApproveCarFragment extends CommonFragment {
     private final static String TAG = "RestApproveCarFragment";
     private String noindex;
     private String no;
+//    private String tempIP;
 
     public RestApproveCarFragment(){
 
@@ -148,8 +149,10 @@ public class RestApproveCarFragment extends CommonFragment {
         String toJson = new Gson().toJson(carLeaveEntity);
         String s="get "+toJson;
         //        String url = CommonValues.BASE_URL;
-        String url = ApplicationApp.getIP();
-        HttpManager.getInstance().requestResultForm(url, s, CarLeaveEntity.class, new HttpManager.ResultCallback<CarLeaveEntity>() {
+//        String url = ApplicationApp.getIP();
+//        SharedPreferences share = getActivity().getSharedPreferences(SAVE_IP, MODE_PRIVATE);
+//        tempIP = share.getString("tempIP", "IP address is empty");
+        HttpManager.getInstance().requestResultForm(getTempIP(), s, CarLeaveEntity.class, new HttpManager.ResultCallback<CarLeaveEntity>() {
             @Override
             public void onSuccess(String json, final CarLeaveEntity carLeaveEntity1) throws InterruptedException {
                 getActivity().runOnUiThread(new Runnable() {
@@ -181,7 +184,7 @@ public class RestApproveCarFragment extends CommonFragment {
     @Override
     public void onBottomButtonsClick(String title, List<Group> groups) {
         //        String url = CommonValues.BASE_URL;
-        final String url = ApplicationApp.getIP();
+//        final String url = ApplicationApp.getIP();
         CarLeaveEntity carLeaveEntity = new CarLeaveEntity();
         CarLeaveEntity.CarLeaveRrdBean carLeaveRrdBean = new CarLeaveEntity.CarLeaveRrdBean();
         carLeaveRrdBean.setApproverNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
@@ -203,7 +206,7 @@ public class RestApproveCarFragment extends CommonFragment {
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                approveStart(url,s1);
+                approveStart(getTempIP(),s1);
                 dialog.dismiss();
             }
         });

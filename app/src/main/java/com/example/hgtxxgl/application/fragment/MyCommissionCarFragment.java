@@ -2,6 +2,7 @@ package com.example.hgtxxgl.application.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.DataSetObserver;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -35,7 +36,10 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+import static com.example.hgtxxgl.application.R.array.url;
 import static com.example.hgtxxgl.application.R.id.iv_empty;
+import static com.example.hgtxxgl.application.utils.hand.Fields.SAVE_IP;
 
 public class MyCommissionCarFragment extends Fragment implements AdapterView.OnItemClickListener, SimpleListView.OnRefreshListener{
     private int beginNum = 1;
@@ -44,6 +48,7 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
     private TextView ivEmpty;
     private ProgressBar pb;
     private static final String TAG = "MyCommissionCarFragment";
+    private String tempIP;
 
     public MyCommissionCarFragment() {
 
@@ -133,8 +138,10 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
         String json = new Gson().toJson(carLeaveEntity);
         final String s = "get " + json;
 //        String url = CommonValues.BASE_URL;
-        String url = ApplicationApp.getIP();
-        HttpManager.getInstance().requestResultForm(url, s, CarLeaveEntity.class,new HttpManager.ResultCallback<CarLeaveEntity>() {
+//        String url = ApplicationApp.getIP();
+        SharedPreferences share = getActivity().getSharedPreferences(SAVE_IP, MODE_PRIVATE);
+        tempIP = share.getString("tempIP", "IP address is empty");
+        HttpManager.getInstance().requestResultForm(tempIP, s, CarLeaveEntity.class,new HttpManager.ResultCallback<CarLeaveEntity>() {
             @Override
             public void onSuccess(final String json, final CarLeaveEntity carLeaveEntity1) throws InterruptedException {
                 if (carLeaveEntity1 != null && carLeaveEntity1.getCarLeaveRrd().size() > 0) {
@@ -157,8 +164,8 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
                             Log.e(TAG,"1名字："+s1);
                             final int finalI = i;
                             //        String url = CommonValues.BASE_URL;
-                            String url = ApplicationApp.getIP();
-                            HttpManager.getInstance().requestResultForm(url,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
+//                            String url = ApplicationApp.getIP();
+                            HttpManager.getInstance().requestResultForm(tempIP,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
                                 @Override
                                 public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
                                     if (peopleInfoEntity != null){

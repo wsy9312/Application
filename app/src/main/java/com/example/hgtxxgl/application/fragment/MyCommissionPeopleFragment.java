@@ -1,6 +1,7 @@
 package com.example.hgtxxgl.application.fragment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.DataSetObserver;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -33,7 +34,10 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+import static com.example.hgtxxgl.application.R.array.url;
 import static com.example.hgtxxgl.application.R.id.iv_empty;
+import static com.example.hgtxxgl.application.utils.hand.Fields.SAVE_IP;
 
 public class MyCommissionPeopleFragment extends Fragment implements AdapterView.OnItemClickListener, SimpleListView.OnRefreshListener{
 
@@ -43,6 +47,7 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
     private TextView ivEmpty;
     private ProgressBar pb;
     private static final String TAG = "MyCommissionPeopleFragment";
+    private String tempIP;
 
     public MyCommissionPeopleFragment() {
 
@@ -173,8 +178,10 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
         String json = new Gson().toJson(peopleLeaveEntity);
         String s = "get " + json;
         //        String url = CommonValues.BASE_URL;
-        String url = ApplicationApp.getIP();
-        HttpManager.getInstance().requestResultForm(url, s, PeopleLeaveEntity.class,new HttpManager.ResultCallback<PeopleLeaveEntity>() {
+//        String url = ApplicationApp.getIP();
+        SharedPreferences share = getActivity().getSharedPreferences(SAVE_IP, MODE_PRIVATE);
+        tempIP = share.getString("tempIP", "IP address is empty");
+        HttpManager.getInstance().requestResultForm(tempIP, s, PeopleLeaveEntity.class,new HttpManager.ResultCallback<PeopleLeaveEntity>() {
             @Override
             public void onSuccess(final String json, final PeopleLeaveEntity peopleLeaveEntity1) throws InterruptedException {
                 if (peopleLeaveEntity1 != null && peopleLeaveEntity1.getPeopleLeaveRrd().size() > 0) {
@@ -196,8 +203,8 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
                             String s1 = "get " + json1;
                             final int finalI = i;
                             //        String url = CommonValues.BASE_URL;
-                            String url = ApplicationApp.getIP();
-                            HttpManager.getInstance().requestResultForm(url,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
+//                            String url = ApplicationApp.getIP();
+                            HttpManager.getInstance().requestResultForm(tempIP,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
                                 @Override
                                 public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
                                     if (peopleInfoEntity != null){

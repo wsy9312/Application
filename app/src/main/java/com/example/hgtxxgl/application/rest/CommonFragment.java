@@ -2,6 +2,7 @@ package com.example.hgtxxgl.application.rest;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -36,6 +37,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import static android.content.Context.MODE_PRIVATE;
+import static com.example.hgtxxgl.application.utils.hand.Fields.SAVE_IP;
+
 public abstract class CommonFragment extends Fragment implements HandInputGroup.Callback, RadioBarViewPager.OnCheckedChangeListener{
     public RecyclerView itemCont;
     private HolderAdapter adpter;
@@ -48,6 +52,12 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
     private CustomDatePicker customDatePicker;
     public RelativeLayout pb;
     private LinearLayout buttonll;
+
+    public String getTempIP() {
+        return tempIP;
+    }
+
+    private String tempIP;
 
     public List<Group> getGroup() {
         return groupList;
@@ -188,6 +198,8 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences share = getActivity().getSharedPreferences(SAVE_IP, MODE_PRIVATE);
+        tempIP = share.getString("tempIP", "IP address is empty");
         if (groupList == null) {
             groupList = new ArrayList<>();
         }

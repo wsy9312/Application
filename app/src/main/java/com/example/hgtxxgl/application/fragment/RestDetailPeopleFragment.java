@@ -25,6 +25,8 @@ public class RestDetailPeopleFragment extends CommonFragment {
 
     private final static String TAG = "RestDetailPeopleFragment";
     private String name = null;
+//    private String tempIP;
+
     public RestDetailPeopleFragment(){
 
     }
@@ -47,7 +49,8 @@ public class RestDetailPeopleFragment extends CommonFragment {
         String bCancel = entity.getBCancel();
         int levelNum = Integer.parseInt(levelNumStr);
         int process = Integer.parseInt(processStr);
-
+//        SharedPreferences share = getActivity().getSharedPreferences(SAVE_IP, MODE_PRIVATE);
+//        tempIP = share.getString("tempIP", "IP address is empty");
         List<HandInputGroup.Holder> list = new ArrayList<>();
         list.add(new HandInputGroup.Holder("流程内容", true, false, "人员请假", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
         list.add(new HandInputGroup.Holder("审批状态", true, false, process == 0?"未结束":"已结束", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
@@ -132,7 +135,7 @@ public class RestDetailPeopleFragment extends CommonFragment {
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                applyModify(ApplicationApp.getIP(),s1);
+                applyModify(getTempIP(),s1);
                 dialog.dismiss();
             }
         });
@@ -228,8 +231,8 @@ public class RestDetailPeopleFragment extends CommonFragment {
         peopleLeaveEntity.setPeopleLeaveRrd(list);
         String toJson = new Gson().toJson(peopleLeaveEntity);
         String s="get "+toJson;
-        String url = ApplicationApp.getIP();
-        HttpManager.getInstance().requestResultForm(url, s, PeopleLeaveEntity.class, new HttpManager.ResultCallback<PeopleLeaveEntity>() {
+//        String url = ApplicationApp.getIP();
+        HttpManager.getInstance().requestResultForm(getTempIP(), s, PeopleLeaveEntity.class, new HttpManager.ResultCallback<PeopleLeaveEntity>() {
             @Override
             public void onSuccess(String json, final PeopleLeaveEntity peopleLeaveEntity1) throws InterruptedException {
                 getActivity().runOnUiThread(new Runnable() {
@@ -265,7 +268,7 @@ public class RestDetailPeopleFragment extends CommonFragment {
                                 peopleEntity.setPeopleInfo(beanList);
                                 String json1 = new Gson().toJson(peopleEntity);
                                 String s1 = "get " + json1;
-                                HttpManager.getInstance().requestResultForm(ApplicationApp.getIP(),s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
+                                HttpManager.getInstance().requestResultForm(getTempIP(),s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
                                     @Override
                                     public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
                                         if (peopleInfoEntity != null){

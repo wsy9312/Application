@@ -1,6 +1,7 @@
 package com.example.hgtxxgl.application.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -24,6 +25,8 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.hgtxxgl.application.utils.hand.Fields.SAVE_IP;
 
 //新闻详情页
 public class NewsItemActivity extends AppCompatActivity{
@@ -117,8 +120,10 @@ public class NewsItemActivity extends AppCompatActivity{
         String json = new Gson().toJson(newsInfoEntity);
         String s = "get " + json;
         //        String url = CommonValues.BASE_URL;
-        String url = ApplicationApp.getIP();
-        HttpManager.getInstance().requestResultForm(url, s, NewsInfoEntity.class, new HttpManager.ResultCallback<NewsInfoEntity>() {
+//        String url = ApplicationApp.getIP();
+        SharedPreferences share = getSharedPreferences(SAVE_IP, MODE_PRIVATE);
+        String tempIP = share.getString("tempIP", "IP address is empty");
+        HttpManager.getInstance().requestResultForm(tempIP, s, NewsInfoEntity.class, new HttpManager.ResultCallback<NewsInfoEntity>() {
             @Override
             public void onSuccess(String json, NewsInfoEntity newsInfoEntity) throws InterruptedException {
                 if (newsInfoEntity != null && newsInfoEntity.getNewsRrd().size() > 0) {

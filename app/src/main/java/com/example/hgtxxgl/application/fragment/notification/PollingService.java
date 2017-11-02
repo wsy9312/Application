@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -27,6 +28,7 @@ import java.util.List;
 
 import static com.example.hgtxxgl.application.activity.LibMainActivity.FLAG;
 import static com.example.hgtxxgl.application.activity.LibMainActivity.FLAGNOT;
+import static com.example.hgtxxgl.application.utils.hand.Fields.SAVE_IP;
 
 public class PollingService extends Service {
 
@@ -41,6 +43,7 @@ public class PollingService extends Service {
 	private List<String> list1;
 	private List<String> list2;
 	private List<String> list3;
+	private String tempIP;
 
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -49,6 +52,8 @@ public class PollingService extends Service {
 
 	@Override
 	public void onCreate() {
+		SharedPreferences share = getSharedPreferences(SAVE_IP, MODE_PRIVATE);
+		tempIP = share.getString("tempIP", "IP address is empty");
 		builder1 = new NotificationCompat.Builder(this)
 				.setSmallIcon(R.mipmap.app_logo)
 				.setContentTitle("Camp System Service正在运行");
@@ -124,8 +129,8 @@ public class PollingService extends Service {
 		String json = new Gson().toJson(peopleLeaveEntity);
 		final String s = "get " + json;
 		//        String url = CommonValues.BASE_URL;
-		String url = ApplicationApp.getIP();
-		HttpManager.getInstance().requestResultForm(url, s, PeopleLeaveEntity.class,new HttpManager.ResultCallback<PeopleLeaveEntity>() {
+//		String url = ApplicationApp.getIP();
+		HttpManager.getInstance().requestResultForm(tempIP, s, PeopleLeaveEntity.class,new HttpManager.ResultCallback<PeopleLeaveEntity>() {
 			@Override
 			public void onSuccess(final String json, final PeopleLeaveEntity peopleLeaveEntity1) throws InterruptedException {
 				if (peopleLeaveEntity1 != null && peopleLeaveEntity1.getPeopleLeaveRrd().size() > 0) {
@@ -214,8 +219,8 @@ public class PollingService extends Service {
 		String s = "get " + json;
 		Log.e(TAG,"当前时间service:_getDataAlarmApproveCar"+s);
 		//        String url = CommonValues.BASE_URL;
-		String url = ApplicationApp.getIP();
-		HttpManager.getInstance().requestResultForm(url, s, CarLeaveEntity.class,new HttpManager.ResultCallback<CarLeaveEntity>() {
+//		String url = ApplicationApp.getIP();
+		HttpManager.getInstance().requestResultForm(tempIP, s, CarLeaveEntity.class,new HttpManager.ResultCallback<CarLeaveEntity>() {
 			@Override
 			public void onSuccess(final String json, final CarLeaveEntity carLeaveEntity1) throws InterruptedException {
 				if (carLeaveEntity1 != null && carLeaveEntity1.getCarLeaveRrd().size() > 0) {
@@ -300,8 +305,8 @@ public class PollingService extends Service {
 		String s = "get " + json;
 		Log.e(TAG, "getDataAlarm--"+s );
 		//        String url = CommonValues.BASE_URL;
-		String url = ApplicationApp.getIP();
-		HttpManager.getInstance().requestResultForm(url, s, MessageEntity.class, new HttpManager.ResultCallback<MessageEntity>() {
+//		String url = ApplicationApp.getIP();
+		HttpManager.getInstance().requestResultForm(tempIP, s, MessageEntity.class, new HttpManager.ResultCallback<MessageEntity>() {
 			@Override
 			public void onSuccess(String json, MessageEntity messageEntity) throws InterruptedException {
 				if (messageEntity != null && messageEntity.getMessageRrd().size() > 0){

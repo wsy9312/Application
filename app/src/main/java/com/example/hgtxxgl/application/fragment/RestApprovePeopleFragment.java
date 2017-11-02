@@ -23,6 +23,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
     private final static String TAG = "RestApprovePeopleFragment";
     private String noindex;
     private String no;
+//    private String tempIP;
 
     public RestApprovePeopleFragment(){
 
@@ -160,8 +161,10 @@ public class RestApprovePeopleFragment extends CommonFragment {
         String s="get "+toJson;
         L.e(TAG,"人员审批详情："+s);
         //        String url = CommonValues.BASE_URL;
-        String url = ApplicationApp.getIP();
-        HttpManager.getInstance().requestResultForm(url, s, PeopleLeaveEntity.class, new HttpManager.ResultCallback<PeopleLeaveEntity>() {
+//        String url = ApplicationApp.getIP();
+//        SharedPreferences share = getActivity().getSharedPreferences(SAVE_IP, MODE_PRIVATE);
+//        tempIP = share.getString("tempIP", "IP address is empty");
+        HttpManager.getInstance().requestResultForm(getTempIP(), s, PeopleLeaveEntity.class, new HttpManager.ResultCallback<PeopleLeaveEntity>() {
             @Override
             public void onSuccess(String json, final PeopleLeaveEntity peopleLeaveEntity1) throws InterruptedException {
                 getActivity().runOnUiThread(new Runnable() {
@@ -251,7 +254,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
     @Override
     public void onBottomButtonsClick(String title, List<Group> groups) {
         //        String url = CommonValues.BASE_URL;
-        final String url = ApplicationApp.getIP();
+//        final String url = ApplicationApp.getIP();
         PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
         PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
         peopleLeaveRrdBean.setCurrentApproveNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
@@ -273,7 +276,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                approveStart(url,s1);
+                approveStart(getTempIP(),s1);
                 dialog.dismiss();
             }
         });

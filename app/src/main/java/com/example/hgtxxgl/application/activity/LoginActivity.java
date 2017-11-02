@@ -1,6 +1,7 @@
 package com.example.hgtxxgl.application.activity;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
@@ -35,6 +36,8 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.hgtxxgl.application.utils.hand.Fields.SAVE_IP;
+
 //登录界面
 public class LoginActivity extends AppCompatActivity {
 
@@ -48,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressBar pb;
     private CheckBox savepassword;
     private ImageView settingIP;
+    private String tempIP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,9 +139,11 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int apnType = NetworkHttpManager.getAPNType(getApplicationContext());
+                SharedPreferences share = getSharedPreferences(SAVE_IP, MODE_PRIVATE);
+                tempIP = share.getString("tempIP", "");
                 if (apnType != 1){
                     show("当前无可用网络");
-                }else if (TextUtils.isEmpty(ApplicationApp.getIP())){
+                }else if (TextUtils.isEmpty(tempIP)){
                     show("首次登录请设置IP地址及端口号");
                 }else{
                     SpUtils.saveisBoolean(getApplicationContext(), Fields.SAVE_PASSWORD,savepassword.isChecked());
@@ -170,7 +176,11 @@ public class LoginActivity extends AppCompatActivity {
                                 if (ip.equals("")){
                                     Toast.makeText(getApplicationContext(), "地址不能为空!", Toast.LENGTH_LONG).show();
                                 }else{
-                                    ApplicationApp.setIP(ip);
+//                                    ApplicationApp.setIP(ip);
+                                    SharedPreferences share = getSharedPreferences(SAVE_IP, MODE_PRIVATE);
+                                    SharedPreferences.Editor edit = share.edit();
+                                    edit.putString("tempIP", ip);
+                                    edit.commit();
                                 }
                             }
                         })
@@ -215,8 +225,8 @@ public class LoginActivity extends AppCompatActivity {
                 String toJson = new Gson().toJson(loginEntity);
                 String s="Login "+toJson;
 //                String url = CommonValues.BASE_URL;
-                String url = ApplicationApp.getIP();
-                HttpManager.getInstance().requestResultForm(url, s, NewLoginEntity.class, new HttpManager.ResultCallback<NewLoginEntity>() {
+//                String url = ApplicationApp.getIP();
+                HttpManager.getInstance().requestResultForm(tempIP, s, NewLoginEntity.class, new HttpManager.ResultCallback<NewLoginEntity>() {
                     @Override
                     public void onSuccess(String json, NewLoginEntity loginEntity) throws InterruptedException {
                         if (loginEntity != null){
@@ -273,7 +283,7 @@ public class LoginActivity extends AppCompatActivity {
         peopleEntity.setPeopleInfo(beanList);
         String json = new Gson().toJson(peopleEntity);
         String s1 = "get " + json;
-        HttpManager.getInstance().requestResultForm(ApplicationApp.getIP(),s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
+        HttpManager.getInstance().requestResultForm(tempIP,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
             @Override
             public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
                 if (peopleInfoEntity != null){
