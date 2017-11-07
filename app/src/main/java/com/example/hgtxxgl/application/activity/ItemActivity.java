@@ -69,14 +69,14 @@ public class ItemActivity extends AppCompatActivity {
         if (intExtra == PageConfig.PAGE_LEAVE_APPLY_PEOPLE ){
             AlertDialog.Builder builder=new AlertDialog.Builder(this);
             builder.setMessage("确认退出当前申请?");
-            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton(R.string.make_sure, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss(); //关闭dialog
+                    dialog.dismiss();
                     ItemActivity.super.onBackPressed();
                 }
             });
-            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();

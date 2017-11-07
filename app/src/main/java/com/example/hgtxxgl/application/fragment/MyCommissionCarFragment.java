@@ -37,7 +37,6 @@ import java.util.Date;
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
-import static com.example.hgtxxgl.application.R.array.url;
 import static com.example.hgtxxgl.application.R.id.iv_empty;
 import static com.example.hgtxxgl.application.utils.hand.Fields.SAVE_IP;
 

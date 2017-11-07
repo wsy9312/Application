@@ -25,6 +25,7 @@ import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.DataUtil;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.ListAdapter;
+import com.example.hgtxxgl.application.utils.hyutils.L;
 import com.example.hgtxxgl.application.view.SimpleListView;
 import com.google.gson.Gson;
 import com.youth.banner.Banner;
@@ -170,6 +171,7 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
 //        String url = ApplicationApp.getIP();
         SharedPreferences share = getActivity().getSharedPreferences(SAVE_IP, MODE_PRIVATE);
         String tempIP = share.getString("tempIP", "IP address is empty");
+        L.e(TAG,s);
         HttpManager.getInstance().requestResultForm(tempIP, s, NewsInfoEntity.class,new HttpManager.ResultCallback<NewsInfoEntity>() {
             @Override
             public void onSuccess(final String json, final NewsInfoEntity newsInfoEntity) throws InterruptedException {

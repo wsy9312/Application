@@ -170,10 +170,10 @@ public class LoginActivity extends AppCompatActivity {
                 new AlertDialog.Builder(LoginActivity.this)
                         .setTitle("请设置IP地址及端口号")
                         .setView(et)
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.make_sure, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 String ip = "http://"+ et.getText().toString()+"/";
-                                if (ip.equals("")){
+                                if (et.getText().toString().equals("")){
                                     Toast.makeText(getApplicationContext(), "地址不能为空!", Toast.LENGTH_LONG).show();
                                 }else{
 //                                    ApplicationApp.setIP(ip);
@@ -184,7 +184,7 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             }
                         })
-                        .setNegativeButton("取消", null)
+                        .setNegativeButton(R.string.cancel, null)
                         .show();
             }
         });
