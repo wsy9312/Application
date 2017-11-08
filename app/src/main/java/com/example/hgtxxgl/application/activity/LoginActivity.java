@@ -10,11 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ import com.example.hgtxxgl.application.utils.hand.NetworkHttpManager;
 import com.example.hgtxxgl.application.utils.hand.SpUtils;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
+import com.example.hgtxxgl.application.view.IPEditText;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -166,6 +168,35 @@ public class LoginActivity extends AppCompatActivity {
         settingIP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                LayoutInflater inflater = LayoutInflater.from(LoginActivity.this);
+                final View view = inflater.inflate(R.layout.layout_iptext, null, true);
+                final IPEditText iptext = (IPEditText)view.findViewById(R.id.iptext);
+                new AlertDialog.Builder(LoginActivity.this)
+                        .setTitle("请设置IP地址及端口号")
+                        .setView(view)
+                        .setPositiveButton(R.string.make_sure, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                String ip = "http://"+ iptext.getText().toString()+"/";
+                                Log.e(TAG,"ip地址："+ip);
+                                if (iptext.getText().toString().equals("")){
+                                    Toast.makeText(getApplicationContext(), "地址不能为空!", Toast.LENGTH_LONG).show();
+                                }else{
+//                                    ApplicationApp.setIP(ip);
+                                    SharedPreferences share = getSharedPreferences(SAVE_IP, MODE_PRIVATE);
+                                    SharedPreferences.Editor edit = share.edit();
+                                    edit.putString("tempIP", ip);
+                                    edit.commit();
+                                }
+                            }
+                        })
+                        .setNegativeButton(R.string.cancel, null)
+                        .show();
+            }
+        });
+
+       /* settingIP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 final EditText et = new EditText(LoginActivity.this);
                 new AlertDialog.Builder(LoginActivity.this)
                         .setTitle("请设置IP地址及端口号")
@@ -187,7 +218,7 @@ public class LoginActivity extends AppCompatActivity {
                         .setNegativeButton(R.string.cancel, null)
                         .show();
             }
-        });
+        });*/
     }
 
     //用户名密码判空
