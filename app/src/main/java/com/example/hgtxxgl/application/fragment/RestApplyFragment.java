@@ -178,8 +178,7 @@ public class RestApplyFragment extends CommonFragment {
                         show("提交成功");
                         getActivity().finish();
                     }else{
-                        show("提交失败,请核实车辆信息无误后提交");
-                        getActivity().finish();
+                        show("请核实车辆号牌信息");
                     }
                 }
             });

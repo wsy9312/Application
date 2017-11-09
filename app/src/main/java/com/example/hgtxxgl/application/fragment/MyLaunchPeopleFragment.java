@@ -135,8 +135,8 @@ public class MyLaunchPeopleFragment extends Fragment implements SimpleListView.O
         peopleLeaveEntity.setPeopleLeaveRrd(list);
         String json = new Gson().toJson(peopleLeaveEntity);
         final String s = "get " + json;
-        //        String url = CommonValues.BASE_URL;
-//        String url = ApplicationApp.getIP();
+        //  String url = CommonValues.BASE_URL;
+        //  String url = ApplicationApp.getIP();
         SharedPreferences share = getActivity().getSharedPreferences(SAVE_IP, MODE_PRIVATE);
         String tempIP = share.getString("tempIP", "IP address is empty");
         HttpManager.getInstance().requestResultForm(tempIP, s, PeopleLeaveEntity.class,new HttpManager.ResultCallback<PeopleLeaveEntity>() {

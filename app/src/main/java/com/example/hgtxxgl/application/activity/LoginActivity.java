@@ -193,32 +193,6 @@ public class LoginActivity extends AppCompatActivity {
                         .show();
             }
         });
-
-       /* settingIP.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final EditText et = new EditText(LoginActivity.this);
-                new AlertDialog.Builder(LoginActivity.this)
-                        .setTitle("请设置IP地址及端口号")
-                        .setView(et)
-                        .setPositiveButton(R.string.make_sure, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                String ip = "http://"+ et.getText().toString()+"/";
-                                if (et.getText().toString().equals("")){
-                                    Toast.makeText(getApplicationContext(), "地址不能为空!", Toast.LENGTH_LONG).show();
-                                }else{
-//                                    ApplicationApp.setIP(ip);
-                                    SharedPreferences share = getSharedPreferences(SAVE_IP, MODE_PRIVATE);
-                                    SharedPreferences.Editor edit = share.edit();
-                                    edit.putString("tempIP", ip);
-                                    edit.commit();
-                                }
-                            }
-                        })
-                        .setNegativeButton(R.string.cancel, null)
-                        .show();
-            }
-        });*/
     }
 
     //用户名密码判空

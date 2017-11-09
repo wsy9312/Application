@@ -81,7 +81,7 @@ public class NewsItemActivity extends AppCompatActivity{
         handToolbar = (HandToolbar) findViewById(R.id.itemactivity_handtoolbar);
         handToolbar.setDisplayHomeAsUpEnabled(true, this);
         handToolbar.setBackHome(false,0);
-        handToolbar.setTitle(tab);
+        handToolbar.setTitle(title);
         handToolbar.setTitleSize(18);
         this.runOnUiThread(new Runnable() {
             @Override

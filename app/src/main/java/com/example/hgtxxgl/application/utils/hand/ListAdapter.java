@@ -10,6 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.hgtxxgl.application.view.XCRoundRectImageView;
+
 import java.util.ArrayList;
 
 public abstract class ListAdapter<T> extends BaseAdapter {
@@ -207,8 +209,8 @@ public abstract class ListAdapter<T> extends BaseAdapter {
 
         public ViewHolder setBitmap(int id,Bitmap bm) {
             View view = getView(id);
-            if (view instanceof ImageView){
-                ((ImageView)getView(id)).setImageBitmap(bm);
+            if (view instanceof XCRoundRectImageView){
+                ((XCRoundRectImageView)getView(id)).setImageBitmap(bm);
             }
             return this;
         }
