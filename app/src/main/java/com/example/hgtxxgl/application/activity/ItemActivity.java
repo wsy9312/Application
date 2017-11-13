@@ -68,7 +68,7 @@ public class ItemActivity extends AppCompatActivity {
         int intExtra = getIntent().getIntExtra(PageConfig.PAGE_CODE, -1);
         if (intExtra == PageConfig.PAGE_LEAVE_APPLY_PEOPLE ){
             AlertDialog.Builder builder=new AlertDialog.Builder(this);
-            builder.setMessage("确认退出当前申请?");
+            builder.setMessage(R.string.make_sure_back_current_apply);
             builder.setPositiveButton(R.string.make_sure, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {

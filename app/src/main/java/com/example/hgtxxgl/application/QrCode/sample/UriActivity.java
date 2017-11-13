@@ -10,8 +10,6 @@ import com.example.hgtxxgl.application.R;
 import com.mylhyl.crlayout.SwipeRefreshWebView;
 import com.mylhyl.zxing.scanner.common.Intents;
 import com.mylhyl.zxing.scanner.result.URIResult;
-//import com.mylhyl.zxing.scanner.sample.BasicActivity;
-//import com.mylhyl.zxing.scanner.sample.R;
 
 /**
  * URI显示

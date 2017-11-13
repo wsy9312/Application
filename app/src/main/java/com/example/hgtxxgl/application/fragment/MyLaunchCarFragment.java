@@ -31,10 +31,7 @@ import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.example.hgtxxgl.application.utils.hand.Fields.SAVE_IP;
-
-/**
- * Created by HGTXxgl on 2017/8/23.
- */
+//车辆申请列表
 public class MyLaunchCarFragment extends Fragment implements SimpleListView.OnRefreshListener, AdapterView.OnItemClickListener {
 
     private int beginNum = 1;
@@ -93,7 +90,7 @@ public class MyLaunchCarFragment extends Fragment implements SimpleListView.OnRe
         View view = inflater.inflate(R.layout.main_listview_libmain, null, false);
         lv = (SimpleListView) view.findViewById(R.id.viewpager_listview);
         ivEmpty = (TextView) view.findViewById(R.id.iv_empty);
-        ivEmpty.setText("当前无记录");
+        ivEmpty.setText(getString(R.string.no_current_record));
         pb = (ProgressBar) view.findViewById(R.id.mycommission_pb);
         lv.setAdapter(adapter);
         adapter.registerDataSetObserver(new DataSetObserver() {

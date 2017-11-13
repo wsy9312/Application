@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.example.hgtxxgl.application.R.id.ll_et_search;
-
+//审批合列表
 public class CommissionDetailFragment extends Fragment implements RadioGroup.OnCheckedChangeListener,View.OnClickListener {
     RadioGroup group;
     RadioButton rbLeft,rbMid;

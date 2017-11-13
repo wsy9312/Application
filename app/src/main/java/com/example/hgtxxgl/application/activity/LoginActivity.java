@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -144,9 +143,9 @@ public class LoginActivity extends AppCompatActivity {
                 SharedPreferences share = getSharedPreferences(SAVE_IP, MODE_PRIVATE);
                 tempIP = share.getString("tempIP", "");
                 if (apnType != 1){
-                    show("当前无可用网络");
+                    show(getString(R.string.current_no_network));
                 }else if (TextUtils.isEmpty(tempIP)){
-                    show("首次登录请设置IP地址及端口号");
+                    show(getString(R.string.set_ip_and_port_first));
                 }else{
                     SpUtils.saveisBoolean(getApplicationContext(), Fields.SAVE_PASSWORD,savepassword.isChecked());
                     login(etUsername.getText().toString(), etPassword.getText().toString());
@@ -172,14 +171,13 @@ public class LoginActivity extends AppCompatActivity {
                 final View view = inflater.inflate(R.layout.layout_iptext, null, true);
                 final IPEditText iptext = (IPEditText)view.findViewById(R.id.iptext);
                 new AlertDialog.Builder(LoginActivity.this)
-                        .setTitle("请设置IP地址及端口号")
+                        .setTitle(R.string.please_set_ip_and_port)
                         .setView(view)
                         .setPositiveButton(R.string.make_sure, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 String ip = "http://"+ iptext.getText().toString()+"/";
-                                Log.e(TAG,"ip地址："+ip);
                                 if (iptext.getText().toString().equals("")){
-                                    Toast.makeText(getApplicationContext(), "地址不能为空!", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), R.string.address_can_not_null, Toast.LENGTH_LONG).show();
                                 }else{
 //                                    ApplicationApp.setIP(ip);
                                     SharedPreferences share = getSharedPreferences(SAVE_IP, MODE_PRIVATE);
@@ -249,7 +247,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         if (response.contains("error")){
-                            show("用户名或密码错误!");
+                            show(getString(R.string.name_or_password_error));
                             return;
                         }
                     }
@@ -329,7 +327,7 @@ public class LoginActivity extends AppCompatActivity {
                     beanList.add(peopleInfoBean);
                     peopleEntity.setPeopleInfo(beanList);
                     ApplicationApp.setPeopleInfoEntity(peopleEntity);
-                    show("个人资料获取错误");
+                    show(getString(R.string.personal_data_error));
                 }
             }
         });
@@ -339,7 +337,7 @@ public class LoginActivity extends AppCompatActivity {
         LibMainActivity.startActivity(this,username,password);
     }
 
-    //吐丝
+    //吐司
     private void show(final String asd) {
         runOnUiThread(new Runnable() {
             @Override

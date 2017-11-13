@@ -120,7 +120,7 @@ public class NewsItemActivity extends AppCompatActivity{
         String json = new Gson().toJson(newsInfoEntity);
         String s = "get " + json;
         //        String url = CommonValues.BASE_URL;
-//        String url = ApplicationApp.getIP();
+        //        String url = ApplicationApp.getIP();
         SharedPreferences share = getSharedPreferences(SAVE_IP, MODE_PRIVATE);
         String tempIP = share.getString("tempIP", "IP address is empty");
         HttpManager.getInstance().requestResultForm(tempIP, s, NewsInfoEntity.class, new HttpManager.ResultCallback<NewsInfoEntity>() {

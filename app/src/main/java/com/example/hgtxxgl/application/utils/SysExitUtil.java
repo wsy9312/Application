@@ -5,10 +5,6 @@ import android.app.Activity;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by HGTXxgl on 2017/8/2.
- */
-
 public class SysExitUtil {
     public static List activityList = new ArrayList();
 

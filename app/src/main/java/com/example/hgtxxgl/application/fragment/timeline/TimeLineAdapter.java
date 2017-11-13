@@ -12,9 +12,6 @@ import com.github.vipulasri.timelineview.TimelineView;
 
 import java.util.List;
 
-/**
- * Created by HP-HP on 05-12-2015.
- */
 public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineViewHolder> {
 
     private List<TimeLineModel> mFeedList;

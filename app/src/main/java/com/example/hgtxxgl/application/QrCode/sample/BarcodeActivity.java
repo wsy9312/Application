@@ -22,22 +22,6 @@ import com.mylhyl.zxing.scanner.result.ProductResult;
 
 import java.io.Serializable;
 
-//import com.alibaba.fastjson.JSON;
-//import com.bumptech.glide.Glide;
-//import com.litesuits.http.LiteHttp;
-//import com.litesuits.http.exception.HttpException;
-//import com.litesuits.http.listener.HttpListener;
-//import com.litesuits.http.request.AbstractRequest;
-//import com.litesuits.http.request.StringRequest;
-//import com.litesuits.http.request.param.HttpMethods;
-//import com.litesuits.http.response.Response;
-//import com.mylhyl.zxing.scanner.common.Intents;
-//import com.mylhyl.zxing.scanner.result.ISBNResult;
-//import com.mylhyl.zxing.scanner.result.ProductResult;
-//import com.mylhyl.zxing.scanner.sample.BasicActivity;
-//import com.mylhyl.zxing.scanner.sample.R;
-//import com.mylhyl.zxing.scanner.sample.entities.Barcode;
-
 public class BarcodeActivity extends BasicActivity {
     private static final String TAG = "BarcodeActivity";
     private ImageView mImageView;
@@ -117,19 +101,6 @@ public class BarcodeActivity extends BasicActivity {
     }
 
     private void onSuccessDone(String result) {
-//        Log.i(TAG, "onSuccessDone: " + result);
-//        Barcode barcode = JSON.parseObject(result, Barcode.class);
-//        if (barcode == null) {
-//            Log.e(TAG, "product is null");
-//            return;
-//        }
-//        mTextView4.setText("名称：" + barcode.name);
-//        mTextView5.setText("价格：" + barcode.price);
-//        mTextView6.setText("规格：" + barcode.spec);
-//        mTextView7.setText("品牌：" + barcode.brand);
-//        mTextView8.setText("国家：" + barcode.country);
-//        mTextView9.setText("公司：" + barcode.company);
-//        Glide.with(this).load(barcode.gtin).into(mImageView);
     }
 
     public static void gotoActivity(Activity activity, Bundle bundle) {

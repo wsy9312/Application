@@ -14,10 +14,6 @@ import android.widget.Toast;
 
 import com.example.hgtxxgl.application.R;
 
-/**
- * Created by HGTXxgl on 2017/11/8.
- */
-
 public class IPEditText extends LinearLayout {
     //控件
     private EditText Edit1;

@@ -20,7 +20,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//人员请假申请详情
 public class RestDetailPeopleFragment extends CommonFragment {
 
     private final static String TAG = "RestDetailPeopleFragment";

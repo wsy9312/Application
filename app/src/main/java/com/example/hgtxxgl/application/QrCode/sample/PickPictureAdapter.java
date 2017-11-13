@@ -11,11 +11,6 @@ import com.mylhyl.cygadapter.CygViewHolder;
 
 import java.util.List;
 
-//import com.bumptech.glide.Glide;
-//import com.mylhyl.cygadapter.CygAdapter;
-//import com.mylhyl.cygadapter.CygViewHolder;
-//import com.mylhyl.zxing.scanner.sample.R;
-
 /**
  * 照片浏览
  */

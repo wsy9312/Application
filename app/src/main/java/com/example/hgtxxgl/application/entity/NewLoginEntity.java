@@ -1,11 +1,7 @@
 package com.example.hgtxxgl.application.entity;
 
 import java.util.List;
-
-/**
- * Created by HGTXxgl on 2017/8/10.
- */
-
+//登录实体
 public class NewLoginEntity {
 
     private List<LoginBean> Login;

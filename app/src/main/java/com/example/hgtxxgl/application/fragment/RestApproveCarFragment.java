@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 
+import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.entity.CarLeaveEntity;
 import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
 import com.example.hgtxxgl.application.rest.CommonFragment;
@@ -18,7 +19,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//车辆外出审批
 public class RestApproveCarFragment extends CommonFragment {
 
     private final static String TAG = "RestApproveCarFragment";
@@ -50,7 +51,7 @@ public class RestApproveCarFragment extends CommonFragment {
 
     @Override
     public String[] getBottomButtonsTitles() {
-        return new String[]{"同 意","拒 绝"};
+        return new String[]{getString(R.string.agreement),getString(R.string.reject)};
     }
     private String[] stringnull = new String[]{""};
 
@@ -63,7 +64,7 @@ public class RestApproveCarFragment extends CommonFragment {
         String resultStr = entity.getResult();
         int result = Integer.parseInt(resultStr);
         List<HandInputGroup.Holder> list = new ArrayList<>();
-        list.add(new HandInputGroup.Holder("流程内容", true, false, "车辆外出", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
+        list.add(new HandInputGroup.Holder(getString(R.string.process_content), true, false, "车辆外出", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
         list.add(new HandInputGroup.Holder("审批状态", true, false, process == 0?"待审批":"已审批", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
         if (process == 1){
             setButtonsTitles(stringnull);

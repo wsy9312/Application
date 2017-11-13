@@ -1,11 +1,7 @@
 package com.example.hgtxxgl.application.entity;
 
 import java.util.List;
-
-/**
- * Created by HGTXxgl on 2017/8/10.
- */
-
+//通知实体
 public class MessageEntity {
 
     private List<MessageRrdBean> MessageRrd;

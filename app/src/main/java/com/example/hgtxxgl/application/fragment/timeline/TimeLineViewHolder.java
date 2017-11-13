@@ -7,10 +7,6 @@ import android.widget.TextView;
 import com.example.hgtxxgl.application.R;
 import com.github.vipulasri.timelineview.TimelineView;
 
-/**
- * Created by HGTXxgl on 2017/9/19.
- */
-
 public class TimeLineViewHolder extends RecyclerView.ViewHolder {
 
     public TimelineView mTimelineView;

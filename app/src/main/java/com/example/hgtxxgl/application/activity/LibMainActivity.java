@@ -132,7 +132,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
 
     //初始化设置toolbar标题
     private void initTitle() {
-        title = new String[]{"新闻中心","通知中心","申请事项","审批事项"};
+        title = new String[]{getString(R.string.lib_titile_news_center),getString(R.string.lib_title_notification_center),getString(R.string.lib_title_apply_center),getString(R.string.lib_title_approve_center)};
     }
 
     @Override
@@ -145,7 +145,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         //接收登录界面传递的用户名密码参数
         acceptParam();
         supportFragmentManager = getSupportFragmentManager();
-        //初始化fragment(首页六个子界面)
+        //初始化fragment
         initFragment(false);
         StatusBarUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
         SysExitUtil.activityList.add(LibMainActivity.this);
@@ -348,7 +348,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if ((System.currentTimeMillis() - time > 2000)) {
-                Toast.makeText(this, "再按一次返回桌面", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.again_back_to_desktop, Toast.LENGTH_SHORT).show();
                 time = System.currentTimeMillis();
             } else {
                 Intent intent = new Intent(Intent.ACTION_MAIN);

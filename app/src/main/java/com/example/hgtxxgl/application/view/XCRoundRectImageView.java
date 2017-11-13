@@ -16,8 +16,6 @@ import android.widget.ImageView;
 
 /**
  * 自定义的圆角矩形ImageView，可以直接当组件在布局中使用。
- * @author caizhiming
- *
  */
 public class XCRoundRectImageView extends ImageView{
 

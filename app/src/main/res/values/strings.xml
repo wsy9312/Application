@@ -16,9 +16,6 @@
     <string name="Basic_Information">基本信息</string>
     <string name="Details_Information">明细信息</string>
     <string name="Attachment_Info">附件信息</string>
-    <string name="Reimbursement_Info">报销信息</string>
-    <string name="Add_Detail">添加明细</string>
-    <string name="Total">明细合计</string>
     <string name="Please_Select">请选择</string>
     <string name="Please_Fill">请填写</string>
 
@@ -39,4 +36,31 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="make_sure">确定</string>
     <string name="cancel">取消</string>
+    <string name="make_sure_back_current_apply">确认退出当前申请?</string>
+    <string name="lib_titile_news_center">新闻中心</string>
+    <string name="lib_title_notification_center">通知中心</string>
+    <string name="lib_title_apply_center">申请事项</string>
+    <string name="lib_title_approve_center">审批事项</string>
+    <string name="again_back_to_desktop">再按一次返回桌面</string>
+    <string name="current_no_network">当前无可用网络</string>
+    <string name="set_ip_and_port_first">首次登录请设置IP地址及端口号</string>
+    <string name="please_set_ip_and_port">请设置IP地址及端口号</string>
+    <string name="address_can_not_null">地址不能为空!</string>
+    <string name="name_or_password_error">用户名或密码错误!</string>
+    <string name="personal_data_error">个人资料获取错误</string>
+    <string name="click_to_look">点击查看</string>
+    <string name="received_one_apply_rest">收到一条请假外出申请</string>
+    <string name="received_one_car_appy">收到一条车辆外出申请</string>
+    <string name="received_one_notification">收到一条通知:</string>
+    <string name="no_current_record">当前无记录</string>
+    <string name="no_current_news">当前无新闻</string>
+    <string name="no_current_notification">当前无通知</string>
+    <string name="confirm_exit_current_account">是否确认退出当前账户?</string>
+    <string name="pic_can_no_empty">图片不能为空</string>
+    <string name="save_qrcode_pic">是否保存二维码图片?</string>
+    <string name="save_success">保存成功</string>
+    <string name="save_failure">保存失败</string>
+    <string name="agreement">同 意</string>
+    <string name="reject">拒 绝</string>
+    <string name="process_content">流程内容</string>
 </resources>

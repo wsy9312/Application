@@ -34,11 +34,9 @@ import java.util.Date;
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
-import static com.example.hgtxxgl.application.R.array.url;
 import static com.example.hgtxxgl.application.utils.DateUtil.getCurrentDateLater;
 import static com.example.hgtxxgl.application.utils.hand.Fields.SAVE_IP;
-
-//通知中心
+//通知列表
 public class NotificationFragment extends Fragment implements AdapterView.OnItemClickListener, SimpleListView.OnRefreshListener{
 
     private int beginNum = -2;
@@ -92,7 +90,7 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
         View view = inflater.inflate(R.layout.main_listview_libmain, null, false);
         lv = (SimpleListView) view.findViewById(R.id.viewpager_listview);
         ivEmpty = (TextView) view.findViewById(R.id.iv_empty);
-        ivEmpty.setText("当前无通知");
+        ivEmpty.setText(R.string.no_current_notification);
         pb = (ProgressBar) view.findViewById(R.id.mycommission_pb);
         lv.setAdapter(adapter);
         adapter.registerDataSetObserver(new DataSetObserver() {

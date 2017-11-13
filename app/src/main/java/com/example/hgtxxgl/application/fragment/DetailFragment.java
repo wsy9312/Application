@@ -24,7 +24,7 @@ import java.util.List;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.example.hgtxxgl.application.R.id.ll_et_search;
-
+//首页四个fragment的通类
 public class DetailFragment extends Fragment implements View.OnClickListener {
     private int currentPage;
     private SearchView etSearch;

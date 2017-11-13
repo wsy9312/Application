@@ -29,7 +29,7 @@ import java.util.List;
 import static com.example.hgtxxgl.application.activity.LibMainActivity.FLAG;
 import static com.example.hgtxxgl.application.activity.LibMainActivity.FLAGNOT;
 import static com.example.hgtxxgl.application.utils.hand.Fields.SAVE_IP;
-
+//通知服务
 public class PollingService extends Service {
 
 	public static final String ACTION = "com.ryantang.service.PollingService";
@@ -83,7 +83,7 @@ public class PollingService extends Service {
 		Intent i = new Intent(this, LibMainActivity.class);
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, i, 0);
 		//设置通知标题
-		builder.setContentText("点击查看")
+		builder.setContentText(getString(R.string.click_to_look))
 				.setContentTitle(content)
 				.setWhen(System.currentTimeMillis())
 				.setContentIntent(pendingIntent);
@@ -141,7 +141,7 @@ public class PollingService extends Service {
 						list1.add(modifyTime);
 						for (int i = 0; i < 500; i++) {
 							if (peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getBCancel().equals("0") && peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getProcess().equals("0")) {
-								showNotification("收到一条请假外出申请");
+								showNotification(getString(R.string.received_one_apply_rest));
 								Intent intent = new Intent();
 								intent.setAction(FLAG);
 								sendBroadcast(intent);
@@ -165,7 +165,7 @@ public class PollingService extends Service {
 									@Override
 									public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
 										if (peopleInfoEntity != null) {
-											showNotification("收到一条请假外出申请");
+											showNotification(getString(R.string.received_one_apply_rest));
 											Intent intent = new Intent();
 											intent.setAction(FLAG);
 											sendBroadcast(intent);
@@ -230,7 +230,7 @@ public class PollingService extends Service {
 						list2.add(modifyTime);
 						for (int i = 0; i < 500; i++) {
 							if (carLeaveEntity1.getCarLeaveRrd().get(i).getbCancel().equals("0") && carLeaveEntity1.getCarLeaveRrd().get(i).getProcess().equals("0")) {
-								showNotification("收到一条车辆外出申请");
+								showNotification(getString(R.string.received_one_car_appy));
 								Intent intent = new Intent();
 								intent.setAction(FLAG);
 								sendBroadcast(intent);
@@ -255,7 +255,7 @@ public class PollingService extends Service {
 									@Override
 									public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
 										if (peopleInfoEntity != null) {
-											showNotification("收到一条车辆外出申请");
+											showNotification(getString(R.string.received_one_car_appy));
 											Intent intent = new Intent();
 											intent.setAction(FLAG);
 											sendBroadcast(intent);
@@ -315,7 +315,7 @@ public class PollingService extends Service {
 					if (!list3.contains(modifyTime)) {
 						list3.add(modifyTime);
 						String content = messageRrd.get(0).getContent();
-						showNotification("收到一条通知:"+content);
+						showNotification(getString(R.string.received_one_notification)+content);
 						Intent intent = new Intent();
 						intent.setAction(FLAGNOT);
 						sendBroadcast(intent);

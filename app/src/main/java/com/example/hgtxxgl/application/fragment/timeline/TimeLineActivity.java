@@ -10,9 +10,6 @@ import com.example.hgtxxgl.application.R;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by HP-HP on 05-12-2015.
- */
 public class TimeLineActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private TimeLineAdapter mTimeLineAdapter;

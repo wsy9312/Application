@@ -178,8 +178,8 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
 
     private void logOut() {
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
-        builder.setMessage("是否确认退出当前账户?");
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+        builder.setMessage(R.string.confirm_exit_current_account);
+        builder.setPositiveButton(getString(R.string.make_sure), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -189,7 +189,7 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
                 SysExitUtil.exit();
             }
         });
-        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -203,8 +203,8 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
     public void onButtonClickListner(PersonalHandToolbar.VIEWS views, int radioIndex) {
         if (views.equals(PersonalHandToolbar.VIEWS.RIGHT_BUTTON)){
             AlertDialog.Builder builder=new AlertDialog.Builder(this);
-            builder.setMessage("是否保存二维码图片?");
-            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            builder.setMessage(R.string.save_qrcode_pic);
+            builder.setPositiveButton(getString(R.string.make_sure), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
@@ -214,12 +214,12 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
                         bitmap = Bitmap.createBitmap(tvRightBao.getDrawingCache());
                         requestPermission();
                     }else{
-                        ToastUtil.showToast(mContext,"图片不能为空");
+                        ToastUtil.showToast(mContext,getString(R.string.pic_can_no_empty));
                     }
                     tvRightBao.setDrawingCacheEnabled(false);
                 }
             });
-            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
@@ -293,9 +293,9 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void run() {
                 if (isSaveSuccess) {
-                    ToastUtil.showToast(getApplicationContext(),"保存成功");
+                    ToastUtil.showToast(getApplicationContext(),getString(R.string.save_success));
                 } else {
-                    ToastUtil.showToast(getApplicationContext(),"保存失败");
+                    ToastUtil.showToast(getApplicationContext(),getString(R.string.save_failure));
                 }
             }
         });

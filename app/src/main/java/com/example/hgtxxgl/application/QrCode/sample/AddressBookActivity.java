@@ -9,11 +9,6 @@ import com.example.hgtxxgl.application.R;
 import com.mylhyl.zxing.scanner.common.Intents;
 import com.mylhyl.zxing.scanner.result.AddressBookResult;
 
-//import com.mylhyl.zxing.scanner.common.Intents;
-//import com.mylhyl.zxing.scanner.result.AddressBookResult;
-//import com.mylhyl.zxing.scanner.sample.BasicActivity;
-//import com.mylhyl.zxing.scanner.sample.R;
-
 /**
  * 联系人显示
  */

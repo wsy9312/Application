@@ -15,9 +15,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-//import com.mylhyl.zxing.scanner.sample.BasicActivity;
-//import com.mylhyl.zxing.scanner.sample.R;
-
 /**
  * 手机图片列表中的详细
  */

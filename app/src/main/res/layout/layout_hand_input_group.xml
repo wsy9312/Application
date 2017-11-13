@@ -129,7 +129,7 @@
             android:padding="10dp"
             android:textSize="14sp"
             android:textColor="#0967AE"
-            android:text="@string/Add_Detail"
+            android:text="待定"
             android:drawablePadding="5dp"
             android:drawableLeft="@mipmap/add_detile"
             android:background="#fff"/>

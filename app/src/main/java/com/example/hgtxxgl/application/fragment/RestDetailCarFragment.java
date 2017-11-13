@@ -19,7 +19,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//车辆外出申请详情
 public class RestDetailCarFragment extends CommonFragment {
 
     private final static String TAG = "RestDetailCarFragment";

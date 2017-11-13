@@ -10,8 +10,6 @@ import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.view.HandToolbar;
 import com.mylhyl.zxing.scanner.common.Intents;
-//import com.mylhyl.zxing.scanner.sample.BasicActivity;
-//import com.mylhyl.zxing.scanner.sample.R;
 
 /**
  * 纯文本显示

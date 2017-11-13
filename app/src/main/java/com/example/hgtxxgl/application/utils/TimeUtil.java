@@ -1,11 +1,5 @@
 package com.example.hgtxxgl.application.utils;
-
-
 import java.util.Date;
-
-/**
- * Created by HGTXxgl on 2017/9/15.
- */
 
 public class TimeUtil {
     private final static long minute = 60 * 1000;// 1分钟

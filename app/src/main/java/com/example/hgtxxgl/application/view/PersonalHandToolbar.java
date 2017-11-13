@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
 
-
 public class PersonalHandToolbar extends FrameLayout {
 
     private TextView tvTitle;

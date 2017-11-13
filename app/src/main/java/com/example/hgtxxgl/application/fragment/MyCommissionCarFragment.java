@@ -39,7 +39,7 @@ import java.util.List;
 import static android.content.Context.MODE_PRIVATE;
 import static com.example.hgtxxgl.application.R.id.iv_empty;
 import static com.example.hgtxxgl.application.utils.hand.Fields.SAVE_IP;
-
+//车辆审批列表
 public class MyCommissionCarFragment extends Fragment implements AdapterView.OnItemClickListener, SimpleListView.OnRefreshListener{
     private int beginNum = 1;
     private int endNum = 500;
@@ -92,7 +92,7 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
         View view = inflater.inflate(R.layout.main_listview_libmain, null, false);
         lv = (SimpleListView) view.findViewById(R.id.viewpager_listview);
         ivEmpty = (TextView) view.findViewById(iv_empty);
-        ivEmpty.setText("当前无记录");
+        ivEmpty.setText(R.string.no_current_record);
         pb = (ProgressBar) view.findViewById(R.id.mycommission_pb);
         lv.setAdapter(adapter);
         adapter.registerDataSetObserver(new DataSetObserver() {

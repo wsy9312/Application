@@ -21,12 +21,6 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.TabWidget;
 
-/**
- * A simple text label view that can be applied as a "badge" to any given {@link View}.
- * This class is intended to be instantiated at runtime rather than included in XML layouts.
- *
- * @author Jeff Gilfelt
- */
 public class BadgeView extends AppCompatTextView {
 
     public static final int POSITION_TOP_LEFT = 1;

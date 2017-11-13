@@ -3,11 +3,7 @@ package com.example.hgtxxgl.application.fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-
-/**
- * Created by HGTXxgl on 2017/9/5.
- */
-
+//审批广播
 public class TodoTotalBroadcast extends BroadcastReceiver {
 
     OnUpdateUI onUpdateUI;

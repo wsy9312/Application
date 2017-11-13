@@ -36,7 +36,7 @@ import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.example.hgtxxgl.application.utils.hand.Fields.SAVE_IP;
-
+//新闻列表
 public class NewFragment extends Fragment implements SimpleListView.OnRefreshListener, AdapterView.OnItemClickListener, OnBannerListener {
     private int beginNum = 1;
     private int endNum = 6;
@@ -123,7 +123,7 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
 
         lv = (SimpleListView) view.findViewById(R.id.viewpager_listview);
         ivEmpty = (TextView) view.findViewById(R.id.iv_empty);
-        ivEmpty.setText("当前无新闻");
+        ivEmpty.setText(R.string.no_current_news);
         pb = (ProgressBar) view.findViewById(R.id.mycommission_pb);
         lv.setAdapter(adapter);
         adapter.registerDataSetObserver(new DataSetObserver() {

@@ -13,7 +13,6 @@ import android.widget.ImageView;
 
 import com.example.hgtxxgl.application.R;
 
-
 public class MyImageDialog extends Dialog {
     private Window window = null;
     private ImageView iv;

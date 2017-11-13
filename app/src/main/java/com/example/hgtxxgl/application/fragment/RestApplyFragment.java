@@ -19,7 +19,7 @@ import com.google.gson.Gson;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-
+//申请
 public class RestApplyFragment extends CommonFragment {
 
     private String name;

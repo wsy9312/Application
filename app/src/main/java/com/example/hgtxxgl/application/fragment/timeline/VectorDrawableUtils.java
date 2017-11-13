@@ -9,10 +9,6 @@ import android.os.Build;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.content.ContextCompat;
 
-/**
- * Created by Vipul on 28/12/16.
- */
-
 public class VectorDrawableUtils {
 
     public static Drawable getDrawable(Context context, int drawableResId) {

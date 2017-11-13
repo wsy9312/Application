@@ -5,7 +5,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.SystemClock;
-
+//后台服务开启关闭管理类
 public class PollingUtils {
 
 	/**

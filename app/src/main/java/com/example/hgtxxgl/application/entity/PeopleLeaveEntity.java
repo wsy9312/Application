@@ -1,11 +1,7 @@
 package com.example.hgtxxgl.application.entity;
 
 import java.util.List;
-
-/**
- * Created by HGTXxgl on 2017/8/2.
- */
-
+//人员外出实体
 public class PeopleLeaveEntity {
 
 

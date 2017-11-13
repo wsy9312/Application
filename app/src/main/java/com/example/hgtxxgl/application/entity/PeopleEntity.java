@@ -1,11 +1,7 @@
 package com.example.hgtxxgl.application.entity;
 
 import java.util.List;
-
-/**
- * Created by HGTXxgl on 2017/8/16.
- */
-
+//人员实体
 public class PeopleEntity {
 
     private List<PeopleBean> People;

@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
 
-
 public class HandToolbar extends FrameLayout {
 
     private static final int RES_ID = R.layout.layout_tool_bar;

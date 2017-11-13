@@ -1,7 +1,6 @@
 package com.example.hgtxxgl.application.rest;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -334,27 +333,7 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
     public void FocusChange(HandInputGroup.Holder item, boolean hasFocus) {
 
     }
-    //获取经办人
-    public void requestForPerson(String def) {
-        Class workClasses = null;
-        try {
-            workClasses = Class.forName("com.movit.platform.common.module.organization.activity.OrgActivity");
-            Intent intent = new Intent(getActivity(), workClasses);
-            intent.putExtra("TITLE", "选择经办人"); //默认设置
-            intent.putExtra("IS_FROM_ORG", "N"); //默认设置
-            intent.putExtra("ACTION", "NativeBPMAction");  //默认设置
-            intent.putExtra("keyOfHolder",def);
-            intent.putExtra("MAXNUM", 1); //一个经办人
-            startActivityForResult(intent, CommonValues.CODE_OA_REQUEST);
-        } catch (ClassNotFoundException e) {
-        }
-    }
 
-    /**
-     * “添加明细”之类的按钮的点击方法 ，重写此方法
-     *
-     * @param index position
-     */
     public void onOneItemBottomDrawableResClick(int index) {
 
     }

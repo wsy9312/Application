@@ -6,10 +6,6 @@ import android.os.Build;
 import android.view.Window;
 import android.view.WindowManager;
 
-/**
- * Created by HGTXxgl on 2017/7/11.
- */
-
 public class StatusBarUtils {
 
     public static void setWindowStatusBarColor(Activity activity, int colorResId) {
