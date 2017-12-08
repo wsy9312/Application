@@ -12,7 +12,8 @@ import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.view.HandToolbar;
 
 //通知详情页
-public class NotificationItemActivity extends AppCompatActivity {
+public class NotificationItemActivity extends AppCompatActivity
+{
 
     private static final String TAG = "NotificationItemActivity";
     private HandToolbar handToolbar;
@@ -25,7 +26,8 @@ public class NotificationItemActivity extends AppCompatActivity {
     private String tab;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item_layout_notification);
         StatusBarUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
@@ -38,7 +40,8 @@ public class NotificationItemActivity extends AppCompatActivity {
         initview();
     }
 
-    private void initview() {
+    private void initview()
+    {
         tvTitle = (TextView) findViewById(R.id.tv_news_title);
         tvDate = (TextView) findViewById(R.id.tv_news_date);
         tvBody = (TextView) findViewById(R.id.tv_news_body);
@@ -47,9 +50,11 @@ public class NotificationItemActivity extends AppCompatActivity {
         handToolbar.setBackHome(false,0);
         handToolbar.setTitle(tab);
         handToolbar.setTitleSize(18);
-        this.runOnUiThread(new Runnable() {
+        this.runOnUiThread(new Runnable()
+        {
             @Override
-            public void run() {
+            public void run()
+            {
                 tvTitle.setText(title);
                 tvDate.setText(modifytime);
                 tvBody.setText(content);
@@ -58,7 +63,8 @@ public class NotificationItemActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
+    protected void onDestroy()
+    {
         super.onDestroy();
     }
 

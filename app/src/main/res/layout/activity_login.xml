@@ -17,9 +17,25 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:textSize="25sp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:maxLines="2"
         android:textColor="@color/gray"
-        android:text="营区综合移动管理系统"/>
+        android:text="区域信息安防管理系统"/>
+    <!--<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:maxLines="2"
+        android:textColor="@color/gray"
+        android:text="移动应用软件"/>-->
     <RelativeLayout
         android:paddingBottom="50dp"
         android:layout_width="wrap_content"
