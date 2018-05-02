@@ -135,6 +135,7 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
         peopleLeaveRrdBean.setMultiLevelResult("?");
         peopleLeaveRrdBean.setProcess("?");
         peopleLeaveRrdBean.setLevelNum("?");
+        peopleLeaveRrdBean.setOutType("?");
         peopleLeaveRrdBean.setContent("?");
         peopleLeaveRrdBean.setBeginNum(String.valueOf(beginNum));
         peopleLeaveRrdBean.setEndNum(String.valueOf(endNum));
@@ -201,8 +202,8 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
                             String json1 = new Gson().toJson(peopleEntity);
                             String s1 = "get " + json1;
                             final int finalI = i;
-                            //        String url = CommonValues.BASE_URL;
-//                            String url = ApplicationApp.getIP();
+                            //      String url = CommonValues.BASE_URL;
+                            //      String url = ApplicationApp.getIP();
                             HttpManager.getInstance().requestResultForm(tempIP,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
                                 @Override
                                 public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
@@ -267,6 +268,7 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
         peopleLeaveRrdBean1.setProcess("?");
         peopleLeaveRrdBean1.setLevelNum("?");
         peopleLeaveRrdBean1.setContent("?");
+        peopleLeaveRrdBean1.setOutType("?");
         peopleLeaveRrdBean1.setBeginNum(String.valueOf(beginNum));
         peopleLeaveRrdBean1.setEndNum(String.valueOf(endNum));
         peopleLeaveRrdBean1.setNoIndex("?");

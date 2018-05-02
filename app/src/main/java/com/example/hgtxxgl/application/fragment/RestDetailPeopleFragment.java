@@ -15,6 +15,7 @@ import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
+import com.example.hgtxxgl.application.utils.hyutils.L;
 import com.example.hgtxxgl.application.view.HandToolbar;
 import com.google.gson.Gson;
 
@@ -79,7 +80,7 @@ public class RestDetailPeopleFragment extends CommonFragment {
 
         List<HandInputGroup.Holder> holderList = new ArrayList<>();
         holderList.add(new HandInputGroup.Holder("申请人", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName(), HandInputGroup.VALUE_TYPE.TEXT));
-        holderList.add(new HandInputGroup.Holder("申请类型", true, false, entity.getOnduty().equals("1")?"因公请假":"因私请假", HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("申请类型", true, false, entity.getOutType(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("预计外出时间", true, false, entity.getOutTime(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("预计归来时间", true, false, entity.getInTime(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("申请原因", true, false, entity.getContent(), HandInputGroup.VALUE_TYPE.TEXT));
@@ -226,11 +227,13 @@ public class RestDetailPeopleFragment extends CommonFragment {
         peopleLeaveRrdBean.setEndNum("?");
         peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
         peopleLeaveRrdBean.setIsAndroid("1");
+        peopleLeaveRrdBean.setOutType("?");
         List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
         list.add(peopleLeaveRrdBean);
         peopleLeaveEntity.setPeopleLeaveRrd(list);
         String toJson = new Gson().toJson(peopleLeaveEntity);
         String s="get "+toJson;
+        L.e(TAG,"外"+s);
 //        String url = ApplicationApp.getIP();
         HttpManager.getInstance().requestResultForm(getTempIP(), s, PeopleLeaveEntity.class, new HttpManager.ResultCallback<PeopleLeaveEntity>() {
             @Override
@@ -268,6 +271,7 @@ public class RestDetailPeopleFragment extends CommonFragment {
                                 peopleEntity.setPeopleInfo(beanList);
                                 String json1 = new Gson().toJson(peopleEntity);
                                 String s1 = "get " + json1;
+                                L.e(TAG,"内"+s1);
                                 HttpManager.getInstance().requestResultForm(getTempIP(),s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
                                     @Override
                                     public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {

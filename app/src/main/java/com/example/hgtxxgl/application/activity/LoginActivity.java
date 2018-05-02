@@ -236,6 +236,9 @@ public class LoginActivity extends AppCompatActivity {
                             ApplicationApp.setNewLoginEntity(loginEntity);
                             String no = loginEntity.getLogin().get(0).getAuthenticationNo();
                             getPeopleInfo(username,password,no);
+                            if (username.equals("Admin")){
+                                show(getString(R.string.name_or_password_error));
+                            }
                         }
                     }
 

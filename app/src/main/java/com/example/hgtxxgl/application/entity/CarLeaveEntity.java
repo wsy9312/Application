@@ -54,8 +54,17 @@ public class CarLeaveEntity {
         private String EndNum;
         private String AuthenticationNo;
         private String IsAndroid;
+        private String OutType;
 
         public CarLeaveRrdBean() {
+        }
+
+        public String getOutType() {
+            return OutType;
+        }
+
+        public void setOutType(String outType) {
+            OutType = outType;
         }
 
         public String getNo() {

@@ -81,7 +81,7 @@ public class RestApproveCarFragment extends CommonFragment {
 
         List<HandInputGroup.Holder> holderList = new ArrayList<>();
         holderList.add(new HandInputGroup.Holder("申请人", true, false, getArguments().getString("name"), HandInputGroup.VALUE_TYPE.TEXT));
-        holderList.add(new HandInputGroup.Holder("申请类型", true, false, entity.getOnduty().equals("1")?"因公外出":"因私外出", HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("申请类型", true, false, entity.getOutType(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("申请车辆号牌", true, false, entity.getCarNo(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("预计外出时间", true, false, entity.getOutTime(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("预计归来时间", true, false, entity.getInTime(), HandInputGroup.VALUE_TYPE.TEXT));
@@ -127,7 +127,7 @@ public class RestApproveCarFragment extends CommonFragment {
         carLeaveRrdBean.setNo(no);
         carLeaveRrdBean.setApproverNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
         carLeaveRrdBean.setRegisterTime("?");
-        carLeaveRrdBean.setOnduty("?");
+        carLeaveRrdBean.setOutType("?");
         carLeaveRrdBean.setOutTime("?");
         carLeaveRrdBean.setInTime("?");
         carLeaveRrdBean.setCarNo("?");

@@ -58,48 +58,52 @@ public class HttpManager {
     }
 
     public <T> void requestResultForm(final String url, final String json, final Class<T> clazz, final ResultCallback<T> callback) {
-                OkHttpUtils
-                .postString()
-                .url(url)
-                .mediaType(MediaType.parse("application/json; charset=utf-8"))
-                .content(json)
-                .build()
-                .execute(new StringCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
+            OkHttpUtils
+            .postString()
+            .url(url)
+            .mediaType(MediaType.parse("application/json; charset=utf-8"))
+            .content(json)
+            .build()
+            .execute(new StringCallback() {
+                @Override
+                public void onError(Call call, Exception e, int id) {
+                    T t = null;
+                    Log.e(TAG,"onError: "+e);
+                    try {
+                        callback.onFailure(e.getMessage());
+                    }catch (Exception ex){
+                        ex.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onResponse(String response, int id) {
+                    try {
                         T t = null;
-                        try {
-                            callback.onFailure(e.getMessage());
-                        }catch (Exception ex){
-                            ex.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onResponse(String response, int id) {
-                        try {
-                            T t = null;
-                            String substring = "";
-                            String s = new String(Base64.decode(response.getBytes(), Base64.DEFAULT));
-                            Log.e(TAG,"base64: "+s);
-                            if (s.contains("\"")) {
-                                substring = s.substring(s.indexOf("{"), s.length());
-                                setJson(substring);
-                                t = parseJson(substring, clazz);
-                                if (t != null) {
-                                    callback.onSuccess(substring, t);
-                                } else {
-                                    callback.onFailure(substring);
-                                }
-                            }else{
-                                callback.onResponse(s);
+                        String substring = "";
+                        String s = new String(Base64.decode(response.getBytes(), Base64.DEFAULT));
+                        Log.e(TAG,"onResponse: "+s);
+                        if (s.contains("\"")) {
+                            substring = s.substring(s.indexOf("{"), s.length());
+                            setJson(substring);
+                            t = parseJson(substring, clazz);
+                            if (t != null) {
+                                Log.e(TAG,"onResponse_onSuccess:"+substring);
+                                callback.onSuccess(substring, t);
+                            } else {
+                                Log.e(TAG,"onResponse_onFailure:"+substring);
+                                callback.onFailure(substring);
                             }
-                        }catch (Exception e){
-                            e.printStackTrace();
+                        }else{
+                            Log.e(TAG,"onResponse_onResponse:"+s);
+                            callback.onResponse(s);
                         }
-
+                    }catch (Exception e){
+                        e.printStackTrace();
                     }
-                });
+
+                }
+            });
     }
 
     //从网络获取数据

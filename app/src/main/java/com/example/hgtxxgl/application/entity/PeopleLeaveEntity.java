@@ -73,8 +73,17 @@ public class PeopleLeaveEntity {
         private String EndNum;
         private String AuthenticationNo;
         private String IsAndroid;
+        private String OutType;
 
         public PeopleLeaveRrdBean() {}
+
+        public String getOutType() {
+            return OutType;
+        }
+
+        public void setOutType(String outType) {
+            OutType = outType;
+        }
 
         public String getOnduty() {
             return Onduty;

@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 
 import com.example.hgtxxgl.application.entity.CarLeaveEntity;
@@ -19,6 +20,7 @@ import com.google.gson.Gson;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+
 //申请
 public class RestApplyFragment extends CommonFragment {
 
@@ -53,7 +55,7 @@ public class RestApplyFragment extends CommonFragment {
         List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
         baseHolder.add(new HandInputGroup.Holder("申请人",true,false,name,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
         baseHolder.add(new HandInputGroup.Holder("申请类别",true,false,"人员请假",HandInputGroup.VALUE_TYPE.SELECT));
-        baseHolder.add(new HandInputGroup.Holder("申请类型",true,false,"因公申请",HandInputGroup.VALUE_TYPE.SELECT));
+        baseHolder.add(new HandInputGroup.Holder("申请类型",false,false,"/请填写",HandInputGroup.VALUE_TYPE.TEXTFILED));
         baseHolder.add(new HandInputGroup.Holder("预计外出时间",true,false,"/请选择",HandInputGroup.VALUE_TYPE.DATE));
         baseHolder.add(new HandInputGroup.Holder("预计归来时间",true,false,"/请选择",HandInputGroup.VALUE_TYPE.DATE));
         baseHolder.add(new HandInputGroup.Holder("申请事由",false,false,"/请填写",HandInputGroup.VALUE_TYPE.TEXTFILED));
@@ -91,7 +93,7 @@ public class RestApplyFragment extends CommonFragment {
                     }else {
                         //申请人ID
                         String realValueNO = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo();
-                        //申请类型
+                        //申请类别
                         String realValueType = getDisplayValueByKey("申请类别").getRealValue();
                         //预计外出时间
                         String realValueoutTime = getDisplayValueByKey("预计外出时间").getRealValue()+":00";
@@ -111,7 +113,7 @@ public class RestApplyFragment extends CommonFragment {
                             PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
                             PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
                             peopleLeaveRrdBean.setNo(realValueNO);
-                            peopleLeaveRrdBean.setOnduty(realValuetype.equals("因公申请")?"1":"0");
+                            peopleLeaveRrdBean.setOutType(realValuetype);
                             peopleLeaveRrdBean.setOutTime(realValueoutTime);
                             peopleLeaveRrdBean.setInTime(realValueinTime);
                             peopleLeaveRrdBean.setContent(realValueContent);
@@ -130,7 +132,7 @@ public class RestApplyFragment extends CommonFragment {
                             CarLeaveEntity carLeaveEntity = new CarLeaveEntity();
                             CarLeaveEntity.CarLeaveRrdBean carLeaveRrdBean = new CarLeaveEntity.CarLeaveRrdBean();
                             carLeaveRrdBean.setNo(realValueNO);
-                            carLeaveRrdBean.setOnduty(realValuetype.equals("因公申请")?"1":"0");
+                            carLeaveRrdBean.setOutType(realValuetype);
                             carLeaveRrdBean.setCarNo(realValueCardNo);
                             carLeaveRrdBean.setOutTime(realValueoutTime);
                             carLeaveRrdBean.setInTime(realValueinTime);
@@ -225,9 +227,9 @@ public class RestApplyFragment extends CommonFragment {
             showSelector(holder,new String[]{"是","否"});
         } else if (holder.getKey().equals("是否后补请假")){
             showSelector(holder,new String[]{"是","否"});
-        } else if (holder.getKey().equals("申请类型")){
+        }/* else if (holder.getKey().equals("申请类型")){
             showSelector(holder,new String[]{"因公申请","因私申请"});
-        }
+        }*/
         if (holder.getKey().equals("申请类别")){
             showSelector(holder, new String[]{"人员请假", "车辆外出"}, new OnSelectedResultCallback() {
                 @Override
