@@ -30,14 +30,11 @@ public class BasicActivity extends AppCompatActivity {
                 int menuItemId = item.getItemId();
                 if (menuItemId == R.id.action_item1) {
                     Toast.makeText(BasicActivity.this , "1" , Toast.LENGTH_SHORT).show();
-
                 } else if (menuItemId == R.id.action_item2) {
                     Toast.makeText(BasicActivity.this , "2" , Toast.LENGTH_SHORT).show();
-
                 }
                 return true;
             }
         });
-
     }
 }

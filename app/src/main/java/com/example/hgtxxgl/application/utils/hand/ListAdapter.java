@@ -19,7 +19,6 @@ public abstract class ListAdapter<T> extends BaseAdapter {
     private ArrayList<T> mData;
     private int mLayoutRes;           //布局id
 
-
     public ListAdapter() {
     }
 
@@ -101,7 +100,6 @@ public abstract class ListAdapter<T> extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-
     public static class ViewHolder {
 
         private SparseArray<View> mViews;   //存储ListView 的 item中的View
@@ -142,7 +140,6 @@ public abstract class ListAdapter<T> extends BaseAdapter {
             return t;
         }
 
-
         /**
          * 获取当前条目
          */
@@ -156,7 +153,6 @@ public abstract class ListAdapter<T> extends BaseAdapter {
         public int getItemPosition() {
             return position;
         }
-
 
         /**
          * 设置文字
@@ -181,7 +177,6 @@ public abstract class ListAdapter<T> extends BaseAdapter {
             }
             return this;
         }
-
 
         /**
          * 设置点击监听
@@ -222,8 +217,6 @@ public abstract class ListAdapter<T> extends BaseAdapter {
             }
             return this;
         }
-
     }
-
 }
 

@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.hgtxxgl.application.R;
 
 public class IPEditText extends LinearLayout {
+
     //控件
     private EditText Edit1;
     private EditText Edit2;
@@ -97,7 +98,6 @@ public class IPEditText extends LinearLayout {
                 }
                 */
             }
-
             @Override
             public void afterTextChanged(Editable s) {
 
@@ -258,7 +258,6 @@ public class IPEditText extends LinearLayout {
     }
 
     /**
-     *
      * 成员函数，返回整个ip地址
      */
     public String getText(){

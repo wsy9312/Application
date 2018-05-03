@@ -109,7 +109,6 @@ public class RadioBarViewPager extends LinearLayout {
                     group.addView(rbMid, i);
                 }
             }
-
         }
 
         group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -136,9 +135,5 @@ public class RadioBarViewPager extends LinearLayout {
 
     public interface OnCheckedChangeListener {
         void onCheckedChanged(String title, int index);
-
     }
-
-
-
 }

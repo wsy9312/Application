@@ -17,7 +17,6 @@ import java.util.Map;
 /**
  * 封装的是使用Gson解析json的方法
  * @author Administrator
- *
  */
 public class GsonUtil {
 
@@ -97,9 +96,7 @@ public class GsonUtil {
     }
 
     /**
-     *
      * 获取json串中某个字段的值，注意，只能获取同一层级的value
-     *
      * @param json
      * @param key
      * @return
@@ -125,6 +122,7 @@ public class GsonUtil {
         String obj=gson.toJson(boject);
         return obj;
     }
+
     public String getUrl(String url, HashMap<String, String> params) {
         // 添加url参数
         if (params != null) {

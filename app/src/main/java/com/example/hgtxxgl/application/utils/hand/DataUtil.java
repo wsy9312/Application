@@ -63,8 +63,8 @@ public class DataUtil {
         } else {
             return "";
         }
-
     }
+
     public static Date parseDateToText(String dateStr){
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date= null;
@@ -78,7 +78,6 @@ public class DataUtil {
 
     /**
      * 转换字符串到正整型，转换失败或者为负数则返回-1
-     *
      * @param value 待转换的字符串
      * @return >=0
      */
@@ -98,7 +97,6 @@ public class DataUtil {
 
     /**
      * 输入 是 否 <空> ，仅在为“是”时返回true
-     *
      * @param value 传入的数值
      * @return
      */
@@ -175,6 +173,7 @@ public class DataUtil {
         }
         return value;
     }
+
     //根据不同的api版本判断打开系统文件的选择器
 //    public static void openFile(Context context, File file) {
 //        try {
@@ -205,7 +204,6 @@ public class DataUtil {
             Toast.makeText(context, "附件不能打开，请下载相关软件！", Toast.LENGTH_SHORT).show();
         }
     }
-
 
     public static String getTypeFromExtension(String extension){
         if(!extension.startsWith(".")){
@@ -286,6 +284,7 @@ public class DataUtil {
         }
         return file;
     }
+
     public static File base64ToFileWithName(String base64, String lastStr, String name) {
         File file = null;
         String fileName =name+lastStr;
@@ -343,7 +342,5 @@ public class DataUtil {
     public static Map<String,String> getMapMIME(){
         return mapMIME;
     };
-
-
 
 }

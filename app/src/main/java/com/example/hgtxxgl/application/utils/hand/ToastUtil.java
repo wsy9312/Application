@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 public class ToastUtil {
+
     private static Toast toast;
     /**
      * 强大的吐司，能够连续弹的吐司
@@ -17,6 +18,5 @@ public class ToastUtil {
         }
         toast.show();
     }
-
 
 }

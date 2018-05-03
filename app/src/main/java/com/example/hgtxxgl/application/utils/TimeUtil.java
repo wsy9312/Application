@@ -10,7 +10,6 @@ public class TimeUtil {
 
     /**
      * 返回文字描述的日期
-     *
      * @param date
      * @return
      */

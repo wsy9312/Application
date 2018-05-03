@@ -16,7 +16,6 @@ public class DensityUtils
 
 	/**
 	 * dp转px
-	 * 
 	 * @param context
 	 * @param val
 	 * @return
@@ -29,7 +28,6 @@ public class DensityUtils
 
 	/**
 	 * sp转px
-	 * 
 	 * @param context
 	 * @param val
 	 * @return
@@ -42,7 +40,6 @@ public class DensityUtils
 
 	/**
 	 * px转dp
-	 * 
 	 * @param context
 	 * @param pxVal
 	 * @return
@@ -55,7 +52,6 @@ public class DensityUtils
 
 	/**
 	 * px转sp
-	 * 
 	 * @param fontScale
 	 * @param pxVal
 	 * @return

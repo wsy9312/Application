@@ -22,12 +22,11 @@ public class ActionSheetActivity extends Activity {
     private static final String DEFAULT_DATA = "DEFAULT_DATA";
     private static String mTitle;
     public static Boolean[] array;
+    private static OnResult mResult;
 
     public interface OnResult {
         void onResult(int index, String value);
     }
-
-    private static OnResult mResult;
 
     public static void openActionSheet(Activity context, String title, String[] data, String defData, OnResult result) {
         Intent intent = new Intent(context, ActionSheetActivity.class);
@@ -37,7 +36,6 @@ public class ActionSheetActivity extends Activity {
         intent.putExtra(DEFAULT_DATA, defData);
         context.startActivity(intent);
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,5 +94,4 @@ public class ActionSheetActivity extends Activity {
             }
         }
     }
-
 }

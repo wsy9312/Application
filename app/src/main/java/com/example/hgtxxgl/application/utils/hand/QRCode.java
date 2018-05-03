@@ -17,7 +17,6 @@ public class QRCode {
 
     /**
      * 生成二维码，默认大小为500*500
-     *
      * @param text 需要生成二维码的文字、网址等
      * @return bitmap
      */
@@ -27,7 +26,6 @@ public class QRCode {
 
     /**
      * 生成二维码
-     *
      * @param text 文字或网址
      * @param size 生成二维码的大小
      * @return bitmap
@@ -60,7 +58,6 @@ public class QRCode {
 
     /**
      * bitmap的颜色代替黑色的二维码
-     *
      * @param text
      * @param size
      * @param mBitmap
@@ -103,7 +100,6 @@ public class QRCode {
 
     /**
      * bitmap作为底色
-     *
      * @param text
      * @param size
      * @param mBitmap
@@ -145,7 +141,6 @@ public class QRCode {
 
     /**
      * 比方法2的颜色黑一些
-     *
      * @param text
      * @param size
      * @param mBitmap

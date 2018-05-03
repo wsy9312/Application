@@ -16,6 +16,7 @@ import com.mylhyl.zxing.scanner.common.Intents;
  */
 public class TextActivity extends AppCompatActivity {
     private HandToolbar handToolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -14,19 +14,22 @@ import android.widget.ImageView;
 import com.example.hgtxxgl.application.R;
 
 public class MyImageDialog extends Dialog {
+
     private Window window = null;
     private ImageView iv;
     private Bitmap bms;
+
     public MyImageDialog(Context context, boolean cancelable,
                          DialogInterface.OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
     }
+
     public MyImageDialog(Context context, int cancelable,int x,int y,Bitmap bm,int mystyle) {
         super(context, cancelable);
         windowDeploy(x, y,mystyle);
         bms = bm;
-
     }
+
     public MyImageDialog(Context context) {
         super(context);
     }
@@ -61,6 +64,7 @@ public class MyImageDialog extends Dialog {
         setCanceledOnTouchOutside(true);
         super.show();
     }
+
     public void dismiss() {
         super.dismiss();
     }

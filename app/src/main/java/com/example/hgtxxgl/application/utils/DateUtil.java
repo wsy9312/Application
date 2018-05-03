@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class DateUtil {
+
     //获取当前系统时间
     public static String getCurrentDate(){
         long time=System.currentTimeMillis();
@@ -14,6 +15,7 @@ public class DateUtil {
         String t1=format.format(d1);
         return t1;
     }
+
     //获取当前前两分钟系统时间
     public static String getCurrentDateBefore(){
         long time=System.currentTimeMillis()-120000;

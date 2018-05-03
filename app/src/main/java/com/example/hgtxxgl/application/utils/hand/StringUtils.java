@@ -13,9 +13,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StringUtils {
+
     public static boolean isBlank(String str) {
         return (str == null || str.trim().length() == 0);
     }
+
     public static boolean isPhoneNumberValid(String phoneNumber) {
         boolean isValid = false;
         String expression = "((^(13|15|18)[0-9]{9}$)|(^0[1,2]{1}d{1}-?d{8}$)|"
@@ -92,7 +94,6 @@ public class StringUtils {
             Log.e("result", result);
             return result;
         }
-
     }
 
     public static String getUrlWithGet(String urlStr, Map<String, Object> params) {

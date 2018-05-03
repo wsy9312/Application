@@ -2,12 +2,10 @@ package com.example.hgtxxgl.application.QrCode.sample;
 
 import android.content.Context;
 import android.widget.ImageView;
-
 import com.bumptech.glide.Glide;
 import com.example.hgtxxgl.application.R;
 import com.mylhyl.cygadapter.CygAdapter;
 import com.mylhyl.cygadapter.CygViewHolder;
-
 import java.util.List;
 
 class PickPictureTotalAdapter extends CygAdapter<Picture> {

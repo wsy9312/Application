@@ -93,6 +93,4 @@ public class InputActivity extends AppCompatActivity {
         void onResult(String value);
     }
 
-
-
 }

@@ -45,6 +45,7 @@ public class HttpManager {
 
         return sHttpManager;
     }
+
     public void requestResultForm(final String url, final String json) throws IOException {
         Response execute = OkHttpUtils
                 .postString()
@@ -101,7 +102,6 @@ public class HttpManager {
                     }catch (Exception e){
                         e.printStackTrace();
                     }
-
                 }
             });
     }
@@ -166,7 +166,6 @@ public class HttpManager {
         }
         return null;
     }
-
 
     public <T> T requestResult(String url, Map<String, Object> params, TypeToken<T> token) {
         String content = sHttpManager.dataGet(StringUtils.getUrlWithGet(url, params));
@@ -236,9 +235,7 @@ public class HttpManager {
             e.printStackTrace();
 //            callback.onFailure(e.getMessage());
         }
-
     }
-
 
     public HttpManager setJson(String json) {
         return this;
@@ -292,7 +289,6 @@ public class HttpManager {
 
             }
         });
-
     }
 
     private String doFormPost(String url, RequestBody body) {
@@ -314,7 +310,6 @@ public class HttpManager {
         });
         return "";
     }
-
 
     private <T> T parseJson(String content, Class<T> clazz) {
         return GsonUtil.parseJsonToBean(content, clazz);
@@ -445,7 +440,6 @@ public class HttpManager {
 
         return parseJson(content, clazz);
         // return  content;
-
     }
 
     public void destroy() {

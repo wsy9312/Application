@@ -8,6 +8,7 @@ import android.widget.Toast;
  */
 public class T
 {
+	public static boolean isShow = true;
 
 	private T()
 	{
@@ -15,11 +16,8 @@ public class T
 		throw new UnsupportedOperationException("cannot be instantiated");
 	}
 
-	public static boolean isShow = true;
-
 	/**
 	 * 短时间显示Toast
-	 * 
 	 * @param context
 	 * @param message
 	 */
@@ -31,7 +29,6 @@ public class T
 
 	/**
 	 * 短时间显示Toast
-	 * 
 	 * @param context
 	 * @param message
 	 */
@@ -43,7 +40,6 @@ public class T
 
 	/**
 	 * 长时间显示Toast
-	 * 
 	 * @param context
 	 * @param message
 	 */
@@ -55,7 +51,6 @@ public class T
 
 	/**
 	 * 长时间显示Toast
-	 * 
 	 * @param context
 	 * @param message
 	 */
@@ -67,7 +62,6 @@ public class T
 
 	/**
 	 * 自定义显示Toast时间
-	 * 
 	 * @param context
 	 * @param message
 	 * @param duration
@@ -80,7 +74,6 @@ public class T
 
 	/**
 	 * 自定义显示Toast时间
-	 * 
 	 * @param context
 	 * @param message
 	 * @param duration

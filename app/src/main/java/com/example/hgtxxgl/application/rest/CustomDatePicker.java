@@ -414,7 +414,6 @@ public class CustomDatePicker {
             hour_pv.setSelected(0);
             executeAnimator(hour_pv);
         }
-
         hour_pv.postDelayed(new Runnable() {
             @Override
             public void run() {

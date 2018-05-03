@@ -32,7 +32,6 @@ public class PickPictureTotalActivity extends BasicActivity {
     public static final int REQUEST_CODE_SELECT_PICTURE = 102;
     public static final int REQUEST_CODE_SELECT_ALBUM = 104;
     public static final String EXTRA_PICTURE_PATH = "picture_path";
-
     private HashMap<String, List<String>> mGroupMap = new HashMap<>();
     private List<Picture> list = new ArrayList<>();
     private final static int SCAN_OK = 1;
@@ -141,7 +140,6 @@ public class PickPictureTotalActivity extends BasicActivity {
         }).start();
     }
 
-
     /**
      * 组装分组界面GridView的数据源，因为我们扫描手机的时候将图片信息放在HashMap中
      * 所以需要遍历HashMap将数据组装成List
@@ -169,7 +167,6 @@ public class PickPictureTotalActivity extends BasicActivity {
             list.add(picture);
         }
         return list;
-
     }
 
     @Override

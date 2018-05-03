@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
-
+//个人中心标题头样式
 public class PersonalHandToolbar extends FrameLayout {
 
     private TextView tvTitle;

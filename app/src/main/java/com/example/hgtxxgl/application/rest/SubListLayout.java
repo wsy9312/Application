@@ -17,6 +17,7 @@ public class SubListLayout extends LinearLayout {
     private Set<String> barCode ;
     private int id = 0;
     ResultCallback callback;
+    private LinearLayout containerView;
 
     public enum ActionType{
         DELETE,CLICK,ADD
@@ -99,7 +100,6 @@ public class SubListLayout extends LinearLayout {
         containerView.addView(container,0);
     }
 
-    private LinearLayout containerView;
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();

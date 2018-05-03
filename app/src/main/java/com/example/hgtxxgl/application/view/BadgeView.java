@@ -129,7 +129,6 @@ public class BadgeView extends AppCompatTextView {
         } else {
             show();
         }
-
     }
 
     private void applyTo(View target) {
@@ -151,7 +150,6 @@ public class BadgeView extends AppCompatTextView {
             container.addView(this);
 
         } else {
-
             // TODO verify that parent is indeed a ViewGroup
             ViewGroup group = (ViewGroup) parent;
             int index = group.indexOfChild(target);
@@ -165,9 +163,7 @@ public class BadgeView extends AppCompatTextView {
             container.addView(this);
 
             group.invalidate();
-
         }
-
     }
 
     /**
@@ -281,7 +277,6 @@ public class BadgeView extends AppCompatTextView {
     /**
      * Increment the numeric badge label. If the current badge label cannot be converted to
      * an integer value, its label will be set to "0".
-     *
      * @param offset the increment offset.
      */
     public int increment(int offset) {
@@ -304,7 +299,6 @@ public class BadgeView extends AppCompatTextView {
     /**
      * Decrement the numeric badge label. If the current badge label cannot be converted to
      * an integer value, its label will be set to "0".
-     *
      * @param offset the decrement offset.
      */
     public int decrement(int offset) {
@@ -321,7 +315,6 @@ public class BadgeView extends AppCompatTextView {
         drawable.getPaint().setColor(badgeColor);
 
         return drawable;
-
     }
 
     private void applyLayoutParams() {
@@ -355,9 +348,7 @@ public class BadgeView extends AppCompatTextView {
             default:
                 break;
         }
-
         setLayoutParams(lp);
-
     }
 
     /**

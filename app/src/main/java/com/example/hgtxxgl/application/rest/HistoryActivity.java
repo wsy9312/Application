@@ -117,8 +117,6 @@ public class HistoryActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 
     private void initContent() {

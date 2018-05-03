@@ -27,6 +27,7 @@ public class SimpleListView extends ListView implements AbsListView.OnScrollList
     private ProgressBar pb_rotate;
     private int footerViewHeight;
     private int downY;
+    int x = 0;
 
     private final int PULL_REFRESH = 0;     //下拉刷新的状态值
     private final int RELEASE_REFRESH = 1;  //松开刷新的状态值
@@ -94,8 +95,6 @@ public class SimpleListView extends ListView implements AbsListView.OnScrollList
         addFooterView(footerView);
     }
 
-
-    int x = 0;
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         switch (ev.getAction()) {

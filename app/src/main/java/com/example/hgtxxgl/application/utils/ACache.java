@@ -94,12 +94,8 @@ public class ACache {
 		mCache = new ACacheManager(cacheDir, max_size, max_count);
 	}
 
-	// =======================================
-	// ============ String数据 读写 ==============
-	// =======================================
 	/**
-	 * 保存 String数据 �?缓存�?
-	 * 
+	 * 保存 String数据
 	 * @param key
 	 *            保存的key
 	 * @param value
@@ -127,8 +123,7 @@ public class ACache {
 	}
 
 	/**
-	 * 保存 String数据 �?缓存�?
-	 * 
+	 * 保存 String数据
 	 * @param key
 	 *            保存的key
 	 * @param value
@@ -142,7 +137,6 @@ public class ACache {
 
 	/**
 	 * 读取 String数据
-	 * 
 	 * @param key
 	 * @return String 数据
 	 */
@@ -181,12 +175,8 @@ public class ACache {
 		}
 	}
 
-	// =======================================
-	// ============= JSONObject 数据 读写 ==============
-	// =======================================
 	/**
 	 * 保存 JSONObject数据 �?缓存�?
-	 * 
 	 * @param key
 	 *            保存的key
 	 * @param value
@@ -198,7 +188,6 @@ public class ACache {
 
 	/**
 	 * 保存 JSONObject数据 �?缓存�?
-	 * 
 	 * @param key
 	 *            保存的key
 	 * @param value
@@ -212,7 +201,6 @@ public class ACache {
 
 	/**
 	 * 读取JSONObject数据
-	 * 
 	 * @param key
 	 * @return JSONObject数据
 	 */
@@ -371,8 +359,6 @@ public class ACache {
 	public void put(String key, Serializable value) {
 		put(key, value, -1);
 	}
-
-	
 	
 	/**
 	 * 保存 Serializable数据�?缓存�?
@@ -474,7 +460,6 @@ public class ACache {
 			}
 		}
 		return defaultBoolean;
-
 	}
 
 	// =======================================
@@ -724,7 +709,6 @@ public class ACache {
 			}
 			return fileSize;
 		}
-
 		private long calculateSize(File file) {
 			return file.length();
 		}

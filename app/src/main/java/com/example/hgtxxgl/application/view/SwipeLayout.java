@@ -20,6 +20,7 @@ public class SwipeLayout extends FrameLayout {
     private int mRange;  // 拖拽范围
     private Status status = Status.Close;
     private boolean canSlide = true;
+    boolean isOpen = false;
 
     public static enum Status{
         Close,
@@ -37,18 +38,16 @@ public class SwipeLayout extends FrameLayout {
 
     public SwipeLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-
         // 1. 创建ViewDragHelper
         mDragHelper = ViewDragHelper.create(this, callback);
-
     }
+
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
         mBackLayout = getChildAt(0);
         mFrontLayout = getChildAt(1);
     }
-
 
     public boolean getSlide() {
         return canSlide;
@@ -91,7 +90,6 @@ public class SwipeLayout extends FrameLayout {
                     left = mWidth;
                 }
             }
-
             return left;
         }
 
@@ -108,7 +106,6 @@ public class SwipeLayout extends FrameLayout {
 //                mFrontLayout.offsetLeftAndRight(dx);
                 ViewCompat.offsetLeftAndRight(mFrontLayout, dx);
             }
-
             diapathEvent();
         }
 
@@ -122,16 +119,13 @@ public class SwipeLayout extends FrameLayout {
                 close();
             }
         }
-
     };
 
     private void diapathEvent() {
-
         // 记录之前的状态
         Status lastStatus = status;
         // 更新状态
         status = updateStatus();
-
         // 状态发生变化的时候,执行监听
         if(lastStatus != status && onSwipeListener != null){
             if(status == Status.Close){
@@ -144,7 +138,6 @@ public class SwipeLayout extends FrameLayout {
                 }
             }
         }
-
     }
 
     /**
@@ -176,7 +169,6 @@ public class SwipeLayout extends FrameLayout {
         }
     }
 
-
     public void open() {
         open(true);
     }
@@ -201,7 +193,6 @@ public class SwipeLayout extends FrameLayout {
     }
 
     // 2. 转交 拦截判断, 触摸事件
-
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         return mDragHelper.shouldInterceptTouchEvent(ev);
@@ -209,13 +200,11 @@ public class SwipeLayout extends FrameLayout {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-
         try {
             mDragHelper.processTouchEvent(event);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return true;
     }
 
@@ -225,14 +214,11 @@ public class SwipeLayout extends FrameLayout {
         mHeight = getMeasuredHeight();
         mWidth = getMeasuredWidth();
         mRange = mBackLayout.getMeasuredWidth();
-
     }
 
-    boolean isOpen = false;
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
-
         layoutContent(isOpen);
     }
 
@@ -275,5 +261,4 @@ public class SwipeLayout extends FrameLayout {
         void onOpen(SwipeLayout layout);
         void onStartOpen(SwipeLayout layout);
     }
-
 }

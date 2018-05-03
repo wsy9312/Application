@@ -19,6 +19,8 @@ public class HandToolbar extends FrameLayout {
     private static final int RES_ID = R.layout.layout_tool_bar;
     private TextView tvTitle, tvLeft, tvRight;
     private OnButtonsClickCallback callback;
+    private AlertDialog.Builder builder;
+
     public HandToolbar(Context context) {
         super(context);
         setView(context);
@@ -31,13 +33,11 @@ public class HandToolbar extends FrameLayout {
     public HandToolbar(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         setView(context);
-
     }
 
     public HandToolbar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setView(context);
-
     }
 
     public void setDisplayHomeAsUpEnabled(boolean enable, final Activity activity) {
@@ -55,8 +55,6 @@ public class HandToolbar extends FrameLayout {
         }
     }
 
-    private AlertDialog.Builder builder;
-
     public void setRightButtonDialog(final Activity activity, final String[] strings) {
         tvRight.setOnClickListener(new OnClickListener() {
             @Override
@@ -71,7 +69,6 @@ public class HandToolbar extends FrameLayout {
                             Log.e("标题栏右边菜单", "onClick: "+strings[i]);
 //                            activity.startActivity(new Intent(activity, TestScanActivity.class));
                         }
-
                     }
                 });
                 builder.setCancelable(true);
@@ -157,7 +154,6 @@ public class HandToolbar extends FrameLayout {
             }
         });
     }
-
 
     public void setButtonsClickCallback(OnButtonsClickCallback clickCallback) {
         this.callback = clickCallback;

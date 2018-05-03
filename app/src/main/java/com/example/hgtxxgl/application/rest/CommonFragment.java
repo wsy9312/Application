@@ -51,12 +51,11 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
     private CustomDatePicker customDatePicker;
     public RelativeLayout pb;
     private LinearLayout buttonll;
+    private String tempIP;
 
     public String getTempIP() {
         return tempIP;
     }
-
-    private String tempIP;
 
     public List<Group> getGroup() {
         return groupList;
@@ -79,7 +78,6 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
             }
             pager.setOnCheckedChangeListener(this);
             pager.create();
-
         }
     }
 
@@ -445,7 +443,6 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
         customDatePicker.showSpecificTime(bolean); // 是否显示时和分
         customDatePicker.setIsLoop(true); // 是否循环滚动
     }
-
 
     public void notifyDataSetChanged(int index) {
         if (adpter != null) {
@@ -818,7 +815,6 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
                 rvHistory = (RecyclerView) itemView;
             }
         }
-
     }
 
     @Override
@@ -858,7 +854,6 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
                 return true;
             }
 
-
             @Override
             protected void onPostExecute(Boolean aVoid) {
                 super.onPostExecute(aVoid);
@@ -873,7 +868,6 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
                 }else{
                     updateDialog("上传成功!", 0);
                 }
-
             }
 
             @Override
@@ -887,7 +881,6 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
                 });
             }
         }.execute();
-
     }
 
     public void uploadFileAndData(final HashSet<Uri> paths, final String title, final Map allParams, final String uuid, final String workflowType, final String fileGroupName, final String fileGroupValue, final String applyUrl) {
@@ -952,6 +945,7 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
             }
         }.execute();
     }
+
     private HashSet<Uri> removeDuplicate(HashSet<Uri> set) {
         Map<String, Uri> map = new HashMap<String, Uri>();
         HashSet<Uri> tempSet = new HashSet<Uri>();
@@ -967,6 +961,7 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
         set.removeAll(tempSet);
         return set;
     }
+
     public String isOver(List<Group> groups) {
         for (int i = 0; i < groups.size(); i++) {
             List<HandInputGroup.Holder> holders = groups.get(i).getHolders();

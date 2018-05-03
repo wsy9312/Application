@@ -8,6 +8,7 @@ import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
 
 public class NetworkHttpManager {
+
     public static boolean isWiFiActive(Context inContext) {
         WifiManager mWifiManager = (WifiManager) inContext
                 .getSystemService(Context.WIFI_SERVICE);
@@ -21,6 +22,7 @@ public class NetworkHttpManager {
             return false;
         }
     }
+
     /**
      * 判断是否有网络连接
      */
@@ -72,7 +74,6 @@ public class NetworkHttpManager {
     /**
      * 获取当前的网络状态 ：没有网络-0：WIFI网络1：4G网络-4：3G网络-3：2G网络-2
      * 自定义
-     *
      * @param context
      * @return
      */
@@ -116,5 +117,4 @@ public class NetworkHttpManager {
         }
         return netType;
     }
-
 }

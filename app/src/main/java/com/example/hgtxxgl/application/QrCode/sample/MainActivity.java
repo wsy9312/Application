@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity{
     private String unit;
     private String armyGroup;
     private RelativeLayout llqrimage;
+    private HandToolbar handToolbar;
 
     /**
      * 请求读取sd卡的权限
@@ -97,7 +98,6 @@ public class MainActivity extends AppCompatActivity{
                 }
             }
         });
-
     }
 
 //    @Override
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity{
 //            saveImage();
 //        }
 //    }
-    private HandToolbar handToolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -65,7 +65,6 @@ public class HandInputGroup extends LinearLayout {
     private String oldBarcode;
     private ImageView photo;
 
-
     public HandInputGroup(Context context) {
         super(context);
         this.context = context;
@@ -143,12 +142,10 @@ public class HandInputGroup extends LinearLayout {
         }
     }
 
-
     public void setrl(boolean rl){
         if (rl){
             relativeLayout.setVisibility(GONE);
             user.setVisibility(VISIBLE);
-
         }
     }
 
@@ -263,11 +260,9 @@ public class HandInputGroup extends LinearLayout {
                     }).setNegativeButton("取消",null);
                     alert.create();
                     alert.show();
-
                 }
             });
         }
-
     }
 
     public HandInputGroup setoldBarcode(String oldBarcode) {
@@ -299,16 +294,13 @@ public class HandInputGroup extends LinearLayout {
                     Drawable d = (Drawable) bd;
                     this.photo.setBackground(d);
                 }
-
             }
         }
-
     }
 
     public String getdrawable(){
         return this.drawable;
     }
-
 
     /**
      * <p>定义参数类型，决定着后面的布局类型</p>
@@ -493,7 +485,6 @@ public class HandInputGroup extends LinearLayout {
             } else {
                 return dispayValue;
             }
-
         }
 
         public String getKey() {
@@ -592,7 +583,6 @@ public class HandInputGroup extends LinearLayout {
                     holder.tvIndicator.setVisibility(VISIBLE);
                 }
             }
-
             if (holder.tvKey != null) {
                 if (item.getKey() != null) {
                     holder.tvKey.setText(item.getKey());
@@ -771,7 +761,6 @@ public class HandInputGroup extends LinearLayout {
                             }
                         }
                     });
-
                     break;
             }
         }

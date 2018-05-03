@@ -21,7 +21,6 @@ public class ScreenUtils
 
 	/**
 	 * 获得屏幕高度
-	 * 
 	 * @param context
 	 * @return
 	 */
@@ -36,7 +35,6 @@ public class ScreenUtils
 
 	/**
 	 * 获得屏幕宽度
-	 * 
 	 * @param context
 	 * @return
 	 */
@@ -51,13 +49,11 @@ public class ScreenUtils
 
 	/**
 	 * 获得状态栏的高度
-	 * 
 	 * @param context
 	 * @return
 	 */
 	public static int getStatusHeight(Context context)
 	{
-
 		int statusHeight = -1;
 		try
 		{
@@ -75,7 +71,6 @@ public class ScreenUtils
 
 	/**
 	 * 获取当前屏幕截图，包含状态栏
-	 * 
 	 * @param activity
 	 * @return
 	 */
@@ -91,12 +86,10 @@ public class ScreenUtils
 		bp = Bitmap.createBitmap(bmp, 0, 0, width, height);
 		view.destroyDrawingCache();
 		return bp;
-
 	}
 
 	/**
 	 * 获取当前屏幕截图，不包含状态栏
-	 * 
 	 * @param activity
 	 * @return
 	 */
@@ -109,7 +102,6 @@ public class ScreenUtils
 		Rect frame = new Rect();
 		activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
 		int statusBarHeight = frame.top;
-
 		int width = getScreenWidth(activity);
 		int height = getScreenHeight(activity);
 		Bitmap bp = null;
@@ -117,7 +109,6 @@ public class ScreenUtils
 				- statusBarHeight);
 		view.destroyDrawingCache();
 		return bp;
-
 	}
 
 }

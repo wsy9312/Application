@@ -73,7 +73,6 @@ public class CacheManger
         {
             e.printStackTrace();
         }
-        
     }
     
     /**
@@ -136,7 +135,5 @@ public class CacheManger
             e.printStackTrace();
             return "";
         }
-        
     }
-    
 }

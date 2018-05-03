@@ -37,6 +37,7 @@ public class LocalStorageProvider extends DocumentsProvider {
             Root.COLUMN_FLAGS, Root.COLUMN_TITLE, Root.COLUMN_DOCUMENT_ID, Root.COLUMN_ICON,
             Root.COLUMN_AVAILABLE_BYTES
     };
+
     /**
      * Default document projection: everything but Document.COLUMN_ICON and
      * Document.COLUMN_SUMMARY

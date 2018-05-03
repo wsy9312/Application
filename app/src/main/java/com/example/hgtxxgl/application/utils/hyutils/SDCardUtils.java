@@ -25,7 +25,6 @@ public class SDCardUtils
 	{
 		return Environment.getExternalStorageState().equals(
 				Environment.MEDIA_MOUNTED);
-
 	}
 
 	/**
@@ -81,13 +80,11 @@ public class SDCardUtils
 
 	/**
 	 * 获取系统存储路径
-	 * 
 	 * @return
 	 */
 	public static String getRootDirectoryPath()
 	{
 		return Environment.getRootDirectory().getAbsolutePath();
 	}
-
 
 }

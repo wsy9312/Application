@@ -80,7 +80,5 @@ public class XCRoundRectImageView extends ImageView{
         paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
         canvas.drawBitmap(bitmap, rect, rect, paint);
         return output;
-
-
     }
 }

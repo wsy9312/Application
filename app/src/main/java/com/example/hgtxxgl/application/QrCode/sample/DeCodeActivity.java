@@ -16,6 +16,8 @@ import com.mylhyl.zxing.scanner.decode.QRDecode;
  * 单击解析图片
  */
 public class DeCodeActivity extends BasicScannerActivity {
+    private ProgressDialog progressDialog;
+
     @Override
     void onResultActivity(Result result, ParsedResultType type, Bundle bundle) {
         switch (type) {
@@ -47,8 +49,6 @@ public class DeCodeActivity extends BasicScannerActivity {
         }
         finish();
     }
-
-    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

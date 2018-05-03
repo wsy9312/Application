@@ -22,10 +22,8 @@ public class HttpUtils
 		void onRequestComplete(String result);
 	}
 
-
 	/**
 	 * 异步的Get请求
-	 * 
 	 * @param urlStr
 	 * @param callBack
 	 */
@@ -79,12 +77,10 @@ public class HttpUtils
 
 			};
 		}.start();
-
 	}
 
 	/**
 	 * Get请求，获得返回数据
-	 * 
 	 * @param urlStr
 	 * @return
 	 * @throws Exception
@@ -143,14 +139,11 @@ public class HttpUtils
 			}
 			conn.disconnect();
 		}
-		
 		return null ;
-
 	}
 
 	/**
 	 * 向指定 URL 发送POST方法的请求
-	 * 
 	 * @param url
 	 *            发送请求的 URL
 	 * @param param

@@ -63,11 +63,13 @@ public class ApplicationApp extends Application {
 //        LogCollector.setDebugMode(isDebug);
 //        LogCollector.init(getApplicationContext(), UPLOAD_URL, params);//params can be null
     }
+
     public void getScreen(Context aty) {
         DisplayMetrics dm = aty.getResources().getDisplayMetrics();
         H=dm.heightPixels;
         W=dm.widthPixels;
     }
+
     public static PeopleInfoEntity getPeopleInfoEntity() {
         return peopleInfoEntity;
     }
@@ -84,8 +86,6 @@ public class ApplicationApp extends Application {
         ApplicationApp.newLoginEntity = newLoginEntity;
     }
 //        checkFirstIn();
-
-
 //    private void checkFirstIn() {
 //        CommonValues.firstIn = getSharedPreferences("app", MODE_PRIVATE).getBoolean("firstIn", true);
 //    }

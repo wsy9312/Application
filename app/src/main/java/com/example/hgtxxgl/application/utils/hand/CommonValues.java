@@ -13,6 +13,7 @@ public class CommonValues {
     public static final int CODE_OA_REQUEST = 2333;
     public static final int MYCOMM = 9527;
     public static final int MYLAUN = 9528;
+    public static boolean firstIn = true;
 
     /**
      * 公用请求
@@ -86,7 +87,5 @@ public class CommonValues {
 //        param.put("sign", ApplicationApp.getLoginEntity() != null ? ApplicationApp.getLoginEntity().getSign() : "");
         return param;
     }
-
-    public static boolean firstIn = true;
 
 }
