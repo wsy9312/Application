@@ -39,6 +39,7 @@ public class MyLaunchCarFragment extends Fragment implements SimpleListView.OnRe
     private boolean hasMore = true;
     private TextView ivEmpty;
     private ProgressBar pb;
+    SimpleListView lv;
     private static final String TAG = "MyLaunchCarFragment";
 
     public MyLaunchCarFragment() {
@@ -82,8 +83,6 @@ public class MyLaunchCarFragment extends Fragment implements SimpleListView.OnRe
         super.onCreate(savedInstanceState);
         loadData(beginNum, endNum);
     }
-
-    SimpleListView lv;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

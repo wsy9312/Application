@@ -47,6 +47,7 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
     private ProgressBar pb;
     private static final String TAG = "MyCommissionPeopleFragment";
     private String tempIP;
+    SimpleListView lv;
 
     public MyCommissionPeopleFragment() {
 
@@ -95,8 +96,6 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
         super.onCreate(savedInstanceState);
         loadData(beginNum, endNum);
     }
-
-    SimpleListView lv;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

@@ -25,6 +25,9 @@ public class LaunchDetailFragment extends Fragment implements RadioGroup.OnCheck
     RadioGroup group;
     RadioButton rbLeft,rbMid;
     private ArrayList<Fragment> fragments;
+    private LinearLayout llEtSearch;
+    private SearchView etSearch;
+    private TextView tvCancel;
 
     public LaunchDetailFragment() {
     }
@@ -33,9 +36,7 @@ public class LaunchDetailFragment extends Fragment implements RadioGroup.OnCheck
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-    private LinearLayout llEtSearch;
-    private SearchView etSearch;
-    private TextView tvCancel;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

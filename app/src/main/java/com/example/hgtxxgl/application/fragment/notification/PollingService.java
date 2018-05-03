@@ -11,7 +11,6 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.LibMainActivity;
@@ -136,7 +135,6 @@ public class PollingService extends Service {
 				if (peopleLeaveEntity1 != null && peopleLeaveEntity1.getPeopleLeaveRrd().size() > 0) {
 					List<PeopleLeaveEntity.PeopleLeaveRrdBean> peopleLeaveRrd = peopleLeaveEntity1.getPeopleLeaveRrd();
 					String modifyTime = peopleLeaveRrd.get(0).getModifyTime();
-					Log.e("123123",peopleLeaveRrd.size()+"");
 					if (!list1.contains(modifyTime)){
 						list1.add(modifyTime);
 						for (int i = 0; i < 500; i++) {
@@ -217,7 +215,6 @@ public class PollingService extends Service {
 		carLeaveEntity.setCarLeaveRrd(list);
 		String json = new Gson().toJson(carLeaveEntity);
 		String s = "get " + json;
-		Log.e(TAG,"当前时间service:_getDataAlarmApproveCar"+s);
 		//        String url = CommonValues.BASE_URL;
 //		String url = ApplicationApp.getIP();
 		HttpManager.getInstance().requestResultForm(tempIP, s, CarLeaveEntity.class,new HttpManager.ResultCallback<CarLeaveEntity>() {
@@ -303,7 +300,6 @@ public class PollingService extends Service {
 		messageEntity.setMessageRrd(list);
 		String json = new Gson().toJson(messageEntity).replace("\\u0026","&");
 		String s = "get " + json;
-		Log.e(TAG, "getDataAlarm--"+s );
 		//        String url = CommonValues.BASE_URL;
 //		String url = ApplicationApp.getIP();
 		HttpManager.getInstance().requestResultForm(tempIP, s, MessageEntity.class, new HttpManager.ResultCallback<MessageEntity>() {

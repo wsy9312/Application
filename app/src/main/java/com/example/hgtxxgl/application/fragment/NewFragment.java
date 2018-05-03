@@ -89,6 +89,7 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
             return view;
         }
     };
+
     //将字符串转换成Bitmap类型
     public Bitmap stringtoBitmap(String string){
         Bitmap bitmap = null;
@@ -99,9 +100,9 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return bitmap;
     }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -245,7 +246,6 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
         beginNum = 1;
         endNum = 6;
         loadData(beginNum, endNum);
-
     }
 
     @Override
@@ -253,8 +253,8 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
         if (lv.getCurrentState() == 2) return;
         position -= 1;
         checkDetail(position);
-
     }
+
     private void checkDetail(int position) {
         Intent intent = new Intent(getActivity(), NewsItemActivity.class);
         intent.putExtra("tab", "新闻内容");
@@ -308,7 +308,6 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
 
         }
     }
-
 
     @Override
     public void onLoadingMore() {

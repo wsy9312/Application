@@ -57,6 +57,8 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
     private String name;
     private String cardNo;
     private String sex;
+    private static final int REQUEST_CODE_SAVE_IMG = 10;
+    private Context mContext;
 
     public PersonalActivity() {
 
@@ -198,7 +200,6 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
         builder.create().show();
     }
 
-
     @Override
     public void onButtonClickListner(PersonalHandToolbar.VIEWS views, int radioIndex) {
         if (views.equals(PersonalHandToolbar.VIEWS.RIGHT_BUTTON)){
@@ -260,8 +261,7 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
             }
         }
     }
-    private static final int REQUEST_CODE_SAVE_IMG = 10;
-    private Context mContext;
+
     /**
      * 请求读取sd卡的权限
      */

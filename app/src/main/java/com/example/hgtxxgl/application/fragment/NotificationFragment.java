@@ -204,7 +204,6 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
         if (lv.getCurrentState() == 2) return;
         position -= 1;
         checkDetail(position);
-
     }
 
     private void checkDetail(int position) {

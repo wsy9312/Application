@@ -255,11 +255,8 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 });
-
-
             }
         }).start();
-
     }
 
     private void getPeopleInfo(final String username, final String password, final String no){

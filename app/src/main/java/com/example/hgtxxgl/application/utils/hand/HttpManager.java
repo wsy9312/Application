@@ -32,7 +32,7 @@ import okhttp3.Response;
 //统一网络管理类
 public class HttpManager {
     public static final String TAG = "HttpManager";
-    private static OkHttpClient okHttpClient = new OkHttpClient() ;
+    private static OkHttpClient okHttpClient = new OkHttpClient();
     private Response response;
 
     private HttpManager() {

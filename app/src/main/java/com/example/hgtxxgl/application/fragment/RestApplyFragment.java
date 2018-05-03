@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.View;
 
 import com.example.hgtxxgl.application.entity.CarLeaveEntity;
@@ -26,6 +25,7 @@ public class RestApplyFragment extends CommonFragment {
 
     private String name;
     private final static String TAG = "RestApplyCarFragment";
+    private boolean mIsDomestic;
 
     public RestApplyFragment() {
     }
@@ -160,7 +160,6 @@ public class RestApplyFragment extends CommonFragment {
             });
             builder.create().show();
         }
-
     }
 
     private void applyStart(int type, String baseUrl, String s1) {
@@ -216,8 +215,6 @@ public class RestApplyFragment extends CommonFragment {
             }
         });
     }
-
-    private boolean mIsDomestic;
 
     @Override
     public void onClickItemContentSetter(final HandInputGroup.Holder holder) {

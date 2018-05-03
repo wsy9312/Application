@@ -48,6 +48,7 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
     private ProgressBar pb;
     private static final String TAG = "MyCommissionCarFragment";
     private String tempIP;
+    SimpleListView lv;
 
     public MyCommissionCarFragment() {
 
@@ -84,8 +85,6 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
         super.onCreate(savedInstanceState);
         loadData(beginNum, endNum);
     }
-
-    SimpleListView lv;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

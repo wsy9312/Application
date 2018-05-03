@@ -53,6 +53,7 @@ public class RestApproveCarFragment extends CommonFragment {
     public String[] getBottomButtonsTitles() {
         return new String[]{getString(R.string.agreement),getString(R.string.reject)};
     }
+
     private String[] stringnull = new String[]{""};
 
     @Override
@@ -218,7 +219,6 @@ public class RestApproveCarFragment extends CommonFragment {
             }
         });
         builder.create().show();
-
     }
 
     private void approveStart(String baseUrl, String s1) {
@@ -242,7 +242,6 @@ public class RestApproveCarFragment extends CommonFragment {
                 }
             }
         });
-
     }
 
     public CarLeaveEntity.CarLeaveRrdBean getEntity() {

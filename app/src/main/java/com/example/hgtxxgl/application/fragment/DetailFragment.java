@@ -73,7 +73,6 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
             }
             trans.commit();
         }
-
         return root;
     }
 

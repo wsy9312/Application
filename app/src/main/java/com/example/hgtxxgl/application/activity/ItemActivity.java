@@ -54,9 +54,7 @@ public class ItemActivity extends AppCompatActivity {
             case PageConfig.PAGE_LEAVE_DETAIL_PEOPLE:
                 checkFragment(RestDetailPeopleFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
-
         }
-
     }
 
     private void checkFragment(Fragment fragment) {

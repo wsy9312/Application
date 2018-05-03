@@ -39,6 +39,7 @@ public class MyLaunchPeopleFragment extends Fragment implements SimpleListView.O
     private boolean hasMore = true;
     private TextView ivEmpty;
     private ProgressBar pb;
+    SimpleListView lv;
     private static final String TAG = "MyLaunchPeopleFragment";
 
     public MyLaunchPeopleFragment() {
@@ -83,8 +84,6 @@ public class MyLaunchPeopleFragment extends Fragment implements SimpleListView.O
 //        tabIndex = getArguments().getInt(DetailFragment.ARG_TAB);
         loadData(beginNum, endNum);
     }
-
-    SimpleListView lv;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -273,7 +272,6 @@ public class MyLaunchPeopleFragment extends Fragment implements SimpleListView.O
                 adapter.notifyDataSetChanged();
             }
         }
-
     }
 
     @Override

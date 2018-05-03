@@ -313,7 +313,6 @@ public class RestApprovePeopleFragment extends CommonFragment {
                 }
             }
         });
-
     }
 
     public PeopleLeaveEntity.PeopleLeaveRrdBean getEntity() {

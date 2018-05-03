@@ -2,7 +2,6 @@ package com.example.hgtxxgl.application.entity;
 
 import java.util.List;
 //新闻实体
-
 public class NewsInfoEntity {
 
     private List<NewsRrdBean> NewsRrd;
