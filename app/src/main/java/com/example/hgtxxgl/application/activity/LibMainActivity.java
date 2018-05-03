@@ -74,6 +74,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
     private FloatingActionButton fbcApply;
     private FloatingActionsMenu fbcMenu;
     private long time = 0;
+    private BadgeView badgeViewNoti;
 
     //底部菜单栏单选按钮监听器
     private RadioGroup.OnCheckedChangeListener listener = new RadioGroup.OnCheckedChangeListener() {
@@ -117,7 +118,6 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
             }
         }
     };
-    private BadgeView badgeViewNoti;
 
     /**
      * 调用入口

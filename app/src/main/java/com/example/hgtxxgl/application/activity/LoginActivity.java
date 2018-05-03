@@ -18,7 +18,6 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.entity.LoginEntity;
 import com.example.hgtxxgl.application.entity.NewLoginEntity;
@@ -33,10 +32,8 @@ import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
 import com.example.hgtxxgl.application.view.IPEditText;
 import com.google.gson.Gson;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static com.example.hgtxxgl.application.utils.hand.Fields.SAVE_IP;
 
 //登录界面
@@ -213,7 +210,6 @@ public class LoginActivity extends AppCompatActivity {
 
     //输入用户名密码登录
     private void login(final String username, final String password) {
-
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -332,6 +328,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
     //跳转到首页activity
     private void toLibMainActivity(String username, String password) {
         LibMainActivity.startActivity(this,username,password);

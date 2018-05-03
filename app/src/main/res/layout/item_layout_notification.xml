@@ -3,17 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <com.example.hgtxxgl.application.view.HandToolbar
         android:id="@+id/itemactivity_handtoolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <TextView
                 android:layout_below="@+id/itemactivity_handtoolbar"
                 android:text="这是标题"
@@ -27,6 +31,7 @@
                 android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
             <TextView
                 android:layout_below="@+id/tv_news_title"
                 android:text="这是时间"
@@ -39,6 +44,7 @@
                 android:paddingTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
             <TextView
                 android:layout_below="@+id/tv_news_date"
                 android:text="这是正文"
@@ -62,6 +68,7 @@
                 android:src="@mipmap/ic_new_default"
                 android:layout_width="280dp"
                 android:layout_height="180dp"/>
+
             <ImageView
                 android:visibility="gone"
                 android:scaleType="fitXY"
@@ -72,6 +79,7 @@
                 android:src="@mipmap/ic_new_default"
                 android:layout_width="280dp"
                 android:layout_height="180dp"/>
+
             <ImageView
                 android:visibility="gone"
                 android:scaleType="fitXY"
@@ -82,6 +90,7 @@
                 android:src="@mipmap/ic_new_default"
                 android:layout_width="280dp"
                 android:layout_height="180dp"/>
+
             <ImageView
                 android:visibility="gone"
                 android:scaleType="fitXY"
@@ -92,6 +101,7 @@
                 android:src="@mipmap/ic_new_default"
                 android:layout_width="280dp"
                 android:layout_height="180dp"/>
+
             <ImageView
                 android:visibility="gone"
                 android:scaleType="fitXY"
@@ -102,6 +112,7 @@
                 android:src="@mipmap/ic_new_default"
                 android:layout_width="280dp"
                 android:layout_height="180dp"/>
+
         </LinearLayout>
     </ScrollView>
 

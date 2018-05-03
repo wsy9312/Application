@@ -81,7 +81,6 @@ public class ItemActivity extends AppCompatActivity {
                 }
             });
             builder.create().show();
-
         }else {
             super.onBackPressed();
         }

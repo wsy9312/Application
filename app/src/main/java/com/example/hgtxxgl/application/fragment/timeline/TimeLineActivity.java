@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TimeLineActivity extends AppCompatActivity {
+
     private RecyclerView mRecyclerView;
     private TimeLineAdapter mTimeLineAdapter;
     private List<TimeLineModel> mDataList = new ArrayList<>();
@@ -48,6 +49,5 @@ public class TimeLineActivity extends AppCompatActivity {
         mDataList.add(new TimeLineModel("Order confirmed by seller", "2017-02-10 14:30", OrderStatus.COMPLETED));
         mDataList.add(new TimeLineModel("Order placed successfully", "2017-02-10 14:00", OrderStatus.COMPLETED));
     }
-
 
 }
