@@ -25,6 +25,7 @@ import com.example.hgtxxgl.application.fragment.NotificationBroadcast;
 import com.example.hgtxxgl.application.fragment.OnUpdateUI;
 import com.example.hgtxxgl.application.fragment.OnUpdateUINO;
 import com.example.hgtxxgl.application.fragment.PersonalActivity;
+import com.example.hgtxxgl.application.fragment.StartNewActivity;
 import com.example.hgtxxgl.application.fragment.TodoTotalBroadcast;
 import com.example.hgtxxgl.application.utils.SysExitUtil;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
@@ -368,7 +369,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                 fbcMenu.collapse();
                 break;
             case R.id.button_fbc_apply:
-                Intent intent = new Intent(this, ItemActivity.class);
+                Intent intent = new Intent(this, StartNewActivity.class);
                 intent.putExtra(PageConfig.PAGE_CODE, PAGE_LEAVE_APPLY_PEOPLE);
                 startActivity(intent);
                 fbcMenu.collapse();
