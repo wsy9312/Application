@@ -43,7 +43,7 @@
     <string name="lib_title_approve_center">审批事项</string>
     <string name="again_back_to_desktop">再按一次返回桌面</string>
     <string name="current_no_network">当前无可用网络</string>
-    <string name="set_ip_and_port_first">首次登录请设置IP地址及端口号</string>
+    <string name="set_ip_and_port_first">首次登录请点击右上角设置按钮,设置IP地址及端口号</string>
     <string name="please_set_ip_and_port">请设置IP地址及端口号</string>
     <string name="address_can_not_null">地址不能为空!</string>
     <string name="name_or_password_error">用户名或密码错误!</string>

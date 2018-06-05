@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -223,6 +224,7 @@ public class LoginActivity extends AppCompatActivity {
                 loginEntity.setLogin(list);
                 String toJson = new Gson().toJson(loginEntity);
                 String s="Login "+toJson;
+                Log.e(TAG,"登录:"+s);
 //                String url = CommonValues.BASE_URL;
 //                String url = ApplicationApp.getIP();
                 HttpManager.getInstance().requestResultForm(tempIP, s, NewLoginEntity.class, new HttpManager.ResultCallback<NewLoginEntity>() {
@@ -282,6 +284,7 @@ public class LoginActivity extends AppCompatActivity {
         peopleEntity.setPeopleInfo(beanList);
         String json = new Gson().toJson(peopleEntity);
         String s1 = "get " + json;
+        Log.e(TAG,"获取个人信息:"+s1);
         HttpManager.getInstance().requestResultForm(tempIP,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
             @Override
             public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
