@@ -42,6 +42,24 @@ public class ItemActivity extends AppCompatActivity {
             case PageConfig.PAGE_APPLY_PEOPLE_OUT:
                 checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
+            case PageConfig.PAGE_APPLY_CAR:
+                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
+                break;
+            case PageConfig.PAGE_APPLY_PEOPLE_IN:
+                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
+                break;
+            case PageConfig.PAGE_APPLY_DISPATCH_PEOPLE_OWN:
+                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
+                break;
+            case PageConfig.PAGE_APPLY_DISPATCH_PEOPLE_ELSE:
+                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
+                break;
+            case PageConfig.PAGE_APPLY_DISPATCH_CAR_OWN:
+                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
+                break;
+            case PageConfig.PAGE_APPLY_DISPATCH_CAR_ELSE:
+                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
+                break;
             case PageConfig.PAGE_LEAVE_APPROVE_CAR:
                 checkFragment(RestApproveCarFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
@@ -64,7 +82,10 @@ public class ItemActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         int intExtra = getIntent().getIntExtra(PageConfig.PAGE_CODE, -1);
-        if (intExtra == PageConfig.PAGE_APPLY_PEOPLE_OUT){
+        if (intExtra == PageConfig.PAGE_APPLY_PEOPLE_OUT||intExtra == PageConfig.PAGE_APPLY_CAR||
+            intExtra == PageConfig.PAGE_APPLY_PEOPLE_IN||intExtra == PageConfig.PAGE_APPLY_DISPATCH_PEOPLE_OWN||
+            intExtra == PageConfig.PAGE_APPLY_DISPATCH_PEOPLE_ELSE||intExtra == PageConfig.PAGE_APPLY_DISPATCH_CAR_OWN||
+            intExtra == PageConfig.PAGE_APPLY_DISPATCH_CAR_ELSE){
             AlertDialog.Builder builder=new AlertDialog.Builder(this);
             builder.setMessage(R.string.make_sure_back_current_apply);
             builder.setPositiveButton(R.string.make_sure, new DialogInterface.OnClickListener() {

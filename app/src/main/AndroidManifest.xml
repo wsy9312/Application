@@ -95,7 +95,7 @@
             android:theme="@style/AppThemeLib"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".fragment.StartNewActivity"
+            android:name=".activity.StartNewActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeLib"
             android:windowSoftInputMode="adjustPan" />

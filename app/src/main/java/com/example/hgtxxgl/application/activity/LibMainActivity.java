@@ -25,7 +25,6 @@ import com.example.hgtxxgl.application.fragment.NotificationBroadcast;
 import com.example.hgtxxgl.application.fragment.OnUpdateUI;
 import com.example.hgtxxgl.application.fragment.OnUpdateUINO;
 import com.example.hgtxxgl.application.fragment.PersonalActivity;
-import com.example.hgtxxgl.application.fragment.StartNewActivity;
 import com.example.hgtxxgl.application.fragment.TodoTotalBroadcast;
 import com.example.hgtxxgl.application.utils.SysExitUtil;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
