@@ -54,13 +54,15 @@ public class RestApplyFragment extends CommonFragment {
         List<CommonFragment.Group> groups = new ArrayList<>();
         List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
 //        baseHolder.add(new HandInputGroup.Holder("申请人",true,false,name,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-        baseHolder.add(new HandInputGroup.Holder("申请人",true,false,"",HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-        baseHolder.add(new HandInputGroup.Holder("申请类别",true,false,"人员请假",HandInputGroup.VALUE_TYPE.SELECT));
-        baseHolder.add(new HandInputGroup.Holder("申请类型",false,false,"/请填写",HandInputGroup.VALUE_TYPE.TEXTFILED));
-        baseHolder.add(new HandInputGroup.Holder("预计外出时间",true,false,"/请选择",HandInputGroup.VALUE_TYPE.DATE));
-        baseHolder.add(new HandInputGroup.Holder("预计归来时间",true,false,"/请选择",HandInputGroup.VALUE_TYPE.DATE));
-        baseHolder.add(new HandInputGroup.Holder("申请事由",false,false,"/请填写",HandInputGroup.VALUE_TYPE.TEXTFILED));
-        baseHolder.add(new HandInputGroup.Holder("是否后补请假",false,false,"否",HandInputGroup.VALUE_TYPE.SELECT));
+        baseHolder.add(new HandInputGroup.Holder("单位",true,false,"/自动读取",HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
+        baseHolder.add(new HandInputGroup.Holder("申请人",true,false,"/自动读取",HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
+        baseHolder.add(new HandInputGroup.Holder("申请时间",true,false,"/自动读取",HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
+        baseHolder.add(new HandInputGroup.Holder("申请类型",true,false,"/请选择",HandInputGroup.VALUE_TYPE.SELECT));
+        baseHolder.add(new HandInputGroup.Holder("离队时间",true,false,"/请选择",HandInputGroup.VALUE_TYPE.DATE));
+        baseHolder.add(new HandInputGroup.Holder("归队时间",true,false,"/请选择",HandInputGroup.VALUE_TYPE.DATE));
+        baseHolder.add(new HandInputGroup.Holder("事由",false,false,"/请填写",HandInputGroup.VALUE_TYPE.BIG_EDIT));
+        baseHolder.add(new HandInputGroup.Holder("去向",false,false,"/请填写",HandInputGroup.VALUE_TYPE.TEXTFILED));
+        baseHolder.add(new HandInputGroup.Holder("是否后补申请",false,false,"否",HandInputGroup.VALUE_TYPE.SELECT));
         groups.add(0,new Group("基本信息", null,true,null,baseHolder));
         return groups;
     }
@@ -92,62 +94,114 @@ public class RestApplyFragment extends CommonFragment {
                         ToastUtil.showToast(getContext(),"请填写" + over);
                         setButtonllEnable(true);
                     }else {
+//                        baseHolder.add(new HandInputGroup.Holder("单位",true,false,"/自动读取",HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
+//                        baseHolder.add(new HandInputGroup.Holder("申请人",true,false,"/自动读取",HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
+//                        baseHolder.add(new HandInputGroup.Holder("申请时间",true,false,"/自动读取",HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
+//                        baseHolder.add(new HandInputGroup.Holder("申请类型",true,false,"人员请假",HandInputGroup.VALUE_TYPE.SELECT));
+//                        baseHolder.add(new HandInputGroup.Holder("离队时间",true,false,"/请选择",HandInputGroup.VALUE_TYPE.DATE));
+//                        baseHolder.add(new HandInputGroup.Holder("归队时间",true,false,"/请选择",HandInputGroup.VALUE_TYPE.DATE));
+//                        baseHolder.add(new HandInputGroup.Holder("事由",false,false,"/请填写",HandInputGroup.VALUE_TYPE.TEXTFILED));
+//                        baseHolder.add(new HandInputGroup.Holder("去向",false,false,"/请填写",HandInputGroup.VALUE_TYPE.TEXTFILED));
+//                        baseHolder.add(new HandInputGroup.Holder("是否后补申请",false,false,"否",HandInputGroup.VALUE_TYPE.SELECT));
                         //申请人ID
                         String realValueNO = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo();
+                        String unit = getDisplayValueByKey("单位").getRealValue();
+                        String applicant = getDisplayValueByKey("申请人").getRealValue();
+                        String applicantTime = getDisplayValueByKey("申请时间").getRealValue();
+                        String applicantType = getDisplayValueByKey("申请类型").getRealValue();
+                        String leaveTime = getDisplayValueByKey("离队时间").getRealValue();
+                        String returnTime = getDisplayValueByKey("归队时间").getRealValue();
+                        String argument = getDisplayValueByKey("事由").getRealValue();
+                        String goDirection  = getDisplayValueByKey("去向").getRealValue();
+                        String bFillup = getDisplayValueByKey("是否后补申请").getRealValue();
+                        PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
+                        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
+                        peopleLeaveRrdBean.setNo(realValueNO);
+                        peopleLeaveRrdBean.setOutType(applicantType);
+                        peopleLeaveRrdBean.setOutTime(leaveTime);
+                        peopleLeaveRrdBean.setInTime(returnTime);
+                        peopleLeaveRrdBean.setContent(argument);
+                        peopleLeaveRrdBean.setBFillup(bFillup.equals("否")?"0":"1");
+                        peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+                        peopleLeaveRrdBean.setIsAndroid("1");
+                        List<PeopleLeaveEntity.PeopleLeaveRrdBean> beanList = new ArrayList<>();
+                        beanList.add(peopleLeaveRrdBean);
+                        peopleLeaveEntity.setPeopleLeaveRrd(beanList);
+                        String json = new Gson().toJson(peopleLeaveEntity);
+                        String s1 = "apply " + json;
+                        HttpManager.getInstance().requestResultForm(getTempIP(), s1, PeopleLeaveEntity.class, new HttpManager.ResultCallback<PeopleLeaveEntity>() {
+                            @Override
+                            public void onSuccess(String json, final PeopleLeaveEntity peopleLeaveEntity) throws InterruptedException {
+                            }
+
+                            @Override
+                            public void onFailure(final String msg) {
+                            }
+
+                            @Override
+                            public void onResponse(String response) {
+                                if (response.toLowerCase().contains("ok")) {
+                                    show("提交成功");
+                                    getActivity().finish();
+                                }else{
+                                    show("提交失败");
+                                    getActivity().finish();
+                                }
+                            }
+                        });
+
+//                      申请人ID
+//                      String realValueNO = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo();
                         //申请类别
-                        String realValueType = getDisplayValueByKey("申请类别").getRealValue();
-                        //预计外出时间
-                        String realValueoutTime = getDisplayValueByKey("预计外出时间").getRealValue()+":00";
-                        //预计归来时间
-                        String realValueinTime = getDisplayValueByKey("预计归来时间").getRealValue()+":00";
-                        //请假原因
-                        String realValueContent = getDisplayValueByKey("申请事由").getRealValue();
-                        //是否后补请假
-                        String realValueFillup = getDisplayValueByKey("是否后补请假").getRealValue();
-                        //因公或因私外出/请假
-                        String realValuetype = getDisplayValueByKey("申请类型").getRealValue();
-                        //        String url = CommonValues.BASE_URL;
-//                        String url = ApplicationApp.getIP();
-//                        SharedPreferences share = getActivity().getSharedPreferences(SAVE_IP, MODE_PRIVATE);
-//                        String tempIP = share.getString("tempIP", "IP address is empty");
-                        if (realValueType.equals("人员请假")){
-                            PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
-                            PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
-                            peopleLeaveRrdBean.setNo(realValueNO);
-                            peopleLeaveRrdBean.setOutType(realValuetype);
-                            peopleLeaveRrdBean.setOutTime(realValueoutTime);
-                            peopleLeaveRrdBean.setInTime(realValueinTime);
-                            peopleLeaveRrdBean.setContent(realValueContent);
-                            peopleLeaveRrdBean.setBFillup(realValueFillup.equals("否")?"0":"1");
-                            peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-                            peopleLeaveRrdBean.setIsAndroid("1");
-                            List<PeopleLeaveEntity.PeopleLeaveRrdBean> beanList = new ArrayList<>();
-                            beanList.add(peopleLeaveRrdBean);
-                            peopleLeaveEntity.setPeopleLeaveRrd(beanList);
-                            String json = new Gson().toJson(peopleLeaveEntity);
-                            String s1 = "apply " + json;
-                            applyStart(0,getTempIP(),s1);
-                        }else if(realValueType.equals("车辆外出")){
-                            //申请车辆号牌
-                            String realValueCardNo = getDisplayValueByKey("车辆号牌").getRealValue();
-                            CarLeaveEntity carLeaveEntity = new CarLeaveEntity();
-                            CarLeaveEntity.CarLeaveRrdBean carLeaveRrdBean = new CarLeaveEntity.CarLeaveRrdBean();
-                            carLeaveRrdBean.setNo(realValueNO);
-                            carLeaveRrdBean.setOutType(realValuetype);
-                            carLeaveRrdBean.setCarNo(realValueCardNo);
-                            carLeaveRrdBean.setOutTime(realValueoutTime);
-                            carLeaveRrdBean.setInTime(realValueinTime);
-                            carLeaveRrdBean.setContent(realValueContent);
-                            carLeaveRrdBean.setbFillup(realValueFillup.equals("否")?"0":"1");
-                            carLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-                            carLeaveRrdBean.setIsAndroid("1");
-                            List<CarLeaveEntity.CarLeaveRrdBean> beanList = new ArrayList<>();
-                            beanList.add(carLeaveRrdBean);
-                            carLeaveEntity.setCarLeaveRrd(beanList);
-                            String json = new Gson().toJson(carLeaveEntity);
-                            String s1 = "apply " + json;
-                            applyStart(1,getTempIP(),s1);
-                        }
+//                        String realValueType = getDisplayValueByKey("申请类别").getRealValue();
+//                        //预计外出时间
+//                        String realValueoutTime = getDisplayValueByKey("预计外出时间").getRealValue()+":00";
+//                        //预计归来时间
+//                        String realValueinTime = getDisplayValueByKey("预计归来时间").getRealValue()+":00";
+//                        //请假原因
+//                        String realValueContent = getDisplayValueByKey("申请事由").getRealValue();
+//                        //是否后补请假
+//                        String realValueFillup = getDisplayValueByKey("是否后补请假").getRealValue();
+//                        //因公或因私外出/请假
+//                        String realValuetype = getDisplayValueByKey("申请类型").getRealValue();
+//                        if (realValueType.equals("人员请假")){
+//                            PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
+//                            PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
+//                            peopleLeaveRrdBean.setNo(realValueNO);
+//                            peopleLeaveRrdBean.setOutType(realValuetype);
+//                            peopleLeaveRrdBean.setOutTime(realValueoutTime);
+//                            peopleLeaveRrdBean.setInTime(realValueinTime);
+//                            peopleLeaveRrdBean.setContent(realValueContent);
+//                            peopleLeaveRrdBean.setBFillup(realValueFillup.equals("否")?"0":"1");
+//                            peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+//                            peopleLeaveRrdBean.setIsAndroid("1");
+//                            List<PeopleLeaveEntity.PeopleLeaveRrdBean> beanList = new ArrayList<>();
+//                            beanList.add(peopleLeaveRrdBean);
+//                            peopleLeaveEntity.setPeopleLeaveRrd(beanList);
+//                            String json = new Gson().toJson(peopleLeaveEntity);
+//                            String s1 = "apply " + json;
+//                            applyStart(0,getTempIP(),s1);
+//                        }else if(realValueType.equals("车辆外出")){
+//                            //申请车辆号牌
+//                            String realValueCardNo = getDisplayValueByKey("车辆号牌").getRealValue();
+//                            CarLeaveEntity carLeaveEntity = new CarLeaveEntity();
+//                            CarLeaveEntity.CarLeaveRrdBean carLeaveRrdBean = new CarLeaveEntity.CarLeaveRrdBean();
+//                            carLeaveRrdBean.setNo(realValueNO);
+//                            carLeaveRrdBean.setOutType(realValuetype);
+//                            carLeaveRrdBean.setCarNo(realValueCardNo);
+//                            carLeaveRrdBean.setOutTime(realValueoutTime);
+//                            carLeaveRrdBean.setInTime(realValueinTime);
+//                            carLeaveRrdBean.setContent(realValueContent);
+//                            carLeaveRrdBean.setbFillup(realValueFillup.equals("否")?"0":"1");
+//                            carLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+//                            carLeaveRrdBean.setIsAndroid("1");
+//                            List<CarLeaveEntity.CarLeaveRrdBean> beanList = new ArrayList<>();
+//                            beanList.add(carLeaveRrdBean);
+//                            carLeaveEntity.setCarLeaveRrd(beanList);
+//                            String json = new Gson().toJson(carLeaveEntity);
+//                            String s1 = "apply " + json;
+//                            applyStart(1,getTempIP(),s1);
+//                        }
 
                     }
                 }
@@ -223,68 +277,36 @@ public class RestApplyFragment extends CommonFragment {
             showDateTimePicker(holder,true);
         } else if (holder.getKey().equals("是否取消请假")){
             showSelector(holder,new String[]{"是","否"});
-        } else if (holder.getKey().equals("是否后补请假")){
+        } else if (holder.getKey().equals("是否后补申请")){
             showSelector(holder,new String[]{"是","否"});
-        }/* else if (holder.getKey().equals("申请类型")){
-            showSelector(holder,new String[]{"因公申请","因私申请"});
-        }*/
-        if (holder.getKey().equals("申请类别")){
-            showSelector(holder, new String[]{"人员请假", "车辆外出"}, new OnSelectedResultCallback() {
-                @Override
-                public void onSelected(Group ownGroup, HandInputGroup.Holder holder, int mainIndex, int itemIndex) {
-                    if (holder.getRealValue().equals("人员请假")) {
-                        mIsDomestic = true;
-                        insertItems(mIsDomestic);
-                    } else if (holder.getRealValue().equals("车辆外出")){
-                        mIsDomestic = false;
-                        insertItems(mIsDomestic);
-                    }
-                }
-            });
+        } else if (holder.getKey().equals("申请类型")){
+            showSelector(holder,new String[]{"请假", "休假", "公差"});
         }
-    }
-
-    private void insertItems(boolean mIsDomestic) {
-        List<HandInputGroup.Holder> holders = getGroup().get(0).getHolders();
-        if (mIsDomestic) {
-            if (holders.size() == 7){
-                holders.add(2,new HandInputGroup.Holder("车辆号牌", true, false, "/请填写", HandInputGroup.VALUE_TYPE.TEXTFILED));
-            }else if (holders.size() == 8){
-                holders.remove(2);
-            }
-        } else {
-            if (holders.size() == 8){
-                holders.remove(2);
-            }else if (holders.size() == 7){
-                holders.add(2,new HandInputGroup.Holder("车辆号牌", true, false, "/请填写", HandInputGroup.VALUE_TYPE.TEXTFILED));
-            }
-        }
-        notifyDataSetChanged();
     }
 
     @Override
     public void onDataChanged(HandInputGroup.Holder holder) throws ParseException {
         Group group = getGroup().get(0);
-        if (holder.getKey().equals("预计外出时间")){
-            HandInputGroup.Holder holder1 = group.getHolderByKey("预计归来时间");
+        if (holder.getKey().equals("离队时间")){
+            HandInputGroup.Holder holder1 = group.getHolderByKey("归队时间");
             if (!holder1.getRealValue().isEmpty()){
                 String leave = holder.getRealValue();
                 String returnt = holder1.getRealValue();
                 int getday = getday(leave, returnt);
                 if (getday == -1) {
                     holder.setDispayValue("");
-                    ToastUtil.showToast(getContext(),"请正确选择外出、归来时间");
+                    ToastUtil.showToast(getContext(),"请正确选择离队、归队时间");
                 }
             }
-        }else if (holder.getKey().equals("预计归来时间")){
-            HandInputGroup.Holder holder1 = group.getHolderByKey("预计外出时间");
+        }else if (holder.getKey().equals("归队时间")){
+            HandInputGroup.Holder holder1 = group.getHolderByKey("离队时间");
             if (!holder1.getRealValue().isEmpty()){
                 String returnt = holder.getRealValue();
                 String leave = holder1.getRealValue();
                 int getday = getday(leave, returnt);
                 if (getday == -1) {
                     holder.setDispayValue("");
-                    ToastUtil.showToast(getContext(),"请正确选择外出、归来时间");
+                    ToastUtil.showToast(getContext(),"请正确选择离队、归队时间");
                 }
             }
         }

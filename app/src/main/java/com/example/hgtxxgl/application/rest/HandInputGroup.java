@@ -315,7 +315,7 @@ public class HandInputGroup extends LinearLayout {
      * EDIT_DOUBLE 与DOUBLE类似，但是中间多了一个textview
      */
     public enum VALUE_TYPE {
-        SELECT, TEXT, DATE, BUTTONS, TEXTFILED, FILES_UPLOAD, DOUBLE,SUB_LIST,EDIT_DOUBLE
+        SELECT, TEXT, DATE, BUTTONS, TEXTFILED, FILES_UPLOAD, DOUBLE,SUB_LIST,EDIT_DOUBLE,BIG_EDIT
     }
 
     public interface Callback {
@@ -553,10 +553,13 @@ public class HandInputGroup extends LinearLayout {
                 holder = new MyViewHolder(inflater.inflate(R.layout.layout_hand_group_listitem_date, parent, false));
             } else if (viewType == VALUE_TYPE.TEXTFILED.ordinal()) {
                 holder = new MyViewHolder(inflater.inflate(R.layout.layout_hand_group_listitem_textfiled, parent, false));
-            } /*else if (viewType == VALUE_TYPE.FILES_UPLOAD.ordinal()) {
+            } else if(viewType == VALUE_TYPE.BIG_EDIT.ordinal()) {
+                holder = new MyViewHolder(inflater.inflate(R.layout.layout_big_textfiled, parent, false));
+            /*else if (viewType == VALUE_TYPE.FILES_UPLOAD.ordinal()) {
                 FileChooserLayout convertView = new FileChooserLayout(context);
                 holder = new MyViewHolder(convertView);
-            } */else if(viewType == VALUE_TYPE.DOUBLE.ordinal()){
+            } */
+            }else if(viewType == VALUE_TYPE.DOUBLE.ordinal()){
                 holder = new MyViewHolder(inflater.inflate(R.layout.list_item_hand_group_double, parent, false));
             }else if(viewType == VALUE_TYPE.SUB_LIST.ordinal()){
                 holder = new MyViewHolder(inflater.inflate(R.layout.layout_sublist, parent, false));
@@ -657,7 +660,50 @@ public class HandInputGroup extends LinearLayout {
                     });
                     break;
                 case DOUBLE:
+                case BIG_EDIT:
+                    final EditText edit1 = (EditText) holder.tvValue;
+                    edit1.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
 
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            item.setDispayValue(edit1.getText().toString());
+                            callback.onHolderTextChanged(index, holder.getAdapterPosition(), item);
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+
+                        }
+                    });
+
+                    if (item.isEditable() != null && !item.isEditable()) {
+                        edit1.setFocusable(false);
+                    } else {
+                        edit1.setFocusable(true);
+                    }
+                    if (item.getImeType() != null) {
+                        edit1.setInputType(item.getImeType());
+                    }
+                    checkHint(edit1, item);
+                    final TextView finalTvDivider1 = holder.tvDivider;
+                    edit1.setOnFocusChangeListener(new OnFocusChangeListener() {
+                        @Override
+                        public void onFocusChange(View v, boolean hasFocus) {
+                            callback.FocusChange(item,hasFocus);
+                            if (!hasFocus){
+                                callback.onHolderChangedOver(index, holder.getAdapterPosition(),item);
+                            }
+                            if (finalTvDivider1 != null && !hasFocus) {
+                                finalTvDivider1.setBackgroundColor(getResources().getColor(R.color.gray_dark));
+                            } else if (finalTvDivider1 != null) {
+                                finalTvDivider1.setBackgroundColor(getResources().getColor(R.color.colorAccentLib));
+                            }
+                        }
+                    });
+                    break;
                 case TEXTFILED:
                     final EditText editText = (EditText) holder.tvValue;
                     editText.addTextChangedListener(new TextWatcher() {
