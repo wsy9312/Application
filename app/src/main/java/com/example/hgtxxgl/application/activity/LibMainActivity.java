@@ -36,7 +36,6 @@ import com.example.hgtxxgl.application.view.HandToolbar;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
-import static com.example.hgtxxgl.application.utils.hand.PageConfig.PAGE_LEAVE_APPLY_PEOPLE;
 import static org.litepal.LitePalApplication.getContext;
 
 //首页
@@ -370,7 +369,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                 break;
             case R.id.button_fbc_apply:
                 Intent intent = new Intent(this, StartNewActivity.class);
-                intent.putExtra(PageConfig.PAGE_CODE, PAGE_LEAVE_APPLY_PEOPLE);
+//                intent.putExtra(PageConfig.PAGE_CODE, PAGE_APPLY_PEOPLE_OUT);
                 startActivity(intent);
                 fbcMenu.collapse();
                 break;

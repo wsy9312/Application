@@ -48,12 +48,13 @@ public class RestApplyFragment extends CommonFragment {
 
     @Override
     public List<CommonFragment.Group> getGroupList() {
-        if (!ApplicationApp.getPeopleInfoEntity().getPeopleInfo().isEmpty()){
-            name = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName();
-        }
+//        if (!ApplicationApp.getPeopleInfoEntity().getPeopleInfo().isEmpty()){
+//            name = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName();
+//        }
         List<CommonFragment.Group> groups = new ArrayList<>();
         List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
-        baseHolder.add(new HandInputGroup.Holder("申请人",true,false,name,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
+//        baseHolder.add(new HandInputGroup.Holder("申请人",true,false,name,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
+        baseHolder.add(new HandInputGroup.Holder("申请人",true,false,"",HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
         baseHolder.add(new HandInputGroup.Holder("申请类别",true,false,"人员请假",HandInputGroup.VALUE_TYPE.SELECT));
         baseHolder.add(new HandInputGroup.Holder("申请类型",false,false,"/请填写",HandInputGroup.VALUE_TYPE.TEXTFILED));
         baseHolder.add(new HandInputGroup.Holder("预计外出时间",true,false,"/请选择",HandInputGroup.VALUE_TYPE.DATE));

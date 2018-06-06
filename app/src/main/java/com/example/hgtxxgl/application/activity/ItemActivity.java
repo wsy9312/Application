@@ -39,7 +39,7 @@ public class ItemActivity extends AppCompatActivity {
 
     void checkFragmentForLoading(int pageCode) {
         switch (pageCode) {
-            case PageConfig.PAGE_LEAVE_APPLY_PEOPLE:
+            case PageConfig.PAGE_APPLY_PEOPLE_OUT:
                 checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_LEAVE_APPROVE_CAR:
@@ -64,7 +64,7 @@ public class ItemActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         int intExtra = getIntent().getIntExtra(PageConfig.PAGE_CODE, -1);
-        if (intExtra == PageConfig.PAGE_LEAVE_APPLY_PEOPLE ){
+        if (intExtra == PageConfig.PAGE_APPLY_PEOPLE_OUT){
             AlertDialog.Builder builder=new AlertDialog.Builder(this);
             builder.setMessage(R.string.make_sure_back_current_apply);
             builder.setPositiveButton(R.string.make_sure, new DialogInterface.OnClickListener() {

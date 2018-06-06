@@ -11,16 +11,14 @@ import android.widget.LinearLayout;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.ItemActivity;
+import com.example.hgtxxgl.application.utils.hand.PageConfig;
 
 /**
  * Created by zhy on 2016/10/27.
  */
 public class StartNewActivity extends AppCompatActivity {
-
-//    final int[] page = new int[]{PageConfig.PAGE_APPLY_BLEAVE, PageConfig.PAGE_APPLY_EXTRAWORK
-//            , PageConfig.PAGE_APPLY_REST, PageConfig.PAGE_APPLY_TRAVEL_OFFER,
-//            PageConfig.PAGE_APPLY_PAYMENT_FLOW, PageConfig.PAGE_APPLY_EXPENSE_OFFER, PageConfig.PAGE_APPLY_ENTERTAINMENT_EXPENSE,
-//            PageConfig.PAGE_APPLY_POST_FILE,PageConfig.PAGE_APPLY_BLEAVE,PageConfig.PAGE_APPLY_TRAVEL_OFFER,PageConfig.PAGE_APPLY_EXPENSE_OFFER};
+//    intent.putExtra(PageConfig.PAGE_CODE, PAGE_APPLY_PEOPLE_OUT);
+    final int[] page = new int[]{PageConfig.PAGE_APPLY_PEOPLE_OUT};
 
     private LinearLayout[] buttons = null;
 
@@ -68,7 +66,7 @@ public class StartNewActivity extends AppCompatActivity {
                         @Override
                         public void onAnimationEnd(Animator animation) {
                             Intent intent = new Intent(getApplicationContext(), ItemActivity.class);
-//                            intent.putExtra(PageConfig.PAGE_CODE, page[finalI]);
+                            intent.putExtra(PageConfig.PAGE_CODE, page[finalI]);
                             startActivity(intent);
                         }
 
