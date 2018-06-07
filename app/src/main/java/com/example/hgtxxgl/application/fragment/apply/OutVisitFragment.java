@@ -63,11 +63,11 @@ public class OutVisitFragment extends CommonFragment {
         holder1.add(new HandInputGroup.Holder("姓名",true, false, "/请填写", HandInputGroup.VALUE_TYPE.TEXTFILED));
         holder1.add(new HandInputGroup.Holder("性别",true, false, "/请选择", HandInputGroup.VALUE_TYPE.SELECT));
         holder1.add(new HandInputGroup.Holder("身份证号码", true, false, "/请填写", HandInputGroup.VALUE_TYPE.TEXTFILED));
-        groups.add(new Group("来访人信息", R.mipmap.add_detail3x, true, null, holder1).setisopen(true));
+        groups.add(new Group("来访人信息", R.mipmap.add_detile, true, null, holder1).setisopen(true));
         List<HandInputGroup.Holder> holder2 = new ArrayList<>();
         holder2.add(new HandInputGroup.Holder("驾驶员姓名",true, false, "/请填写", HandInputGroup.VALUE_TYPE.TEXTFILED));
         holder2.add(new HandInputGroup.Holder("车牌号",true, false, "/请填写", HandInputGroup.VALUE_TYPE.TEXTFILED));
-        groups.add(new Group("来访车辆信息", R.mipmap.add_detail3x, true, null, holder2));
+        groups.add(new Group("来访车辆信息", R.mipmap.add_detile, true, null, holder2));
         return groups;
     }
 
