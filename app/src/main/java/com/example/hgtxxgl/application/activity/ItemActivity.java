@@ -8,7 +8,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.hgtxxgl.application.R;
-import com.example.hgtxxgl.application.fragment.RestApplyFragment;
+import com.example.hgtxxgl.application.fragment.apply.CarApplyFragment;
+import com.example.hgtxxgl.application.fragment.apply.OutVisitFragment;
+import com.example.hgtxxgl.application.fragment.apply.RestApplyFragment;
 import com.example.hgtxxgl.application.fragment.RestApproveCarFragment;
 import com.example.hgtxxgl.application.fragment.RestApprovePeopleFragment;
 import com.example.hgtxxgl.application.fragment.RestDetailCarFragment;
@@ -43,10 +45,10 @@ public class ItemActivity extends AppCompatActivity {
                 checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_APPLY_CAR:
-                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
+                checkFragment(CarApplyFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_APPLY_PEOPLE_IN:
-                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
+                checkFragment(OutVisitFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_APPLY_DISPATCH_PEOPLE_OWN:
                 checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));

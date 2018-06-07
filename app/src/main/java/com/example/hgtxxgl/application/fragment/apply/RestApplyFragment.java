@@ -1,4 +1,4 @@
-package com.example.hgtxxgl.application.fragment;
+package com.example.hgtxxgl.application.fragment.apply;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -23,9 +23,7 @@ import java.util.List;
 //申请
 public class RestApplyFragment extends CommonFragment {
 
-    private String name;
-    private final static String TAG = "RestApplyCarFragment";
-    private boolean mIsDomestic;
+    private final static String TAG = "RestApplyFragment";
 
     public RestApplyFragment() {
     }
@@ -70,7 +68,7 @@ public class RestApplyFragment extends CommonFragment {
     @Override
     public void setToolbar(HandToolbar toolbar) {
         toolbar.setVisibility(View.VISIBLE);
-        toolbar.setTitle("申请");
+        toolbar.setTitle("请假申请");
         toolbar.setTitleSize(18);
     }
 
