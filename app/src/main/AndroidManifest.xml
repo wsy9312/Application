@@ -10,7 +10,7 @@
         android:theme="@style/AppTheme"
         android:supportsRtl="true">
         <activity
-            android:name=".activity.LibMainActivity"
+            android:name=".activity.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/FirstPage">
             <intent-filter>
@@ -18,12 +18,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--<activity-->
-            <!--android:name=".activity.LibMainActivity"-->
-            <!--android:windowSoftInputMode="adjustPan|stateHidden"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:launchMode="singleTask"-->
-            <!--android:theme="@style/AppThemeLib"/>-->
+        <activity
+            android:name=".activity.LibMainActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            android:theme="@style/AppThemeLib"/>
         <activity
             android:name=".activity.NewsItemActivity"
             android:screenOrientation="portrait"

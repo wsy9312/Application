@@ -267,7 +267,7 @@ public class LoginActivity extends AppCompatActivity {
         peopleInfoBean.setPosition("?");
         peopleInfoBean.setSex("?");
         peopleInfoBean.setUnit("?");
-        peopleInfoBean.setArmyGroup("?");
+        peopleInfoBean.setDepartment("?");
         peopleInfoBean.setPhoneNo("?");
         peopleInfoBean.setTelNo("?");
         peopleInfoBean.setGroupName("?");
@@ -310,7 +310,7 @@ public class LoginActivity extends AppCompatActivity {
                     peopleInfoBean.setPosition("");
                     peopleInfoBean.setSex("");
                     peopleInfoBean.setUnit("");
-                    peopleInfoBean.setArmyGroup("");
+                    peopleInfoBean.setDepartment("");
                     peopleInfoBean.setPhoneNo("");
                     peopleInfoBean.setTelNo("");
                     peopleInfoBean.setGroupName("");

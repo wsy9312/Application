@@ -128,7 +128,7 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
         mPostion.setText(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getPosition());
         mSex.setText(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getSex().equals("0")?"男":"女");
         mCompany.setText(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getUnit());
-        mDepartment.setText(getDepartmentData(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getArmyGroup()));
+        mDepartment.setText(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getDepartment());
         mGDNumber.setText(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getPhoneNo());
         mTelNumber.setText(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getTelNo());
     }

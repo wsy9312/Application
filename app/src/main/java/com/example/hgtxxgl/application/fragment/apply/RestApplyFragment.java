@@ -24,6 +24,7 @@ import java.util.List;
 public class RestApplyFragment extends CommonFragment {
 
     private final static String TAG = "RestApplyFragment";
+    private String name;
 
     public RestApplyFragment() {
     }
@@ -46,14 +47,13 @@ public class RestApplyFragment extends CommonFragment {
 
     @Override
     public List<CommonFragment.Group> getGroupList() {
-//        if (!ApplicationApp.getPeopleInfoEntity().getPeopleInfo().isEmpty()){
-//            name = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName();
-//        }
+        if (!ApplicationApp.getPeopleInfoEntity().getPeopleInfo().isEmpty()){
+            name = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName();
+        }
         List<CommonFragment.Group> groups = new ArrayList<>();
         List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
-//        baseHolder.add(new HandInputGroup.Holder("申请人",true,false,name,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
         baseHolder.add(new HandInputGroup.Holder("单位",true,false,"/自动读取",HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-        baseHolder.add(new HandInputGroup.Holder("申请人",true,false,"/自动读取",HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
+        baseHolder.add(new HandInputGroup.Holder("申请人",true,false,name,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
         baseHolder.add(new HandInputGroup.Holder("申请时间",true,false,"/自动读取",HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
         baseHolder.add(new HandInputGroup.Holder("申请类型",true,false,"/请选择",HandInputGroup.VALUE_TYPE.SELECT));
         baseHolder.add(new HandInputGroup.Holder("离队时间",true,false,"/请选择",HandInputGroup.VALUE_TYPE.DATE));
