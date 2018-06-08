@@ -86,7 +86,7 @@ public class HandToolbar extends FrameLayout {
 //                public void onClick(View v) {
 //                    Intent intent = new Intent();
 //                    try {
-////                        Class<?> clazz = Class.forName("com.example.hgtxxgl.application.fragment.PersonalActivity");
+////                        Class<?> clazz = Class.forName("com.example.hgtxxgl.application.activity.PersonalActivity");
 //                        intent.setClass(activity, clazz);
 //                    } catch(Exception e){
 //                        e.printStackTrace();

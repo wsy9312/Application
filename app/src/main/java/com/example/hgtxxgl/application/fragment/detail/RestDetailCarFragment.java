@@ -1,4 +1,4 @@
-package com.example.hgtxxgl.application.fragment;
+package com.example.hgtxxgl.application.fragment.detail;
 
 import android.content.DialogInterface;
 import android.graphics.Color;

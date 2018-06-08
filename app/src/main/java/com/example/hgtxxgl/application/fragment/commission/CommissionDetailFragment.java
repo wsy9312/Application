@@ -1,4 +1,4 @@
-package com.example.hgtxxgl.application.fragment;
+package com.example.hgtxxgl.application.fragment.commission;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

@@ -16,6 +16,9 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
+import com.example.hgtxxgl.application.fragment.commission.CommissionDetailFragment;
+import com.example.hgtxxgl.application.fragment.launch.LaunchDetailFragment;
+import com.example.hgtxxgl.application.fragment.notification.NotificationFragment;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
 
 import java.util.ArrayList;

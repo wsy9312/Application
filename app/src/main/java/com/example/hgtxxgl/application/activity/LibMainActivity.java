@@ -21,11 +21,10 @@ import android.widget.Toast;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
-import com.example.hgtxxgl.application.fragment.NotificationBroadcast;
-import com.example.hgtxxgl.application.fragment.OnUpdateUI;
-import com.example.hgtxxgl.application.fragment.OnUpdateUINO;
-import com.example.hgtxxgl.application.fragment.PersonalActivity;
-import com.example.hgtxxgl.application.fragment.TodoTotalBroadcast;
+import com.example.hgtxxgl.application.fragment.notification.NotificationBroadcast;
+import com.example.hgtxxgl.application.fragment.notification.OnUpdateUI;
+import com.example.hgtxxgl.application.fragment.notification.OnUpdateUINO;
+import com.example.hgtxxgl.application.fragment.notification.TodoTotalBroadcast;
 import com.example.hgtxxgl.application.utils.SysExitUtil;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;

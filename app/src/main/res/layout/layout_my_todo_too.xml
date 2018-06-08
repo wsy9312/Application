@@ -23,7 +23,7 @@
             tools:text="这是新闻标题" />
         <TextView
             android:padding="2dp"
-            android:text="这是新闻概括这是新闻概括这新闻概括这新闻概括这新闻概括这新闻概括这新闻概括这新闻概括这新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括"
+            android:text="这是新闻闻新闻概括这是新闻概括这是新闻概括"
             android:id="@+id/tv_sketch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

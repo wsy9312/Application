@@ -11,10 +11,10 @@ import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.fragment.apply.CarApplyFragment;
 import com.example.hgtxxgl.application.fragment.apply.OutVisitFragment;
 import com.example.hgtxxgl.application.fragment.apply.RestApplyFragment;
-import com.example.hgtxxgl.application.fragment.RestApproveCarFragment;
-import com.example.hgtxxgl.application.fragment.RestApprovePeopleFragment;
-import com.example.hgtxxgl.application.fragment.RestDetailCarFragment;
-import com.example.hgtxxgl.application.fragment.RestDetailPeopleFragment;
+import com.example.hgtxxgl.application.fragment.approve.RestApproveCarFragment;
+import com.example.hgtxxgl.application.fragment.approve.RestApprovePeopleFragment;
+import com.example.hgtxxgl.application.fragment.detail.RestDetailCarFragment;
+import com.example.hgtxxgl.application.fragment.detail.RestDetailPeopleFragment;
 import com.example.hgtxxgl.application.utils.SysExitUtil;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
 

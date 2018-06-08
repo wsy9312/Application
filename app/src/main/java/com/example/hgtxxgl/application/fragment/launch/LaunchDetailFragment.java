@@ -1,4 +1,4 @@
-package com.example.hgtxxgl.application.fragment;
+package com.example.hgtxxgl.application.fragment.launch;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

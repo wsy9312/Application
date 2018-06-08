@@ -1,4 +1,4 @@
-package com.example.hgtxxgl.application.fragment;
+package com.example.hgtxxgl.application.fragment.notification;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
