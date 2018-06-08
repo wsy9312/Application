@@ -117,9 +117,7 @@ public class MyLaunchPeopleFragment extends Fragment implements SimpleListView.O
         PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
         PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
         peopleLeaveRrdBean.setNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
-        peopleLeaveRrdBean.setMultiLevelResult("?");
         peopleLeaveRrdBean.setProcess("?");
-        peopleLeaveRrdBean.setLevelNum("?");
         peopleLeaveRrdBean.setContent("?");
         peopleLeaveRrdBean.setBeginNum(String.valueOf(beginNum));
         peopleLeaveRrdBean.setEndNum(String.valueOf(endNum));
@@ -208,9 +206,7 @@ public class MyLaunchPeopleFragment extends Fragment implements SimpleListView.O
         bundle.putString("outtime",adapter.getItem(position).getOutTime());
         bundle.putString("intime", adapter.getItem(position).getInTime());
         bundle.putString("content", adapter.getItem(position).getContent());
-        bundle.putString("levelnum", adapter.getItem(position).getLevelNum());
         bundle.putString("process", adapter.getItem(position).getProcess());
-        bundle.putString("multiLevelResult",adapter.getItem(position).getMultiLevelResult());
         bundle.putString("modifyTime",adapter.getItem(position).getModifyTime());
         bundle.putString("bcancel",adapter.getItem(position).getBCancel());
         bundle.putString("bfillup",adapter.getItem(position).getBFillup());

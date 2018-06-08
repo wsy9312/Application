@@ -115,9 +115,7 @@ public class PollingService extends Service {
 		peopleLeaveRrdBean.setCurrentApproveNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
 		peopleLeaveRrdBean.setEndNum("100");
 		peopleLeaveRrdBean.setIsAndroid("1");
-		peopleLeaveRrdBean.setLevelNum("?");
 		peopleLeaveRrdBean.setModifyTime("?");
-		peopleLeaveRrdBean.setMultiLevelResult("?");
 		peopleLeaveRrdBean.setNo("?");
 		peopleLeaveRrdBean.setNoIndex("?");
 		peopleLeaveRrdBean.setProcess("?");

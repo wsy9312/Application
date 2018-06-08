@@ -48,10 +48,10 @@ public class RestApprovePeopleFragment extends CommonFragment {
     public List<Group> getGroupList() {
         if (entity == null) return null;
         List<Group> groups = new ArrayList<>();
-        String levelNumStr = entity.getLevelNum();
+//        String levelNumStr = entity.getLevelNum();
         String processStr = entity.getProcess();
-        String multiLevelResultStr = entity.getMultiLevelResult();
-        int levelNum = Integer.parseInt(levelNumStr);
+//        String multiLevelResultStr = entity.getMultiLevelResult();
+//        int levelNum = Integer.parseInt(levelNumStr);
         int process = Integer.parseInt(processStr);
         List<HandInputGroup.Holder> list = new ArrayList<>();
         list.add(new HandInputGroup.Holder("流程内容", true, false, "人员请假", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
@@ -59,12 +59,12 @@ public class RestApprovePeopleFragment extends CommonFragment {
 
         if (process == 1){
             setButtonsTitles(stringnull);
-            String substring = multiLevelResultStr.substring(0, levelNum);
-            if (substring.endsWith("1")){
-                list.add(new HandInputGroup.Holder("审批结果", true, false, "同意", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
-            }else{
-                list.add(new HandInputGroup.Holder("审批结果", true, false, "拒绝", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
-            }
+//            String substring = multiLevelResultStr.substring(0, levelNum);
+//            if (substring.endsWith("1")){
+//                list.add(new HandInputGroup.Holder("审批结果", true, false, "同意", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
+//            }else{
+//                list.add(new HandInputGroup.Holder("审批结果", true, false, "拒绝", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
+//            }
         }else{
             list.add(new HandInputGroup.Holder("审批结果", true, false, "暂无", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
         }
@@ -196,15 +196,15 @@ public class RestApprovePeopleFragment extends CommonFragment {
     private void setBaseArgument(PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean){
         peopleLeaveRrdBean.setRegisterTime("?");
         peopleLeaveRrdBean.setOutTime("?");
-        peopleLeaveRrdBean.setOnduty("?");
+//        peopleLeaveRrdBean.setOnduty("?");
         peopleLeaveRrdBean.setInTime("?");
         peopleLeaveRrdBean.setContent("?");
         peopleLeaveRrdBean.setActualOutTime("?");
         peopleLeaveRrdBean.setActualInTime("?");
         peopleLeaveRrdBean.setModifyTime("?");
-        peopleLeaveRrdBean.setMultiLevelResult("?");
+//        peopleLeaveRrdBean.setMultiLevelResult("?");
         peopleLeaveRrdBean.setProcess("?");
-        peopleLeaveRrdBean.setLevelNum("?");
+//        peopleLeaveRrdBean.setLevelNum("?");
         peopleLeaveRrdBean.setBCancel("?");
         peopleLeaveRrdBean.setBFillup("?");
         peopleLeaveRrdBean.setBeginNum("?");
@@ -221,35 +221,35 @@ public class RestApprovePeopleFragment extends CommonFragment {
                              PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean3,
                              PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean4,
                              PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean5){
-        peopleLeaveRrdBean1.setApprover1No(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-        peopleLeaveRrdBean1.setApprover2No("?");
-        peopleLeaveRrdBean1.setApprover3No("?");
-        peopleLeaveRrdBean1.setApprover4No("?");
-        peopleLeaveRrdBean1.setApprover5No("?");
-
-        peopleLeaveRrdBean2.setApprover1No("?");
-        peopleLeaveRrdBean2.setApprover2No(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-        peopleLeaveRrdBean2.setApprover3No("?");
-        peopleLeaveRrdBean2.setApprover4No("?");
-        peopleLeaveRrdBean2.setApprover5No("?");
-
-        peopleLeaveRrdBean3.setApprover1No("?");
-        peopleLeaveRrdBean3.setApprover2No("?");
-        peopleLeaveRrdBean3.setApprover3No(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-        peopleLeaveRrdBean3.setApprover4No("?");
-        peopleLeaveRrdBean3.setApprover5No("?");
-
-        peopleLeaveRrdBean4.setApprover1No("?");
-        peopleLeaveRrdBean4.setApprover2No("?");
-        peopleLeaveRrdBean4.setApprover3No("?");
-        peopleLeaveRrdBean4.setApprover4No(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-        peopleLeaveRrdBean4.setApprover5No("?");
-
-        peopleLeaveRrdBean5.setApprover1No("?");
-        peopleLeaveRrdBean5.setApprover2No("?");
-        peopleLeaveRrdBean5.setApprover3No("?");
-        peopleLeaveRrdBean5.setApprover4No("?");
-        peopleLeaveRrdBean5.setApprover5No(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+//        peopleLeaveRrdBean1.setApprover1No(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+//        peopleLeaveRrdBean1.setApprover2No("?");
+//        peopleLeaveRrdBean1.setApprover3No("?");
+//        peopleLeaveRrdBean1.setApprover4No("?");
+//        peopleLeaveRrdBean1.setApprover5No("?");
+//
+//        peopleLeaveRrdBean2.setApprover1No("?");
+//        peopleLeaveRrdBean2.setApprover2No(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+//        peopleLeaveRrdBean2.setApprover3No("?");
+//        peopleLeaveRrdBean2.setApprover4No("?");
+//        peopleLeaveRrdBean2.setApprover5No("?");
+//
+//        peopleLeaveRrdBean3.setApprover1No("?");
+//        peopleLeaveRrdBean3.setApprover2No("?");
+//        peopleLeaveRrdBean3.setApprover3No(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+//        peopleLeaveRrdBean3.setApprover4No("?");
+//        peopleLeaveRrdBean3.setApprover5No("?");
+//
+//        peopleLeaveRrdBean4.setApprover1No("?");
+//        peopleLeaveRrdBean4.setApprover2No("?");
+//        peopleLeaveRrdBean4.setApprover3No("?");
+//        peopleLeaveRrdBean4.setApprover4No(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+//        peopleLeaveRrdBean4.setApprover5No("?");
+//
+//        peopleLeaveRrdBean5.setApprover1No("?");
+//        peopleLeaveRrdBean5.setApprover2No("?");
+//        peopleLeaveRrdBean5.setApprover3No("?");
+//        peopleLeaveRrdBean5.setApprover4No("?");
+//        peopleLeaveRrdBean5.setApprover5No(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
     }
 
     @Override

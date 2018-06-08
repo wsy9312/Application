@@ -131,9 +131,7 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
         PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
         peopleLeaveRrdBean.setNo("?");
         peopleLeaveRrdBean.setCurrentApproveNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-        peopleLeaveRrdBean.setMultiLevelResult("?");
         peopleLeaveRrdBean.setProcess("?");
-        peopleLeaveRrdBean.setLevelNum("?");
         peopleLeaveRrdBean.setOutType("?");
         peopleLeaveRrdBean.setContent("?");
         peopleLeaveRrdBean.setBeginNum(String.valueOf(beginNum));
@@ -146,33 +144,33 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
         peopleLeaveRrdBean.setBCancel("?");
         peopleLeaveRrdBean.setResult("?");
 
-        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean1 = new PeopleLeaveEntity.PeopleLeaveRrdBean();
-        peopleLeaveRrdBean1.setApprover1No(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-        setBaseArgument(peopleLeaveRrdBean1);
-
-        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean2 = new PeopleLeaveEntity.PeopleLeaveRrdBean();
-        peopleLeaveRrdBean2.setApprover2No(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-        setBaseArgument(peopleLeaveRrdBean2);
-
-        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean3 = new PeopleLeaveEntity.PeopleLeaveRrdBean();
-        peopleLeaveRrdBean3.setApprover3No(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-        setBaseArgument(peopleLeaveRrdBean3);
-
-        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean4 = new PeopleLeaveEntity.PeopleLeaveRrdBean();
-        peopleLeaveRrdBean4.setApprover4No(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-        setBaseArgument(peopleLeaveRrdBean4);
-
-        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean5 = new PeopleLeaveEntity.PeopleLeaveRrdBean();
-        peopleLeaveRrdBean5.setApprover5No(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-        setBaseArgument(peopleLeaveRrdBean5);
+//        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean1 = new PeopleLeaveEntity.PeopleLeaveRrdBean();
+//        peopleLeaveRrdBean1.setApprover1No(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+//        setBaseArgument(peopleLeaveRrdBean1);
+//
+//        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean2 = new PeopleLeaveEntity.PeopleLeaveRrdBean();
+//        peopleLeaveRrdBean2.setApprover2No(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+//        setBaseArgument(peopleLeaveRrdBean2);
+//
+//        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean3 = new PeopleLeaveEntity.PeopleLeaveRrdBean();
+//        peopleLeaveRrdBean3.setApprover3No(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+//        setBaseArgument(peopleLeaveRrdBean3);
+//
+//        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean4 = new PeopleLeaveEntity.PeopleLeaveRrdBean();
+//        peopleLeaveRrdBean4.setApprover4No(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+//        setBaseArgument(peopleLeaveRrdBean4);
+//
+//        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean5 = new PeopleLeaveEntity.PeopleLeaveRrdBean();
+//        peopleLeaveRrdBean5.setApprover5No(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+//        setBaseArgument(peopleLeaveRrdBean5);
 
         List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
-        list.add(0,peopleLeaveRrdBean);
-        list.add(1,peopleLeaveRrdBean1);
-        list.add(2,peopleLeaveRrdBean2);
-        list.add(3,peopleLeaveRrdBean3);
-        list.add(4,peopleLeaveRrdBean4);
-        list.add(5,peopleLeaveRrdBean5);
+        list.add(peopleLeaveRrdBean);
+//        list.add(1,peopleLeaveRrdBean1);
+//        list.add(2,peopleLeaveRrdBean2);
+//        list.add(3,peopleLeaveRrdBean3);
+//        list.add(4,peopleLeaveRrdBean4);
+//        list.add(5,peopleLeaveRrdBean5);
         peopleLeaveEntity.setPeopleLeaveRrd(list);
         String json = new Gson().toJson(peopleLeaveEntity);
         String s = "get " + json;
@@ -263,9 +261,7 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
 
     private void setBaseArgument(PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean1){
         peopleLeaveRrdBean1.setNo("?");
-        peopleLeaveRrdBean1.setMultiLevelResult("?");
         peopleLeaveRrdBean1.setProcess("?");
-        peopleLeaveRrdBean1.setLevelNum("?");
         peopleLeaveRrdBean1.setContent("?");
         peopleLeaveRrdBean1.setOutType("?");
         peopleLeaveRrdBean1.setBeginNum(String.valueOf(beginNum));
@@ -307,9 +303,7 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
         bundle.putString("outtime",adapter.getItem(position).getOutTime());
         bundle.putString("intime", adapter.getItem(position).getInTime());
         bundle.putString("content", adapter.getItem(position).getContent());
-        bundle.putString("levelnum", adapter.getItem(position).getLevelNum());
         bundle.putString("process", adapter.getItem(position).getProcess());
-        bundle.putString("multiLevelResult",adapter.getItem(position).getMultiLevelResult());
         bundle.putString("modifyTime",adapter.getItem(position).getModifyTime());
         bundle.putString("bcancel",adapter.getItem(position).getBCancel());
         bundle.putString("bfillup",adapter.getItem(position).getBFillup());

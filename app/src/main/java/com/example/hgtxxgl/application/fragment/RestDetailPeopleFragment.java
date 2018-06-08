@@ -44,11 +44,11 @@ public class RestDetailPeopleFragment extends CommonFragment {
     public List<Group> getGroupList() {
         if (entity == null) return new ArrayList<>();
         List<Group> groups = new ArrayList<>();
-        String levelNumStr = entity.getLevelNum();
+//        String levelNumStr = entity.getLevelNum();
         String processStr = entity.getProcess();
-        String multiLevelResultStr = entity.getMultiLevelResult();
+//        String multiLevelResultStr = entity.getMultiLevelResult();
         String bCancel = entity.getBCancel();
-        int levelNum = Integer.parseInt(levelNumStr);
+//        int levelNum = Integer.parseInt(levelNumStr);
         int process = Integer.parseInt(processStr);
 //        SharedPreferences share = getActivity().getSharedPreferences(SAVE_IP, MODE_PRIVATE);
 //        tempIP = share.getString("tempIP", "IP address is empty");
@@ -57,16 +57,16 @@ public class RestDetailPeopleFragment extends CommonFragment {
         list.add(new HandInputGroup.Holder("审批状态", true, false, process == 0?"未结束":"已结束", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
         if (process == 1){
             setButtonsTitles(stringnull);
-            String substring = multiLevelResultStr.substring(0, levelNum);
-            if (substring.endsWith("1")){
-                list.add(new HandInputGroup.Holder("审批结果", true, false, "同意", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
-            }else{
-                list.add(new HandInputGroup.Holder("审批结果", true, false, "拒绝", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
-            }
+//            String substring = multiLevelResultStr.substring(0, levelNum);
+//            if (substring.endsWith("1")){
+//                list.add(new HandInputGroup.Holder("审批结果", true, false, "同意", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
+//            }else{
+//                list.add(new HandInputGroup.Holder("审批结果", true, false, "拒绝", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
+//            }
         }else if (process == 0){
-            if(multiLevelResultStr.startsWith("1")){
-                setButtonsTitles(stringnull);
-            }
+//            if(multiLevelResultStr.startsWith("1")){
+//                setButtonsTitles(stringnull);
+//            }
             if(bCancel.equals("1")){
                 setButtonsTitles(stringnull);
             }else if (bCancel.equals("0")){
@@ -204,12 +204,12 @@ public class RestDetailPeopleFragment extends CommonFragment {
         PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
         peopleLeaveRrdBean.setNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
         peopleLeaveRrdBean.setCurrentApproveNo("?");
-        peopleLeaveRrdBean.setOnduty("?");
-        peopleLeaveRrdBean.setApprover1No("?");
-        peopleLeaveRrdBean.setApprover2No("?");
-        peopleLeaveRrdBean.setApprover3No("?");
-        peopleLeaveRrdBean.setApprover4No("?");
-        peopleLeaveRrdBean.setApprover5No("?");
+//        peopleLeaveRrdBean.setOnduty("?");
+//        peopleLeaveRrdBean.setApprover1No("?");
+//        peopleLeaveRrdBean.setApprover2No("?");
+//        peopleLeaveRrdBean.setApprover3No("?");
+//        peopleLeaveRrdBean.setApprover4No("?");
+//        peopleLeaveRrdBean.setApprover5No("?");
         peopleLeaveRrdBean.setRegisterTime("?");
         peopleLeaveRrdBean.setOutTime("?");
         peopleLeaveRrdBean.setInTime("?");
@@ -217,9 +217,9 @@ public class RestDetailPeopleFragment extends CommonFragment {
         peopleLeaveRrdBean.setActualOutTime("?");
         peopleLeaveRrdBean.setActualInTime("?");
         peopleLeaveRrdBean.setModifyTime("?");
-        peopleLeaveRrdBean.setMultiLevelResult("?");
+//        peopleLeaveRrdBean.setMultiLevelResult("?");
         peopleLeaveRrdBean.setProcess("?");
-        peopleLeaveRrdBean.setLevelNum("?");
+//        peopleLeaveRrdBean.setLevelNum("?");
         peopleLeaveRrdBean.setBFillup("?");
         peopleLeaveRrdBean.setBCancel("?");
         peopleLeaveRrdBean.setNoIndex(noindex);
@@ -242,23 +242,23 @@ public class RestDetailPeopleFragment extends CommonFragment {
                     @Override
                     public void run() {
                         if (peopleLeaveEntity1 != null){
-                            String approver1No = peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover1No();
-                            String approver2No = peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover2No();
-                            String approver3No = peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover3No();
-                            String approver4No = peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover4No();
-                            String approver5No = peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover5No();
+//                            String approver1No = peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover1No();
+//                            String approver2No = peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover2No();
+//                            String approver3No = peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover3No();
+//                            String approver4No = peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover4No();
+//                            String approver5No = peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover5No();
                             ArrayList<String> approveNoList = new ArrayList<>();
-                            if (!approver1No.isEmpty()){
-                                approveNoList.add(0,approver1No);
-                            } if (!approver2No.isEmpty()){
-                                approveNoList.add(1,approver2No);
-                            } if (!approver3No.isEmpty()){
-                                approveNoList.add(2,approver3No);
-                            } if (!approver4No.isEmpty()){
-                                approveNoList.add(3,approver4No);
-                            } if (!approver5No.isEmpty()){
-                                approveNoList.add(4,approver5No);
-                            }
+//                            if (!approver1No.isEmpty()){
+//                                approveNoList.add(0,approver1No);
+//                            } if (!approver2No.isEmpty()){
+//                                approveNoList.add(1,approver2No);
+//                            } if (!approver3No.isEmpty()){
+//                                approveNoList.add(2,approver3No);
+//                            } if (!approver4No.isEmpty()){
+//                                approveNoList.add(3,approver4No);
+//                            } if (!approver5No.isEmpty()){
+//                                approveNoList.add(4,approver5No);
+//                            }
                             for (int i = 0; i < approveNoList.size(); i++) {
                                 PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
                                 PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
@@ -276,8 +276,8 @@ public class RestDetailPeopleFragment extends CommonFragment {
                                     @Override
                                     public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
                                         if (peopleInfoEntity != null){
-                                            peopleLeaveEntity1.getPeopleLeaveRrd().get(0).setApprover1Name(peopleInfoEntity.getPeopleInfo().get(0).getName());
-                                            name = peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover1Name();
+//                                            peopleLeaveEntity1.getPeopleLeaveRrd().get(0).setApprover1Name(peopleInfoEntity.getPeopleInfo().get(0).getName());
+//                                            name = peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getApprover1Name();
                                         }
                                     }
 
