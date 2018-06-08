@@ -5,11 +5,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="80dp">
 
-    <RelativeLayout
+    <LinearLayout
         android:padding="3dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:id="@+id/tv_titleanddate">
         <TextView
             android:id="@+id/tv_title"
@@ -22,27 +22,36 @@
             android:textColor="#333333"
             tools:text="这是新闻标题" />
         <TextView
-            android:padding="2dp"
-            android:text="这是新闻闻新闻概括这是新闻概括这是新闻概括"
+            android:padding="1dp"
+            android:text="这是新闻闻新闻概括这是新闻概括这是新闻概括这是新闻闻新闻概括这是新闻概括这是新闻概括这是新闻闻新闻概括这是新闻概括这是新闻概括"
             android:id="@+id/tv_sketch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:maxLines="3"
+            android:textSize="13sp"
+            android:maxLines="2"
             android:ellipsize="end"
             android:textColor="#0967AE"/>
         <TextView
-            android:layout_alignParentBottom="true"
+            android:padding="1dp"
+            android:text="这是新闻闻新闻概括这是新闻概括这是新闻概括这是新闻闻新闻概括这是新闻概括这是新闻概括这是新闻闻新闻概括这是新闻概括这是新闻概括"
+            android:id="@+id/tv_direction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="#0967AE"/>
+        <TextView
             android:id="@+id/tv_date"
             android:text="这是日期"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="2dp"
+            android:padding="1dp"
             android:ellipsize="end"
             android:lineSpacingExtra="5sp"
             android:textSize="13sp"
             android:textColor="@color/half_black"/>
-    </RelativeLayout>
+    </LinearLayout>
 
     <ImageView
         android:layout_alignParentBottom="true"

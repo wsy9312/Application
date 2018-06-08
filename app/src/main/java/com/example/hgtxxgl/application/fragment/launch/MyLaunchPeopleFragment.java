@@ -64,17 +64,21 @@ public class MyLaunchPeopleFragment extends Fragment implements SimpleListView.O
         public void bindView(ViewHolder holder, PeopleLeaveEntity.PeopleLeaveRrdBean bean) {
             holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss"));
             holder.setText(R.id.tv_sketch, "申请事由:"+(bean.getContent().isEmpty()?"无":bean.getContent()));
+            holder.setText(R.id.tv_direction, "申请去向:"+(bean.getDestination().isEmpty()?"无":bean.getDestination()));
             if (bean.getBCancel().equals("0")){
                 if (bean.getProcess().equals("1")){
                     holder.setImageResource(R.id.image_flow,R.drawable.ic_done);
                     holder.setTextColor(R.id.tv_sketch, Color.rgb(0,128,0));
+                    holder.setTextColor(R.id.tv_direction, Color.rgb(0,128,0));
                 }else{
                     holder.setImageResource(R.id.image_flow,R.drawable.ic_running);
                     holder.setTextColor(R.id.tv_sketch, Color.rgb(214,16,24));
+                    holder.setTextColor(R.id.tv_direction, Color.rgb(214,16,24));
                 }
             }else{
                 holder.setImageResource(R.id.image_flow,R.drawable.ic_canceled);
                 holder.setTextColor(R.id.tv_sketch, Color.rgb(0,103,174));
+                holder.setTextColor(R.id.tv_direction, Color.rgb(0,103,174));
             }
         }
     };
@@ -249,6 +253,9 @@ public class MyLaunchPeopleFragment extends Fragment implements SimpleListView.O
             List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
             for (PeopleLeaveEntity.PeopleLeaveRrdBean bean : baseEntityList) {
                 if ((bean.getContent().isEmpty()?"无":bean.getContent()).replace(" ", "").contains(key)) {
+                    list.add(bean);
+                }
+                if ((bean.getDestination().isEmpty()?"无":bean.getDestination()).replace(" ", "").contains(key)) {
                     list.add(bean);
                 }
                 if ((DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss")).replace(" ", "").contains(key)) {
