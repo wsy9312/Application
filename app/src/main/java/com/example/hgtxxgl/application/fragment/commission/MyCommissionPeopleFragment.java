@@ -26,6 +26,7 @@ import com.example.hgtxxgl.application.utils.hand.DataUtil;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.ListAdapter;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
+import com.example.hgtxxgl.application.utils.hyutils.L;
 import com.example.hgtxxgl.application.view.SimpleListView;
 import com.google.gson.Gson;
 
@@ -78,7 +79,7 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
                     holder.setTextColor(R.id.tv_sketch, Color.rgb(0,128,0));
                     holder.setTextColor(R.id.tv_title, Color.rgb(0,128,0));
                 }else if (bean.getProcess().equals("0")){
-                    if (bean.getCurrentApproveNo().equals(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo())){
+                    if (bean.getAuthenticationNo().equals(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo())){
                         holder.setImageResource(R.id.image_flow,R.drawable.ic_no_approve);
                         holder.setTextColor(R.id.tv_sketch, Color.rgb(214,16,24));
                         holder.setTextColor(R.id.tv_title, Color.rgb(214,16,24));
@@ -131,19 +132,25 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
 
         PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
         peopleLeaveRrdBean.setNo("?");
-        peopleLeaveRrdBean.setCurrentApproveNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-        peopleLeaveRrdBean.setProcess("?");
-        peopleLeaveRrdBean.setOutType("?");
-        peopleLeaveRrdBean.setContent("?");
-        peopleLeaveRrdBean.setBeginNum(String.valueOf(beginNum));
-        peopleLeaveRrdBean.setEndNum(String.valueOf(endNum));
-        peopleLeaveRrdBean.setNoIndex("?");
-        peopleLeaveRrdBean.setModifyTime("?");
-        peopleLeaveRrdBean.setRegisterTime("?");
         peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
         peopleLeaveRrdBean.setIsAndroid("1");
+//        peopleLeaveRrdBean.setCurrentApproveNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        peopleLeaveRrdBean.setRegisterTime("?");
+        peopleLeaveRrdBean.setOutTime("?");
+        peopleLeaveRrdBean.setInTime("?");
+        peopleLeaveRrdBean.setContent("?");
+        peopleLeaveRrdBean.setModifyTime("?");
+        peopleLeaveRrdBean.setProcess("?");
         peopleLeaveRrdBean.setBCancel("?");
+        peopleLeaveRrdBean.setBFillup("?");
+        peopleLeaveRrdBean.setNoIndex("?");
         peopleLeaveRrdBean.setResult("?");
+        peopleLeaveRrdBean.setOutType("?");
+        peopleLeaveRrdBean.setApproveNo("?");
+        peopleLeaveRrdBean.setHisAnnotation("?");
+        peopleLeaveRrdBean.setDestination("?");
+        peopleLeaveRrdBean.setBeginNum(String.valueOf(beginNum));
+        peopleLeaveRrdBean.setEndNum(String.valueOf(endNum));
 
 //        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean1 = new PeopleLeaveEntity.PeopleLeaveRrdBean();
 //        peopleLeaveRrdBean1.setApprover1No(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
@@ -175,7 +182,8 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
         peopleLeaveEntity.setPeopleLeaveRrd(list);
         String json = new Gson().toJson(peopleLeaveEntity);
         String s = "get " + json;
-        //        String url = CommonValues.BASE_URL;
+        L.e(TAG,s);
+//        String url = CommonValues.BASE_URL;
 //        String url = ApplicationApp.getIP();
         SharedPreferences share = getActivity().getSharedPreferences(SAVE_IP, MODE_PRIVATE);
         tempIP = share.getString("tempIP", "IP address is empty");
