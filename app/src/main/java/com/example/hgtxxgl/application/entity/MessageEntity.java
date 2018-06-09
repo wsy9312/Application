@@ -25,7 +25,7 @@ public class MessageEntity {
         /**
          * Time : 2017-8-10 12:00:00
          * Content : 这是第一条消息示例
-         * Objects : 44C6E4A9;8CF26CD5;77528C96
+         * ObjectsNo : 44C6E4A9;8CF26CD5;77528C96
          * ModifyTime : 最后修改时间
          * NoIndex : 序号
          * AuthenticationNo : 44C6E4A9
@@ -33,7 +33,7 @@ public class MessageEntity {
 
         private String Time;
         private String Content;
-        private String Objects;
+        private String ObjectsNo;
         private String ModifyTime;
         private String NoIndex;
         private String AuthenticationNo;
@@ -44,7 +44,7 @@ public class MessageEntity {
             return "MessageRrdBean{" +
                     "Time='" + Time + '\'' +
                     ", Content='" + Content + '\'' +
-                    ", Objects='" + Objects + '\'' +
+                    ", ObjectsNo='" + ObjectsNo + '\'' +
                     ", ModifyTime='" + ModifyTime + '\'' +
                     ", NoIndex='" + NoIndex + '\'' +
                     ", AuthenticationNo='" + AuthenticationNo + '\'' +
@@ -76,12 +76,12 @@ public class MessageEntity {
             this.Content = Content;
         }
 
-        public String getObjects() {
-            return Objects;
+        public String getObjectsNo() {
+            return ObjectsNo;
         }
 
-        public void setObjects(String Objects) {
-            this.Objects = Objects;
+        public void setObjectsNo(String Objects) {
+            this.ObjectsNo = Objects;
         }
 
         public String getModifyTime() {

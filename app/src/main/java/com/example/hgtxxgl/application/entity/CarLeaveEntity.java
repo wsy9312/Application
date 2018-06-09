@@ -25,7 +25,7 @@ public class CarLeaveEntity {
          * CurrentApproveNo :
          * CarNo :
          * Process :
-         * Result :
+         * Result :审批结果 1:同意，0:不同意（最终结果）2：被退回
          * bCancel :
          * bFillup :
          * RegisterTime :
@@ -40,8 +40,8 @@ public class CarLeaveEntity {
          * OutType :
          * HisAnnotation :
          * Curannotation :
-         * DriverNo :
-         * LeaderNo :
+         * DriverNo :驾驶员的No
+         * LeaderNo :带车干部的No
          * OutStatus :
          * Destination :
          * CurResult :

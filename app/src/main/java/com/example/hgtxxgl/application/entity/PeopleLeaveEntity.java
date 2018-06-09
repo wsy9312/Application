@@ -32,16 +32,16 @@ public class PeopleLeaveEntity {
          * bCancel :
          * bFillup :
          * NoIndex :
-         * CurrentApproveNo :
-         * Result :
+         * CurrentApproveNo :当前审批人ID(第一个;第二个;第三个...)
+         * Result :审批结果 1:同意，0:不同意（最终结果）2：被退回
          * bMessage :
          * OutType :
          * ApproveNo :
-         * HisAnnotation :
-         * Curannotation :
-         * OutStatus :
-         * Destination :
-         * CurResult :
+         * HisAnnotation :历史批注
+         * Curannotation :当前批注
+         * OutStatus :外出状态：0：在岗，1：外出 默认0
+         * Destination :去向
+         * CurResult :当前次审批结果 0：不同意，1：退回充填，2：同意，提交上级，3：同意并结束
          * BeginNum :
          * EndNum :
          */

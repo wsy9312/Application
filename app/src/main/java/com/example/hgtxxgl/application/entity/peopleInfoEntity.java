@@ -39,23 +39,32 @@ public class PeopleInfoEntity {
          */
 
         private String AuthenticationNo;
-        private String Authority;
-        private String CardNo;
-        private String GroupName;
+        private String Authority;//
+        private String CardNo;//
+        private String GroupName;//
         private String IsAndroid;
-        private String LoginName;
-        private String ModifyTime;
-        private String Name;
-        private String No;
-        private String Password;
-        private String PhoneNo;
-        private String Position;
-        private String RegisterTime;
-        private String Sex;
-        private String TelNo;
-        private String Unit;
-        private String Department;
-        private String NoIndex;
+        private String LoginName;//
+        private String ModifyTime;//
+        private String Name;//
+        private String No;//
+        private String Password;//
+        private String PhoneNo;//
+        private String Position;//
+        private String RegisterTime;//
+        private String Sex;//
+        private String TelNo;//
+        private String Unit;//
+        private String Department;//
+        private String NoIndex;//
+        private String bClosed;//
+
+        public String getbClosed() {
+            return bClosed;
+        }
+
+        public void setbClosed(String bClosed) {
+            this.bClosed = bClosed;
+        }
 
         public String getAuthenticationNo() {
             return AuthenticationNo;

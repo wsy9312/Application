@@ -119,7 +119,7 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
         messageRrdBean.setTime(getCurrentDateLater(beginNum)+"&&"+ getCurrentDateLater(endNum));
         messageRrdBean.setContent("?");
         messageRrdBean.setModifyTime("?");
-        messageRrdBean.setObjects(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        messageRrdBean.setObjectsNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
         messageRrdBean.setNoIndex("?");
         messageRrdBean.setIsAndroid("1");
         List<MessageEntity.MessageRrdBean> list = new ArrayList<>();
