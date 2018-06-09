@@ -1,12 +1,13 @@
 package com.example.hgtxxgl.application.fragment.apply;
 
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 
-import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
+import com.example.hgtxxgl.application.entity.CarLeaveEntity;
 import com.example.hgtxxgl.application.rest.CommonFragment;
 import com.example.hgtxxgl.application.rest.HandInputGroup;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
@@ -23,6 +24,8 @@ import java.util.List;
 public class CarApplyFragment extends CommonFragment {
 
     private final static String TAG = "CarApplyFragment";
+    private String name;
+    private String unit;
 
     public CarApplyFragment() {
     }
@@ -45,14 +48,15 @@ public class CarApplyFragment extends CommonFragment {
 
     @Override
     public List<CommonFragment.Group> getGroupList() {
-//        if (!ApplicationApp.getPeopleInfoEntity().getPeopleInfo().isEmpty()){
-//            name = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName();
-//        }
+        if (!ApplicationApp.getPeopleInfoEntity().getPeopleInfo().isEmpty()){
+            name = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName();
+            unit = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getUnit();
+        }
         List<CommonFragment.Group> groups = new ArrayList<>();
         List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
-        baseHolder.add(new HandInputGroup.Holder("单位",true,false,"/自动读取",HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-        baseHolder.add(new HandInputGroup.Holder("申请人",true,false,"/自动读取",HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-        baseHolder.add(new HandInputGroup.Holder("申请时间",false,false,"/自动读取",HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
+        baseHolder.add(new HandInputGroup.Holder("申请人",true,false,name,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
+        baseHolder.add(new HandInputGroup.Holder("单位",true,false,unit,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
+//        baseHolder.add(new HandInputGroup.Holder("申请时间",false,false,"/自动读取",HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
         baseHolder.add(new HandInputGroup.Holder("驾驶员",true,false,"/请选择",HandInputGroup.VALUE_TYPE.SELECT));
         baseHolder.add(new HandInputGroup.Holder("带车干部",true,false,"/请选择",HandInputGroup.VALUE_TYPE.SELECT));
         baseHolder.add(new HandInputGroup.Holder("车辆",true,false,"/请选择",HandInputGroup.VALUE_TYPE.SELECT));
@@ -60,7 +64,7 @@ public class CarApplyFragment extends CommonFragment {
         baseHolder.add(new HandInputGroup.Holder("归队时间",false,false,"/请选择",HandInputGroup.VALUE_TYPE.DATE));
         baseHolder.add(new HandInputGroup.Holder("事由",false,false,"/请填写",HandInputGroup.VALUE_TYPE.BIG_EDIT));
         baseHolder.add(new HandInputGroup.Holder("去向",false,false,"/请填写",HandInputGroup.VALUE_TYPE.TEXTFILED));
-        baseHolder.add(new HandInputGroup.Holder("是否后补申请",false,false,"否",HandInputGroup.VALUE_TYPE.SELECT));
+        baseHolder.add(new HandInputGroup.Holder("是否后补申请",false,false,"否",HandInputGroup.VALUE_TYPE.SELECT).setColor(Color.rgb(170,170,170)));
         groups.add(0,new Group("基本信息", null,true,null,baseHolder));
         return groups;
     }
@@ -92,35 +96,84 @@ public class CarApplyFragment extends CommonFragment {
                         ToastUtil.showToast(getContext(),"请填写" + over);
                         setButtonllEnable(true);
                     }else {
+                        //申请车辆号牌
+//                        //申请人ID
+//                        String realValueNO = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo();
+//                        //申请类别
+//                        String realValueType = getDisplayValueByKey("申请类别").getRealValue();
+//                        //预计外出时间
+//                        String realValueoutTime = getDisplayValueByKey("预计外出时间").getRealValue()+":00";
+//                        //预计归来时间
+//                        String realValueinTime = getDisplayValueByKey("预计归来时间").getRealValue()+":00";
+//                        //请假原因
+//                        String realValueContent = getDisplayValueByKey("申请事由").getRealValue();
+//                        //是否后补请假
+//                        String realValueFillup = getDisplayValueByKey("是否后补请假").getRealValue();
+//                        //因公或因私外出/请假
+//                        String realValuetype = getDisplayValueByKey("申请类型").getRealValue();
+//                        String realValueCardNo = getDisplayValueByKey("车辆号牌").getRealValue();
+//                        CarLeaveEntity CarLeaveEntity = new CarLeaveEntity();
+//                        CarLeaveEntity.CarLeaveRrdBean carLeaveRrdBean = new CarLeaveEntity.CarLeaveRrdBean();
+//                        carLeaveRrdBean.setNo(realValueNO);
+//                        carLeaveRrdBean.setOutType(realValuetype);
+//                        carLeaveRrdBean.setCarNo(realValueCardNo);
+//                        carLeaveRrdBean.setOutTime(realValueoutTime);
+//                        carLeaveRrdBean.setInTime(realValueinTime);
+//                        carLeaveRrdBean.setContent(realValueContent);
+//                        carLeaveRrdBean.setbFillup(realValueFillup.equals("否")?"0":"1");
+//                        carLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+//                        carLeaveRrdBean.setIsAndroid("1");
+//                        List<CarLeaveEntity.CarLeaveRrdBean> beanList = new ArrayList<>();
+//                        beanList.add(carLeaveRrdBean);
+//                        carLeaveEntity.setCarLeaveRrd(beanList);
+//                        String json = new Gson().toJson(carLeaveEntity);
+//                        String s1 = "apply " + json;
+//                        applyStart(1,getTempIP(),s1);
+
+//
+//                        baseHolder.add(new HandInputGroup.Holder("申请人",true,false,"/"+name,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
+//                        baseHolder.add(new HandInputGroup.Holder("单位",true,false,"/"+unit,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
+//                        baseHolder.add(new HandInputGroup.Holder("驾驶员",true,false,"/请选择",HandInputGroup.VALUE_TYPE.SELECT));
+//                        baseHolder.add(new HandInputGroup.Holder("带车干部",true,false,"/请选择",HandInputGroup.VALUE_TYPE.SELECT));
+//                        baseHolder.add(new HandInputGroup.Holder("车辆",true,false,"/请选择",HandInputGroup.VALUE_TYPE.SELECT));
+//                        baseHolder.add(new HandInputGroup.Holder("离队时间",true,false,"/请选择",HandInputGroup.VALUE_TYPE.DATE));
+//                        baseHolder.add(new HandInputGroup.Holder("归队时间",false,false,"/请选择",HandInputGroup.VALUE_TYPE.DATE));
+//                        baseHolder.add(new HandInputGroup.Holder("事由",false,false,"/请填写",HandInputGroup.VALUE_TYPE.BIG_EDIT));
+//                        baseHolder.add(new HandInputGroup.Holder("去向",false,false,"/请填写",HandInputGroup.VALUE_TYPE.TEXTFILED));
+//                        baseHolder.add(new HandInputGroup.Holder("是否后补申请",false,false,"/否",HandInputGroup.VALUE_TYPE.SELECT));
                         //申请人ID
                         String realValueNO = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo();
+                        String proposer = getDisplayValueByKey("申请人").getRealValue();
                         String unit = getDisplayValueByKey("单位").getRealValue();
-                        String applicant = getDisplayValueByKey("申请人").getRealValue();
-                        String applicantTime = getDisplayValueByKey("申请时间").getRealValue();
-                        String applicantType = getDisplayValueByKey("申请类型").getRealValue();
+                        String driver = getDisplayValueByKey("驾驶员").getRealValue();
+                        String leader = getDisplayValueByKey("带车干部").getRealValue();
+                        String car = getDisplayValueByKey("车辆").getRealValue();
                         String leaveTime = getDisplayValueByKey("离队时间").getRealValue();
-                        String returnTime = getDisplayValueByKey("归队时间").getRealValue();
+                        String returnTime  = getDisplayValueByKey("归队时间").getRealValue();
                         String argument = getDisplayValueByKey("事由").getRealValue();
-                        String goDirection  = getDisplayValueByKey("去向").getRealValue();
+                        String goDirection = getDisplayValueByKey("去向").getRealValue();
                         String bFillup = getDisplayValueByKey("是否后补申请").getRealValue();
-                        PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
-                        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
-                        peopleLeaveRrdBean.setNo(realValueNO);
-                        peopleLeaveRrdBean.setOutType(applicantType);
-                        peopleLeaveRrdBean.setOutTime(leaveTime);
-                        peopleLeaveRrdBean.setInTime(returnTime);
-                        peopleLeaveRrdBean.setContent(argument);
-                        peopleLeaveRrdBean.setBFillup(bFillup.equals("否")?"0":"1");
-                        peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-                        peopleLeaveRrdBean.setIsAndroid("1");
-                        List<PeopleLeaveEntity.PeopleLeaveRrdBean> beanList = new ArrayList<>();
-                        beanList.add(peopleLeaveRrdBean);
-                        peopleLeaveEntity.setPeopleLeaveRrd(beanList);
-                        String json = new Gson().toJson(peopleLeaveEntity);
+                        CarLeaveEntity carLeaveEntity = new CarLeaveEntity();
+                        CarLeaveEntity.CarLeaveRrdBean carLeaveRrdBean = new CarLeaveEntity.CarLeaveRrdBean();
+                        carLeaveRrdBean.setNo(realValueNO);
+                        carLeaveRrdBean.setDriverNo(realValueNO);
+                        carLeaveRrdBean.setNo(realValueNO);
+                        carLeaveRrdBean.setNo(realValueNO);
+//                        carLeaveRrdBean.setOutType(applicantType);
+                        carLeaveRrdBean.setOutTime(leaveTime);
+                        carLeaveRrdBean.setInTime(returnTime);
+                        carLeaveRrdBean.setContent(argument);
+                        carLeaveRrdBean.setBFillup(bFillup.equals("否")?"0":"1");
+                        carLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+                        carLeaveRrdBean.setIsAndroid("1");
+                        List<CarLeaveEntity.CarLeaveRrdBean> beanList = new ArrayList<>();
+                        beanList.add(carLeaveRrdBean);
+                        carLeaveEntity.setCarLeaveRrd(beanList);
+                        String json = new Gson().toJson(carLeaveEntity);
                         String s1 = "apply " + json;
-                        HttpManager.getInstance().requestResultForm(getTempIP(), s1, PeopleLeaveEntity.class, new HttpManager.ResultCallback<PeopleLeaveEntity>() {
+                        HttpManager.getInstance().requestResultForm(getTempIP(), s1, CarLeaveEntity.class, new HttpManager.ResultCallback<CarLeaveEntity>() {
                             @Override
-                            public void onSuccess(String json, final PeopleLeaveEntity peopleLeaveEntity) throws InterruptedException {
+                            public void onSuccess(String json, final CarLeaveEntity carLeaveEntity) throws InterruptedException {
                             }
 
                             @Override

@@ -64,7 +64,7 @@ public class MyLaunchCarFragment extends Fragment implements SimpleListView.OnRe
         public void bindView(ViewHolder holder, CarLeaveEntity.CarLeaveRrdBean bean) {
             holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss"));
             holder.setText(R.id.tv_sketch, "申请事由:"+(bean.getContent().isEmpty()?"无":bean.getContent()));
-            if (bean.getbCancel().equals("0")){
+            if (bean.getBCancel().equals("0")){
                 if (bean.getProcess().equals("1")){
                     holder.setImageResource(R.id.image_flow,R.drawable.ic_done);
                     holder.setTextColor(R.id.tv_sketch, Color.rgb(0,128,0));
@@ -126,7 +126,7 @@ public class MyLaunchCarFragment extends Fragment implements SimpleListView.OnRe
         carLeaveRrdBean.setRegisterTime("?");
         carLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
         carLeaveRrdBean.setIsAndroid("1");
-        carLeaveRrdBean.setbCancel("?");
+        carLeaveRrdBean.setBCancel("?");
         List<CarLeaveEntity.CarLeaveRrdBean> list = new ArrayList<>();
         list.add(carLeaveRrdBean);
         carLeaveEntity.setCarLeaveRrd(list);
@@ -208,8 +208,8 @@ public class MyLaunchCarFragment extends Fragment implements SimpleListView.OnRe
         bundle.putString("content", adapter.getItem(position).getContent());
         bundle.putString("process", adapter.getItem(position).getProcess());
         bundle.putString("modifyTime",adapter.getItem(position).getModifyTime());
-        bundle.putString("bcancel",adapter.getItem(position).getbCancel());
-        bundle.putString("bfillup",adapter.getItem(position).getbFillup());
+        bundle.putString("bcancel",adapter.getItem(position).getBCancel());
+        bundle.putString("bfillup",adapter.getItem(position).getBFillup());
         bundle.putString("noindex",adapter.getItem(position).getNoIndex());
         bundle.putInt("item",position);
 //        bundle.putInt("tabIndex",tabIndex);
@@ -254,7 +254,7 @@ public class MyLaunchCarFragment extends Fragment implements SimpleListView.OnRe
                 if ((bean.getProcess().equals("1")?"已完成":"未完成").replace(" ", "").contains(key)){
                     list.add(bean);
                 }
-                if ((bean.getbCancel().equals("1")?"已取消":"").replace(" ", "").contains(key)){
+                if ((bean.getBCancel().equals("1")?"已取消":"").replace(" ", "").contains(key)){
                     list.add(bean);
                 }
             }

@@ -43,7 +43,7 @@ public class RestDetailCarFragment extends CommonFragment {
         List<Group> groups = new ArrayList<>();
         String processStr = entity.getProcess();
         String result = entity.getResult();
-        String bCancel = entity.getbCancel();
+        String bCancel = entity.getBCancel();
         int process = Integer.parseInt(processStr);
         List<HandInputGroup.Holder> list = new ArrayList<>();
         list.add(new HandInputGroup.Holder("流程内容", true, false, "车辆外出", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
@@ -63,7 +63,7 @@ public class RestDetailCarFragment extends CommonFragment {
             }
             list.add(new HandInputGroup.Holder("审批结果", true, false, "暂无", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
         }
-        list.add(new HandInputGroup.Holder("是否已取消", true, false, entity.getbCancel().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
+        list.add(new HandInputGroup.Holder("是否已取消", true, false, entity.getBCancel().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
         groups.add(new Group("流程信息", null, false, null, list));
 
         List<HandInputGroup.Holder> holderList = new ArrayList<>();
@@ -73,7 +73,7 @@ public class RestDetailCarFragment extends CommonFragment {
         holderList.add(new HandInputGroup.Holder("预计外出时间", true, false, entity.getOutTime(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("预计归来时间", true, false, entity.getInTime(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("申请原因", true, false, entity.getContent(), HandInputGroup.VALUE_TYPE.TEXT));
-        holderList.add(new HandInputGroup.Holder("是否后补请假", true, false, entity.getbFillup().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("是否后补请假", true, false, entity.getBFillup().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
         groups.add(new Group("基本信息", null, false, null, holderList));
         return groups;
     }
@@ -102,11 +102,11 @@ public class RestDetailCarFragment extends CommonFragment {
         carLeaveRrdBean.setIsAndroid("1");
         carLeaveRrdBean.setNoIndex(noindex);
         if (title.equals("(取消外出) 是")){
-            if (entity.getbCancel().equals("1")){
+            if (entity.getBCancel().equals("1")){
                 /*show("当前已是取消状态,请勿重复操作");*/
                 return;
             }else{
-                carLeaveRrdBean.setbCancel("1");
+                carLeaveRrdBean.setBCancel("1");
             }
         }/*else {
             if (entity.getbCancel().equals("0")){
@@ -194,7 +194,6 @@ public class RestDetailCarFragment extends CommonFragment {
         CarLeaveEntity.CarLeaveRrdBean carLeaveRrdBean = new CarLeaveEntity.CarLeaveRrdBean();
         carLeaveRrdBean.setNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
         carLeaveRrdBean.setApproverNo("?");
-        carLeaveRrdBean.setOnduty("?");
         carLeaveRrdBean.setRegisterTime("?");
         carLeaveRrdBean.setOutTime("?");
         carLeaveRrdBean.setInTime("?");
@@ -204,8 +203,8 @@ public class RestDetailCarFragment extends CommonFragment {
         carLeaveRrdBean.setModifyTime("?");
         carLeaveRrdBean.setProcess("?");
         carLeaveRrdBean.setResult("?");
-        carLeaveRrdBean.setbCancel("?");
-        carLeaveRrdBean.setbFillup("?");
+        carLeaveRrdBean.setBCancel("?");
+        carLeaveRrdBean.setBFillup("?");
         carLeaveRrdBean.setNoIndex(noindex);
         carLeaveRrdBean.setBeginNum("?");
         carLeaveRrdBean.setEndNum("?");

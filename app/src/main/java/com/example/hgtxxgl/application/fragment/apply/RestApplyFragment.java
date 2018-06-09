@@ -1,6 +1,7 @@
 package com.example.hgtxxgl.application.fragment.apply;
 
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -55,14 +56,14 @@ public class RestApplyFragment extends CommonFragment {
         }
         List<CommonFragment.Group> groups = new ArrayList<>();
         List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
-        baseHolder.add(new HandInputGroup.Holder("单位",true,false,"/"+unit,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
-        baseHolder.add(new HandInputGroup.Holder("申请人",true,false,"/"+name,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false));
+        baseHolder.add(new HandInputGroup.Holder("申请人",true,false,name,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
+        baseHolder.add(new HandInputGroup.Holder("单位",true,false,unit,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
         baseHolder.add(new HandInputGroup.Holder("申请类型",true,false,"/请填写",HandInputGroup.VALUE_TYPE.TEXTFILED));
         baseHolder.add(new HandInputGroup.Holder("离队时间",true,false,"/请选择",HandInputGroup.VALUE_TYPE.DATE));
         baseHolder.add(new HandInputGroup.Holder("归队时间",true,false,"/请选择",HandInputGroup.VALUE_TYPE.DATE));
         baseHolder.add(new HandInputGroup.Holder("事由",false,false,"/请填写",HandInputGroup.VALUE_TYPE.BIG_EDIT));
         baseHolder.add(new HandInputGroup.Holder("去向",false,false,"/请填写",HandInputGroup.VALUE_TYPE.TEXTFILED));
-        baseHolder.add(new HandInputGroup.Holder("是否后补申请",false,false,"/否",HandInputGroup.VALUE_TYPE.SELECT));
+        baseHolder.add(new HandInputGroup.Holder("是否后补申请",false,false,"否",HandInputGroup.VALUE_TYPE.SELECT).setColor(Color.rgb(170,170,170)));
         groups.add(0,new Group("基本信息", null,true,null,baseHolder));
         return groups;
     }

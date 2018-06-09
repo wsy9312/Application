@@ -87,7 +87,7 @@ public class RestApproveCarFragment extends CommonFragment {
         holderList.add(new HandInputGroup.Holder("预计外出时间", true, false, entity.getOutTime(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("预计归来时间", true, false, entity.getInTime(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("申请原因", true, false, entity.getContent(), HandInputGroup.VALUE_TYPE.TEXT));
-        holderList.add(new HandInputGroup.Holder("是否后补请假", true, false, entity.getbFillup().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("是否后补请假", true, false, entity.getBFillup().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
         groups.add(new Group("基本信息", null, false, null, holderList));
         return groups;
     }
@@ -137,8 +137,8 @@ public class RestApproveCarFragment extends CommonFragment {
         carLeaveRrdBean.setActualInTime("?");
         carLeaveRrdBean.setModifyTime("?");
         carLeaveRrdBean.setProcess("?");
-        carLeaveRrdBean.setbCancel("?");
-        carLeaveRrdBean.setbFillup("?");
+        carLeaveRrdBean.setBCancel("?");
+        carLeaveRrdBean.setBFillup("?");
         carLeaveRrdBean.setNoIndex(noindex);
         carLeaveRrdBean.setBeginNum("?");
         carLeaveRrdBean.setEndNum("?");
@@ -161,7 +161,7 @@ public class RestApproveCarFragment extends CommonFragment {
                     @Override
                     public void run() {
                         if (carLeaveEntity1 != null){
-                            if (carLeaveEntity1.getCarLeaveRrd().get(0).getbCancel().equals("0")){
+                            if (carLeaveEntity1.getCarLeaveRrd().get(0).getBCancel().equals("0")){
                                 setEntity(carLeaveEntity1.getCarLeaveRrd().get(0));
                                 setGroup(getGroupList());
                                 setPb(false);

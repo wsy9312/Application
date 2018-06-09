@@ -1,6 +1,7 @@
 package com.example.hgtxxgl.application.entity;
 
 import java.util.List;
+
 //车辆信息类
 public class CarLeaveEntity {
 
@@ -16,27 +17,44 @@ public class CarLeaveEntity {
 
     public static class CarLeaveRrdBean {
         /**
-         * No : 申请人ID.非空
-         * ApproverNo : 审批人ID
-         * CarNo : 申请车辆号牌.非空
-         * Process : 0：审批中，1：审批结束.非空
-         * Result : 审批结果 1:同意，0:不同意
-         * bCancel : 取消请假 0:正常/1:取消.默认0
-         * bFillup : 是否后补请假0：否，1：是.默认0
-         * RegisterTime : 申请时间.系统生成
-         * OutTime : 预计外出时间.非空
-         * InTime : 预计归来时间.非空
-         * Content : 外出原因
-         * ActualOutTime : 实际外出时间
-         * ActualInTime : 实际归来时间
-         * ModifyTime : 最后修改时间.系统生成
-         * NoIndex : 序号.系统生成.系统生成
+         * AuthenticationNo :
+         * No :
+         * Name :
+         * IsAndroid :
+         * ApproverNo :
+         * CurrentApproveNo :
+         * CarNo :
+         * Process :
+         * Result :
+         * bCancel :
+         * bFillup :
+         * RegisterTime :
+         * OutTime :
+         * InTime :
+         * Content :
+         * ActualOutTime :
+         * ActualInTime :
+         * ModifyTime :
+         * NoIndex :
+         * bMessage :
+         * OutType :
+         * HisAnnotation :
+         * Curannotation :
+         * DriverNo :
+         * LeaderNo :
+         * OutStatus :
+         * Destination :
+         * CurResult :
+         * BeginNum :
+         * EndNum :
          */
 
+        private String AuthenticationNo;
         private String No;
         private String Name;
-        private String Onduty;
+        private String IsAndroid;
         private String ApproverNo;
+        private String CurrentApproveNo;
         private String CarNo;
         private String Process;
         private String Result;
@@ -50,29 +68,32 @@ public class CarLeaveEntity {
         private String ActualInTime;
         private String ModifyTime;
         private String NoIndex;
+        private String bMessage;
+        private String OutType;
+        private String HisAnnotation;
+        private String Curannotation;
+        private String DriverNo;
+        private String LeaderNo;
+        private String OutStatus;
+        private String Destination;
+        private String CurResult;
         private String BeginNum;
         private String EndNum;
-        private String AuthenticationNo;
-        private String IsAndroid;
-        private String OutType;
 
-        public CarLeaveRrdBean() {
+        public String getAuthenticationNo() {
+            return AuthenticationNo;
         }
 
-        public String getOutType() {
-            return OutType;
-        }
-
-        public void setOutType(String outType) {
-            OutType = outType;
+        public void setAuthenticationNo(String AuthenticationNo) {
+            this.AuthenticationNo = AuthenticationNo;
         }
 
         public String getNo() {
             return No;
         }
 
-        public void setNo(String no) {
-            No = no;
+        public void setNo(String No) {
+            this.No = No;
         }
 
         public String getName() {
@@ -83,59 +104,67 @@ public class CarLeaveEntity {
             Name = name;
         }
 
-        public String getOnduty() {
-            return Onduty;
+        public String getIsAndroid() {
+            return IsAndroid;
         }
 
-        public void setOnduty(String onduty) {
-            Onduty = onduty;
+        public void setIsAndroid(String IsAndroid) {
+            this.IsAndroid = IsAndroid;
         }
 
         public String getApproverNo() {
             return ApproverNo;
         }
 
-        public void setApproverNo(String approverNo) {
-            ApproverNo = approverNo;
+        public void setApproverNo(String ApproverNo) {
+            this.ApproverNo = ApproverNo;
+        }
+
+        public String getCurrentApproveNo() {
+            return CurrentApproveNo;
+        }
+
+        public void setCurrentApproveNo(String CurrentApproveNo) {
+            this.CurrentApproveNo = CurrentApproveNo;
         }
 
         public String getCarNo() {
             return CarNo;
         }
 
-        public void setCarNo(String carNo) {
-            CarNo = carNo;
+        public void setCarNo(String CarNo) {
+            this.CarNo = CarNo;
         }
 
         public String getProcess() {
             return Process;
         }
 
-        public void setProcess(String process) {
-            Process = process;
+        public void setProcess(String Process) {
+            this.Process = Process;
         }
 
         public String getResult() {
             return Result;
         }
 
-        public void setResult(String result) {
-            Result = result;
+        public void setResult(String Result) {
+            this.Result = Result;
         }
 
-        public String getbCancel() {
+        public String getBCancel() {
             return bCancel;
         }
 
-        public void setbCancel(String bCancel) {
+        public void setBCancel(String bCancel) {
             this.bCancel = bCancel;
         }
 
-        public String getbFillup() {
+        public String getBFillup() {
             return bFillup;
         }
 
-        public void setbFillup(String bFillup) {
+        public void setBFillup(String bFillup) {
             this.bFillup = bFillup;
         }
 
@@ -143,64 +172,136 @@ public class CarLeaveEntity {
             return RegisterTime;
         }
 
-        public void setRegisterTime(String registerTime) {
-            RegisterTime = registerTime;
+        public void setRegisterTime(String RegisterTime) {
+            this.RegisterTime = RegisterTime;
         }
 
         public String getOutTime() {
             return OutTime;
         }
 
-        public void setOutTime(String outTime) {
-            OutTime = outTime;
+        public void setOutTime(String OutTime) {
+            this.OutTime = OutTime;
         }
 
         public String getInTime() {
             return InTime;
         }
 
-        public void setInTime(String inTime) {
-            InTime = inTime;
+        public void setInTime(String InTime) {
+            this.InTime = InTime;
         }
 
         public String getContent() {
             return Content;
         }
 
-        public void setContent(String content) {
-            Content = content;
+        public void setContent(String Content) {
+            this.Content = Content;
         }
 
         public String getActualOutTime() {
             return ActualOutTime;
         }
 
-        public void setActualOutTime(String actualOutTime) {
-            ActualOutTime = actualOutTime;
+        public void setActualOutTime(String ActualOutTime) {
+            this.ActualOutTime = ActualOutTime;
         }
 
         public String getActualInTime() {
             return ActualInTime;
         }
 
-        public void setActualInTime(String actualInTime) {
-            ActualInTime = actualInTime;
-        }
-
-        public String getNoIndex() {
-            return NoIndex;
-        }
-
-        public void setNoIndex(String noIndex) {
-            NoIndex = noIndex;
+        public void setActualInTime(String ActualInTime) {
+            this.ActualInTime = ActualInTime;
         }
 
         public String getModifyTime() {
             return ModifyTime;
         }
 
-        public void setModifyTime(String modifyTime) {
-            ModifyTime = modifyTime;
+        public void setModifyTime(String ModifyTime) {
+            this.ModifyTime = ModifyTime;
+        }
+
+        public String getNoIndex() {
+            return NoIndex;
+        }
+
+        public void setNoIndex(String NoIndex) {
+            this.NoIndex = NoIndex;
+        }
+
+        public String getBMessage() {
+            return bMessage;
+        }
+
+        public void setBMessage(String bMessage) {
+            this.bMessage = bMessage;
+        }
+
+        public String getOutType() {
+            return OutType;
+        }
+
+        public void setOutType(String OutType) {
+            this.OutType = OutType;
+        }
+
+        public String getHisAnnotation() {
+            return HisAnnotation;
+        }
+
+        public void setHisAnnotation(String HisAnnotation) {
+            this.HisAnnotation = HisAnnotation;
+        }
+
+        public String getCurannotation() {
+            return Curannotation;
+        }
+
+        public void setCurannotation(String Curannotation) {
+            this.Curannotation = Curannotation;
+        }
+
+        public String getDriverNo() {
+            return DriverNo;
+        }
+
+        public void setDriverNo(String DriverNo) {
+            this.DriverNo = DriverNo;
+        }
+
+        public String getLeaderNo() {
+            return LeaderNo;
+        }
+
+        public void setLeaderNo(String LeaderNo) {
+            this.LeaderNo = LeaderNo;
+        }
+
+        public String getOutStatus() {
+            return OutStatus;
+        }
+
+        public void setOutStatus(String OutStatus) {
+            this.OutStatus = OutStatus;
+        }
+
+        public String getDestination() {
+            return Destination;
+        }
+
+        public void setDestination(String Destination) {
+            this.Destination = Destination;
+        }
+
+        public String getCurResult() {
+            return CurResult;
+        }
+
+        public void setCurResult(String CurResult) {
+            this.CurResult = CurResult;
         }
 
         public String getBeginNum() {
@@ -217,22 +318,6 @@ public class CarLeaveEntity {
 
         public void setEndNum(String endNum) {
             EndNum = endNum;
-        }
-
-        public String getAuthenticationNo() {
-            return AuthenticationNo;
-        }
-
-        public void setAuthenticationNo(String authenticationNo) {
-            AuthenticationNo = authenticationNo;
-        }
-
-        public String getIsAndroid() {
-            return IsAndroid;
-        }
-
-        public void setIsAndroid(String isAndroid) {
-            IsAndroid = isAndroid;
         }
     }
 }

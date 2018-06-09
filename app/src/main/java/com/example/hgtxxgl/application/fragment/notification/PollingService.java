@@ -207,7 +207,7 @@ public class PollingService extends Service {
 		carLeaveRrdBean.setNo("?");
 		carLeaveRrdBean.setNoIndex("?");
 		carLeaveRrdBean.setProcess("?");
-		carLeaveRrdBean.setbCancel("?");
+		carLeaveRrdBean.setBCancel("?");
 		List<CarLeaveEntity.CarLeaveRrdBean> list = new ArrayList<>();
 		list.add(carLeaveRrdBean);
 		carLeaveEntity.setCarLeaveRrd(list);
@@ -224,7 +224,7 @@ public class PollingService extends Service {
 					if (!list2.contains(modifyTime)) {
 						list2.add(modifyTime);
 						for (int i = 0; i < 500; i++) {
-							if (carLeaveEntity1.getCarLeaveRrd().get(i).getbCancel().equals("0") && carLeaveEntity1.getCarLeaveRrd().get(i).getProcess().equals("0")) {
+							if (carLeaveEntity1.getCarLeaveRrd().get(i).getBCancel().equals("0") && carLeaveEntity1.getCarLeaveRrd().get(i).getProcess().equals("0")) {
 								showNotification(getString(R.string.received_one_car_appy));
 								Intent intent = new Intent();
 								intent.setAction(FLAG);

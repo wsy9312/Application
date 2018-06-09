@@ -73,7 +73,7 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
             holder.setText(R.id.tv_title, "申请人:"+bean.getName());
             holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss"));
             holder.setText(R.id.tv_sketch, "申请事由:"+(bean.getContent().isEmpty()?"无":bean.getContent()));
-            if (bean.getbCancel().equals("0")){
+            if (bean.getBCancel().equals("0")){
                 holder.setImageResource(R.id.image_flow,bean.getProcess().equals("1")?R.drawable.ic_approved:R.drawable.ic_no_approve);
                 holder.setTextColor(R.id.tv_sketch,bean.getProcess().equals("1")? Color.rgb(0,128,0):Color.rgb(214,16,24));
                 holder.setTextColor(R.id.tv_title,bean.getProcess().equals("1")? Color.rgb(0,128,0):Color.rgb(214,16,24));
@@ -118,7 +118,7 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
         }
         CarLeaveEntity carLeaveEntity = new CarLeaveEntity();
         CarLeaveEntity.CarLeaveRrdBean carLeaveRrdBean = new CarLeaveEntity.CarLeaveRrdBean();
-        carLeaveRrdBean.setbCancel("?");
+        carLeaveRrdBean.setBCancel("?");
         carLeaveRrdBean.setNo("?");
         carLeaveRrdBean.setApproverNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
         carLeaveRrdBean.setProcess("?");
@@ -148,7 +148,7 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
                         entityList.clear();
                     }
                     for (int i = beginNum - 1; i < endNum + 1; i++) {
-                        if (carLeaveEntity1.getCarLeaveRrd().get(i).getbCancel().equals("0")){
+                        if (carLeaveEntity1.getCarLeaveRrd().get(i).getBCancel().equals("0")){
                             PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
                             PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
                             peopleInfoBean.setNo(carLeaveEntity1.getCarLeaveRrd().get(i).getNo());
@@ -252,8 +252,8 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
         bundle.putString("content", adapter.getItem(position).getContent());
         bundle.putString("process", adapter.getItem(position).getProcess());
         bundle.putString("modifyTime",adapter.getItem(position).getModifyTime());
-        bundle.putString("bcancel",adapter.getItem(position).getbCancel());
-        bundle.putString("bfillup",adapter.getItem(position).getbFillup());
+        bundle.putString("bcancel",adapter.getItem(position).getBCancel());
+        bundle.putString("bfillup",adapter.getItem(position).getBFillup());
         bundle.putString("noindex",adapter.getItem(position).getNoIndex());
         bundle.putInt("item",position);
 //        bundle.putInt("tabIndex",tabIndex);
