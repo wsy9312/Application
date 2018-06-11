@@ -92,13 +92,14 @@
         android:id="@+id/btn_start"
         android:enabled="false"
         android:visibility="gone"
-        android:textColor="@color/background"
         android:padding="@dimen/activity_horizontal_margin"
-        android:background="@drawable/rec_normal_submin"
-        android:drawableStart="@drawable/ic_is"
-        android:drawableLeft="@drawable/ic_is"/>
+        android:textColor="#569556"
+        android:background="@drawable/rec_normal_gray"
+        android:drawableStart="@drawable/ic_start"
+        android:drawableLeft="@drawable/ic_start"/>
     <!--android:drawableStart="@drawable/ic_start"
     android:drawableLeft="@drawable/ic_start"-->
+
     <Button
         android:layout_width="0dp"
         android:layout_height="wrap_content"

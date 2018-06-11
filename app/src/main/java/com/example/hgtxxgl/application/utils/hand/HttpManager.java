@@ -89,14 +89,11 @@ public class HttpManager {
                             setJson(substring);
                             t = parseJson(substring, clazz);
                             if (t != null) {
-                                Log.e(TAG,"onResponse_onSuccess:"+substring);
                                 callback.onSuccess(substring, t);
                             } else {
-                                Log.e(TAG,"onResponse_onFailure:"+substring);
                                 callback.onFailure(substring);
                             }
                         }else{
-                            Log.e(TAG,"onResponse_onResponse:"+s);
                             callback.onResponse(s);
                         }
                     }catch (Exception e){

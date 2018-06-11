@@ -203,7 +203,7 @@ public class RestDetailPeopleFragment extends CommonFragment {
         PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
         PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
         peopleLeaveRrdBean.setNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
-        peopleLeaveRrdBean.setCurrentApproveNo("?");
+        peopleLeaveRrdBean.setCurrentApproverNo("?");
 //        peopleLeaveRrdBean.setOnduty("?");
 //        peopleLeaveRrdBean.setApprover1No("?");
 //        peopleLeaveRrdBean.setApprover2No("?");

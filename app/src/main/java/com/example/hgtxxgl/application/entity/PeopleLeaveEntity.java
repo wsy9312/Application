@@ -15,6 +15,13 @@ public class PeopleLeaveEntity {
         this.PeopleLeaveRrd = PeopleLeaveRrd;
     }
 
+    @Override
+    public String toString() {
+        return "PeopleLeaveEntity{" +
+                "PeopleLeaveRrd=" + PeopleLeaveRrd +
+                '}';
+    }
+
     public static class PeopleLeaveRrdBean {
         /**
          * AuthenticationNo :
@@ -32,11 +39,11 @@ public class PeopleLeaveEntity {
          * bCancel :
          * bFillup :
          * NoIndex :
-         * CurrentApproveNo :当前审批人ID(第一个;第二个;第三个...)
+         * CurrentApproverNo :当前审批人ID(第一个;第二个;第三个...)
          * Result :审批结果 1:同意，0:不同意（最终结果）2：被退回
          * bMessage :
          * OutType :
-         * ApproveNo :
+         * ApproverNo :
          * HisAnnotation :历史批注
          * Curannotation :当前批注
          * OutStatus :外出状态：0：在岗，1：外出 默认0
@@ -61,11 +68,11 @@ public class PeopleLeaveEntity {
         private String bCancel;
         private String bFillup;
         private String NoIndex;
-        private String CurrentApproveNo;
+        private String CurrentApproverNo;
         private String Result;
         private String bMessage;
         private String OutType;
-        private String ApproveNo;
+        private String ApproverNo;
         private String HisAnnotation;
         private String Curannotation;
         private String OutStatus;
@@ -73,6 +80,39 @@ public class PeopleLeaveEntity {
         private String CurResult;
         private String BeginNum;
         private String EndNum;
+
+        @Override
+        public String toString() {
+            return "PeopleLeaveRrdBean{" +
+                    "AuthenticationNo='" + AuthenticationNo + '\'' +
+                    ", No='" + No + '\'' +
+                    ", Name='" + Name + '\'' +
+                    ", IsAndroid='" + IsAndroid + '\'' +
+                    ", RegisterTime='" + RegisterTime + '\'' +
+                    ", OutTime='" + OutTime + '\'' +
+                    ", InTime='" + InTime + '\'' +
+                    ", Content='" + Content + '\'' +
+                    ", ActualOutTime='" + ActualOutTime + '\'' +
+                    ", ActualInTime='" + ActualInTime + '\'' +
+                    ", ModifyTime='" + ModifyTime + '\'' +
+                    ", Process='" + Process + '\'' +
+                    ", bCancel='" + bCancel + '\'' +
+                    ", bFillup='" + bFillup + '\'' +
+                    ", NoIndex='" + NoIndex + '\'' +
+                    ", CurrentApproverNo='" + CurrentApproverNo + '\'' +
+                    ", Result='" + Result + '\'' +
+                    ", bMessage='" + bMessage + '\'' +
+                    ", OutType='" + OutType + '\'' +
+                    ", ApproverNo='" + ApproverNo + '\'' +
+                    ", HisAnnotation='" + HisAnnotation + '\'' +
+                    ", Curannotation='" + Curannotation + '\'' +
+                    ", OutStatus='" + OutStatus + '\'' +
+                    ", Destination='" + Destination + '\'' +
+                    ", CurResult='" + CurResult + '\'' +
+                    ", BeginNum='" + BeginNum + '\'' +
+                    ", EndNum='" + EndNum + '\'' +
+                    '}';
+        }
 
         public String getAuthenticationNo() {
             return AuthenticationNo;
@@ -194,12 +234,12 @@ public class PeopleLeaveEntity {
             this.NoIndex = NoIndex;
         }
 
-        public String getCurrentApproveNo() {
-            return CurrentApproveNo;
+        public String getCurrentApproverNo() {
+            return CurrentApproverNo;
         }
 
-        public void setCurrentApproveNo(String CurrentApproveNo) {
-            this.CurrentApproveNo = CurrentApproveNo;
+        public void setCurrentApproverNo(String CurrentApproveNo) {
+            this.CurrentApproverNo = CurrentApproveNo;
         }
 
         public String getResult() {
@@ -226,12 +266,12 @@ public class PeopleLeaveEntity {
             this.OutType = OutType;
         }
 
-        public String getApproveNo() {
-            return ApproveNo;
+        public String getApproverNo() {
+            return ApproverNo;
         }
 
-        public void setApproveNo(String ApproveNo) {
-            this.ApproveNo = ApproveNo;
+        public void setApproverNo(String ApproveNo) {
+            this.ApproverNo = ApproveNo;
         }
 
         public String getHisAnnotation() {

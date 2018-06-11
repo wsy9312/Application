@@ -24,6 +24,7 @@ import com.example.hgtxxgl.application.utils.hand.DataUtil;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.ListAdapter;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
+import com.example.hgtxxgl.application.utils.hyutils.L;
 import com.example.hgtxxgl.application.view.SimpleListView;
 import com.google.gson.Gson;
 
@@ -139,6 +140,7 @@ public class MyLaunchPeopleFragment extends Fragment implements SimpleListView.O
         peopleLeaveEntity.setPeopleLeaveRrd(list);
         String json = new Gson().toJson(peopleLeaveEntity);
         final String s = "get " + json;
+        L.e("111222333",s);
         //  String url = CommonValues.BASE_URL;
         //  String url = ApplicationApp.getIP();
         SharedPreferences share = getActivity().getSharedPreferences(SAVE_IP, MODE_PRIVATE);

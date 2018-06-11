@@ -130,7 +130,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
 
         PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
         setBaseArgument(peopleLeaveRrdBean);
-        peopleLeaveRrdBean.setCurrentApproveNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        peopleLeaveRrdBean.setCurrentApproverNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
 
         PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean1 = new PeopleLeaveEntity.PeopleLeaveRrdBean();
         setBaseArgument(peopleLeaveRrdBean1);
@@ -258,7 +258,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
 //        final String url = ApplicationApp.getIP();
         PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
         PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
-        peopleLeaveRrdBean.setCurrentApproveNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
+        peopleLeaveRrdBean.setCurrentApproverNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
         peopleLeaveRrdBean.setNoIndex(noindex);
         if (title.equals("同 意")){
             peopleLeaveRrdBean.setResult("1");

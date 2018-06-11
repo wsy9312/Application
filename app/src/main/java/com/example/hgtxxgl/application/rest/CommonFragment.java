@@ -107,7 +107,7 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
 
     public void setButtonsTitles(String[] buttonsTitles) {
         this.buttonsTitles = buttonsTitles;
-        if (buttonsTitles != null && buttonsTitles.length > 0 && buttonsTitles.length < 4) {
+        if (buttonsTitles != null && buttonsTitles.length > 0 && buttonsTitles.length < 5) {
             LinearLayout vsActionBar = (LinearLayout) layout.findViewById(R.id.vs_action_buttons);
             Button start = (Button) vsActionBar.findViewById(R.id.btn_start);
             Button save = (Button) vsActionBar.findViewById(R.id.btn_save);

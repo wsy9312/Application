@@ -16,10 +16,8 @@ import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.ItemActivity;
-import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
 import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
-import com.example.hgtxxgl.application.utils.DateUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.DataUtil;
@@ -31,9 +29,6 @@ import com.example.hgtxxgl.application.view.SimpleListView;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -43,7 +38,7 @@ import static com.example.hgtxxgl.application.utils.hand.Fields.SAVE_IP;
 public class MyCommissionPeopleFragment extends Fragment implements AdapterView.OnItemClickListener, SimpleListView.OnRefreshListener{
 
     private int beginNum = 1;
-    private int endNum = 500;
+    private int endNum = 10;
     private boolean hasMore = true;
     private TextView ivEmpty;
     private ProgressBar pb;
@@ -70,24 +65,26 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
             ((ArrayList<PeopleLeaveEntity.PeopleLeaveRrdBean>) entityList, R.layout.layout_commission) {
         @Override
         public void bindView(ViewHolder holder, PeopleLeaveEntity.PeopleLeaveRrdBean bean) {
-            holder.setText(R.id.tv_title, "申请人:"+bean.getName());
-            holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss"));
-            holder.setText(R.id.tv_sketch, "申请事由:"+(bean.getContent().isEmpty()?"无":bean.getContent()));
+            if (bean.getBCancel().equals("0")) {
+                holder.setText(R.id.tv_title, "申请人:" + bean.getName());
+                holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss"));
+                holder.setText(R.id.tv_sketch, "申请事由:" + (bean.getContent().isEmpty() ? "无" : bean.getContent()));
+            }
             if (bean.getBCancel().equals("0")){
                 if (bean.getProcess().equals("1")){
                     holder.setImageResource(R.id.image_flow,R.drawable.ic_approved);
                     holder.setTextColor(R.id.tv_sketch, Color.rgb(0,128,0));
                     holder.setTextColor(R.id.tv_title, Color.rgb(0,128,0));
                 }else if (bean.getProcess().equals("0")){
-                    if (bean.getAuthenticationNo().equals(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo())){
+//                    if (bean.getAuthenticationNo().equals(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo())){
                         holder.setImageResource(R.id.image_flow,R.drawable.ic_no_approve);
                         holder.setTextColor(R.id.tv_sketch, Color.rgb(214,16,24));
                         holder.setTextColor(R.id.tv_title, Color.rgb(214,16,24));
-                    }else {
-                        holder.setImageResource(R.id.image_flow,R.drawable.ic_approved);
-                        holder.setTextColor(R.id.tv_sketch, Color.rgb(0,128,0));
-                        holder.setTextColor(R.id.tv_title, Color.rgb(0,128,0));
-                    }
+//                    }else {
+//                        holder.setImageResource(R.id.image_flow,R.drawable.ic_approved);
+//                        holder.setTextColor(R.id.tv_sketch, Color.rgb(0,128,0));
+//                        holder.setTextColor(R.id.tv_title, Color.rgb(0,128,0));
+//                    }
                 }
             }
         }
@@ -129,12 +126,11 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
             callback.onLoadData();
         }
         PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
-
         PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
         peopleLeaveRrdBean.setNo("?");
         peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
         peopleLeaveRrdBean.setIsAndroid("1");
-//        peopleLeaveRrdBean.setCurrentApproveNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+//        peopleLeaveRrdBean.setCurrentApproverNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
         peopleLeaveRrdBean.setRegisterTime("?");
         peopleLeaveRrdBean.setOutTime("?");
         peopleLeaveRrdBean.setInTime("?");
@@ -146,43 +142,17 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
         peopleLeaveRrdBean.setNoIndex("?");
         peopleLeaveRrdBean.setResult("?");
         peopleLeaveRrdBean.setOutType("?");
-        peopleLeaveRrdBean.setApproveNo("?");
+        peopleLeaveRrdBean.setApproverNo("?");
         peopleLeaveRrdBean.setHisAnnotation("?");
         peopleLeaveRrdBean.setDestination("?");
         peopleLeaveRrdBean.setBeginNum(String.valueOf(beginNum));
         peopleLeaveRrdBean.setEndNum(String.valueOf(endNum));
-
-//        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean1 = new PeopleLeaveEntity.PeopleLeaveRrdBean();
-//        peopleLeaveRrdBean1.setApprover1No(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-//        setBaseArgument(peopleLeaveRrdBean1);
-//
-//        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean2 = new PeopleLeaveEntity.PeopleLeaveRrdBean();
-//        peopleLeaveRrdBean2.setApprover2No(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-//        setBaseArgument(peopleLeaveRrdBean2);
-//
-//        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean3 = new PeopleLeaveEntity.PeopleLeaveRrdBean();
-//        peopleLeaveRrdBean3.setApprover3No(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-//        setBaseArgument(peopleLeaveRrdBean3);
-//
-//        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean4 = new PeopleLeaveEntity.PeopleLeaveRrdBean();
-//        peopleLeaveRrdBean4.setApprover4No(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-//        setBaseArgument(peopleLeaveRrdBean4);
-//
-//        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean5 = new PeopleLeaveEntity.PeopleLeaveRrdBean();
-//        peopleLeaveRrdBean5.setApprover5No(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-//        setBaseArgument(peopleLeaveRrdBean5);
-
         List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
         list.add(peopleLeaveRrdBean);
-//        list.add(1,peopleLeaveRrdBean1);
-//        list.add(2,peopleLeaveRrdBean2);
-//        list.add(3,peopleLeaveRrdBean3);
-//        list.add(4,peopleLeaveRrdBean4);
-//        list.add(5,peopleLeaveRrdBean5);
         peopleLeaveEntity.setPeopleLeaveRrd(list);
         String json = new Gson().toJson(peopleLeaveEntity);
         String s = "get " + json;
-        L.e(TAG,s);
+        L.e(TAG+123,s);
 //        String url = CommonValues.BASE_URL;
 //        String url = ApplicationApp.getIP();
         SharedPreferences share = getActivity().getSharedPreferences(SAVE_IP, MODE_PRIVATE);
@@ -190,60 +160,30 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
         HttpManager.getInstance().requestResultForm(tempIP, s, PeopleLeaveEntity.class,new HttpManager.ResultCallback<PeopleLeaveEntity>() {
             @Override
             public void onSuccess(final String json, final PeopleLeaveEntity peopleLeaveEntity1) throws InterruptedException {
+//                if (peopleLeaveEntity1 != null && peopleLeaveEntity1.getPeopleLeaveRrd().size() > 0) {
+//                    if (beginNum == 1 && endNum == 10){
+//                        entityList.clear();
+//                    }
+//                    peopleLeaveEntity1.getPeopleLeaveRrd().get(finalI).setName(peopleInfoEntity.getPeopleInfo().get(0).getName());
+//                    peopleLeaveEntity1.getPeopleLeaveRrd().get(finalI).setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+//                    entityList.add(peopleLeaveEntity1.getPeopleLeaveRrd().get(finalI));
+//
+//                }else{
+//                    hasMore = false;
+//                }
+//                pb.setVisibility(View.GONE);
+//                ivEmpty.setVisibility(View.GONE);
+//                lv.completeRefresh();
+
                 if (peopleLeaveEntity1 != null && peopleLeaveEntity1.getPeopleLeaveRrd().size() > 0) {
-                    if (beginNum == 1 && endNum == 500){
+                    if (beginNum == 1 && endNum == 10){
                         entityList.clear();
                     }
-                    for (int i = beginNum - 1; i < endNum + 1; i++) {
-                        if (peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getBCancel().equals("0")){
-                            PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
-                            PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
-                            peopleInfoBean.setNo(peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getNo());
-                            peopleInfoBean.setName("?");
-                            peopleInfoBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-                            peopleInfoBean.setIsAndroid("1");
-                            List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
-                            beanList.add(peopleInfoBean);
-                            peopleEntity.setPeopleInfo(beanList);
-                            String json1 = new Gson().toJson(peopleEntity);
-                            String s1 = "get " + json1;
-                            final int finalI = i;
-                            //      String url = CommonValues.BASE_URL;
-                            //      String url = ApplicationApp.getIP();
-                            HttpManager.getInstance().requestResultForm(tempIP,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
-                                @Override
-                                public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
-                                    if (peopleInfoEntity != null){
-                                        peopleLeaveEntity1.getPeopleLeaveRrd().get(finalI).setName(peopleInfoEntity.getPeopleInfo().get(0).getName());
-                                        entityList.add(peopleLeaveEntity1.getPeopleLeaveRrd().get(finalI));
-                                        Comparator<PeopleLeaveEntity.PeopleLeaveRrdBean> comparator = new Comparator<PeopleLeaveEntity.PeopleLeaveRrdBean>() {
-                                            @Override
-                                            public int compare(PeopleLeaveEntity.PeopleLeaveRrdBean o1, PeopleLeaveEntity.PeopleLeaveRrdBean o2) {
-                                                Date date1 = DateUtil.stringToDate(o1.getRegisterTime());
-                                                Date date2 = DateUtil.stringToDate(o2.getRegisterTime());
-                                                if (date1.before(date2)) {
-                                                    return 1;
-                                                }
-                                                return -1;
-                                            }
-                                        } ;
-                                        Collections.sort(entityList, comparator);
-                                        adapter.notifyDataSetChanged();
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(String msg) {
-
-                                }
-
-                                @Override
-                                public void onResponse(String response) {
-
-                                }
-                            });
-                        }
-                    }
+                    hasMore = true;
+                    entityList.addAll(peopleLeaveEntity1.getPeopleLeaveRrd());
+                    adapter.notifyDataSetChanged();
+                } else {
+                    hasMore = false;
                 }
                 pb.setVisibility(View.GONE);
                 ivEmpty.setVisibility(View.GONE);
@@ -260,40 +200,11 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
                     }
                 });
             }
-
             @Override
             public void onResponse(String response) {
                 ivEmpty.setVisibility(View.VISIBLE);
             }
         });
-    }
-
-    private void setBaseArgument(PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean1){
-        peopleLeaveRrdBean1.setNo("?");
-        peopleLeaveRrdBean1.setProcess("?");
-        peopleLeaveRrdBean1.setContent("?");
-        peopleLeaveRrdBean1.setOutType("?");
-        peopleLeaveRrdBean1.setBeginNum(String.valueOf(beginNum));
-        peopleLeaveRrdBean1.setEndNum(String.valueOf(endNum));
-        peopleLeaveRrdBean1.setNoIndex("?");
-        peopleLeaveRrdBean1.setModifyTime("?");
-        peopleLeaveRrdBean1.setRegisterTime("?");
-        peopleLeaveRrdBean1.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-        peopleLeaveRrdBean1.setIsAndroid("1");
-        peopleLeaveRrdBean1.setBCancel("?");
-        peopleLeaveRrdBean1.setResult("?");
-        peopleLeaveRrdBean1.setCurrentApproveNo("?");
-    }
-
-    private void loadMore() {
-//        if (hasMore) {
-//            beginNum += 10;
-//            endNum += 10;
-////            loadData(beginNum, endNum);
-//            lv.completeRefresh();
-//        } else {
-//            lv.completeRefresh();
-//        }
     }
 
     @Override
@@ -327,12 +238,11 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CommonValues.MYCOMM){
-            if (beginNum == 1 && endNum == 500){
+            if (beginNum == 1 && endNum == 10){
                 entityList.clear();
             }
-            loadData(1,500);
+            loadData(1,10);
             adapter.notifyDataSetChanged();
-
         }
     }
 
@@ -356,7 +266,7 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
                 if (bean.getName().replace(" ", "").contains(key)){
                     list.add(bean);
                 }
-                if ((bean.getCurrentApproveNo().equals(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo())?"未审批":"已审批")
+                if ((bean.getCurrentApproverNo().equals(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo())?"未审批":"已审批")
                         .replace(" ","").contains(key)){
                     list.add(bean);
                 }
@@ -382,14 +292,28 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
 
     @Override
     public void onPullRefresh() {
+//        beginNum = 1;
+//        endNum = 10;
+//        loadData(beginNum, endNum);
+//        lv.completeRefresh();
+
+        hasMore = true;
+        beginNum = 1;
+        endNum = 10;
         loadData(beginNum, endNum);
         lv.completeRefresh();
     }
 
     @Override
     public void onLoadingMore() {
+        if (hasMore) {
+            beginNum += 10;
+            endNum += 10;
+            loadData(beginNum, endNum);
+        }
         lv.completeRefresh();
-//        loadMore();
+        ivEmpty.setVisibility(View.GONE);
+        L.e("567567567567567567567");
     }
 
     @Override
