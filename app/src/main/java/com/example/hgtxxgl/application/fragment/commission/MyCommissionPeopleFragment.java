@@ -45,6 +45,7 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
     private static final String TAG = "MyCommissionPeopleFragment";
     private String tempIP;
     SimpleListView lv;
+    private String authenticationNo;
 
     public MyCommissionPeopleFragment() {
 
@@ -65,34 +66,25 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
             ((ArrayList<PeopleLeaveEntity.PeopleLeaveRrdBean>) entityList, R.layout.layout_commission) {
         @Override
         public void bindView(ViewHolder holder, PeopleLeaveEntity.PeopleLeaveRrdBean bean) {
-            if (bean.getBCancel().equals("0")) {
                 holder.setText(R.id.tv_title, "申请人:" + bean.getName());
                 holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss"));
                 holder.setText(R.id.tv_sketch, "申请事由:" + (bean.getContent().isEmpty() ? "无" : bean.getContent()));
-            }
-            if (bean.getBCancel().equals("0")){
-                if (bean.getProcess().equals("1")){
+                if (bean.getApproverNo().contains(authenticationNo)){
                     holder.setImageResource(R.id.image_flow,R.drawable.ic_approved);
                     holder.setTextColor(R.id.tv_sketch, Color.rgb(0,128,0));
                     holder.setTextColor(R.id.tv_title, Color.rgb(0,128,0));
-                }else if (bean.getProcess().equals("0")){
-//                    if (bean.getAuthenticationNo().equals(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo())){
-                        holder.setImageResource(R.id.image_flow,R.drawable.ic_no_approve);
-                        holder.setTextColor(R.id.tv_sketch, Color.rgb(214,16,24));
-                        holder.setTextColor(R.id.tv_title, Color.rgb(214,16,24));
-//                    }else {
-//                        holder.setImageResource(R.id.image_flow,R.drawable.ic_approved);
-//                        holder.setTextColor(R.id.tv_sketch, Color.rgb(0,128,0));
-//                        holder.setTextColor(R.id.tv_title, Color.rgb(0,128,0));
-//                    }
+                }else {
+                    holder.setImageResource(R.id.image_flow,R.drawable.ic_no_approve);
+                    holder.setTextColor(R.id.tv_sketch, Color.rgb(214,16,24));
+                    holder.setTextColor(R.id.tv_title, Color.rgb(214,16,24));
                 }
-            }
         }
     };
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        authenticationNo = ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo();
         loadData(beginNum, endNum);
     }
 
@@ -128,16 +120,15 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
         PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
         PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
         peopleLeaveRrdBean.setNo("?");
-        peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        peopleLeaveRrdBean.setAuthenticationNo(authenticationNo);
         peopleLeaveRrdBean.setIsAndroid("1");
-//        peopleLeaveRrdBean.setCurrentApproverNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
         peopleLeaveRrdBean.setRegisterTime("?");
         peopleLeaveRrdBean.setOutTime("?");
         peopleLeaveRrdBean.setInTime("?");
         peopleLeaveRrdBean.setContent("?");
         peopleLeaveRrdBean.setModifyTime("?");
         peopleLeaveRrdBean.setProcess("?");
-        peopleLeaveRrdBean.setBCancel("?");
+        peopleLeaveRrdBean.setBCancel("0");
         peopleLeaveRrdBean.setBFillup("?");
         peopleLeaveRrdBean.setNoIndex("?");
         peopleLeaveRrdBean.setResult("?");
@@ -152,7 +143,7 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
         peopleLeaveEntity.setPeopleLeaveRrd(list);
         String json = new Gson().toJson(peopleLeaveEntity);
         String s = "get " + json;
-        L.e(TAG+123,s);
+        L.e(TAG+"MyCommissionPeopleFragment",s);
 //        String url = CommonValues.BASE_URL;
 //        String url = ApplicationApp.getIP();
         SharedPreferences share = getActivity().getSharedPreferences(SAVE_IP, MODE_PRIVATE);
@@ -179,6 +170,7 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
                     if (beginNum == 1 && endNum == 10){
                         entityList.clear();
                     }
+                    L.e(TAG+"MyCommissionPeopleFragment",peopleLeaveEntity1.toString());
                     hasMore = true;
                     entityList.addAll(peopleLeaveEntity1.getPeopleLeaveRrd());
                     adapter.notifyDataSetChanged();
@@ -266,7 +258,7 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
                 if (bean.getName().replace(" ", "").contains(key)){
                     list.add(bean);
                 }
-                if ((bean.getCurrentApproverNo().equals(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo())?"未审批":"已审批")
+                if ((bean.getApproverNo().contains(authenticationNo)?"已审批":"未审批")
                         .replace(" ","").contains(key)){
                     list.add(bean);
                 }
@@ -292,11 +284,6 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
 
     @Override
     public void onPullRefresh() {
-//        beginNum = 1;
-//        endNum = 10;
-//        loadData(beginNum, endNum);
-//        lv.completeRefresh();
-
         hasMore = true;
         beginNum = 1;
         endNum = 10;
@@ -313,7 +300,6 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
         }
         lv.completeRefresh();
         ivEmpty.setVisibility(View.GONE);
-        L.e("567567567567567567567");
     }
 
     @Override

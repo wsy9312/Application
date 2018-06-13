@@ -140,7 +140,7 @@ public class MyLaunchPeopleFragment extends Fragment implements SimpleListView.O
         peopleLeaveEntity.setPeopleLeaveRrd(list);
         String json = new Gson().toJson(peopleLeaveEntity);
         final String s = "get " + json;
-        L.e("111222333",s);
+        L.e(TAG+"MyLaunchPeopleFragment",s);
         //  String url = CommonValues.BASE_URL;
         //  String url = ApplicationApp.getIP();
         SharedPreferences share = getActivity().getSharedPreferences(SAVE_IP, MODE_PRIVATE);
@@ -152,6 +152,7 @@ public class MyLaunchPeopleFragment extends Fragment implements SimpleListView.O
                     if (beginNum == 1 && endNum == 10){
                         entityList.clear();
                     }
+                    L.e(TAG+"MyLaunchPeopleFragment",peopleLeaveEntity1.toString());
                     hasMore = true;
                     entityList.addAll(peopleLeaveEntity1.getPeopleLeaveRrd());
                     adapter.notifyDataSetChanged();

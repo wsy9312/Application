@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 
+import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
 import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
 import com.example.hgtxxgl.application.rest.CommonFragment;
 import com.example.hgtxxgl.application.rest.HandInputGroup;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
+import com.example.hgtxxgl.application.utils.hand.StringUtils;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
 import com.example.hgtxxgl.application.utils.hyutils.L;
 import com.example.hgtxxgl.application.view.HandToolbar;
@@ -18,12 +20,14 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+
 //人员外出审批
 public class RestApprovePeopleFragment extends CommonFragment {
     private final static String TAG = "RestApprovePeopleFragment";
     private String noindex;
     private String no;
-//    private String tempIP;
+    private String unit;
+    private int fenNum;
 
     public RestApprovePeopleFragment(){
 
@@ -39,7 +43,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
 
     @Override
     public String[] getBottomButtonsTitles() {
-        return new String[]{"同 意","拒 绝"};
+        return new String[]{"同意结束","拒 绝","同意上报","退 回"};
     }
 
     private String[] stringnull = new String[]{""};
@@ -48,27 +52,27 @@ public class RestApprovePeopleFragment extends CommonFragment {
     public List<Group> getGroupList() {
         if (entity == null) return null;
         List<Group> groups = new ArrayList<>();
-//        String levelNumStr = entity.getLevelNum();
-        String processStr = entity.getProcess();
-//        String multiLevelResultStr = entity.getMultiLevelResult();
-//        int levelNum = Integer.parseInt(levelNumStr);
-        int process = Integer.parseInt(processStr);
+        int process = Integer.parseInt(entity.getProcess());
         List<HandInputGroup.Holder> list = new ArrayList<>();
-        list.add(new HandInputGroup.Holder("流程内容", true, false, "人员请假", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
-        list.add(new HandInputGroup.Holder("审批状态", true, false, process == 0?"未结束":"已结束", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
-
+        list.add(new HandInputGroup.Holder("流程内容", true, false, "请假申请", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
+        list.add(new HandInputGroup.Holder("审批状态", true, false, process == 0?"审批中":"审批结束", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
+        int substring = Integer.parseInt(entity.getResult());
         if (process == 1){
             setButtonsTitles(stringnull);
-//            String substring = multiLevelResultStr.substring(0, levelNum);
-//            if (substring.endsWith("1")){
-//                list.add(new HandInputGroup.Holder("审批结果", true, false, "同意", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
-//            }else{
-//                list.add(new HandInputGroup.Holder("审批结果", true, false, "拒绝", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
-//            }
+            switch (substring){
+                case 0:
+                    list.add(new HandInputGroup.Holder("审批结果", true, false, "不同意", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
+                    break;
+                case 1:
+                    list.add(new HandInputGroup.Holder("审批结果", true, false, "同意", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
+                    break;
+                case 2:
+                    list.add(new HandInputGroup.Holder("审批结果", true, false, "被退回", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
+                    break;
+            }
         }else{
-            list.add(new HandInputGroup.Holder("审批结果", true, false, "暂无", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
+             list.add(new HandInputGroup.Holder("审批结果", true, false, "暂无", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
         }
-
         if (entity.getBCancel().equals("0")){
             if (entity.getProcess().equals("1")){
                 setButtonsTitles(stringnull);
@@ -79,18 +83,45 @@ public class RestApprovePeopleFragment extends CommonFragment {
 
         List<HandInputGroup.Holder> holderList = new ArrayList<>();
         holderList.add(new HandInputGroup.Holder("申请人", true, false, getArguments().getString("name"), HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("单位", true, false, unit, HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("申请类型", true, false, entity.getOutType(), HandInputGroup.VALUE_TYPE.TEXT));
-        holderList.add(new HandInputGroup.Holder("预计外出时间", true, false, entity.getOutTime(), HandInputGroup.VALUE_TYPE.TEXT));
-        holderList.add(new HandInputGroup.Holder("预计归来时间", true, false, entity.getInTime(), HandInputGroup.VALUE_TYPE.TEXT));
-        holderList.add(new HandInputGroup.Holder("申请原因", true, false, entity.getContent(), HandInputGroup.VALUE_TYPE.TEXT));
-        holderList.add(new HandInputGroup.Holder("是否后补请假", true, false, entity.getBFillup().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("离队时间", true, false, entity.getOutTime(), HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("归队时间", true, false, entity.getInTime(), HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("事由", true, false, entity.getContent(), HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("去向", true, false, entity.getDestination(), HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("是否后补申请", true, false, entity.getBFillup().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
         groups.add(new Group("基本信息", null, false, null, holderList));
+
+        String split1 = entity.getHisAnnotation();
+        String split3 = entity.getApproverName();
+        String [] arrAnnotation = split1.split(";");
+        String [] arrName = split3.split(";");
+        List<HandInputGroup.Holder> holder = new ArrayList<>();
+        if (entity.getBCancel().equals("0")){
+            if (process == 1){
+                for (int i = 0; i < fenNum; i++) {
+                    holder.add(new HandInputGroup.Holder(arrName[i], false, false, arrAnnotation[i], HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(170,170,170)));
+                }
+                groups.add(new Group("批注信息", null, false, null, holder));
+            }else{
+                for (int i = 0; i < fenNum; i++) {
+                    holder.add(new HandInputGroup.Holder(arrName[i], false, false, arrAnnotation[i], HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(170,170,170)));
+                    if (!arrName[i].contains(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName())){
+                        holder.add(new HandInputGroup.Holder("当前审批人批注:", false, false, "/请填写", HandInputGroup.VALUE_TYPE.BIG_EDIT));
+                    }
+                }
+                if (fenNum == 0){
+                    holder.add(new HandInputGroup.Holder("当前审批人批注:", false, false, "/请填写", HandInputGroup.VALUE_TYPE.BIG_EDIT));
+                }
+                groups.add(new Group("批注信息", null, false, null, holder));
+            }
+        }
         return groups;
     }
 
     public void setToolbar(HandToolbar toolbar) {
         toolbar.setDisplayHomeAsUpEnabled(true, getActivity());
-        toolbar.setTitle("人员请假审批");
+        toolbar.setTitle("请假审批");
         toolbar.setTitleSize(18);
     }
 
@@ -98,11 +129,41 @@ public class RestApprovePeopleFragment extends CommonFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadData();
-//        if (no.isEmpty()){
-//            setPb(true);
-//        }else{
-//            getNameFromNo(no);
-//        }
+        if (no.isEmpty()){
+            setPb(true);
+        }else{
+            getUnitFromNo(no);
+        }
+    }
+
+    private void getUnitFromNo(String no) {
+        PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
+        PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
+        peopleInfoBean.setNo(no);
+        peopleInfoBean.setUnit("?");
+        peopleInfoBean.setIsAndroid("1");
+        List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
+        beanList.add(peopleInfoBean);
+        peopleEntity.setPeopleInfo(beanList);
+        String json = new Gson().toJson(peopleEntity);
+        String s1 = "get " + json;
+        HttpManager.getInstance().requestResultForm(getTempIP(),s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
+            @Override
+            public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
+                if (peopleInfoEntity != null){
+                    unit = peopleInfoEntity.getPeopleInfo().get(0).getUnit();
+                }
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+
+            @Override
+            public void onResponse(String response) {
+            }
+        });
     }
 
     private void show(final String msg) {
@@ -126,44 +187,42 @@ public class RestApprovePeopleFragment extends CommonFragment {
         String bfillup = getArguments().getString("bfillup");
         String process = getArguments().getString("process");
         noindex = getArguments().getString("noindex");
-        PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
-
+        final PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
         PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
-        setBaseArgument(peopleLeaveRrdBean);
-        peopleLeaveRrdBean.setCurrentApproverNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-
-        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean1 = new PeopleLeaveEntity.PeopleLeaveRrdBean();
-        setBaseArgument(peopleLeaveRrdBean1);
-
-        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean2 = new PeopleLeaveEntity.PeopleLeaveRrdBean();
-        setBaseArgument(peopleLeaveRrdBean2);
-
-        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean3 = new PeopleLeaveEntity.PeopleLeaveRrdBean();
-        setBaseArgument(peopleLeaveRrdBean3);
-
-        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean4 = new PeopleLeaveEntity.PeopleLeaveRrdBean();
-        setBaseArgument(peopleLeaveRrdBean4);
-
-        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean5 = new PeopleLeaveEntity.PeopleLeaveRrdBean();
-        setBaseArgument(peopleLeaveRrdBean5);
-
-        setApproveNo(peopleLeaveRrdBean1,peopleLeaveRrdBean2,peopleLeaveRrdBean3,peopleLeaveRrdBean4,peopleLeaveRrdBean5);
-
+        peopleLeaveRrdBean.setRegisterTime("?");//
+        peopleLeaveRrdBean.setOutTime("?");//
+        peopleLeaveRrdBean.setInTime("?");//
+        peopleLeaveRrdBean.setContent("?");//
+        peopleLeaveRrdBean.setActualOutTime("?");//
+        peopleLeaveRrdBean.setActualInTime("?");//
+        peopleLeaveRrdBean.setModifyTime("?");//
+        peopleLeaveRrdBean.setProcess("?");//
+        peopleLeaveRrdBean.setBCancel("?");//
+        peopleLeaveRrdBean.setBFillup("?");//
+        peopleLeaveRrdBean.setIsAndroid("1");//
+        peopleLeaveRrdBean.setNoIndex(noindex);//
+        peopleLeaveRrdBean.setNo("?");//
+        peopleLeaveRrdBean.setOutType("?");//
+        peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());//
+        peopleLeaveRrdBean.setDestination("?");//
+        peopleLeaveRrdBean.setApproverNo("?");//
+        peopleLeaveRrdBean.setHisAnnotation("?");//
+        peopleLeaveRrdBean.setResult("?");//
         List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
-        list.add(0,peopleLeaveRrdBean);
-        list.add(1,peopleLeaveRrdBean1);
-        list.add(2,peopleLeaveRrdBean2);
-        list.add(3,peopleLeaveRrdBean3);
-        list.add(4,peopleLeaveRrdBean4);
-        list.add(5,peopleLeaveRrdBean5);
+        list.add(peopleLeaveRrdBean);
         peopleLeaveEntity.setPeopleLeaveRrd(list);
         String toJson = new Gson().toJson(peopleLeaveEntity);
         String s="get "+toJson;
-        L.e(TAG,"人员审批详情："+s);
+        L.e(TAG+"RestApprovePeopleFragment",s);
         //        String url = CommonValues.BASE_URL;
 //        String url = ApplicationApp.getIP();
 //        SharedPreferences share = getActivity().getSharedPreferences(SAVE_IP, MODE_PRIVATE);
 //        tempIP = share.getString("tempIP", "IP address is empty");
+        /*get {"PeopleLeaveRrd":[{"ActualInTime":"?","ActualOutTime":"?","AuthenticationNo":"FD3CD878",
+                "Content":"?","Destination":"?","InTime":"?","IsAndroid":"1","ModifyTime":"?","No":"?",
+                "NoIndex":"39","OutTime":"?","OutType":"?","Process":"?","RegisterTime":"?","bCancel":"?",
+                "bFillup":"?","HisAnnotation":"?","ApproverNo":"?","Result":"?"}]}*/
+
         HttpManager.getInstance().requestResultForm(getTempIP(), s, PeopleLeaveEntity.class, new HttpManager.ResultCallback<PeopleLeaveEntity>() {
             @Override
             public void onSuccess(String json, final PeopleLeaveEntity peopleLeaveEntity1) throws InterruptedException {
@@ -172,6 +231,11 @@ public class RestApprovePeopleFragment extends CommonFragment {
                     public void run() {
                         if (peopleLeaveEntity1 != null){
                             if (peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getBCancel().equals("0")){
+                                String hisAnnotation = peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getHisAnnotation();
+                                String str = ";";
+                                fenNum = StringUtils.method_5(hisAnnotation, str);
+                                L.e(fenNum +"++++++++++++++++++++");
+                                L.e(TAG+"RestApprovePeopleFragment",peopleLeaveEntity1.toString());
                                 setEntity(peopleLeaveEntity1.getPeopleLeaveRrd().get(0));
                                 setGroup(getGroupList());
                                 setPb(false);
@@ -193,79 +257,30 @@ public class RestApprovePeopleFragment extends CommonFragment {
         });
     }
 
-    private void setBaseArgument(PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean){
-        peopleLeaveRrdBean.setRegisterTime("?");
-        peopleLeaveRrdBean.setOutTime("?");
-//        peopleLeaveRrdBean.setOnduty("?");
-        peopleLeaveRrdBean.setInTime("?");
-        peopleLeaveRrdBean.setContent("?");
-        peopleLeaveRrdBean.setActualOutTime("?");
-        peopleLeaveRrdBean.setActualInTime("?");
-        peopleLeaveRrdBean.setModifyTime("?");
-//        peopleLeaveRrdBean.setMultiLevelResult("?");
-        peopleLeaveRrdBean.setProcess("?");
-//        peopleLeaveRrdBean.setLevelNum("?");
-        peopleLeaveRrdBean.setBCancel("?");
-        peopleLeaveRrdBean.setBFillup("?");
-        peopleLeaveRrdBean.setBeginNum("?");
-        peopleLeaveRrdBean.setEndNum("?");
-        peopleLeaveRrdBean.setIsAndroid("1");
-        peopleLeaveRrdBean.setNoIndex(noindex);
-        peopleLeaveRrdBean.setNo(no);
-        peopleLeaveRrdBean.setOutType("?");
-        peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-    }
-
-    public void setApproveNo(PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean1,
-                             PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean2,
-                             PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean3,
-                             PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean4,
-                             PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean5){
-//        peopleLeaveRrdBean1.setApprover1No(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-//        peopleLeaveRrdBean1.setApprover2No("?");
-//        peopleLeaveRrdBean1.setApprover3No("?");
-//        peopleLeaveRrdBean1.setApprover4No("?");
-//        peopleLeaveRrdBean1.setApprover5No("?");
-//
-//        peopleLeaveRrdBean2.setApprover1No("?");
-//        peopleLeaveRrdBean2.setApprover2No(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-//        peopleLeaveRrdBean2.setApprover3No("?");
-//        peopleLeaveRrdBean2.setApprover4No("?");
-//        peopleLeaveRrdBean2.setApprover5No("?");
-//
-//        peopleLeaveRrdBean3.setApprover1No("?");
-//        peopleLeaveRrdBean3.setApprover2No("?");
-//        peopleLeaveRrdBean3.setApprover3No(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-//        peopleLeaveRrdBean3.setApprover4No("?");
-//        peopleLeaveRrdBean3.setApprover5No("?");
-//
-//        peopleLeaveRrdBean4.setApprover1No("?");
-//        peopleLeaveRrdBean4.setApprover2No("?");
-//        peopleLeaveRrdBean4.setApprover3No("?");
-//        peopleLeaveRrdBean4.setApprover4No(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-//        peopleLeaveRrdBean4.setApprover5No("?");
-//
-//        peopleLeaveRrdBean5.setApprover1No("?");
-//        peopleLeaveRrdBean5.setApprover2No("?");
-//        peopleLeaveRrdBean5.setApprover3No("?");
-//        peopleLeaveRrdBean5.setApprover4No("?");
-//        peopleLeaveRrdBean5.setApprover5No(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-    }
-
     @Override
     public void onBottomButtonsClick(String title, List<Group> groups) {
         //        String url = CommonValues.BASE_URL;
 //        final String url = ApplicationApp.getIP();
         PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
         PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
-        peopleLeaveRrdBean.setCurrentApproverNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
         peopleLeaveRrdBean.setNoIndex(noindex);
-        if (title.equals("同 意")){
-            peopleLeaveRrdBean.setResult("1");
-        }else {
-            peopleLeaveRrdBean.setResult("0");
+        switch (title){
+            case "同意结束":
+                peopleLeaveRrdBean.setCurResult("3");
+                break;
+            case "拒 绝":
+                peopleLeaveRrdBean.setCurResult("0");
+                break;
+            case "同意上报":
+                peopleLeaveRrdBean.setCurResult("2");
+                break;
+            case "退 回":
+                peopleLeaveRrdBean.setCurResult("1");
+                break;
         }
+        String realValue = getDisplayValueByKey("当前审批人批注:").getRealValue();
         peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        peopleLeaveRrdBean.setCurannotation(realValue);
         peopleLeaveRrdBean.setIsAndroid("1");
         List<PeopleLeaveEntity.PeopleLeaveRrdBean> beanList = new ArrayList<>();
         beanList.add(peopleLeaveRrdBean);
@@ -307,7 +322,6 @@ public class RestApprovePeopleFragment extends CommonFragment {
                     show("审批成功");
                     getActivity().finish();
                 }else{
-//                    show("申请人已取消申请,审批结束");
                     show("审批已完成,正在等待其他人审批");
                     getActivity().finish();
                 }

@@ -117,4 +117,32 @@ public class StringUtils {
         return builder.toString();
     }
 
+    /**
+     * 判断str1中包含str2的个数
+     * @param str1
+     * @param str2
+     * @return counter
+     */
+    public static int countStr(String str1, String str2) {
+        int counter = 0;
+        if (str1.indexOf(str2) == -1) {
+            return 0;
+        } else if (str1.indexOf(str2) != -1) {
+            counter++;
+            countStr(str1.substring(str1.indexOf(str2) +
+                    str2.length()), str2);
+            return counter;
+        }
+        return 0;
+    }
+
+    public static int method_5(String string, String a) {
+        int counter = 0;
+        for (int i = 0; i <= string.length() - a.length(); i++) {
+            if (string.substring(i, i + a.length()).equals(a)) {
+                counter++;
+            }
+        }
+        return counter;
+    }
 }

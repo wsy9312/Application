@@ -44,6 +44,7 @@ public class PeopleLeaveEntity {
          * bMessage :
          * OutType :
          * ApproverNo :
+         * ApproverName :
          * HisAnnotation :历史批注
          * Curannotation :当前批注
          * OutStatus :外出状态：0：在岗，1：外出 默认0
@@ -73,6 +74,7 @@ public class PeopleLeaveEntity {
         private String bMessage;
         private String OutType;
         private String ApproverNo;
+        private String ApproverName;
         private String HisAnnotation;
         private String Curannotation;
         private String OutStatus;
@@ -328,6 +330,14 @@ public class PeopleLeaveEntity {
 
         public void setEndNum(String endNum) {
             EndNum = endNum;
+        }
+
+        public String getApproverName() {
+            return ApproverName;
+        }
+
+        public void setApproverName(String approverName) {
+            ApproverName = approverName;
         }
 
     }
