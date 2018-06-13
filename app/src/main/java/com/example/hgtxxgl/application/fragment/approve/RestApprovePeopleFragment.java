@@ -94,6 +94,8 @@ public class RestApprovePeopleFragment extends CommonFragment {
 
         String split1 = entity.getHisAnnotation();
         String split3 = entity.getApproverName();
+        L.e(TAG,split1);
+        L.e(TAG,split3);
         String [] arrAnnotation = split1.split(";");
         String [] arrName = split3.split(";");
         List<HandInputGroup.Holder> holder = new ArrayList<>();
@@ -104,14 +106,15 @@ public class RestApprovePeopleFragment extends CommonFragment {
                 }
                 groups.add(new Group("批注信息", null, false, null, holder));
             }else{
-                for (int i = 0; i < fenNum; i++) {
-                    holder.add(new HandInputGroup.Holder(arrName[i], false, false, arrAnnotation[i], HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(170,170,170)));
-                    if (!arrName[i].contains(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName())){
-                        holder.add(new HandInputGroup.Holder("当前审批人批注:", false, false, "/请填写", HandInputGroup.VALUE_TYPE.BIG_EDIT));
-                    }
-                }
                 if (fenNum == 0){
                     holder.add(new HandInputGroup.Holder("当前审批人批注:", false, false, "/请填写", HandInputGroup.VALUE_TYPE.BIG_EDIT));
+                }else{
+                    for (int i = 0; i < fenNum; i++) {
+                    holder.add(new HandInputGroup.Holder(arrName[i], false, false, arrAnnotation[i], HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(170,170,170)));
+                        if (!arrName[i].contains(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName())){
+                            holder.add(new HandInputGroup.Holder("当前审批人批注:", false, false, "/请填写", HandInputGroup.VALUE_TYPE.BIG_EDIT));
+                        }
+                    }
                 }
                 groups.add(new Group("批注信息", null, false, null, holder));
             }
@@ -278,7 +281,8 @@ public class RestApprovePeopleFragment extends CommonFragment {
                 peopleLeaveRrdBean.setCurResult("1");
                 break;
         }
-        String realValue = getDisplayValueByKey("当前审批人批注:").getRealValue();
+        String realValue1 = getDisplayValueByKey("当前审批人批注:").getRealValue();
+        String realValue = realValue1.isEmpty()?"无批注":realValue1;
         peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
         peopleLeaveRrdBean.setCurannotation(realValue);
         peopleLeaveRrdBean.setIsAndroid("1");
