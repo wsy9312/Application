@@ -22,6 +22,7 @@ public class CarLeaveEntity {
          * Name :
          * IsAndroid :
          * ApproverNo :
+         * ApproverName :
          * CurrentApproveNo :
          * CarNo :
          * Process :
@@ -54,6 +55,7 @@ public class CarLeaveEntity {
         private String Name;
         private String IsAndroid;
         private String ApproverNo;
+        private String ApproverName;
         private String CurrentApproveNo;
         private String CarNo;
         private String Process;
@@ -118,6 +120,14 @@ public class CarLeaveEntity {
 
         public void setApproverNo(String ApproverNo) {
             this.ApproverNo = ApproverNo;
+        }
+
+        public String getApproverName() {
+            return ApproverName;
+        }
+
+        public void setApproverName(String approverName) {
+            ApproverName = approverName;
         }
 
         public String getCurrentApproveNo() {

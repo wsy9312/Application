@@ -18,38 +18,73 @@ public class CarInfoEntity {
         this.CarInfo = CarInfo;
     }
 
+    @Override
+    public String toString() {
+        return "CarInfoEntity{" +
+                "CarInfo=" + CarInfo +
+                '}';
+    }
+
     public static class CarInfoBean {
         /**
          * AuthenticationNo :
          * No : 
          * IsAndroid :
          * Owner1No :
+         * Owner1Name :
          * Owner2No :
+         * Owner2Name :
          * ModifyTime :
          * RegisterTime :
-         * GroupName :
          * NoIndex :
          * CarType :
          * SeatCount :
          * PurchaseDate :
          * MaintenancePeriodT :
          * MaintenancePeriodM :
+         * BeginNum :
+         * EndNum :
          */
-
         private String AuthenticationNo;
         private String No;
         private String IsAndroid;
         private String Owner1No;
+        private String Owner1Name;
         private String Owner2No;
+        private String Owner2Name;
         private String ModifyTime;
         private String RegisterTime;
-        private String GroupName;
         private String NoIndex;
         private String CarType;
         private String SeatCount;
         private String PurchaseDate;
         private String MaintenancePeriodT;
         private String MaintenancePeriodM;
+        private String BeginNum;
+        private String EndNum;
+
+        @Override
+        public String toString() {
+            return "CarInfoBean{" +
+                    "AuthenticationNo='" + AuthenticationNo + '\'' +
+                    ", No='" + No + '\'' +
+                    ", IsAndroid='" + IsAndroid + '\'' +
+                    ", Owner1No='" + Owner1No + '\'' +
+                    ", Owner1Name='" + Owner1Name + '\'' +
+                    ", Owner2No='" + Owner2No + '\'' +
+                    ", Owner2Name='" + Owner2Name + '\'' +
+                    ", ModifyTime='" + ModifyTime + '\'' +
+                    ", RegisterTime='" + RegisterTime + '\'' +
+                    ", NoIndex='" + NoIndex + '\'' +
+                    ", CarType='" + CarType + '\'' +
+                    ", SeatCount='" + SeatCount + '\'' +
+                    ", PurchaseDate='" + PurchaseDate + '\'' +
+                    ", MaintenancePeriodT='" + MaintenancePeriodT + '\'' +
+                    ", MaintenancePeriodM='" + MaintenancePeriodM + '\'' +
+                    ", BeginNum='" + BeginNum + '\'' +
+                    ", EndNum='" + EndNum + '\'' +
+                    '}';
+        }
 
         public String getAuthenticationNo() {
             return AuthenticationNo;
@@ -91,6 +126,22 @@ public class CarInfoEntity {
             this.Owner2No = Owner2No;
         }
 
+        public String getOwner1Name() {
+            return Owner1Name;
+        }
+
+        public void setOwner1Name(String owner1Name) {
+            Owner1Name = owner1Name;
+        }
+
+        public String getOwner2Name() {
+            return Owner2Name;
+        }
+
+        public void setOwner2Name(String owner2Name) {
+            Owner2Name = owner2Name;
+        }
+
         public String getModifyTime() {
             return ModifyTime;
         }
@@ -105,14 +156,6 @@ public class CarInfoEntity {
 
         public void setRegisterTime(String RegisterTime) {
             this.RegisterTime = RegisterTime;
-        }
-
-        public String getGroupName() {
-            return GroupName;
-        }
-
-        public void setGroupName(String GroupName) {
-            this.GroupName = GroupName;
         }
 
         public String getNoIndex() {
@@ -161,6 +204,22 @@ public class CarInfoEntity {
 
         public void setMaintenancePeriodM(String MaintenancePeriodM) {
             this.MaintenancePeriodM = MaintenancePeriodM;
+        }
+
+        public String getBeginNum() {
+            return BeginNum;
+        }
+
+        public void setBeginNum(String beginNum) {
+            BeginNum = beginNum;
+        }
+
+        public String getEndNum() {
+            return EndNum;
+        }
+
+        public void setEndNum(String endNum) {
+            EndNum = endNum;
         }
     }
 }
