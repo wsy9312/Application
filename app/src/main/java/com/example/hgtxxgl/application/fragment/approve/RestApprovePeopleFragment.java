@@ -71,6 +71,11 @@ public class RestApprovePeopleFragment extends CommonFragment {
                     break;
             }
         }else{
+            if(!entity.getApproverNo().isEmpty()){
+                if (entity.getApproverNo().contains(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo())) {
+                    setButtonsTitles(stringnull);
+                }
+            }
              list.add(new HandInputGroup.Holder("审批结果", true, false, "暂无", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
         }
         if (entity.getBCancel().equals("0")){
@@ -110,10 +115,10 @@ public class RestApprovePeopleFragment extends CommonFragment {
                     holder.add(new HandInputGroup.Holder("当前审批人批注:", false, false, "/请填写", HandInputGroup.VALUE_TYPE.BIG_EDIT));
                 }else{
                     for (int i = 0; i < fenNum; i++) {
-                    holder.add(new HandInputGroup.Holder(arrName[i], false, false, arrAnnotation[i], HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(170,170,170)));
-                        if (!arrName[i].contains(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName())){
-                            holder.add(new HandInputGroup.Holder("当前审批人批注:", false, false, "/请填写", HandInputGroup.VALUE_TYPE.BIG_EDIT));
-                        }
+                        holder.add(new HandInputGroup.Holder(arrName[i], false, false, arrAnnotation[i], HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(170,170,170)));
+                    }
+                    if (!split3.contains(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName())){
+                        holder.add(new HandInputGroup.Holder("当前审批人批注:", false, false, "/请填写", HandInputGroup.VALUE_TYPE.BIG_EDIT));
                     }
                 }
                 groups.add(new Group("批注信息", null, false, null, holder));
@@ -155,6 +160,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
             public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
                 if (peopleInfoEntity != null){
                     unit = peopleInfoEntity.getPeopleInfo().get(0).getUnit();
+                    L.e(TAG+"unit:",unit);
                 }
             }
 

@@ -221,7 +221,6 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
         bundle.putString("bfillup",adapter.getItem(position).getBFillup());
         bundle.putString("noindex",adapter.getItem(position).getNoIndex());
         bundle.putInt("item",position);
-//        bundle.putInt("tabIndex",tabIndex);
         intent.putExtra("data", bundle);
         startActivityForResult(intent,CommonValues.MYCOMM);
     }

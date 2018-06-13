@@ -100,9 +100,9 @@ public class PollingService extends Service {
 	class PollingThread extends Thread {
 		@Override
 		public void run() {
-//			getDataAlarmMessage();
-//			getDataAlarmApproveCar();
-//			getDataAlarmApprovePeople();
+			getDataAlarmMessage();
+			getDataAlarmApproveCar();
+			getDataAlarmApprovePeople();
 		}
 	}
 
