@@ -1,6 +1,5 @@
 package com.example.hgtxxgl.application.fragment.commission;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.DataSetObserver;
@@ -8,7 +7,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,22 +17,18 @@ import android.widget.TextView;
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.ItemActivity;
 import com.example.hgtxxgl.application.entity.CarLeaveEntity;
-import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
-import com.example.hgtxxgl.application.utils.DateUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.DataUtil;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.ListAdapter;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
+import com.example.hgtxxgl.application.utils.hyutils.L;
 import com.example.hgtxxgl.application.view.SimpleListView;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -43,13 +37,14 @@ import static com.example.hgtxxgl.application.utils.hand.Fields.SAVE_IP;
 //车辆审批列表
 public class MyCommissionCarFragment extends Fragment implements AdapterView.OnItemClickListener, SimpleListView.OnRefreshListener{
     private int beginNum = 1;
-    private int endNum = 500;
+    private int endNum = 10;
     private boolean hasMore = true;
     private TextView ivEmpty;
     private ProgressBar pb;
     private static final String TAG = "MyCommissionCarFragment";
     private String tempIP;
     SimpleListView lv;
+    private String authenticationNo;
 
     public MyCommissionCarFragment() {
 
@@ -73,17 +68,16 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
             holder.setText(R.id.tv_title, "申请人:"+bean.getName());
             holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss"));
             holder.setText(R.id.tv_sketch, "申请事由:"+(bean.getContent().isEmpty()?"无":bean.getContent()));
-            if (bean.getBCancel().equals("0")){
-                holder.setImageResource(R.id.image_flow,bean.getProcess().equals("1")?R.drawable.ic_approved:R.drawable.ic_no_approve);
-                holder.setTextColor(R.id.tv_sketch,bean.getProcess().equals("1")? Color.rgb(0,128,0):Color.rgb(214,16,24));
-                holder.setTextColor(R.id.tv_title,bean.getProcess().equals("1")? Color.rgb(0,128,0):Color.rgb(214,16,24));
-            }
+            holder.setImageResource(R.id.image_flow,bean.getApproverNo().contains(authenticationNo)?R.drawable.ic_approved:R.drawable.ic_no_approve);
+            holder.setTextColor(R.id.tv_sketch,bean.getApproverNo().contains(authenticationNo)? Color.rgb(0,128,0):Color.rgb(214,16,24));
+            holder.setTextColor(R.id.tv_title,bean.getApproverNo().contains(authenticationNo)? Color.rgb(0,128,0):Color.rgb(214,16,24));
         }
     };
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        authenticationNo = ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo();
         loadData(beginNum, endNum);
     }
 
@@ -118,89 +112,53 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
         }
         CarLeaveEntity carLeaveEntity = new CarLeaveEntity();
         CarLeaveEntity.CarLeaveRrdBean carLeaveRrdBean = new CarLeaveEntity.CarLeaveRrdBean();
-        carLeaveRrdBean.setBCancel("?");
-        carLeaveRrdBean.setNo("?");
-        carLeaveRrdBean.setApproverNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
-        carLeaveRrdBean.setProcess("?");
-        carLeaveRrdBean.setContent("?");
-        carLeaveRrdBean.setBeginNum(String.valueOf(beginNum));
-        carLeaveRrdBean.setEndNum(String.valueOf(endNum));
-        carLeaveRrdBean.setNoIndex("?");
-        carLeaveRrdBean.setModifyTime("?");
-        carLeaveRrdBean.setRegisterTime("?");
-        carLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-        carLeaveRrdBean.setIsAndroid("1");
-        carLeaveRrdBean.setResult("?");
+        carLeaveRrdBean.setNo("?");//1
+        carLeaveRrdBean.setAuthenticationNo(authenticationNo);//2
+        carLeaveRrdBean.setIsAndroid("1");//3
+        carLeaveRrdBean.setRegisterTime("?");//4
+        carLeaveRrdBean.setOutTime("?");//5
+        carLeaveRrdBean.setInTime("?");//6
+        carLeaveRrdBean.setContent("?");//7
+        carLeaveRrdBean.setModifyTime("?");//8
+        carLeaveRrdBean.setProcess("?");//9
+        carLeaveRrdBean.setBCancel("0");//10
+        carLeaveRrdBean.setBFillup("?");//11
+        carLeaveRrdBean.setNoIndex("?");//12
+        carLeaveRrdBean.setResult("?");//13
+        carLeaveRrdBean.setApproverNo("?");//15
+        carLeaveRrdBean.setHisAnnotation("?");//16
+        carLeaveRrdBean.setDestination("?");//17
+        carLeaveRrdBean.setCarNo("?");
+        carLeaveRrdBean.setDriverNo("?");
+        carLeaveRrdBean.setDriverName("?");
+        carLeaveRrdBean.setLeaderNo("?");
+        carLeaveRrdBean.setLeaderName("?");
+        carLeaveRrdBean.setBeginNum(String.valueOf(beginNum));//18
+        carLeaveRrdBean.setEndNum(String.valueOf(endNum));//19
         List<CarLeaveEntity.CarLeaveRrdBean> list = new ArrayList<>();
         list.add(carLeaveRrdBean);
         carLeaveEntity.setCarLeaveRrd(list);
         String json = new Gson().toJson(carLeaveEntity);
         final String s = "get " + json;
-//        String url = CommonValues.BASE_URL;
-//        String url = ApplicationApp.getIP();
+        L.e(TAG+"MyCommissionCarFragment",s);
         SharedPreferences share = getActivity().getSharedPreferences(SAVE_IP, MODE_PRIVATE);
         tempIP = share.getString("tempIP", "IP address is empty");
         HttpManager.getInstance().requestResultForm(tempIP, s, CarLeaveEntity.class,new HttpManager.ResultCallback<CarLeaveEntity>() {
             @Override
             public void onSuccess(final String json, final CarLeaveEntity carLeaveEntity1) throws InterruptedException {
                 if (carLeaveEntity1 != null && carLeaveEntity1.getCarLeaveRrd().size() > 0) {
-                    if (beginNum == 1 && endNum == 500){
+                    if (beginNum == 1 && endNum == 10){
                         entityList.clear();
                     }
-                    for (int i = beginNum - 1; i < endNum + 1; i++) {
-                        if (carLeaveEntity1.getCarLeaveRrd().get(i).getBCancel().equals("0")){
-                            PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
-                            PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
-                            peopleInfoBean.setNo(carLeaveEntity1.getCarLeaveRrd().get(i).getNo());
-                            peopleInfoBean.setName("?");
-                            peopleInfoBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-                            peopleInfoBean.setIsAndroid("1");
-                            List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
-                            beanList.add(peopleInfoBean);
-                            peopleEntity.setPeopleInfo(beanList);
-                            String json1 = new Gson().toJson(peopleEntity);
-                            String s1 = "get " + json1;
-                            Log.e(TAG,"1名字："+s1);
-                            final int finalI = i;
-                            //        String url = CommonValues.BASE_URL;
-//                            String url = ApplicationApp.getIP();
-                            HttpManager.getInstance().requestResultForm(tempIP,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
-                                @Override
-                                public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
-                                    if (peopleInfoEntity != null){
-                                        carLeaveEntity1.getCarLeaveRrd().get(finalI).setName(peopleInfoEntity.getPeopleInfo().get(0).getName());
-                                        entityList.add(carLeaveEntity1.getCarLeaveRrd().get(finalI));
-                                        Comparator<CarLeaveEntity.CarLeaveRrdBean> comparator = new Comparator<CarLeaveEntity.CarLeaveRrdBean>() {
-                                            @Override
-                                            public int compare(CarLeaveEntity.CarLeaveRrdBean o1, CarLeaveEntity.CarLeaveRrdBean o2) {
-                                                Date date1 = DateUtil.stringToDate(o1.getRegisterTime());
-                                                Date date2 = DateUtil.stringToDate(o2.getRegisterTime());
-                                                if (date1.before(date2)) {
-                                                    return 1;
-                                                }
-                                                return -1;
-                                            }
-                                        } ;
-                                        Collections.sort(entityList, comparator);
-                                        adapter.notifyDataSetChanged();
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(String msg) {
-
-                                }
-
-                                @Override
-                                public void onResponse(String response) {
-
-                                }
-                            });
-                        }
-                    }
-
+                    L.e(TAG+"MyCommissionCarFragment",carLeaveEntity1.toString());
+                    hasMore = true;
+                    entityList.addAll(carLeaveEntity1.getCarLeaveRrd());
+                    adapter.notifyDataSetChanged();
+                } else {
+                    hasMore = false;
                 }
                 pb.setVisibility(View.GONE);
+                ivEmpty.setVisibility(View.GONE);
                 lv.completeRefresh();
             }
 
@@ -221,18 +179,6 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
             }
         });
     }
-
-    private void loadMore() {
-//        if (hasMore) {
-//            beginNum += 10;
-//            endNum += 10;
-////            loadData(beginNum, endNum);
-//            lv.completeRefresh();
-//        } else {
-//            lv.completeRefresh();
-//        }
-    }
-
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -265,25 +211,11 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CommonValues.MYCOMM){
-            if (beginNum == 1 && endNum == 500){
+            if (beginNum == 1 && endNum == 10){
                 entityList.clear();
             }
-            loadData(1,500);
+            loadData(1,10);
             adapter.notifyDataSetChanged();
-            if (resultCode == Activity.RESULT_OK){
-                final int item = data.getExtras().getInt("item");
-//                final int tabIndex = data.getExtras().getInt("tabIndex");
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-//                        if (tabIndex == 0){
-                        entityList.remove(item);
-                        adapter.notifyDataSetChanged();
-//                        }
-                    }
-                });
-
-            }
         }
     }
 
@@ -308,7 +240,8 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
                 if (bean.getName().replace(" ", "").contains(key)){
                     list.add(bean);
                 }
-                if ((bean.getProcess().equals("1")?"已审批":"未审批").replace(" ","").contains(key)){
+                if ((bean.getApproverNo().contains(authenticationNo)?"已审批":"未审批")
+                        .replace(" ","").contains(key)){
                     list.add(bean);
                 }
                 if ((DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss")).replace(" ", "").contains(key)) {
@@ -328,22 +261,26 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
                 adapter.notifyDataSetChanged();
             }
         }
-
     }
 
     @Override
     public void onPullRefresh() {
-        if (beginNum == 1 && endNum == 500){
-            entityList.clear();
-        }
+        hasMore = true;
+        beginNum = 1;
+        endNum = 10;
         loadData(beginNum, endNum);
         lv.completeRefresh();
     }
 
     @Override
     public void onLoadingMore() {
+        if (hasMore) {
+            beginNum += 10;
+            endNum += 10;
+            loadData(beginNum, endNum);
+        }
         lv.completeRefresh();
-//        loadMore();
+        ivEmpty.setVisibility(View.GONE);
     }
 
     @Override

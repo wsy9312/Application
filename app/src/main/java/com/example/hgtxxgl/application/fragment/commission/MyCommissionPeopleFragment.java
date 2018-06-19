@@ -151,21 +151,6 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
         HttpManager.getInstance().requestResultForm(tempIP, s, PeopleLeaveEntity.class,new HttpManager.ResultCallback<PeopleLeaveEntity>() {
             @Override
             public void onSuccess(final String json, final PeopleLeaveEntity peopleLeaveEntity1) throws InterruptedException {
-//                if (peopleLeaveEntity1 != null && peopleLeaveEntity1.getPeopleLeaveRrd().size() > 0) {
-//                    if (beginNum == 1 && endNum == 10){
-//                        entityList.clear();
-//                    }
-//                    peopleLeaveEntity1.getPeopleLeaveRrd().get(finalI).setName(peopleInfoEntity.getPeopleInfo().get(0).getName());
-//                    peopleLeaveEntity1.getPeopleLeaveRrd().get(finalI).setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-//                    entityList.add(peopleLeaveEntity1.getPeopleLeaveRrd().get(finalI));
-//
-//                }else{
-//                    hasMore = false;
-//                }
-//                pb.setVisibility(View.GONE);
-//                ivEmpty.setVisibility(View.GONE);
-//                lv.completeRefresh();
-
                 if (peopleLeaveEntity1 != null && peopleLeaveEntity1.getPeopleLeaveRrd().size() > 0) {
                     if (beginNum == 1 && endNum == 10){
                         entityList.clear();
@@ -278,7 +263,6 @@ public class MyCommissionPeopleFragment extends Fragment implements AdapterView.
                 adapter.notifyDataSetChanged();
             }
         }
-
     }
 
     @Override
