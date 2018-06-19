@@ -7,7 +7,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 
 import com.example.hgtxxgl.application.R;
+import com.example.hgtxxgl.application.entity.CarInfoEntity;
 import com.example.hgtxxgl.application.entity.CarLeaveEntity;
+import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
 import com.example.hgtxxgl.application.rest.CommonFragment;
 import com.example.hgtxxgl.application.rest.HandInputGroup;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
@@ -29,6 +31,11 @@ public class RestDetailCarFragment extends CommonFragment {
     private String [][] buttonType = {{""},{"(取消申请) 是"},{"(取消申请) 是","重新提交"}};
     private int type = 0;
     private int fenNum;
+
+    private String[] carNoArray;
+    private String[] carOwnerNameArray;
+    private String ownerNo1;
+    private String ownerNo2;
 
     public RestDetailCarFragment(){
 
@@ -61,8 +68,8 @@ public class RestDetailCarFragment extends CommonFragment {
                 baseHolder.add(new HandInputGroup.Holder("申请人",true,false,ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName(),HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
                 baseHolder.add(new HandInputGroup.Holder("单位",true,false,ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getUnit(),HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
                 baseHolder.add(new HandInputGroup.Holder("车辆号牌",true,false,entity.getCarNo(),HandInputGroup.VALUE_TYPE.SELECT).setColor(Color.rgb(170,170,170)));
-                baseHolder.add(new HandInputGroup.Holder("驾驶员",true,false,entity.getDriverNo(),HandInputGroup.VALUE_TYPE.SELECT).setColor(Color.rgb(170,170,170)));
-                baseHolder.add(new HandInputGroup.Holder("带车干部",true,false,entity.getLeaderNo(),HandInputGroup.VALUE_TYPE.SELECT).setColor(Color.rgb(170,170,170)));
+                baseHolder.add(new HandInputGroup.Holder("驾驶员",true,false,entity.getDriverName(),HandInputGroup.VALUE_TYPE.SELECT).setColor(Color.rgb(170,170,170)));
+                baseHolder.add(new HandInputGroup.Holder("带车干部",true,false,entity.getLeaderName(),HandInputGroup.VALUE_TYPE.SELECT).setColor(Color.rgb(170,170,170)));
                 baseHolder.add(new HandInputGroup.Holder("离队时间",true,false,entity.getOutTime(),HandInputGroup.VALUE_TYPE.DATE).setColor(Color.rgb(170,170,170)));
                 baseHolder.add(new HandInputGroup.Holder("归队时间",true,false,entity.getInTime(),HandInputGroup.VALUE_TYPE.DATE).setColor(Color.rgb(170,170,170)));
                 baseHolder.add(new HandInputGroup.Holder("事由",false,false,entity.getContent(),HandInputGroup.VALUE_TYPE.BIG_EDIT).setColor(Color.rgb(170,170,170)));
@@ -82,8 +89,8 @@ public class RestDetailCarFragment extends CommonFragment {
                 baseHolder.add(new HandInputGroup.Holder("申请人", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("单位", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getUnit(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("车辆号牌", true, false, entity.getCarNo(), HandInputGroup.VALUE_TYPE.TEXT));
-                baseHolder.add(new HandInputGroup.Holder("驾驶员", true, false, entity.getDriverNo(), HandInputGroup.VALUE_TYPE.TEXT));
-                baseHolder.add(new HandInputGroup.Holder("带车干部", true, false, entity.getLeaderNo(), HandInputGroup.VALUE_TYPE.TEXT));
+                baseHolder.add(new HandInputGroup.Holder("驾驶员", true, false, entity.getDriverName(), HandInputGroup.VALUE_TYPE.TEXT));
+                baseHolder.add(new HandInputGroup.Holder("带车干部", true, false, entity.getLeaderName(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("离队时间", true, false, entity.getOutTime(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("归队时间", true, false, entity.getInTime(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("事由", true, false, entity.getContent(), HandInputGroup.VALUE_TYPE.TEXT));
@@ -103,8 +110,8 @@ public class RestDetailCarFragment extends CommonFragment {
                 baseHolder.add(new HandInputGroup.Holder("申请人", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("单位", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getUnit(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("车辆号牌", true, false, entity.getCarNo(), HandInputGroup.VALUE_TYPE.TEXT));
-                baseHolder.add(new HandInputGroup.Holder("驾驶员", true, false, entity.getDriverNo(), HandInputGroup.VALUE_TYPE.TEXT));
-                baseHolder.add(new HandInputGroup.Holder("带车干部", true, false, entity.getLeaderNo(), HandInputGroup.VALUE_TYPE.TEXT));
+                baseHolder.add(new HandInputGroup.Holder("驾驶员", true, false, entity.getDriverName(), HandInputGroup.VALUE_TYPE.TEXT));
+                baseHolder.add(new HandInputGroup.Holder("带车干部", true, false, entity.getLeaderName(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("离队时间", true, false, entity.getOutTime(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("归队时间", true, false, entity.getInTime(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("事由", true, false, entity.getContent(), HandInputGroup.VALUE_TYPE.TEXT));
@@ -126,8 +133,8 @@ public class RestDetailCarFragment extends CommonFragment {
                 baseHolder.add(new HandInputGroup.Holder("申请人", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("单位", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getUnit(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("车辆号牌", true, false, entity.getCarNo(), HandInputGroup.VALUE_TYPE.TEXT));
-                baseHolder.add(new HandInputGroup.Holder("驾驶员", true, false, entity.getDriverNo(), HandInputGroup.VALUE_TYPE.TEXT));
-                baseHolder.add(new HandInputGroup.Holder("带车干部", true, false, entity.getLeaderNo(), HandInputGroup.VALUE_TYPE.TEXT));
+                baseHolder.add(new HandInputGroup.Holder("驾驶员", true, false, entity.getDriverName(), HandInputGroup.VALUE_TYPE.TEXT));
+                baseHolder.add(new HandInputGroup.Holder("带车干部", true, false, entity.getLeaderName(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("离队时间", true, false, entity.getOutTime(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("归队时间", true, false, entity.getInTime(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("事由", true, false, entity.getContent(), HandInputGroup.VALUE_TYPE.TEXT));
@@ -147,8 +154,8 @@ public class RestDetailCarFragment extends CommonFragment {
                 baseHolder.add(new HandInputGroup.Holder("申请人", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("单位", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getUnit(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("车辆号牌", true, false, entity.getCarNo(), HandInputGroup.VALUE_TYPE.TEXT));
-                baseHolder.add(new HandInputGroup.Holder("驾驶员", true, false, entity.getDriverNo(), HandInputGroup.VALUE_TYPE.TEXT));
-                baseHolder.add(new HandInputGroup.Holder("带车干部", true, false, entity.getLeaderNo(), HandInputGroup.VALUE_TYPE.TEXT));
+                baseHolder.add(new HandInputGroup.Holder("驾驶员", true, false, entity.getDriverName(), HandInputGroup.VALUE_TYPE.TEXT));
+                baseHolder.add(new HandInputGroup.Holder("带车干部", true, false, entity.getLeaderName(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("离队时间", true, false, entity.getOutTime(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("归队时间", true, false, entity.getInTime(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("事由", true, false, entity.getContent(), HandInputGroup.VALUE_TYPE.TEXT));
@@ -177,6 +184,87 @@ public class RestDetailCarFragment extends CommonFragment {
             groups.add(2,new Group("批注信息", null, false, null, holder));
         }
         return groups;
+    }
+
+    private void loadDraftData() {
+        CarInfoEntity entity = new CarInfoEntity();
+        CarInfoEntity.CarInfoBean bean = new CarInfoEntity.CarInfoBean();
+        bean.setNo("?");
+        bean.setOwner1No("?");
+        bean.setOwner2No("?");
+        bean.setIsAndroid("1");
+        bean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        List<CarInfoEntity.CarInfoBean> list = new ArrayList<>();
+        list.add(bean);
+        entity.setCarInfo(list);
+        String requestStr = "get "+new Gson().toJson(entity);
+        L.e(TAG+"CarApplyFragment",requestStr);
+        HttpManager.getInstance().requestResultForm(getTempIP(), requestStr, CarInfoEntity.class, new HttpManager.ResultCallback<CarInfoEntity>() {
+            @Override
+            public void onSuccess(String json, CarInfoEntity carInfoEntity) throws InterruptedException {
+                int size = carInfoEntity.getCarInfo().size();
+                List<String> carNoList = new ArrayList<>();
+                for (int i = 0; i < size; i++) {
+                    carNoList.add(i,carInfoEntity.getCarInfo().get(i).getNo());
+                }
+                carNoArray = carNoList.toArray(new String[carNoList.size()]);
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+
+            @Override
+            public void onResponse(String response) {
+
+            }
+        });
+    }
+
+    private void loadDraftData(String realValue) {
+        CarInfoEntity entity = new CarInfoEntity();
+        CarInfoEntity.CarInfoBean bean = new CarInfoEntity.CarInfoBean();
+        bean.setNo(realValue);
+        bean.setOwner1No("?");
+        bean.setOwner2No("?");
+        bean.setIsAndroid("1");
+        bean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        List<CarInfoEntity.CarInfoBean> list = new ArrayList<>();
+        list.add(bean);
+        entity.setCarInfo(list);
+        String requestStr = "get "+new Gson().toJson(entity);
+        L.e(TAG+"CarApplyFragment",requestStr);
+        HttpManager.getInstance().requestResultForm(getTempIP(), requestStr, CarInfoEntity.class, new HttpManager.ResultCallback<CarInfoEntity>() {
+            @Override
+            public void onSuccess(String json, CarInfoEntity carInfoEntity) throws InterruptedException {
+                List<String> carOwnerNameList = new ArrayList<>();
+                int num = 0;
+                if (!carInfoEntity.getCarInfo().get(0).getOwner1Name().isEmpty()){
+                    num++;
+                }
+                if (!carInfoEntity.getCarInfo().get(0).getOwner2Name().isEmpty()){
+                    num++;
+                }
+                if (num == 1){
+                    carOwnerNameList.add(0,carInfoEntity.getCarInfo().get(0).getOwner1Name());
+                }else if(num == 2){
+                    carOwnerNameList.add(0,carInfoEntity.getCarInfo().get(0).getOwner1Name());
+                    carOwnerNameList.add(1,carInfoEntity.getCarInfo().get(0).getOwner2Name());
+                }
+                carOwnerNameArray = carOwnerNameList.toArray(new String[carOwnerNameList.size()]);
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+
+            @Override
+            public void onResponse(String response) {
+
+            }
+        });
     }
 
     public void setToolbar(HandToolbar toolbar) {
@@ -275,8 +363,12 @@ public class RestDetailCarFragment extends CommonFragment {
                         CarLeaveEntity.CarLeaveRrdBean carLeaveRrdBean = new CarLeaveEntity.CarLeaveRrdBean();
                         carLeaveRrdBean.setDestination(goDirection);
                         carLeaveRrdBean.setCarNo(carNo);
-                        carLeaveRrdBean.setDriverNo(driverName);
-                        carLeaveRrdBean.setLeaderNo(leaderName);
+                        if (!ownerNo1.isEmpty()){
+                            carLeaveRrdBean.setDriverNo(ownerNo1);
+                        }
+                        if (!ownerNo2.isEmpty()){
+                            carLeaveRrdBean.setLeaderNo(ownerNo2);
+                        }
                         carLeaveRrdBean.setNo(realValueNO);
                         carLeaveRrdBean.setOutTime(leaveTime);
                         carLeaveRrdBean.setInTime(returnTime);
@@ -352,6 +444,7 @@ public class RestDetailCarFragment extends CommonFragment {
         super.onCreate(savedInstanceState);
         StatusBarUtils.setWindowStatusBarColor(getActivity(), R.color.mainColor_blue);
         loadData();
+        loadDraftData();
     }
 
     private void show(final String msg) {
@@ -397,6 +490,8 @@ public class RestDetailCarFragment extends CommonFragment {
         carLeaveRrdBean.setCarNo("?");
         carLeaveRrdBean.setDriverNo("?");
         carLeaveRrdBean.setLeaderNo("?");
+        carLeaveRrdBean.setDriverName("?");
+        carLeaveRrdBean.setLeaderName("?");
         carLeaveRrdBean.setHisAnnotation("?");
         List<CarLeaveEntity.CarLeaveRrdBean> list = new ArrayList<>();
         list.add(carLeaveRrdBean);
@@ -468,6 +563,95 @@ public class RestDetailCarFragment extends CommonFragment {
             showDateTimePicker(holder,true);
         } else if (holder.getKey().equals("是否后补申请")){
             showSelector(holder,new String[]{"是","否"});
+        } else if (holder.getKey().equals("车辆号牌")){
+            if (carNoArray != null) {
+                showSelector(holder, carNoArray, new OnSelectedResultCallback() {
+                    @Override
+                    public void onSelected(Group ownGroup, HandInputGroup.Holder holder, int mainIndex, int itemIndex) {
+                        String realValue = holder.getRealValue();
+                        loadDraftData(realValue);
+                    }
+                });
+            } else {
+                ToastUtil.showToast(getContext(),"拉取失败");
+            }
+        } else if (holder.getKey().equals("驾驶员")||holder.getKey().equals("带车干部")){
+            if (carOwnerNameArray != null) {
+                showSelector(holder, carOwnerNameArray, new OnSelectedResultCallback() {
+                    @Override
+                    public void onSelected(Group ownGroup, HandInputGroup.Holder holder, int mainIndex, int itemIndex) {
+                        String str1 = ownGroup.getHolderByKey("驾驶员").getDispayValue();
+                        String str2 = ownGroup.getHolderByKey("带车干部").getRealValue();
+                        for (int i = 0; i < ownGroup.getHolders().size(); i++) {
+                            if(ownGroup.getHolders().get(i).getKey().equals("驾驶员")){
+                                getNoFromName1(str1);
+                            }else if (ownGroup.getHolders().get(i).getKey().equals("带车干部")){
+                                getNoFromName2(str2);
+                            }
+                        }
+                    }
+                });
+            } else {
+                ToastUtil.showToast(getContext(),"拉取失败");
+            }
         }
+    }
+
+    private void getNoFromName1(String driver) {
+        PeopleInfoEntity peopleInfoEntity = new PeopleInfoEntity();
+        PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
+        peopleInfoBean.setIsAndroid("1");
+        peopleInfoBean.setName(driver);
+        peopleInfoBean.setNo("?");
+        peopleInfoBean.setAuthenticationNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
+        List<PeopleInfoEntity.PeopleInfoBean> list1 = new ArrayList<>();
+        list1.add(peopleInfoBean);
+        peopleInfoEntity.setPeopleInfo(list1);
+        String requestJson = "get "+new Gson().toJson(peopleInfoEntity);
+        HttpManager.getInstance().requestResultForm(getTempIP(), requestJson, PeopleInfoEntity.class, new HttpManager.ResultCallback<PeopleInfoEntity>() {
+            @Override
+            public void onSuccess(String json, PeopleInfoEntity entity) throws InterruptedException {
+                ownerNo1 = entity.getPeopleInfo().get(0).getNo();
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+
+            @Override
+            public void onResponse(String response) {
+
+            }
+        });
+    }
+
+    private void getNoFromName2(String driver) {
+        PeopleInfoEntity peopleInfoEntity = new PeopleInfoEntity();
+        PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
+        peopleInfoBean.setIsAndroid("1");
+        peopleInfoBean.setName(driver);
+        peopleInfoBean.setNo("?");
+        peopleInfoBean.setAuthenticationNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
+        List<PeopleInfoEntity.PeopleInfoBean> list1 = new ArrayList<>();
+        list1.add(peopleInfoBean);
+        peopleInfoEntity.setPeopleInfo(list1);
+        String requestJson = "get "+new Gson().toJson(peopleInfoEntity);
+        HttpManager.getInstance().requestResultForm(getTempIP(), requestJson, PeopleInfoEntity.class, new HttpManager.ResultCallback<PeopleInfoEntity>() {
+            @Override
+            public void onSuccess(String json, PeopleInfoEntity entity) throws InterruptedException {
+                ownerNo2 = entity.getPeopleInfo().get(0).getNo();
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+
+            @Override
+            public void onResponse(String response) {
+
+            }
+        });
     }
 }

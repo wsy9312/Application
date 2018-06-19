@@ -43,6 +43,8 @@ public class CarLeaveEntity {
          * Curannotation :
          * DriverNo :驾驶员的No
          * LeaderNo :带车干部的No
+         * DriverName :驾驶员的Name
+         * LeaderName :带车干部的Name
          * OutStatus :
          * Destination :
          * CurResult :
@@ -76,11 +78,29 @@ public class CarLeaveEntity {
         private String Curannotation;
         private String DriverNo;
         private String LeaderNo;
+        private String DriverName;
+        private String LeaderName;
         private String OutStatus;
         private String Destination;
         private String CurResult;
         private String BeginNum;
         private String EndNum;
+
+        public String getDriverName() {
+            return DriverName;
+        }
+
+        public void setDriverName(String driverName) {
+            DriverName = driverName;
+        }
+
+        public String getLeaderName() {
+            return LeaderName;
+        }
+
+        public void setLeaderName(String leaderName) {
+            LeaderName = leaderName;
+        }
 
         public String getAuthenticationNo() {
             return AuthenticationNo;
