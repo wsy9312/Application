@@ -196,7 +196,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
         String bfillup = getArguments().getString("bfillup");
         String process = getArguments().getString("process");
         noindex = getArguments().getString("noindex");
-        final PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
+        PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
         PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
         peopleLeaveRrdBean.setRegisterTime("?");//
         peopleLeaveRrdBean.setOutTime("?");//
@@ -223,15 +223,6 @@ public class RestApprovePeopleFragment extends CommonFragment {
         String toJson = new Gson().toJson(peopleLeaveEntity);
         String s="get "+toJson;
         L.e(TAG+"RestApprovePeopleFragment",s);
-        //        String url = CommonValues.BASE_URL;
-//        String url = ApplicationApp.getIP();
-//        SharedPreferences share = getActivity().getSharedPreferences(SAVE_IP, MODE_PRIVATE);
-//        tempIP = share.getString("tempIP", "IP address is empty");
-        /*get {"PeopleLeaveRrd":[{"ActualInTime":"?","ActualOutTime":"?","AuthenticationNo":"FD3CD878",
-                "Content":"?","Destination":"?","InTime":"?","IsAndroid":"1","ModifyTime":"?","No":"?",
-                "NoIndex":"39","OutTime":"?","OutType":"?","Process":"?","RegisterTime":"?","bCancel":"?",
-                "bFillup":"?","HisAnnotation":"?","ApproverNo":"?","Result":"?"}]}*/
-
         HttpManager.getInstance().requestResultForm(getTempIP(), s, PeopleLeaveEntity.class, new HttpManager.ResultCallback<PeopleLeaveEntity>() {
             @Override
             public void onSuccess(String json, final PeopleLeaveEntity peopleLeaveEntity1) throws InterruptedException {
@@ -268,8 +259,6 @@ public class RestApprovePeopleFragment extends CommonFragment {
 
     @Override
     public void onBottomButtonsClick(String title, List<Group> groups) {
-        //        String url = CommonValues.BASE_URL;
-//        final String url = ApplicationApp.getIP();
         PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
         PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
         peopleLeaveRrdBean.setNoIndex(noindex);
