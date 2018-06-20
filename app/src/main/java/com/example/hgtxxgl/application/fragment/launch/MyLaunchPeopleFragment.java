@@ -66,20 +66,42 @@ public class MyLaunchPeopleFragment extends Fragment implements SimpleListView.O
             holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss"));
             holder.setText(R.id.tv_sketch, "申请事由:"+(bean.getContent().isEmpty()?"无":bean.getContent()));
             holder.setText(R.id.tv_direction, "申请去向:"+(bean.getDestination().isEmpty()?"无":bean.getDestination()));
-            if (bean.getBCancel().equals("0")){
-                if (bean.getProcess().equals("1")){
-                    holder.setImageResource(R.id.image_flow,R.drawable.ic_done);
+            if (bean.getProcess().equals("1")){
+                //已完成(拒绝)/红色
+                if (bean.getResult().equals("0")){
+                    holder.setImageResource(R.id.image_flow,R.drawable.ic_reject1);
+                    holder.setTextColor(R.id.tv_sketch, Color.rgb(214,16,24));
+                    holder.setTextColor(R.id.tv_direction, Color.rgb(214,16,24));
+                    //已完成(同意)/绿色
+                }else if (bean.getResult().equals("1")){
+                    holder.setImageResource(R.id.image_flow,R.drawable.ic_agree1);
                     holder.setTextColor(R.id.tv_sketch, Color.rgb(0,128,0));
                     holder.setTextColor(R.id.tv_direction, Color.rgb(0,128,0));
-                }else{
-                    holder.setImageResource(R.id.image_flow,R.drawable.ic_running);
+                    //已完成(被退回)/红色
+                }else if (bean.getResult().equals("2")){
+                    holder.setImageResource(R.id.image_flow,R.drawable.ic_back1);
                     holder.setTextColor(R.id.tv_sketch, Color.rgb(214,16,24));
                     holder.setTextColor(R.id.tv_direction, Color.rgb(214,16,24));
                 }
             }else{
-                holder.setImageResource(R.id.image_flow,R.drawable.ic_canceled);
-                holder.setTextColor(R.id.tv_sketch, Color.rgb(0,103,174));
-                holder.setTextColor(R.id.tv_direction, Color.rgb(0,103,174));
+                if (bean.getBCancel().equals("0")){
+                    //未审批/黄色
+                    if (bean.getApproverNo().isEmpty()){
+                        holder.setImageResource(R.id.image_flow,R.drawable.ic_undone1);
+                        holder.setTextColor(R.id.tv_sketch, Color.rgb(255,140,0));
+                        holder.setTextColor(R.id.tv_direction, Color.rgb(255,140,0));
+                        //审批中/黄色
+                    }else{
+                        holder.setImageResource(R.id.image_flow,R.drawable.ic_approveing1);
+                        holder.setTextColor(R.id.tv_sketch, Color.rgb(255,140,0));
+                        holder.setTextColor(R.id.tv_direction, Color.rgb(255,140,0));
+                    }
+                    //已取消/红色
+                }else if(bean.getBCancel().equals("1")){
+                    holder.setImageResource(R.id.image_flow,R.drawable.ic_cancled1);
+                    holder.setTextColor(R.id.tv_sketch, Color.rgb(214,16,24));
+                    holder.setTextColor(R.id.tv_direction, Color.rgb(214,16,24));
+                }
             }
         }
     };
@@ -135,6 +157,7 @@ public class MyLaunchPeopleFragment extends Fragment implements SimpleListView.O
         peopleLeaveRrdBean.setBCancel("?");
         peopleLeaveRrdBean.setResult("?");
         peopleLeaveRrdBean.setDestination("?");
+        peopleLeaveRrdBean.setApproverNo("?");
         List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
         list.add(peopleLeaveRrdBean);
         peopleLeaveEntity.setPeopleLeaveRrd(list);
