@@ -61,7 +61,7 @@ public class RestDetailCarFragment extends CommonFragment {
                 List<HandInputGroup.Holder> holders = new ArrayList<>();
                 holders.add(new HandInputGroup.Holder("流程内容", true, false, "车辆申请", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
                 holders.add(new HandInputGroup.Holder("审批状态", true, false, "审批结束", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
-                holders.add(new HandInputGroup.Holder("审批结果", true, false, "被退回", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
+                holders.add(new HandInputGroup.Holder("审批结果", true, false, "已退回", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
                 holders.add(new HandInputGroup.Holder("是否已取消", true, false, bCancel.equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
                 groups.add(0,new Group("流程信息", null, false, null, holders));
                 List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
@@ -80,9 +80,9 @@ public class RestDetailCarFragment extends CommonFragment {
                 //重新提交,取消申请
             }else if(substring == 0){
                 List<HandInputGroup.Holder> holders = new ArrayList<>();
-                holders.add(new HandInputGroup.Holder("流程内容", true, false, "请假申请", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
+                holders.add(new HandInputGroup.Holder("流程内容", true, false, "车辆申请", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
                 holders.add(new HandInputGroup.Holder("审批状态", true, false, "审批结束", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
-                holders.add(new HandInputGroup.Holder("审批结果", true, false, "不同意", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
+                holders.add(new HandInputGroup.Holder("审批结果", true, false, "已拒绝", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
                 holders.add(new HandInputGroup.Holder("是否已取消", true, false, bCancel.equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
                 groups.add(0,new Group("流程信息", null, false, null, holders));
                 List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
@@ -101,10 +101,10 @@ public class RestDetailCarFragment extends CommonFragment {
                 //无
             }else if (substring == 1){
                 List<HandInputGroup.Holder> holders = new ArrayList<>();
-                holders.add(new HandInputGroup.Holder("流程内容", true, false, "请假申请", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
-                holders.add(new HandInputGroup.Holder("审批状态", true, false, "审批结束", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
-                holders.add(new HandInputGroup.Holder("审批结果", true, false, "同意", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
-                holders.add(new HandInputGroup.Holder("是否已取消", true, false, bCancel.equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
+                holders.add(new HandInputGroup.Holder("流程内容", true, false, "车辆申请", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(0,128,0)));
+                holders.add(new HandInputGroup.Holder("审批状态", true, false, "审批结束", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(0,128,0)));
+                holders.add(new HandInputGroup.Holder("审批结果", true, false, "已同意", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(0,128,0)));
+                holders.add(new HandInputGroup.Holder("是否已取消", true, false, bCancel.equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(0,128,0)));
                 groups.add(0,new Group("流程信息", null, false, null, holders));
                 List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
                 baseHolder.add(new HandInputGroup.Holder("申请人", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName(), HandInputGroup.VALUE_TYPE.TEXT));
@@ -123,48 +123,46 @@ public class RestDetailCarFragment extends CommonFragment {
             }
         }else{
             if (bCancel.equals("0")){
-                List<HandInputGroup.Holder> holders = new ArrayList<>();
-                holders.add(new HandInputGroup.Holder("流程内容", true, false, "请假申请", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
-                holders.add(new HandInputGroup.Holder("审批状态", true, false, "审批中", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
-                holders.add(new HandInputGroup.Holder("审批结果", true, false, "暂无", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
-                holders.add(new HandInputGroup.Holder("是否已取消", true, false, bCancel.equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
-                groups.add(0,new Group("流程信息", null, false, null, holders));
-                List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
-                baseHolder.add(new HandInputGroup.Holder("申请人", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName(), HandInputGroup.VALUE_TYPE.TEXT));
-                baseHolder.add(new HandInputGroup.Holder("单位", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getUnit(), HandInputGroup.VALUE_TYPE.TEXT));
-                baseHolder.add(new HandInputGroup.Holder("车辆号牌", true, false, entity.getCarNo(), HandInputGroup.VALUE_TYPE.TEXT));
-                baseHolder.add(new HandInputGroup.Holder("驾驶员", true, false, entity.getDriverName(), HandInputGroup.VALUE_TYPE.TEXT));
-                baseHolder.add(new HandInputGroup.Holder("带车干部", true, false, entity.getLeaderName(), HandInputGroup.VALUE_TYPE.TEXT));
-                baseHolder.add(new HandInputGroup.Holder("离队时间", true, false, entity.getOutTime(), HandInputGroup.VALUE_TYPE.TEXT));
-                baseHolder.add(new HandInputGroup.Holder("归队时间", true, false, entity.getInTime(), HandInputGroup.VALUE_TYPE.TEXT));
-                baseHolder.add(new HandInputGroup.Holder("事由", true, false, entity.getContent(), HandInputGroup.VALUE_TYPE.TEXT));
-                baseHolder.add(new HandInputGroup.Holder("去向", true, false, entity.getDestination(), HandInputGroup.VALUE_TYPE.TEXT));
-                baseHolder.add(new HandInputGroup.Holder("是否后补申请", true, false, entity.getBFillup().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
-                groups.add(1,new Group("基本信息", null, false, null, baseHolder));
-                setButtonsTitles(buttonType[1]);
+                if (entity.getApproverNo().isEmpty()){
+                    List<HandInputGroup.Holder> holders = new ArrayList<>();
+                    holders.add(new HandInputGroup.Holder("流程内容", true, false, "车辆申请", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(255,140,0)));
+                    holders.add(new HandInputGroup.Holder("审批状态", true, false, "未审批", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(255,140,0)));
+                    holders.add(new HandInputGroup.Holder("审批结果", true, false, "无", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(255,140,0)));
+                    holders.add(new HandInputGroup.Holder("是否已取消", true, false, bCancel.equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(255,140,0)));
+                    groups.add(0,new Group("流程信息", null, false, null, holders));
+                    setButtonsTitles(buttonType[1]);
+                }else{
+                    List<HandInputGroup.Holder> holders = new ArrayList<>();
+                    holders.add(new HandInputGroup.Holder("流程内容", true, false, "车辆申请", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(255,140,0)));
+                    holders.add(new HandInputGroup.Holder("审批状态", true, false, "审批中", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(255,140,0)));
+                    holders.add(new HandInputGroup.Holder("审批结果", true, false, "无", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(255,140,0)));
+                    holders.add(new HandInputGroup.Holder("是否已取消", true, false, bCancel.equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(255,140,0)));
+                    groups.add(0,new Group("流程信息", null, false, null, holders));
+                    setButtonsTitles(buttonType[1]);
+                }
                 //取消申请
             }else{
                 List<HandInputGroup.Holder> holders = new ArrayList<>();
-                holders.add(new HandInputGroup.Holder("流程内容", true, false, "请假申请", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
-                holders.add(new HandInputGroup.Holder("审批状态", true, false, "审批中", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
-                holders.add(new HandInputGroup.Holder("审批结果", true, false, "暂无", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
+                holders.add(new HandInputGroup.Holder("流程内容", true, false, "车辆申请", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
+                holders.add(new HandInputGroup.Holder("审批状态", true, false, "已取消", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
+                holders.add(new HandInputGroup.Holder("审批结果", true, false, "已取消", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
                 holders.add(new HandInputGroup.Holder("是否已取消", true, false, bCancel.equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
                 groups.add(0,new Group("流程信息", null, false, null, holders));
-                List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
-                baseHolder.add(new HandInputGroup.Holder("申请人", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName(), HandInputGroup.VALUE_TYPE.TEXT));
-                baseHolder.add(new HandInputGroup.Holder("单位", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getUnit(), HandInputGroup.VALUE_TYPE.TEXT));
-                baseHolder.add(new HandInputGroup.Holder("车辆号牌", true, false, entity.getCarNo(), HandInputGroup.VALUE_TYPE.TEXT));
-                baseHolder.add(new HandInputGroup.Holder("驾驶员", true, false, entity.getDriverName(), HandInputGroup.VALUE_TYPE.TEXT));
-                baseHolder.add(new HandInputGroup.Holder("带车干部", true, false, entity.getLeaderName(), HandInputGroup.VALUE_TYPE.TEXT));
-                baseHolder.add(new HandInputGroup.Holder("离队时间", true, false, entity.getOutTime(), HandInputGroup.VALUE_TYPE.TEXT));
-                baseHolder.add(new HandInputGroup.Holder("归队时间", true, false, entity.getInTime(), HandInputGroup.VALUE_TYPE.TEXT));
-                baseHolder.add(new HandInputGroup.Holder("事由", true, false, entity.getContent(), HandInputGroup.VALUE_TYPE.TEXT));
-                baseHolder.add(new HandInputGroup.Holder("去向", true, false, entity.getDestination(), HandInputGroup.VALUE_TYPE.TEXT));
-                baseHolder.add(new HandInputGroup.Holder("是否后补申请", true, false, entity.getBFillup().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
-                groups.add(1,new Group("基本信息", null, false, null, baseHolder));
                 setButtonsTitles(buttonType[0]);
                 //无
             }
+            List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
+            baseHolder.add(new HandInputGroup.Holder("申请人", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName(), HandInputGroup.VALUE_TYPE.TEXT));
+            baseHolder.add(new HandInputGroup.Holder("单位", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getUnit(), HandInputGroup.VALUE_TYPE.TEXT));
+            baseHolder.add(new HandInputGroup.Holder("车辆号牌", true, false, entity.getCarNo(), HandInputGroup.VALUE_TYPE.TEXT));
+            baseHolder.add(new HandInputGroup.Holder("驾驶员", true, false, entity.getDriverName(), HandInputGroup.VALUE_TYPE.TEXT));
+            baseHolder.add(new HandInputGroup.Holder("带车干部", true, false, entity.getLeaderName(), HandInputGroup.VALUE_TYPE.TEXT));
+            baseHolder.add(new HandInputGroup.Holder("离队时间", true, false, entity.getOutTime(), HandInputGroup.VALUE_TYPE.TEXT));
+            baseHolder.add(new HandInputGroup.Holder("归队时间", true, false, entity.getInTime(), HandInputGroup.VALUE_TYPE.TEXT));
+            baseHolder.add(new HandInputGroup.Holder("事由", true, false, entity.getContent(), HandInputGroup.VALUE_TYPE.TEXT));
+            baseHolder.add(new HandInputGroup.Holder("去向", true, false, entity.getDestination(), HandInputGroup.VALUE_TYPE.TEXT));
+            baseHolder.add(new HandInputGroup.Holder("是否后补申请", true, false, entity.getBFillup().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
+            groups.add(1,new Group("基本信息", null, false, null, baseHolder));
         }
         String split1 = entity.getHisAnnotation();
         String split3 = entity.getApproverName();
@@ -353,7 +351,7 @@ public class RestDetailCarFragment extends CommonFragment {
                         String applicant = getDisplayValueByKey("申请人").getRealValue();
                         String carNo = getDisplayValueByKey("车辆号牌").getRealValue();
                         String driverName = getDisplayValueByKey("驾驶员").getRealValue();
-                        String leaderName = getDisplayValueByKey("带队干部").getRealValue();
+                        String leaderName = getDisplayValueByKey("带车干部").getRealValue();
                         String leaveTime = getDisplayValueByKey("离队时间").getRealValue();
                         String returnTime = getDisplayValueByKey("归队时间").getRealValue();
                         String argument = getDisplayValueByKey("事由").getRealValue();
@@ -493,6 +491,7 @@ public class RestDetailCarFragment extends CommonFragment {
         carLeaveRrdBean.setDriverName("?");
         carLeaveRrdBean.setLeaderName("?");
         carLeaveRrdBean.setHisAnnotation("?");
+        carLeaveRrdBean.setDestination("?");
         List<CarLeaveEntity.CarLeaveRrdBean> list = new ArrayList<>();
         list.add(carLeaveRrdBean);
         carLeaveEntity.setCarLeaveRrd(list);
