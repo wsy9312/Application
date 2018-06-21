@@ -9,14 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.fragment.apply.CarApplyFragment;
-import com.example.hgtxxgl.application.fragment.apply.OutVisitFragment;
 import com.example.hgtxxgl.application.fragment.apply.RestApplyFragment;
-import com.example.hgtxxgl.application.fragment.approve.RestApproveCarFragment;
-import com.example.hgtxxgl.application.fragment.approve.RestApprovePeopleFragment;
-import com.example.hgtxxgl.application.fragment.detail.RestDetailCarFragment;
-import com.example.hgtxxgl.application.fragment.detail.RestDetailPeopleFragment;
 import com.example.hgtxxgl.application.utils.SysExitUtil;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
+import com.example.hgtxxgl.application.utils.hand.ToastUtil;
 
 import java.util.List;
 
@@ -48,33 +44,51 @@ public class ItemActivity extends AppCompatActivity {
                 checkFragment(CarApplyFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_APPLY_PEOPLE_IN:
-                checkFragment(OutVisitFragment.newInstance(getIntent().getBundleExtra("data")));
+                show("暂未开放");
+//                checkFragment(OutVisitFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_APPLY_DISPATCH_PEOPLE_OWN:
-                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
+                show("暂未开放");
+//                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_APPLY_DISPATCH_PEOPLE_ELSE:
-                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
+                show("暂未开放");
+//                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_APPLY_DISPATCH_CAR_OWN:
-                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
+                show("暂未开放");
+//                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_APPLY_DISPATCH_CAR_ELSE:
-                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
+                show("暂未开放");
+//                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_LEAVE_APPROVE_CAR:
-                checkFragment(RestApproveCarFragment.newInstance(getIntent().getBundleExtra("data")));
+                show("暂未开放");
+//                checkFragment(RestApproveCarFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_LEAVE_APPROVE_PEOPLE:
-                checkFragment(RestApprovePeopleFragment.newInstance(getIntent().getBundleExtra("data")));
+                show("暂未开放");
+//                checkFragment(RestApprovePeopleFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_LEAVE_DETAIL_CAR:
-                checkFragment(RestDetailCarFragment.newInstance(getIntent().getBundleExtra("data")));
+                show("暂未开放");
+//                checkFragment(RestDetailCarFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_LEAVE_DETAIL_PEOPLE:
-                checkFragment(RestDetailPeopleFragment.newInstance(getIntent().getBundleExtra("data")));
+                show("暂未开放");
+//                checkFragment(RestDetailPeopleFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
         }
+    }
+
+    private void show(final String msg) {
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ToastUtil.showToast(getApplicationContext(),msg);
+            }
+        });
     }
 
     private void checkFragment(Fragment fragment) {

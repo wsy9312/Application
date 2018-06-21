@@ -58,14 +58,14 @@ public class RestDetailPeopleFragment extends CommonFragment {
                 holders.add(new HandInputGroup.Holder("是否已取消", true, false, bCancel.equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
                 groups.add(0,new Group("流程信息", null, false, null, holders));
                 List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
-                baseHolder.add(new HandInputGroup.Holder("申请人",true,false,ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName(),HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
-                baseHolder.add(new HandInputGroup.Holder("单位",true,false,ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getUnit(),HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
-                baseHolder.add(new HandInputGroup.Holder("申请类型",true,false,entity.getOutType(),HandInputGroup.VALUE_TYPE.TEXTFILED).setColor(Color.rgb(170,170,170)));
-                baseHolder.add(new HandInputGroup.Holder("离队时间",true,false,entity.getOutTime(),HandInputGroup.VALUE_TYPE.DATE).setColor(Color.rgb(170,170,170)));
-                baseHolder.add(new HandInputGroup.Holder("归队时间",true,false,entity.getInTime(),HandInputGroup.VALUE_TYPE.DATE).setColor(Color.rgb(170,170,170)));
-                baseHolder.add(new HandInputGroup.Holder("事由",false,false,entity.getContent(),HandInputGroup.VALUE_TYPE.BIG_EDIT).setColor(Color.rgb(170,170,170)));
-                baseHolder.add(new HandInputGroup.Holder("去向",false,false,entity.getDestination(),HandInputGroup.VALUE_TYPE.TEXTFILED).setColor(Color.rgb(170,170,170)));
-                baseHolder.add(new HandInputGroup.Holder("是否后补申请",false,false,entity.getBFillup().equals("0")?"否":"是",HandInputGroup.VALUE_TYPE.SELECT).setColor(Color.rgb(170,170,170)));
+                baseHolder.add(new HandInputGroup.Holder("申请人",true,false,ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName(),HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(128,128,128)));
+                baseHolder.add(new HandInputGroup.Holder("单位",true,false,ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getUnit(),HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(128,128,128)));
+                baseHolder.add(new HandInputGroup.Holder("申请类型",true,false,entity.getOutType(),HandInputGroup.VALUE_TYPE.TEXTFILED).setColor(Color.rgb(128,128,128)));
+                baseHolder.add(new HandInputGroup.Holder("离队时间",true,false,entity.getOutTime(),HandInputGroup.VALUE_TYPE.DATE).setColor(Color.rgb(128,128,128)));
+                baseHolder.add(new HandInputGroup.Holder("归队时间",true,false,entity.getInTime(),HandInputGroup.VALUE_TYPE.DATE).setColor(Color.rgb(128,128,128)));
+                baseHolder.add(new HandInputGroup.Holder("事由",false,false,entity.getContent(),HandInputGroup.VALUE_TYPE.BIG_EDIT).setColor(Color.rgb(128,128,128)));
+                baseHolder.add(new HandInputGroup.Holder("去向",false,false,entity.getDestination(),HandInputGroup.VALUE_TYPE.TEXTFILED).setColor(Color.rgb(128,128,128)));
+                baseHolder.add(new HandInputGroup.Holder("是否后补申请",false,false,entity.getBFillup().equals("0")?"否":"是",HandInputGroup.VALUE_TYPE.SELECT).setColor(Color.rgb(128,128,128)));
                 groups.add(1,new Group("基本信息", null,true,null,baseHolder));
                 setButtonsTitles(buttonType[2]);
                 //重新提交,取消申请

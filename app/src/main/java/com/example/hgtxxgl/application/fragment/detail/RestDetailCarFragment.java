@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.entity.CarInfoEntity;
@@ -23,6 +24,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+
 //车辆外出申请详情
 public class RestDetailCarFragment extends CommonFragment {
 
@@ -31,11 +33,10 @@ public class RestDetailCarFragment extends CommonFragment {
     private String [][] buttonType = {{""},{"(取消申请) 是"},{"(取消申请) 是","重新提交"}};
     private int type = 0;
     private int fenNum;
-
     private String[] carNoArray;
     private String[] carOwnerNameArray;
-    private String ownerNo1;
-    private String ownerNo2;
+    private String ownerNo1 = "";
+    private String ownerNo2 = "";
 
     public RestDetailCarFragment(){
 
@@ -65,16 +66,16 @@ public class RestDetailCarFragment extends CommonFragment {
                 holders.add(new HandInputGroup.Holder("是否已取消", true, false, bCancel.equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
                 groups.add(0,new Group("流程信息", null, false, null, holders));
                 List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
-                baseHolder.add(new HandInputGroup.Holder("申请人",true,false,ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName(),HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
-                baseHolder.add(new HandInputGroup.Holder("单位",true,false,ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getUnit(),HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
-                baseHolder.add(new HandInputGroup.Holder("车辆号牌",true,false,entity.getCarNo(),HandInputGroup.VALUE_TYPE.SELECT).setColor(Color.rgb(170,170,170)));
-                baseHolder.add(new HandInputGroup.Holder("驾驶员",true,false,entity.getDriverName(),HandInputGroup.VALUE_TYPE.SELECT).setColor(Color.rgb(170,170,170)));
-                baseHolder.add(new HandInputGroup.Holder("带车干部",true,false,entity.getLeaderName(),HandInputGroup.VALUE_TYPE.SELECT).setColor(Color.rgb(170,170,170)));
-                baseHolder.add(new HandInputGroup.Holder("离队时间",true,false,entity.getOutTime(),HandInputGroup.VALUE_TYPE.DATE).setColor(Color.rgb(170,170,170)));
-                baseHolder.add(new HandInputGroup.Holder("归队时间",true,false,entity.getInTime(),HandInputGroup.VALUE_TYPE.DATE).setColor(Color.rgb(170,170,170)));
-                baseHolder.add(new HandInputGroup.Holder("事由",false,false,entity.getContent(),HandInputGroup.VALUE_TYPE.BIG_EDIT).setColor(Color.rgb(170,170,170)));
-                baseHolder.add(new HandInputGroup.Holder("去向",false,false,entity.getDestination(),HandInputGroup.VALUE_TYPE.TEXTFILED).setColor(Color.rgb(170,170,170)));
-                baseHolder.add(new HandInputGroup.Holder("是否后补申请",false,false,entity.getBFillup().equals("0")?"否":"是",HandInputGroup.VALUE_TYPE.SELECT).setColor(Color.rgb(170,170,170)));
+                baseHolder.add(new HandInputGroup.Holder("申请人",true,false,ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName(),HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(128,128,128)));
+                baseHolder.add(new HandInputGroup.Holder("单位",true,false,ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getUnit(),HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(128,128,128)));
+                baseHolder.add(new HandInputGroup.Holder("车辆号牌",false,false,entity.getCarNo(),HandInputGroup.VALUE_TYPE.SELECT).setColor(Color.rgb(128,128,128)));
+                baseHolder.add(new HandInputGroup.Holder("驾驶员",false,false,entity.getDriverName(),HandInputGroup.VALUE_TYPE.SELECT).setColor(Color.rgb(128,128,128)));
+                baseHolder.add(new HandInputGroup.Holder("带车干部",false,false,entity.getLeaderName(),HandInputGroup.VALUE_TYPE.SELECT).setColor(Color.rgb(128,128,128)));
+                baseHolder.add(new HandInputGroup.Holder("离队时间",true,false,entity.getOutTime(),HandInputGroup.VALUE_TYPE.DATE).setColor(Color.rgb(128,128,128)));
+                baseHolder.add(new HandInputGroup.Holder("归队时间",true,false,entity.getInTime(),HandInputGroup.VALUE_TYPE.DATE).setColor(Color.rgb(128,128,128)));
+                baseHolder.add(new HandInputGroup.Holder("事由",false,false,entity.getContent(),HandInputGroup.VALUE_TYPE.BIG_EDIT).setColor(Color.rgb(128,128,128)));
+                baseHolder.add(new HandInputGroup.Holder("去向",false,false,entity.getDestination(),HandInputGroup.VALUE_TYPE.TEXTFILED).setColor(Color.rgb(128,128,128)));
+                baseHolder.add(new HandInputGroup.Holder("是否后补申请",false,false,entity.getBFillup().equals("0")?"否":"是",HandInputGroup.VALUE_TYPE.SELECT).setColor(Color.rgb(128,128,128)));
                 groups.add(1,new Group("基本信息", null,true,null,baseHolder));
                 setButtonsTitles(buttonType[2]);
                 //重新提交,取消申请
@@ -218,6 +219,7 @@ public class RestDetailCarFragment extends CommonFragment {
 
             }
         });
+
     }
 
     private void loadDraftData(String realValue) {
@@ -287,6 +289,13 @@ public class RestDetailCarFragment extends CommonFragment {
         CarLeaveEntity carLeaveEntity = new CarLeaveEntity();
         CarLeaveEntity.CarLeaveRrdBean carLeaveRrdBean = new CarLeaveEntity.CarLeaveRrdBean();
         final String noindex = getArguments().getString("noindex");
+        final String carno = getArguments().getString("carno");
+        final String driverno = getArguments().getString("driverno");
+        final String leaderno = getArguments().getString("leaderno");
+        Log.e("LOL111222  ",noindex);
+        Log.e("LOL111222  ",carno);
+        Log.e("LOL111222  ",driverno);
+        Log.e("LOL111222  ",leaderno);
         carLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
         carLeaveRrdBean.setNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
         carLeaveRrdBean.setIsAndroid("1");
@@ -363,9 +372,13 @@ public class RestDetailCarFragment extends CommonFragment {
                         carLeaveRrdBean.setCarNo(carNo);
                         if (!ownerNo1.isEmpty()){
                             carLeaveRrdBean.setDriverNo(ownerNo1);
+                        }else{
+                            carLeaveRrdBean.setDriverNo(driverno);
                         }
                         if (!ownerNo2.isEmpty()){
                             carLeaveRrdBean.setLeaderNo(ownerNo2);
+                        }else{
+                            carLeaveRrdBean.setLeaderNo(leaderno);
                         }
                         carLeaveRrdBean.setNo(realValueNO);
                         carLeaveRrdBean.setOutTime(leaveTime);
