@@ -10,6 +10,10 @@ import android.support.v7.app.AppCompatActivity;
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.fragment.apply.CarApplyFragment;
 import com.example.hgtxxgl.application.fragment.apply.RestApplyFragment;
+import com.example.hgtxxgl.application.fragment.approve.RestApproveCarFragment;
+import com.example.hgtxxgl.application.fragment.approve.RestApprovePeopleFragment;
+import com.example.hgtxxgl.application.fragment.detail.RestDetailCarFragment;
+import com.example.hgtxxgl.application.fragment.detail.RestDetailPeopleFragment;
 import com.example.hgtxxgl.application.utils.SysExitUtil;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
@@ -64,20 +68,16 @@ public class ItemActivity extends AppCompatActivity {
 //                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_LEAVE_APPROVE_CAR:
-                show("暂未开放");
-//                checkFragment(RestApproveCarFragment.newInstance(getIntent().getBundleExtra("data")));
+                checkFragment(RestApproveCarFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_LEAVE_APPROVE_PEOPLE:
-                show("暂未开放");
-//                checkFragment(RestApprovePeopleFragment.newInstance(getIntent().getBundleExtra("data")));
+                checkFragment(RestApprovePeopleFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_LEAVE_DETAIL_CAR:
-                show("暂未开放");
-//                checkFragment(RestDetailCarFragment.newInstance(getIntent().getBundleExtra("data")));
+                checkFragment(RestDetailCarFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_LEAVE_DETAIL_PEOPLE:
-                show("暂未开放");
-//                checkFragment(RestDetailPeopleFragment.newInstance(getIntent().getBundleExtra("data")));
+                checkFragment(RestDetailPeopleFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
         }
     }

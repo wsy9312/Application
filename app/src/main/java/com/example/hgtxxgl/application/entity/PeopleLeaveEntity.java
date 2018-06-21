@@ -52,6 +52,7 @@ public class PeopleLeaveEntity {
          * CurResult :当前次审批结果 0：不同意，1：退回充填，2：同意，提交上级，3：同意并结束
          * BeginNum :
          * EndNum :
+         * Unit :单位(自加)
          */
 
         private String AuthenticationNo;
@@ -82,6 +83,7 @@ public class PeopleLeaveEntity {
         private String CurResult;
         private String BeginNum;
         private String EndNum;
+        private String Unit;
 
         @Override
         public String toString() {
@@ -106,6 +108,7 @@ public class PeopleLeaveEntity {
                     ", bMessage='" + bMessage + '\'' +
                     ", OutType='" + OutType + '\'' +
                     ", ApproverNo='" + ApproverNo + '\'' +
+                    ", ApproverName='" + ApproverName + '\'' +
                     ", HisAnnotation='" + HisAnnotation + '\'' +
                     ", Curannotation='" + Curannotation + '\'' +
                     ", OutStatus='" + OutStatus + '\'' +
@@ -113,7 +116,16 @@ public class PeopleLeaveEntity {
                     ", CurResult='" + CurResult + '\'' +
                     ", BeginNum='" + BeginNum + '\'' +
                     ", EndNum='" + EndNum + '\'' +
+                    ", Unit='" + Unit + '\'' +
                     '}';
+        }
+
+        public String getUnit() {
+            return Unit;
+        }
+
+        public void setUnit(String unit) {
+            Unit = unit;
         }
 
         public String getAuthenticationNo() {

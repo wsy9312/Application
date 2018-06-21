@@ -26,7 +26,6 @@ public class RestApprovePeopleFragment extends CommonFragment {
     private final static String TAG = "RestApprovePeopleFragment";
     private String noindex;
     private String no;
-    private String unit;
     private int fenNum;
 
     public RestApprovePeopleFragment(){
@@ -88,7 +87,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
 
         List<HandInputGroup.Holder> holderList = new ArrayList<>();
         holderList.add(new HandInputGroup.Holder("申请人", true, false, getArguments().getString("name"), HandInputGroup.VALUE_TYPE.TEXT));
-        holderList.add(new HandInputGroup.Holder("单位", true, false, unit, HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("单位", true, false, entity.getUnit(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("申请类型", true, false, entity.getOutType(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("离队时间", true, false, entity.getOutTime(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("归队时间", true, false, entity.getInTime(), HandInputGroup.VALUE_TYPE.TEXT));
@@ -99,8 +98,6 @@ public class RestApprovePeopleFragment extends CommonFragment {
 
         String split1 = entity.getHisAnnotation();
         String split3 = entity.getApproverName();
-        L.e(TAG,split1);
-        L.e(TAG,split3);
         String [] arrAnnotation = split1.split(";");
         String [] arrName = split3.split(";");
         List<HandInputGroup.Holder> holder = new ArrayList<>();
@@ -137,42 +134,6 @@ public class RestApprovePeopleFragment extends CommonFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadData();
-        if (no.isEmpty()){
-            setPb(true);
-        }else{
-            getUnitFromNo(no);
-        }
-    }
-
-    private void getUnitFromNo(String no) {
-        PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
-        PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
-        peopleInfoBean.setNo(no);
-        peopleInfoBean.setUnit("?");
-        peopleInfoBean.setIsAndroid("1");
-        List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
-        beanList.add(peopleInfoBean);
-        peopleEntity.setPeopleInfo(beanList);
-        String json = new Gson().toJson(peopleEntity);
-        String s1 = "get " + json;
-        HttpManager.getInstance().requestResultForm(getTempIP(),s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
-            @Override
-            public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
-                if (peopleInfoEntity != null){
-                    unit = peopleInfoEntity.getPeopleInfo().get(0).getUnit();
-                    L.e(TAG+"unit:",unit);
-                }
-            }
-
-            @Override
-            public void onFailure(String msg) {
-
-            }
-
-            @Override
-            public void onResponse(String response) {
-            }
-        });
     }
 
     private void show(final String msg) {
@@ -189,8 +150,6 @@ public class RestApprovePeopleFragment extends CommonFragment {
         String outtime = getArguments().getString("outtime");
         String intime = getArguments().getString("intime");
         String content = getArguments().getString("content");
-        String levelnum = getArguments().getString("levelnum");
-        String multiLevelResult = getArguments().getString("multiLevelResult");
         String modifyTime = getArguments().getString("modifyTime");
         String bcancel = getArguments().getString("bcancel");
         String bfillup = getArguments().getString("bfillup");
@@ -231,16 +190,43 @@ public class RestApprovePeopleFragment extends CommonFragment {
                     public void run() {
                         if (peopleLeaveEntity1 != null){
                             if (peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getBCancel().equals("0")){
-                                String hisAnnotation = peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getHisAnnotation();
-                                String str = ";";
-                                fenNum = StringUtils.method_5(hisAnnotation, str);
-                                L.e(fenNum +"++++++++++++++++++++");
-                                L.e(TAG+"RestApprovePeopleFragment",peopleLeaveEntity1.toString());
-                                setEntity(peopleLeaveEntity1.getPeopleLeaveRrd().get(0));
-                                setGroup(getGroupList());
-                                setPb(false);
-                                setButtonllEnable(true);
-                                notifyDataSetChanged();
+                                PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
+                                PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
+                                peopleInfoBean.setNo(no);
+                                peopleInfoBean.setUnit("?");
+                                peopleInfoBean.setIsAndroid("1");
+                                List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
+                                beanList.add(peopleInfoBean);
+                                peopleEntity.setPeopleInfo(beanList);
+                                String json = new Gson().toJson(peopleEntity);
+                                String s1 = "get " + json;
+                                HttpManager.getInstance().requestResultForm(getTempIP(),s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
+                                    @Override
+                                    public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
+                                        if (peopleInfoEntity != null){
+                                            peopleLeaveEntity1.getPeopleLeaveRrd().get(0).setUnit(peopleInfoEntity.getPeopleInfo().get(0).getUnit());
+                                            String hisAnnotation = peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getHisAnnotation();
+                                            String str = ";";
+                                            fenNum = StringUtils.method_5(hisAnnotation, str);
+                                            L.e(TAG+"RestApprovePeopleFragment",peopleLeaveEntity1.toString());
+                                            setEntity(peopleLeaveEntity1.getPeopleLeaveRrd().get(0));
+                                            setGroup(getGroupList());
+                                            setPb(false);
+                                            setButtonllEnable(true);
+                                            notifyDataSetChanged();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(String msg) {
+
+                                    }
+
+                                    @Override
+                                    public void onResponse(String response) {
+                                    }
+                                });
+
                             }
                         }
                     }

@@ -50,6 +50,7 @@ public class CarLeaveEntity {
          * CurResult :
          * BeginNum :
          * EndNum :
+         * Unit :单位(自加)
          */
 
         private String AuthenticationNo;
@@ -85,7 +86,15 @@ public class CarLeaveEntity {
         private String CurResult;
         private String BeginNum;
         private String EndNum;
+        private String Unit;
 
+        public String getUnit() {
+            return Unit;
+        }
+
+        public void setUnit(String unit) {
+            Unit = unit;
+        }
         public String getDriverName() {
             return DriverName;
         }

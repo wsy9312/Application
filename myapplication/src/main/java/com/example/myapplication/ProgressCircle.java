@@ -65,7 +65,7 @@ public class ProgressCircle extends View{
     public  void setprogress( int progresss){
         this.progress = progresss;
 
-        postInvalidate();//这个很重要，不能是Invalidate()；
+        postInvalidate();
 
     }
 }

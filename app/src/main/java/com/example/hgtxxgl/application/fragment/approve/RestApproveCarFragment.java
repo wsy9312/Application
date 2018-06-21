@@ -26,7 +26,6 @@ public class RestApproveCarFragment extends CommonFragment {
     private final static String TAG = "RestApproveCarFragment";
     private String noindex;
     private String no;
-    private String unit;
     private int fenNum;
 
     public RestApproveCarFragment(){
@@ -88,7 +87,7 @@ public class RestApproveCarFragment extends CommonFragment {
 
         List<HandInputGroup.Holder> holderList = new ArrayList<>();
         holderList.add(new HandInputGroup.Holder("申请人", true, false, getArguments().getString("name"), HandInputGroup.VALUE_TYPE.TEXT));
-        holderList.add(new HandInputGroup.Holder("单位", true, false, unit, HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("单位", true, false, entity.getUnit(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("车辆号牌", true, false, entity.getCarNo(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("驾驶员", true, false, entity.getDriverName(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("带车干部", true, false, entity.getLeaderName(), HandInputGroup.VALUE_TYPE.TEXT));
@@ -139,42 +138,6 @@ public class RestApproveCarFragment extends CommonFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadData();
-        if (no.isEmpty()){
-            setPb(true);
-        }else{
-            getUnitFromNo(no);
-        }
-    }
-
-    private void getUnitFromNo(String no) {
-        PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
-        PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
-        peopleInfoBean.setNo(no);
-        peopleInfoBean.setUnit("?");
-        peopleInfoBean.setIsAndroid("1");
-        List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
-        beanList.add(peopleInfoBean);
-        peopleEntity.setPeopleInfo(beanList);
-        String json = new Gson().toJson(peopleEntity);
-        String s1 = "get " + json;
-        HttpManager.getInstance().requestResultForm(getTempIP(),s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
-            @Override
-            public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
-                if (peopleInfoEntity != null){
-                    unit = peopleInfoEntity.getPeopleInfo().get(0).getUnit();
-                    L.e(TAG+"unit:",unit);
-                }
-            }
-
-            @Override
-            public void onFailure(String msg) {
-
-            }
-
-            @Override
-            public void onResponse(String response) {
-            }
-        });
     }
 
     private void show(final String msg) {
@@ -233,14 +196,44 @@ public class RestApproveCarFragment extends CommonFragment {
                     public void run() {
                         if (carLeaveEntity1 != null){
                             if (carLeaveEntity1.getCarLeaveRrd().get(0).getBCancel().equals("0")){
-                                String hisAnnotation = carLeaveEntity1.getCarLeaveRrd().get(0).getHisAnnotation();
-                                String str = ";";
-                                fenNum = StringUtils.method_5(hisAnnotation, str);
-                                setEntity(carLeaveEntity1.getCarLeaveRrd().get(0));
-                                setGroup(getGroupList());
-                                setPb(false);
-                                setButtonllEnable(true);
-                                notifyDataSetChanged();
+
+                                PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
+                                PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
+                                peopleInfoBean.setNo(no);
+                                peopleInfoBean.setUnit("?");
+                                peopleInfoBean.setIsAndroid("1");
+                                List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
+                                beanList.add(peopleInfoBean);
+                                peopleEntity.setPeopleInfo(beanList);
+                                String json = new Gson().toJson(peopleEntity);
+                                String s1 = "get " + json;
+                                HttpManager.getInstance().requestResultForm(getTempIP(),s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
+                                    @Override
+                                    public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
+                                        if (peopleInfoEntity != null){
+                                            carLeaveEntity1.getCarLeaveRrd().get(0).setUnit(peopleInfoEntity.getPeopleInfo().get(0).getUnit());
+                                            String hisAnnotation = carLeaveEntity1.getCarLeaveRrd().get(0).getHisAnnotation();
+                                            String str = ";";
+                                            fenNum = StringUtils.method_5(hisAnnotation, str);
+                                            setEntity(carLeaveEntity1.getCarLeaveRrd().get(0));
+                                            setGroup(getGroupList());
+                                            setPb(false);
+                                            setButtonllEnable(true);
+                                            notifyDataSetChanged();
+
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(String msg) {
+
+                                    }
+
+                                    @Override
+                                    public void onResponse(String response) {
+                                    }
+                                });
+
                             }
                         }
                     }
