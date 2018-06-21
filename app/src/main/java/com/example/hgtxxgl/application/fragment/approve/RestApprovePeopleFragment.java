@@ -27,6 +27,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
     private String noindex;
     private String no;
     private int fenNum;
+    private String authenticationNo;
 
     public RestApprovePeopleFragment(){
 
@@ -53,20 +54,20 @@ public class RestApprovePeopleFragment extends CommonFragment {
         List<Group> groups = new ArrayList<>();
         int process = Integer.parseInt(entity.getProcess());
         List<HandInputGroup.Holder> list = new ArrayList<>();
-        list.add(new HandInputGroup.Holder("流程内容", true, false, "请假申请", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
-        list.add(new HandInputGroup.Holder("审批状态", true, false, process == 0?"审批中":"审批结束", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
+        list.add(new HandInputGroup.Holder("流程内容", true, false, "请假申请", HandInputGroup.VALUE_TYPE.TEXT).setColor(entity.getApproverNo().contains(authenticationNo)?Color.rgb(0,128,0):Color.rgb(214,16,24)));
+        list.add(new HandInputGroup.Holder("审批状态", true, false, process == 0?"审批中":"审批结束", HandInputGroup.VALUE_TYPE.TEXT).setColor(entity.getApproverNo().contains(authenticationNo)?Color.rgb(0,128,0):Color.rgb(214,16,24)));
         int substring = Integer.parseInt(entity.getResult());
         if (process == 1){
             setButtonsTitles(stringnull);
             switch (substring){
                 case 0:
-                    list.add(new HandInputGroup.Holder("审批结果", true, false, "不同意", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
+                    list.add(new HandInputGroup.Holder("审批结果", true, false, "不同意", HandInputGroup.VALUE_TYPE.TEXT).setColor(entity.getApproverNo().contains(authenticationNo)?Color.rgb(0,128,0):Color.rgb(214,16,24)));
                     break;
                 case 1:
-                    list.add(new HandInputGroup.Holder("审批结果", true, false, "同意", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
+                    list.add(new HandInputGroup.Holder("审批结果", true, false, "同意", HandInputGroup.VALUE_TYPE.TEXT).setColor(entity.getApproverNo().contains(authenticationNo)?Color.rgb(0,128,0):Color.rgb(214,16,24)));
                     break;
                 case 2:
-                    list.add(new HandInputGroup.Holder("审批结果", true, false, "被退回", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
+                    list.add(new HandInputGroup.Holder("审批结果", true, false, "被退回", HandInputGroup.VALUE_TYPE.TEXT).setColor(entity.getApproverNo().contains(authenticationNo)?Color.rgb(0,128,0):Color.rgb(214,16,24)));
                     break;
             }
         }else{
@@ -75,7 +76,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
                     setButtonsTitles(stringnull);
                 }
             }
-             list.add(new HandInputGroup.Holder("审批结果", true, false, "暂无", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
+             list.add(new HandInputGroup.Holder("审批结果", true, false, "暂无", HandInputGroup.VALUE_TYPE.TEXT).setColor(entity.getApproverNo().contains(authenticationNo)?Color.rgb(0,128,0):Color.rgb(214,16,24)));
         }
         if (entity.getBCancel().equals("0")){
             if (entity.getProcess().equals("1")){
@@ -133,6 +134,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        authenticationNo = ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo();
         loadData();
     }
 
