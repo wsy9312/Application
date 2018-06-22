@@ -576,6 +576,12 @@ public class RestDetailCarFragment extends CommonFragment {
         } else if (holder.getKey().equals("是否后补申请")){
             showSelector(holder,new String[]{"是","否"});
         } else if (holder.getKey().equals("车辆号牌")){
+            if (!getDisplayValueByKey("驾驶员").getRealValue().isEmpty()){
+                getDisplayValueByKey("驾驶员").setDispayValue("/请选择");
+            }
+            if (!getDisplayValueByKey("带车干部").getRealValue().isEmpty()){
+                getDisplayValueByKey("带车干部").setDispayValue("/请选择");
+            }
             if (carNoArray != null) {
                 showSelector(holder, carNoArray, new OnSelectedResultCallback() {
                     @Override
@@ -588,23 +594,27 @@ public class RestDetailCarFragment extends CommonFragment {
                 ToastUtil.showToast(getContext(),"拉取失败");
             }
         } else if (holder.getKey().equals("驾驶员")||holder.getKey().equals("带车干部")){
-            if (carOwnerNameArray != null) {
-                showSelector(holder, carOwnerNameArray, new OnSelectedResultCallback() {
-                    @Override
-                    public void onSelected(Group ownGroup, HandInputGroup.Holder holder, int mainIndex, int itemIndex) {
-                        String str1 = ownGroup.getHolderByKey("驾驶员").getDispayValue();
-                        String str2 = ownGroup.getHolderByKey("带车干部").getRealValue();
-                        for (int i = 0; i < ownGroup.getHolders().size(); i++) {
-                            if(ownGroup.getHolders().get(i).getKey().equals("驾驶员")){
-                                getNoFromName1(str1);
-                            }else if (ownGroup.getHolders().get(i).getKey().equals("带车干部")){
-                                getNoFromName2(str2);
+            if (!getDisplayValueByKey("车辆号牌").getRealValue().isEmpty()) {
+                if (carOwnerNameArray != null) {
+                    showSelector(holder, carOwnerNameArray, new OnSelectedResultCallback() {
+                        @Override
+                        public void onSelected(Group ownGroup, HandInputGroup.Holder holder, int mainIndex, int itemIndex) {
+                            String str1 = ownGroup.getHolderByKey("驾驶员").getRealValue();
+                            String str2 = ownGroup.getHolderByKey("带车干部").getRealValue();
+                            for (int i = 0; i < ownGroup.getHolders().size(); i++) {
+                                if (ownGroup.getHolders().get(i).getKey().equals("驾驶员")) {
+                                    getNoFromName1(str1);
+                                } else if (ownGroup.getHolders().get(i).getKey().equals("带车干部")) {
+                                    getNoFromName2(str2);
+                                }
                             }
                         }
-                    }
-                });
-            } else {
-                ToastUtil.showToast(getContext(),"拉取失败");
+                    });
+                } else {
+                    ToastUtil.showToast(getContext(), "拉取失败");
+                }
+            }else{
+                show("请先选择车辆号牌!");
             }
         }
     }
