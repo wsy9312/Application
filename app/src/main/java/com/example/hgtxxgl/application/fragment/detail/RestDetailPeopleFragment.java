@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 
 import com.example.hgtxxgl.application.R;
+import com.example.hgtxxgl.application.entity.NewLoginEntity;
+import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
 import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
 import com.example.hgtxxgl.application.rest.CommonFragment;
 import com.example.hgtxxgl.application.rest.HandInputGroup;
@@ -27,9 +29,12 @@ public class RestDetailPeopleFragment extends CommonFragment {
 
     private final static String TAG = "RestDetailPeopleFragment";
     private String s1;
-    private String [][] buttonType = {{""},{"(取消申请) 是"},{"(取消申请) 是","重新提交"}};
+    private String [][] buttonType = {{""},{"取消申请"},{"取消申请","重新提交"}};
     private int type = 0;
     private int fenNum;
+    private NewLoginEntity.LoginBean loginBean;
+    private PeopleInfoEntity.PeopleInfoBean peopleInfoBean;
+
     public RestDetailPeopleFragment(){
 
     }
@@ -58,9 +63,9 @@ public class RestDetailPeopleFragment extends CommonFragment {
                 holders.add(new HandInputGroup.Holder("是否已取消", true, false, bCancel.equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
                 groups.add(0,new Group("流程信息", null, false, null, holders));
                 List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
-                baseHolder.add(new HandInputGroup.Holder("申请人",true,false,ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName(),HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(128,128,128)));
-                baseHolder.add(new HandInputGroup.Holder("单位",true,false,ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getUnit(),HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(128,128,128)));
-                baseHolder.add(new HandInputGroup.Holder("部门",true,false,ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getDepartment(),HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(128,128,128)));
+                baseHolder.add(new HandInputGroup.Holder("申请人",true,false,peopleInfoBean.getName(),HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(128,128,128)));
+                baseHolder.add(new HandInputGroup.Holder("单位",true,false,peopleInfoBean.getUnit(),HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(128,128,128)));
+                baseHolder.add(new HandInputGroup.Holder("部门",true,false,peopleInfoBean.getDepartment(),HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(128,128,128)));
                 baseHolder.add(new HandInputGroup.Holder("申请类型",true,false,entity.getOutType(),HandInputGroup.VALUE_TYPE.TEXTFILED).setColor(Color.rgb(128,128,128)));
                 baseHolder.add(new HandInputGroup.Holder("离队时间",true,false,entity.getOutTime(),HandInputGroup.VALUE_TYPE.DATE).setColor(Color.rgb(128,128,128)));
                 baseHolder.add(new HandInputGroup.Holder("归队时间",true,false,entity.getInTime(),HandInputGroup.VALUE_TYPE.DATE).setColor(Color.rgb(128,128,128)));
@@ -78,9 +83,9 @@ public class RestDetailPeopleFragment extends CommonFragment {
                 holders.add(new HandInputGroup.Holder("是否已取消", true, false, bCancel.equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
                 groups.add(0,new Group("流程信息", null, false, null, holders));
                 List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
-                baseHolder.add(new HandInputGroup.Holder("申请人", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName(), HandInputGroup.VALUE_TYPE.TEXT));
-                baseHolder.add(new HandInputGroup.Holder("单位", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getUnit(), HandInputGroup.VALUE_TYPE.TEXT));
-                baseHolder.add(new HandInputGroup.Holder("部门", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getDepartment(), HandInputGroup.VALUE_TYPE.TEXT));
+                baseHolder.add(new HandInputGroup.Holder("申请人", true, false, peopleInfoBean.getName(), HandInputGroup.VALUE_TYPE.TEXT));
+                baseHolder.add(new HandInputGroup.Holder("单位", true, false, peopleInfoBean.getUnit(), HandInputGroup.VALUE_TYPE.TEXT));
+                baseHolder.add(new HandInputGroup.Holder("部门", true, false, peopleInfoBean.getDepartment(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("申请类型", true, false, entity.getOutType(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("离队时间", true, false, entity.getOutTime(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("归队时间", true, false, entity.getInTime(), HandInputGroup.VALUE_TYPE.TEXT));
@@ -98,9 +103,9 @@ public class RestDetailPeopleFragment extends CommonFragment {
                 holders.add(new HandInputGroup.Holder("是否已取消", true, false, bCancel.equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(0,128,0)));
                 groups.add(0,new Group("流程信息", null, false, null, holders));
                 List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
-                baseHolder.add(new HandInputGroup.Holder("申请人", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName(), HandInputGroup.VALUE_TYPE.TEXT));
-                baseHolder.add(new HandInputGroup.Holder("单位", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getUnit(), HandInputGroup.VALUE_TYPE.TEXT));
-                baseHolder.add(new HandInputGroup.Holder("部门", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getDepartment(), HandInputGroup.VALUE_TYPE.TEXT));
+                baseHolder.add(new HandInputGroup.Holder("申请人", true, false, peopleInfoBean.getName(), HandInputGroup.VALUE_TYPE.TEXT));
+                baseHolder.add(new HandInputGroup.Holder("单位", true, false, peopleInfoBean.getUnit(), HandInputGroup.VALUE_TYPE.TEXT));
+                baseHolder.add(new HandInputGroup.Holder("部门", true, false, peopleInfoBean.getDepartment(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("申请类型", true, false, entity.getOutType(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("离队时间", true, false, entity.getOutTime(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("归队时间", true, false, entity.getInTime(), HandInputGroup.VALUE_TYPE.TEXT));
@@ -142,9 +147,9 @@ public class RestDetailPeopleFragment extends CommonFragment {
                 //无
             }
             List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
-            baseHolder.add(new HandInputGroup.Holder("申请人", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName(), HandInputGroup.VALUE_TYPE.TEXT));
-            baseHolder.add(new HandInputGroup.Holder("单位", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getUnit(), HandInputGroup.VALUE_TYPE.TEXT));
-            baseHolder.add(new HandInputGroup.Holder("部门", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getDepartment(), HandInputGroup.VALUE_TYPE.TEXT));
+            baseHolder.add(new HandInputGroup.Holder("申请人", true, false, peopleInfoBean.getName(), HandInputGroup.VALUE_TYPE.TEXT));
+            baseHolder.add(new HandInputGroup.Holder("单位", true, false, peopleInfoBean.getUnit(), HandInputGroup.VALUE_TYPE.TEXT));
+            baseHolder.add(new HandInputGroup.Holder("部门", true, false, peopleInfoBean.getDepartment(), HandInputGroup.VALUE_TYPE.TEXT));
             baseHolder.add(new HandInputGroup.Holder("申请类型", true, false, entity.getOutType(), HandInputGroup.VALUE_TYPE.TEXT));
             baseHolder.add(new HandInputGroup.Holder("离队时间", true, false, entity.getOutTime(), HandInputGroup.VALUE_TYPE.TEXT));
             baseHolder.add(new HandInputGroup.Holder("归队时间", true, false, entity.getInTime(), HandInputGroup.VALUE_TYPE.TEXT));
@@ -195,11 +200,11 @@ public class RestDetailPeopleFragment extends CommonFragment {
         PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
         PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
         final String noindex = getArguments().getString("noindex");
-        peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-        peopleLeaveRrdBean.setNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        peopleLeaveRrdBean.setAuthenticationNo(loginBean.getAuthenticationNo());
+        peopleLeaveRrdBean.setNo(loginBean.getAuthenticationNo());
         peopleLeaveRrdBean.setIsAndroid("1");
         peopleLeaveRrdBean.setNoIndex(noindex);
-        if (title.equals("(取消申请) 是")){
+        if (title.equals("取消申请")){
             if (entity.getBCancel().equals("1")){
                 show("已取消,请勿重复操作!");
                 return;
@@ -254,7 +259,7 @@ public class RestDetailPeopleFragment extends CommonFragment {
                         setButtonllEnable(true);
                     }else {
                         //申请人ID
-                        String realValueNO = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo();
+                        String realValueNO = peopleInfoBean.getNo();
                         String unit = getDisplayValueByKey("单位").getRealValue();
                         String applicant = getDisplayValueByKey("申请人").getRealValue();
                         String applicantType = getDisplayValueByKey("申请类型").getRealValue();
@@ -272,7 +277,7 @@ public class RestDetailPeopleFragment extends CommonFragment {
                         peopleLeaveRrdBean.setInTime(returnTime);
                         peopleLeaveRrdBean.setContent(argument);
                         peopleLeaveRrdBean.setBFillup(bFillup.equals("否")?"0":"1");
-                        peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+                        peopleLeaveRrdBean.setAuthenticationNo(loginBean.getAuthenticationNo());
                         peopleLeaveRrdBean.setIsAndroid("1");
                         peopleLeaveRrdBean.setNoIndex(noindex);
                         List<PeopleLeaveEntity.PeopleLeaveRrdBean> beanList = new ArrayList<>();
@@ -340,6 +345,8 @@ public class RestDetailPeopleFragment extends CommonFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loginBean = ApplicationApp.getNewLoginEntity().getLogin().get(0);
+        peopleInfoBean = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0);
         StatusBarUtils.setWindowStatusBarColor(getActivity(), R.color.mainColor_blue);
         loadData();
     }
@@ -365,7 +372,7 @@ public class RestDetailPeopleFragment extends CommonFragment {
         String noindex = getArguments().getString("noindex");
         final PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
         PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
-        peopleLeaveRrdBean.setNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());//1
+        peopleLeaveRrdBean.setNo(peopleInfoBean.getNo());//1
         peopleLeaveRrdBean.setRegisterTime("?");//2
         peopleLeaveRrdBean.setOutTime("?");//3
         peopleLeaveRrdBean.setInTime("?");//4
@@ -382,7 +389,7 @@ public class RestDetailPeopleFragment extends CommonFragment {
         peopleLeaveRrdBean.setApproverName("?");//20
         peopleLeaveRrdBean.setHisAnnotation("?");//17
         peopleLeaveRrdBean.setResult("?");//18
-        peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());//19
+        peopleLeaveRrdBean.setAuthenticationNo(loginBean.getAuthenticationNo());//19
         peopleLeaveRrdBean.setIsAndroid("1");//12
         peopleLeaveRrdBean.setOutType("?");//14
         List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();

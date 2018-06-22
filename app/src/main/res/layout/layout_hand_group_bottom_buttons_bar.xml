@@ -45,7 +45,7 @@
         android:textColor="#3a699b"
         android:id="@+id/btn_toother"
         android:background="@drawable/rec_normal_gray"
-        android:text="(取消申请) 是" />
+        android:text="取消申请" />
     <!--android:drawableStart="@drawable/ic_cancel"
         android:drawableLeft="@drawable/ic_cancel"-->
     <Button

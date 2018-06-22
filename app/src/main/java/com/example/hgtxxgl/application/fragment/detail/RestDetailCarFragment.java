@@ -10,6 +10,7 @@ import android.util.Log;
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.entity.CarInfoEntity;
 import com.example.hgtxxgl.application.entity.CarLeaveEntity;
+import com.example.hgtxxgl.application.entity.NewLoginEntity;
 import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
 import com.example.hgtxxgl.application.rest.CommonFragment;
 import com.example.hgtxxgl.application.rest.HandInputGroup;
@@ -30,13 +31,15 @@ public class RestDetailCarFragment extends CommonFragment {
 
     private final static String TAG = "RestDetailCarFragment";
     private String s1;
-    private String [][] buttonType = {{""},{"(取消申请) 是"},{"(取消申请) 是","重新提交"}};
+    private String [][] buttonType = {{""},{"取消申请"},{"取消申请","重新提交"}};
     private int type = 0;
     private int fenNum;
     private String[] carNoArray;
     private String[] carOwnerNameArray;
     private String ownerNo1 = "";
     private String ownerNo2 = "";
+    private NewLoginEntity.LoginBean loginBean;
+    private PeopleInfoEntity.PeopleInfoBean peopleInfoBean;
 
     public RestDetailCarFragment(){
 
@@ -66,9 +69,9 @@ public class RestDetailCarFragment extends CommonFragment {
                 holders.add(new HandInputGroup.Holder("是否已取消", true, false, bCancel.equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
                 groups.add(0,new Group("流程信息", null, false, null, holders));
                 List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
-                baseHolder.add(new HandInputGroup.Holder("申请人",true,false,ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName(),HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(128,128,128)));
-                baseHolder.add(new HandInputGroup.Holder("单位",true,false,ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getUnit(),HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(128,128,128)));
-                baseHolder.add(new HandInputGroup.Holder("部门",true,false,ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getDepartment(),HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(128,128,128)));
+                baseHolder.add(new HandInputGroup.Holder("申请人",true,false,peopleInfoBean.getName(),HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(128,128,128)));
+                baseHolder.add(new HandInputGroup.Holder("单位",true,false,peopleInfoBean.getUnit(),HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(128,128,128)));
+                baseHolder.add(new HandInputGroup.Holder("部门",true,false,peopleInfoBean.getDepartment(),HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(128,128,128)));
                 baseHolder.add(new HandInputGroup.Holder("车辆号牌",false,false,entity.getCarNo(),HandInputGroup.VALUE_TYPE.SELECT).setColor(Color.rgb(128,128,128)));
                 baseHolder.add(new HandInputGroup.Holder("驾驶员",false,false,entity.getDriverName(),HandInputGroup.VALUE_TYPE.SELECT).setColor(Color.rgb(128,128,128)));
                 baseHolder.add(new HandInputGroup.Holder("带车干部",false,false,entity.getLeaderName(),HandInputGroup.VALUE_TYPE.SELECT).setColor(Color.rgb(128,128,128)));
@@ -88,9 +91,9 @@ public class RestDetailCarFragment extends CommonFragment {
                 holders.add(new HandInputGroup.Holder("是否已取消", true, false, bCancel.equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
                 groups.add(0,new Group("流程信息", null, false, null, holders));
                 List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
-                baseHolder.add(new HandInputGroup.Holder("申请人", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName(), HandInputGroup.VALUE_TYPE.TEXT));
-                baseHolder.add(new HandInputGroup.Holder("单位", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getUnit(), HandInputGroup.VALUE_TYPE.TEXT));
-                baseHolder.add(new HandInputGroup.Holder("部门", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getDepartment(), HandInputGroup.VALUE_TYPE.TEXT));
+                baseHolder.add(new HandInputGroup.Holder("申请人", true, false, peopleInfoBean.getName(), HandInputGroup.VALUE_TYPE.TEXT));
+                baseHolder.add(new HandInputGroup.Holder("单位", true, false, peopleInfoBean.getUnit(), HandInputGroup.VALUE_TYPE.TEXT));
+                baseHolder.add(new HandInputGroup.Holder("部门", true, false, peopleInfoBean.getDepartment(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("车辆号牌", true, false, entity.getCarNo(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("驾驶员", true, false, entity.getDriverName(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("带车干部", true, false, entity.getLeaderName(), HandInputGroup.VALUE_TYPE.TEXT));
@@ -110,9 +113,9 @@ public class RestDetailCarFragment extends CommonFragment {
                 holders.add(new HandInputGroup.Holder("是否已取消", true, false, bCancel.equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(0,128,0)));
                 groups.add(0,new Group("流程信息", null, false, null, holders));
                 List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
-                baseHolder.add(new HandInputGroup.Holder("申请人", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName(), HandInputGroup.VALUE_TYPE.TEXT));
-                baseHolder.add(new HandInputGroup.Holder("单位", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getUnit(), HandInputGroup.VALUE_TYPE.TEXT));
-                baseHolder.add(new HandInputGroup.Holder("部门", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getDepartment(), HandInputGroup.VALUE_TYPE.TEXT));
+                baseHolder.add(new HandInputGroup.Holder("申请人", true, false, peopleInfoBean.getName(), HandInputGroup.VALUE_TYPE.TEXT));
+                baseHolder.add(new HandInputGroup.Holder("单位", true, false, peopleInfoBean.getUnit(), HandInputGroup.VALUE_TYPE.TEXT));
+                baseHolder.add(new HandInputGroup.Holder("部门", true, false, peopleInfoBean.getDepartment(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("车辆号牌", true, false, entity.getCarNo(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("驾驶员", true, false, entity.getDriverName(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("带车干部", true, false, entity.getLeaderName(), HandInputGroup.VALUE_TYPE.TEXT));
@@ -156,9 +159,9 @@ public class RestDetailCarFragment extends CommonFragment {
                 //无
             }
             List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
-            baseHolder.add(new HandInputGroup.Holder("申请人", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName(), HandInputGroup.VALUE_TYPE.TEXT));
-            baseHolder.add(new HandInputGroup.Holder("单位", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getUnit(), HandInputGroup.VALUE_TYPE.TEXT));
-            baseHolder.add(new HandInputGroup.Holder("部门", true, false, ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getDepartment(), HandInputGroup.VALUE_TYPE.TEXT));
+            baseHolder.add(new HandInputGroup.Holder("申请人", true, false, peopleInfoBean.getName(), HandInputGroup.VALUE_TYPE.TEXT));
+            baseHolder.add(new HandInputGroup.Holder("单位", true, false, peopleInfoBean.getUnit(), HandInputGroup.VALUE_TYPE.TEXT));
+            baseHolder.add(new HandInputGroup.Holder("部门", true, false, peopleInfoBean.getDepartment(), HandInputGroup.VALUE_TYPE.TEXT));
             baseHolder.add(new HandInputGroup.Holder("车辆号牌", true, false, entity.getCarNo(), HandInputGroup.VALUE_TYPE.TEXT));
             baseHolder.add(new HandInputGroup.Holder("驾驶员", true, false, entity.getDriverName(), HandInputGroup.VALUE_TYPE.TEXT));
             baseHolder.add(new HandInputGroup.Holder("带车干部", true, false, entity.getLeaderName(), HandInputGroup.VALUE_TYPE.TEXT));
@@ -196,7 +199,7 @@ public class RestDetailCarFragment extends CommonFragment {
         bean.setOwner1No("?");
         bean.setOwner2No("?");
         bean.setIsAndroid("1");
-        bean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        bean.setAuthenticationNo(loginBean.getAuthenticationNo());
         List<CarInfoEntity.CarInfoBean> list = new ArrayList<>();
         list.add(bean);
         entity.setCarInfo(list);
@@ -233,7 +236,7 @@ public class RestDetailCarFragment extends CommonFragment {
         bean.setOwner1No("?");
         bean.setOwner2No("?");
         bean.setIsAndroid("1");
-        bean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        bean.setAuthenticationNo(loginBean.getAuthenticationNo());
         List<CarInfoEntity.CarInfoBean> list = new ArrayList<>();
         list.add(bean);
         entity.setCarInfo(list);
@@ -300,11 +303,11 @@ public class RestDetailCarFragment extends CommonFragment {
         Log.e("LOL111222  ",carno);
         Log.e("LOL111222  ",driverno);
         Log.e("LOL111222  ",leaderno);
-        carLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
-        carLeaveRrdBean.setNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        carLeaveRrdBean.setAuthenticationNo(loginBean.getAuthenticationNo());
+        carLeaveRrdBean.setNo(loginBean.getAuthenticationNo());
         carLeaveRrdBean.setIsAndroid("1");
         carLeaveRrdBean.setNoIndex(noindex);
-        if (title.equals("(取消申请) 是")){
+        if (title.equals("取消申请")){
             if (entity.getBCancel().equals("1")){
                 show("已取消,请勿重复操作!");
                 return;
@@ -359,7 +362,7 @@ public class RestDetailCarFragment extends CommonFragment {
                         setButtonllEnable(true);
                     }else {
                         //申请人ID
-                        String realValueNO = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo();
+                        String realValueNO = peopleInfoBean.getNo();
                         String unit = getDisplayValueByKey("单位").getRealValue();
                         String applicant = getDisplayValueByKey("申请人").getRealValue();
                         String carNo = getDisplayValueByKey("车辆号牌").getRealValue();
@@ -389,7 +392,7 @@ public class RestDetailCarFragment extends CommonFragment {
                         carLeaveRrdBean.setInTime(returnTime);
                         carLeaveRrdBean.setContent(argument);
                         carLeaveRrdBean.setBFillup(bFillup.equals("否")?"0":"1");
-                        carLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+                        carLeaveRrdBean.setAuthenticationNo(loginBean.getAuthenticationNo());
                         carLeaveRrdBean.setIsAndroid("1");
                         carLeaveRrdBean.setNoIndex(noindex);
                         List<CarLeaveEntity.CarLeaveRrdBean> beanList = new ArrayList<>();
@@ -457,6 +460,8 @@ public class RestDetailCarFragment extends CommonFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loginBean = ApplicationApp.getNewLoginEntity().getLogin().get(0);
+        peopleInfoBean = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0);
         StatusBarUtils.setWindowStatusBarColor(getActivity(), R.color.mainColor_blue);
         loadData();
         loadDraftData();
@@ -483,7 +488,7 @@ public class RestDetailCarFragment extends CommonFragment {
         String noindex = getArguments().getString("noindex");
         CarLeaveEntity carLeaveEntity = new CarLeaveEntity();
         CarLeaveEntity.CarLeaveRrdBean carLeaveRrdBean = new CarLeaveEntity.CarLeaveRrdBean();
-        carLeaveRrdBean.setNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
+        carLeaveRrdBean.setNo(peopleInfoBean.getNo());
         carLeaveRrdBean.setApproverNo("?");
         carLeaveRrdBean.setRegisterTime("?");
         carLeaveRrdBean.setOutTime("?");
@@ -500,7 +505,7 @@ public class RestDetailCarFragment extends CommonFragment {
         carLeaveRrdBean.setBeginNum("?");
         carLeaveRrdBean.setEndNum("?");
         carLeaveRrdBean.setCarNo("?");
-        carLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        carLeaveRrdBean.setAuthenticationNo(loginBean.getAuthenticationNo());
         carLeaveRrdBean.setIsAndroid("1");
         carLeaveRrdBean.setCarNo("?");
         carLeaveRrdBean.setDriverNo("?");
@@ -629,7 +634,7 @@ public class RestDetailCarFragment extends CommonFragment {
         peopleInfoBean.setIsAndroid("1");
         peopleInfoBean.setName(driver);
         peopleInfoBean.setNo("?");
-        peopleInfoBean.setAuthenticationNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
+        peopleInfoBean.setAuthenticationNo(peopleInfoBean.getNo());
         List<PeopleInfoEntity.PeopleInfoBean> list1 = new ArrayList<>();
         list1.add(peopleInfoBean);
         peopleInfoEntity.setPeopleInfo(list1);
@@ -658,7 +663,7 @@ public class RestDetailCarFragment extends CommonFragment {
         peopleInfoBean.setIsAndroid("1");
         peopleInfoBean.setName(driver);
         peopleInfoBean.setNo("?");
-        peopleInfoBean.setAuthenticationNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
+        peopleInfoBean.setAuthenticationNo(peopleInfoBean.getNo());
         List<PeopleInfoEntity.PeopleInfoBean> list1 = new ArrayList<>();
         list1.add(peopleInfoBean);
         peopleInfoEntity.setPeopleInfo(list1);
