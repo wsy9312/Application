@@ -66,7 +66,7 @@ public class MyLaunchPeopleFragment extends Fragment implements SimpleListView.O
             holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss"));
             holder.setText(R.id.tv_sketch, "申请事由:"+(bean.getContent().isEmpty()?"无":bean.getContent()));
             holder.setText(R.id.tv_direction, "申请去向:"+(bean.getDestination().isEmpty()?"无":bean.getDestination()));
-            if (bean.getProcess().equals("1")){
+            if (bean.getProcess().equals("1") && bean.getBCancel().equals("0")){
                 //已完成(拒绝)/红色
                 if (bean.getResult().equals("0")){
                     holder.setImageResource(R.id.image_flow,R.drawable.ic_reject1);

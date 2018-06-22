@@ -49,7 +49,7 @@ public class RestDetailPeopleFragment extends CommonFragment {
         int process = Integer.parseInt(entity.getProcess());
         int substring = Integer.parseInt(entity.getResult());
         String bCancel = entity.getBCancel();
-        if (process == 1){
+        if (process == 1 && bCancel.equals("0")){
             if (substring == 2){
                 List<HandInputGroup.Holder> holders = new ArrayList<>();
                 holders.add(new HandInputGroup.Holder("流程内容", true, false, "请假申请", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
