@@ -51,6 +51,7 @@ public class CarLeaveEntity {
          * BeginNum :
          * EndNum :
          * Unit :单位(自加)
+         * Department :部门(自加)
          */
 
         private String AuthenticationNo;
@@ -87,6 +88,15 @@ public class CarLeaveEntity {
         private String BeginNum;
         private String EndNum;
         private String Unit;
+        private String Department;
+
+        public String getDepartment() {
+            return Department;
+        }
+
+        public void setDepartment(String department) {
+            Department = department;
+        }
 
         public String getUnit() {
             return Unit;

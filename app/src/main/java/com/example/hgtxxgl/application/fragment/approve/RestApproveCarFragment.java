@@ -89,6 +89,7 @@ public class RestApproveCarFragment extends CommonFragment {
         List<HandInputGroup.Holder> holderList = new ArrayList<>();
         holderList.add(new HandInputGroup.Holder("申请人", true, false, getArguments().getString("name"), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("单位", true, false, entity.getUnit(), HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("部门", true, false, entity.getDepartment(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("车辆号牌", true, false, entity.getCarNo(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("驾驶员", true, false, entity.getDriverName(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("带车干部", true, false, entity.getLeaderName(), HandInputGroup.VALUE_TYPE.TEXT));
@@ -203,6 +204,7 @@ public class RestApproveCarFragment extends CommonFragment {
                                 PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
                                 peopleInfoBean.setNo(no);
                                 peopleInfoBean.setUnit("?");
+                                peopleInfoBean.setDepartment("?");
                                 peopleInfoBean.setIsAndroid("1");
                                 List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
                                 beanList.add(peopleInfoBean);
@@ -214,6 +216,7 @@ public class RestApproveCarFragment extends CommonFragment {
                                     public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
                                         if (peopleInfoEntity != null){
                                             carLeaveEntity1.getCarLeaveRrd().get(0).setUnit(peopleInfoEntity.getPeopleInfo().get(0).getUnit());
+                                            carLeaveEntity1.getCarLeaveRrd().get(0).setDepartment(peopleInfoEntity.getPeopleInfo().get(0).getDepartment());
                                             String hisAnnotation = carLeaveEntity1.getCarLeaveRrd().get(0).getHisAnnotation();
                                             String str = ";";
                                             fenNum = StringUtils.method_5(hisAnnotation, str);

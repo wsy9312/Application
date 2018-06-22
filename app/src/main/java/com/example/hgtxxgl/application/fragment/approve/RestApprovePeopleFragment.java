@@ -89,6 +89,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
         List<HandInputGroup.Holder> holderList = new ArrayList<>();
         holderList.add(new HandInputGroup.Holder("申请人", true, false, getArguments().getString("name"), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("单位", true, false, entity.getUnit(), HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("部门", true, false, entity.getDepartment(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("申请类型", true, false, entity.getOutType(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("离队时间", true, false, entity.getOutTime(), HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("归队时间", true, false, entity.getInTime(), HandInputGroup.VALUE_TYPE.TEXT));
@@ -196,6 +197,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
                                 PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
                                 peopleInfoBean.setNo(no);
                                 peopleInfoBean.setUnit("?");
+                                peopleInfoBean.setDepartment("?");
                                 peopleInfoBean.setIsAndroid("1");
                                 List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
                                 beanList.add(peopleInfoBean);
@@ -207,6 +209,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
                                     public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
                                         if (peopleInfoEntity != null){
                                             peopleLeaveEntity1.getPeopleLeaveRrd().get(0).setUnit(peopleInfoEntity.getPeopleInfo().get(0).getUnit());
+                                            peopleLeaveEntity1.getPeopleLeaveRrd().get(0).setDepartment(peopleInfoEntity.getPeopleInfo().get(0).getDepartment());
                                             String hisAnnotation = peopleLeaveEntity1.getPeopleLeaveRrd().get(0).getHisAnnotation();
                                             String str = ";";
                                             fenNum = StringUtils.method_5(hisAnnotation, str);

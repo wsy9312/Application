@@ -53,6 +53,7 @@ public class PeopleLeaveEntity {
          * BeginNum :
          * EndNum :
          * Unit :单位(自加)
+         * Department :部门(自加)
          */
 
         private String AuthenticationNo;
@@ -84,6 +85,7 @@ public class PeopleLeaveEntity {
         private String BeginNum;
         private String EndNum;
         private String Unit;
+        private String Department;
 
         @Override
         public String toString() {
@@ -117,7 +119,16 @@ public class PeopleLeaveEntity {
                     ", BeginNum='" + BeginNum + '\'' +
                     ", EndNum='" + EndNum + '\'' +
                     ", Unit='" + Unit + '\'' +
+                    ", Department='" + Department + '\'' +
                     '}';
+        }
+
+        public String getDepartment() {
+            return Department;
+        }
+
+        public void setDepartment(String department) {
+            Department = department;
         }
 
         public String getUnit() {

@@ -27,6 +27,7 @@ public class RestApplyFragment extends CommonFragment {
     private final static String TAG = "RestApplyFragment";
     private String name;
     private String unit;
+    private String department;
 
     public RestApplyFragment() {
     }
@@ -52,11 +53,13 @@ public class RestApplyFragment extends CommonFragment {
         if (!ApplicationApp.getPeopleInfoEntity().getPeopleInfo().isEmpty()){
             name = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName();
             unit = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getUnit();
+            department = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getDepartment();
         }
         List<CommonFragment.Group> groups = new ArrayList<>();
         List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
         baseHolder.add(new HandInputGroup.Holder("申请人",true,false,name,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
         baseHolder.add(new HandInputGroup.Holder("单位",true,false,unit,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
+        baseHolder.add(new HandInputGroup.Holder("部门",true,false,department,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
         baseHolder.add(new HandInputGroup.Holder("申请类型",true,false,"/请填写",HandInputGroup.VALUE_TYPE.TEXTFILED));
         baseHolder.add(new HandInputGroup.Holder("离队时间",true,false,"/请选择",HandInputGroup.VALUE_TYPE.DATE));
         baseHolder.add(new HandInputGroup.Holder("归队时间",true,false,"/请选择",HandInputGroup.VALUE_TYPE.DATE));
