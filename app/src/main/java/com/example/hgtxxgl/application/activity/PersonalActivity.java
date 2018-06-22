@@ -80,6 +80,7 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
         handToolBar.setTitleSize(20);
         handToolBar.setRightButton(R.drawable.ic_action_save);
         handToolBar.setHisButton(R.drawable.ic_action_barcode);
+        handToolBar.setChangeButton(R.drawable.ic_action_change);
         handToolBar.setVisibility(View.VISIBLE);
         handToolBar.setButtonsClickCallback(this);
         StatusBarUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
@@ -239,6 +240,9 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
         }else if (views.equals(PersonalHandToolbar.VIEWS.LEFT_BUTTON)){
             MyImageDialog dialog = new MyImageDialog(this,0,0,0,bitmap,R.style.AnimBottom);
             dialog.show();
+        }else if (views.equals(PersonalHandToolbar.VIEWS.CHANGE_BUTTON)){
+            ToastUtil.showToast(getApplicationContext(),"改密码");
+
         }
     }
 

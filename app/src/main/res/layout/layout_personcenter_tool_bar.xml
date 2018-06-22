@@ -41,20 +41,33 @@
             android:id="@+id/tv_history"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="visible"
             android:layout_toLeftOf="@+id/tv_right"
-            android:layout_marginRight="20dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="20dp" />
+            android:layout_marginBottom="20dp"
+            android:paddingRight="16dp"
+            android:src="@drawable/ic_action_save"
+            android:visibility="visible"/>
 
         <ImageView
             android:id="@+id/tv_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/tv_change"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:paddingRight="13dp"
+            android:src="@drawable/ic_action_barcode"
+            tools:visibility="visible"/>
+
+        <ImageView
+            android:id="@+id/tv_change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="20dp"
-            android:layout_marginRight="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:paddingRight="10dp"
+            android:src="@drawable/ic_action_change"
             tools:visibility="visible"/>
 
     </RelativeLayout>

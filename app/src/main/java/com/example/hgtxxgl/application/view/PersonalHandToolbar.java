@@ -16,6 +16,7 @@ public class PersonalHandToolbar extends FrameLayout {
     private TextView tvTitle;
     private ImageView tvRight,tvLeft,tvHistory;
     private OnButtonsClickCallback callback;
+    private ImageView tvChange;
 
     public PersonalHandToolbar(Context context) {
         super(context);
@@ -44,6 +45,7 @@ public class PersonalHandToolbar extends FrameLayout {
         tvRight = (ImageView) findViewById(R.id.tv_right);
         tvLeft = (ImageView) findViewById(R.id.tv_left);
         tvHistory = (ImageView) findViewById(R.id.tv_history);
+        tvChange = (ImageView) findViewById(R.id.tv_change);
     }
 
     public ImageView getTvRightBao(){
@@ -108,11 +110,23 @@ public class PersonalHandToolbar extends FrameLayout {
         });
     }
 
+    public void setChangeButton(int resDrawable) {
+        tvChange.setImageResource(resDrawable);
+        tvChange.setVisibility(VISIBLE);
+        tvChange.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (callback != null)
+                    callback.onButtonClickListner(VIEWS.CHANGE_BUTTON, -1);
+            }
+        });
+    }
+
     public void setButtonsClickCallback(OnButtonsClickCallback clickCallback) {
         this.callback = clickCallback;
     }
 
     public enum VIEWS {
-        LEFT_BUTTON, RIGHT_BUTTON,HISTORY_BUTTON,
+        LEFT_BUTTON, RIGHT_BUTTON,HISTORY_BUTTON,CHANGE_BUTTON
     }
 }
