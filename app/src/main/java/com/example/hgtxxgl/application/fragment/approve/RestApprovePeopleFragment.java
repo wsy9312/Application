@@ -293,7 +293,6 @@ public class RestApprovePeopleFragment extends CommonFragment {
             }
         });
         builder.create().show();
-
         }
 
     private void approveStart(String baseUrl, String s1) {

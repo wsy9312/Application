@@ -2,13 +2,16 @@ package com.example.hgtxxgl.application.activity;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -22,20 +25,29 @@ import android.widget.TextView;
 
 import com.example.hgtxxgl.application.QrCode.sample.ScannerActivity;
 import com.example.hgtxxgl.application.R;
+import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
 import com.example.hgtxxgl.application.utils.NumberFormatUtil;
 import com.example.hgtxxgl.application.utils.SysExitUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
+import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.ImgUtils;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
+import com.example.hgtxxgl.application.view.MyDialog;
 import com.example.hgtxxgl.application.view.MyImageDialog;
 import com.example.hgtxxgl.application.view.PersonalHandToolbar;
+import com.google.gson.Gson;
 import com.google.zxing.client.result.ParsedResultType;
 import com.mylhyl.zxing.scanner.common.Intents;
 import com.mylhyl.zxing.scanner.encode.QREncode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import pub.devrel.easypermissions.EasyPermissions;
+
+import static com.example.hgtxxgl.application.utils.hand.Fields.SAVE_IP;
 
 //个人资料首页
 public class PersonalActivity extends AppCompatActivity implements View.OnClickListener, PersonalHandToolbar.OnButtonsClickCallback {
@@ -241,9 +253,94 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
             MyImageDialog dialog = new MyImageDialog(this,0,0,0,bitmap,R.style.AnimBottom);
             dialog.show();
         }else if (views.equals(PersonalHandToolbar.VIEWS.CHANGE_BUTTON)){
-            ToastUtil.showToast(getApplicationContext(),"改密码");
-
+            final Dialog dialogx = new MyDialog(this, R.style.setttinguserpassworddialog);
+            dialogx.setContentView(R.layout.setting_user_password_dialog);
+            final TextInputEditText prePassword = (TextInputEditText) dialogx.findViewById(R.id.prePassword);
+            final TextInputEditText newPassword = (TextInputEditText) dialogx.findViewById(R.id.newPassword);
+            final TextInputEditText confirmPassword = (TextInputEditText) dialogx.findViewById(R.id.confirmPassword);
+            Button submit = (Button) dialogx.findViewById(R.id.dialog_button_ok);
+            Button cancel = (Button) dialogx.findViewById(R.id.dialog_button_cancel);
+            submit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String prepassword = prePassword.getText().toString();
+                    String newpassword = newPassword.getText().toString();
+                    String confirmpassword = confirmPassword.getText().toString();
+                    if (!TextUtils.isEmpty(prepassword)){
+                        if (prepassword.equals(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getPassword())){
+                            if (!TextUtils.isEmpty(newpassword) && !TextUtils.isEmpty(confirmpassword)){
+                                if (newpassword.equals(confirmpassword)){
+                                    modify(newpassword);
+                                    dialogx.dismiss();
+                                }else{
+                                    show("新密码输入不一致,请重新输入!");
+                                }
+                            }else{
+                                show("新密码不能为空!");
+                            }
+                        }else{
+                            show("原密码输入错误,请重新输入");
+                        }
+                    }else{
+                        show("原密码不能为空!");
+                    }
+                }
+            });
+            cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialogx.dismiss();
+                }
+            });
+            dialogx.show();
         }
+    }
+
+    private void modify(final String newpassword) {
+        PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
+        PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
+        peopleInfoBean.setPassword(newpassword);
+        peopleInfoBean.setNoIndex(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNoIndex());
+        peopleInfoBean.setAuthenticationNo(no);
+        peopleInfoBean.setIsAndroid("1");
+        List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
+        beanList.add(peopleInfoBean);
+        peopleEntity.setPeopleInfo(beanList);
+        String json = new Gson().toJson(peopleEntity);
+        String s1 = "modify " + json;
+        SharedPreferences share = getSharedPreferences(SAVE_IP, MODE_PRIVATE);
+        String tempIP = share.getString("tempIP", "");
+        HttpManager.getInstance().requestResultForm(tempIP,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
+            @Override
+            public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
+
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+
+            @Override
+            public void onResponse(String response) {
+                if (response.contains("error")){
+                    show(response);
+                }else if (response.contains("ok")){
+                    ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).setPassword(newpassword);
+                    show("修改成功!");
+                    startActivity(new Intent(PersonalActivity.this,LoginActivity.class));
+                }
+            }
+        });
+    }
+
+    private void show(final String msg) {
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ToastUtil.showToast(getApplicationContext(),msg);
+            }
+        });
     }
 
     @Override
