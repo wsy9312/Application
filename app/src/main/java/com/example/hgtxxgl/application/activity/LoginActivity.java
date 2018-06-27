@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -168,20 +169,31 @@ public class LoginActivity extends AppCompatActivity {
                 LayoutInflater inflater = LayoutInflater.from(LoginActivity.this);
                 final View view = inflater.inflate(R.layout.layout_iptext, null, true);
                 final IPEditText iptext = (IPEditText)view.findViewById(R.id.iptext);
+                final EditText edit1 = (EditText) iptext.findViewById(R.id.edit1);
+                final EditText edit2 = (EditText) iptext.findViewById(R.id.edit2);
+                final EditText edit3 = (EditText) iptext.findViewById(R.id.edit3);
+                final EditText edit4 = (EditText) iptext.findViewById(R.id.edit4);
+                final EditText edit5 = (EditText) iptext.findViewById(R.id.edit5);
                 new AlertDialog.Builder(LoginActivity.this)
                         .setTitle(R.string.please_set_ip_and_port)
                         .setView(view)
                         .setPositiveButton(R.string.make_sure, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 String ip = "http://"+ iptext.getText().toString()+"/";
-                                if (iptext.getText().toString().equals("")){
+                                if (edit1.getText().toString().trim().isEmpty()||edit2.getText().toString().trim().isEmpty()
+                                    ||edit3.getText().toString().trim().isEmpty()||edit4.getText().toString().trim().isEmpty()
+                                    ||edit5.getText().toString().trim().isEmpty()){
+                                    Toast.makeText(getApplicationContext(), "请输入完整的地址!", Toast.LENGTH_LONG).show();
+                                    return;
+                                }
+                                /*if(iptext.getText().toString().equals("")){
                                     Toast.makeText(getApplicationContext(), R.string.address_can_not_null, Toast.LENGTH_LONG).show();
-                                }else{
-//                                    ApplicationApp.setIP(ip);
+                                }else*/else{
                                     SharedPreferences share = getSharedPreferences(SAVE_IP, MODE_PRIVATE);
                                     SharedPreferences.Editor edit = share.edit();
                                     edit.putString("tempIP", ip);
                                     edit.commit();
+                                    Toast.makeText(getApplicationContext(), "设置成功!", Toast.LENGTH_LONG).show();
                                 }
                             }
                         })

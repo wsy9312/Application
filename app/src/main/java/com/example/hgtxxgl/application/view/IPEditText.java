@@ -200,7 +200,6 @@ public class IPEditText extends LinearLayout {
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
 
@@ -269,4 +268,5 @@ public class IPEditText extends LinearLayout {
         }
         return text;
     }
+
 }
