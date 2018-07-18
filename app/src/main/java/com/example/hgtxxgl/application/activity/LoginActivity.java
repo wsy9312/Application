@@ -2,6 +2,8 @@ package com.example.hgtxxgl.application.activity;
 
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
@@ -35,6 +37,7 @@ import com.example.hgtxxgl.application.utils.hand.NetworkHttpManager;
 import com.example.hgtxxgl.application.utils.hand.SpUtils;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
+import com.example.hgtxxgl.application.view.CustomVideoView;
 import com.example.hgtxxgl.application.view.IPEditText;
 import com.google.gson.Gson;
 
@@ -66,6 +69,9 @@ public class LoginActivity extends AppCompatActivity {
     private EditText edit5;
     private View view;
     private IPEditText iptext;
+
+    //创建播放视频的控件对象
+    private CustomVideoView videoview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +113,20 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    //返回重启加载
+    @Override
+    protected void onRestart() {
+        initView();
+        super.onRestart();
+    }
+
+    //防止锁屏或者切出的时候，音乐在播放
+    @Override
+    protected void onStop() {
+        videoview.stopPlayback();
+        super.onStop();
+    }
+
     //初始化控件
     private void initView() {
         pb = (ProgressBar) findViewById(R.id.login_pb);
@@ -123,6 +143,19 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         savepassword = (CheckBox) findViewById(R.id.login_cb_savepassword);
+        //加载视频资源控件
+        videoview = (CustomVideoView) findViewById(R.id.videoview);
+        //设置播放加载路径
+        videoview.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video));
+        //播放
+        videoview.start();
+        //循环播放
+        videoview.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                videoview.start();
+            }
+        });
         etUsername.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
