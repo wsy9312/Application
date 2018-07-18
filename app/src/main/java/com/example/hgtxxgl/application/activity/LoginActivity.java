@@ -13,6 +13,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -20,10 +21,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.entity.LoginEntity;
 import com.example.hgtxxgl.application.entity.NewLoginEntity;
 import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
+import com.example.hgtxxgl.application.utils.FileService;
 import com.example.hgtxxgl.application.utils.SysExitUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.Fields;
@@ -34,8 +37,11 @@ import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
 import com.example.hgtxxgl.application.view.IPEditText;
 import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import static com.example.hgtxxgl.application.utils.hand.Fields.SAVE_IP;
 
 //登录界面
@@ -52,6 +58,14 @@ public class LoginActivity extends AppCompatActivity {
     private CheckBox savepassword;
     private ImageView settingIP;
     private String tempIP;
+    public FileService fileService;
+    private EditText edit1;
+    private EditText edit2;
+    private EditText edit3;
+    private EditText edit4;
+    private EditText edit5;
+    private View view;
+    private IPEditText iptext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +79,32 @@ public class LoginActivity extends AppCompatActivity {
         savePassword = SpUtils.getisBoolean_false(getApplicationContext(), Fields.SAVE_PASSWORD,false);
         etPassword.setText(SpUtils.getString(getApplicationContext(),Fields.PASSWORD));
         savepassword.setChecked(savePassword);
+
+        LayoutInflater inflater = LayoutInflater.from(LoginActivity.this);
+        view = inflater.inflate(R.layout.layout_iptext, null, true);
+        iptext = (IPEditText) view.findViewById(R.id.iptext);
+        edit1 = (EditText) iptext.findViewById(R.id.edit1);
+        edit2 = (EditText) iptext.findViewById(R.id.edit2);
+        edit3 = (EditText) iptext.findViewById(R.id.edit3);
+        edit4 = (EditText) iptext.findViewById(R.id.edit4);
+        edit5 = (EditText) iptext.findViewById(R.id.edit5);
+
+        fileService=new FileService(this);
+        Map<String, Integer> map=fileService.readFile("private.txt");
+        if(map!=null){
+            edit1.setText(map.get("ip1")+"");
+            edit2.setText(map.get("ip2")+"");
+            edit3.setText(map.get("ip3")+"");
+            edit4.setText(map.get("ip4")+"");
+            edit5.setText(map.get("ip5")+"");
+        }
+    }
+
+    private void destoryView(View view) {
+        ViewGroup parent = (ViewGroup) view.getParent();
+        if (parent != null) {
+            parent.removeAllViews();
+        }
     }
 
     //初始化控件
@@ -166,23 +206,17 @@ public class LoginActivity extends AppCompatActivity {
         settingIP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LayoutInflater inflater = LayoutInflater.from(LoginActivity.this);
-                final View view = inflater.inflate(R.layout.layout_iptext, null, true);
-                final IPEditText iptext = (IPEditText)view.findViewById(R.id.iptext);
-                final EditText edit1 = (EditText) iptext.findViewById(R.id.edit1);
-                final EditText edit2 = (EditText) iptext.findViewById(R.id.edit2);
-                final EditText edit3 = (EditText) iptext.findViewById(R.id.edit3);
-                final EditText edit4 = (EditText) iptext.findViewById(R.id.edit4);
-                final EditText edit5 = (EditText) iptext.findViewById(R.id.edit5);
+                //这一步是为了防止二次点击出现闪退
+                destoryView(view);
                 new AlertDialog.Builder(LoginActivity.this)
                         .setTitle(R.string.please_set_ip_and_port)
                         .setView(view)
                         .setPositiveButton(R.string.make_sure, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 String ip = "http://"+ iptext.getText().toString()+"/";
-                                if (edit1.getText().toString().trim().isEmpty()||edit2.getText().toString().trim().isEmpty()
-                                    ||edit3.getText().toString().trim().isEmpty()||edit4.getText().toString().trim().isEmpty()
-                                    ||edit5.getText().toString().trim().isEmpty()){
+                                if (edit1.getText().toString().trim().isEmpty()|| edit2.getText().toString().trim().isEmpty()
+                                    || edit3.getText().toString().trim().isEmpty()|| edit4.getText().toString().trim().isEmpty()
+                                    || edit5.getText().toString().trim().isEmpty()){
                                     Toast.makeText(getApplicationContext(), "请输入完整的地址!", Toast.LENGTH_LONG).show();
                                     return;
                                 }
@@ -193,11 +227,12 @@ public class LoginActivity extends AppCompatActivity {
                                     SharedPreferences.Editor edit = share.edit();
                                     edit.putString("tempIP", ip);
                                     edit.commit();
+                                    LoginActivity.this.fileService.saveToRom(ip, "private.txt");
                                     Toast.makeText(getApplicationContext(), "设置成功!", Toast.LENGTH_LONG).show();
                                 }
                             }
                         })
-                        .setNegativeButton(R.string.cancel, null)
+                        .setNegativeButton(R.string.cancel,null)
                         .show();
             }
         });
