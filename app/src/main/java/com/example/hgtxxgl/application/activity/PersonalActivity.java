@@ -131,7 +131,7 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
         sex = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getSex().equals("0")?"男":"女";
         String data = "编号: "+ no + "\r\n\r\n"
                 +"姓名: "+ name + "\r\n\r\n"
-                +"身份证号: "+ cardNo + "\r\n\r\n"
+                +"证件号: "+ cardNo + "\r\n\r\n"
                 +"性别: "+ sex + "\r\n\r\n";
         bitmap = initshow(data);
         handToolBar.setLeftButton(bitmap);

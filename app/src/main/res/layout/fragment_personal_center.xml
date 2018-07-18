@@ -83,7 +83,7 @@
             android:id="@+id/tv_titile_soldier"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="身份证号"
+            android:text="证件号"
             android:textColor="@color/black"
             android:layout_centerVertical="true"
             android:layout_margin="8dp"/>

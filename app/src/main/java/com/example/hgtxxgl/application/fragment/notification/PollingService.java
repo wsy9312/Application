@@ -103,7 +103,70 @@ public class PollingService extends Service {
 //			getDataAlarmMessage();
 //			getDataAlarmApproveCar();
 //			getDataAlarmApprovePeople();
+//			getDataAlarmApplyCar();
+//			getDataAlarmApplyPeople();
 		}
+	}
+
+	public void getDataAlarmApplyCar() {
+		CarLeaveEntity carLeaveEntity = new CarLeaveEntity();
+		CarLeaveEntity.CarLeaveRrdBean carLeaveRrdBean = new CarLeaveEntity.CarLeaveRrdBean();
+		carLeaveRrdBean.setNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
+		carLeaveRrdBean.setProcess("?");
+		carLeaveRrdBean.setContent("?");
+		carLeaveRrdBean.setDestination("?");
+		carLeaveRrdBean.setBeginNum("1");
+		carLeaveRrdBean.setEndNum("100");
+		carLeaveRrdBean.setNoIndex("?");
+		carLeaveRrdBean.setModifyTime("?");
+		carLeaveRrdBean.setRegisterTime("?");
+		carLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+		carLeaveRrdBean.setIsAndroid("1");
+		carLeaveRrdBean.setBCancel("?");
+		carLeaveRrdBean.setResult("?");
+		carLeaveRrdBean.setCarNo("?");
+		carLeaveRrdBean.setDriverNo("?");
+		carLeaveRrdBean.setLeaderNo("?");
+		carLeaveRrdBean.setApproverNo("?");
+		List<CarLeaveEntity.CarLeaveRrdBean> list = new ArrayList<>();
+		list.add(carLeaveRrdBean);
+		carLeaveEntity.setCarLeaveRrd(list);
+		String json = new Gson().toJson(carLeaveEntity);
+		final String s = "get " + json;
+		HttpManager.getInstance().requestResultForm(tempIP, s, CarLeaveEntity.class,new HttpManager.ResultCallback<CarLeaveEntity>() {
+			@Override
+			public void onSuccess(final String json, final CarLeaveEntity carLeaveEntity1) throws InterruptedException {
+				if (carLeaveEntity1 != null && carLeaveEntity1.getCarLeaveRrd().size() > 0) {
+					List<CarLeaveEntity.CarLeaveRrdBean> carLeaveRrd = carLeaveEntity1.getCarLeaveRrd();
+					String modifyTime = carLeaveRrd.get(0).getModifyTime();
+					if (!list2.contains(modifyTime)) {
+						list2.add(modifyTime);
+						for (int i = 0; i < 500; i++) {
+							if (carLeaveEntity1.getCarLeaveRrd().get(i).getBCancel().equals("0") && carLeaveEntity1.getCarLeaveRrd().get(i).getProcess().equals("0")) {
+								showNotification(getString(R.string.received_one_car_appy));
+								Intent intent = new Intent();
+								intent.setAction(FLAG);
+								sendBroadcast(intent);
+							}
+						}
+					}
+				}
+			}
+
+			@Override
+			public void onFailure(String msg) {
+
+			}
+
+			@Override
+			public void onResponse(String response) {
+
+			}
+		});
+	}
+
+	private void getDataAlarmApplyPeople() {
+
 	}
 
 	private void getDataAlarmApprovePeople() {
