@@ -211,7 +211,7 @@ public class LoginActivity extends AppCompatActivity {
                 int apnType = NetworkHttpManager.getAPNType(getApplicationContext());
                 SharedPreferences share = getSharedPreferences(SAVE_IP, MODE_PRIVATE);
                 tempIP = share.getString("tempIP", "");
-                if (apnType != 1){
+                if (apnType == 0){
                     show(getString(R.string.current_no_network));
                 }else if (TextUtils.isEmpty(tempIP)){
                     show(getString(R.string.set_ip_and_port_first));

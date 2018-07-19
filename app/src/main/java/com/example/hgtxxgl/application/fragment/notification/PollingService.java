@@ -42,6 +42,8 @@ public class PollingService extends Service {
 	private List<String> list1;
 	private List<String> list2;
 	private List<String> list3;
+	private List<String> list4;
+	private List<String> list5;
 	private String tempIP;
 
 	@Override
@@ -62,6 +64,8 @@ public class PollingService extends Service {
 		list1 = new ArrayList<>();
 		list2 = new ArrayList<>();
 		list3 = new ArrayList<>();
+		list4 = new ArrayList<>();
+		list5 = new ArrayList<>();
 	}
 
 	@Override
@@ -100,10 +104,10 @@ public class PollingService extends Service {
 	class PollingThread extends Thread {
 		@Override
 		public void run() {
-//			getDataAlarmMessage();
-//			getDataAlarmApproveCar();
-//			getDataAlarmApprovePeople();
-//			getDataAlarmApplyCar();
+			getDataAlarmMessage();
+			getDataAlarmApproveCar();
+			getDataAlarmApprovePeople();
+			getDataAlarmApplyCar();
 //			getDataAlarmApplyPeople();
 		}
 	}
@@ -139,11 +143,12 @@ public class PollingService extends Service {
 				if (carLeaveEntity1 != null && carLeaveEntity1.getCarLeaveRrd().size() > 0) {
 					List<CarLeaveEntity.CarLeaveRrdBean> carLeaveRrd = carLeaveEntity1.getCarLeaveRrd();
 					String modifyTime = carLeaveRrd.get(0).getModifyTime();
-					if (!list2.contains(modifyTime)) {
-						list2.add(modifyTime);
+					if (!list4.contains(modifyTime)) {
+						list4.add(modifyTime);
 						for (int i = 0; i < 500; i++) {
-							if (carLeaveEntity1.getCarLeaveRrd().get(i).getBCancel().equals("0") && carLeaveEntity1.getCarLeaveRrd().get(i).getProcess().equals("0")) {
-								showNotification(getString(R.string.received_one_car_appy));
+							if (carLeaveEntity1.getCarLeaveRrd().get(i).getBCancel().equals("0")
+									&& carLeaveEntity1.getCarLeaveRrd().get(i).getProcess().equals("1")) {
+								showNotification("有一个申请已经审批完成");
 								Intent intent = new Intent();
 								intent.setAction(FLAG);
 								sendBroadcast(intent);
