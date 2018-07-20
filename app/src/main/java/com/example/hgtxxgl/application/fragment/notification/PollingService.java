@@ -11,6 +11,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.LibMainActivity;
@@ -25,7 +26,8 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.hgtxxgl.application.activity.LibMainActivity.FLAG;
+import static com.example.hgtxxgl.application.activity.LibMainActivity.FLAGAPPLY;
+import static com.example.hgtxxgl.application.activity.LibMainActivity.FLAGAPPROVE;
 import static com.example.hgtxxgl.application.activity.LibMainActivity.FLAGNOT;
 import static com.example.hgtxxgl.application.utils.hand.Fields.SAVE_IP;
 //通知服务
@@ -104,9 +106,9 @@ public class PollingService extends Service {
 	class PollingThread extends Thread {
 		@Override
 		public void run() {
-			getDataAlarmMessage();
-			getDataAlarmApproveCar();
-			getDataAlarmApprovePeople();
+//			getDataAlarmMessage();
+//			getDataAlarmApproveCar();
+//			getDataAlarmApprovePeople();
 			getDataAlarmApplyCar();
 //			getDataAlarmApplyPeople();
 		}
@@ -118,7 +120,6 @@ public class PollingService extends Service {
 		carLeaveRrdBean.setNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
 		carLeaveRrdBean.setProcess("?");
 		carLeaveRrdBean.setContent("?");
-		carLeaveRrdBean.setDestination("?");
 		carLeaveRrdBean.setBeginNum("1");
 		carLeaveRrdBean.setEndNum("100");
 		carLeaveRrdBean.setNoIndex("?");
@@ -126,17 +127,15 @@ public class PollingService extends Service {
 		carLeaveRrdBean.setRegisterTime("?");
 		carLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
 		carLeaveRrdBean.setIsAndroid("1");
-		carLeaveRrdBean.setBCancel("?");
+		carLeaveRrdBean.setBCancel("0");
 		carLeaveRrdBean.setResult("?");
-		carLeaveRrdBean.setCarNo("?");
-		carLeaveRrdBean.setDriverNo("?");
-		carLeaveRrdBean.setLeaderNo("?");
 		carLeaveRrdBean.setApproverNo("?");
 		List<CarLeaveEntity.CarLeaveRrdBean> list = new ArrayList<>();
 		list.add(carLeaveRrdBean);
 		carLeaveEntity.setCarLeaveRrd(list);
 		String json = new Gson().toJson(carLeaveEntity);
 		final String s = "get " + json;
+		Log.e(TAG+"@",s);
 		HttpManager.getInstance().requestResultForm(tempIP, s, CarLeaveEntity.class,new HttpManager.ResultCallback<CarLeaveEntity>() {
 			@Override
 			public void onSuccess(final String json, final CarLeaveEntity carLeaveEntity1) throws InterruptedException {
@@ -146,11 +145,10 @@ public class PollingService extends Service {
 					if (!list4.contains(modifyTime)) {
 						list4.add(modifyTime);
 						for (int i = 0; i < 500; i++) {
-							if (carLeaveEntity1.getCarLeaveRrd().get(i).getBCancel().equals("0")
-									&& carLeaveEntity1.getCarLeaveRrd().get(i).getProcess().equals("1")) {
-								showNotification("有一个申请已经审批完成");
+							if (carLeaveEntity1.getCarLeaveRrd().get(i).getProcess().equals("1")) {
+								showNotification("您有一条车辆申请已经审批完成");
 								Intent intent = new Intent();
-								intent.setAction(FLAG);
+								intent.setAction(FLAGAPPLY);
 								sendBroadcast(intent);
 							}
 						}
@@ -179,21 +177,21 @@ public class PollingService extends Service {
 		PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
 		peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
 		peopleLeaveRrdBean.setBeginNum("1");
-		peopleLeaveRrdBean.setContent("?");
 		peopleLeaveRrdBean.setEndNum("100");
 		peopleLeaveRrdBean.setIsAndroid("1");
 		peopleLeaveRrdBean.setModifyTime("?");
 		peopleLeaveRrdBean.setNo("?");
 		peopleLeaveRrdBean.setNoIndex("?");
 		peopleLeaveRrdBean.setProcess("?");
-		peopleLeaveRrdBean.setBCancel("?");
+		peopleLeaveRrdBean.setBCancel("0");
+		peopleLeaveRrdBean.setApproverNo("?");
+		peopleLeaveRrdBean.setContent("?");
 		final List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
 		list.add(peopleLeaveRrdBean);
 		peopleLeaveEntity.setPeopleLeaveRrd(list);
 		String json = new Gson().toJson(peopleLeaveEntity);
 		final String s = "get " + json;
-		//        String url = CommonValues.BASE_URL;
-//		String url = ApplicationApp.getIP();
+		Log.e(TAG+"#",s);
 		HttpManager.getInstance().requestResultForm(tempIP, s, PeopleLeaveEntity.class,new HttpManager.ResultCallback<PeopleLeaveEntity>() {
 			@Override
 			public void onSuccess(final String json, final PeopleLeaveEntity peopleLeaveEntity1) throws InterruptedException {
@@ -203,10 +201,10 @@ public class PollingService extends Service {
 					if (!list1.contains(modifyTime)){
 						list1.add(modifyTime);
 						for (int i = 0; i < 500; i++) {
-							if (peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getBCancel().equals("0") && peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getProcess().equals("0")) {
+							if (!peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getApproverNo().contains(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo())) {
 								showNotification(getString(R.string.received_one_apply_rest));
 								Intent intent = new Intent();
-								intent.setAction(FLAG);
+								intent.setAction(FLAGAPPROVE);
 								sendBroadcast(intent);
 							}
 						}
@@ -230,7 +228,7 @@ public class PollingService extends Service {
 										if (peopleInfoEntity != null) {
 											showNotification(getString(R.string.received_one_apply_rest));
 											Intent intent = new Intent();
-											intent.setAction(FLAG);
+											intent.setAction(FLAGAPPROVE);
 											sendBroadcast(intent);
 										}
 									}
@@ -264,7 +262,7 @@ public class PollingService extends Service {
 	private void getDataAlarmApproveCar() {
 		CarLeaveEntity carLeaveEntity = new CarLeaveEntity();
 		CarLeaveEntity.CarLeaveRrdBean carLeaveRrdBean = new CarLeaveEntity.CarLeaveRrdBean();
-		carLeaveRrdBean.setApproverNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+		carLeaveRrdBean.setApproverNo("?");
 		carLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
 		carLeaveRrdBean.setBeginNum("1");
 		carLeaveRrdBean.setEndNum("100");
@@ -274,14 +272,13 @@ public class PollingService extends Service {
 		carLeaveRrdBean.setNo("?");
 		carLeaveRrdBean.setNoIndex("?");
 		carLeaveRrdBean.setProcess("?");
-		carLeaveRrdBean.setBCancel("?");
+		carLeaveRrdBean.setBCancel("0");
 		List<CarLeaveEntity.CarLeaveRrdBean> list = new ArrayList<>();
 		list.add(carLeaveRrdBean);
 		carLeaveEntity.setCarLeaveRrd(list);
 		String json = new Gson().toJson(carLeaveEntity);
 		String s = "get " + json;
-		//        String url = CommonValues.BASE_URL;
-//		String url = ApplicationApp.getIP();
+		Log.e(TAG+"%",s);
 		HttpManager.getInstance().requestResultForm(tempIP, s, CarLeaveEntity.class,new HttpManager.ResultCallback<CarLeaveEntity>() {
 			@Override
 			public void onSuccess(final String json, final CarLeaveEntity carLeaveEntity1) throws InterruptedException {
@@ -291,10 +288,10 @@ public class PollingService extends Service {
 					if (!list2.contains(modifyTime)) {
 						list2.add(modifyTime);
 						for (int i = 0; i < 500; i++) {
-							if (carLeaveEntity1.getCarLeaveRrd().get(i).getBCancel().equals("0") && carLeaveEntity1.getCarLeaveRrd().get(i).getProcess().equals("0")) {
+							if (!carLeaveEntity1.getCarLeaveRrd().get(i).getApproverNo().contains(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo())) {
 								showNotification(getString(R.string.received_one_car_appy));
 								Intent intent = new Intent();
-								intent.setAction(FLAG);
+								intent.setAction(FLAGAPPROVE);
 								sendBroadcast(intent);
 							}
 						}
@@ -319,7 +316,7 @@ public class PollingService extends Service {
 										if (peopleInfoEntity != null) {
 											showNotification(getString(R.string.received_one_car_appy));
 											Intent intent = new Intent();
-											intent.setAction(FLAG);
+											intent.setAction(FLAGAPPROVE);
 											sendBroadcast(intent);
 										}
 									}
@@ -365,8 +362,7 @@ public class PollingService extends Service {
 		messageEntity.setMessageRrd(list);
 		String json = new Gson().toJson(messageEntity).replace("\\u0026","&");
 		String s = "get " + json;
-		//        String url = CommonValues.BASE_URL;
-//		String url = ApplicationApp.getIP();
+
 		HttpManager.getInstance().requestResultForm(tempIP, s, MessageEntity.class, new HttpManager.ResultCallback<MessageEntity>() {
 			@Override
 			public void onSuccess(String json, MessageEntity messageEntity) throws InterruptedException {

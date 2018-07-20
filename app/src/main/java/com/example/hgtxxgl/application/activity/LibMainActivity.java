@@ -62,16 +62,19 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
     private RadioButton launchTotal;
     private RadioButton todoTotal;
     private int screenHalf;
-    private BadgeView badgeViewTodo;
-    public static final String FLAG = "UPDATE";
+    public static final String FLAGAPPLY = "UPDATEAPPLY";
+    public static final String FLAGAPPROVE = "UPDATEAPPROVE";
     public static final String FLAGNOT = "UPDATENOT";
     TodoTotalBroadcast todoTotalBroadcast;
+    DetailTotalBroadcast detailTotalBroadcast;
     NotificationBroadcast notificationBroadcast;
     HorizontalScrollView scrollView;
     private FloatingActionButton fbcPeople;
     private FloatingActionButton fbcApply;
     private FloatingActionsMenu fbcMenu;
     private long time = 0;
+    private BadgeView badgeViewApply;
+    private BadgeView badgeViewTodo;
     private BadgeView badgeViewNoti;
 
     //底部菜单栏单选按钮监听器
@@ -106,6 +109,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                 changeFragment(2);
                 fragments[2].onPause();
                 handToolbar.setTitle(title[2]);
+                badgeViewApply.hide();
 
             } else if (checkedId == R.id.rb_main_leave_todo_total) {
                 currentIndex = 3;
@@ -151,7 +155,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
 
         todoTotalBroadcast = new TodoTotalBroadcast();
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(FLAG);
+        intentFilter.addAction(FLAGAPPROVE);
         registerReceiver(todoTotalBroadcast, intentFilter);
         todoTotalBroadcast.SetOnUpdateUI(new OnUpdateUI() {
             @Override
@@ -171,6 +175,18 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
             }
 
         });
+
+        detailTotalBroadcast = new DetailTotalBroadcast();
+        IntentFilter intentFilter2 = new IntentFilter();
+        intentFilter2.addAction(FLAGAPPLY);
+        registerReceiver(detailTotalBroadcast, intentFilter2);
+        detailTotalBroadcast.SetOnUpdateUI(new OnUpdateUI() {
+            @Override
+            public void updateUI(String i) {
+                badgeViewApply.show();
+            }
+        });
+
         fbcPeople = (FloatingActionButton) findViewById(R.id.button_fbc_people);
         fbcApply = (FloatingActionButton) findViewById(R.id.button_fbc_apply);
         fbcMenu = (FloatingActionsMenu) findViewById(R.id.multiple_actions_up);
@@ -247,8 +263,10 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         todoTotal = (RadioButton) findViewById(R.id.rb_main_leave_todo_total);
         bottomBar.setOnCheckedChangeListener(listener);
         Button btnTodo = (Button) findViewById(R.id.btn_todo);
+        Button btnStart = (Button) findViewById(R.id.btn_start);
         Button btnNotification = (Button) findViewById(R.id.btn_notif);
         remindTodo(btnTodo);
+        remindApply(btnStart);
         remindNoti(btnNotification);
     }
 
@@ -270,6 +288,16 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         badgeViewTodo.setBadgeBackgroundColor(Color.RED);
         badgeViewTodo.setTextSize(7);
         badgeViewTodo.setBadgeMargin(1);
+    }
+
+    private void remindApply(View view) {
+        badgeViewApply = new BadgeView(this, view);
+        badgeViewApply.setText("");
+        badgeViewApply.setBadgePosition(BadgeView.POSITION_CUSTOM);
+        badgeViewApply.setTextColor(Color.WHITE);
+        badgeViewApply.setBadgeBackgroundColor(Color.RED);
+        badgeViewApply.setTextSize(7);
+        badgeViewApply.setBadgeMargin(1);
     }
 
     //初始化首页四个子fragment
