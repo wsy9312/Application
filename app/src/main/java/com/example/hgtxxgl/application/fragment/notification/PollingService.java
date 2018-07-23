@@ -109,8 +109,8 @@ public class PollingService extends Service {
 //			getDataAlarmMessage();
 //			getDataAlarmApproveCar();
 //			getDataAlarmApprovePeople();
-			getDataAlarmApplyCar();
-//			getDataAlarmApplyPeople();
+//			getDataAlarmApplyCar();
+			getDataAlarmApplyPeople();
 		}
 	}
 
@@ -134,7 +134,7 @@ public class PollingService extends Service {
 		list.add(carLeaveRrdBean);
 		carLeaveEntity.setCarLeaveRrd(list);
 		String json = new Gson().toJson(carLeaveEntity);
-		final String s = "get " + json;
+		String s = "get " + json;
 		Log.e(TAG+"@",s);
 		HttpManager.getInstance().requestResultForm(tempIP, s, CarLeaveEntity.class,new HttpManager.ResultCallback<CarLeaveEntity>() {
 			@Override
@@ -169,7 +169,56 @@ public class PollingService extends Service {
 	}
 
 	private void getDataAlarmApplyPeople() {
+		PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
+		PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
+		peopleLeaveRrdBean.setNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
+		peopleLeaveRrdBean.setProcess("?");
+		peopleLeaveRrdBean.setContent("?");
+		peopleLeaveRrdBean.setBeginNum("1");
+		peopleLeaveRrdBean.setEndNum("100");
+		peopleLeaveRrdBean.setNoIndex("?");
+		peopleLeaveRrdBean.setModifyTime("?");
+		peopleLeaveRrdBean.setRegisterTime("?");
+		peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+		peopleLeaveRrdBean.setIsAndroid("1");
+		peopleLeaveRrdBean.setBCancel("0");
+		peopleLeaveRrdBean.setResult("?");
+		peopleLeaveRrdBean.setDestination("?");
+		peopleLeaveRrdBean.setApproverNo("?");
+		List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
+		list.add(peopleLeaveRrdBean);
+		peopleLeaveEntity.setPeopleLeaveRrd(list);
+		String json = new Gson().toJson(peopleLeaveEntity);
+		String s = "get " + json;
+		Log.e(TAG+"#",s);
+		HttpManager.getInstance().requestResultForm(tempIP, s, PeopleLeaveEntity.class,new HttpManager.ResultCallback<PeopleLeaveEntity>() {
+			@Override
+			public void onSuccess(final String json, final PeopleLeaveEntity peopleLeaveEntity1) throws InterruptedException {
+				if (peopleLeaveEntity1 != null && peopleLeaveEntity1.getPeopleLeaveRrd().size() > 0) {
+					List<PeopleLeaveEntity.PeopleLeaveRrdBean> peopleLeaveRrd = peopleLeaveEntity1.getPeopleLeaveRrd();
+					String modifyTime = peopleLeaveRrd.get(0).getModifyTime();
+					if (!list5.contains(modifyTime)){
+						list5.add(modifyTime);
+						for (int i = 0; i < 500; i++) {
+							if (peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getProcess().equals("1")) {
+								showNotification("您有一条请假申请已经审批完成");
+								Intent intent = new Intent();
+								intent.setAction(FLAGAPPLY);
+								sendBroadcast(intent);
+							}
+						}
+					}
+				}
+			}
 
+			@Override
+			public void onFailure(String msg) {
+			}
+
+			@Override
+			public void onResponse(String response) {
+			}
+		});
 	}
 
 	private void getDataAlarmApprovePeople() {
@@ -186,11 +235,11 @@ public class PollingService extends Service {
 		peopleLeaveRrdBean.setBCancel("0");
 		peopleLeaveRrdBean.setApproverNo("?");
 		peopleLeaveRrdBean.setContent("?");
-		final List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
+		List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
 		list.add(peopleLeaveRrdBean);
 		peopleLeaveEntity.setPeopleLeaveRrd(list);
 		String json = new Gson().toJson(peopleLeaveEntity);
-		final String s = "get " + json;
+		String s = "get " + json;
 		Log.e(TAG+"#",s);
 		HttpManager.getInstance().requestResultForm(tempIP, s, PeopleLeaveEntity.class,new HttpManager.ResultCallback<PeopleLeaveEntity>() {
 			@Override
