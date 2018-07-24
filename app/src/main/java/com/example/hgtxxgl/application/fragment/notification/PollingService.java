@@ -110,7 +110,7 @@ public class PollingService extends Service {
 //			getDataAlarmApproveCar();
 //			getDataAlarmApprovePeople();
 //			getDataAlarmApplyCar();
-			getDataAlarmApplyPeople();
+//			getDataAlarmApplyPeople();
 		}
 	}
 

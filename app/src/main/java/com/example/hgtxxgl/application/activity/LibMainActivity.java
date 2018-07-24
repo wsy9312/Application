@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
+import com.example.hgtxxgl.application.fragment.notification.DetailTotalBroadcast;
 import com.example.hgtxxgl.application.fragment.notification.NotificationBroadcast;
 import com.example.hgtxxgl.application.fragment.notification.OnUpdateUI;
 import com.example.hgtxxgl.application.fragment.notification.OnUpdateUINO;

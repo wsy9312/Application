@@ -1,10 +1,7 @@
-package com.example.hgtxxgl.application.activity;
+package com.example.hgtxxgl.application.fragment.notification;
 
 import android.content.Context;
 import android.content.Intent;
-
-import com.example.hgtxxgl.application.fragment.notification.OnUpdateUI;
-import com.example.hgtxxgl.application.fragment.notification.TodoTotalBroadcast;
 
 /**
  * Created by HGTXxgl on 2018/7/19.
