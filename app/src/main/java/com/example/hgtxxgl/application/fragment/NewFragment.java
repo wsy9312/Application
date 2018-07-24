@@ -182,7 +182,7 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
                     }
                     hasMore = true;
                     entityList.addAll(newsInfoEntity.getNewsRrd());
-                    setBannerBitmap();
+//                    setBannerBitmap();
                     adapter.notifyDataSetChanged();
                 } else {
                     hasMore = false;

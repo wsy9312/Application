@@ -1,11 +1,9 @@
 package com.example.hgtxxgl.application.activity;
 
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -20,7 +18,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.entity.LoginEntity;
@@ -36,6 +33,8 @@ import com.example.hgtxxgl.application.utils.hand.SpUtils;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
 import com.example.hgtxxgl.application.view.IPEditText;
+import com.example.hgtxxgl.application.view.UrlListAdapter;
+import com.example.hgtxxgl.application.view.UrlSelector;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -66,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText edit5;
     private View view;
     private IPEditText iptext;
+    private String DEMO_URL;
 
     //创建播放视频的控件对象
 //    private CustomVideoView videoview;
@@ -233,12 +233,23 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        final UrlListAdapter urlListAdapter = new UrlListAdapter(LoginActivity.this);
+        SharedPreferences share = getSharedPreferences(SAVE_IP, MODE_PRIVATE);
+        final SharedPreferences.Editor edit = share.edit();
         settingIP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //这一步是为了防止二次点击出现闪退
                 destoryView(view);
-                new AlertDialog.Builder(LoginActivity.this)
+                UrlSelector.launch(LoginActivity.this, urlListAdapter, new UrlSelector.OnUrlChangedListener() {
+                    @Override
+                    public void urlChanged(String url) {
+                        DEMO_URL = url;
+                        edit.putString("tempIP", DEMO_URL);
+                        edit.commit();
+                    }
+                });
+                /*new AlertDialog.Builder(LoginActivity.this)
                         .setTitle(R.string.please_set_ip_and_port)
                         .setView(view)
                         .setPositiveButton(R.string.make_sure, new DialogInterface.OnClickListener() {
@@ -250,9 +261,9 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.makeText(getApplicationContext(), "请输入完整的地址!", Toast.LENGTH_LONG).show();
                                     return;
                                 }
-                                /*if(iptext.getText().toString().equals("")){
+                                *//*if(iptext.getText().toString().equals("")){
                                     Toast.makeText(getApplicationContext(), R.string.address_can_not_null, Toast.LENGTH_LONG).show();
-                                }else*/else{
+                                }else*//*else{
                                     SharedPreferences share = getSharedPreferences(SAVE_IP, MODE_PRIVATE);
                                     SharedPreferences.Editor edit = share.edit();
                                     edit.putString("tempIP", ip);
@@ -263,9 +274,12 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         })
                         .setNegativeButton(R.string.cancel,null)
-                        .show();
+                        .show();*/
             }
         });
+        DEMO_URL = urlListAdapter.getCheckedUrl();
+        edit.putString("tempIP", DEMO_URL);
+        edit.commit();
     }
 
     //用户名密码判空
