@@ -1,5 +1,6 @@
 package com.example.hgtxxgl.application.activity;
 
+import android.Manifest;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
@@ -24,6 +25,7 @@ import com.example.hgtxxgl.application.entity.LoginEntity;
 import com.example.hgtxxgl.application.entity.NewLoginEntity;
 import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
 import com.example.hgtxxgl.application.utils.FileService;
+import com.example.hgtxxgl.application.utils.RxPermissionsTool;
 import com.example.hgtxxgl.application.utils.SysExitUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.Fields;
@@ -66,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
     private View view;
     private IPEditText iptext;
     private String DEMO_URL;
-
+    private LoginActivity mContext;
     //创建播放视频的控件对象
 //    private CustomVideoView videoview;
 
@@ -77,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         StatusBarUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
         initView();
+        mContext = this;
         SysExitUtil.activityList.add(LoginActivity.this);
         etUsername.setText(SpUtils.getString(getApplicationContext(), Fields.USERID));
         savePassword = SpUtils.getisBoolean_false(getApplicationContext(), Fields.SAVE_PASSWORD,false);
@@ -101,6 +104,13 @@ public class LoginActivity extends AppCompatActivity {
             edit4.setText(map.get("ip4")+"");
             edit5.setText(map.get("ip5")+"");
         }
+
+        RxPermissionsTool.
+                with(mContext).
+                addPermission(Manifest.permission.READ_EXTERNAL_STORAGE).
+                addPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE).
+                addPermission(Manifest.permission.CAMERA).
+                initPermission();
     }
 
     private void destoryView(View view) {

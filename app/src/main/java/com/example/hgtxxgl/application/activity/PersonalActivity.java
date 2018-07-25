@@ -7,13 +7,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -226,7 +223,8 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
                     tvRightBao.setDrawingCacheEnabled(true);
                     if (tvRightBao.getDrawingCache() != null){
                         bitmap = Bitmap.createBitmap(tvRightBao.getDrawingCache());
-                        requestPermission();
+//                        requestPermission();
+                        saveImage();
                     }else{
                         ToastUtil.showToast(mContext,getString(R.string.pic_can_no_empty));
                     }
@@ -241,14 +239,14 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
             });
             builder.create().show();
         }else if (views.equals(PersonalHandToolbar.VIEWS.HISTORY_BUTTON)){
-            if (ContextCompat.checkSelfPermission(PersonalActivity.this, Manifest.permission.CAMERA)
-                    != PackageManager.PERMISSION_GRANTED) {
+//            if (ContextCompat.checkSelfPermission(PersonalActivity.this, Manifest.permission.CAMERA)
+//                    != PackageManager.PERMISSION_GRANTED) {
                 //权限还没有授予，需要在这里写申请权限的代码
-                ActivityCompat.requestPermissions(PersonalActivity.this, new String[]{Manifest.permission.CAMERA}, 60);
-            } else {
+//                ActivityCompat.requestPermissions(PersonalActivity.this, new String[]{Manifest.permission.CAMERA}, 60);
+//            } else {
                 //权限已经被授予，在这里直接写要执行的相应方法即可
                 ScannerActivity.gotoActivity(PersonalActivity.this, true, 1);
-            }
+//            }
         }else if (views.equals(PersonalHandToolbar.VIEWS.LEFT_BUTTON)){
             MyImageDialog dialog = new MyImageDialog(this,0,0,0,bitmap,R.style.AnimBottom);
             dialog.show();
