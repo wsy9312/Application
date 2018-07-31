@@ -318,7 +318,11 @@ public class RestApproveCarFragment extends CommonFragment {
                     show("审批成功");
                     getActivity().finish();
                 }else{
-                    show("审批已完成,正在等待其他人审批");
+                    if (response.contains("ApproverIsNotFound")){
+                        show("提交失败!没有下一级审批人!");
+                    }else{
+                        show("当前审批已完成,正在等待下一级审批");
+                    }
                     getActivity().finish();
                 }
             }

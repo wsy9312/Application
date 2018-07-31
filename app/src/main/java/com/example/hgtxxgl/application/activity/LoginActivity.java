@@ -69,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
     private IPEditText iptext;
     private String DEMO_URL;
     private LoginActivity mContext;
+
     //创建播放视频的控件对象
 //    private CustomVideoView videoview;
 
