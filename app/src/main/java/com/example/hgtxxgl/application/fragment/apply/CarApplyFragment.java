@@ -32,8 +32,9 @@ public class CarApplyFragment extends CommonFragment {
     private String department;
     private String[] carNoArray;
     private String[] carOwnerNameArray;
-    private String ownerNo1;
-    private String ownerNo2;
+    private String ownerNo1 = "";
+    private String ownerNo2 = "";
+    private String[] arrayName;
 
     public CarApplyFragment() {
     }
@@ -53,6 +54,7 @@ public class CarApplyFragment extends CommonFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadDraftData();
+        loadNames();
     }
 
     @Override
@@ -67,7 +69,7 @@ public class CarApplyFragment extends CommonFragment {
         baseHolder.add(new HandInputGroup.Holder("申请人",true,false,name,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
         baseHolder.add(new HandInputGroup.Holder("单位",true,false,unit,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
         baseHolder.add(new HandInputGroup.Holder("部门",true,false,department,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
-        baseHolder.add(new HandInputGroup.Holder("车辆号牌",false,false,"/请选择",HandInputGroup.VALUE_TYPE.SELECT));
+        baseHolder.add(new HandInputGroup.Holder("车辆号牌",true,false,"/请选择",HandInputGroup.VALUE_TYPE.SELECT));
         baseHolder.add(new HandInputGroup.Holder("驾驶员",false,false,"/请选择",HandInputGroup.VALUE_TYPE.SELECT));
         baseHolder.add(new HandInputGroup.Holder("带车干部",false,false,"/请选择",HandInputGroup.VALUE_TYPE.SELECT));
         baseHolder.add(new HandInputGroup.Holder("离队时间",true,false,"/请选择",HandInputGroup.VALUE_TYPE.DATE));
@@ -254,18 +256,40 @@ public class CarApplyFragment extends CommonFragment {
                 getDisplayValueByKey("带车干部").setDispayValue("/请选择");
             }
             if (carNoArray != null) {
-                showSelector(holder, carNoArray, new OnSelectedResultCallback() {
+                showSelector(holder,carNoArray);
+              /*  showSelector(holder, carNoArray, new OnSelectedResultCallback() {
                     @Override
                     public void onSelected(Group ownGroup, HandInputGroup.Holder holder, int mainIndex, int itemIndex) {
                         String realValue = holder.getRealValue();
                         loadDraftData(realValue);
                     }
-                });
+                });*/
             } else {
                 ToastUtil.showToast(getContext(),"拉取失败");
             }
         } else if (holder.getKey().equals("驾驶员")||holder.getKey().equals("带车干部")){
-            if (!getDisplayValueByKey("车辆号牌").getRealValue().isEmpty()){
+            if (!getDisplayValueByKey("车辆号牌").getRealValue().isEmpty()) {
+                    if (arrayName!= null){
+                    showSelector(holder, arrayName, new OnSelectedResultCallback() {
+                        @Override
+                        public void onSelected(Group ownGroup, HandInputGroup.Holder holder, int mainIndex, int itemIndex) {
+                            String str1 = ownGroup.getHolderByKey("驾驶员").getRealValue();
+                            String str2 = ownGroup.getHolderByKey("带车干部").getRealValue();
+                            for (int i = 0; i < ownGroup.getHolders().size(); i++) {
+                                if(ownGroup.getHolders().get(i).getKey().equals("驾驶员")){
+                                    getNoFromName1(str1);
+                                }else if (ownGroup.getHolders().get(i).getKey().equals("带车干部")){
+                                    getNoFromName2(str2);
+                                }
+                            }
+                        }
+                    });
+                }
+            }else{
+                show("请先选择车辆号牌!");
+            }
+
+       /*     if (!getDisplayValueByKey("车辆号牌").getRealValue().isEmpty()){
                 if (carOwnerNameArray != null) {
                     showSelector(holder, carOwnerNameArray, new OnSelectedResultCallback() {
                         @Override
@@ -286,8 +310,42 @@ public class CarApplyFragment extends CommonFragment {
                 }
             }else{
                 show("请先选择车辆号牌!");
-            }
+            }*/
+
         }
+    }
+
+    private void loadNames(){
+        PeopleInfoEntity peopleInfoEntity = new PeopleInfoEntity();
+        PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
+        peopleInfoBean.setIsAndroid("1");
+        peopleInfoBean.setName("?");
+        peopleInfoBean.setAuthenticationNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
+        List<PeopleInfoEntity.PeopleInfoBean> list1 = new ArrayList<>();
+        list1.add(peopleInfoBean);
+        peopleInfoEntity.setPeopleInfo(list1);
+        String requestJson = "get "+new Gson().toJson(peopleInfoEntity);
+        HttpManager.getInstance().requestResultForm(getTempIP(), requestJson, PeopleInfoEntity.class, new HttpManager.ResultCallback<PeopleInfoEntity>() {
+            @Override
+            public void onSuccess(String json, PeopleInfoEntity entity) throws InterruptedException {
+                int size = entity.getPeopleInfo().size();
+                List<String> list = new ArrayList<>();
+                for (int i = 0; i < size; i++) {
+                    list.add(i,entity.getPeopleInfo().get(i).getName());
+                }
+                arrayName = list.toArray(new String[list.size()]);
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+
+            @Override
+            public void onResponse(String response) {
+
+            }
+        });
     }
 
     private void loadDraftData() {
