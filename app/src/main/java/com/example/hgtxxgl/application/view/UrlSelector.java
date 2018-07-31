@@ -16,18 +16,13 @@ package com.example.hgtxxgl.application.view;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.hgtxxgl.application.R;
 
@@ -45,12 +40,12 @@ public class UrlSelector {
                 urlListAdapter.setChecked(position);
             }
         });
-
+/*
         final ImageButton btnAddItem = (ImageButton) view.findViewById(R.id.btn_add_item);
-        btnAddItem.setActivated(false);
+        btnAddItem.setActivated(false);*/
 
         final EditText textNewUrl = (EditText) view.findViewById(R.id.text_new_url);
-        textNewUrl.addTextChangedListener(new TextWatcher() {
+        /*textNewUrl.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -63,9 +58,9 @@ public class UrlSelector {
             public void afterTextChanged(Editable s) {
                 btnAddItem.setActivated(Patterns.WEB_URL.matcher(s.toString()).matches());
             }
-        });
+        });*/
 
-        btnAddItem.setOnClickListener(new View.OnClickListener() {
+       /* btnAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (btnAddItem.isActivated()) {
@@ -76,7 +71,7 @@ public class UrlSelector {
                     Toast.makeText(context, R.string.illegal_url, Toast.LENGTH_SHORT).show();
                 }
             }
-        });
+        });*/
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(R.string.set_custom_url);
@@ -93,7 +88,6 @@ public class UrlSelector {
                 btnEdit.setVisibility(View.INVISIBLE);
                 urlListAdapter.toggleEditMode();
                 viewAddItem.setVisibility(View.VISIBLE);
-
                 alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setText(R.string.finish);
             }
         });
@@ -110,6 +104,10 @@ public class UrlSelector {
                             viewAddItem.setVisibility(View.GONE);
                             btnEdit.setVisibility(View.VISIBLE);
                             okButton.setText(R.string.close);
+
+                            urlListAdapter.addNewItem(textNewUrl.getText().toString());
+                            textNewUrl.setText(R.string.http_prefix);
+                            textNewUrl.setSelection(textNewUrl.getText().length());
                         } else if (okButton.getText().equals(context.getString(R.string.close))) {
                             urlListAdapter.persist();
                             listener.urlChanged(urlListAdapter.getCheckedUrl());
