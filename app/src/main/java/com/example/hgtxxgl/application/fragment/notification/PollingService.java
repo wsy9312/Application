@@ -21,6 +21,7 @@ import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
 import com.example.hgtxxgl.application.utils.DateUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
+import com.example.hgtxxgl.application.utils.hyutils.L;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -411,7 +412,7 @@ public class PollingService extends Service {
 		messageEntity.setMessageRrd(list);
 		String json = new Gson().toJson(messageEntity).replace("\\u0026","&");
 		String s = "get " + json;
-
+		L.e(s+"====2");
 		HttpManager.getInstance().requestResultForm(tempIP, s, MessageEntity.class, new HttpManager.ResultCallback<MessageEntity>() {
 			@Override
 			public void onSuccess(String json, MessageEntity messageEntity) throws InterruptedException {

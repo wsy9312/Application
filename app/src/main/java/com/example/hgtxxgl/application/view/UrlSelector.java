@@ -16,6 +16,8 @@ package com.example.hgtxxgl.application.view;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -23,6 +25,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.hgtxxgl.application.R;
 
@@ -100,14 +103,28 @@ public class UrlSelector {
                     @Override
                     public void onClick(View v) {
                         if (okButton.getText().equals(context.getString(R.string.finish))) {
-                            urlListAdapter.toggleNormalMode();
-                            viewAddItem.setVisibility(View.GONE);
-                            btnEdit.setVisibility(View.VISIBLE);
-                            okButton.setText(R.string.close);
+                            Log.e("666888",textNewUrl.getText().toString());
+                            Log.e("666888",textNewUrl.getText().toString().equals("http://")+"");
+                            if (textNewUrl.getText().toString().equals("http://")){
+                                urlListAdapter.toggleNormalMode();
+                                viewAddItem.setVisibility(View.GONE);
+                                btnEdit.setVisibility(View.VISIBLE);
+                                okButton.setText(R.string.close);
+                            }else{
+                                if (Patterns.WEB_URL.matcher(textNewUrl.getText().toString()).matches()){
+                                    urlListAdapter.toggleNormalMode();
+                                    viewAddItem.setVisibility(View.GONE);
+                                    btnEdit.setVisibility(View.VISIBLE);
+                                    okButton.setText(R.string.close);
 
-                            urlListAdapter.addNewItem(textNewUrl.getText().toString());
-                            textNewUrl.setText(R.string.http_prefix);
-                            textNewUrl.setSelection(textNewUrl.getText().length());
+                                    urlListAdapter.addNewItem(textNewUrl.getText().toString());
+                                    textNewUrl.setText(R.string.http_prefix);
+                                    textNewUrl.setSelection(textNewUrl.getText().length());
+                                    urlListAdapter.setChecked(urlListAdapter.getCount()-1);
+                                }else{
+                                    Toast.makeText(context, R.string.illegal_url, Toast.LENGTH_SHORT).show();
+                                }
+                            }
                         } else if (okButton.getText().equals(context.getString(R.string.close))) {
                             urlListAdapter.persist();
                             listener.urlChanged(urlListAdapter.getCheckedUrl());

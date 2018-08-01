@@ -23,6 +23,7 @@ import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.DataUtil;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.ListAdapter;
+import com.example.hgtxxgl.application.utils.hyutils.L;
 import com.example.hgtxxgl.application.view.SimpleListView;
 import com.google.gson.Gson;
 
@@ -127,6 +128,7 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
         messageEntity.setMessageRrd(list);
         String json = new Gson().toJson(messageEntity).replace("\\u0026","&");
         String s = "get " + json;
+        L.e(s+"====1");
         //        String url = CommonValues.BASE_URL;
 //        String url = ApplicationApp.getIP();
         SharedPreferences share = getActivity().getSharedPreferences(SAVE_IP, MODE_PRIVATE);
