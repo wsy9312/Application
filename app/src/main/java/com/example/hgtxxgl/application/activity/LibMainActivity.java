@@ -56,13 +56,8 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
     private String password;
     private RadioButton newsCenter;
     private RadioButton notificationCenter;
-    private RadioButton todoCar;
-    private RadioButton launchCar;
-    private RadioButton todoCenter;
-    private RadioButton launchCenter;
     private RadioButton launchTotal;
     private RadioButton todoTotal;
-    private int screenHalf;
     public static final String FLAGAPPLY = "UPDATEAPPLY";
     public static final String FLAGAPPROVE = "UPDATEAPPROVE";
     public static final String FLAGNOT = "UPDATENOT";
@@ -90,7 +85,7 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
 
             lastIndex = currentIndex;
             //角标选中新闻中心radiobutton
-            if (checkedId == R.id.rb_main_news_center) {
+            if (checkedId == R.id.rb_main_news) {
                 //设置当前按钮角标位置
                 currentIndex = 0;
                 //根据fragment实例改变当前界面的fragment
@@ -98,21 +93,21 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                 fragments[0].onPause();
                 handToolbar.setTitle(title[0]);
 
-            } else if (checkedId == R.id.rb_main_notification_center) {
+            } else if (checkedId == R.id.rb_main_notification) {
                 currentIndex = 1;
                 changeFragment(1);
                 fragments[1].onPause();
                 handToolbar.setTitle(title[1]);
                 badgeViewNoti.hide();
 
-            } else if (checkedId == R.id.rb_main_leave_launch_total){
+            } else if (checkedId == R.id.rb_main_total){
                 currentIndex = 2;
                 changeFragment(2);
                 fragments[2].onPause();
                 handToolbar.setTitle(title[2]);
                 badgeViewApply.hide();
 
-            } else if (checkedId == R.id.rb_main_leave_todo_total) {
+            } else if (checkedId == R.id.rb_main_me) {
                 currentIndex = 3;
                 changeFragment(3);
                 fragments[3].onPause();
@@ -258,14 +253,14 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         handToolbar.setTitleSize(18);
         scrollView = (HorizontalScrollView) findViewById(R.id.scrollview);
         bottomBar = (RadioGroup) findViewById(R.id.bottom_bar);
-        newsCenter = (RadioButton) findViewById(R.id.rb_main_news_center);
-        notificationCenter = (RadioButton) findViewById(R.id.rb_main_notification_center);
-        launchTotal = (RadioButton) findViewById(R.id.rb_main_leave_launch_total);
-        todoTotal = (RadioButton) findViewById(R.id.rb_main_leave_todo_total);
+        newsCenter = (RadioButton) findViewById(R.id.rb_main_news);
+        notificationCenter = (RadioButton) findViewById(R.id.rb_main_notification);
+        launchTotal = (RadioButton) findViewById(R.id.rb_main_total);
+        todoTotal = (RadioButton) findViewById(R.id.rb_main_me);
         bottomBar.setOnCheckedChangeListener(listener);
-        Button btnTodo = (Button) findViewById(R.id.btn_todo);
-        Button btnStart = (Button) findViewById(R.id.btn_start);
-        Button btnNotification = (Button) findViewById(R.id.btn_notif);
+        Button btnTodo = (Button) findViewById(R.id.btn_main_me);
+        Button btnStart = (Button) findViewById(R.id.btn_main_total);
+        Button btnNotification = (Button) findViewById(R.id.btn_main_notification);
         remindTodo(btnTodo);
         remindApply(btnStart);
         remindNoti(btnNotification);

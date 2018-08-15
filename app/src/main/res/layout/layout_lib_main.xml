@@ -81,72 +81,34 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
-        <!--   <HorizontalScrollView
-               android:scrollbars="none"
-               android:layout_below="@+id/toolbar"
-               android:id="@+id/scrollview"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content" >-->
-
         <RadioButton
-            android:id="@+id/rb_main_news_center"
+            android:id="@+id/rb_main_news"
             style="@style/BottomBarItem"
             android:checked="true"
             android:enabled="false"
-            android:text="新闻中心"
+            android:text="新闻"
             android:drawableTop="@drawable/home_page_radio_button_my_news"/>
 
         <RadioButton
-            android:id="@+id/rb_main_notification_center"
+            android:id="@+id/rb_main_notification"
             style="@style/BottomBarItem"
             android:enabled="false"
             android:drawableTop="@drawable/home_page_radio_button_my_notification"
-            android:text="通知中心" />
-
-        <!--<RadioButton
-            android:enabled="false"
-            android:id="@+id/rb_main_cartodo_center"
-            style="@style/BottomBarItem"
-            android:text="车辆审批" />-->
-        <!--android:drawableTop="@drawable/home_page_radio_button_my_todo_car"-->
-        <!--<RadioButton
-            android:enabled="false"
-            android:id="@+id/rb_main_carlaunch_center"
-            style="@style/BottomBarItem"
-            android:text="车辆查看" />-->
-        <!--android:drawableTop="@drawable/home_page_radio_button_my_launch_car"-->
-        <!--<RadioButton
-            android:id="@+id/rb_main_leave_todo_center"
-            style="@style/BottomBarItem"
-            android:enabled="false"
-            android:text="人员审批" />-->
-        <!--android:drawableTop="@drawable/home_page_radio_button_my_comm"-->
-        <!--<RadioButton
-            android:enabled="false"
-            android:id="@+id/rb_main_leave_launch_center"
-            style="@style/BottomBarItem"
-            android:text="人员查看" />-->
-        <!--android:drawableTop="@drawable/home_page_radio_button_my_launch"-->
-        <!--<RadioButton
-            android:enabled="false"
-            android:id="@+id/rb_main_leave_apply_car_center"
-            style="@style/BottomBarItem"
-            android:drawableTop="@drawable/home_page_radio_button_car_apply"
-            android:text="车辆外出" />-->
+            android:text="公告" />
 
         <RadioButton
             android:enabled="false"
-            android:id="@+id/rb_main_leave_launch_total"
+            android:id="@+id/rb_main_total"
             style="@style/BottomBarItem"
             android:drawableTop="@drawable/home_page_radio_button_post_flow"
-            android:text="申请事项" />
+            android:text="应用" />
 
         <RadioButton
             android:enabled="false"
-            android:id="@+id/rb_main_leave_todo_total"
+            android:id="@+id/rb_main_me"
             style="@style/BottomBarItem"
             android:drawableTop="@drawable/home_page_radio_button_post_personal"
-            android:text="审批事项" />
+            android:text="我的" />
 
     </RadioGroup>
 
@@ -158,32 +120,31 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btn_news"
+            android:id="@+id/btn_main_news"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:visibility="invisible" />
 
         <Button
-            android:id="@+id/btn_notif"
+            android:id="@+id/btn_main_notification"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:visibility="invisible" />
 
         <Button
-            android:id="@+id/btn_start"
+            android:id="@+id/btn_main_total"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:visibility="invisible" />
 
         <Button
-            android:id="@+id/btn_todo"
+            android:id="@+id/btn_main_me"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:visibility="invisible" />
     </LinearLayout>
- <!--   </HorizontalScrollView>-->
 </RelativeLayout>
