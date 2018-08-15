@@ -54,17 +54,16 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
     private static final int LOGIN_FAILED = 1;
     private String[] title;
     private String password;
-    private RadioButton newsCenter;
-    private RadioButton notificationCenter;
-    private RadioButton launchTotal;
-    private RadioButton todoTotal;
+    private RadioButton rbtNews;
+    private RadioButton rbtNotification;
+    private RadioButton rbtTotal;
+    private RadioButton rbtMe;
     public static final String FLAGAPPLY = "UPDATEAPPLY";
     public static final String FLAGAPPROVE = "UPDATEAPPROVE";
     public static final String FLAGNOT = "UPDATENOT";
     TodoTotalBroadcast todoTotalBroadcast;
     DetailTotalBroadcast detailTotalBroadcast;
     NotificationBroadcast notificationBroadcast;
-    HorizontalScrollView scrollView;
     private FloatingActionButton fbcPeople;
     private FloatingActionButton fbcApply;
     private FloatingActionsMenu fbcMenu;
@@ -251,12 +250,11 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         handToolbar.setBackHome(false,0);
         handToolbar.setButtonsClickCallback(this);
         handToolbar.setTitleSize(18);
-        scrollView = (HorizontalScrollView) findViewById(R.id.scrollview);
         bottomBar = (RadioGroup) findViewById(R.id.bottom_bar);
-        newsCenter = (RadioButton) findViewById(R.id.rb_main_news);
-        notificationCenter = (RadioButton) findViewById(R.id.rb_main_notification);
-        launchTotal = (RadioButton) findViewById(R.id.rb_main_total);
-        todoTotal = (RadioButton) findViewById(R.id.rb_main_me);
+        rbtNews = (RadioButton) findViewById(R.id.rb_main_news);
+        rbtNotification = (RadioButton) findViewById(R.id.rb_main_notification);
+        rbtTotal = (RadioButton) findViewById(R.id.rb_main_total);
+        rbtMe = (RadioButton) findViewById(R.id.rb_main_me);
         bottomBar.setOnCheckedChangeListener(listener);
         Button btnTodo = (Button) findViewById(R.id.btn_main_me);
         Button btnStart = (Button) findViewById(R.id.btn_main_total);
@@ -330,14 +328,14 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        newsCenter.setEnabled(true);
-                        newsCenter.setBackgroundColor(0xffffff);
-                        notificationCenter.setEnabled(true);
-                        notificationCenter.setBackgroundColor(0xffffff);
-                        launchTotal.setEnabled(true);
-                        launchTotal.setBackgroundColor(0xffffff);
-                        todoTotal.setEnabled(true);
-                        todoTotal.setBackgroundColor(0xffffff);
+                        rbtNews.setEnabled(true);
+                        rbtNews.setBackgroundColor(0xffffff);
+                        rbtNotification.setEnabled(true);
+                        rbtNotification.setBackgroundColor(0xffffff);
+                        rbtTotal.setEnabled(true);
+                        rbtTotal.setBackgroundColor(0xffffff);
+                        rbtMe.setEnabled(true);
+                        rbtMe.setBackgroundColor(0xffffff);
                     }
                 });
             } else if (what == LOGIN_FAILED) {
@@ -345,14 +343,14 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        newsCenter.setEnabled(false);
-                        newsCenter.setBackgroundColor(0xd4d4d4);
-                        notificationCenter.setEnabled(false);
-                        notificationCenter.setBackgroundColor(0xd4d4d4);
-                        launchTotal.setEnabled(false);
-                        launchTotal.setBackgroundColor(0xd4d4d4);
-                        todoTotal.setEnabled(false);
-                        todoTotal.setBackgroundColor(0xd4d4d4);
+                        rbtNews.setEnabled(false);
+                        rbtNews.setBackgroundColor(0xd4d4d4);
+                        rbtNotification.setEnabled(false);
+                        rbtNotification.setBackgroundColor(0xd4d4d4);
+                        rbtTotal.setEnabled(false);
+                        rbtTotal.setBackgroundColor(0xd4d4d4);
+                        rbtMe.setEnabled(false);
+                        rbtMe.setBackgroundColor(0xd4d4d4);
                     }
                 });
             }
