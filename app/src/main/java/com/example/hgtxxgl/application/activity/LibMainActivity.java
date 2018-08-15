@@ -38,7 +38,7 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import static org.litepal.LitePalApplication.getContext;
 
 //首页
-public class LibMainActivity extends AppCompatActivity implements HandToolbar.OnButtonsClickCallback, View.OnClickListener {
+public class LibMainActivity extends AppCompatActivity{
 
     private static final String TAG = "LibMainActivity";
     private HandToolbar handToolbar;
@@ -64,9 +64,6 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
     TodoTotalBroadcast todoTotalBroadcast;
     DetailTotalBroadcast detailTotalBroadcast;
     NotificationBroadcast notificationBroadcast;
-    private FloatingActionButton fbcPeople;
-    private FloatingActionButton fbcApply;
-    private FloatingActionsMenu fbcMenu;
     private long time = 0;
     private BadgeView badgeViewApply;
     private BadgeView badgeViewTodo;
@@ -76,11 +73,6 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
     private RadioGroup.OnCheckedChangeListener listener = new RadioGroup.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(RadioGroup group, int checkedId) {
-//            int scrollX = scrollView.getScrollX();
-//            RadioButton rb = (RadioButton) findViewById(checkedId);
-//            int left = rb.getLeft();
-//            int leftScreen = left-scrollX;
-//            scrollView.smoothScrollBy((leftScreen-screenHalf), 0);
 
             lastIndex = currentIndex;
             //角标选中新闻中心radiobutton
@@ -181,17 +173,6 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
                 badgeViewApply.show();
             }
         });
-
-        fbcPeople = (FloatingActionButton) findViewById(R.id.button_fbc_people);
-        fbcApply = (FloatingActionButton) findViewById(R.id.button_fbc_apply);
-        fbcMenu = (FloatingActionsMenu) findViewById(R.id.multiple_actions_up);
-        fbcPeople.setOnClickListener(this);
-        fbcApply.setOnClickListener(this);
-//        Display d = getWindowManager().getDefaultDisplay();
-//        DisplayMetrics dm = new DisplayMetrics();
-//        d.getMetrics(dm);
-//        //屏幕宽度的一半
-//        screenHalf = d.getWidth()/5;
     }
 
     //接收登录界面传递的用户名密码参数
@@ -244,11 +225,9 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
     //填充布局、初始化控件
     private void initView() {
         setContentView(R.layout.layout_lib_main);
-        //pb = (ProgressBar) findViewById(R.id.lib_pb);fl_container
         handToolbar = (HandToolbar) findViewById(R.id.toolbar);
         handToolbar.setDisplayHomeAsUpEnabled(false, this);
         handToolbar.setBackHome(false,0);
-        handToolbar.setButtonsClickCallback(this);
         handToolbar.setTitleSize(18);
         bottomBar = (RadioGroup) findViewById(R.id.bottom_bar);
         rbtNews = (RadioButton) findViewById(R.id.rb_main_news);
@@ -304,8 +283,8 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
             FragmentTransaction transaction = supportFragmentManager.beginTransaction();
             fragments[0] = DetailFragment.newInstance(PageConfig.PAGE_NEWS);
             fragments[1] = DetailFragment.newInstance(PageConfig.PAGE_NOTIFICATION);
-            fragments[2] = DetailFragment.newInstance(PageConfig.PAGE_LAUNCH_TOTAL);
-            fragments[3] = DetailFragment.newInstance(PageConfig.PAGE_TODO_TOTAL);
+            fragments[2] = DetailFragment.newInstance(PageConfig.PAGE_TOTAL);
+            fragments[3] = DetailFragment.newInstance(PageConfig.PAGE_ME);
             for (int i = 0; i < fragments.length; i++) {
                 transaction.add(R.id.fl_container, fragments[i]);
                 transaction.hide(fragments[i]);
@@ -358,10 +337,6 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         }
     };
 
-    @Override
-    public void onButtonClickListner(HandToolbar.VIEWS views, int radioIndex) {
-        startActivity(new Intent(this, PersonalActivity.class));
-    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -380,19 +355,4 @@ public class LibMainActivity extends AppCompatActivity implements HandToolbar.On
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.button_fbc_people:
-                startActivity(new Intent(this,PersonalActivity.class));
-                fbcMenu.collapse();
-                break;
-            case R.id.button_fbc_apply:
-                Intent intent = new Intent(this, StartNewActivity.class);
-//                intent.putExtra(PageConfig.PAGE_CODE, PAGE_APPLY_PEOPLE_OUT);
-                startActivity(intent);
-                fbcMenu.collapse();
-                break;
-        }
-    }
 }
