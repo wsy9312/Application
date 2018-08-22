@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.fragment.commission.CommissionDetailFragment;
+import com.example.hgtxxgl.application.fragment.life.LifeFragment;
 import com.example.hgtxxgl.application.fragment.news.NewFragment;
 import com.example.hgtxxgl.application.fragment.notification.NotificationFragment;
 import com.example.hgtxxgl.application.fragment.total.TotalFragment;
@@ -99,7 +100,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
 //                return new LaunchDetailFragment();
                 return new TotalFragment();
             } else if (currentPage == PageConfig.PAGE_LIFE) {
-                return new CommissionDetailFragment();
+                return new LifeFragment();
             } else if (currentPage == PageConfig.PAGE_ME) {
                 return new CommissionDetailFragment();
             }

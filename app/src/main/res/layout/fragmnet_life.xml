@@ -13,7 +13,7 @@
             <TextView
                 android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
-                android:text="申请"
+                android:text="食堂菜谱"
                 android:visibility="visible"
                 android:textColor="#000"
                 android:textSize="16sp"
@@ -29,7 +29,7 @@
                 android:layout_marginBottom="@dimen/post_flow_item_button_margin"
                 android:layout_gravity="center_horizontal">
                 <LinearLayout
-                    android:id="@+id/flow_apply_shijia"
+                    android:id="@+id/life_flow_presentfood"
                     android:layout_margin="1dp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -42,18 +42,18 @@
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/flow_shijia"/>
+                        android:src="@drawable/life_flow_caipu"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="事假申请"
+                        android:text="本周菜谱"
                         android:textSize="12sp"
                         android:layout_marginBottom="9dp"/>
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/flow_apply_bingjia"
+                    android:id="@+id/life_flow_toupiao"
                     android:layout_margin="1dp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -66,17 +66,17 @@
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/flow_bingjia"/>
+                        android:src="@drawable/life_flow_toupiao"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="病假申请"
+                        android:text="菜谱投票"
                         android:textSize="12sp"
                         android:layout_marginBottom="9dp"/>
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/flow_apply_xiujia"
+                    android:id="@+id/life_flow_paihang"
                     android:layout_margin="1dp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -85,13 +85,13 @@
                     android:background="@drawable/bg_total_gray"
                     android:orientation="vertical">
                     <ImageView
-                        android:src="@drawable/flow_xiujia"
+                        android:src="@drawable/life_flow_paihang"
                         android:layout_marginBottom="2dp"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                     <TextView
-                        android:text="休假申请"
+                        android:text="菜谱排行"
                         android:textSize="12sp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -99,7 +99,7 @@
                         android:layout_marginBottom="9dp"/>
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/flow_apply_waichu"
+                    android:id="@+id/life_flow_manage"
                     android:layout_margin="1dp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -108,13 +108,13 @@
                     android:background="@drawable/bg_total_gray"
                     android:orientation="vertical">
                     <ImageView
-                        android:src="@drawable/flow_waichu"
+                        android:src="@drawable/life_flow_manage"
                         android:layout_marginBottom="2dp"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                     <TextView
-                        android:text="外出申请"
+                        android:text="菜谱管理"
                         android:textSize="12sp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -122,114 +122,11 @@
                         android:layout_marginBottom="9dp"/>
                 </LinearLayout>
             </LinearLayout>
-
-        <LinearLayout
-            android:visibility="visible"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/post_flow_item_button_margin"
-            android:layout_gravity="center_horizontal">
-            <LinearLayout
-                android:id="@+id/flow_apply_cheliang"
-                android:layout_margin="1dp"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:background="@drawable/bg_total_gray"
-                android:orientation="vertical">
-                <ImageView
-                    android:src="@drawable/flow_apply_car"
-                    android:layout_marginBottom="2dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-                <TextView
-                    android:text="车辆申请"
-                    android:textSize="12sp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:layout_marginBottom="9dp"/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/flow_apply_wuzi"
-                android:layout_margin="1dp"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:background="@drawable/bg_total_gray"
-                android:orientation="vertical">
-                <ImageView
-                    android:src="@drawable/flow_apply_wuping"
-                    android:layout_marginBottom="2dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-                <TextView
-                    android:text="物资申请"
-                    android:textSize="12sp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:layout_marginBottom="9dp"/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/flow_apply_yuxuan1"
-                android:visibility="invisible"
-                android:layout_margin="1dp"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:background="@drawable/bg_total_gray"
-                android:orientation="vertical">
-                <ImageView
-                    android:src="@drawable/flow_waichu"
-                    android:layout_marginBottom="2dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-                <TextView
-                    android:text="预留位置"
-                    android:textSize="12sp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:layout_marginBottom="9dp"/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/flow_apply_yuxuan2"
-                android:visibility="invisible"
-                android:layout_margin="1dp"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:background="@drawable/bg_total_gray"
-                android:orientation="vertical">
-                <ImageView
-                    android:src="@drawable/flow_waichu"
-                    android:layout_marginBottom="2dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-                <TextView
-                    android:text="预留位置"
-                    android:textSize="12sp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:layout_marginBottom="9dp"/>
-            </LinearLayout>
-        </LinearLayout>
 
             <TextView
                 android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
-                android:text="审批(人员)"
+                android:text="学习中心"
                 android:textColor="#000"
                 android:drawablePadding="@dimen/post_flow_page_title_drawable_padding"
                 android:layout_marginTop="6dp"
@@ -245,8 +142,8 @@
                 android:layout_gravity="center_horizontal">
 
                 <LinearLayout
+                    android:id="@+id/life_flow_video"
                     android:layout_margin="1dp"
-                    android:id="@+id/flow_approve_people"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -254,7 +151,7 @@
                     android:background="@drawable/bg_total_gray"
                     android:orientation="vertical">
                     <ImageView
-                        android:src="@drawable/flow_approve_people"
+                        android:src="@drawable/life_flow_video"
                         android:layout_marginBottom="2dp"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
@@ -265,12 +162,12 @@
                         android:gravity="center_horizontal"
                         android:layout_marginBottom="9dp"
                         android:textSize="12sp"
-                        android:text="我审批的"/>
+                        android:text="学习视频"/>
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/life_flow_book"
                     android:layout_margin="1dp"
-                    android:id="@+id/flow_launch_people"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -278,7 +175,7 @@
                     android:background="@drawable/bg_total_gray"
                     android:orientation="vertical">
                     <ImageView
-                        android:src="@drawable/flow_launch_people"
+                        android:src="@drawable/life_flow_book"
                         android:layout_marginBottom="2dp"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
@@ -289,12 +186,12 @@
                         android:gravity="center_horizontal"
                         android:layout_marginBottom="9dp"
                         android:textSize="12sp"
-                        android:text="我发起的"/>
+                        android:text="学习资料"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_margin="1dp"
-                    android:id="@+id/flow_yuliu1"
+                    android:id="@+id/life_flow_yuliu5"
                     android:visibility="invisible"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -318,7 +215,7 @@
                 </LinearLayout>
                 <LinearLayout
                     android:layout_margin="1dp"
-                    android:id="@+id/flow_yuliu2"
+                    android:id="@+id/life_flow_yuliu4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -342,127 +239,10 @@
                 </LinearLayout>
             </LinearLayout>
 
-
-    <TextView
-        android:layout_marginLeft="20dp"
-        android:layout_width="wrap_content"
-        android:text="审批(车辆)"
-        android:textColor="#000"
-        android:drawablePadding="@dimen/post_flow_page_title_drawable_padding"
-        android:layout_marginTop="6dp"
-        android:textSize="16sp"
-        android:layout_marginBottom="6dp"
-        android:layout_height="wrap_content" />
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/post_flow_item_button_margin"
-        android:layout_gravity="center_horizontal">
-
-        <LinearLayout
-            android:layout_margin="1dp"
-            android:id="@+id/flow_approve_car"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:background="@drawable/bg_total_gray"
-            android:orientation="vertical">
-            <ImageView
-                android:src="@drawable/flow_approve_people"
-                android:layout_marginBottom="2dp"
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:layout_marginBottom="9dp"
-                android:textSize="12sp"
-                android:text="我审批的"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_margin="1dp"
-            android:id="@+id/flow_launch_car"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:background="@drawable/bg_total_gray"
-            android:orientation="vertical">
-            <ImageView
-                android:src="@drawable/flow_launch_people"
-                android:layout_marginBottom="2dp"
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:layout_marginBottom="9dp"
-                android:textSize="12sp"
-                android:text="我发起的"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_margin="1dp"
-            android:id="@+id/flow_yuliu3"
-            android:visibility="invisible"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:background="@drawable/bg_total_gray"
-            android:orientation="vertical">
-            <ImageView
-                android:src="@drawable/flow_waichu"
-                android:layout_marginBottom="2dp"
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:layout_marginBottom="9dp"
-                android:textSize="12sp"
-                android:text="预留位置"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_margin="1dp"
-            android:id="@+id/flow_yuliu4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:background="@drawable/bg_total_gray"
-            android:visibility="invisible"
-            android:orientation="vertical">
-            <ImageView
-                android:src="@drawable/flow_waichu"
-                android:layout_marginBottom="2dp"
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:layout_marginBottom="9dp"
-                android:textSize="12sp"
-                android:text="预留位置"/>
-        </LinearLayout>
-    </LinearLayout>
-
             <TextView
                 android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
-                android:text="其他"
+                android:text="体能运动"
                 android:textColor="#000"
                 android:drawablePadding="@dimen/post_flow_page_title_drawable_padding"
                 android:layout_marginTop="6dp"
@@ -479,7 +259,7 @@
 
                 <LinearLayout
                     android:layout_margin="1dp"
-                    android:id="@+id/flow_xingzheng_manage"
+                    android:id="@+id/life_flow_tineng"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -487,7 +267,7 @@
                     android:background="@drawable/bg_total_gray"
                     android:orientation="vertical">
                     <ImageView
-                        android:src="@drawable/flow_xingzheng_manage"
+                        android:src="@drawable/life_flow_run"
                         android:layout_marginBottom="2dp"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
@@ -498,12 +278,13 @@
                         android:gravity="center_horizontal"
                         android:layout_marginBottom="9dp"
                         android:textSize="12sp"
-                        android:text="行政管理"/>
+                        android:text="体能管理"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_margin="1dp"
-                    android:id="@+id/flow_ideas_box"
+                    android:id="@+id/life_flow_yuliu1"
+                    android:visibility="invisible"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -527,7 +308,8 @@
 
                 <LinearLayout
                     android:layout_margin="1dp"
-                    android:id="@+id/flow_unit_chart"
+                    android:id="@+id/life_flow_yuliu2"
+                    android:visibility="invisible"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -550,7 +332,7 @@
                 </LinearLayout>
                 <LinearLayout
                     android:layout_margin="1dp"
-                    android:id="@+id/flow_yuliu5"
+                    android:id="@+id/life_flow_yuliu3"
                     android:visibility="invisible"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
