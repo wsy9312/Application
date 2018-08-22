@@ -14,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.HorizontalScrollView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -32,9 +31,6 @@ import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
 import com.example.hgtxxgl.application.view.BadgeView;
 import com.example.hgtxxgl.application.view.HandToolbar;
-import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.getbase.floatingactionbutton.FloatingActionsMenu;
-
 import static org.litepal.LitePalApplication.getContext;
 
 //首页
@@ -47,7 +43,7 @@ public class LibMainActivity extends AppCompatActivity{
     public static final String PASS_WORD = "PASS_WORD";
     private boolean loginSucceed = false;
     private RadioGroup bottomBar;
-    private Fragment[] fragments = new Fragment[4];
+    private Fragment[] fragments = new Fragment[5];
     private FragmentManager supportFragmentManager;
     private int lastIndex = -1, currentIndex;
     private static final int LOGIN_SUCESS = 0;
@@ -57,6 +53,7 @@ public class LibMainActivity extends AppCompatActivity{
     private RadioButton rbtNews;
     private RadioButton rbtNotification;
     private RadioButton rbtTotal;
+    private RadioButton rbtLife;
     private RadioButton rbtMe;
     public static final String FLAGAPPLY = "UPDATEAPPLY";
     public static final String FLAGAPPROVE = "UPDATEAPPROVE";
@@ -78,17 +75,17 @@ public class LibMainActivity extends AppCompatActivity{
             //角标选中新闻中心radiobutton
             if (checkedId == R.id.rb_main_news) {
                 //设置当前按钮角标位置
-                currentIndex = 0;
-                //根据fragment实例改变当前界面的fragment
-                changeFragment(0);
-                fragments[0].onPause();
-                handToolbar.setTitle(title[0]);
-
-            } else if (checkedId == R.id.rb_main_notification) {
                 currentIndex = 1;
+                //根据fragment实例改变当前界面的fragment
                 changeFragment(1);
                 fragments[1].onPause();
                 handToolbar.setTitle(title[1]);
+
+            } else if (checkedId == R.id.rb_main_notification) {
+                currentIndex = 0;
+                changeFragment(0);
+                fragments[0].onPause();
+                handToolbar.setTitle(title[0]);
                 badgeViewNoti.hide();
 
             } else if (checkedId == R.id.rb_main_total){
@@ -98,21 +95,23 @@ public class LibMainActivity extends AppCompatActivity{
                 handToolbar.setTitle(title[2]);
                 badgeViewApply.hide();
 
-            } else if (checkedId == R.id.rb_main_me) {
+            } else if (checkedId == R.id.rb_main_life) {
                 currentIndex = 3;
                 changeFragment(3);
                 fragments[3].onPause();
                 handToolbar.setTitle(title[3]);
                 badgeViewTodo.hide();
+
+            } else if (checkedId == R.id.rb_main_me) {
+                currentIndex = 4;
+                changeFragment(4);
+                fragments[4].onPause();
+                handToolbar.setTitle(title[4]);
+                badgeViewTodo.hide();
             }
         }
     };
 
-    /**
-     * 调用入口
-     * @param context
-     * @param username
-     */
     public static void startActivity(Context context, String username, String password) {
         Intent intent = new Intent(context, LibMainActivity.class);
         intent.putExtra(USER_NAME, username);
@@ -122,7 +121,7 @@ public class LibMainActivity extends AppCompatActivity{
 
     //初始化设置toolbar标题
     private void initTitle() {
-        title = new String[]{getString(R.string.lib_titile_news_center),getString(R.string.lib_title_notification_center),getString(R.string.lib_title_apply_center),getString(R.string.lib_title_approve_center)};
+        title = new String[]{"通知","新闻","工作","生活","我的"};
     }
 
     @Override
@@ -180,7 +179,7 @@ public class LibMainActivity extends AppCompatActivity{
         username = getIntent().getStringExtra(USER_NAME);
         password = getIntent().getStringExtra(PASS_WORD);
         if (username != null && password != null) {
-            login(username,password);
+            login();
         }
     }
 
@@ -190,7 +189,7 @@ public class LibMainActivity extends AppCompatActivity{
     }
 
     //登录验证
-    private void login(final String username, String password) {
+    private void login() {
         loginSucceed = true;
         handler.sendEmptyMessage(LOGIN_SUCESS);
     }
@@ -233,6 +232,7 @@ public class LibMainActivity extends AppCompatActivity{
         rbtNews = (RadioButton) findViewById(R.id.rb_main_news);
         rbtNotification = (RadioButton) findViewById(R.id.rb_main_notification);
         rbtTotal = (RadioButton) findViewById(R.id.rb_main_total);
+        rbtLife = (RadioButton) findViewById(R.id.rb_main_life);
         rbtMe = (RadioButton) findViewById(R.id.rb_main_me);
         bottomBar.setOnCheckedChangeListener(listener);
         Button btnTodo = (Button) findViewById(R.id.btn_main_me);
@@ -281,10 +281,11 @@ public class LibMainActivity extends AppCompatActivity{
                 supportFragmentManager.getFragments().clear();
             }
             FragmentTransaction transaction = supportFragmentManager.beginTransaction();
-            fragments[0] = DetailFragment.newInstance(PageConfig.PAGE_NEWS);
-            fragments[1] = DetailFragment.newInstance(PageConfig.PAGE_NOTIFICATION);
+            fragments[0] = DetailFragment.newInstance(PageConfig.PAGE_NOTIFICATION);
+            fragments[1] = DetailFragment.newInstance(PageConfig.PAGE_NEWS);
             fragments[2] = DetailFragment.newInstance(PageConfig.PAGE_TOTAL);
-            fragments[3] = DetailFragment.newInstance(PageConfig.PAGE_ME);
+            fragments[3] = DetailFragment.newInstance(PageConfig.PAGE_LIFE);
+            fragments[4] = DetailFragment.newInstance(PageConfig.PAGE_ME);
             for (int i = 0; i < fragments.length; i++) {
                 transaction.add(R.id.fl_container, fragments[i]);
                 transaction.hide(fragments[i]);
@@ -307,12 +308,14 @@ public class LibMainActivity extends AppCompatActivity{
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        rbtNews.setEnabled(true);
-                        rbtNews.setBackgroundColor(0xffffff);
                         rbtNotification.setEnabled(true);
                         rbtNotification.setBackgroundColor(0xffffff);
+                        rbtNews.setEnabled(true);
+                        rbtNews.setBackgroundColor(0xffffff);
                         rbtTotal.setEnabled(true);
                         rbtTotal.setBackgroundColor(0xffffff);
+                        rbtLife.setEnabled(true);
+                        rbtLife.setBackgroundColor(0xffffff);
                         rbtMe.setEnabled(true);
                         rbtMe.setBackgroundColor(0xffffff);
                     }
@@ -322,12 +325,14 @@ public class LibMainActivity extends AppCompatActivity{
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        rbtNews.setEnabled(false);
-                        rbtNews.setBackgroundColor(0xd4d4d4);
                         rbtNotification.setEnabled(false);
                         rbtNotification.setBackgroundColor(0xd4d4d4);
+                        rbtNews.setEnabled(false);
+                        rbtNews.setBackgroundColor(0xd4d4d4);
                         rbtTotal.setEnabled(false);
                         rbtTotal.setBackgroundColor(0xd4d4d4);
+                        rbtLife.setEnabled(false);
+                        rbtLife.setBackgroundColor(0xd4d4d4);
                         rbtMe.setEnabled(false);
                         rbtMe.setBackgroundColor(0xd4d4d4);
                     }

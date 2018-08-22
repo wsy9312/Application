@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:background="#f7f7f7">
 
     <com.example.hgtxxgl.application.view.HandToolbar
@@ -40,28 +39,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
+        <RadioButton
+            android:id="@+id/rb_main_notification"
+            style="@style/BottomBarItem"
+            android:checked="true"
+            android:enabled="false"
+            android:drawableTop="@drawable/home_page_radio_button_my_notification"
+            android:text="通知" />
 
         <RadioButton
             android:id="@+id/rb_main_news"
             style="@style/BottomBarItem"
-            android:checked="true"
             android:enabled="false"
             android:text="新闻"
             android:drawableTop="@drawable/home_page_radio_button_my_news"/>
-
-        <RadioButton
-            android:id="@+id/rb_main_notification"
-            style="@style/BottomBarItem"
-            android:enabled="false"
-            android:drawableTop="@drawable/home_page_radio_button_my_notification"
-            android:text="公告" />
 
         <RadioButton
             android:enabled="false"
             android:id="@+id/rb_main_total"
             style="@style/BottomBarItem"
             android:drawableTop="@drawable/home_page_radio_button_post_flow"
-            android:text="应用" />
+            android:text="工作" />
+
+        <RadioButton
+            android:enabled="false"
+            android:id="@+id/rb_main_life"
+            style="@style/BottomBarItem"
+            android:drawableTop="@drawable/home_page_radio_button_post_flow"
+            android:text="生活" />
 
         <RadioButton
             android:enabled="false"

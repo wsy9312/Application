@@ -10,7 +10,8 @@ public class PageConfig {
     public static final int PAGE_LAUNCH_TOTAL = -3;
     public static final int PAGE_TODO_TOTAL = -4;
     public static final int PAGE_TOTAL = -5;
-    public static final int PAGE_ME = -6;
+    public static final int PAGE_LIFE = -6;
+    public static final int PAGE_ME = -7;
 
     public static final int PAGE_APPLY_PEOPLE_OUT = 1;//请假申请
     public static final int PAGE_APPLY_CAR = 2;//车辆申请
