@@ -96,6 +96,8 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
                 return NotificationFragment.newInstance(position).setCallback(this);
             } else if (currentPage == PageConfig.PAGE_TOTAL){
                 return new LaunchDetailFragment();
+            } else if (currentPage == PageConfig.PAGE_LIFE) {
+                return new CommissionDetailFragment();
             } else if (currentPage == PageConfig.PAGE_ME) {
                 return new CommissionDetailFragment();
             }
@@ -115,7 +117,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
             } else if (currentPage == PageConfig.PAGE_ME)
                 return 1;
             else
-                return 0;
+                return 1;
         }
 
         @Override
@@ -203,20 +205,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
 
     //根据不同的int参数设置顶部导航栏的按钮数量(暂时设置GONE)
     private void checkTabs(int page, boolean checkButtons) {
-        switch (page) {
-            case PageConfig.PAGE_NEWS:
-                group.setVisibility(GONE);
-                break;
-            case PageConfig.PAGE_NOTIFICATION:
-                group.setVisibility(GONE);
-                break;
-            case PageConfig.PAGE_TOTAL:
-                group.setVisibility(GONE);
-                break;
-            case PageConfig.PAGE_ME:
-                group.setVisibility(GONE);
-                break;
-        }
+        group.setVisibility(GONE);
     }
 
     //根据顶部按钮点击跳转到三个子fragment中的子fragment当中
