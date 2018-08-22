@@ -135,7 +135,7 @@
                 android:background="#fff"
                 android:orientation="vertical">
                 <ImageView
-                    android:src="@drawable/flow_waichu"
+                    android:src="@drawable/flow_apply_car"
                     android:layout_marginBottom="2dp"
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
@@ -157,7 +157,7 @@
                 android:background="#fff"
                 android:orientation="vertical">
                 <ImageView
-                    android:src="@drawable/flow_waichu"
+                    android:src="@drawable/flow_apply_wuping"
                     android:layout_marginBottom="2dp"
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
@@ -245,7 +245,7 @@
                     android:background="#fff"
                     android:orientation="vertical">
                     <ImageView
-                        android:src="@drawable/flow_waichu"
+                        android:src="@drawable/flow_approve_people"
                         android:layout_marginBottom="2dp"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
@@ -268,7 +268,7 @@
                     android:background="#fff"
                     android:orientation="vertical">
                     <ImageView
-                        android:src="@drawable/flow_waichu"
+                        android:src="@drawable/flow_launch_people"
                         android:layout_marginBottom="2dp"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
@@ -358,7 +358,7 @@
             android:background="#fff"
             android:orientation="vertical">
             <ImageView
-                android:src="@drawable/flow_waichu"
+                android:src="@drawable/flow_approve_people"
                 android:layout_marginBottom="2dp"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
@@ -381,7 +381,7 @@
             android:background="#fff"
             android:orientation="vertical">
             <ImageView
-                android:src="@drawable/flow_waichu"
+                android:src="@drawable/flow_launch_people"
                 android:layout_marginBottom="2dp"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
@@ -470,7 +470,7 @@
                     android:background="#fff"
                     android:orientation="vertical">
                     <ImageView
-                        android:src="@drawable/flow_waichu"
+                        android:src="@drawable/flow_xingzheng_manage"
                         android:layout_marginBottom="2dp"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
@@ -493,7 +493,7 @@
                     android:background="#fff"
                     android:orientation="vertical">
                     <ImageView
-                        android:src="@drawable/flow_waichu"
+                        android:src="@drawable/flow_ideas_box"
                         android:layout_marginBottom="2dp"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
@@ -516,7 +516,7 @@
                     android:background="#fff"
                     android:orientation="vertical">
                     <ImageView
-                        android:src="@drawable/flow_waichu"
+                        android:src="@drawable/flow_chart"
                         android:layout_marginBottom="2dp"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
