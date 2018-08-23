@@ -24,6 +24,7 @@ import com.example.hgtxxgl.application.utils.hand.DataUtil;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.ListAdapter;
 import com.example.hgtxxgl.application.utils.hyutils.L;
+import com.example.hgtxxgl.application.view.HandToolbar;
 import com.example.hgtxxgl.application.view.SimpleListView;
 import com.google.gson.Gson;
 
@@ -87,7 +88,12 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.main_listview_libmain, null, false);
+        View view = inflater.inflate(R.layout.main_listview_libmain, container, false);
+        HandToolbar handToolbar = (HandToolbar) view.findViewById(R.id.notification_handtoolbar);
+        handToolbar.setDisplayHomeAsUpEnabled(false, getActivity());
+        handToolbar.setBackHome(false,0);
+        handToolbar.setTitle("通知");
+        handToolbar.setTitleSize(18);
         lv = (SimpleListView) view.findViewById(R.id.viewpager_listview);
         ivEmpty = (TextView) view.findViewById(R.id.iv_empty);
         ivEmpty.setText(R.string.no_current_notification);

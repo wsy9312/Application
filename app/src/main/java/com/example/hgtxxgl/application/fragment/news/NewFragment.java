@@ -125,6 +125,7 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
         HandToolbar handToolbar = (HandToolbar) view.findViewById(R.id.news_handtoolbar);
         handToolbar.setDisplayHomeAsUpEnabled(false, getActivity());
         handToolbar.setBackHome(false,0);
+        handToolbar.setTitle("新闻");
         handToolbar.setTitleSize(18);
         lv = (SimpleListView) view.findViewById(R.id.viewpager_listview);
         ivEmpty = (TextView) view.findViewById(R.id.iv_empty);

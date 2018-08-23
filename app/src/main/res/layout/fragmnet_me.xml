@@ -115,7 +115,7 @@
                 android:layout_toRightOf="@+id/personal_pic2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="反馈中心"
+                android:text="反馈建议"
                 android:textColor="@color/black"
                 android:layout_centerVertical="true"
                 android:layout_margin="8dp"/>
@@ -144,7 +144,7 @@
                 android:layout_toRightOf="@+id/personal_pic3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="设置"
+                android:text="设置中心"
                 android:textColor="@color/black"
                 android:layout_centerVertical="true"
                 android:layout_margin="8dp"/>
