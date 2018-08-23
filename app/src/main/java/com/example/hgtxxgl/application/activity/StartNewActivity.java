@@ -13,9 +13,7 @@ import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
 
 public class StartNewActivity extends AppCompatActivity {
-    final int[] page = new int[]{PageConfig.PAGE_APPLY_PEOPLE_OUT,PageConfig.PAGE_APPLY_CAR,PageConfig.PAGE_APPLY_PEOPLE_IN,
-                                 PageConfig.PAGE_APPLY_DISPATCH_PEOPLE_OWN,PageConfig.PAGE_APPLY_DISPATCH_PEOPLE_ELSE,PageConfig.PAGE_APPLY_DISPATCH_CAR_OWN,
-                                 PageConfig.PAGE_APPLY_DISPATCH_CAR_ELSE};
+    final int[] page = new int[]{PageConfig.PAGE_APPLY_PEOPLE_OUT,PageConfig.PAGE_APPLY_CAR};
 
     private LinearLayout[] buttons = null;
 

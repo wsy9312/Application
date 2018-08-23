@@ -6,14 +6,14 @@
     <RelativeLayout
         android:id="@+id/personal_headarea"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="180dp"
         android:background="@drawable/original">
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/presonal_headpic"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="30dp"
             android:src="@drawable/ic_personal" />
         <TextView
             android:layout_width="wrap_content"
@@ -29,7 +29,7 @@
             android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
+            android:layout_marginTop="150dp"
             tools:visibility="visible"
             android:maxLines="1"
             android:text="距离退伍还剩"
@@ -40,7 +40,7 @@
             android:layout_toRightOf="@+id/presonal_leavedays1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
+            android:layout_marginTop="150dp"
             tools:visibility="visible"
             android:maxLines="1"
             android:text="88888889"
@@ -51,7 +51,7 @@
             android:layout_toRightOf="@+id/presonal_leavedays2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
+            android:layout_marginTop="150dp"
             tools:visibility="visible"
             android:maxLines="1"
             android:text="天"

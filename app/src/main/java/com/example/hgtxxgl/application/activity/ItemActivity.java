@@ -47,26 +47,7 @@ public class ItemActivity extends AppCompatActivity {
             case PageConfig.PAGE_APPLY_CAR:
                 checkFragment(CarApplyFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
-            case PageConfig.PAGE_APPLY_PEOPLE_IN:
-                show("暂未开放");
-//                checkFragment(OutVisitFragment.newInstance(getIntent().getBundleExtra("data")));
-                break;
-            case PageConfig.PAGE_APPLY_DISPATCH_PEOPLE_OWN:
-                show("暂未开放");
-//                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
-                break;
-            case PageConfig.PAGE_APPLY_DISPATCH_PEOPLE_ELSE:
-                show("暂未开放");
-//                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
-                break;
-            case PageConfig.PAGE_APPLY_DISPATCH_CAR_OWN:
-                show("暂未开放");
-//                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
-                break;
-            case PageConfig.PAGE_APPLY_DISPATCH_CAR_ELSE:
-                show("暂未开放");
-//                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
-                break;
+
             case PageConfig.PAGE_LEAVE_APPROVE_CAR:
                 checkFragment(RestApproveCarFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
@@ -78,6 +59,47 @@ public class ItemActivity extends AppCompatActivity {
                 break;
             case PageConfig.PAGE_LEAVE_DETAIL_PEOPLE:
                 checkFragment(RestDetailPeopleFragment.newInstance(getIntent().getBundleExtra("data")));
+                break;
+
+            //810
+            case PageConfig.PAGE_APPLY_PEOPLE_SHI:
+                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
+                break;
+            case PageConfig.PAGE_APPLY_PEOPLE_BING:
+                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
+                break;
+            case PageConfig.PAGE_APPLY_PEOPLE_XIU:
+                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
+                break;
+            case PageConfig.PAGE_APPLY_PEOPLE_WAI:
+                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
+                break;
+            case PageConfig.PAGE_APPLY_PEOPLE_CAR:
+                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
+                break;
+            case PageConfig.PAGE_APPLY_PEOPLE_WU:
+                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
+                break;
+            case PageConfig.PAGE_PEOPLE_APPROVE:
+                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
+                break;
+            case PageConfig.PAGE_PEOPLE_DETAIL:
+                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
+                break;
+            case PageConfig.PAGE_CAR_APPROVE:
+                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
+                break;
+            case PageConfig.PAGE_CAR_DETAIL:
+                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
+                break;
+            case PageConfig.PAGE_XINGZHENG:
+                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
+                break;
+            case PageConfig.PAGE_YIJIAN:
+                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
+                break;
+            case PageConfig.PAGE_CHART:
+                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
         }
     }
@@ -98,10 +120,9 @@ public class ItemActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         int intExtra = getIntent().getIntExtra(PageConfig.PAGE_CODE, -1);
-        if (intExtra == PageConfig.PAGE_APPLY_PEOPLE_OUT||intExtra == PageConfig.PAGE_APPLY_CAR||
-            intExtra == PageConfig.PAGE_APPLY_PEOPLE_IN||intExtra == PageConfig.PAGE_APPLY_DISPATCH_PEOPLE_OWN||
-            intExtra == PageConfig.PAGE_APPLY_DISPATCH_PEOPLE_ELSE||intExtra == PageConfig.PAGE_APPLY_DISPATCH_CAR_OWN||
-            intExtra == PageConfig.PAGE_APPLY_DISPATCH_CAR_ELSE){
+        if (intExtra == PageConfig.PAGE_APPLY_PEOPLE_SHI||intExtra == PageConfig.PAGE_APPLY_PEOPLE_BING||
+            intExtra == PageConfig.PAGE_APPLY_PEOPLE_XIU||intExtra == PageConfig.PAGE_APPLY_PEOPLE_WAI||
+            intExtra == PageConfig.PAGE_APPLY_PEOPLE_CAR||intExtra == PageConfig.PAGE_APPLY_PEOPLE_WU){
             AlertDialog.Builder builder=new AlertDialog.Builder(this);
             builder.setMessage(R.string.make_sure_back_current_apply);
             builder.setPositiveButton(R.string.make_sure, new DialogInterface.OnClickListener() {
