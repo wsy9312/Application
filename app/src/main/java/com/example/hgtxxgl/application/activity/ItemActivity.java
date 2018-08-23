@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.fragment.apply.CarApplyFragment;
 import com.example.hgtxxgl.application.fragment.apply.RestApplyFragment;
+import com.example.hgtxxgl.application.fragment.apply.WorkLeaveApplyFragment;
 import com.example.hgtxxgl.application.fragment.approve.RestApproveCarFragment;
 import com.example.hgtxxgl.application.fragment.approve.RestApprovePeopleFragment;
 import com.example.hgtxxgl.application.fragment.detail.RestDetailCarFragment;
@@ -63,7 +64,7 @@ public class ItemActivity extends AppCompatActivity {
 
             //810
             case PageConfig.PAGE_APPLY_PEOPLE_SHI:
-                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
+                checkFragment(WorkLeaveApplyFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_APPLY_PEOPLE_BING:
                 checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));

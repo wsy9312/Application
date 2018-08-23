@@ -15,6 +15,7 @@
     <color name="gray_dark">@android:color/darker_gray</color>
     <color name="gray">#CDCDCD</color>
     <color name="blue">#325f8f</color>
+    <color name="backcolor">#999999</color>
     <color name="gray_light">#eaedec</color>
     <color name="black">@android:color/black</color>
     <color name="blue_dark">#435790</color>

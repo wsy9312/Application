@@ -6,8 +6,6 @@
     android:orientation="vertical">
     <!--android:background="#0067AE"-->
     <LinearLayout
-        android:background="@drawable/layout_border"
-        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -52,9 +50,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingRight="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:id="@+id/rlayout_title_bar"
-            android:layout_marginBottom="20dp">
+            android:layout_marginBottom="15dp">
 
             <TextView
                 android:id="@+id/tv_item_title_content"
