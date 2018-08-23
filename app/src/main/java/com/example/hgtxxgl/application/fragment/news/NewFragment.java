@@ -20,16 +20,15 @@ import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.NewsItemActivity;
 import com.example.hgtxxgl.application.entity.NewsInfoEntity;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
-import com.example.hgtxxgl.application.utils.GlideImageLoader;
 import com.example.hgtxxgl.application.utils.TimeUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.DataUtil;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.ListAdapter;
 import com.example.hgtxxgl.application.utils.hyutils.L;
+import com.example.hgtxxgl.application.view.HandToolbar;
 import com.example.hgtxxgl.application.view.SimpleListView;
 import com.google.gson.Gson;
-import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
@@ -112,17 +111,21 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.main_listview_news, null, false);
+        View view = inflater.inflate(R.layout.main_listview_news, container, false);
 
-        Banner banner = (Banner) view.findViewById(R.id.banner);
+       /* Banner banner = (Banner) view.findViewById(R.id.banner);
         //设置图片加载器
         banner.setImageLoader(new GlideImageLoader());
         //设置图片集合
         banner.setImages(ApplicationApp.images);
         banner.setDelayTime(4000);
         //banner设置方法全部调用完毕时最后调用
-        banner.start();
+        banner.start();*/
 
+        HandToolbar handToolbar = (HandToolbar) view.findViewById(R.id.news_handtoolbar);
+        handToolbar.setDisplayHomeAsUpEnabled(false, getActivity());
+        handToolbar.setBackHome(false,0);
+        handToolbar.setTitleSize(18);
         lv = (SimpleListView) view.findViewById(R.id.viewpager_listview);
         ivEmpty = (TextView) view.findViewById(R.id.iv_empty);
         ivEmpty.setText(R.string.no_current_news);

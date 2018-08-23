@@ -6,14 +6,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.fragment.life.LifeFragment;
@@ -28,13 +25,9 @@ import java.util.List;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
-import static com.example.hgtxxgl.application.R.id.ll_et_search;
 //首页四个fragment的通类
-public class DetailFragment extends Fragment implements View.OnClickListener {
+public class DetailFragment extends Fragment {
     private int currentPage;
-    private SearchView etSearch;
-    private TextView tvCancel;
-    private LinearLayout llEtSearch;
     private RadioButton rbLeft, rbMid, rbRight;
     private RadioGroup group;
     private static int currentTab = 0;
@@ -91,10 +84,8 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
         @Override
         public Fragment getItem(int position) {
             if (currentPage == PageConfig.PAGE_NEWS) {
-                llEtSearch.setVisibility(VISIBLE);
                 return NewFragment.newInstance(position).setCallback(this);
             } else if (currentPage == PageConfig.PAGE_NOTIFICATION) {
-                llEtSearch.setVisibility(VISIBLE);
                 return NotificationFragment.newInstance(position).setCallback(this);
             } else if (currentPage == PageConfig.PAGE_TOTAL){
 //                return new LaunchDetailFragment();
@@ -131,7 +122,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
 
         @Override
         public void onLoadData() {
-            toggleSearchBox(false);
+
         }
     }
 
@@ -147,64 +138,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
         rbLeft = (RadioButton) view.findViewById(R.id.rb_left);
         rbMid = (RadioButton) view.findViewById(R.id.rb_mid);
         rbRight = (RadioButton) view.findViewById(R.id.rb_right);
-        llEtSearch = (LinearLayout) view.findViewById(ll_et_search);
-        etSearch = (SearchView) view.findViewById(R.id.et_search);
-        tvCancel = (TextView) view.findViewById(R.id.tv_cancel);
-        tvCancel.setOnClickListener(this);
-        etSearch.setSubmitButtonEnabled(true);
-        etSearch.setIconifiedByDefault(false);
-        etSearch.setFocusableInTouchMode(false);
-        etSearch.setFocusable(false);
-        etSearch.setOnClickListener(this);
-        etSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                doFilter(query);
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                doFilter(newText);
-                return true;
-            }
-        });
         checkTabs(currentPage, true);
-    }
-
-    //搜索逻辑跳转到子fragment界面进行搜索
-    public void doFilter(String str){
-        Fragment f = fragments[currentTab];
-        if (f instanceof NewFragment) {
-            ((NewFragment) f).filter(str);
-        } else if (f instanceof NotificationFragment){
-            ((NotificationFragment) f).filter(str);
-        }
-    }
-
-    //点击搜索图标或者搜索图标旁的取消按钮来控制搜索框的显示
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.et_search) {
-            etSearch.setFocusable(true);
-            toggleSearchBox(true);
-        } else if (v.getId() == R.id.tv_cancel) {
-            toggleSearchBox(false);
-        }
-    }
-
-    //搜索框开关
-    private void toggleSearchBox(boolean enable) {
-        if (enable) {
-            etSearch.setFocusableInTouchMode(true);
-            etSearch.requestFocus();
-            tvCancel.setVisibility(VISIBLE);
-        } else {
-            //  etSearch.setText("");
-            tvCancel.setVisibility(GONE);
-            etSearch.setFocusableInTouchMode(false);
-            etSearch.clearFocus();
-        }
     }
 
     //根据不同的int参数设置顶部导航栏的按钮数量(暂时设置GONE)
@@ -216,7 +150,6 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
     public void onButtonClickListner(int radioIndex) {
         if (radioIndex >= 0 && radioIndex <= 2) {
             currentTab = radioIndex;
-            toggleSearchBox(false);
             FragmentTransaction trans = getChildFragmentManager().beginTransaction();
             for (int i = 0; i < fragments.length; i++) {
                 if (currentTab == i) {

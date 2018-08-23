@@ -67,45 +67,6 @@
 
     </RadioGroup>
 
-    <LinearLayout
-        android:id="@+id/ll_et_search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:background="#fff"
-        android:visibility="gone"
-        android:focusableInTouchMode="false"
-        android:orientation="horizontal">
-
-        <android.support.v7.widget.SearchView
-            android:id="@+id/et_search"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:background="@drawable/circle_round_white"
-            android:ellipsize="start"
-            android:layout_gravity="center_horizontal"
-            android:foregroundGravity="center_horizontal|center"
-            android:gravity="center"
-            app:searchIcon="@drawable/ic_search"
-            android:imeOptions="actionSearch"
-            android:lines="1"
-            app:queryHint="请输入搜索内容"
-            android:maxLength="20"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:layout_weight="1"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:text="取消"
-            android:layout_weight="6"
-            android:id="@+id/tv_cancel"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:visibility="gone"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"

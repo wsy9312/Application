@@ -30,14 +30,12 @@ import com.example.hgtxxgl.application.utils.hand.PageConfig;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
 import com.example.hgtxxgl.application.view.BadgeView;
-import com.example.hgtxxgl.application.view.HandToolbar;
 import static org.litepal.LitePalApplication.getContext;
 
 //首页
 public class LibMainActivity extends AppCompatActivity{
 
     private static final String TAG = "LibMainActivity";
-    private HandToolbar handToolbar;
     private String username;
     public static final String USER_NAME = "USER_NAME";
     public static final String PASS_WORD = "PASS_WORD";
@@ -79,39 +77,29 @@ public class LibMainActivity extends AppCompatActivity{
                 //根据fragment实例改变当前界面的fragment
                 changeFragment(1);
                 fragments[1].onPause();
-                handToolbar.setTitle(title[1]);
-                handToolbar.setVisibility(View.VISIBLE);
 
             } else if (checkedId == R.id.rb_main_notification) {
                 currentIndex = 0;
                 changeFragment(0);
                 fragments[0].onPause();
-                handToolbar.setTitle(title[0]);
-                handToolbar.setVisibility(View.VISIBLE);
                 badgeViewNoti.hide();
 
             } else if (checkedId == R.id.rb_main_total){
                 currentIndex = 2;
                 changeFragment(2);
                 fragments[2].onPause();
-                handToolbar.setTitle(title[2]);
-                handToolbar.setVisibility(View.VISIBLE);
                 badgeViewApply.hide();
 
             } else if (checkedId == R.id.rb_main_life) {
                 currentIndex = 3;
                 changeFragment(3);
                 fragments[3].onPause();
-                handToolbar.setTitle(title[3]);
-                handToolbar.setVisibility(View.VISIBLE);
                 badgeViewTodo.hide();
 
             } else if (checkedId == R.id.rb_main_me) {
                 currentIndex = 4;
                 changeFragment(4);
                 fragments[4].onPause();
-//                handToolbar.setTitle(title[4]);
-                handToolbar.setVisibility(View.GONE);
                 badgeViewTodo.hide();
             }
         }
@@ -229,10 +217,10 @@ public class LibMainActivity extends AppCompatActivity{
     //填充布局、初始化控件
     private void initView() {
         setContentView(R.layout.layout_lib_main);
-        handToolbar = (HandToolbar) findViewById(R.id.toolbar);
-        handToolbar.setDisplayHomeAsUpEnabled(false, this);
-        handToolbar.setBackHome(false,0);
-        handToolbar.setTitleSize(18);
+//        handToolbar = (HandToolbar) findViewById(R.id.toolbar);
+//        handToolbar.setDisplayHomeAsUpEnabled(false, this);
+//        handToolbar.setBackHome(false,0);
+//        handToolbar.setTitleSize(18);
         bottomBar = (RadioGroup) findViewById(R.id.bottom_bar);
         rbtNews = (RadioButton) findViewById(R.id.rb_main_news);
         rbtNotification = (RadioButton) findViewById(R.id.rb_main_notification);
