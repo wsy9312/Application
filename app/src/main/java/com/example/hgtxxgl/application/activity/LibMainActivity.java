@@ -80,12 +80,14 @@ public class LibMainActivity extends AppCompatActivity{
                 changeFragment(1);
                 fragments[1].onPause();
                 handToolbar.setTitle(title[1]);
+                handToolbar.setVisibility(View.VISIBLE);
 
             } else if (checkedId == R.id.rb_main_notification) {
                 currentIndex = 0;
                 changeFragment(0);
                 fragments[0].onPause();
                 handToolbar.setTitle(title[0]);
+                handToolbar.setVisibility(View.VISIBLE);
                 badgeViewNoti.hide();
 
             } else if (checkedId == R.id.rb_main_total){
@@ -93,6 +95,7 @@ public class LibMainActivity extends AppCompatActivity{
                 changeFragment(2);
                 fragments[2].onPause();
                 handToolbar.setTitle(title[2]);
+                handToolbar.setVisibility(View.VISIBLE);
                 badgeViewApply.hide();
 
             } else if (checkedId == R.id.rb_main_life) {
@@ -100,13 +103,15 @@ public class LibMainActivity extends AppCompatActivity{
                 changeFragment(3);
                 fragments[3].onPause();
                 handToolbar.setTitle(title[3]);
+                handToolbar.setVisibility(View.VISIBLE);
                 badgeViewTodo.hide();
 
             } else if (checkedId == R.id.rb_main_me) {
                 currentIndex = 4;
                 changeFragment(4);
                 fragments[4].onPause();
-                handToolbar.setTitle(title[4]);
+//                handToolbar.setTitle(title[4]);
+                handToolbar.setVisibility(View.GONE);
                 badgeViewTodo.hide();
             }
         }

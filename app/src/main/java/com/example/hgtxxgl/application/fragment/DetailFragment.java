@@ -16,10 +16,10 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
-import com.example.hgtxxgl.application.fragment.commission.CommissionDetailFragment;
 import com.example.hgtxxgl.application.fragment.life.LifeFragment;
 import com.example.hgtxxgl.application.fragment.news.NewFragment;
 import com.example.hgtxxgl.application.fragment.notification.NotificationFragment;
+import com.example.hgtxxgl.application.fragment.personal.PersonalFragment;
 import com.example.hgtxxgl.application.fragment.total.TotalFragment;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
 
@@ -102,7 +102,8 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
             } else if (currentPage == PageConfig.PAGE_LIFE) {
                 return new LifeFragment();
             } else if (currentPage == PageConfig.PAGE_ME) {
-                return new CommissionDetailFragment();
+//                return new CommissionDetailFragment();
+                return new PersonalFragment();
             }
             return null;
         }
