@@ -315,7 +315,7 @@ public class HandInputGroup extends LinearLayout {
      * EDIT_DOUBLE 与DOUBLE类似，但是中间多了一个textview
      */
     public enum VALUE_TYPE {
-        SELECT, TEXT, DATE, BUTTONS, TEXTFILED, FILES_UPLOAD, DOUBLE,SUB_LIST,EDIT_DOUBLE,BIG_EDIT
+        SELECT, TEXT, DATE, BUTTONS, TEXTFILED, FILES_UPLOAD, DOUBLE,SUB_LIST,EDIT_DOUBLE,BIG_EDIT,EMPTY_SPACE
     }
 
     public interface Callback {
@@ -559,6 +559,8 @@ public class HandInputGroup extends LinearLayout {
                 FileChooserLayout convertView = new FileChooserLayout(context);
                 holder = new MyViewHolder(convertView);
             } */
+            }else if (viewType == VALUE_TYPE.EMPTY_SPACE.ordinal()) {
+                holder = new MyViewHolder(inflater.inflate(R.layout.layout_hand_group_emptyspace, parent, false));
             }else if(viewType == VALUE_TYPE.DOUBLE.ordinal()){
                 holder = new MyViewHolder(inflater.inflate(R.layout.list_item_hand_group_double, parent, false));
             }else if(viewType == VALUE_TYPE.SUB_LIST.ordinal()){

@@ -59,21 +59,22 @@ public class WorkLeaveApplyFragment extends CommonFragment{
         baseHolder.add(new HandInputGroup.Holder("单位",true,false,unit,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
         baseHolder.add(new HandInputGroup.Holder("部门",true,false,department,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
         baseHolder.add(new HandInputGroup.Holder("申请类型",true,false,"/请填写",HandInputGroup.VALUE_TYPE.TEXTFILED));
+        baseHolder.add(new HandInputGroup.Holder("",false,false,"", HandInputGroup.VALUE_TYPE.EMPTY_SPACE));
         baseHolder.add(new HandInputGroup.Holder("离队时间",true,false,"/请选择",HandInputGroup.VALUE_TYPE.DATE));
         baseHolder.add(new HandInputGroup.Holder("归队时间",true,false,"/请选择",HandInputGroup.VALUE_TYPE.DATE));
-        baseHolder.add(new HandInputGroup.Holder("事由",true,false,"/请填写",HandInputGroup.VALUE_TYPE.BIG_EDIT));
-        baseHolder.add(new HandInputGroup.Holder("去向",true,false,"/请填写",HandInputGroup.VALUE_TYPE.TEXTFILED));
-        baseHolder.add(new HandInputGroup.Holder("是否后补申请",true,false,"否",HandInputGroup.VALUE_TYPE.SELECT).setColor(Color.rgb(170,170,170)));
+        baseHolder.add(new HandInputGroup.Holder("去向",true,false,"/请输入去向",HandInputGroup.VALUE_TYPE.TEXTFILED));
+        baseHolder.add(new HandInputGroup.Holder("",false,false,"", HandInputGroup.VALUE_TYPE.EMPTY_SPACE));
+        baseHolder.add(new HandInputGroup.Holder("事由",true,false,"/请输入请假事由",HandInputGroup.VALUE_TYPE.BIG_EDIT));
+        baseHolder.add(new HandInputGroup.Holder("",false,false,"", HandInputGroup.VALUE_TYPE.EMPTY_SPACE));
         groups.add(0,new CommonFragment.Group("基本信息", null,true,null,baseHolder));
-        groups.add(1,new CommonFragment.Group("基本信息", null,true,null,baseHolder));
         return groups;
     }
 
     @Override
     public void setToolbar(HandToolbar toolbar) {
         toolbar.setVisibility(View.VISIBLE);
-        toolbar.setTitle("请假申请");
-        toolbar.setTitleSize(18);
+        toolbar.setTitle("请假");
+        toolbar.setTitleSize(16);
     }
 
     @Override
@@ -188,7 +189,7 @@ public class WorkLeaveApplyFragment extends CommonFragment{
                 int getday = getday(leave, returnt);
                 if (getday == -1) {
                     holder.setDispayValue("");
-                    ToastUtil.showToast(getContext(),"请正确选择离队、归队时间");
+                    ToastUtil.showToast(getContext(),"离队时间不能大于归队时间");
                 }
             }
         }else if (holder.getKey().equals("归队时间")){
@@ -199,7 +200,7 @@ public class WorkLeaveApplyFragment extends CommonFragment{
                 int getday = getday(leave, returnt);
                 if (getday == -1) {
                     holder.setDispayValue("");
-                    ToastUtil.showToast(getContext(),"请正确选择离队、归队时间");
+                    ToastUtil.showToast(getContext(),"离队时间不能大于归队时间");
                 }
             }
         }
