@@ -73,7 +73,7 @@ public class WorkLeaveApplyFragment extends CommonFragment{
     @Override
     public void setToolbar(HandToolbar toolbar) {
         toolbar.setVisibility(View.VISIBLE);
-        toolbar.setTitle("请假");
+        toolbar.setTitle("事假申请");
         toolbar.setTitleSize(16);
     }
 

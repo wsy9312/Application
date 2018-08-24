@@ -9,7 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.fragment.apply.CarApplyFragment;
+import com.example.hgtxxgl.application.fragment.apply.GoOutApplyFragment;
 import com.example.hgtxxgl.application.fragment.apply.RestApplyFragment;
+import com.example.hgtxxgl.application.fragment.apply.SickApplyFragment;
 import com.example.hgtxxgl.application.fragment.apply.WorkLeaveApplyFragment;
 import com.example.hgtxxgl.application.fragment.approve.RestApproveCarFragment;
 import com.example.hgtxxgl.application.fragment.approve.RestApprovePeopleFragment;
@@ -67,13 +69,13 @@ public class ItemActivity extends AppCompatActivity {
                 checkFragment(WorkLeaveApplyFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_APPLY_PEOPLE_BING:
-                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
+                checkFragment(SickApplyFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_APPLY_PEOPLE_XIU:
                 checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_APPLY_PEOPLE_WAI:
-                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
+                checkFragment(GoOutApplyFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_APPLY_PEOPLE_CAR:
                 checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));

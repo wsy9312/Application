@@ -21,24 +21,22 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-//申请
-public class RestApplyFragment extends CommonFragment {
-
-    private final static String TAG = "RestApplyFragment";
+public class SickApplyFragment extends CommonFragment{
+    private final static String TAG = "SickApplyFragment";
     private String name;
     private String unit;
     private String department;
 
-    public RestApplyFragment() {
+    public SickApplyFragment() {
     }
 
-    public static RestApplyFragment newInstance() {
-        RestApplyFragment restApplyFragment = new RestApplyFragment();
-        return restApplyFragment;
+    public static SickApplyFragment newInstance() {
+        SickApplyFragment sickApplyFragment = new SickApplyFragment();
+        return sickApplyFragment;
     }
 
-    public static RestApplyFragment newInstance(Bundle bundle) {
-        RestApplyFragment fragment = new RestApplyFragment();
+    public static SickApplyFragment newInstance(Bundle bundle) {
+        SickApplyFragment fragment = new SickApplyFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -75,7 +73,7 @@ public class RestApplyFragment extends CommonFragment {
     @Override
     public void setToolbar(HandToolbar toolbar) {
         toolbar.setVisibility(View.VISIBLE);
-        toolbar.setTitle("休假申请");
+        toolbar.setTitle("病假申请");
         toolbar.setTitleSize(16);
     }
 
