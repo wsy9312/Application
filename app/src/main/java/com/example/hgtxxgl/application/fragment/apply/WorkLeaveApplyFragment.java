@@ -61,10 +61,11 @@ public class WorkLeaveApplyFragment extends CommonFragment{
         baseHolder.add(new HandInputGroup.Holder("申请类型",true,false,"/请填写",HandInputGroup.VALUE_TYPE.TEXTFILED));
         baseHolder.add(new HandInputGroup.Holder("离队时间",true,false,"/请选择",HandInputGroup.VALUE_TYPE.DATE));
         baseHolder.add(new HandInputGroup.Holder("归队时间",true,false,"/请选择",HandInputGroup.VALUE_TYPE.DATE));
-        baseHolder.add(new HandInputGroup.Holder("事由",false,false,"/请填写",HandInputGroup.VALUE_TYPE.BIG_EDIT));
-        baseHolder.add(new HandInputGroup.Holder("去向",false,false,"/请填写",HandInputGroup.VALUE_TYPE.TEXTFILED));
-        baseHolder.add(new HandInputGroup.Holder("是否后补申请",false,false,"否",HandInputGroup.VALUE_TYPE.SELECT).setColor(Color.rgb(170,170,170)));
+        baseHolder.add(new HandInputGroup.Holder("事由",true,false,"/请填写",HandInputGroup.VALUE_TYPE.BIG_EDIT));
+        baseHolder.add(new HandInputGroup.Holder("去向",true,false,"/请填写",HandInputGroup.VALUE_TYPE.TEXTFILED));
+        baseHolder.add(new HandInputGroup.Holder("是否后补申请",true,false,"否",HandInputGroup.VALUE_TYPE.SELECT).setColor(Color.rgb(170,170,170)));
         groups.add(0,new CommonFragment.Group("基本信息", null,true,null,baseHolder));
+        groups.add(1,new CommonFragment.Group("基本信息", null,true,null,baseHolder));
         return groups;
     }
 
