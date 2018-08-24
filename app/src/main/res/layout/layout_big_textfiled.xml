@@ -4,62 +4,53 @@
     android:layout_width="match_parent"
     android:layout_alignParentBottom="true"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
     android:layout_height="wrap_content">
-    <LinearLayout
-        android:orientation="horizontal"
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <TextView
-            android:layout_marginTop="13dp"
-            android:layout_marginBottom="13dp"
-            android:layout_marginLeft="14dp"
-            android:layout_marginRight="7dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            android:textColor="@color/half_black"
-            android:textSize="14sp"
-            android:id="@+id/tv_title"
-            android:maxEms="6"
-            android:minEms="6"
-            android:gravity="left" />
-
-        <TextView
-            android:layout_marginBottom="13dp"
-            android:layout_marginTop="13dp"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_marginLeft="5dp"
+            android:layout_width="10dp"
+            android:layout_height="15dp"
             android:id="@+id/indicator_must_have"
             android:text="*"
-            android:textSize="14sp"
-            android:textColor="@color/alert" />
+            android:layout_centerVertical="true"
+            android:textSize="15sp"
+            android:textColor="@color/redbtn" />
 
-        <EditText
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginRight="14dp"
-            android:layout_marginLeft="15dp"
-            android:layout_width="match_parent"
-            android:id="@+id/tv_value"
-            android:minHeight="80dp"
-            android:textColor="#000"
-            android:textSize="14sp"
-            tools:text="@string/app_name"
-            android:background="@drawable/big_edit_bg"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="top|left" />
+            android:layout_centerVertical="true"
+            android:text="勤务软件"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:layout_toRightOf="@+id/indicator_must_have"
+            android:id="@+id/tv_title"
+            android:maxEms="6"
+            android:minEms="6" />
+    </RelativeLayout>
 
-    </LinearLayout>
+    <EditText
+        android:layout_marginLeft="15dp"
+        android:gravity="top"
+        android:layout_marginRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_value"
+        android:minHeight="80dp"
+        android:background="@null"
+        tools:text="@string/app_name"
+        android:textColor="@color/black"
+        android:textSize="15sp" />
 
     <TextView
         android:layout_width="match_parent"
         android:id="@+id/divider"
         android:height="@dimen/list_small_divider_height"
-        android:background="@color/gray_dark"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
-
+        android:background="@color/window_background"
+        android:layout_height="1dp" />
 </LinearLayout>
