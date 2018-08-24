@@ -60,13 +60,16 @@ public class RestApplyFragment extends CommonFragment {
         baseHolder.add(new HandInputGroup.Holder("申请人",true,false,name,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
         baseHolder.add(new HandInputGroup.Holder("单位",true,false,unit,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
         baseHolder.add(new HandInputGroup.Holder("部门",true,false,department,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
-        baseHolder.add(new HandInputGroup.Holder("申请类型",true,false,"/请填写",HandInputGroup.VALUE_TYPE.TEXTFILED));
+        baseHolder.add(new HandInputGroup.Holder("申请类型",true,false,"休假申请",HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
         baseHolder.add(new HandInputGroup.Holder("",false,false,"", HandInputGroup.VALUE_TYPE.EMPTY_SPACE));
         baseHolder.add(new HandInputGroup.Holder("离队时间",true,false,"/请选择",HandInputGroup.VALUE_TYPE.DATE));
         baseHolder.add(new HandInputGroup.Holder("归队时间",true,false,"/请选择",HandInputGroup.VALUE_TYPE.DATE));
         baseHolder.add(new HandInputGroup.Holder("去向",true,false,"/请输入去向",HandInputGroup.VALUE_TYPE.TEXTFILED));
         baseHolder.add(new HandInputGroup.Holder("",false,false,"", HandInputGroup.VALUE_TYPE.EMPTY_SPACE));
-        baseHolder.add(new HandInputGroup.Holder("事由",true,false,"/请输入请假事由",HandInputGroup.VALUE_TYPE.BIG_EDIT));
+        baseHolder.add(new HandInputGroup.Holder("假期天数",true,false,"/请输入假期天数",HandInputGroup.VALUE_TYPE.DOUBLE));
+        baseHolder.add(new HandInputGroup.Holder("路途天数",true,false,"/请输入假期天数",HandInputGroup.VALUE_TYPE.DOUBLE));
+        baseHolder.add(new HandInputGroup.Holder("",false,false,"", HandInputGroup.VALUE_TYPE.EMPTY_SPACE));
+        baseHolder.add(new HandInputGroup.Holder("事由",true,false,"/请输入休假申请事由",HandInputGroup.VALUE_TYPE.BIG_EDIT));
         baseHolder.add(new HandInputGroup.Holder("",false,false,"", HandInputGroup.VALUE_TYPE.EMPTY_SPACE));
         groups.add(0,new CommonFragment.Group("基本信息", null,true,null,baseHolder));
         return groups;
