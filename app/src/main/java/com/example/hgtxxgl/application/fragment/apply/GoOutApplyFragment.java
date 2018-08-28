@@ -106,7 +106,6 @@ public class GoOutApplyFragment extends CommonFragment{
                         String returnTime = getDisplayValueByKey("归队时间").getRealValue();
                         String argument = getDisplayValueByKey("事由").getRealValue();
                         String goDirection  = getDisplayValueByKey("去向").getRealValue();
-                        String bFillup = getDisplayValueByKey("是否后补申请").getRealValue();
                         PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
                         PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
                         peopleLeaveRrdBean.setDestination(goDirection);
@@ -115,7 +114,6 @@ public class GoOutApplyFragment extends CommonFragment{
                         peopleLeaveRrdBean.setOutTime(leaveTime);
                         peopleLeaveRrdBean.setInTime(returnTime);
                         peopleLeaveRrdBean.setContent(argument);
-                        peopleLeaveRrdBean.setBFillup(bFillup.equals("否")?"0":"1");
                         peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
                         peopleLeaveRrdBean.setIsAndroid("1");
                         List<PeopleLeaveEntity.PeopleLeaveRrdBean> beanList = new ArrayList<>();
@@ -172,8 +170,6 @@ public class GoOutApplyFragment extends CommonFragment{
         if (holder.getType() == HandInputGroup.VALUE_TYPE.DATE) {
             showDateTimePicker(holder,true);
         } else if (holder.getKey().equals("是否取消请假")){
-            showSelector(holder,new String[]{"是","否"});
-        } else if (holder.getKey().equals("是否后补申请")){
             showSelector(holder,new String[]{"是","否"});
         }
     }
