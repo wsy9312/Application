@@ -1,13 +1,19 @@
 package com.example.hgtxxgl.application.fragment.apply;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.RelativeLayout;
 
+import com.example.hgtxxgl.application.R;
+import com.example.hgtxxgl.application.attachment.ImagePickerAdapter;
 import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
 import com.example.hgtxxgl.application.rest.CommonFragment;
 import com.example.hgtxxgl.application.rest.HandInputGroup;
@@ -16,16 +22,25 @@ import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
 import com.example.hgtxxgl.application.view.HandToolbar;
 import com.google.gson.Gson;
+import com.lzy.imagepicker.ImagePicker;
+import com.lzy.imagepicker.bean.ImageItem;
+import com.lzy.imagepicker.ui.ImageGridActivity;
+import com.lzy.imagepicker.ui.ImagePreviewDelActivity;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SickApplyFragment extends CommonFragment{
+public class SickApplyFragment extends CommonFragment implements ImagePickerAdapter.OnRecyclerViewItemClickListener{
     private final static String TAG = "SickApplyFragment";
     private String name;
     private String unit;
     private String department;
+    private ImagePickerAdapter adapter;
+    private ArrayList<ImageItem> selImageList; //当前选择的所有图片
+    private int maxImgCount = 8;               //允许选择图片最大数
+
+    ArrayList<ImageItem> images = null;
 
     public SickApplyFragment() {
     }
@@ -44,6 +59,32 @@ public class SickApplyFragment extends CommonFragment{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {
+            //添加图片返回
+            if (data != null && requestCode == REQUEST_CODE_SELECT) {
+                images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
+                if (images != null) {
+                    selImageList.addAll(images);
+                    adapter.setImages(selImageList);
+                }
+            }
+        } else if (resultCode == ImagePicker.RESULT_CODE_BACK) {
+            //预览图片返回
+            if (data != null && requestCode == REQUEST_CODE_PREVIEW) {
+                images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_IMAGE_ITEMS);
+                if (images != null) {
+                    selImageList.clear();
+                    selImageList.addAll(images);
+                    adapter.setImages(selImageList);
+                }
+            }
+        }
     }
 
     @Override
@@ -204,6 +245,42 @@ public class SickApplyFragment extends CommonFragment{
                     ToastUtil.showToast(getContext(),"离队时间不能大于归队时间");
                 }
             }
+        }
+    }
+
+    @Override
+    public void initWidget(RelativeLayout layout) {
+        RecyclerView recyclerView = (RecyclerView) layout.findViewById(R.id.recyclerView);
+        selImageList = new ArrayList<>();
+        adapter = new ImagePickerAdapter(getActivity(), selImageList, maxImgCount);
+        adapter.setOnItemClickListener(this);
+
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 4));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        switch (position) {
+            case IMAGE_ITEM_ADD:
+                //打开选择,本次允许选择的数量
+                ImagePicker.getInstance().setSelectLimit(maxImgCount - selImageList.size());
+                Intent intent1 = new Intent(getActivity(), ImageGridActivity.class);
+                /* 如果需要进入选择的时候显示已经选中的图片，
+                 * 详情请查看ImagePickerActivity
+                 * */
+                //intent1.putExtra(ImageGridActivity.EXTRAS_IMAGES,images);
+                startActivityForResult(intent1, REQUEST_CODE_SELECT);
+                break;
+            default:
+                //打开预览
+                Intent intentPreview = new Intent(getActivity(), ImagePreviewDelActivity.class);
+                intentPreview.putExtra(ImagePicker.EXTRA_IMAGE_ITEMS, (ArrayList<ImageItem>) adapter.getImages());
+                intentPreview.putExtra(ImagePicker.EXTRA_SELECTED_IMAGE_POSITION, position);
+                intentPreview.putExtra(ImagePicker.EXTRA_FROM_ITEMS, true);
+                startActivityForResult(intentPreview, REQUEST_CODE_PREVIEW);
+                break;
         }
     }
 }

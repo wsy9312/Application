@@ -20,10 +20,13 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.hgtxxgl.application.R;
+import com.example.hgtxxgl.application.attachment.GlideImageLoader;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.view.HandToolbar;
+import com.lzy.imagepicker.ImagePicker;
+import com.lzy.imagepicker.view.CropImageView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -39,7 +42,7 @@ import java.util.Map;
 import static android.content.Context.MODE_PRIVATE;
 import static com.example.hgtxxgl.application.utils.hand.Fields.SAVE_IP;
 
-public abstract class CommonFragment extends Fragment implements HandInputGroup.Callback, RadioBarViewPager.OnCheckedChangeListener{
+public abstract class CommonFragment extends Fragment implements HandInputGroup.Callback, RadioBarViewPager.OnCheckedChangeListener {
     public RecyclerView itemCont;
     private HolderAdapter adpter;
     private List<Group> groupList;
@@ -52,6 +55,10 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
     public RelativeLayout pb;
     private LinearLayout buttonll;
     private String tempIP;
+
+    public static final int IMAGE_ITEM_ADD = -1;
+    public static final int REQUEST_CODE_SELECT = 100;
+    public static final int REQUEST_CODE_PREVIEW = 101;
 
     public String getTempIP() {
         return tempIP;
@@ -236,6 +243,8 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         layout = (RelativeLayout) inflater.inflate(R.layout.fragment_layout_container, container, false);
+        initImagePicker();
+        initWidget(layout);
         buttonll = (LinearLayout) layout.findViewById(R.id.vs_action_buttons);
         setButtonllEnable(getArguments() == null);
         toolbar = (HandToolbar) layout.findViewById(R.id.toolbar);
@@ -251,7 +260,7 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
         setButtonsTitles(getBottomButtonsTitles());
         if (getGroup() != null) {
             itemCont = (RecyclerView) layout.findViewById(R.id.frag_list_container);
-            itemCont.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+            itemCont.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
             itemCont.setItemAnimator(new DefaultItemAnimator());
             itemCont.addItemDecoration(new RecycleViewItemDecoration(getResources().getDimensionPixelSize(R.dimen.list_item_halving)));
             if (adpter == null) {
@@ -269,6 +278,24 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
             itemCont.setAdapter(adpter);
         }
         return layout;
+    }
+
+    public void initImagePicker() {
+        ImagePicker imagePicker = ImagePicker.getInstance();
+        imagePicker.setImageLoader(new GlideImageLoader());   //设置图片加载器
+        imagePicker.setShowCamera(true);                      //显示拍照按钮
+        imagePicker.setCrop(false);                           //允许裁剪（单选才有效）
+        imagePicker.setSaveRectangle(true);                   //是否按矩形区域保存
+        imagePicker.setSelectLimit(8);                        //选中数量限制
+        imagePicker.setStyle(CropImageView.Style.RECTANGLE);  //裁剪框的形状
+        imagePicker.setFocusWidth(800);                       //裁剪框的宽度。单位像素（圆形自动取宽高最小值）
+        imagePicker.setFocusHeight(800);                      //裁剪框的高度。单位像素（圆形自动取宽高最小值）
+        imagePicker.setOutPutX(1000);                         //保存文件的宽度。单位像素
+        imagePicker.setOutPutY(1000);                         //保存文件的高度。单位像素
+    }
+
+    public void initWidget(RelativeLayout layout){
+
     }
 
     public void setPb(boolean able){
