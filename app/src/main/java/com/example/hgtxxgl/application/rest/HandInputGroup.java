@@ -691,20 +691,20 @@ public class HandInputGroup extends LinearLayout {
                     }
                     checkHint(edit1, item);
                     final TextView finalTvDivider1 = holder.tvDivider;
-                    edit1.setOnFocusChangeListener(new OnFocusChangeListener() {
-                        @Override
-                        public void onFocusChange(View v, boolean hasFocus) {
-                            callback.FocusChange(item,hasFocus);
-                            if (!hasFocus){
-                                callback.onHolderChangedOver(index, holder.getAdapterPosition(),item);
-                            }
-                            if (finalTvDivider1 != null && !hasFocus) {
-                                finalTvDivider1.setBackgroundColor(getResources().getColor(R.color.gray_dark));
-                            } else if (finalTvDivider1 != null) {
-                                finalTvDivider1.setBackgroundColor(getResources().getColor(R.color.colorAccentLib));
-                            }
-                        }
-                    });
+//                    edit1.setOnFocusChangeListener(new OnFocusChangeListener() {
+//                        @Override
+//                        public void onFocusChange(View v, boolean hasFocus) {
+//                            callback.FocusChange(item,hasFocus);
+//                            if (!hasFocus){
+//                                callback.onHolderChangedOver(index, holder.getAdapterPosition(),item);
+//                            }
+//                            if (finalTvDivider1 != null && !hasFocus) {
+//                                finalTvDivider1.setBackgroundColor(getResources().getColor(R.color.gray_dark));
+//                            } else if (finalTvDivider1 != null) {
+//                                finalTvDivider1.setBackgroundColor(getResources().getColor(R.color.colorAccentLib));
+//                            }
+//                        }
+//                    });
                     break;
                 case TEXTFILED:
                     final EditText editText = (EditText) holder.tvValue;
@@ -735,20 +735,20 @@ public class HandInputGroup extends LinearLayout {
                     }
                     checkHint(editText, item);
                     final TextView finalTvDivider = holder.tvDivider;
-                    editText.setOnFocusChangeListener(new OnFocusChangeListener() {
-                        @Override
-                        public void onFocusChange(View v, boolean hasFocus) {
-                            callback.FocusChange(item,hasFocus);
-                            if (!hasFocus){
-                                callback.onHolderChangedOver(index, holder.getAdapterPosition(),item);
-                            }
-                            if (finalTvDivider != null && !hasFocus) {
-                                finalTvDivider.setBackgroundColor(getResources().getColor(R.color.gray_dark));
-                            } else if (finalTvDivider != null) {
-                                finalTvDivider.setBackgroundColor(getResources().getColor(R.color.colorAccentLib));
-                            }
-                        }
-                    });
+//                    editText.setOnFocusChangeListener(new OnFocusChangeListener() {
+//                        @Override
+//                        public void onFocusChange(View v, boolean hasFocus) {
+//                            callback.FocusChange(item,hasFocus);
+//                            if (!hasFocus){
+//                                callback.onHolderChangedOver(index, holder.getAdapterPosition(),item);
+//                            }
+//                            if (finalTvDivider != null && !hasFocus) {
+//                                finalTvDivider.setBackgroundColor(getResources().getColor(R.color.gray_dark));
+//                            } else if (finalTvDivider != null) {
+//                                finalTvDivider.setBackgroundColor(getResources().getColor(R.color.colorAccentLib));
+//                            }
+//                        }
+//                    });
                     break;
 //                case FILES_UPLOAD:
 //                    FileChooserLayout layout = (FileChooserLayout) holder.tvValue;
@@ -798,17 +798,17 @@ public class HandInputGroup extends LinearLayout {
                     }
                     checkHint(editDouble, item);
                     final TextView TvDivider = holder.tvDivider;
-                    editDouble.setOnFocusChangeListener(new OnFocusChangeListener() {
-                        @Override
-                        public void onFocusChange(View v, boolean hasFocus) {
-                            callback.FocusChange(item,hasFocus);
-                            if (TvDivider != null && !hasFocus) {
-                                TvDivider.setBackgroundColor(getResources().getColor(R.color.gray_dark));
-                            } else if (TvDivider != null) {
-                                TvDivider.setBackgroundColor(getResources().getColor(R.color.colorAccentLib));
-                            }
-                        }
-                    });
+//                    editDouble.setOnFocusChangeListener(new OnFocusChangeListener() {
+//                        @Override
+//                        public void onFocusChange(View v, boolean hasFocus) {
+//                            callback.FocusChange(item,hasFocus);
+//                            if (TvDivider != null && !hasFocus) {
+//                                TvDivider.setBackgroundColor(getResources().getColor(R.color.gray_dark));
+//                            } else if (TvDivider != null) {
+//                                TvDivider.setBackgroundColor(getResources().getColor(R.color.colorAccentLib));
+//                            }
+//                        }
+//                    });
                     break;
             }
         }

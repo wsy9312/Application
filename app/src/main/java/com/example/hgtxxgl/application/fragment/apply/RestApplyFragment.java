@@ -67,7 +67,7 @@ public class RestApplyFragment extends CommonFragment {
         baseHolder.add(new HandInputGroup.Holder("去向",true,false,"/请输入去向",HandInputGroup.VALUE_TYPE.TEXTFILED));
         baseHolder.add(new HandInputGroup.Holder("",false,false,"", HandInputGroup.VALUE_TYPE.EMPTY_SPACE));
         baseHolder.add(new HandInputGroup.Holder("假期天数",true,false,"/请输入假期天数",HandInputGroup.VALUE_TYPE.DOUBLE));
-        baseHolder.add(new HandInputGroup.Holder("路途天数",true,false,"/请输入假期天数",HandInputGroup.VALUE_TYPE.DOUBLE));
+        baseHolder.add(new HandInputGroup.Holder("路途天数",true,false,"/请输入路途天数",HandInputGroup.VALUE_TYPE.DOUBLE));
         baseHolder.add(new HandInputGroup.Holder("",false,false,"", HandInputGroup.VALUE_TYPE.EMPTY_SPACE));
         baseHolder.add(new HandInputGroup.Holder("事由",true,false,"/请输入休假申请事由",HandInputGroup.VALUE_TYPE.BIG_EDIT));
         baseHolder.add(new HandInputGroup.Holder("",false,false,"", HandInputGroup.VALUE_TYPE.EMPTY_SPACE));

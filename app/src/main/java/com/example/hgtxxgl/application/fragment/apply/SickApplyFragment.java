@@ -72,6 +72,14 @@ public class SickApplyFragment extends CommonFragment implements ImagePickerAdap
                 if (images != null) {
                     selImageList.addAll(images);
                     adapter.setImages(selImageList);
+                    Log.e(TAG, "onActivityResult: "+
+                            selImageList.get(0).mimeType+"-"
+                            +selImageList.get(0).size+"-"
+                            +selImageList.get(0).path+"-"
+                            +selImageList.get(0).name+"-"
+                            +selImageList.get(0).addTime+"-"
+                            +selImageList.get(0).height+"-"
+                            +selImageList.get(0).width);
                 }
             }
         } else if (resultCode == ImagePicker.RESULT_CODE_BACK) {
