@@ -54,6 +54,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
         List<Group> groups = new ArrayList<>();
         int process = Integer.parseInt(entity.getProcess());
         List<HandInputGroup.Holder> list = new ArrayList<>();
+        list.add(new HandInputGroup.Holder("",true,false,entity.getName(), HandInputGroup.VALUE_TYPE.APPROVE_HEAD));
         list.add(new HandInputGroup.Holder("流程内容", true, false, "请假申请", HandInputGroup.VALUE_TYPE.TEXT).setColor(entity.getApproverNo().contains(authenticationNo)?Color.rgb(0,128,0):Color.rgb(214,16,24)));
         list.add(new HandInputGroup.Holder("审批状态", true, false, process == 0?"审批中":"审批结束", HandInputGroup.VALUE_TYPE.TEXT).setColor(entity.getApproverNo().contains(authenticationNo)?Color.rgb(0,128,0):Color.rgb(214,16,24)));
         int substring = Integer.parseInt(entity.getResult());

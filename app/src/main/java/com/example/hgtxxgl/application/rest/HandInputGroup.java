@@ -37,6 +37,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import circletextimage.viviant.com.circletextimagelib.view.CircleTextImage;
+
 public class HandInputGroup extends LinearLayout {
 
     Button btnDelete;
@@ -315,7 +317,7 @@ public class HandInputGroup extends LinearLayout {
      * EDIT_DOUBLE 与DOUBLE类似，但是中间多了一个textview
      */
     public enum VALUE_TYPE {
-        SELECT, TEXT, DATE, BUTTONS, TEXTFILED, FILES_UPLOAD, DOUBLE,SUB_LIST,EDIT_DOUBLE,BIG_EDIT,EMPTY_SPACE
+        SELECT, TEXT, DATE, BUTTONS, TEXTFILED, FILES_UPLOAD, DOUBLE,SUB_LIST,EDIT_DOUBLE,BIG_EDIT,EMPTY_SPACE,APPROVE_HEAD,APPROVE_HISTORY
     }
 
     public interface Callback {
@@ -551,14 +553,16 @@ public class HandInputGroup extends LinearLayout {
             MyViewHolder holder = null;
             if (viewType == VALUE_TYPE.DATE.ordinal()) {
                 holder = new MyViewHolder(inflater.inflate(R.layout.layout_hand_group_listitem_date, parent, false));
-            } else if (viewType == VALUE_TYPE.TEXTFILED.ordinal()) {
+            }else if (viewType == VALUE_TYPE.TEXTFILED.ordinal()) {
                 holder = new MyViewHolder(inflater.inflate(R.layout.layout_hand_group_listitem_textfiled, parent, false));
-            } else if(viewType == VALUE_TYPE.BIG_EDIT.ordinal()) {
+            }else if(viewType == VALUE_TYPE.BIG_EDIT.ordinal()) {
                 holder = new MyViewHolder(inflater.inflate(R.layout.layout_big_textfiled, parent, false));
             /*else if (viewType == VALUE_TYPE.FILES_UPLOAD.ordinal()) {
                 FileChooserLayout convertView = new FileChooserLayout(context);
                 holder = new MyViewHolder(convertView);
             } */
+            }else if (viewType == VALUE_TYPE.APPROVE_HISTORY.ordinal()){
+                holder = new MyViewHolder(inflater.inflate(R.layout.layout_hand_group_history, parent, false));
             }else if (viewType == VALUE_TYPE.EMPTY_SPACE.ordinal()) {
                 holder = new MyViewHolder(inflater.inflate(R.layout.layout_hand_group_emptyspace, parent, false));
             }else if(viewType == VALUE_TYPE.DOUBLE.ordinal()){
@@ -571,7 +575,9 @@ public class HandInputGroup extends LinearLayout {
                 holder = new MyViewHolder(inflater.inflate(R.layout.layout_selector_radiobutton,parent,false));
             }else if (viewType == VALUE_TYPE.EDIT_DOUBLE.ordinal()){
                 holder = new MyViewHolder(inflater.inflate(R.layout.list_item_hand_group_enit_double,parent,false));
-            } else {
+            }else if (viewType == VALUE_TYPE.APPROVE_HEAD.ordinal()){
+                holder = new MyViewHolder(inflater.inflate(R.layout.list_item_hand_group_approve_head,parent,false));
+            }else{
                 holder = new MyViewHolder(inflater.inflate(R.layout.list_item_hand_group, parent, false));
             }
             return holder;
@@ -612,6 +618,20 @@ public class HandInputGroup extends LinearLayout {
                     textView.setEnabled(false);
                     checkHint(textView, item);
                     break;
+                case APPROVE_HEAD:
+                    TextView textName = holder.tvName;
+                    textName.setCompoundDrawables(null, null, null, null);
+                    textName.setText(item.getDispayValue());
+                    textName.setTextColor(Color.BLACK);
+                    textName.setEnabled(false);
+                    checkHint(textName, item);
+
+                    String tvKey = holder.tvKey.getText().toString().trim();
+                    TextView textState = holder.tvState;
+                    textState.setText(tvKey);
+
+                    CircleTextImage headImage = holder.headImage;
+                    headImage.setText4CircleImage(tvKey);
                 case SELECT:
                     final EditText selectView = (EditText) holder.tvValue;
                     checkHint(selectView, item);
@@ -834,6 +854,9 @@ public class HandInputGroup extends LinearLayout {
             Button btnDelete;
             TextView tvnum;
             ImageView photo;
+            TextView tvName;
+            TextView tvState;
+            CircleTextImage headImage;
 
             public MyViewHolder(View view) {
                 super(view);
@@ -851,6 +874,9 @@ public class HandInputGroup extends LinearLayout {
                 tvValue = view.findViewById(R.id.tv_value);
                 tvIndicator = (TextView) view.findViewById(R.id.indicator_must_have);
                 tvDivider = (TextView) view.findViewById(R.id.divider);
+                tvName = (TextView) view.findViewById(R.id.tv_name);
+                tvState = (TextView) view.findViewById(R.id.tv_state);
+                headImage = (CircleTextImage) view.findViewById(R.id.head_imgae);
             }
         }
     }

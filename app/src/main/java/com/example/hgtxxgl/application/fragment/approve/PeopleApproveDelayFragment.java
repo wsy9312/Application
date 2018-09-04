@@ -3,6 +3,7 @@ package com.example.hgtxxgl.application.fragment.approve;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.DataSetObserver;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -63,12 +64,12 @@ public class PeopleApproveDelayFragment extends Fragment implements AdapterView.
         @Override
         public void bindView(ListAdapter.ViewHolder holder, PeopleLeaveEntity.PeopleLeaveRrdBean bean) {
             holder.setImage(R.id.approve_imgae,bean.getName());
-            holder.setText(R.id.approve_type,bean.getName()+"的"+bean.getOutType());
+            holder.setText(R.id.approve_name,bean.getName()+"的请假");
+            holder.setText(R.id.approve_type,"请假类型: "+bean.getOutType());
             holder.setText(R.id.approve_outtime,"离队时间:"+DataUtil.parseDateByFormat(bean.getOutTime(), "yyyy-MM-dd"));
             holder.setText(R.id.approve_intime,"归队时间:"+DataUtil.parseDateByFormat(bean.getInTime(), "yyyy-MM-dd"));
-            if (!bean.getApproverNo().contains(authenticationNo)){
-                holder.setText(R.id.approve_state,"待审批");
-            }
+            holder.setText(R.id.approve_state,"待审批");
+            holder.setTextColor(R.id.approve_state, Color.rgb(214,16,24));
             holder.setText(R.id.approve_time,DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss"));
         }
     };
@@ -186,7 +187,7 @@ public class PeopleApproveDelayFragment extends Fragment implements AdapterView.
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (lv.getCurrentState() == 2) return;
         position -= 1;
-        checkDetail(position, PageConfig.PAGE_PEOPLE_APPROVE_DELAY);
+        checkDetail(position, PageConfig.PAGE_LEAVE_APPROVE_PEOPLE);
     }
 
     private void checkDetail(int position, int pageApplyBleave) {
