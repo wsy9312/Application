@@ -14,6 +14,8 @@ import com.example.hgtxxgl.application.view.XCRoundRectImageView;
 
 import java.util.ArrayList;
 
+import circletextimage.viviant.com.circletextimagelib.view.CircleTextImage;
+
 public abstract class ListAdapter<T> extends BaseAdapter {
 
     private ArrayList<T> mData;
@@ -214,6 +216,14 @@ public abstract class ListAdapter<T> extends BaseAdapter {
             View view = getView(id);
             if (view instanceof  TextView){
                 ((TextView)getView(id)).setTextColor(color);
+            }
+            return this;
+        }
+
+        public ViewHolder setImage(int id,String str) {
+            View view = getView(id);
+            if (view instanceof CircleTextImage){
+                ((CircleTextImage)getView(id)).setText4CircleImage(str);
             }
             return this;
         }

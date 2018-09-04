@@ -1,3 +1,3 @@
-include ':app', ':logCollector', ':zxingscanner', ':okhttputils', ':myapplication', ':myapplication2'
+include ':app', ':logCollector', ':zxingscanner', ':okhttputils','mylibrary','circletextimagelib'
 include ':pulltorefresh'
 include ':library'

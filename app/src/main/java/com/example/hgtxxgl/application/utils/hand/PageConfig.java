@@ -37,4 +37,16 @@ public class PageConfig {
     public static final int PAGE_XINGZHENG = 22;
     public static final int PAGE_YIJIAN = 23;
     public static final int PAGE_CHART = 24;
+    //810工作_审批(人员)_我审批的_待我审批和我已审批
+    public static final int PAGE_PEOPLE_APPROVE_DELAY = 25;
+    public static final int PAGE_PEOPLE_APPROVE_FINISH = 26;
+    //810工作_审批(人员)_我发起的_处理中和已处理
+    public static final int PAGE_PEOPLE_DETAIL_DELAY = 27;
+    public static final int PAGE_PEOPLE_DETAIL_FINISH = 28;
+    //810工作_审批(车辆)_我审批的_待我审批和我已审批
+    public static final int PAGE_CAR_APPROVE_DELAY = 29;
+    public static final int PAGE_CAR_APPROVE_FINISH = 30;
+    //810工作_审批(车辆)_我发起的_处理中和已处理
+    public static final int PAGE_CAR_DETAIL_DELAY = 31;
+    public static final int PAGE_CAR_DETAIL_FINISH = 32;
 }
