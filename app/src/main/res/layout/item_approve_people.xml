@@ -29,12 +29,12 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="0dp"
-        android:layout_weight="4"
+        android:layout_weight="5"
         android:layout_height="130dp">
         <TextView
             android:id="@+id/approve_name"
             android:paddingTop="5dp"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:paddingLeft="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -79,7 +79,7 @@
         android:layout_height="130dp">
         <TextView
             android:padding="8dp"
-            android:maxLines="1"
+            android:maxLines="2"
             android:id="@+id/approve_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -85,7 +85,7 @@ public class ItemActivity extends AppCompatActivity {
                 checkFragment(CarApplyFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_APPLY_PEOPLE_WU:
-                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
+                checkFragment(new TempFragment());
                 break;
             case PageConfig.PAGE_PEOPLE_APPROVE:
                 checkFragment(PeopleApproveFragment.newInstance(getIntent().getBundleExtra("data")));
@@ -97,19 +97,19 @@ public class ItemActivity extends AppCompatActivity {
                 checkFragment(PeopleApproveFinishFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_PEOPLE_DETAIL:
-                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
+                checkFragment(new TempFragment());
                 break;
             case PageConfig.PAGE_CAR_APPROVE:
-                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
+                checkFragment(new TempFragment());
                 break;
             case PageConfig.PAGE_CAR_DETAIL:
-                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
+                checkFragment(new TempFragment());
                 break;
             case PageConfig.PAGE_XINGZHENG:
-                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
+                checkFragment(new TempFragment());
                 break;
             case PageConfig.PAGE_YIJIAN:
-                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
+                checkFragment(new TempFragment());
                 break;
             case PageConfig.PAGE_CHART:
                 checkFragment(UnitChartFragment.newInstance(getIntent().getBundleExtra("data")));

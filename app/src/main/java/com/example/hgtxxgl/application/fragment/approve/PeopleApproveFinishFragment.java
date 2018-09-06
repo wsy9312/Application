@@ -85,7 +85,7 @@ public class PeopleApproveFinishFragment extends Fragment implements SimpleListV
                     holder.setTextColor(R.id.approve_state, Color.rgb(214,16,24));
                 }
                 //流程未结束
-            }else if (bean.getProcess().equals("0")){
+            }else if (bean.getProcess().equals("2")){
                 //审批中/黄色
                 holder.setText(R.id.approve_state,"审批中");
                 holder.setTextColor(R.id.approve_state, Color.rgb(255,140,0));
@@ -150,8 +150,7 @@ public class PeopleApproveFinishFragment extends Fragment implements SimpleListV
         peopleLeaveRrdBean.setApproverNo("?");
         peopleLeaveRrdBean.setHisAnnotation("?");
         peopleLeaveRrdBean.setDestination("?");
-        peopleLeaveRrdBean.setUnit("?");
-        peopleLeaveRrdBean.setDepartment("?");
+        peopleLeaveRrdBean.setCurrentApproverNo("?");
         peopleLeaveRrdBean.setBeginNum(String.valueOf(beginNum));
         peopleLeaveRrdBean.setEndNum(String.valueOf(endNum));
         List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();

@@ -70,8 +70,6 @@ public class LoginActivity extends AppCompatActivity {
     private String DEMO_URL;
     private LoginActivity mContext;
 
-    //创建播放视频的控件对象
-//    private CustomVideoView videoview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,19 +119,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    //返回重启加载
-//    @Override
-//    protected void onRestart() {
-//        initView();
-//        super.onRestart();
-//    }
-
-    //防止锁屏或者切出的时候，音乐在播放
-//    @Override
-//    protected void onStop() {
-//        videoview.stopPlayback();
-//        super.onStop();
-//    }
 
     //初始化控件
     private void initView() {
@@ -151,19 +136,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         savepassword = (CheckBox) findViewById(R.id.login_cb_savepassword);
-        //加载视频资源控件
-//        videoview = (CustomVideoView) findViewById(videoview);
-        //设置播放加载路径
-//        videoview.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video));
-        //播放
-//        videoview.start();
-        //循环播放
-//        videoview.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-//            @Override
-//            public void onCompletion(MediaPlayer mediaPlayer) {
-//                videoview.start();
-//            }
-//        });
+
         etUsername.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -260,32 +233,7 @@ public class LoginActivity extends AppCompatActivity {
                         edit.commit();
                     }
                 });
-                /*new AlertDialog.Builder(LoginActivity.this)
-                        .setTitle(R.string.please_set_ip_and_port)
-                        .setView(view)
-                        .setPositiveButton(R.string.make_sure, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                String ip = "http://"+ iptext.getText().toString()+"/";
-                                if (edit1.getText().toString().trim().isEmpty()|| edit2.getText().toString().trim().isEmpty()
-                                    || edit3.getText().toString().trim().isEmpty()|| edit4.getText().toString().trim().isEmpty()
-                                    || edit5.getText().toString().trim().isEmpty()){
-                                    Toast.makeText(getApplicationContext(), "请输入完整的地址!", Toast.LENGTH_LONG).show();
-                                    return;
-                                }
-                                *//*if(iptext.getText().toString().equals("")){
-                                    Toast.makeText(getApplicationContext(), R.string.address_can_not_null, Toast.LENGTH_LONG).show();
-                                }else*//*else{
-                                    SharedPreferences share = getSharedPreferences(SAVE_IP, MODE_PRIVATE);
-                                    SharedPreferences.Editor edit = share.edit();
-                                    edit.putString("tempIP", ip);
-                                    edit.commit();
-                                    LoginActivity.this.fileService.saveToRom(ip, "private.txt");
-                                    Toast.makeText(getApplicationContext(), "设置成功!", Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        })
-                        .setNegativeButton(R.string.cancel,null)
-                        .show();*/
+
             }
         });
         DEMO_URL = urlListAdapter.getCheckedUrl();
@@ -372,7 +320,6 @@ public class LoginActivity extends AppCompatActivity {
         peopleInfoBean.setDepartment("?");
         peopleInfoBean.setPhoneNo("?");
         peopleInfoBean.setTelNo("?");
-        peopleInfoBean.setGroupName("?");
         peopleInfoBean.setLoginName(username);
         peopleInfoBean.setPassword(password);
         peopleInfoBean.setAuthority("?");
@@ -415,7 +362,6 @@ public class LoginActivity extends AppCompatActivity {
                     peopleInfoBean.setDepartment("");
                     peopleInfoBean.setPhoneNo("");
                     peopleInfoBean.setTelNo("");
-                    peopleInfoBean.setGroupName("");
                     peopleInfoBean.setLoginName(username);
                     peopleInfoBean.setPassword(password);
                     peopleInfoBean.setAuthority("");

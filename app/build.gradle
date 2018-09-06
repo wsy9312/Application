@@ -59,6 +59,7 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:1.3.0'
     compile 'com.lzy.widget:imagepicker:0.6.1'
     compile 'com.github.Idtk:SmallChart:v0.1.1'
+    compile 'com.zhouyou:easyrecyclerview:1.0.5'
     compile project(':zxingscanner')
     compile project(':okhttputils')
     compile project(':pulltorefresh')

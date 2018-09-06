@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
     <RelativeLayout
         android:id="@+id/personal_headarea"
+        android:gravity="top"
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:background="@drawable/original">
@@ -43,7 +44,7 @@
             android:layout_marginTop="150dp"
             tools:visibility="visible"
             android:maxLines="1"
-            android:text="88888889"
+            android:text="81"
             android:textColor="@color/green"
             android:textSize="15sp" />
         <TextView
@@ -58,11 +59,9 @@
             android:textColor="@color/white"
             android:textSize="15sp" />
     </RelativeLayout>
-
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="match_parent"
         android:layout_below="@+id/personal_headarea"
         android:orientation="vertical">
         <LinearLayout
@@ -71,9 +70,9 @@
             android:orientation="horizontal"
             android:background="@color/grey"/>
         <RelativeLayout
+            android:id="@+id/rl_personalcenter"
             android:clickable="true"
             android:background="@drawable/bg_total_gray"
-            android:id="@+id/rl_personalcenter"
             android:layout_width="match_parent"
             android:layout_height="50dp">
             <ImageView

@@ -20,7 +20,6 @@ public class PeopleInfoEntity {
          * AuthenticationNo : 3A447500
          * Authority : ?
          * CardNo : ?
-         * GroupName : ?
          * IsAndroid : 1
          * LoginName : 81
          * ModifyTime : ?
@@ -41,7 +40,6 @@ public class PeopleInfoEntity {
         private String AuthenticationNo;
         private String Authority;//
         private String CardNo;//
-        private String GroupName;//
         private String IsAndroid;
         private String LoginName;//
         private String ModifyTime;//
@@ -57,6 +55,24 @@ public class PeopleInfoEntity {
         private String Department;//
         private String NoIndex;//
         private String bClosed;//
+        private String TableName;
+        private String OutStatus;
+
+        public String getTableName() {
+            return TableName;
+        }
+
+        public void setTableName(String tableName) {
+            TableName = tableName;
+        }
+
+        public String getOutStatus() {
+            return OutStatus;
+        }
+
+        public void setOutStatus(String outStatus) {
+            OutStatus = outStatus;
+        }
 
         public String getbClosed() {
             return bClosed;
@@ -88,14 +104,6 @@ public class PeopleInfoEntity {
 
         public void setCardNo(String CardNo) {
             this.CardNo = CardNo;
-        }
-
-        public String getGroupName() {
-            return GroupName;
-        }
-
-        public void setGroupName(String GroupName) {
-            this.GroupName = GroupName;
         }
 
         public String getIsAndroid() {

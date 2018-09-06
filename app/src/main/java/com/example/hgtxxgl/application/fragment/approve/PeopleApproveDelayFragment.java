@@ -129,10 +129,9 @@ public class PeopleApproveDelayFragment extends Fragment implements AdapterView.
         peopleLeaveRrdBean.setApproverNo("?");
         peopleLeaveRrdBean.setHisAnnotation("?");
         peopleLeaveRrdBean.setDestination("?");
-        peopleLeaveRrdBean.setUnit("?");
-        peopleLeaveRrdBean.setDepartment("?");
         peopleLeaveRrdBean.setBeginNum(String.valueOf(beginNum));
         peopleLeaveRrdBean.setEndNum(String.valueOf(endNum));
+        peopleLeaveRrdBean.setCurrentApproverNo("?");
         List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
         list.add(peopleLeaveRrdBean);
         peopleLeaveEntity.setPeopleLeaveRrd(list);
