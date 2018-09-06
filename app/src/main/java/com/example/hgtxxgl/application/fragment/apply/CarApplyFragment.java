@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 
+import com.example.hgtxxgl.application.bean.LoginInfoBean;
 import com.example.hgtxxgl.application.entity.CarInfoEntity;
 import com.example.hgtxxgl.application.entity.CarLeaveEntity;
 import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
@@ -35,6 +36,7 @@ public class CarApplyFragment extends CommonFragment {
     private String ownerNo1 = "";
     private String ownerNo2 = "";
     private String[] arrayName;
+    private LoginInfoBean.ApiAddLoginBean loginBean;
 
     public CarApplyFragment() {
     }
@@ -53,6 +55,7 @@ public class CarApplyFragment extends CommonFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loginBean = ApplicationApp.getNewLoginEntity().getApi_Add_Login().get(0);
         loadDraftData();
         loadNames();
     }
@@ -108,7 +111,7 @@ public class CarApplyFragment extends CommonFragment {
                         ToastUtil.showToast(getContext(),"请填写" + over);
                         setButtonllEnable(true);
                     }else {
-                        String realValueNO = ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo();
+                        String realValueNO = loginBean.getAuthenticationNo();
                         String proposer = getDisplayValueByKey("申请人").getRealValue();
                         String unit = getDisplayValueByKey("单位").getRealValue();
                         String driver = getDisplayValueByKey("驾驶员").getRealValue();
@@ -355,7 +358,7 @@ public class CarApplyFragment extends CommonFragment {
         bean.setOwner1No("?");
         bean.setOwner2No("?");
         bean.setIsAndroid("1");
-        bean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        bean.setAuthenticationNo(loginBean.getAuthenticationNo());
         List<CarInfoEntity.CarInfoBean> list = new ArrayList<>();
         list.add(bean);
         entity.setCarInfo(list);
@@ -391,7 +394,7 @@ public class CarApplyFragment extends CommonFragment {
         bean.setOwner1No("?");
         bean.setOwner2No("?");
         bean.setIsAndroid("1");
-        bean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        bean.setAuthenticationNo(loginBean.getAuthenticationNo());
         List<CarInfoEntity.CarInfoBean> list = new ArrayList<>();
         list.add(bean);
         entity.setCarInfo(list);

@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
+import com.example.hgtxxgl.application.bean.LoginInfoBean;
 import com.example.hgtxxgl.application.entity.NewsInfoEntity;
 import com.example.hgtxxgl.application.utils.SysExitUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
@@ -52,10 +53,12 @@ public class NewsItemActivity extends AppCompatActivity{
     private Bitmap bitmap3;
     private Bitmap bitmap4;
     private Bitmap bitmap5;
+    private LoginInfoBean.ApiAddLoginBean loginBean;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loginBean = ApplicationApp.getNewLoginEntity().getApi_Add_Login().get(0);
         setContentView(R.layout.item_layout_news);
         StatusBarUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
         SysExitUtil.activityList.add(NewsItemActivity.this);
@@ -111,7 +114,7 @@ public class NewsItemActivity extends AppCompatActivity{
         newsRrdBean.setPicture3Len("?");
         newsRrdBean.setPicture4Len("?");
         newsRrdBean.setPicture5Len("?");
-        newsRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        newsRrdBean.setAuthenticationNo(loginBean.getAuthenticationNo());
         newsRrdBean.setIsAndroid("1");
         newsRrdBean.setNoIndex(noIndex);
         List<NewsInfoEntity.NewsRrdBean> list = new ArrayList<>();

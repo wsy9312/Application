@@ -58,7 +58,93 @@ public class HttpManager {
         Log.e(TAG,s);
     }
 
+    public <T> void requestNewResultForm(final String url, final String json, final Class<T> clazz, final ResultNewCallback<T> callback) {
+                OkHttpUtils
+                .postString()
+                .url(url)
+                .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                .content(json)
+                .build()
+                .execute(new MyStringCallback(){
+                    @Override
+                    public void onBefore(Request request, int id) {
+                        try {
+                            callback.onBefore(request, id);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+                    @Override
+                    public void onAfter(int id) {
+                        try {
+                            callback.onAfter(id);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        try {
+                            T t = null;
+                            String s = new String(Base64.decode(response.getBytes(), Base64.DEFAULT));
+                            Log.e(TAG+"null",s);
+                            if (s.contains("\"")) {
+                                setJson(s);
+                                t = parseJson(s, clazz);
+                                if (t != null) {
+                                    callback.onSuccess(s, t);
+                                } else {
+                                    callback.onError(s);
+                                }
+                            }else{
+                                callback.onResponse(s);
+                            }
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        try {
+                            callback.onError(e.getMessage());
+                        } catch (Exception e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void inProgress(float progress, long total, int id) {
+                        try {
+                            callback.inProgress(progress,total,id);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
+    public interface ResultNewCallback<T> {
+        void onSuccess(String json, T t) throws Exception;
+
+        void onError(String msg) throws Exception;
+
+        void onResponse(String response) throws Exception;
+
+        void onBefore(Request request,int id) throws Exception;
+
+        void onAfter(int id) throws Exception;
+
+        void inProgress(float progress, long total, int id) throws Exception;
+
+    }
+
+
     public <T> void requestResultForm(final String url, final String json, final Class<T> clazz, final ResultCallback<T> callback) {
+        Log.e(TAG+"@",json);
             OkHttpUtils
             .postString()
             .url(url)

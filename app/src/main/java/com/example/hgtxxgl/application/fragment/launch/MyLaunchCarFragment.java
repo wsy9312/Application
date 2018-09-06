@@ -152,7 +152,7 @@ public class MyLaunchCarFragment extends Fragment implements SimpleListView.OnRe
         carLeaveRrdBean.setNoIndex("?");
         carLeaveRrdBean.setModifyTime("?");
         carLeaveRrdBean.setRegisterTime("?");
-        carLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        carLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getApi_Add_Login().get(0).getAuthenticationNo());
         carLeaveRrdBean.setIsAndroid("1");
         carLeaveRrdBean.setBCancel("?");
         carLeaveRrdBean.setResult("?");

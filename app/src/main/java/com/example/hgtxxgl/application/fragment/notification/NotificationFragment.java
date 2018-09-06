@@ -47,6 +47,7 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
     private ProgressBar pb;
     private static final String TAG = "NotificationFragment";
     SimpleListView lv;
+    private String authenticationNo;
 
     public NotificationFragment() {
 
@@ -75,6 +76,7 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        authenticationNo = ApplicationApp.getNewLoginEntity().getApi_Add_Login().get(0).getAuthenticationNo();
         loadData(beginNum,endNum);
         PollingUtils.startPollingService(getContext(), 1, PollingService.class, PollingService.ACTION);
     }
@@ -122,11 +124,11 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
         }
         MessageEntity messageEntity = new MessageEntity();
         MessageEntity.MessageRrdBean messageRrdBean = new MessageEntity.MessageRrdBean();
-        messageRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        messageRrdBean.setAuthenticationNo(authenticationNo);
         messageRrdBean.setTime(getCurrentDateLater(beginNum)+"&&"+ getCurrentDateLater(endNum));
         messageRrdBean.setContent("?");
         messageRrdBean.setModifyTime("?");
-        messageRrdBean.setObjects(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        messageRrdBean.setObjects(authenticationNo);
         messageRrdBean.setNoIndex("?");
         messageRrdBean.setIsAndroid("1");
         List<MessageEntity.MessageRrdBean> list = new ArrayList<>();

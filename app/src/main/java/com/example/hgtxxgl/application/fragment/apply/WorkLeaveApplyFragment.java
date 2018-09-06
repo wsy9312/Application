@@ -118,7 +118,7 @@ public class WorkLeaveApplyFragment extends CommonFragment{
                         peopleLeaveRrdBean.setInTime(returnTime);
                         peopleLeaveRrdBean.setContent(argument);
 //                        peopleLeaveRrdBean.setBFillup(bFillup.equals("否")?"0":"1");
-                        peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+                        peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getApi_Add_Login().get(0).getAuthenticationNo());
                         peopleLeaveRrdBean.setIsAndroid("1");
                         List<PeopleLeaveEntity.PeopleLeaveRrdBean> beanList = new ArrayList<>();
                         beanList.add(peopleLeaveRrdBean);

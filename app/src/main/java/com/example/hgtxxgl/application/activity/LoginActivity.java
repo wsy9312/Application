@@ -21,8 +21,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.example.hgtxxgl.application.R;
-import com.example.hgtxxgl.application.entity.LoginEntity;
-import com.example.hgtxxgl.application.entity.NewLoginEntity;
+import com.example.hgtxxgl.application.bean.LoginBean;
+import com.example.hgtxxgl.application.bean.LoginInfoBean;
 import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
 import com.example.hgtxxgl.application.utils.FileService;
 import com.example.hgtxxgl.application.utils.RxPermissionsTool;
@@ -42,6 +42,8 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import okhttp3.Request;
 
 import static com.example.hgtxxgl.application.utils.hand.Fields.SAVE_IP;
 
@@ -201,7 +203,7 @@ public class LoginActivity extends AppCompatActivity {
                     show(getString(R.string.set_ip_and_port_first));
                 }else{
                     SpUtils.saveisBoolean(getApplicationContext(), Fields.SAVE_PASSWORD,savepassword.isChecked());
-                    login(etUsername.getText().toString(), etPassword.getText().toString());
+                    login(etUsername.getText().toString().trim(), etPassword.getText().toString().trim());
                     SpUtils.saveString(getApplicationContext(), Fields.USERID,etUsername.getText().toString());
                     if (savepassword.isChecked()){
                         SpUtils.saveString(getApplicationContext(),Fields.PASSWORD,etPassword.getText().toString());
@@ -241,6 +243,57 @@ public class LoginActivity extends AppCompatActivity {
         edit.commit();
     }
 
+    private void login(final String username, final String password) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                LoginBean loginBean = new LoginBean();
+                loginBean.setLoginName(username);
+                loginBean.setPassword(password);
+                loginBean.setIsAndroid("1");
+                String toJson = new Gson().toJson(loginBean);
+                String s="Api_Add_Login "+toJson;
+                Log.e(TAG,"登录请求json:"+s);
+                HttpManager.getInstance().requestNewResultForm(tempIP, s, LoginInfoBean.class, new HttpManager.ResultNewCallback<LoginInfoBean>() {
+                    @Override
+                    public void onSuccess(String json, LoginInfoBean loginInfoBean) throws Exception {
+                        Log.e(TAG,"登录成功json:"+json);
+                        if (loginInfoBean != null){
+                            ApplicationApp.setNewLoginEntity(loginInfoBean);
+                            String authenticationNo = loginInfoBean.getApi_Add_Login().get(0).getAuthenticationNo();
+                            getPeopleInfo(username,password,authenticationNo);
+                        }
+                    }
+
+                    @Override
+                    public void onError(String msg) throws Exception {
+
+                    }
+
+                    @Override
+                    public void onResponse(String response) throws Exception {
+
+                    }
+
+                    @Override
+                    public void onBefore(Request request, int id) throws Exception {
+
+                    }
+
+                    @Override
+                    public void onAfter(int id) throws Exception {
+
+                    }
+
+                    @Override
+                    public void inProgress(float progress, long total, int id) throws Exception {
+
+                    }
+                });
+            }
+        }).start();
+    }
+
     //用户名密码判空
     void onPasswordChanged() {
         onUsernameChanged();
@@ -260,7 +313,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     //输入用户名密码登录
-    private void login(final String username, final String password) {
+    /*private void login(final String username, final String password) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -305,7 +358,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
             }
         }).start();
-    }
+    }*/
 
     private void getPeopleInfo(final String username, final String password, final String no){
         //个人资料

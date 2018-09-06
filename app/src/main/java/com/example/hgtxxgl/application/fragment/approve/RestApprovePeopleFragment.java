@@ -109,7 +109,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
                     holder.add(new HandInputGroup.Holder(arrName[i], false, false, arrAnnotation[i], HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(170,170,170)));
                 }
                 groups.add(new Group("批注信息", null, false, null, holder));
-            }else{
+            }else if (process == 2){
                 if (fenNum == 0){
                     holder.add(new HandInputGroup.Holder("当前审批人批注:", false, false, "/请填写", HandInputGroup.VALUE_TYPE.BIG_EDIT));
                 }else{
@@ -135,7 +135,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        authenticationNo = ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo();
+        authenticationNo = ApplicationApp.getNewLoginEntity().getApi_Add_Login().get(0).getAuthenticationNo();
         loadData();
     }
 
@@ -174,7 +174,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
         peopleLeaveRrdBean.setNoIndex(noindex);//
         peopleLeaveRrdBean.setNo("?");//
         peopleLeaveRrdBean.setOutType("?");//
-        peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());//
+        peopleLeaveRrdBean.setAuthenticationNo(authenticationNo);//
         peopleLeaveRrdBean.setDestination("?");//
         peopleLeaveRrdBean.setApproverNo("?");//
         peopleLeaveRrdBean.setHisAnnotation("?");//
@@ -269,7 +269,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
         }
         String realValue1 = getDisplayValueByKey("当前审批人批注:").getRealValue();
         String realValue = realValue1.isEmpty()?"无批注":realValue1;
-        peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        peopleLeaveRrdBean.setAuthenticationNo(authenticationNo);
         peopleLeaveRrdBean.setCurannotation(realValue);
         peopleLeaveRrdBean.setIsAndroid("1");
         List<PeopleLeaveEntity.PeopleLeaveRrdBean> beanList = new ArrayList<>();

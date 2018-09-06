@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 
 import com.example.hgtxxgl.application.R;
+import com.example.hgtxxgl.application.bean.LoginInfoBean;
 import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
 import com.example.hgtxxgl.application.rest.CommonFragment;
 import com.example.hgtxxgl.application.rest.HandInputGroup;
@@ -24,6 +25,7 @@ import java.util.List;
 public class OutVisitFragment extends CommonFragment {
 
     private final static String TAG = "OutVisitFragment";
+    private LoginInfoBean.ApiAddLoginBean loginBean;
 
     public OutVisitFragment() {
     }
@@ -42,6 +44,7 @@ public class OutVisitFragment extends CommonFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loginBean = ApplicationApp.getNewLoginEntity().getApi_Add_Login().get(0);
     }
 
     @Override
@@ -117,7 +120,7 @@ public class OutVisitFragment extends CommonFragment {
                         peopleLeaveRrdBean.setInTime(returnTime);
                         peopleLeaveRrdBean.setContent(argument);
                         peopleLeaveRrdBean.setBFillup(bFillup.equals("否")?"0":"1");
-                        peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+                        peopleLeaveRrdBean.setAuthenticationNo(loginBean.getAuthenticationNo());
                         peopleLeaveRrdBean.setIsAndroid("1");
                         List<PeopleLeaveEntity.PeopleLeaveRrdBean> beanList = new ArrayList<>();
                         beanList.add(peopleLeaveRrdBean);

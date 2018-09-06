@@ -155,7 +155,7 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
         newsRrdBean.setPicture1("?");
         newsRrdBean.setBeginNum(beginNum+"");
         newsRrdBean.setEndNum(endNum+"");
-        newsRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        newsRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getApi_Add_Login().get(0).getAuthenticationNo());
         newsRrdBean.setIsAndroid("1");
         newsRrdBean.setNoIndex("?");
         List<NewsInfoEntity.NewsRrdBean> list = new ArrayList<>();

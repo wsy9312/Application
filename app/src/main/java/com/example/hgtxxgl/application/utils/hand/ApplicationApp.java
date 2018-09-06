@@ -8,7 +8,7 @@ import android.os.StrictMode;
 import android.util.DisplayMetrics;
 
 import com.example.hgtxxgl.application.R;
-import com.example.hgtxxgl.application.entity.NewLoginEntity;
+import com.example.hgtxxgl.application.bean.LoginInfoBean;
 import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class ApplicationApp extends Application {
 
     private static PeopleInfoEntity peopleInfoEntity;
 
-    private static NewLoginEntity newLoginEntity;
+    private static LoginInfoBean newLoginEntity;
 
     public static List<?> images=new ArrayList<>();
     public static int H,W;
@@ -78,16 +78,12 @@ public class ApplicationApp extends Application {
         ApplicationApp.peopleInfoEntity = peopleInfoEntity;
     }
 
-    public static NewLoginEntity getNewLoginEntity() {
+    public static LoginInfoBean getNewLoginEntity() {
         return newLoginEntity;
     }
 
-    public static void setNewLoginEntity(NewLoginEntity newLoginEntity) {
+    public static void setNewLoginEntity(LoginInfoBean newLoginEntity) {
         ApplicationApp.newLoginEntity = newLoginEntity;
     }
-//        checkFirstIn();
-//    private void checkFirstIn() {
-//        CommonValues.firstIn = getSharedPreferences("app", MODE_PRIVATE).getBoolean("firstIn", true);
-//    }
 
 }

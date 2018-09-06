@@ -1,41 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:background="@color/white"
-    android:gravity="center"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="wrap_content">
-
-    <LinearLayout
-        android:gravity="center"
-        android:orientation="horizontal"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp">
+        android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/tv_title"
             android:layout_marginLeft="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#858E99"
-            android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/app_name"
-            android:textSize="14sp"
-            android:maxWidth="70dp"
-            android:minWidth="70dp"
-            android:gravity="left" />
+            android:layout_centerVertical="true"
+            android:textColor="@color/color4"
+            android:textSize="15sp"
+            android:id="@+id/tv_title"
+            android:maxEms="6"
+            android:minEms="6" />
 
-        <TextView
-            android:id="@+id/tv_value"
-            android:textColor="#000"
-            android:layout_width="0dp"
+        <EditText
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="@string/app_name"
-            android:textSize="14sp"
-            android:includeFontPadding="false"
+            android:id="@+id/tv_value"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/tv_title"
+            android:minHeight="10dp"
             android:gravity="left"
-            android:layout_weight="1" />
-    </LinearLayout>
+            android:textColor="@color/simpleblack"
+            android:textSize="15sp"
+            tools:text="@string/app_name"
+            android:maxLines="3"
+            android:background="@null" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:id="@+id/divider"
+        android:height="@dimen/list_small_divider_height"
+        android:background="@color/window_background"
+        android:layout_height="1dp" />
+
 </LinearLayout>

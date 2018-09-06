@@ -95,7 +95,7 @@ public class MyDialog extends Dialog implements View.OnClickListener {
         PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
         peopleInfoBean.setPassword(newpassword);
         peopleInfoBean.setNoIndex(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNoIndex());
-        peopleInfoBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        peopleInfoBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getApi_Add_Login().get(0).getAuthenticationNo());
         peopleInfoBean.setIsAndroid("1");
         List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
         beanList.add(peopleInfoBean);

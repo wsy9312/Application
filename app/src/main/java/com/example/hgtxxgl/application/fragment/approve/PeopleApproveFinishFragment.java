@@ -98,7 +98,7 @@ public class PeopleApproveFinishFragment extends Fragment implements SimpleListV
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        authenticationNo = ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo();
+        authenticationNo = ApplicationApp.getNewLoginEntity().getApi_Add_Login().get(0).getAuthenticationNo();
         loadData(beginNum, endNum);
     }
 

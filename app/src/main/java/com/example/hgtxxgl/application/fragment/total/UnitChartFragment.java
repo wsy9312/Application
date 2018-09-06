@@ -90,7 +90,7 @@ public class UnitChartFragment extends Fragment implements View.OnClickListener 
         String tempIP = share.getString("tempIP", "IP address is empty");
         PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
         PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
-        peopleInfoBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        peopleInfoBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getApi_Add_Login().get(0).getAuthenticationNo());
         peopleInfoBean.setIsAndroid("1");
         List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
         beanList.add(peopleInfoBean);

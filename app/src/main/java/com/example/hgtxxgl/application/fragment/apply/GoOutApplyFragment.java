@@ -114,7 +114,7 @@ public class GoOutApplyFragment extends CommonFragment{
                         peopleLeaveRrdBean.setOutTime(leaveTime);
                         peopleLeaveRrdBean.setInTime(returnTime);
                         peopleLeaveRrdBean.setContent(argument);
-                        peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+                        peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getApi_Add_Login().get(0).getAuthenticationNo());
                         peopleLeaveRrdBean.setIsAndroid("1");
                         List<PeopleLeaveEntity.PeopleLeaveRrdBean> beanList = new ArrayList<>();
                         beanList.add(peopleLeaveRrdBean);

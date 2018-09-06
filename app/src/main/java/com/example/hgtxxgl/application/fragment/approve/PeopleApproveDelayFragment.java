@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.ItemActivity;
+import com.example.hgtxxgl.application.bean.LoginInfoBean;
 import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
@@ -46,7 +47,7 @@ public class PeopleApproveDelayFragment extends Fragment implements AdapterView.
     private static final String TAG = "PeopleApproveDelayFragment";
     private String tempIP;
     SimpleListView lv;
-    private String authenticationNo;
+    private LoginInfoBean.ApiAddLoginBean loginBean;
 
     public PeopleApproveDelayFragment(){
 
@@ -77,7 +78,7 @@ public class PeopleApproveDelayFragment extends Fragment implements AdapterView.
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        authenticationNo = ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo();
+        loginBean = ApplicationApp.getNewLoginEntity().getApi_Add_Login().get(0);
         loadData(beginNum, endNum);
     }
 
@@ -113,7 +114,7 @@ public class PeopleApproveDelayFragment extends Fragment implements AdapterView.
         PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
         PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
         peopleLeaveRrdBean.setNo("?");
-        peopleLeaveRrdBean.setAuthenticationNo(authenticationNo);
+        peopleLeaveRrdBean.setAuthenticationNo(loginBean.getAuthenticationNo());
         peopleLeaveRrdBean.setIsAndroid("1");
         peopleLeaveRrdBean.setRegisterTime("?");
         peopleLeaveRrdBean.setOutTime("?");
@@ -150,7 +151,7 @@ public class PeopleApproveDelayFragment extends Fragment implements AdapterView.
                         entityList.clear();
                     }
                     for (int i = 0; i < peopleLeaveEntity1.getPeopleLeaveRrd().size(); i++) {
-                        if (!peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getApproverNo().contains(authenticationNo)){
+                        if (!peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getApproverNo().contains(loginBean.getAuthenticationNo())){
                             L.e(TAG+"PeopleApproveDelayFragment",peopleLeaveEntity1.toString());
                             hasMore = true;
                             entityList.add(peopleLeaveEntity1.getPeopleLeaveRrd().get(i));

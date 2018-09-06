@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.attachment.ImagePickerAdapter;
+import com.example.hgtxxgl.application.bean.LoginInfoBean;
 import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
 import com.example.hgtxxgl.application.rest.CommonFragment;
 import com.example.hgtxxgl.application.rest.HandInputGroup;
@@ -39,6 +40,7 @@ public class SickApplyFragment extends CommonFragment implements ImagePickerAdap
     private ImagePickerAdapter adapter;
     private ArrayList<ImageItem> selImageList; //当前选择的所有图片
     private int maxImgCount = 8;               //允许选择图片最大数
+    private LoginInfoBean.ApiAddLoginBean loginBean;
 
     ArrayList<ImageItem> images = null;
 
@@ -59,6 +61,7 @@ public class SickApplyFragment extends CommonFragment implements ImagePickerAdap
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loginBean = ApplicationApp.getNewLoginEntity().getApi_Add_Login().get(0);
     }
 
 
@@ -166,7 +169,7 @@ public class SickApplyFragment extends CommonFragment implements ImagePickerAdap
                         peopleLeaveRrdBean.setInTime(returnTime);
                         peopleLeaveRrdBean.setContent(argument);
                         peopleLeaveRrdBean.setBFillup(bFillup.equals("否")?"0":"1");
-                        peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+                        peopleLeaveRrdBean.setAuthenticationNo(loginBean.getAuthenticationNo());
                         peopleLeaveRrdBean.setIsAndroid("1");
                         List<PeopleLeaveEntity.PeopleLeaveRrdBean> beanList = new ArrayList<>();
                         beanList.add(peopleLeaveRrdBean);

@@ -7,7 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 
 import com.example.hgtxxgl.application.R;
-import com.example.hgtxxgl.application.entity.NewLoginEntity;
+import com.example.hgtxxgl.application.bean.LoginInfoBean;
 import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
 import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
 import com.example.hgtxxgl.application.rest.CommonFragment;
@@ -32,7 +32,7 @@ public class RestDetailPeopleFragment extends CommonFragment {
     private String [][] buttonType = {{""},{"取消申请"},{"取消申请","重新提交"}};
     private int type = 0;
     private int fenNum;
-    private NewLoginEntity.LoginBean loginBean;
+    private LoginInfoBean.ApiAddLoginBean loginBean;
     private PeopleInfoEntity.PeopleInfoBean peopleInfoBean;
 
     public RestDetailPeopleFragment(){
@@ -345,7 +345,7 @@ public class RestDetailPeopleFragment extends CommonFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loginBean = ApplicationApp.getNewLoginEntity().getLogin().get(0);
+        loginBean = ApplicationApp.getNewLoginEntity().getApi_Add_Login().get(0);
         peopleInfoBean = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0);
         StatusBarUtils.setWindowStatusBarColor(getActivity(), R.color.mainColor_blue);
         loadData();

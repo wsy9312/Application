@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity{
     private static final int REQUEST_CODE_SAVE_IMG = 10;
     private static final String TAG = "MainActivity";
     private Context mContext;
-    private String no;
+    private String authenticationNo;
     private String name;
     private String cardNo;
     private String position;
@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity{
         tvResult = (TextView) findViewById(R.id.textView);
         imageView = (ImageView) findViewById(R.id.imageView);
         llqrimage = (RelativeLayout) findViewById(R.id.ll_qr_image);
-        no = ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo();
+        authenticationNo = ApplicationApp.getNewLoginEntity().getApi_Add_Login().get(0).getAuthenticationNo();
         name = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName();
         cardNo = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getCardNo();
 //        position = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0)
@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity{
         unit = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0)
         //所属部门
         armyGroup = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0)*/
-        String data = "编号: "+ no + "\r\n\r\n"
+        String data = "编号: "+ authenticationNo + "\r\n\r\n"
                 +"姓名: "+ name + "\r\n\r\n"
                 +"身份证号: "+ cardNo + "\r\n\r\n"
 //                +"职务: "+ position + "\r\n"

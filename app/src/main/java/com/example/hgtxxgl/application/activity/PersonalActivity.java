@@ -62,7 +62,7 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
     private TextView mTelNumber;
     private Bitmap bitmap;
     private PersonalHandToolbar handToolBar;
-    private String no;
+    private String authenticationNo;
     private String name;
     private String cardNo;
     private String sex;
@@ -122,11 +122,11 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void showData() {
-        no = ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo();
+        authenticationNo = ApplicationApp.getNewLoginEntity().getApi_Add_Login().get(0).getAuthenticationNo();
         name = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName();
         cardNo = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getCardNo();
         sex = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getSex().equals("0")?"男":"女";
-        String data = "编号: "+ no + "\r\n\r\n"
+        String data = "编号: "+ authenticationNo + "\r\n\r\n"
                 +"姓名: "+ name + "\r\n\r\n"
                 +"证件号: "+ cardNo + "\r\n\r\n"
                 +"性别: "+ sex + "\r\n\r\n";
@@ -299,7 +299,7 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
         PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
         peopleInfoBean.setPassword(newpassword);
         peopleInfoBean.setNoIndex(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNoIndex());
-        peopleInfoBean.setAuthenticationNo(no);
+        peopleInfoBean.setAuthenticationNo(authenticationNo);
         peopleInfoBean.setIsAndroid("1");
         List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
         beanList.add(peopleInfoBean);

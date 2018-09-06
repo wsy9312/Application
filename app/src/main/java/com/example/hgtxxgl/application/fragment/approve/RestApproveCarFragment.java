@@ -139,7 +139,7 @@ public class RestApproveCarFragment extends CommonFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        authenticationNo = ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo();
+        authenticationNo = ApplicationApp.getNewLoginEntity().getApi_Add_Login().get(0).getAuthenticationNo();
         loadData();
     }
 
@@ -177,7 +177,7 @@ public class RestApproveCarFragment extends CommonFragment {
         carLeaveRrdBean.setIsAndroid("1");//11
         carLeaveRrdBean.setNoIndex(noindex);//12
         carLeaveRrdBean.setNo(no);//13
-        carLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());//15
+        carLeaveRrdBean.setAuthenticationNo(authenticationNo);//15
         carLeaveRrdBean.setDestination("?");//16
         carLeaveRrdBean.setApproverNo("?");//17
         carLeaveRrdBean.setHisAnnotation("?");//18
@@ -276,7 +276,7 @@ public class RestApproveCarFragment extends CommonFragment {
         }
         String realValue1 = getDisplayValueByKey("当前审批人批注:").getRealValue();
         String realValue = realValue1.isEmpty()?"无批注":realValue1;
-        carLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+        carLeaveRrdBean.setAuthenticationNo(authenticationNo);
         carLeaveRrdBean.setCurannotation(realValue);
         carLeaveRrdBean.setIsAndroid("1");
         List<CarLeaveEntity.CarLeaveRrdBean> beanList = new ArrayList<>();

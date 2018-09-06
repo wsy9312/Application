@@ -48,6 +48,7 @@ public class PollingService extends Service {
 	private List<String> list4;
 	private List<String> list5;
 	private String tempIP;
+	private String authenticationNo;
 
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -56,6 +57,7 @@ public class PollingService extends Service {
 
 	@Override
 	public void onCreate() {
+		authenticationNo = ApplicationApp.getNewLoginEntity().getApi_Add_Login().get(0).getAuthenticationNo();
 		SharedPreferences share = getSharedPreferences(SAVE_IP, MODE_PRIVATE);
 		tempIP = share.getString("tempIP", "IP address is empty");
 		builder1 = new NotificationCompat.Builder(this)
@@ -126,7 +128,7 @@ public class PollingService extends Service {
 		carLeaveRrdBean.setNoIndex("?");
 		carLeaveRrdBean.setModifyTime("?");
 		carLeaveRrdBean.setRegisterTime("?");
-		carLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+		carLeaveRrdBean.setAuthenticationNo(authenticationNo);
 		carLeaveRrdBean.setIsAndroid("1");
 		carLeaveRrdBean.setBCancel("0");
 		carLeaveRrdBean.setResult("?");
@@ -180,7 +182,7 @@ public class PollingService extends Service {
 		peopleLeaveRrdBean.setNoIndex("?");
 		peopleLeaveRrdBean.setModifyTime("?");
 		peopleLeaveRrdBean.setRegisterTime("?");
-		peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+		peopleLeaveRrdBean.setAuthenticationNo(authenticationNo);
 		peopleLeaveRrdBean.setIsAndroid("1");
 		peopleLeaveRrdBean.setBCancel("0");
 		peopleLeaveRrdBean.setResult("?");
@@ -225,7 +227,7 @@ public class PollingService extends Service {
 	private void getDataAlarmApprovePeople() {
 		PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
 		PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
-		peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+		peopleLeaveRrdBean.setAuthenticationNo(authenticationNo);
 		peopleLeaveRrdBean.setBeginNum("1");
 		peopleLeaveRrdBean.setEndNum("100");
 		peopleLeaveRrdBean.setIsAndroid("1");
@@ -251,7 +253,7 @@ public class PollingService extends Service {
 					if (!list1.contains(modifyTime)){
 						list1.add(modifyTime);
 						for (int i = 0; i < 500; i++) {
-							if (!peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getApproverNo().contains(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo())) {
+							if (!peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getApproverNo().contains(authenticationNo)) {
 								showNotification(getString(R.string.received_one_apply_rest));
 								Intent intent = new Intent();
 								intent.setAction(FLAGAPPROVE);
@@ -313,7 +315,7 @@ public class PollingService extends Service {
 		CarLeaveEntity carLeaveEntity = new CarLeaveEntity();
 		CarLeaveEntity.CarLeaveRrdBean carLeaveRrdBean = new CarLeaveEntity.CarLeaveRrdBean();
 		carLeaveRrdBean.setApproverNo("?");
-		carLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+		carLeaveRrdBean.setAuthenticationNo(authenticationNo);
 		carLeaveRrdBean.setBeginNum("1");
 		carLeaveRrdBean.setEndNum("100");
 		carLeaveRrdBean.setContent("?");
@@ -338,7 +340,7 @@ public class PollingService extends Service {
 					if (!list2.contains(modifyTime)) {
 						list2.add(modifyTime);
 						for (int i = 0; i < 500; i++) {
-							if (!carLeaveEntity1.getCarLeaveRrd().get(i).getApproverNo().contains(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo())) {
+							if (!carLeaveEntity1.getCarLeaveRrd().get(i).getApproverNo().contains(authenticationNo)) {
 								showNotification(getString(R.string.received_one_car_appy));
 								Intent intent = new Intent();
 								intent.setAction(FLAGAPPROVE);
@@ -400,11 +402,11 @@ public class PollingService extends Service {
 	private void getDataAlarmMessage() {
 		MessageEntity messageEntity = new MessageEntity();
 		MessageEntity.MessageRrdBean messageRrdBean = new MessageEntity.MessageRrdBean();
-		messageRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+		messageRrdBean.setAuthenticationNo(authenticationNo);
 		messageRrdBean.setTime(DateUtil.getCurrentDateBefore()+"&&"+DateUtil.getCurrentDate());
 		messageRrdBean.setContent("?");
 		messageRrdBean.setModifyTime("?");
-		messageRrdBean.setObjects(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+		messageRrdBean.setObjects(authenticationNo);
 		messageRrdBean.setNoIndex("?");
 		messageRrdBean.setIsAndroid("1");
 		List<MessageEntity.MessageRrdBean> list = new ArrayList<>();
