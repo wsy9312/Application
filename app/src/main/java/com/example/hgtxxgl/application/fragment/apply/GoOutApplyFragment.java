@@ -48,10 +48,10 @@ public class GoOutApplyFragment extends CommonFragment{
 
     @Override
     public List<Group> getGroupList() {
-        if (!ApplicationApp.getPeopleInfoEntity().getPeopleInfo().isEmpty()){
-            name = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName();
-            unit = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getUnit();
-            department = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getDepartment();
+        if (!ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().isEmpty()){
+            name = ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getName();
+            unit = ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getUnit();
+            department = ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getDepartment();
         }
         List<CommonFragment.Group> groups = new ArrayList<>();
         List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
@@ -98,7 +98,7 @@ public class GoOutApplyFragment extends CommonFragment{
                         setButtonllEnable(true);
                     }else {
                         //申请人ID
-                        String realValueNO = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo();
+                        String realValueNO = ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getNo();
                         String unit = getDisplayValueByKey("单位").getRealValue();
                         String applicant = getDisplayValueByKey("申请人").getRealValue();
                         String applicantType = getDisplayValueByKey("申请类型").getRealValue();
@@ -114,7 +114,7 @@ public class GoOutApplyFragment extends CommonFragment{
                         peopleLeaveRrdBean.setOutTime(leaveTime);
                         peopleLeaveRrdBean.setInTime(returnTime);
                         peopleLeaveRrdBean.setContent(argument);
-                        peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getApi_Add_Login().get(0).getAuthenticationNo());
+                        peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo());
                         peopleLeaveRrdBean.setIsAndroid("1");
                         List<PeopleLeaveEntity.PeopleLeaveRrdBean> beanList = new ArrayList<>();
                         beanList.add(peopleLeaveRrdBean);

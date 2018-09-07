@@ -58,7 +58,7 @@ public class NewsItemActivity extends AppCompatActivity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loginBean = ApplicationApp.getNewLoginEntity().getApi_Add_Login().get(0);
+        loginBean = ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0);
         setContentView(R.layout.item_layout_news);
         StatusBarUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
         SysExitUtil.activityList.add(NewsItemActivity.this);

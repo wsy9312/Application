@@ -76,7 +76,7 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        authenticationNo = ApplicationApp.getNewLoginEntity().getApi_Add_Login().get(0).getAuthenticationNo();
+        authenticationNo = ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo();
         loadData(beginNum,endNum);
         PollingUtils.startPollingService(getContext(), 1, PollingService.class, PollingService.ACTION);
     }

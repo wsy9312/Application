@@ -90,7 +90,7 @@ public class HttpManager {
                         try {
                             T t = null;
                             String s = new String(Base64.decode(response.getBytes(), Base64.DEFAULT));
-                            Log.e(TAG+"null",s);
+                            Log.e(TAG+"OnResponse:",s);
                             if (s.contains("\"")) {
                                 setJson(s);
                                 t = parseJson(s, clazz);

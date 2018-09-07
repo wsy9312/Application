@@ -44,13 +44,13 @@ public class OutVisitFragment extends CommonFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loginBean = ApplicationApp.getNewLoginEntity().getApi_Add_Login().get(0);
+        loginBean = ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0);
     }
 
     @Override
     public List<CommonFragment.Group> getGroupList() {
-//        if (!ApplicationApp.getPeopleInfoEntity().getPeopleInfo().isEmpty()){
-//            name = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName();
+//        if (!ApplicationApp.getPeopleInfoBean().getPeopleInfo().isEmpty()){
+//            name = ApplicationApp.getPeopleInfoBean().getPeopleInfo().get(0).getName();
 //        }
         List<CommonFragment.Group> groups = new ArrayList<>();
         List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
@@ -102,7 +102,7 @@ public class OutVisitFragment extends CommonFragment {
                         setButtonllEnable(true);
                     }else {
                         //申请人ID
-                        String realValueNO = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo();
+                        String realValueNO = ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getNo();
                         String unit = getDisplayValueByKey("单位").getRealValue();
                         String applicant = getDisplayValueByKey("申请人").getRealValue();
                         String applicantTime = getDisplayValueByKey("申请时间").getRealValue();

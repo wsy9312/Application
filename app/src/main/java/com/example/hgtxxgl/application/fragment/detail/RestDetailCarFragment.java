@@ -9,9 +9,9 @@ import android.util.Log;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.bean.LoginInfoBean;
+import com.example.hgtxxgl.application.bean.PeopleInfoBean;
 import com.example.hgtxxgl.application.entity.CarInfoEntity;
 import com.example.hgtxxgl.application.entity.CarLeaveEntity;
-import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
 import com.example.hgtxxgl.application.rest.CommonFragment;
 import com.example.hgtxxgl.application.rest.HandInputGroup;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
@@ -26,6 +26,8 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.Request;
+
 //车辆外出申请详情
 public class RestDetailCarFragment extends CommonFragment {
 
@@ -39,7 +41,7 @@ public class RestDetailCarFragment extends CommonFragment {
     private String ownerNo1 = "";
     private String ownerNo2 = "";
     private LoginInfoBean.ApiAddLoginBean loginBean;
-    private PeopleInfoEntity.PeopleInfoBean peopleInfoBean;
+    private PeopleInfoBean.ApiGetMyInfoSimBean peopleInfoBean;
 
     public RestDetailCarFragment(){
 
@@ -460,8 +462,8 @@ public class RestDetailCarFragment extends CommonFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loginBean = ApplicationApp.getNewLoginEntity().getApi_Add_Login().get(0);
-        peopleInfoBean = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0);
+        loginBean = ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0);
+        peopleInfoBean = ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0);
         StatusBarUtils.setWindowStatusBarColor(getActivity(), R.color.mainColor_blue);
         loadData();
         loadDraftData();
@@ -629,60 +631,88 @@ public class RestDetailCarFragment extends CommonFragment {
     }
 
     private void getNoFromName1(String driver) {
-        PeopleInfoEntity peopleInfoEntity = new PeopleInfoEntity();
-        PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
+        PeopleInfoBean.ApiGetMyInfoSimBean peopleInfoBean = new PeopleInfoBean.ApiGetMyInfoSimBean();
         peopleInfoBean.setIsAndroid("1");
         peopleInfoBean.setName(driver);
         peopleInfoBean.setNo("?");
         peopleInfoBean.setAuthenticationNo(peopleInfoBean.getNo());
-        List<PeopleInfoEntity.PeopleInfoBean> list1 = new ArrayList<>();
-        list1.add(peopleInfoBean);
-        peopleInfoEntity.setPeopleInfo(list1);
-        String requestJson = "get "+new Gson().toJson(peopleInfoEntity);
-        HttpManager.getInstance().requestResultForm(getTempIP(), requestJson, PeopleInfoEntity.class, new HttpManager.ResultCallback<PeopleInfoEntity>() {
+        peopleInfoBean.setTimeStamp(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getTimeStamp());
+        String json = new Gson().toJson(peopleInfoBean);
+        String s1 = "Api_Get_MyInfoSim " + json;
+        HttpManager.getInstance().requestNewResultForm(getTempIP(),s1,PeopleInfoBean.class,new HttpManager.ResultNewCallback<PeopleInfoBean>() {
             @Override
-            public void onSuccess(String json, PeopleInfoEntity entity) throws InterruptedException {
-                ownerNo1 = entity.getPeopleInfo().get(0).getNo();
+            public void onSuccess(String json, PeopleInfoBean peopleInfoBean) throws Exception {
+                ownerNo1 = entity.getNo();
             }
 
             @Override
-            public void onFailure(String msg) {
+            public void onError(String msg) throws Exception {
 
             }
 
             @Override
-            public void onResponse(String response) {
+            public void onResponse(String response) throws Exception {
 
             }
+
+            @Override
+            public void onBefore(Request request, int id) throws Exception {
+
+            }
+
+            @Override
+            public void onAfter(int id) throws Exception {
+
+            }
+
+            @Override
+            public void inProgress(float progress, long total, int id) throws Exception {
+
+            }
+
         });
     }
 
     private void getNoFromName2(String driver) {
-        PeopleInfoEntity peopleInfoEntity = new PeopleInfoEntity();
-        PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
+        PeopleInfoBean.ApiGetMyInfoSimBean peopleInfoBean = new PeopleInfoBean.ApiGetMyInfoSimBean();
         peopleInfoBean.setIsAndroid("1");
         peopleInfoBean.setName(driver);
         peopleInfoBean.setNo("?");
         peopleInfoBean.setAuthenticationNo(peopleInfoBean.getNo());
-        List<PeopleInfoEntity.PeopleInfoBean> list1 = new ArrayList<>();
-        list1.add(peopleInfoBean);
-        peopleInfoEntity.setPeopleInfo(list1);
-        String requestJson = "get "+new Gson().toJson(peopleInfoEntity);
-        HttpManager.getInstance().requestResultForm(getTempIP(), requestJson, PeopleInfoEntity.class, new HttpManager.ResultCallback<PeopleInfoEntity>() {
+        peopleInfoBean.setTimeStamp(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getTimeStamp());
+        String json = new Gson().toJson(peopleInfoBean);
+        String s1 = "Api_Get_MyInfoSim " + json;
+        HttpManager.getInstance().requestNewResultForm(getTempIP(), s1, PeopleInfoBean.class, new HttpManager.ResultNewCallback<PeopleInfoBean>() {
             @Override
-            public void onSuccess(String json, PeopleInfoEntity entity) throws InterruptedException {
-                ownerNo2 = entity.getPeopleInfo().get(0).getNo();
+            public void onSuccess(String json, PeopleInfoBean peopleInfoBean) throws Exception {
+                ownerNo2 = entity.getNo();
             }
 
             @Override
-            public void onFailure(String msg) {
+            public void onError(String msg) throws Exception {
 
             }
 
             @Override
-            public void onResponse(String response) {
+            public void onResponse(String response) throws Exception {
 
             }
+
+            @Override
+            public void onBefore(Request request, int id) throws Exception {
+
+            }
+
+            @Override
+            public void onAfter(int id) throws Exception {
+
+            }
+
+            @Override
+            public void inProgress(float progress, long total, int id) throws Exception {
+
+            }
+
         });
     }
 }

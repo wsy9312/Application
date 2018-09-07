@@ -57,7 +57,7 @@ public class PollingService extends Service {
 
 	@Override
 	public void onCreate() {
-		authenticationNo = ApplicationApp.getNewLoginEntity().getApi_Add_Login().get(0).getAuthenticationNo();
+		authenticationNo = ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo();
 		SharedPreferences share = getSharedPreferences(SAVE_IP, MODE_PRIVATE);
 		tempIP = share.getString("tempIP", "IP address is empty");
 		builder1 = new NotificationCompat.Builder(this)
@@ -75,7 +75,7 @@ public class PollingService extends Service {
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		if (ApplicationApp.getNewLoginEntity()!=null){
+		if (ApplicationApp.getLoginInfoBean()!=null){
 			new PollingThread().start();
 		}
 		return super.onStartCommand(intent, flags, startId);
@@ -120,7 +120,7 @@ public class PollingService extends Service {
 	public void getDataAlarmApplyCar() {
 		CarLeaveEntity carLeaveEntity = new CarLeaveEntity();
 		CarLeaveEntity.CarLeaveRrdBean carLeaveRrdBean = new CarLeaveEntity.CarLeaveRrdBean();
-		carLeaveRrdBean.setNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
+		carLeaveRrdBean.setNo(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getNo());
 		carLeaveRrdBean.setProcess("?");
 		carLeaveRrdBean.setContent("?");
 		carLeaveRrdBean.setBeginNum("1");
@@ -174,7 +174,7 @@ public class PollingService extends Service {
 	private void getDataAlarmApplyPeople() {
 		PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
 		PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
-		peopleLeaveRrdBean.setNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
+		peopleLeaveRrdBean.setNo(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getNo());
 		peopleLeaveRrdBean.setProcess("?");
 		peopleLeaveRrdBean.setContent("?");
 		peopleLeaveRrdBean.setBeginNum("1");
@@ -266,7 +266,7 @@ public class PollingService extends Service {
 								PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
 								peopleInfoBean.setNo(peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getNo());
 								peopleInfoBean.setName("?");
-								peopleInfoBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+								peopleInfoBean.setAuthenticationNo(ApplicationApp.getLoginInfoBean().getLogin().get(0).getAuthenticationNo());
 								peopleInfoBean.setIsAndroid("1");
 								List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
 								beanList.add(peopleInfoBean);
@@ -354,7 +354,7 @@ public class PollingService extends Service {
 								PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
 								peopleInfoBean.setNo(carLeaveEntity1.getCarLeaveRrd().get(i).getNo());
 								peopleInfoBean.setName("?");
-								peopleInfoBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getLogin().get(0).getAuthenticationNo());
+								peopleInfoBean.setAuthenticationNo(ApplicationApp.getLoginInfoBean().getLogin().get(0).getAuthenticationNo());
 								peopleInfoBean.setIsAndroid("1");
 								List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
 								beanList.add(peopleInfoBean);

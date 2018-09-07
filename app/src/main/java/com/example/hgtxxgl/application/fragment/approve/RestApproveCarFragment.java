@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 
+import com.example.hgtxxgl.application.bean.PeopleInfoBean;
 import com.example.hgtxxgl.application.entity.CarLeaveEntity;
-import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
 import com.example.hgtxxgl.application.rest.CommonFragment;
 import com.example.hgtxxgl.application.rest.HandInputGroup;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
@@ -20,6 +20,9 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Request;
+
 //车辆外出审批
 public class RestApproveCarFragment extends CommonFragment {
 
@@ -72,7 +75,7 @@ public class RestApproveCarFragment extends CommonFragment {
             }
         }else{
             if(!entity.getApproverNo().isEmpty()){
-                if (entity.getApproverNo().contains(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo())) {
+                if (entity.getApproverNo().contains(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getNo())) {
                     setButtonsTitles(stringnull);
                 }
             }
@@ -120,7 +123,7 @@ public class RestApproveCarFragment extends CommonFragment {
                     for (int i = 0; i < fenNum; i++) {
                         holder.add(new HandInputGroup.Holder(arrName[i], false, false, arrAnnotation[i], HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(170,170,170)));
                     }
-                    if (!split3.contains(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName())){
+                    if (!split3.contains(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getName())){
                         holder.add(new HandInputGroup.Holder("当前审批人批注:", false, false, "/请填写", HandInputGroup.VALUE_TYPE.BIG_EDIT));
                     }
                 }
@@ -139,7 +142,7 @@ public class RestApproveCarFragment extends CommonFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        authenticationNo = ApplicationApp.getNewLoginEntity().getApi_Add_Login().get(0).getAuthenticationNo();
+        authenticationNo = ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo();
         loadData();
     }
 
@@ -200,23 +203,20 @@ public class RestApproveCarFragment extends CommonFragment {
                         if (carLeaveEntity1 != null){
                             if (carLeaveEntity1.getCarLeaveRrd().get(0).getBCancel().equals("0")){
 
-                                PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
-                                PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
+                                PeopleInfoBean.ApiGetMyInfoSimBean peopleInfoBean = new PeopleInfoBean.ApiGetMyInfoSimBean();
                                 peopleInfoBean.setNo(no);
                                 peopleInfoBean.setUnit("?");
                                 peopleInfoBean.setDepartment("?");
                                 peopleInfoBean.setIsAndroid("1");
-                                List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
-                                beanList.add(peopleInfoBean);
-                                peopleEntity.setPeopleInfo(beanList);
-                                String json = new Gson().toJson(peopleEntity);
-                                String s1 = "get " + json;
-                                HttpManager.getInstance().requestResultForm(getTempIP(),s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
+                                peopleInfoBean.setTimeStamp(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getTimeStamp());
+                                String json = new Gson().toJson(peopleInfoBean);
+                                String s1 = "Api_Get_MyInfoSim " + json;
+                                HttpManager.getInstance().requestNewResultForm(getTempIP(),s1,PeopleInfoBean.class,new HttpManager.ResultNewCallback<PeopleInfoBean>() {
                                     @Override
-                                    public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
-                                        if (peopleInfoEntity != null){
-                                            carLeaveEntity1.getCarLeaveRrd().get(0).setUnit(peopleInfoEntity.getPeopleInfo().get(0).getUnit());
-                                            carLeaveEntity1.getCarLeaveRrd().get(0).setDepartment(peopleInfoEntity.getPeopleInfo().get(0).getDepartment());
+                                    public void onSuccess(String json, PeopleInfoBean peopleInfoBean) throws Exception {
+                                        if (peopleInfoBean != null){
+                                            carLeaveEntity1.getCarLeaveRrd().get(0).setUnit(peopleInfoBean.getApi_Get_MyInfoSim().get(0).getUnit());
+                                            carLeaveEntity1.getCarLeaveRrd().get(0).setDepartment(peopleInfoBean.getApi_Get_MyInfoSim().get(0).getDepartment());
                                             String hisAnnotation = carLeaveEntity1.getCarLeaveRrd().get(0).getHisAnnotation();
                                             String str = ";";
                                             fenNum = StringUtils.method_5(hisAnnotation, str);
@@ -230,13 +230,30 @@ public class RestApproveCarFragment extends CommonFragment {
                                     }
 
                                     @Override
-                                    public void onFailure(String msg) {
+                                    public void onError(String msg) throws Exception {
 
                                     }
 
                                     @Override
-                                    public void onResponse(String response) {
+                                    public void onResponse(String response) throws Exception {
+
                                     }
+
+                                    @Override
+                                    public void onBefore(Request request, int id) throws Exception {
+
+                                    }
+
+                                    @Override
+                                    public void onAfter(int id) throws Exception {
+
+                                    }
+
+                                    @Override
+                                    public void inProgress(float progress, long total, int id) throws Exception {
+
+                                    }
+
                                 });
 
                             }

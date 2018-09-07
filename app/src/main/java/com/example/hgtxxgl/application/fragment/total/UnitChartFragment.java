@@ -1,6 +1,5 @@
 package com.example.hgtxxgl.application.fragment.total;
 
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PointF;
 import android.graphics.drawable.Drawable;
@@ -9,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,12 +19,8 @@ import com.codbking.widget.DatePickDialog;
 import com.codbking.widget.OnSureLisener;
 import com.codbking.widget.bean.DateType;
 import com.example.hgtxxgl.application.R;
-import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
-import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
-import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.view.HandToolbar;
-import com.google.gson.Gson;
 import com.idtk.smallchart.chart.CurveChart;
 import com.idtk.smallchart.chart.PieChart;
 import com.idtk.smallchart.data.CurveData;
@@ -39,10 +33,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-
-import static android.content.Context.MODE_PRIVATE;
-import static com.example.hgtxxgl.application.utils.hand.Fields.SAVE_IP;
 
 public class UnitChartFragment extends Fragment implements View.OnClickListener {
     protected float[][] points = new float[][]{{1,10}, {2,13}, {3,12}, {4,38}, {5,9},{6,52}, {7,14}, {8,37}, {9,29}, {10,31},
@@ -60,7 +50,6 @@ public class UnitChartFragment extends Fragment implements View.OnClickListener 
             0xFFE6B800, 0xFF7CFC00, 0xFF805677};
     private HandToolbar handToolbar;
     private TextView tv_beginDate;
-    private ArrayList<CurveTotalNumBean> curveTotalNumList;
 
     protected float pxTodp(float value){
         DisplayMetrics metrics = new DisplayMetrics();
@@ -78,42 +67,6 @@ public class UnitChartFragment extends Fragment implements View.OnClickListener 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadData();
-    }
-
-    private void loadData() {
-        loadCurrentTotalNum();
-    }
-
-    private void loadCurrentTotalNum() {
-        SharedPreferences share = getActivity().getSharedPreferences(SAVE_IP, MODE_PRIVATE);
-        String tempIP = share.getString("tempIP", "IP address is empty");
-        PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
-        PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
-        peopleInfoBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getApi_Add_Login().get(0).getAuthenticationNo());
-        peopleInfoBean.setIsAndroid("1");
-        List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
-        beanList.add(peopleInfoBean);
-        peopleEntity.setPeopleInfo(beanList);
-        String json = new Gson().toJson(peopleEntity);
-        String s1 = "get " + json;
-        Log.e("123","获取个人信息:"+s1);
-        HttpManager.getInstance().requestResultForm(tempIP,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
-            @Override
-            public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
-
-            }
-
-            @Override
-            public void onFailure(String msg) {
-
-            }
-
-            @Override
-            public void onResponse(String response) {
-
-            }
-        });
     }
 
     @Nullable

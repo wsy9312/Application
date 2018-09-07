@@ -160,15 +160,15 @@ public class MainActivity extends AppCompatActivity{
         tvResult = (TextView) findViewById(R.id.textView);
         imageView = (ImageView) findViewById(R.id.imageView);
         llqrimage = (RelativeLayout) findViewById(R.id.ll_qr_image);
-        authenticationNo = ApplicationApp.getNewLoginEntity().getApi_Add_Login().get(0).getAuthenticationNo();
-        name = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName();
-        cardNo = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getCardNo();
-//        position = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0)
-        sex = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getSex().equals("0")?"男":"女";
+        authenticationNo = ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo();
+        name = ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getName();
+        cardNo = ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getCardNo();
+//        position = ApplicationApp.getPeopleInfoBean().getPeopleInfo().get(0)
+        sex = ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getSex().equals("0")?"男":"女";
         /*//所属单位
-        unit = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0)
+        unit = ApplicationApp.getPeopleInfoBean().getPeopleInfo().get(0)
         //所属部门
-        armyGroup = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0)*/
+        armyGroup = ApplicationApp.getPeopleInfoBean().getPeopleInfo().get(0)*/
         String data = "编号: "+ authenticationNo + "\r\n\r\n"
                 +"姓名: "+ name + "\r\n\r\n"
                 +"身份证号: "+ cardNo + "\r\n\r\n"

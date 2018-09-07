@@ -14,6 +14,7 @@ import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -22,7 +23,7 @@ import android.widget.TextView;
 
 import com.example.hgtxxgl.application.QrCode.sample.ScannerActivity;
 import com.example.hgtxxgl.application.R;
-import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
+import com.example.hgtxxgl.application.bean.PeopleInfoBean;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
 import com.example.hgtxxgl.application.utils.NumberFormatUtil;
 import com.example.hgtxxgl.application.utils.SysExitUtil;
@@ -39,9 +40,7 @@ import com.google.zxing.client.result.ParsedResultType;
 import com.mylhyl.zxing.scanner.common.Intents;
 import com.mylhyl.zxing.scanner.encode.QREncode;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import okhttp3.Request;
 import pub.devrel.easypermissions.EasyPermissions;
 
 import static com.example.hgtxxgl.application.utils.hand.Fields.SAVE_IP;
@@ -85,7 +84,7 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.fragment_personal_center);
         mContext = this;
         handToolBar = (PersonalHandToolbar) findViewById(R.id.personal_handtoolbar);
-        handToolBar.setTitle(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName());
+        handToolBar.setTitle(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getName());
         handToolBar.setTitleSize(20);
         handToolBar.setRightButton(R.drawable.ic_action_save);
         handToolBar.setHisButton(R.drawable.ic_action_barcode);
@@ -122,25 +121,25 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void showData() {
-        authenticationNo = ApplicationApp.getNewLoginEntity().getApi_Add_Login().get(0).getAuthenticationNo();
-        name = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName();
-        cardNo = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getCardNo();
-        sex = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getSex().equals("0")?"男":"女";
+        authenticationNo = ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo();
+        name = ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getName();
+        cardNo = ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getCardNo();
+        sex = ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getSex().equals("0")?"男":"女";
         String data = "编号: "+ authenticationNo + "\r\n\r\n"
                 +"姓名: "+ name + "\r\n\r\n"
                 +"证件号: "+ cardNo + "\r\n\r\n"
                 +"性别: "+ sex + "\r\n\r\n";
         bitmap = initshow(data);
         handToolBar.setLeftButton(bitmap);
-        mNumber.setText(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
-        mName.setText(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName());
-        mSFZnumber.setText(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getCardNo());
-        mPostion.setText(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getPosition());
-        mSex.setText(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getSex().equals("0")?"男":"女");
-        mCompany.setText(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getUnit());
-        mDepartment.setText(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getDepartment());
-        mGDNumber.setText(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getPhoneNo());
-        mTelNumber.setText(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getTelNo());
+        mNumber.setText(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getNo());
+        mName.setText(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getName());
+        mSFZnumber.setText(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getCardNo());
+        mPostion.setText(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getPosition());
+        mSex.setText(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getSex().equals("0")?"男":"女");
+        mCompany.setText(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getUnit());
+        mDepartment.setText(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getDepartment());
+        mGDNumber.setText(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getPhoneNo());
+        mTelNumber.setText(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getTelNo());
     }
 
     private Bitmap initshow(String peopleInfoEntity) {
@@ -195,8 +194,8 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                ApplicationApp.setNewLoginEntity(null);
-                ApplicationApp.setPeopleInfoEntity(null);
+                ApplicationApp.setLoginInfoBean(null);
+                ApplicationApp.setPeopleInfoBean(null);
                 startActivity(new Intent(PersonalActivity.this, LoginActivity.class));
                 SysExitUtil.exit();
             }
@@ -265,7 +264,7 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
                     String newpassword = newPassword.getText().toString();
                     String confirmpassword = confirmPassword.getText().toString();
                     if (!TextUtils.isEmpty(prepassword)){
-                        if (prepassword.equals(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getPassword())){
+                        if (prepassword.equals(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getPassword())){
                             if (!TextUtils.isEmpty(newpassword) && !TextUtils.isEmpty(confirmpassword)){
                                 if (newpassword.equals(confirmpassword)){
                                     modify(newpassword);
@@ -295,27 +294,25 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void modify(final String newpassword) {
-        PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
-        PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
+        PeopleInfoBean.ApiGetMyInfoSimBean peopleInfoBean = new PeopleInfoBean.ApiGetMyInfoSimBean();
         peopleInfoBean.setPassword(newpassword);
-        peopleInfoBean.setNoIndex(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNoIndex());
-        peopleInfoBean.setAuthenticationNo(authenticationNo);
         peopleInfoBean.setIsAndroid("1");
-        List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
-        beanList.add(peopleInfoBean);
-        peopleEntity.setPeopleInfo(beanList);
-        String json = new Gson().toJson(peopleEntity);
-        String s1 = "modify " + json;
+        peopleInfoBean.setAuthenticationNo(authenticationNo);
+        peopleInfoBean.setNoIndex(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getNoIndex());
+        peopleInfoBean.setTimeStamp(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getTimeStamp());
+        String json = new Gson().toJson(peopleInfoBean);
+        String s1 = "Api_Edit_PeopleInfo " + json;
+        Log.e(TAG,"修改密码:"+s1);
         SharedPreferences share = getSharedPreferences(SAVE_IP, MODE_PRIVATE);
         String tempIP = share.getString("tempIP", "");
-        HttpManager.getInstance().requestResultForm(tempIP,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
+        HttpManager.getInstance().requestNewResultForm(tempIP,s1,PeopleInfoBean.class,new HttpManager.ResultNewCallback<PeopleInfoBean>() {
             @Override
-            public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
+            public void onSuccess(String json, PeopleInfoBean peopleInfoBean) throws Exception {
 
             }
 
             @Override
-            public void onFailure(String msg) {
+            public void onError(String msg) throws Exception {
 
             }
 
@@ -324,10 +321,25 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
                 if (response.contains("error")){
                     show(response);
                 }else if (response.contains("ok")){
-                    ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).setPassword(newpassword);
+                    ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).setPassword(newpassword);
                     show("修改成功!");
                     startActivity(new Intent(PersonalActivity.this,LoginActivity.class));
                 }
+            }
+
+            @Override
+            public void onBefore(Request request, int id) throws Exception {
+
+            }
+
+            @Override
+            public void onAfter(int id) throws Exception {
+
+            }
+
+            @Override
+            public void inProgress(float progress, long total, int id) throws Exception {
+
             }
         });
     }

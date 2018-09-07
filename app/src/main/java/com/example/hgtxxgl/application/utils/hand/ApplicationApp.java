@@ -9,7 +9,7 @@ import android.util.DisplayMetrics;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.bean.LoginInfoBean;
-import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
+import com.example.hgtxxgl.application.bean.PeopleInfoBean;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,9 +23,9 @@ public class ApplicationApp extends Application {
 
     private String UPLOAD_URL="http:";
 
-    private static PeopleInfoEntity peopleInfoEntity;
+    private static PeopleInfoBean peopleInfoBean;
 
-    private static LoginInfoBean newLoginEntity;
+    private static LoginInfoBean loginInfoBean;
 
     public static List<?> images=new ArrayList<>();
     public static int H,W;
@@ -70,20 +70,20 @@ public class ApplicationApp extends Application {
         W=dm.widthPixels;
     }
 
-    public static PeopleInfoEntity getPeopleInfoEntity() {
-        return peopleInfoEntity;
+    public static PeopleInfoBean getPeopleInfoBean() {
+        return peopleInfoBean;
     }
 
-    public static void setPeopleInfoEntity(PeopleInfoEntity peopleInfoEntity) {
-        ApplicationApp.peopleInfoEntity = peopleInfoEntity;
+    public static void setPeopleInfoBean(PeopleInfoBean peopleInfoBean) {
+        ApplicationApp.peopleInfoBean = peopleInfoBean;
     }
 
-    public static LoginInfoBean getNewLoginEntity() {
-        return newLoginEntity;
+    public static LoginInfoBean getLoginInfoBean() {
+        return loginInfoBean;
     }
 
-    public static void setNewLoginEntity(LoginInfoBean newLoginEntity) {
-        ApplicationApp.newLoginEntity = newLoginEntity;
+    public static void setLoginInfoBean(LoginInfoBean loginInfoBean) {
+        ApplicationApp.loginInfoBean = loginInfoBean;
     }
 
 }

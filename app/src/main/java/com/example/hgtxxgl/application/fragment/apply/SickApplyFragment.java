@@ -61,7 +61,7 @@ public class SickApplyFragment extends CommonFragment implements ImagePickerAdap
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loginBean = ApplicationApp.getNewLoginEntity().getApi_Add_Login().get(0);
+        loginBean = ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0);
     }
 
 
@@ -100,10 +100,10 @@ public class SickApplyFragment extends CommonFragment implements ImagePickerAdap
 
     @Override
     public List<Group> getGroupList() {
-        if (!ApplicationApp.getPeopleInfoEntity().getPeopleInfo().isEmpty()){
-            name = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName();
-            unit = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getUnit();
-            department = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getDepartment();
+        if (!ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().isEmpty()){
+            name = ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getName();
+            unit = ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getUnit();
+            department = ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getDepartment();
         }
         List<CommonFragment.Group> groups = new ArrayList<>();
         List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
@@ -151,7 +151,7 @@ public class SickApplyFragment extends CommonFragment implements ImagePickerAdap
                         setButtonllEnable(true);
                     }else {
                         //申请人ID
-                        String realValueNO = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo();
+                        String realValueNO = ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getNo();
                         String unit = getDisplayValueByKey("单位").getRealValue();
                         String applicant = getDisplayValueByKey("申请人").getRealValue();
                         String applicantType = getDisplayValueByKey("申请类型").getRealValue();

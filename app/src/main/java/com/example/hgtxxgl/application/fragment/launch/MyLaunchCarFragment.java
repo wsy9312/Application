@@ -143,7 +143,7 @@ public class MyLaunchCarFragment extends Fragment implements SimpleListView.OnRe
         }
         CarLeaveEntity carLeaveEntity = new CarLeaveEntity();
         CarLeaveEntity.CarLeaveRrdBean carLeaveRrdBean = new CarLeaveEntity.CarLeaveRrdBean();
-        carLeaveRrdBean.setNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
+        carLeaveRrdBean.setNo(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getNo());
         carLeaveRrdBean.setProcess("?");
         carLeaveRrdBean.setContent("?");
         carLeaveRrdBean.setDestination("?");
@@ -152,7 +152,7 @@ public class MyLaunchCarFragment extends Fragment implements SimpleListView.OnRe
         carLeaveRrdBean.setNoIndex("?");
         carLeaveRrdBean.setModifyTime("?");
         carLeaveRrdBean.setRegisterTime("?");
-        carLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getApi_Add_Login().get(0).getAuthenticationNo());
+        carLeaveRrdBean.setAuthenticationNo(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo());
         carLeaveRrdBean.setIsAndroid("1");
         carLeaveRrdBean.setBCancel("?");
         carLeaveRrdBean.setResult("?");

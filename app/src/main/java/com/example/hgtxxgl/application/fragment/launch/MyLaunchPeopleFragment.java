@@ -144,7 +144,7 @@ public class MyLaunchPeopleFragment extends Fragment implements SimpleListView.O
         }
         PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
         PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
-        peopleLeaveRrdBean.setNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
+        peopleLeaveRrdBean.setNo(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getNo());
         peopleLeaveRrdBean.setProcess("?");
         peopleLeaveRrdBean.setContent("?");
         peopleLeaveRrdBean.setBeginNum(String.valueOf(beginNum));
@@ -152,7 +152,7 @@ public class MyLaunchPeopleFragment extends Fragment implements SimpleListView.O
         peopleLeaveRrdBean.setNoIndex("?");
         peopleLeaveRrdBean.setModifyTime("?");
         peopleLeaveRrdBean.setRegisterTime("?");
-        peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getNewLoginEntity().getApi_Add_Login().get(0).getAuthenticationNo());
+        peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo());
         peopleLeaveRrdBean.setIsAndroid("1");
         peopleLeaveRrdBean.setBCancel("?");
         peopleLeaveRrdBean.setResult("?");

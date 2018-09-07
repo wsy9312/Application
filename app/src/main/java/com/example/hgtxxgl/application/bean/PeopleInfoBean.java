@@ -1,78 +1,71 @@
-package com.example.hgtxxgl.application.entity;
+package com.example.hgtxxgl.application.bean;
 
 import java.util.List;
 
-//个人资料实体
-public class PeopleInfoEntity {
+public class PeopleInfoBean {
 
-    public List<PeopleInfoBean> getPeopleInfo() {
-        return PeopleInfo;
+    private List<ApiGetMyInfoSimBean> Api_Get_MyInfoSim;
+
+    public List<ApiGetMyInfoSimBean> getApi_Get_MyInfoSim() {
+        return Api_Get_MyInfoSim;
     }
 
-    public void setPeopleInfo(List<PeopleInfoBean> peopleInfo) {
-        PeopleInfo = peopleInfo;
+    public void setApi_Get_MyInfoSim(List<ApiGetMyInfoSimBean> Api_Get_MyInfoSim) {
+        this.Api_Get_MyInfoSim = Api_Get_MyInfoSim;
     }
 
-    private List<PeopleInfoBean> PeopleInfo;
-
-    public static class PeopleInfoBean {
+    public static class ApiGetMyInfoSimBean {
         /**
-         * AuthenticationNo : 3A447500
-         * Authority : ?
-         * CardNo : ?
-         * IsAndroid : 1
-         * LoginName : 81
-         * ModifyTime : ?
-         * Name : ?
-         * No : ?
-         * NoIndex : ?
-         * Password : 1
-         * PhoneNo : ?
-         * Position : ?
-         * RegisterTime : ?
-         * Sex : ?
-         * TelNo : ?
-         * Unit : ?
-         * Department : ?
-         *  NoIndex  : ?
+         * AuthenticationNo : 权限NO
+         * Authority : 权限
+         * CardNo : 身份证
+         * IsAndroid : 是否Android
+         * LoginName : 用户名
+         * ModifyTime : 修改时间
+         * Name : 名字
+         * No : 1
+         * NoIndex : 1
+         * Password : 666666
+         * PhoneNo : 123
+         * Position : 123
+         * RegisterTime : 123
+         * Sex : 1
+         * TelNo : 123
+         * Unit : 123
+         * Department : 1
+         * IMSI : 1122
+         * IMEI : 222111
+         * OutStatus : 1
+         * RetireTime : 22
+         * bClosed : 1
+         * TimeStamp : 1536283273
+         * TFSerNo : 123
          */
 
         private String AuthenticationNo;
-        private String Authority;//
-        private String CardNo;//
+        private String Authority;
+        private String CardNo;
         private String IsAndroid;
-        private String LoginName;//
-        private String ModifyTime;//
-        private String Name;//
-        private String No;//
-        private String Password;//
-        private String PhoneNo;//
-        private String Position;//
-        private String RegisterTime;//
-        private String Sex;//
-        private String TelNo;//
-        private String Unit;//
-        private String Department;//
-        private String NoIndex;//
-        private String bClosed;//
-        private String TableName;
+        private String LoginName;
+        private String ModifyTime;
+        private String Name;
+        private String No;
+        private String NoIndex;
+        private String Password;
+        private String PhoneNo;
+        private String Position;
+        private String RegisterTime;
+        private String Sex;
+        private String TelNo;
+        private String Unit;
+        private String Department;
+        private String IMSI;
+        private String IMEI;
         private String OutStatus;
-
-        public String getTableName() {
-            return TableName;
-        }
-
-        public void setTableName(String tableName) {
-            TableName = tableName;
-        }
-
-        public String getOutStatus() {
-            return OutStatus;
-        }
-
-        public void setOutStatus(String outStatus) {
-            OutStatus = outStatus;
-        }
+        private String RetireTime;
+        private String bClosed;
+        private String TimeStamp;
+        private String TFSerNo;
 
         public String getbClosed() {
             return bClosed;
@@ -80,6 +73,14 @@ public class PeopleInfoEntity {
 
         public void setbClosed(String bClosed) {
             this.bClosed = bClosed;
+        }
+
+        public String getTFSerNo() {
+            return TFSerNo;
+        }
+
+        public void setTFSerNo(String TFSerNo) {
+            this.TFSerNo = TFSerNo;
         }
 
         public String getAuthenticationNo() {
@@ -216,6 +217,46 @@ public class PeopleInfoEntity {
 
         public void setDepartment(String Department) {
             this.Department = Department;
+        }
+
+        public String getIMSI() {
+            return IMSI;
+        }
+
+        public void setIMSI(String IMSI) {
+            this.IMSI = IMSI;
+        }
+
+        public String getIMEI() {
+            return IMEI;
+        }
+
+        public void setIMEI(String IMEI) {
+            this.IMEI = IMEI;
+        }
+
+        public String getOutStatus() {
+            return OutStatus;
+        }
+
+        public void setOutStatus(String OutStatus) {
+            this.OutStatus = OutStatus;
+        }
+
+        public String getRetireTime() {
+            return RetireTime;
+        }
+
+        public void setRetireTime(String RetireTime) {
+            this.RetireTime = RetireTime;
+        }
+
+        public String getTimeStamp() {
+            return TimeStamp;
+        }
+
+        public void setTimeStamp(String TimeStamp) {
+            this.TimeStamp = TimeStamp;
         }
     }
 }

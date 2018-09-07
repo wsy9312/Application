@@ -8,9 +8,9 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 
 import com.example.hgtxxgl.application.bean.LoginInfoBean;
+import com.example.hgtxxgl.application.bean.PeopleInfoBean;
 import com.example.hgtxxgl.application.entity.CarInfoEntity;
 import com.example.hgtxxgl.application.entity.CarLeaveEntity;
-import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
 import com.example.hgtxxgl.application.rest.CommonFragment;
 import com.example.hgtxxgl.application.rest.HandInputGroup;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
@@ -23,6 +23,8 @@ import com.google.gson.Gson;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Request;
 
 //申请
 public class CarApplyFragment extends CommonFragment {
@@ -55,17 +57,17 @@ public class CarApplyFragment extends CommonFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loginBean = ApplicationApp.getNewLoginEntity().getApi_Add_Login().get(0);
+        loginBean = ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0);
         loadDraftData();
         loadNames();
     }
 
     @Override
     public List<CommonFragment.Group> getGroupList() {
-        if (!ApplicationApp.getPeopleInfoEntity().getPeopleInfo().isEmpty()){
-            name = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getName();
-            unit = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getUnit();
-            department = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getDepartment();
+        if (!ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().isEmpty()){
+            name = ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getName();
+            unit = ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getUnit();
+            department = ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getDepartment();
         }
         List<CommonFragment.Group> groups = new ArrayList<>();
         List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
@@ -180,57 +182,84 @@ public class CarApplyFragment extends CommonFragment {
     }
 
     private void getNoFromName1(String driver) {
-        PeopleInfoEntity peopleInfoEntity = new PeopleInfoEntity();
-        PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
+        PeopleInfoBean.ApiGetMyInfoSimBean peopleInfoBean = new PeopleInfoBean.ApiGetMyInfoSimBean();
         peopleInfoBean.setIsAndroid("1");
         peopleInfoBean.setName(driver);
         peopleInfoBean.setNo("?");
-        peopleInfoBean.setAuthenticationNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
-        List<PeopleInfoEntity.PeopleInfoBean> list1 = new ArrayList<>();
-        list1.add(peopleInfoBean);
-        peopleInfoEntity.setPeopleInfo(list1);
-        String requestJson = "get "+new Gson().toJson(peopleInfoEntity);
-        HttpManager.getInstance().requestResultForm(getTempIP(), requestJson, PeopleInfoEntity.class, new HttpManager.ResultCallback<PeopleInfoEntity>() {
+        peopleInfoBean.setAuthenticationNo(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getNo());
+        peopleInfoBean.setTimeStamp(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getTimeStamp());
+        String json = new Gson().toJson(peopleInfoBean);
+        String s1 = "Api_Get_MyInfoSim " + json;
+        HttpManager.getInstance().requestNewResultForm(getTempIP(), s1, PeopleInfoBean.class, new HttpManager.ResultNewCallback<PeopleInfoBean>() {
             @Override
-            public void onSuccess(String json, PeopleInfoEntity entity) throws InterruptedException {
-                ownerNo1 = entity.getPeopleInfo().get(0).getNo();
+            public void onSuccess(String json, PeopleInfoBean entity) throws InterruptedException {
+                ownerNo1 = entity.getApi_Get_MyInfoSim().get(0).getNo();
             }
 
             @Override
-            public void onFailure(String msg) {
+            public void onError(String msg) throws Exception {
 
             }
 
             @Override
             public void onResponse(String response) {
+
+            }
+
+            @Override
+            public void onBefore(Request request, int id) throws Exception {
+
+            }
+
+            @Override
+            public void onAfter(int id) throws Exception {
+
+            }
+
+            @Override
+            public void inProgress(float progress, long total, int id) throws Exception {
 
             }
         });
     }
+
     private void getNoFromName2(String driver) {
-        PeopleInfoEntity peopleInfoEntity = new PeopleInfoEntity();
-        PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
+        PeopleInfoBean.ApiGetMyInfoSimBean peopleInfoBean = new PeopleInfoBean.ApiGetMyInfoSimBean();
         peopleInfoBean.setIsAndroid("1");
         peopleInfoBean.setName(driver);
         peopleInfoBean.setNo("?");
-        peopleInfoBean.setAuthenticationNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
-        List<PeopleInfoEntity.PeopleInfoBean> list1 = new ArrayList<>();
-        list1.add(peopleInfoBean);
-        peopleInfoEntity.setPeopleInfo(list1);
-        String requestJson = "get "+new Gson().toJson(peopleInfoEntity);
-        HttpManager.getInstance().requestResultForm(getTempIP(), requestJson, PeopleInfoEntity.class, new HttpManager.ResultCallback<PeopleInfoEntity>() {
+        peopleInfoBean.setAuthenticationNo(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getNo());
+        peopleInfoBean.setTimeStamp(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getTimeStamp());
+        String json = new Gson().toJson(peopleInfoBean);
+        String s1 = "Api_Get_MyInfoSim " + json;
+        HttpManager.getInstance().requestNewResultForm(getTempIP(), s1, PeopleInfoBean.class, new HttpManager.ResultNewCallback<PeopleInfoBean>() {
             @Override
-            public void onSuccess(String json, PeopleInfoEntity entity) throws InterruptedException {
-                ownerNo2 = entity.getPeopleInfo().get(0).getNo();
+            public void onSuccess(String json, PeopleInfoBean entity) throws InterruptedException {
+                ownerNo2 = entity.getApi_Get_MyInfoSim().get(0).getNo();
             }
 
             @Override
-            public void onFailure(String msg) {
+            public void onError(String msg) throws Exception {
 
             }
 
             @Override
             public void onResponse(String response) {
+
+            }
+
+            @Override
+            public void onBefore(Request request, int id) throws Exception {
+
+            }
+
+            @Override
+            public void onAfter(int id) throws Exception {
+
+            }
+
+            @Override
+            public void inProgress(float progress, long total, int id) throws Exception {
 
             }
         });
@@ -319,33 +348,47 @@ public class CarApplyFragment extends CommonFragment {
     }
 
     private void loadNames(){
-        PeopleInfoEntity peopleInfoEntity = new PeopleInfoEntity();
-        PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
+        PeopleInfoBean.ApiGetMyInfoSimBean peopleInfoBean = new PeopleInfoBean.ApiGetMyInfoSimBean();
         peopleInfoBean.setIsAndroid("1");
         peopleInfoBean.setName("?");
-        peopleInfoBean.setAuthenticationNo(ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0).getNo());
-        List<PeopleInfoEntity.PeopleInfoBean> list1 = new ArrayList<>();
-        list1.add(peopleInfoBean);
-        peopleInfoEntity.setPeopleInfo(list1);
-        String requestJson = "get "+new Gson().toJson(peopleInfoEntity);
-        HttpManager.getInstance().requestResultForm(getTempIP(), requestJson, PeopleInfoEntity.class, new HttpManager.ResultCallback<PeopleInfoEntity>() {
+        peopleInfoBean.setNo("?");
+        peopleInfoBean.setAuthenticationNo(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getNo());
+        peopleInfoBean.setTimeStamp(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getTimeStamp());
+        String json = new Gson().toJson(peopleInfoBean);
+        String s1 = "Api_Get_MyInfoSim " + json;
+        HttpManager.getInstance().requestNewResultForm(getTempIP(), s1, PeopleInfoBean.class, new HttpManager.ResultNewCallback<PeopleInfoBean>() {
             @Override
-            public void onSuccess(String json, PeopleInfoEntity entity) throws InterruptedException {
-                int size = entity.getPeopleInfo().size();
+            public void onSuccess(String json, PeopleInfoBean entity) throws InterruptedException {
+                int size = entity.getApi_Get_MyInfoSim().size();
                 List<String> list = new ArrayList<>();
                 for (int i = 0; i < size; i++) {
-                    list.add(i,entity.getPeopleInfo().get(i).getName());
+                    list.add(i,entity.getApi_Get_MyInfoSim().get(i).getName());
                 }
                 arrayName = list.toArray(new String[list.size()]);
             }
 
             @Override
-            public void onFailure(String msg) {
+            public void onError(String msg) throws Exception {
 
             }
 
             @Override
             public void onResponse(String response) {
+
+            }
+
+            @Override
+            public void onBefore(Request request, int id) throws Exception {
+
+            }
+
+            @Override
+            public void onAfter(int id) throws Exception {
+
+            }
+
+            @Override
+            public void inProgress(float progress, long total, int id) throws Exception {
 
             }
         });

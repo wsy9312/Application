@@ -78,7 +78,7 @@ public class PeopleApproveDelayFragment extends Fragment implements AdapterView.
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loginBean = ApplicationApp.getNewLoginEntity().getApi_Add_Login().get(0);
+        loginBean = ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0);
         loadData(beginNum, endNum);
     }
 

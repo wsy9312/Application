@@ -8,7 +8,7 @@ import android.support.v7.app.AlertDialog;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.bean.LoginInfoBean;
-import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
+import com.example.hgtxxgl.application.bean.PeopleInfoBean;
 import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
 import com.example.hgtxxgl.application.rest.CommonFragment;
 import com.example.hgtxxgl.application.rest.HandInputGroup;
@@ -33,7 +33,7 @@ public class RestDetailPeopleFragment extends CommonFragment {
     private int type = 0;
     private int fenNum;
     private LoginInfoBean.ApiAddLoginBean loginBean;
-    private PeopleInfoEntity.PeopleInfoBean peopleInfoBean;
+    private PeopleInfoBean.ApiGetMyInfoSimBean peopleInfoBean;
 
     public RestDetailPeopleFragment(){
 
@@ -345,8 +345,8 @@ public class RestDetailPeopleFragment extends CommonFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loginBean = ApplicationApp.getNewLoginEntity().getApi_Add_Login().get(0);
-        peopleInfoBean = ApplicationApp.getPeopleInfoEntity().getPeopleInfo().get(0);
+        loginBean = ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0);
+        peopleInfoBean = ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0);
         StatusBarUtils.setWindowStatusBarColor(getActivity(), R.color.mainColor_blue);
         loadData();
     }

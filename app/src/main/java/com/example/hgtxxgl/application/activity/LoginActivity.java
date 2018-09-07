@@ -23,7 +23,7 @@ import android.widget.ProgressBar;
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.bean.LoginBean;
 import com.example.hgtxxgl.application.bean.LoginInfoBean;
-import com.example.hgtxxgl.application.entity.PeopleInfoEntity;
+import com.example.hgtxxgl.application.bean.PeopleInfoBean;
 import com.example.hgtxxgl.application.utils.FileService;
 import com.example.hgtxxgl.application.utils.RxPermissionsTool;
 import com.example.hgtxxgl.application.utils.SysExitUtil;
@@ -39,8 +39,6 @@ import com.example.hgtxxgl.application.view.UrlListAdapter;
 import com.example.hgtxxgl.application.view.UrlSelector;
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import okhttp3.Request;
@@ -71,6 +69,8 @@ public class LoginActivity extends AppCompatActivity {
     private IPEditText iptext;
     private String DEMO_URL;
     private LoginActivity mContext;
+    private String authenticationNo;
+    private String timeStamp;
 
 
     @Override
@@ -259,35 +259,33 @@ public class LoginActivity extends AppCompatActivity {
                     public void onSuccess(String json, LoginInfoBean loginInfoBean) throws Exception {
                         Log.e(TAG,"登录成功json:"+json);
                         if (loginInfoBean != null){
-                            ApplicationApp.setNewLoginEntity(loginInfoBean);
-                            String authenticationNo = loginInfoBean.getApi_Add_Login().get(0).getAuthenticationNo();
-                            getPeopleInfo(username,password,authenticationNo);
+                            ApplicationApp.setLoginInfoBean(loginInfoBean);
+                            authenticationNo = loginInfoBean.getApi_Add_Login().get(0).getAuthenticationNo();
+                            timeStamp = loginInfoBean.getApi_Add_Login().get(0).getTimeStamp();
                         }
                     }
 
                     @Override
                     public void onError(String msg) throws Exception {
-
+                        ToastUtil.showToast(getApplicationContext(),"错误:"+msg);
                     }
 
                     @Override
                     public void onResponse(String response) throws Exception {
-
+                        ToastUtil.showToast(getApplicationContext(),"response:"+response);
                     }
 
                     @Override
                     public void onBefore(Request request, int id) throws Exception {
-
                     }
 
                     @Override
                     public void onAfter(int id) throws Exception {
-
+                        getPeopleInfo(username,password, authenticationNo,timeStamp);
                     }
 
                     @Override
                     public void inProgress(float progress, long total, int id) throws Exception {
-
                     }
                 });
             }
@@ -334,7 +332,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(String json, NewLoginEntity loginEntity) throws InterruptedException {
                         if (loginEntity != null){
-                            ApplicationApp.setNewLoginEntity(loginEntity);
+                            ApplicationApp.setLoginInfoBean(loginEntity);
                             String no = loginEntity.getLogin().get(0).getAuthenticationNo();
                             getPeopleInfo(username,password,no);
                             if (username.equals("Admin")){
@@ -360,10 +358,9 @@ public class LoginActivity extends AppCompatActivity {
         }).start();
     }*/
 
-    private void getPeopleInfo(final String username, final String password, final String no){
+    private void getPeopleInfo(final String username, final String password, final String no,final String timeStamp){
         //个人资料
-        PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
-        PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
+        PeopleInfoBean.ApiGetMyInfoSimBean peopleInfoBean = new PeopleInfoBean.ApiGetMyInfoSimBean();
         peopleInfoBean.setNo("?");
         peopleInfoBean.setName("?");
         peopleInfoBean.setCardNo("?");
@@ -381,55 +378,44 @@ public class LoginActivity extends AppCompatActivity {
         peopleInfoBean.setNoIndex("?");
         peopleInfoBean.setAuthenticationNo(no);
         peopleInfoBean.setIsAndroid("1");
-        List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
-        beanList.add(peopleInfoBean);
-        peopleEntity.setPeopleInfo(beanList);
-        String json = new Gson().toJson(peopleEntity);
-        String s1 = "get " + json;
+        peopleInfoBean.setTimeStamp(timeStamp);
+        String json = new Gson().toJson(peopleInfoBean);
+        String s1 = "Api_Get_MyInfoSim " + json;
         Log.e(TAG,"获取个人信息:"+s1);
-        HttpManager.getInstance().requestResultForm(tempIP,s1,PeopleInfoEntity.class,new HttpManager.ResultCallback<PeopleInfoEntity>() {
+        HttpManager.getInstance().requestNewResultForm(tempIP,s1,PeopleInfoBean.class,new HttpManager.ResultNewCallback<PeopleInfoBean>() {
             @Override
-            public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
-                if (peopleInfoEntity != null){
-                    ApplicationApp.setPeopleInfoEntity(peopleInfoEntity);
+            public void onSuccess(String json, PeopleInfoBean peopleInfoBean) throws Exception {
+                if (peopleInfoBean != null){
+                    ApplicationApp.setPeopleInfoBean(peopleInfoBean);
                     toLibMainActivity(username,password);
                 }
             }
 
             @Override
-            public void onFailure(String msg) {
+            public void onError(String msg) throws Exception {
 
             }
 
             @Override
-            public void onResponse(String response) {
-                if (response.contains("error")){
-                    PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
-                    PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
-                    peopleInfoBean.setNo("");
-                    peopleInfoBean.setName("");
-                    peopleInfoBean.setCardNo("");
-                    peopleInfoBean.setPosition("");
-                    peopleInfoBean.setSex("");
-                    peopleInfoBean.setUnit("");
-                    peopleInfoBean.setDepartment("");
-                    peopleInfoBean.setPhoneNo("");
-                    peopleInfoBean.setTelNo("");
-                    peopleInfoBean.setLoginName(username);
-                    peopleInfoBean.setPassword(password);
-                    peopleInfoBean.setAuthority("");
-                    peopleInfoBean.setModifyTime("");
-                    peopleInfoBean.setRegisterTime("");
-                    peopleInfoBean.setNoIndex("");
-                    peopleInfoBean.setAuthenticationNo("");
-                    peopleInfoBean.setIsAndroid("1");
-                    List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
-                    beanList.add(peopleInfoBean);
-                    peopleEntity.setPeopleInfo(beanList);
-                    ApplicationApp.setPeopleInfoEntity(peopleEntity);
-                    show(getString(R.string.personal_data_error));
-                }
+            public void onResponse(String response) throws Exception {
+
             }
+
+            @Override
+            public void onBefore(Request request, int id) throws Exception {
+
+            }
+
+            @Override
+            public void onAfter(int id) throws Exception {
+
+            }
+
+            @Override
+            public void inProgress(float progress, long total, int id) throws Exception {
+
+            }
+
         });
     }
 
