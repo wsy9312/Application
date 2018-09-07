@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 //申请
 public class RestApplyFragment extends CommonFragment {
@@ -57,17 +58,17 @@ public class RestApplyFragment extends CommonFragment {
         }
         List<CommonFragment.Group> groups = new ArrayList<>();
         List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
-        baseHolder.add(new HandInputGroup.Holder("申请人",true,false,name,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
-        baseHolder.add(new HandInputGroup.Holder("单位",true,false,unit,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
-        baseHolder.add(new HandInputGroup.Holder("部门",true,false,department,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
-        baseHolder.add(new HandInputGroup.Holder("申请类型",true,false,"休假申请",HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
+        baseHolder.add(new HandInputGroup.Holder("申请人",false,false,name,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
+        baseHolder.add(new HandInputGroup.Holder("所属单位",false,false,unit,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
+        baseHolder.add(new HandInputGroup.Holder("所属部门",false,false,department,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
+        baseHolder.add(new HandInputGroup.Holder("申请类型",false,false,"休假申请",HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
         baseHolder.add(new HandInputGroup.Holder("",false,false,"", HandInputGroup.VALUE_TYPE.EMPTY_SPACE));
         baseHolder.add(new HandInputGroup.Holder("离队时间",true,false,"/请选择",HandInputGroup.VALUE_TYPE.DATE));
         baseHolder.add(new HandInputGroup.Holder("归队时间",true,false,"/请选择",HandInputGroup.VALUE_TYPE.DATE));
-        baseHolder.add(new HandInputGroup.Holder("去向",true,false,"/请输入去向",HandInputGroup.VALUE_TYPE.TEXTFILED));
-        baseHolder.add(new HandInputGroup.Holder("",false,false,"", HandInputGroup.VALUE_TYPE.EMPTY_SPACE));
         baseHolder.add(new HandInputGroup.Holder("假期天数",true,false,"/请输入假期天数",HandInputGroup.VALUE_TYPE.DOUBLE));
         baseHolder.add(new HandInputGroup.Holder("路途天数",true,false,"/请输入路途天数",HandInputGroup.VALUE_TYPE.DOUBLE));
+        baseHolder.add(new HandInputGroup.Holder("",false,false,"", HandInputGroup.VALUE_TYPE.EMPTY_SPACE));
+        baseHolder.add(new HandInputGroup.Holder("去向",true,false,"/请输入去向",HandInputGroup.VALUE_TYPE.TEXTFILED));
         baseHolder.add(new HandInputGroup.Holder("",false,false,"", HandInputGroup.VALUE_TYPE.EMPTY_SPACE));
         baseHolder.add(new HandInputGroup.Holder("事由",true,false,"/请输入休假申请事由",HandInputGroup.VALUE_TYPE.BIG_EDIT));
         baseHolder.add(new HandInputGroup.Holder("",false,false,"", HandInputGroup.VALUE_TYPE.EMPTY_SPACE));
@@ -91,6 +92,10 @@ public class RestApplyFragment extends CommonFragment {
     @Override
     public void onBottomButtonsClick(final String title, final List<CommonFragment.Group> groups) {
         if (title.equals("提 交")){
+            final String vacationDays = getDisplayValueByKey("假期天数").getRealValue();
+            final String journeyDays = getDisplayValueByKey("路途天数").getRealValue();
+            final boolean isNumVa = isInteger(vacationDays);
+            final boolean isNumJo = isInteger(journeyDays);
             AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
             builder.setMessage("是否确认提交?");
             builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -99,19 +104,27 @@ public class RestApplyFragment extends CommonFragment {
                     dialog.dismiss();
                     String over = isOver(groups);
                     if (over != null){
-                        ToastUtil.showToast(getContext(),"请填写" + over);
+                        show(over+"不能为空!");
                         setButtonllEnable(true);
-                    }else {
+                    } else if (!isNumVa){
+                        show("假期天数"+"输入错误!");
+                        setButtonllEnable(true);
+                    } else if (!isNumJo){
+                        show("路途天数"+"输入错误!");
+                        setButtonllEnable(true);
+                    } else {
                         //申请人ID
-                        String realValueNO = ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getNo();
-                        String unit = getDisplayValueByKey("单位").getRealValue();
-                        String applicant = getDisplayValueByKey("申请人").getRealValue();
+                        String realValueNO = ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo();
+                        String name = getDisplayValueByKey("申请人").getRealValue();
+                        String unit = getDisplayValueByKey("所属单位").getRealValue();
+                        String department = getDisplayValueByKey("所属部门").getRealValue();
                         String applicantType = getDisplayValueByKey("申请类型").getRealValue();
                         String leaveTime = getDisplayValueByKey("离队时间").getRealValue();
                         String returnTime = getDisplayValueByKey("归队时间").getRealValue();
+
                         String argument = getDisplayValueByKey("事由").getRealValue();
                         String goDirection  = getDisplayValueByKey("去向").getRealValue();
-                        String bFillup = getDisplayValueByKey("是否后补申请").getRealValue();
+//                        String bFillup = getDisplayValueByKey("是否后补申请").getRealValue();
                         PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
                         PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
                         peopleLeaveRrdBean.setDestination(goDirection);
@@ -120,7 +133,9 @@ public class RestApplyFragment extends CommonFragment {
                         peopleLeaveRrdBean.setOutTime(leaveTime);
                         peopleLeaveRrdBean.setInTime(returnTime);
                         peopleLeaveRrdBean.setContent(argument);
-                        peopleLeaveRrdBean.setBFillup(bFillup.equals("否")?"0":"1");
+                        peopleLeaveRrdBean.setVacationDays(vacationDays);
+                        peopleLeaveRrdBean.setJourneyDays(journeyDays);
+//                        peopleLeaveRrdBean.setBFillup(bFillup.equals("否")?"0":"1");
                         peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo());
                         peopleLeaveRrdBean.setIsAndroid("1");
                         List<PeopleLeaveEntity.PeopleLeaveRrdBean> beanList = new ArrayList<>();
@@ -145,7 +160,7 @@ public class RestApplyFragment extends CommonFragment {
                                     getActivity().finish();
                                 }else{
                                     show("提交失败");
-                                    getActivity().finish();
+//                                    getActivity().finish();
                                 }
                             }
                         });
@@ -178,9 +193,9 @@ public class RestApplyFragment extends CommonFragment {
             showDateTimePicker(holder,true);
         } else if (holder.getKey().equals("是否取消请假")){
             showSelector(holder,new String[]{"是","否"});
-        } else if (holder.getKey().equals("是否后补申请")){
+        } /*else if (holder.getKey().equals("是否后补申请")){
             showSelector(holder,new String[]{"是","否"});
-        }
+        }*/
     }
 
     @Override
@@ -194,7 +209,7 @@ public class RestApplyFragment extends CommonFragment {
                 int getday = getday(leave, returnt);
                 if (getday == -1) {
                     holder.setDispayValue("");
-                    ToastUtil.showToast(getContext(),"离队时间不能大于归队时间");
+                    ToastUtil.showToast(getContext(),"归队时间不能在离队时间之前!");
                 }
             }
         }else if (holder.getKey().equals("归队时间")){
@@ -205,9 +220,19 @@ public class RestApplyFragment extends CommonFragment {
                 int getday = getday(leave, returnt);
                 if (getday == -1) {
                     holder.setDispayValue("");
-                    ToastUtil.showToast(getContext(),"离队时间不能大于归队时间");
+                    ToastUtil.showToast(getContext(),"归队时间不能在离队时间之前!");
                 }
             }
         }
+    }
+
+
+    private boolean isInteger(String str) {
+        if (null == str || "".equals(str)) {
+            return false;
+        }
+        Pattern pattern = Pattern.compile("^[-\\+]?[.\\d]*$");
+        return pattern.matcher(str).matches();
+
     }
 }

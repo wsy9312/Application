@@ -56,12 +56,13 @@ public class GoOutApplyFragment extends CommonFragment{
         List<CommonFragment.Group> groups = new ArrayList<>();
         List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
         baseHolder.add(new HandInputGroup.Holder("申请人",true,false,name,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
-        baseHolder.add(new HandInputGroup.Holder("单位",true,false,unit,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
-        baseHolder.add(new HandInputGroup.Holder("部门",true,false,department,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
+        baseHolder.add(new HandInputGroup.Holder("所属单位",true,false,unit,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
+        baseHolder.add(new HandInputGroup.Holder("所属部门",true,false,department,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
         baseHolder.add(new HandInputGroup.Holder("申请类型",true,false,"外出申请",HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
         baseHolder.add(new HandInputGroup.Holder("",false,false,"", HandInputGroup.VALUE_TYPE.EMPTY_SPACE));
         baseHolder.add(new HandInputGroup.Holder("离队时间",true,false,"/请选择",HandInputGroup.VALUE_TYPE.DATE));
         baseHolder.add(new HandInputGroup.Holder("归队时间",true,false,"/请选择",HandInputGroup.VALUE_TYPE.DATE));
+        baseHolder.add(new HandInputGroup.Holder("",false,false,"", HandInputGroup.VALUE_TYPE.EMPTY_SPACE));
         baseHolder.add(new HandInputGroup.Holder("去向",true,false,"/请输入去向",HandInputGroup.VALUE_TYPE.TEXTFILED));
         baseHolder.add(new HandInputGroup.Holder("",false,false,"", HandInputGroup.VALUE_TYPE.EMPTY_SPACE));
         baseHolder.add(new HandInputGroup.Holder("事由",true,false,"/请输入外出申请事由",HandInputGroup.VALUE_TYPE.BIG_EDIT));
@@ -94,12 +95,12 @@ public class GoOutApplyFragment extends CommonFragment{
                     dialog.dismiss();
                     String over = isOver(groups);
                     if (over != null){
-                        ToastUtil.showToast(getContext(),"请填写" + over);
+                        ToastUtil.showToast(getContext(), over+"不能为空!");
                         setButtonllEnable(true);
                     }else {
                         //申请人ID
-                        String realValueNO = ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getNo();
-                        String unit = getDisplayValueByKey("单位").getRealValue();
+                        String realValueNO = ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo();
+                        String unit = getDisplayValueByKey("所属单位").getRealValue();
                         String applicant = getDisplayValueByKey("申请人").getRealValue();
                         String applicantType = getDisplayValueByKey("申请类型").getRealValue();
                         String leaveTime = getDisplayValueByKey("离队时间").getRealValue();
@@ -185,7 +186,7 @@ public class GoOutApplyFragment extends CommonFragment{
                 int getday = getday(leave, returnt);
                 if (getday == -1) {
                     holder.setDispayValue("");
-                    ToastUtil.showToast(getContext(),"离队时间不能大于归队时间");
+                    ToastUtil.showToast(getContext(),"归队时间不能在离队时间之前!");
                 }
             }
         }else if (holder.getKey().equals("归队时间")){
@@ -196,7 +197,7 @@ public class GoOutApplyFragment extends CommonFragment{
                 int getday = getday(leave, returnt);
                 if (getday == -1) {
                     holder.setDispayValue("");
-                    ToastUtil.showToast(getContext(),"离队时间不能大于归队时间");
+                    ToastUtil.showToast(getContext(),"归队时间不能在离队时间之前");
                 }
             }
         }

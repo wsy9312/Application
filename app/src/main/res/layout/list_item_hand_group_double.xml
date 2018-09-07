@@ -44,6 +44,7 @@
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_toRightOf="@+id/tv_title"
+            android:inputType="number|numberDecimal"
             android:minHeight="10dp"
             android:gravity="right"
             android:textColor="@color/black"

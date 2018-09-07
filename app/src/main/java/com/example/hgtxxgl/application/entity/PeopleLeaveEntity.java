@@ -54,6 +54,9 @@ public class PeopleLeaveEntity {
          * EndNum :
          * Unit :单位(自加)
          * Department :部门(自加)
+         * VacationAddr :疗养地址
+         * VacationDays :假期天数
+         * JourneyDays :路途天数
          */
 
         private String AuthenticationNo;
@@ -86,6 +89,33 @@ public class PeopleLeaveEntity {
         private String EndNum;
         private String Unit;
         private String Department;
+        private String VacationAddr;
+        private String VacationDays;
+        private String JourneyDays;
+
+        public String getVacationAddr() {
+            return VacationAddr;
+        }
+
+        public void setVacationAddr(String vacationAddr) {
+            VacationAddr = vacationAddr;
+        }
+
+        public String getVacationDays() {
+            return VacationDays;
+        }
+
+        public void setVacationDays(String vacationDays) {
+            VacationDays = vacationDays;
+        }
+
+        public String getJourneyDays() {
+            return JourneyDays;
+        }
+
+        public void setJourneyDays(String journeyDays) {
+            JourneyDays = journeyDays;
+        }
 
         @Override
         public String toString() {
