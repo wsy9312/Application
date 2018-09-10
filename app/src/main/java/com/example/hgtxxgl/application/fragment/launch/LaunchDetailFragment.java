@@ -81,9 +81,9 @@ public class LaunchDetailFragment extends Fragment implements RadioGroup.OnCheck
     public void doFilter(String str){
         Fragment f1 = fragments.get(0);
         Fragment f2 = fragments.get(1);
-        if (f1 instanceof MyLaunchPeopleFragment) {
-            ((MyLaunchPeopleFragment) f1).filter(str);
-        }
+//        if (f1 instanceof MyLaunchPeopleFragment) {
+//            ((MyLaunchPeopleFragment) f1).filter(str);
+//        }
         if (f2 instanceof MyLaunchCarFragment) {
             ((MyLaunchCarFragment) f2).filter(str);
         }
@@ -114,7 +114,7 @@ public class LaunchDetailFragment extends Fragment implements RadioGroup.OnCheck
     }
 
     private void addFragment() {
-        fragments.add(new MyLaunchPeopleFragment());
+//        fragments.add(new MyLaunchPeopleFragment());
         fragments.add(new MyLaunchCarFragment());
     }
 

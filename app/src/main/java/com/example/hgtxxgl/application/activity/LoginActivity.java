@@ -32,7 +32,7 @@ import com.example.hgtxxgl.application.utils.hand.Fields;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.NetworkHttpManager;
 import com.example.hgtxxgl.application.utils.hand.SpUtils;
-import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
+import com.example.hgtxxgl.application.utils.hand.StatusBarUtil;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
 import com.example.hgtxxgl.application.view.IPEditText;
 import com.example.hgtxxgl.application.view.UrlListAdapter;
@@ -78,7 +78,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_login);
-        StatusBarUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
+//        StatusBarUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
+        StatusBarUtil.fullScreen(this);
         initView();
         mContext = this;
         SysExitUtil.activityList.add(LoginActivity.this);

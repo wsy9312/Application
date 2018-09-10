@@ -15,7 +15,7 @@ import android.widget.RelativeLayout;
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.attachment.ImagePickerAdapter;
 import com.example.hgtxxgl.application.bean.LoginInfoBean;
-import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
+import com.example.hgtxxgl.application.bean.PeopleApplyBean;
 import com.example.hgtxxgl.application.rest.CommonFragment;
 import com.example.hgtxxgl.application.rest.HandInputGroup;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
@@ -31,6 +31,8 @@ import com.lzy.imagepicker.ui.ImagePreviewDelActivity;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Request;
 
 public class SickApplyFragment extends CommonFragment implements ImagePickerAdapter.OnRecyclerViewItemClickListener{
     private final static String TAG = "SickApplyFragment";
@@ -163,35 +165,34 @@ public class SickApplyFragment extends CommonFragment implements ImagePickerAdap
                         String argument = getDisplayValueByKey("事由").getRealValue();
                         String goDirection  = getDisplayValueByKey("去向").getRealValue();
 //                        String bFillup = getDisplayValueByKey("是否后补申请").getRealValue();
-                        PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
-                        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
-                        peopleLeaveRrdBean.setDestination(goDirection);
-                        peopleLeaveRrdBean.setNo(realValueNO);
-                        peopleLeaveRrdBean.setOutType(applicantType);
-                        peopleLeaveRrdBean.setOutTime(leaveTime);
-                        peopleLeaveRrdBean.setInTime(returnTime);
-                        peopleLeaveRrdBean.setContent(argument);
-                        peopleLeaveRrdBean.setVacationAddr(vacationAddr);
+                        PeopleApplyBean.ApiApplyPeopleLeaveBean peopleApplyBean = new PeopleApplyBean.ApiApplyPeopleLeaveBean();
+                        peopleApplyBean.setDestination(goDirection);
+                        peopleApplyBean.setNo(realValueNO);
+                        peopleApplyBean.setOutType(applicantType);
+                        peopleApplyBean.setOutTime(leaveTime);
+                        peopleApplyBean.setInTime(returnTime);
+                        peopleApplyBean.setContent(argument);
+                        peopleApplyBean.setVacationAddr(vacationAddr);
 //                        peopleLeaveRrdBean.setBFillup(bFillup.equals("否")?"0":"1");
-                        peopleLeaveRrdBean.setAuthenticationNo(loginBean.getAuthenticationNo());
-                        peopleLeaveRrdBean.setIsAndroid("1");
-                        List<PeopleLeaveEntity.PeopleLeaveRrdBean> beanList = new ArrayList<>();
-                        beanList.add(peopleLeaveRrdBean);
-                        peopleLeaveEntity.setPeopleLeaveRrd(beanList);
-                        String json = new Gson().toJson(peopleLeaveEntity);
-                        String s1 = "apply " + json;
+                        peopleApplyBean.setAuthenticationNo(loginBean.getAuthenticationNo());
+                        peopleApplyBean.setIsAndroid("1");
+                        peopleApplyBean.setTimeStamp(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getTimeStamp());
+                        String json = new Gson().toJson(peopleApplyBean);
+                        String s1 = "Api_Apply_PeopleLeave " + json;
                         Log.e(TAG,s1);
-                        HttpManager.getInstance().requestResultForm(getTempIP(), s1, PeopleLeaveEntity.class, new HttpManager.ResultCallback<PeopleLeaveEntity>() {
+                        HttpManager.getInstance().requestNewResultForm(getTempIP(), s1, PeopleApplyBean.class, new HttpManager.ResultNewCallback<PeopleApplyBean>() {
                             @Override
-                            public void onSuccess(String json, final PeopleLeaveEntity peopleLeaveEntity) throws InterruptedException {
+                            public void onSuccess(String json, PeopleApplyBean peopleApplyBean) throws Exception {
+
                             }
 
                             @Override
-                            public void onFailure(final String msg) {
+                            public void onError(String msg) throws Exception {
+
                             }
 
                             @Override
-                            public void onResponse(String response) {
+                            public void onResponse(String response) throws Exception {
                                 if (response.toLowerCase().contains("ok")) {
                                     show("提交成功");
                                     getActivity().finish();
@@ -200,6 +201,23 @@ public class SickApplyFragment extends CommonFragment implements ImagePickerAdap
                                     getActivity().finish();
                                 }
                             }
+
+                            @Override
+                            public void onBefore(Request request, int id) throws Exception {
+
+                            }
+
+                            @Override
+                            public void onAfter(int id) throws Exception {
+
+                            }
+
+                            @Override
+                            public void inProgress(float progress, long total, int id) throws Exception {
+
+                            }
+
+
                         });
                     }
                 }

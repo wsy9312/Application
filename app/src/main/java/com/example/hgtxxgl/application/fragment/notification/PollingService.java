@@ -17,7 +17,6 @@ import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.LibMainActivity;
 import com.example.hgtxxgl.application.entity.CarLeaveEntity;
 import com.example.hgtxxgl.application.entity.MessageEntity;
-import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
 import com.example.hgtxxgl.application.utils.DateUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
@@ -172,143 +171,106 @@ public class PollingService extends Service {
 	}
 
 	private void getDataAlarmApplyPeople() {
-		PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
-		PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
-		peopleLeaveRrdBean.setNo(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getNo());
-		peopleLeaveRrdBean.setProcess("?");
-		peopleLeaveRrdBean.setContent("?");
-		peopleLeaveRrdBean.setBeginNum("1");
-		peopleLeaveRrdBean.setEndNum("100");
-		peopleLeaveRrdBean.setNoIndex("?");
-		peopleLeaveRrdBean.setModifyTime("?");
-		peopleLeaveRrdBean.setRegisterTime("?");
-		peopleLeaveRrdBean.setAuthenticationNo(authenticationNo);
-		peopleLeaveRrdBean.setIsAndroid("1");
-		peopleLeaveRrdBean.setBCancel("0");
-		peopleLeaveRrdBean.setResult("?");
-		peopleLeaveRrdBean.setDestination("?");
-		peopleLeaveRrdBean.setApproverNo("?");
-		List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
-		list.add(peopleLeaveRrdBean);
-		peopleLeaveEntity.setPeopleLeaveRrd(list);
-		String json = new Gson().toJson(peopleLeaveEntity);
-		String s = "get " + json;
-		Log.e(TAG+"#",s);
-		HttpManager.getInstance().requestResultForm(tempIP, s, PeopleLeaveEntity.class,new HttpManager.ResultCallback<PeopleLeaveEntity>() {
-			@Override
-			public void onSuccess(final String json, final PeopleLeaveEntity peopleLeaveEntity1) throws InterruptedException {
-				if (peopleLeaveEntity1 != null && peopleLeaveEntity1.getPeopleLeaveRrd().size() > 0) {
-					List<PeopleLeaveEntity.PeopleLeaveRrdBean> peopleLeaveRrd = peopleLeaveEntity1.getPeopleLeaveRrd();
-					String modifyTime = peopleLeaveRrd.get(0).getModifyTime();
-					if (!list5.contains(modifyTime)){
-						list5.add(modifyTime);
-						for (int i = 0; i < 500; i++) {
-							if (peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getProcess().equals("1")) {
-								showNotification("您有一条请假申请已经审批完成");
-								Intent intent = new Intent();
-								intent.setAction(FLAGAPPLY);
-								sendBroadcast(intent);
-							}
-						}
-					}
-				}
-			}
-
-			@Override
-			public void onFailure(String msg) {
-			}
-
-			@Override
-			public void onResponse(String response) {
-			}
-		});
+//		PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
+//		PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
+//		peopleLeaveRrdBean.setNo(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getNo());
+//		peopleLeaveRrdBean.setProcess("?");
+//		peopleLeaveRrdBean.setContent("?");
+//		peopleLeaveRrdBean.setBeginNum("1");
+//		peopleLeaveRrdBean.setEndNum("100");
+//		peopleLeaveRrdBean.setNoIndex("?");
+//		peopleLeaveRrdBean.setModifyTime("?");
+//		peopleLeaveRrdBean.setRegisterTime("?");
+//		peopleLeaveRrdBean.setAuthenticationNo(authenticationNo);
+//		peopleLeaveRrdBean.setIsAndroid("1");
+//		peopleLeaveRrdBean.setBCancel("0");
+//		peopleLeaveRrdBean.setResult("?");
+//		peopleLeaveRrdBean.setDestination("?");
+//		peopleLeaveRrdBean.setApproverNo("?");
+//		List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
+//		list.add(peopleLeaveRrdBean);
+//		peopleLeaveEntity.setPeopleLeaveRrd(list);
+//		String json = new Gson().toJson(peopleLeaveEntity);
+//		String s = "get " + json;
+//		Log.e(TAG+"#",s);
+//		HttpManager.getInstance().requestResultForm(tempIP, s, PeopleLeaveEntity.class,new HttpManager.ResultCallback<PeopleLeaveEntity>() {
+//			@Override
+//			public void onSuccess(final String json, final PeopleLeaveEntity peopleLeaveEntity1) throws InterruptedException {
+//				if (peopleLeaveEntity1 != null && peopleLeaveEntity1.getPeopleLeaveRrd().size() > 0) {
+//					List<PeopleLeaveEntity.PeopleLeaveRrdBean> peopleLeaveRrd = peopleLeaveEntity1.getPeopleLeaveRrd();
+//					String modifyTime = peopleLeaveRrd.get(0).getModifyTime();
+//					if (!list5.contains(modifyTime)){
+//						list5.add(modifyTime);
+//						for (int i = 0; i < 500; i++) {
+//							if (peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getProcess().equals("1")) {
+//								showNotification("您有一条请假申请已经审批完成");
+//								Intent intent = new Intent();
+//								intent.setAction(FLAGAPPLY);
+//								sendBroadcast(intent);
+//							}
+//						}
+//					}
+//				}
+//			}
+//
+//			@Override
+//			public void onFailure(String msg) {
+//			}
+//
+//			@Override
+//			public void onResponse(String response) {
+//			}
+//		});
 	}
 
 	private void getDataAlarmApprovePeople() {
-		PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
-		PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
-		peopleLeaveRrdBean.setAuthenticationNo(authenticationNo);
-		peopleLeaveRrdBean.setBeginNum("1");
-		peopleLeaveRrdBean.setEndNum("100");
-		peopleLeaveRrdBean.setIsAndroid("1");
-		peopleLeaveRrdBean.setModifyTime("?");
-		peopleLeaveRrdBean.setNo("?");
-		peopleLeaveRrdBean.setNoIndex("?");
-		peopleLeaveRrdBean.setProcess("?");
-		peopleLeaveRrdBean.setBCancel("0");
-		peopleLeaveRrdBean.setApproverNo("?");
-		peopleLeaveRrdBean.setContent("?");
-		List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
-		list.add(peopleLeaveRrdBean);
-		peopleLeaveEntity.setPeopleLeaveRrd(list);
-		String json = new Gson().toJson(peopleLeaveEntity);
-		String s = "get " + json;
-		Log.e(TAG+"#",s);
-		HttpManager.getInstance().requestResultForm(tempIP, s, PeopleLeaveEntity.class,new HttpManager.ResultCallback<PeopleLeaveEntity>() {
-			@Override
-			public void onSuccess(final String json, final PeopleLeaveEntity peopleLeaveEntity1) throws InterruptedException {
-				if (peopleLeaveEntity1 != null && peopleLeaveEntity1.getPeopleLeaveRrd().size() > 0) {
-					List<PeopleLeaveEntity.PeopleLeaveRrdBean> peopleLeaveRrd = peopleLeaveEntity1.getPeopleLeaveRrd();
-					String modifyTime = peopleLeaveRrd.get(0).getModifyTime();
-					if (!list1.contains(modifyTime)){
-						list1.add(modifyTime);
-						for (int i = 0; i < 500; i++) {
-							if (!peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getApproverNo().contains(authenticationNo)) {
-								showNotification(getString(R.string.received_one_apply_rest));
-								Intent intent = new Intent();
-								intent.setAction(FLAGAPPROVE);
-								sendBroadcast(intent);
-							}
-						}
-						/*for (int i = 0; i < 100; i++) {
-							if (peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getBCancel().equals("0") && peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getProcess().equals("0")) {
-								PeopleInfoEntity peopleEntity = new PeopleInfoEntity();
-								PeopleInfoEntity.PeopleInfoBean peopleInfoBean = new PeopleInfoEntity.PeopleInfoBean();
-								peopleInfoBean.setNo(peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getNo());
-								peopleInfoBean.setName("?");
-								peopleInfoBean.setAuthenticationNo(ApplicationApp.getLoginInfoBean().getLogin().get(0).getAuthenticationNo());
-								peopleInfoBean.setIsAndroid("1");
-								List<PeopleInfoEntity.PeopleInfoBean> beanList = new ArrayList<>();
-								beanList.add(peopleInfoBean);
-								peopleEntity.setPeopleInfo(beanList);
-								String json1 = new Gson().toJson(peopleEntity);
-								String s1 = "get " + json1;
-								Log.e(TAG, "当前时间service:_getDataAlarmApprovePeople " + s1);
-								HttpManager.getInstance().requestResultForm(CommonValues.BASE_URL, s1, PeopleInfoEntity.class, new HttpManager.ResultCallback<PeopleInfoEntity>() {
-									@Override
-									public void onSuccess(String json, PeopleInfoEntity peopleInfoEntity) throws InterruptedException {
-										if (peopleInfoEntity != null) {
-											showNotification(getString(R.string.received_one_apply_rest));
-											Intent intent = new Intent();
-											intent.setAction(FLAGAPPROVE);
-											sendBroadcast(intent);
-										}
-									}
-
-									@Override
-									public void onFailure(String msg) {
-
-									}
-
-									@Override
-									public void onResponse(String response) {
-
-									}
-								});
-							}
-						}*/
-					}
-				}
-			}
-
-			@Override
-			public void onFailure(String msg) {
-			}
-
-			@Override
-			public void onResponse(String response) {
-			}
-		});
+//		PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
+//		PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
+//		peopleLeaveRrdBean.setAuthenticationNo(authenticationNo);
+//		peopleLeaveRrdBean.setBeginNum("1");
+//		peopleLeaveRrdBean.setEndNum("100");
+//		peopleLeaveRrdBean.setIsAndroid("1");
+//		peopleLeaveRrdBean.setModifyTime("?");
+//		peopleLeaveRrdBean.setNo("?");
+//		peopleLeaveRrdBean.setNoIndex("?");
+//		peopleLeaveRrdBean.setProcess("?");
+//		peopleLeaveRrdBean.setBCancel("0");
+//		peopleLeaveRrdBean.setApproverNo("?");
+//		peopleLeaveRrdBean.setContent("?");
+//		List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
+//		list.add(peopleLeaveRrdBean);
+//		peopleLeaveEntity.setPeopleLeaveRrd(list);
+//		String json = new Gson().toJson(peopleLeaveEntity);
+//		String s = "get " + json;
+//		Log.e(TAG+"#",s);
+//		HttpManager.getInstance().requestResultForm(tempIP, s, PeopleLeaveEntity.class,new HttpManager.ResultCallback<PeopleLeaveEntity>() {
+//			@Override
+//			public void onSuccess(final String json, final PeopleLeaveEntity peopleLeaveEntity1) throws InterruptedException {
+//				if (peopleLeaveEntity1 != null && peopleLeaveEntity1.getPeopleLeaveRrd().size() > 0) {
+//					List<PeopleLeaveEntity.PeopleLeaveRrdBean> peopleLeaveRrd = peopleLeaveEntity1.getPeopleLeaveRrd();
+//					String modifyTime = peopleLeaveRrd.get(0).getModifyTime();
+//					if (!list1.contains(modifyTime)){
+//						list1.add(modifyTime);
+//						for (int i = 0; i < 500; i++) {
+//							if (!peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getApproverNo().contains(authenticationNo)) {
+//								showNotification(getString(R.string.received_one_apply_rest));
+//								Intent intent = new Intent();
+//								intent.setAction(FLAGAPPROVE);
+//								sendBroadcast(intent);
+//							}
+//						}
+//					}
+//				}
+//			}
+//
+//			@Override
+//			public void onFailure(String msg) {
+//			}
+//
+//			@Override
+//			public void onResponse(String response) {
+//			}
+//		});
 	}
 
 	private void getDataAlarmApproveCar() {

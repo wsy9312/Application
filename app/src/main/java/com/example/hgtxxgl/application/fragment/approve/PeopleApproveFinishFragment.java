@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.ItemActivity;
-import com.example.hgtxxgl.application.entity.PeopleLeaveEntity;
+import com.example.hgtxxgl.application.bean.PeopleApproveFinishBean;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
@@ -30,6 +30,8 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Request;
 
 import static android.content.Context.MODE_PRIVATE;
 import static android.view.View.GONE;
@@ -58,11 +60,11 @@ public class PeopleApproveFinishFragment extends Fragment implements SimpleListV
         return fragment;
     }
 
-    private List<PeopleLeaveEntity.PeopleLeaveRrdBean> entityList = new ArrayList<>();
-    ListAdapter<PeopleLeaveEntity.PeopleLeaveRrdBean> adapter = new ListAdapter<PeopleLeaveEntity.PeopleLeaveRrdBean>
-            ((ArrayList<PeopleLeaveEntity.PeopleLeaveRrdBean>) entityList, R.layout.item_approve_people) {
+    private List<PeopleApproveFinishBean.ApiGetMyApproveForPeoHisBean> entityList = new ArrayList<>();
+    ListAdapter<PeopleApproveFinishBean.ApiGetMyApproveForPeoHisBean> adapter = new ListAdapter<PeopleApproveFinishBean.ApiGetMyApproveForPeoHisBean>
+            ((ArrayList<PeopleApproveFinishBean.ApiGetMyApproveForPeoHisBean>) entityList, R.layout.item_approve_people) {
         @Override
-        public void bindView(ListAdapter.ViewHolder holder, PeopleLeaveEntity.PeopleLeaveRrdBean bean) {
+        public void bindView(ListAdapter.ViewHolder holder, PeopleApproveFinishBean.ApiGetMyApproveForPeoHisBean bean) {
             holder.setImage(R.id.approve_imgae,bean.getName());
             holder.setText(R.id.approve_name,bean.getName()+"的请假");
             holder.setText(R.id.approve_type,"请假类型: "+bean.getOutType());
@@ -131,8 +133,7 @@ public class PeopleApproveFinishFragment extends Fragment implements SimpleListV
         if (callback != null) {
             callback.onLoadData();
         }
-        PeopleLeaveEntity peopleLeaveEntity = new PeopleLeaveEntity();
-        PeopleLeaveEntity.PeopleLeaveRrdBean peopleLeaveRrdBean = new PeopleLeaveEntity.PeopleLeaveRrdBean();
+        PeopleApproveFinishBean.ApiGetMyApproveForPeoHisBean peopleLeaveRrdBean = new PeopleApproveFinishBean.ApiGetMyApproveForPeoHisBean();
         peopleLeaveRrdBean.setNo("?");
         peopleLeaveRrdBean.setAuthenticationNo(authenticationNo);
         peopleLeaveRrdBean.setIsAndroid("1");
@@ -153,28 +154,24 @@ public class PeopleApproveFinishFragment extends Fragment implements SimpleListV
         peopleLeaveRrdBean.setCurrentApproverNo("?");
         peopleLeaveRrdBean.setBeginNum(String.valueOf(beginNum));
         peopleLeaveRrdBean.setEndNum(String.valueOf(endNum));
-        List<PeopleLeaveEntity.PeopleLeaveRrdBean> list = new ArrayList<>();
-        list.add(peopleLeaveRrdBean);
-        peopleLeaveEntity.setPeopleLeaveRrd(list);
-        String json = new Gson().toJson(peopleLeaveEntity);
-        String s = "get " + json;
+        peopleLeaveRrdBean.setTimeStamp(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getTimeStamp());
+        String json = new Gson().toJson(peopleLeaveRrdBean);
+        String s = "Api_Get_MyApproveForPeoHis " + json;
         L.e(TAG+"PeopleApproveFinishFragment",s);
-//        String url = CommonValues.BASE_URL;
-//        String url = ApplicationApp.getIP();
         SharedPreferences share = getActivity().getSharedPreferences(SAVE_IP, MODE_PRIVATE);
         tempIP = share.getString("tempIP", "IP address is empty");
-        HttpManager.getInstance().requestResultForm(tempIP, s, PeopleLeaveEntity.class,new HttpManager.ResultCallback<PeopleLeaveEntity>() {
+        HttpManager.getInstance().requestNewResultForm(tempIP, s, PeopleApproveFinishBean.class,new HttpManager.ResultNewCallback<PeopleApproveFinishBean>() {
             @Override
-            public void onSuccess(final String json, final PeopleLeaveEntity peopleLeaveEntity1) throws InterruptedException {
-                if (peopleLeaveEntity1 != null && peopleLeaveEntity1.getPeopleLeaveRrd().size() > 0) {
+            public void onSuccess(String json, PeopleApproveFinishBean peopleApproveFinishBean) throws Exception {
+                if (peopleApproveFinishBean != null && peopleApproveFinishBean.getApi_Get_MyApproveForPeoHis().size() > 0) {
                     if (beginNum == 1 && endNum == 10){
                         entityList.clear();
                     }
-                    for (int i = 0; i < peopleLeaveEntity1.getPeopleLeaveRrd().size(); i++) {
-                        if (peopleLeaveEntity1.getPeopleLeaveRrd().get(i).getApproverNo().contains(authenticationNo)){
-                            L.e(TAG+"PeopleApproveFinishFragment",peopleLeaveEntity1.toString());
+                    for (int i = 0; i < peopleApproveFinishBean.getApi_Get_MyApproveForPeoHis().size(); i++) {
+                        if (peopleApproveFinishBean.getApi_Get_MyApproveForPeoHis().get(i).getApproverNo().contains(authenticationNo)){
+                            L.e(TAG+"PeopleApproveFinishFragment",peopleApproveFinishBean.toString());
                             hasMore = true;
-                            entityList.add(peopleLeaveEntity1.getPeopleLeaveRrd().get(i));
+                            entityList.add(peopleApproveFinishBean.getApi_Get_MyApproveForPeoHis().get(i));
                             adapter.notifyDataSetChanged();
                         }
                     }
@@ -187,7 +184,7 @@ public class PeopleApproveFinishFragment extends Fragment implements SimpleListV
             }
 
             @Override
-            public void onFailure(String msg) {
+            public void onError(String msg) throws Exception {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -196,9 +193,25 @@ public class PeopleApproveFinishFragment extends Fragment implements SimpleListV
                     }
                 });
             }
+
             @Override
-            public void onResponse(String response) {
+            public void onResponse(String response) throws Exception {
                 ivEmpty.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onBefore(Request request, int id) throws Exception {
+
+            }
+
+            @Override
+            public void onAfter(int id) throws Exception {
+
+            }
+
+            @Override
+            public void inProgress(float progress, long total, int id) throws Exception {
+
             }
         });
     }
@@ -224,6 +237,7 @@ public class PeopleApproveFinishFragment extends Fragment implements SimpleListV
         bundle.putString("bcancel",adapter.getItem(position).getBCancel());
         bundle.putString("bfillup",adapter.getItem(position).getBFillup());
         bundle.putString("noindex",adapter.getItem(position).getNoIndex());
+        bundle.putString("approveState","1");
         bundle.putInt("item",position);
         intent.putExtra("data", bundle);
         startActivityForResult(intent, CommonValues.MYCOMM);
