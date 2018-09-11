@@ -995,7 +995,7 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
             if (holders != null) {
                 for (int j = 0; j < holders.size(); j++) {
                     if (holders.get(j).getHasIndicator() && holders.get(j).getType()!= HandInputGroup.VALUE_TYPE.TEXT&& holders.get(j).getRealValue().isEmpty()) {
-                        return ":" + holders.get(j).getKey();
+                        return holders.get(j).getKey();
                     }
                 }
             }

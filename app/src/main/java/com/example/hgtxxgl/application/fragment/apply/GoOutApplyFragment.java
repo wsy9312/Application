@@ -125,7 +125,13 @@ public class GoOutApplyFragment extends CommonFragment{
                         HttpManager.getInstance().requestNewResultForm(getTempIP(), s1, PeopleApplyBean.class, new HttpManager.ResultNewCallback<PeopleApplyBean>() {
                             @Override
                             public void onSuccess(String json, PeopleApplyBean peopleApplyBean) throws Exception {
-
+                                if (peopleApplyBean.getApi_Apply_PeopleLeave().get(0) == null){
+                                    show("提交成功");
+                                    getActivity().finish();
+                                }else{
+                                    show("提交失败");
+                                    getActivity().finish();
+                                }
                             }
 
                             @Override
@@ -135,13 +141,7 @@ public class GoOutApplyFragment extends CommonFragment{
 
                             @Override
                             public void onResponse(String response) throws Exception {
-                                if (response.toLowerCase().contains("ok")) {
-                                    show("提交成功");
-                                    getActivity().finish();
-                                }else{
-                                    show("提交失败");
-                                    getActivity().finish();
-                                }
+
                             }
 
                             @Override

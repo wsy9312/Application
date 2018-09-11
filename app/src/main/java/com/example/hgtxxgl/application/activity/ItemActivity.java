@@ -14,12 +14,11 @@ import com.example.hgtxxgl.application.fragment.apply.RestApplyFragment;
 import com.example.hgtxxgl.application.fragment.apply.SickApplyFragment;
 import com.example.hgtxxgl.application.fragment.apply.WorkLeaveApplyFragment;
 import com.example.hgtxxgl.application.fragment.approve.PeopleApproveDelayFragment;
+import com.example.hgtxxgl.application.fragment.approve.PeopleApproveDetailFragment;
 import com.example.hgtxxgl.application.fragment.approve.PeopleApproveFinishFragment;
 import com.example.hgtxxgl.application.fragment.approve.PeopleApproveFragment;
 import com.example.hgtxxgl.application.fragment.approve.RestApproveCarFragment;
-import com.example.hgtxxgl.application.fragment.approve.RestApprovePeopleFragment;
 import com.example.hgtxxgl.application.fragment.detail.RestDetailCarFragment;
-import com.example.hgtxxgl.application.fragment.detail.RestDetailPeopleFragment;
 import com.example.hgtxxgl.application.fragment.total.UnitChartFragment;
 import com.example.hgtxxgl.application.utils.SysExitUtil;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
@@ -59,7 +58,7 @@ public class ItemActivity extends AppCompatActivity {
                 checkFragment(RestApproveCarFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_LEAVE_APPROVE_PEOPLE:
-                checkFragment(RestApprovePeopleFragment.newInstance(getIntent().getBundleExtra("data")));
+                checkFragment(PeopleApproveDetailFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_LEAVE_DETAIL_CAR:
                 checkFragment(RestDetailCarFragment.newInstance(getIntent().getBundleExtra("data")));

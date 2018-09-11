@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 
 import com.example.hgtxxgl.application.bean.PeopleApproveBean;
 import com.example.hgtxxgl.application.bean.PeopleApproveDelayBean;
@@ -27,19 +28,19 @@ import java.util.List;
 import okhttp3.Request;
 
 //人员外出审批
-public class RestApprovePeopleFragment extends CommonFragment {
-    private final static String TAG = "RestApprovePeopleFragment";
+public class PeopleApproveDetailFragment extends CommonFragment {
+    private final static String TAG = "PeopleApproveDetailFragment";
     private String noindex;
     private String approveState;
     private int fenNum;
     private String authenticationNo;
 
-    public RestApprovePeopleFragment(){
+    public PeopleApproveDetailFragment(){
 
     }
 
-    public static RestApprovePeopleFragment newInstance(Bundle bundle) {
-        RestApprovePeopleFragment fragment = new RestApprovePeopleFragment();
+    public static PeopleApproveDetailFragment newInstance(Bundle bundle) {
+        PeopleApproveDetailFragment fragment = new PeopleApproveDetailFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -58,7 +59,13 @@ public class RestApprovePeopleFragment extends CommonFragment {
         int process = Integer.parseInt(Process);
         List<HandInputGroup.Holder> list = new ArrayList<>();
         list.add(new HandInputGroup.Holder("申请类型", true, false, OutType, HandInputGroup.VALUE_TYPE.TEXT).setColor(ApproverNo.contains(authenticationNo)?Color.rgb(0,128,0):Color.rgb(214,16,24)));
-        list.add(new HandInputGroup.Holder("审批状态", true, false, process == 0?"审批中":"审批结束", HandInputGroup.VALUE_TYPE.TEXT).setColor(ApproverNo.contains(authenticationNo)?Color.rgb(0,128,0):Color.rgb(214,16,24)));
+        if (process == 0){
+            list.add(new HandInputGroup.Holder("审批状态", true, false, "未审批", HandInputGroup.VALUE_TYPE.TEXT).setColor(ApproverNo.contains(authenticationNo)?Color.rgb(0,128,0):Color.rgb(214,16,24)));
+        }else if (process == 1){
+            list.add(new HandInputGroup.Holder("审批状态", true, false, "审批结束", HandInputGroup.VALUE_TYPE.TEXT).setColor(ApproverNo.contains(authenticationNo)?Color.rgb(0,128,0):Color.rgb(214,16,24)));
+        }else if(process == 2){
+            list.add(new HandInputGroup.Holder("审批状态", true, false, "审批中", HandInputGroup.VALUE_TYPE.TEXT).setColor(ApproverNo.contains(authenticationNo)?Color.rgb(0,128,0):Color.rgb(214,16,24)));
+        }
         int substring = Integer.parseInt(Result);
         if (process == 1){
             setButtonsTitles(stringnull);
@@ -75,7 +82,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
             }
         }else{
             if(!ApproverNo.isEmpty()){
-                if (ApproverNo.contains(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getNo())) {
+                if (ApproverNo.contains(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo())) {
                     setButtonsTitles(stringnull);
                 }
             }
@@ -95,33 +102,60 @@ public class RestApprovePeopleFragment extends CommonFragment {
         holderList.add(new HandInputGroup.Holder("所属部门", true, false, Department, HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("离队时间", true, false, OutTime, HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("归队时间", true, false, InTime, HandInputGroup.VALUE_TYPE.TEXT));
-        holderList.add(new HandInputGroup.Holder("事由", true, false, Content, HandInputGroup.VALUE_TYPE.TEXT));
+        if (!TextUtils.equals("-9999",VacationDays)){
+            holderList.add(new HandInputGroup.Holder("假期天数", true, false, VacationDays, HandInputGroup.VALUE_TYPE.TEXT));
+        }
+        if (!TextUtils.equals("-9999",JourneyDays)){
+            holderList.add(new HandInputGroup.Holder("路途天数", true, false, JourneyDays, HandInputGroup.VALUE_TYPE.TEXT));
+        }
         holderList.add(new HandInputGroup.Holder("去向", true, false, Destination, HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("事由", true, false, Content, HandInputGroup.VALUE_TYPE.TEXT));
+        if (!TextUtils.isEmpty(VacationAddr)){
+            holderList.add(new HandInputGroup.Holder("疗养地址", true, false, VacationAddr, HandInputGroup.VALUE_TYPE.TEXT));
+        }
+
 //        holderList.add(new HandInputGroup.Holder("是否后补申请", true, false, entity.getBFillup().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
         groups.add(new Group("基本信息", null, false, null, holderList));
 
         String split1 = HisAnnotation;
+        String split2 = ApproverNo;
         String split3 = ApproverName;
         String [] arrAnnotation = split1.split(";");
+        L.e("##**_Q"+"split1:"+split1+" split2:"+split2+" split3:"+split3);
+        L.e("##**_W"+"审批人批注长度:"+arrAnnotation.length);
         String [] arrName = split3.split(";");
+        L.e("##**_E"+"审批人名字长度:"+arrName.length);
         List<HandInputGroup.Holder> holder = new ArrayList<>();
         if (bCancel.equals("0")){
             if (process == 1){
-                for (int i = 0; i < fenNum; i++) {
-                    holder.add(new HandInputGroup.Holder(arrName[i], false, false, arrAnnotation[i], HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(170,170,170)));
+                if (arrName.length > 0 && arrAnnotation.length == 0){
+                    for (int i = 0; i < fenNum; i++) {
+                        holder.add(new HandInputGroup.Holder(arrName[i], false, false, "无批注", HandInputGroup.VALUE_TYPE.TEXT));
+                    }
+                }else{
+                    for (int i = 0; i < fenNum; i++) {
+                        holder.add(new HandInputGroup.Holder(arrName[i], false, false, arrAnnotation[i], HandInputGroup.VALUE_TYPE.TEXT));
+                    }
                 }
                 groups.add(new Group("批注信息", null, false, null, holder));
             }else if (process == 2){
-                if (fenNum == 0){
-                    holder.add(new HandInputGroup.Holder("当前审批人批注:", false, false, "/请填写", HandInputGroup.VALUE_TYPE.BIG_EDIT));
-                }else{
-                    for (int i = 0; i < fenNum; i++) {
-                        holder.add(new HandInputGroup.Holder(arrName[i], false, false, arrAnnotation[i], HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(170,170,170)));
+                if (fenNum > 0){
+                    if (arrName.length > 0 && arrAnnotation.length == 0){
+                        for (int i = 0; i < fenNum; i++) {
+                            holder.add(new HandInputGroup.Holder(arrName[i], false, false, "无批注", HandInputGroup.VALUE_TYPE.TEXT));
+                        }
+                    }else{
+                        for (int i = 0; i < fenNum; i++) {
+                            holder.add(new HandInputGroup.Holder(arrName[i], false, false, arrAnnotation[i], HandInputGroup.VALUE_TYPE.TEXT));
+                        }
                     }
-                    if (!split3.contains(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getName())){
-                        holder.add(new HandInputGroup.Holder("当前审批人批注:", false, false, "/请填写", HandInputGroup.VALUE_TYPE.BIG_EDIT));
+                    if (!split2.contains(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo())){
+                        holder.add(new HandInputGroup.Holder("您的批注:", false, false, "/请填写", HandInputGroup.VALUE_TYPE.BIG_EDIT));
                     }
                 }
+                groups.add(new Group("批注信息", null, false, null, holder));
+            }else if (process == 0){
+                holder.add(new HandInputGroup.Holder("您的批注:", false, false, "/请填写", HandInputGroup.VALUE_TYPE.BIG_EDIT));
                 groups.add(new Group("批注信息", null, false, null, holder));
             }
         }
@@ -178,6 +212,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
             peopleLeaveRrdBean.setTimeStamp(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getTimeStamp());
             String toJson = new Gson().toJson(peopleLeaveRrdBean);
             String s="Api_Get_MyApproveForPeoHis "+toJson;
+            L.e(TAG+"Api_Get_MyApproveForPeoHis",s);
             HttpManager.getInstance().requestNewResultForm(getTempIP(), s, PeopleApproveFinishBean.class, new HttpManager.ResultNewCallback<PeopleApproveFinishBean>() {
                 @Override
                 public void onSuccess(String json, final PeopleApproveFinishBean peopleApproveFinishBean) throws Exception {
@@ -205,7 +240,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
                                                 String hisAnnotation = peopleApproveFinishBean.getApi_Get_MyApproveForPeoHis().get(0).getHisAnnotation();
                                                 String str = ";";
                                                 fenNum = StringUtils.method_5(hisAnnotation, str);
-                                                L.e(TAG+"RestApprovePeopleFragment",peopleApproveFinishBean.toString());
+                                                L.e("##**分号数目_已审批:"+fenNum);
                                                 PeopleApproveFinishBean.ApiGetMyApproveForPeoHisBean showBean = peopleApproveFinishBean.getApi_Get_MyApproveForPeoHis().get(0);
                                                 setEntity(showBean.getActualInTime(),showBean.getActualOutTime(),showBean.getApproverName(),showBean.getApproverNo(),
                                                         showBean.getContent(),showBean.getCount(),showBean.getCurrentApproverName(),showBean.getCurrentApproverNo(),
@@ -304,6 +339,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
             peopleLeaveRrdBean.setTimeStamp(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getTimeStamp());
             String toJson = new Gson().toJson(peopleLeaveRrdBean);
             String s="Api_Get_MyApproveForPeo "+toJson;
+            L.e(TAG+"Api_Get_MyApproveForPeo",s);
             HttpManager.getInstance().requestNewResultForm(getTempIP(), s, PeopleApproveDelayBean.class, new HttpManager.ResultNewCallback<PeopleApproveDelayBean>() {
                 @Override
                 public void onSuccess(String json, final PeopleApproveDelayBean peopleApproveDelayBean) throws Exception {
@@ -331,7 +367,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
                                                 String hisAnnotation = peopleApproveDelayBean.getApi_Get_MyApproveForPeo().get(0).getHisAnnotation();
                                                 String str = ";";
                                                 fenNum = StringUtils.method_5(hisAnnotation, str);
-                                                L.e(TAG+"RestApprovePeopleFragment",peopleApproveDelayBean.toString());
+                                                L.e("##**分号数目_未审批:"+fenNum);
                                                 PeopleApproveDelayBean.ApiGetMyApproveForPeoBean showBean = peopleApproveDelayBean.getApi_Get_MyApproveForPeo().get(0);
                                                 setEntity(showBean.getActualInTime(),showBean.getActualOutTime(),showBean.getApproverName(),showBean.getApproverNo(),
                                                         showBean.getContent(),showBean.getCount(),showBean.getCurrentApproverName(),showBean.getCurrentApproverNo(),
@@ -433,10 +469,9 @@ public class RestApprovePeopleFragment extends CommonFragment {
                 peopleLeaveRrdBean.setCurResult("1");
                 break;
         }
-//        String realValue1 = getDisplayValueByKey("当前审批人批注:").getRealValue();
-//        String realValue = realValue1.isEmpty()?"无批注":realValue1;
-//        peopleLeaveRrdBean.setAuthenticationNo(authenticationNo);
-//        peopleLeaveRrdBean.setCurannotation(realValue);
+        String realValue1 = getDisplayValueByKey("您的批注:").getRealValue();
+        String realValue = realValue1.isEmpty()?"无批注":realValue1;
+        peopleLeaveRrdBean.setCurannotation(realValue);
         peopleLeaveRrdBean.setIsAndroid("1");
         peopleLeaveRrdBean.setTimeStamp(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getTimeStamp());
         String json = new Gson().toJson(peopleLeaveRrdBean);
@@ -465,10 +500,21 @@ public class RestApprovePeopleFragment extends CommonFragment {
 
             @Override
             public void onSuccess(String json, PeopleApproveBean peopleApproveBean) throws Exception {
-                if (peopleApproveBean.getApi_Appove_PeopleLeave().get(0) == null){
-                    show("审批成功");
+//                if (peopleApproveBean.getApi_Appove_PeopleLeave().get(0) == null){
+//                    show("审批成功");
+//                    getActivity().finish();
+//                }
+                if (json.contains("ApproverIsNotFound")){
+                    show("上报下级审批人失败!");
+                    getActivity().finish();
+                }else if (json.contains("ApplyIsDone")){
+                    show("申请已取消或结束!");
+                    getActivity().finish();
+                }else {
+                    show("审批完成!");
                     getActivity().finish();
                 }
+                L.e("onSuccess"+json);
             }
 
             @Override
@@ -478,15 +524,7 @@ public class RestApprovePeopleFragment extends CommonFragment {
 
             @Override
             public void onResponse(String response) throws Exception {
-//                if (response.toLowerCase().contains("[ null ]")) {
-//                    show("审批成功");
-//                    getActivity().finish();
-//                }else{
-//                    if (response.contains("ApproverIsNotFound")){
-//                        show("提交失败!没有下一级审批人!");
-//                    }
-//                    getActivity().finish();
-//                }
+
             }
 
             @Override

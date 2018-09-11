@@ -122,7 +122,7 @@ public class PeopleApproveDelayFragment extends Fragment implements AdapterView.
         peopleLeaveRrdBean.setInTime("?");
         peopleLeaveRrdBean.setContent("?");
         peopleLeaveRrdBean.setModifyTime("?");
-        peopleLeaveRrdBean.setProcess("0");
+        peopleLeaveRrdBean.setProcess("?");
         peopleLeaveRrdBean.setBCancel("0");
         peopleLeaveRrdBean.setBFillup("?");
         peopleLeaveRrdBean.setNoIndex("?");
