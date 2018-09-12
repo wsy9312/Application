@@ -167,6 +167,7 @@
                             android:text="外出"
                             android:textColor="#434343"/>
                         <TextView
+                            android:id="@+id/tv_table_outnum"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="1dp"
@@ -175,6 +176,7 @@
                             android:padding="10dp"
                             android:text="10人" />
                         <TextView
+                            android:id="@+id/tv_table_outrate"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="1dp"
@@ -201,6 +203,7 @@
                             android:text="事假"
                             android:textColor="#434343"/>
                         <TextView
+                            android:id="@+id/tv_table_worknum"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="1dp"
@@ -209,6 +212,7 @@
                             android:padding="10dp"
                             android:text="10人" />
                         <TextView
+                            android:id="@+id/tv_table_workrate"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="1dp"
@@ -235,6 +239,7 @@
                             android:text="病假"
                             android:textColor="#434343"/>
                         <TextView
+                            android:id="@+id/tv_table_sicknum"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="1dp"
@@ -243,6 +248,7 @@
                             android:padding="10dp"
                             android:text="10人" />
                         <TextView
+                            android:id="@+id/tv_table_sickrate"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="1dp"
@@ -269,6 +275,7 @@
                             android:text="休假"
                             android:textColor="#434343"/>
                         <TextView
+                            android:id="@+id/tv_table_restnum"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="1dp"
@@ -277,6 +284,7 @@
                             android:padding="10dp"
                             android:text="10人" />
                         <TextView
+                            android:id="@+id/tv_table_restrate"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="1dp"

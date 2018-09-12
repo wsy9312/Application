@@ -30,6 +30,15 @@ public class PeopleLeaveCountBean {
         private String TimeStamp;
         private String IsAndroid;
         private String bClosed;
+        private String OutType;
+
+        public String getOutType() {
+            return OutType;
+        }
+
+        public void setOutType(String outType) {
+            OutType = outType;
+        }
 
         public String getbClosed() {
             return bClosed;
