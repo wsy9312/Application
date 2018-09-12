@@ -38,24 +38,24 @@ import static android.view.View.GONE;
 import static com.example.hgtxxgl.application.R.id.iv_empty;
 import static com.example.hgtxxgl.application.utils.hand.Fields.SAVE_IP;
 
-public class PeopleApproveFinishFragment extends Fragment implements SimpleListView.OnRefreshListener, AdapterView.OnItemClickListener {
+public class PeopleApproveFinishListFragment extends Fragment implements SimpleListView.OnRefreshListener, AdapterView.OnItemClickListener {
 
     private int beginNum = 1;
     private int endNum = 10;
     private boolean hasMore = true;
     private TextView ivEmpty;
     private ProgressBar pb;
-    private static final String TAG = "PeopleApproveFinishFragment";
+    private static final String TAG = "PeopleApproveFinishListFragment";
     private String tempIP;
     SimpleListView lv;
     private String authenticationNo;
 
-    public PeopleApproveFinishFragment(){
+    public PeopleApproveFinishListFragment(){
 
     }
 
-    public static PeopleApproveFinishFragment newInstance(Bundle bundle) {
-        PeopleApproveFinishFragment fragment = new PeopleApproveFinishFragment();
+    public static PeopleApproveFinishListFragment newInstance(Bundle bundle) {
+        PeopleApproveFinishListFragment fragment = new PeopleApproveFinishListFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -157,7 +157,7 @@ public class PeopleApproveFinishFragment extends Fragment implements SimpleListV
         peopleLeaveRrdBean.setTimeStamp(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getTimeStamp());
         String json = new Gson().toJson(peopleLeaveRrdBean);
         String s = "Api_Get_MyApproveForPeoHis " + json;
-        L.e(TAG+"PeopleApproveFinishFragment",s);
+        L.e(TAG+"PeopleApproveFinishListFragment",s);
         SharedPreferences share = getActivity().getSharedPreferences(SAVE_IP, MODE_PRIVATE);
         tempIP = share.getString("tempIP", "IP address is empty");
         HttpManager.getInstance().requestNewResultForm(tempIP, s, PeopleApproveFinishBean.class,new HttpManager.ResultNewCallback<PeopleApproveFinishBean>() {
@@ -169,7 +169,7 @@ public class PeopleApproveFinishFragment extends Fragment implements SimpleListV
                     }
                     for (int i = 0; i < peopleApproveFinishBean.getApi_Get_MyApproveForPeoHis().size(); i++) {
                         if (peopleApproveFinishBean.getApi_Get_MyApproveForPeoHis().get(i).getApproverNo().contains(authenticationNo)){
-                            L.e(TAG+"PeopleApproveFinishFragment",peopleApproveFinishBean.toString());
+                            L.e(TAG+"PeopleApproveFinishListFragment",peopleApproveFinishBean.toString());
                             hasMore = true;
                             entityList.add(peopleApproveFinishBean.getApi_Get_MyApproveForPeoHis().get(i));
                             adapter.notifyDataSetChanged();
@@ -257,7 +257,7 @@ public class PeopleApproveFinishFragment extends Fragment implements SimpleListV
 
     private DetailFragment.DataCallback callback;
 
-    public PeopleApproveFinishFragment setCallback(DetailFragment.DataCallback callback) {
+    public PeopleApproveFinishListFragment setCallback(DetailFragment.DataCallback callback) {
         this.callback = callback;
         return this;
     }

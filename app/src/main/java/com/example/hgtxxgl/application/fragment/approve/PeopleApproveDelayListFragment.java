@@ -39,24 +39,24 @@ import static android.view.View.GONE;
 import static com.example.hgtxxgl.application.R.id.iv_empty;
 import static com.example.hgtxxgl.application.utils.hand.Fields.SAVE_IP;
 
-public class PeopleApproveDelayFragment extends Fragment implements AdapterView.OnItemClickListener, SimpleListView.OnRefreshListener{
+public class PeopleApproveDelayListFragment extends Fragment implements AdapterView.OnItemClickListener, SimpleListView.OnRefreshListener{
 
     private int beginNum = 1;
     private int endNum = 10;
     private boolean hasMore = true;
     private TextView ivEmpty;
     private ProgressBar pb;
-    private static final String TAG = "PeopleApproveDelayFragment";
+    private static final String TAG = "PeopleApproveDelayListFragment";
     private String tempIP;
     SimpleListView lv;
     private LoginInfoBean.ApiAddLoginBean loginBean;
 
-    public PeopleApproveDelayFragment(){
+    public PeopleApproveDelayListFragment(){
 
     }
 
-    public static PeopleApproveDelayFragment newInstance(Bundle bundle) {
-        PeopleApproveDelayFragment fragment = new PeopleApproveDelayFragment();
+    public static PeopleApproveDelayListFragment newInstance(Bundle bundle) {
+        PeopleApproveDelayListFragment fragment = new PeopleApproveDelayListFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -71,7 +71,7 @@ public class PeopleApproveDelayFragment extends Fragment implements AdapterView.
             holder.setText(R.id.approve_type,"请假类型: "+bean.getOutType());
             holder.setText(R.id.approve_outtime,"离队时间:"+DataUtil.parseDateByFormat(bean.getOutTime(), "yyyy-MM-dd"));
             holder.setText(R.id.approve_intime,"归队时间:"+DataUtil.parseDateByFormat(bean.getInTime(), "yyyy-MM-dd"));
-            holder.setText(R.id.approve_state,"待审批");
+            holder.setText(R.id.approve_state,"未审批");
             holder.setTextColor(R.id.approve_state, Color.rgb(214,16,24));
             holder.setText(R.id.approve_time,DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss"));
         }
@@ -137,7 +137,7 @@ public class PeopleApproveDelayFragment extends Fragment implements AdapterView.
         peopleLeaveRrdBean.setTimeStamp(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getTimeStamp());
         String json = new Gson().toJson(peopleLeaveRrdBean);
         String s = "Api_Get_MyApproveForPeo " + json;
-        L.e(TAG+"PeopleApproveDelayFragment",s);
+        L.e(TAG+"PeopleApproveDelayListFragment",s);
         SharedPreferences share = getActivity().getSharedPreferences(SAVE_IP, MODE_PRIVATE);
         tempIP = share.getString("tempIP", "IP address is empty");
         HttpManager.getInstance().requestNewResultForm(tempIP, s, PeopleApproveDelayBean.class,new HttpManager.ResultNewCallback<PeopleApproveDelayBean>() {
@@ -149,7 +149,7 @@ public class PeopleApproveDelayFragment extends Fragment implements AdapterView.
                     }
                     for (int i = 0; i < peopleApproveDelayBean.getApi_Get_MyApproveForPeo().size(); i++) {
                         if (!peopleApproveDelayBean.getApi_Get_MyApproveForPeo().get(i).getApproverNo().contains(loginBean.getAuthenticationNo())){
-                            L.e(TAG+"PeopleApproveDelayFragment",peopleApproveDelayBean.toString());
+                            L.e(TAG+"PeopleApproveDelayListFragment",peopleApproveDelayBean.toString());
                             hasMore = true;
                             entityList.add(peopleApproveDelayBean.getApi_Get_MyApproveForPeo().get(i));
                             adapter.notifyDataSetChanged();
@@ -237,7 +237,7 @@ public class PeopleApproveDelayFragment extends Fragment implements AdapterView.
 
     private DetailFragment.DataCallback callback;
 
-    public PeopleApproveDelayFragment setCallback(DetailFragment.DataCallback callback) {
+    public PeopleApproveDelayListFragment setCallback(DetailFragment.DataCallback callback) {
         this.callback = callback;
         return this;
     }

@@ -16,12 +16,12 @@ import com.example.hgtxxgl.application.view.HandToolbar;
 
 import java.util.ArrayList;
 
-public class PeopleApproveFragment extends Fragment implements RadioGroup.OnCheckedChangeListener {
+public class PeopleApproveListFragment extends Fragment implements RadioGroup.OnCheckedChangeListener {
     RadioGroup group;
     RadioButton rbLeft,rbMid;
     private ArrayList<Fragment> fragments;
 
-    public PeopleApproveFragment() {
+    public PeopleApproveListFragment() {
     }
 
     @Override
@@ -58,14 +58,14 @@ public class PeopleApproveFragment extends Fragment implements RadioGroup.OnChec
     }
 
     public static Fragment newInstance(Bundle bundle) {
-        PeopleApproveFragment fragment = new PeopleApproveFragment();
+        PeopleApproveListFragment fragment = new PeopleApproveListFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
 
     private void addFragment() {
-        fragments.add(new PeopleApproveDelayFragment());
-        fragments.add(new PeopleApproveFinishFragment());
+        fragments.add(new PeopleApproveDelayListFragment());
+        fragments.add(new PeopleApproveFinishListFragment());
     }
 
     public void switchFragment(int position) {
