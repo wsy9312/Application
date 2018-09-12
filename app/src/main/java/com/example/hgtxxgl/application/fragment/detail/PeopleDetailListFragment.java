@@ -176,7 +176,6 @@ public class PeopleDetailListFragment extends Fragment implements SimpleListView
                     if (beginNum == 1 && endNum == 10){
                         entityList.clear();
                     }
-                    L.e(TAG+"PeopleDetailListFragment",peopleLeaveDetailBean.toString());
                     hasMore = true;
                     entityList.addAll(peopleLeaveDetailBean.getApi_Get_MyApplyForPeo());
                     adapter.notifyDataSetChanged();

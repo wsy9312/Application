@@ -56,7 +56,8 @@ public class PollingService extends Service {
 
 	@Override
 	public void onCreate() {
-		authenticationNo = ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo();
+		// TODO
+//		authenticationNo = ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo();
 		SharedPreferences share = getSharedPreferences(SAVE_IP, MODE_PRIVATE);
 		tempIP = share.getString("tempIP", "IP address is empty");
 		builder1 = new NotificationCompat.Builder(this)

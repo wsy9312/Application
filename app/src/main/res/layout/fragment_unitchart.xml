@@ -3,80 +3,15 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.example.hgtxxgl.application.view.HandToolbar
-        android:id="@+id/chart_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
     <ScrollView
         android:background="@color/grey"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:background="@color/white"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:gravity="center"
-                    android:text="总人数" />
-                <LinearLayout
-                    android:layout_width="1dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center_vertical"
-                    android:background="@color/grey"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:gravity="center"
-                    android:text="在位人数" />
-                <LinearLayout
-                    android:layout_width="1dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center_vertical"
-                    android:background="@color/grey"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:gravity="center"
-                    android:text="在为率" />
-            </LinearLayout>
-
-
             <LinearLayout
                 android:orientation="vertical"
-                android:background="@color/white"
+                android:background="#E2EBE7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/grey"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:background="@color/mainColor_blue"
-                        android:gravity="center"
-                        android:text="今日统计"
-                        android:textSize="16sp"
-                        android:textColor="@color/white"/>
-                    <TextView
-                        android:background="@color/mainColor_blue"
-                        android:layout_width="match_parent"
-                        android:layout_height="5dp" />
-                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/ll_out_work"
@@ -353,90 +288,6 @@
 
                 </TableLayout>
             </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:orientation="vertical"
-            android:background="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/grey"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:background="@color/mainColor_blue"
-                    android:gravity="center"
-                    android:text="历史统计"
-                    android:textSize="16sp"
-                    android:textColor="@color/white"/>
-                <TextView
-                    android:background="@color/mainColor_blue"
-                    android:layout_width="match_parent"
-                    android:layout_height="5dp" />
-            </LinearLayout>
-        </LinearLayout>
-            <LinearLayout
-                android:background="@color/white"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/tv_beginDate"
-                    android:clickable="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:gravity="center"
-                    android:background="@drawable/abc_list_selector_holo_light"
-                    android:text="选择日期" />
-
-            </LinearLayout>
-            <LinearLayout
-                android:orientation="vertical"
-                android:background="@color/white"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="外出、事假、病假、休假单日总人数曲线图"
-                    android:textSize="16sp"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:layout_gravity="center_horizontal"/>
-                <com.idtk.smallchart.chart.CurveChart
-                    android:id="@+id/curveChartNum"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_marginTop="10dp"
-                android:orientation="vertical"
-                android:background="@color/white"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="外出、事假、病假、休假单日百分比曲线图"
-                    android:textSize="16sp"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:layout_gravity="center_horizontal"/>
-                <com.idtk.smallchart.chart.CurveChart
-                    android:id="@+id/curveChartPercent"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-            </LinearLayout>
-        </LinearLayout>
     </ScrollView>
 
 </LinearLayout>

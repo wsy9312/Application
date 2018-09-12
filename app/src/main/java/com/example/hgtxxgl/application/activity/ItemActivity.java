@@ -21,7 +21,7 @@ import com.example.hgtxxgl.application.fragment.approve.RestApproveCarFragment;
 import com.example.hgtxxgl.application.fragment.detail.PeopleDetailFragment;
 import com.example.hgtxxgl.application.fragment.detail.PeopleDetailListFragment;
 import com.example.hgtxxgl.application.fragment.detail.RestDetailCarFragment;
-import com.example.hgtxxgl.application.fragment.total.UnitChartFragment;
+import com.example.hgtxxgl.application.fragment.total.chart.ChartFragment;
 import com.example.hgtxxgl.application.utils.SysExitUtil;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
@@ -113,7 +113,7 @@ public class ItemActivity extends AppCompatActivity {
                 checkFragment(new TempFragment());
                 break;
             case PageConfig.PAGE_CHART:
-                checkFragment(UnitChartFragment.newInstance(getIntent().getBundleExtra("data")));
+                checkFragment(ChartFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
         }
     }

@@ -41,7 +41,6 @@ public class PeopleApproveListFragment extends Fragment implements RadioGroup.On
     private void initView(View view) {
         HandToolbar handToolbar = (HandToolbar) view.findViewById(R.id.people_approve_handtoolbar);
         handToolbar.setDisplayHomeAsUpEnabled(true, getActivity());
-        handToolbar.setBackHome(true,0);
         handToolbar.setTitle("我审批的(人员)");
         handToolbar.setTitleSize(18);
         fragments = new ArrayList<>();
