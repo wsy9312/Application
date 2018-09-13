@@ -2,8 +2,6 @@ package com.example.hgtxxgl.application.utils;
 
 import android.content.Context;
 
-import com.example.hgtxxgl.application.utils.hyutils.L;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.HashMap;
@@ -33,9 +31,7 @@ public class FileService {
             String value = StreamTools.getValue(fis);
             String substring = value.substring(7,value.length()-1);
             String values[] = substring.split("\\.");
-            L.e(substring+"hellokitty");
-            L.e(values.length+"hellokitty");
-            L.e(values[0]+"hellokitty");
+
             if(values.length>0){
                 map=new HashMap<String, Integer>();
                 map.put("ip1", Integer.parseInt(values[0]));

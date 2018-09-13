@@ -24,6 +24,12 @@ import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.bean.LoginBean;
 import com.example.hgtxxgl.application.bean.LoginInfoBean;
 import com.example.hgtxxgl.application.bean.PeopleInfoBean;
+import com.example.hgtxxgl.application.bean.PeopleLeaveCountBean;
+import com.example.hgtxxgl.application.bean.TempPeopleLeaveCountBean;
+import com.example.hgtxxgl.application.bean.TempPeopleLeaveOutCountBean;
+import com.example.hgtxxgl.application.bean.TempPeopleLeaveRestCountBean;
+import com.example.hgtxxgl.application.bean.TempPeopleLeaveSickCountBean;
+import com.example.hgtxxgl.application.bean.TempPeopleLeaveWorkCountBean;
 import com.example.hgtxxgl.application.utils.FileService;
 import com.example.hgtxxgl.application.utils.RxPermissionsTool;
 import com.example.hgtxxgl.application.utils.SysExitUtil;
@@ -34,6 +40,7 @@ import com.example.hgtxxgl.application.utils.hand.NetworkHttpManager;
 import com.example.hgtxxgl.application.utils.hand.SpUtils;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtil;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
+import com.example.hgtxxgl.application.utils.hyutils.L;
 import com.example.hgtxxgl.application.view.IPEditText;
 import com.example.hgtxxgl.application.view.UrlListAdapter;
 import com.example.hgtxxgl.application.view.UrlSelector;
@@ -409,7 +416,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onAfter(int id) throws Exception {
-
+                loadChartTotalNum();
             }
 
             @Override
@@ -417,6 +424,244 @@ public class LoginActivity extends AppCompatActivity {
 
             }
 
+        });
+    }
+
+    private void loadChartTotalNum() {
+        PeopleLeaveCountBean.ApiGetCountBean countBean = new PeopleLeaveCountBean.ApiGetCountBean();
+        countBean.setTimeStamp(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getTimeStamp());
+        countBean.setAuthenticationNo(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo());
+        countBean.setTableName("PeopleInfo");
+        countBean.setIsAndroid("1");
+        countBean.setbClosed("0");
+        String json = new Gson().toJson(countBean);
+        String request = "Api_Get_Count " + json;
+        L.e(TAG+" loadChartTotalNum",request);
+        HttpManager.getInstance().requestNewResultForm(tempIP, request, TempPeopleLeaveCountBean.class, new HttpManager.ResultNewCallback<TempPeopleLeaveCountBean>() {
+            @Override
+            public void onSuccess(String json, final TempPeopleLeaveCountBean peopleLeaveCountBean) throws Exception {
+                L.e(TAG+" loadChartTotalNum",json);
+                if (peopleLeaveCountBean != null || peopleLeaveCountBean.getApi_Get_Count().size()>0){
+                    ApplicationApp.setCountBean(peopleLeaveCountBean);
+                }
+            }
+
+            @Override
+            public void onError(String msg) throws Exception {
+
+            }
+
+            @Override
+            public void onResponse(String response) throws Exception {
+
+            }
+
+            @Override
+            public void onBefore(Request request, int id) throws Exception {
+
+            }
+
+            @Override
+            public void onAfter(int id) throws Exception {
+                loadChartWorkNum();
+            }
+
+            @Override
+            public void inProgress(float progress, long total, int id) throws Exception {
+
+            }
+        });
+    }
+
+    private void loadChartWorkNum() {
+        PeopleLeaveCountBean.ApiGetCountBean countBean = new PeopleLeaveCountBean.ApiGetCountBean();
+        countBean.setTimeStamp(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getTimeStamp());
+        countBean.setAuthenticationNo(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo());
+        countBean.setTableName("PeopleInfo");
+        countBean.setIsAndroid("1");
+        countBean.setbClosed("0");
+        countBean.setOutStatus("1");
+        countBean.setOutType("事假申请");
+        String json = new Gson().toJson(countBean);
+        String request = "Api_Get_Count " + json;
+        L.e(TAG+" loadChartWorkNum",request);
+        HttpManager.getInstance().requestNewResultForm(tempIP, request, TempPeopleLeaveWorkCountBean.class, new HttpManager.ResultNewCallback<TempPeopleLeaveWorkCountBean>() {
+            @Override
+            public void onSuccess(String json, final TempPeopleLeaveWorkCountBean peopleLeaveCountBean) throws Exception {
+                L.e(TAG+" loadChartWorkNum",json);
+                if (peopleLeaveCountBean != null || peopleLeaveCountBean.getApi_Get_Count().size()>0){
+                    ApplicationApp.setWorkCountBean(peopleLeaveCountBean);
+                }
+            }
+
+            @Override
+            public void onError(String msg) throws Exception {
+
+            }
+
+            @Override
+            public void onResponse(String response) throws Exception {
+
+            }
+
+            @Override
+            public void onBefore(Request request, int id) throws Exception {
+
+            }
+
+            @Override
+            public void onAfter(int id) throws Exception {
+                loadChartSickNum();
+            }
+
+            @Override
+            public void inProgress(float progress, long total, int id) throws Exception {
+
+            }
+        });
+    }
+
+    private void loadChartSickNum() {
+        PeopleLeaveCountBean.ApiGetCountBean countBean = new PeopleLeaveCountBean.ApiGetCountBean();
+        countBean.setTimeStamp(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getTimeStamp());
+        countBean.setAuthenticationNo(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo());
+        countBean.setTableName("PeopleInfo");
+        countBean.setIsAndroid("1");
+        countBean.setbClosed("0");
+        countBean.setOutStatus("1");
+        countBean.setOutType("病假申请");
+        String json = new Gson().toJson(countBean);
+        String request = "Api_Get_Count " + json;
+        L.e(TAG+" loadChartSickNum",request);
+        HttpManager.getInstance().requestNewResultForm(tempIP, request, TempPeopleLeaveSickCountBean.class, new HttpManager.ResultNewCallback<TempPeopleLeaveSickCountBean>() {
+            @Override
+            public void onSuccess(String json, final TempPeopleLeaveSickCountBean peopleLeaveCountBean) throws Exception {
+                L.e(TAG+" loadChartSickNum",json);
+                if (peopleLeaveCountBean != null || peopleLeaveCountBean.getApi_Get_Count().size()>0){
+                    ApplicationApp.setSickCountBean(peopleLeaveCountBean);
+                }
+            }
+
+            @Override
+            public void onError(String msg) throws Exception {
+
+            }
+
+            @Override
+            public void onResponse(String response) throws Exception {
+
+            }
+
+            @Override
+            public void onBefore(Request request, int id) throws Exception {
+
+            }
+
+            @Override
+            public void onAfter(int id) throws Exception {
+                loadChartRestNum();
+            }
+
+            @Override
+            public void inProgress(float progress, long total, int id) throws Exception {
+
+            }
+        });
+    }
+
+    private void loadChartRestNum() {
+        PeopleLeaveCountBean.ApiGetCountBean countBean = new PeopleLeaveCountBean.ApiGetCountBean();
+        countBean.setTimeStamp(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getTimeStamp());
+        countBean.setAuthenticationNo(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo());
+        countBean.setTableName("PeopleInfo");
+        countBean.setIsAndroid("1");
+        countBean.setbClosed("0");
+        countBean.setOutStatus("1");
+        countBean.setOutType("休假申请");
+        String json = new Gson().toJson(countBean);
+        String request = "Api_Get_Count " + json;
+        L.e(TAG+" loadChartRestNum",request);
+        HttpManager.getInstance().requestNewResultForm(tempIP, request, TempPeopleLeaveRestCountBean.class, new HttpManager.ResultNewCallback<TempPeopleLeaveRestCountBean>() {
+            @Override
+            public void onSuccess(String json, final TempPeopleLeaveRestCountBean peopleLeaveCountBean) throws Exception {
+                L.e(TAG+" loadChartRestNum",json);
+                if (peopleLeaveCountBean != null || peopleLeaveCountBean.getApi_Get_Count().size()>0){
+                    ApplicationApp.setRestCountBean(peopleLeaveCountBean);
+                }
+            }
+
+            @Override
+            public void onError(String msg) throws Exception {
+
+            }
+
+            @Override
+            public void onResponse(String response) throws Exception {
+
+            }
+
+            @Override
+            public void onBefore(Request request, int id) throws Exception {
+
+            }
+
+            @Override
+            public void onAfter(int id) throws Exception {
+                loadChartOutNum();
+            }
+
+            @Override
+            public void inProgress(float progress, long total, int id) throws Exception {
+
+            }
+        });
+    }
+
+    private void loadChartOutNum() {
+        PeopleLeaveCountBean.ApiGetCountBean countBean = new PeopleLeaveCountBean.ApiGetCountBean();
+        countBean.setTimeStamp(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getTimeStamp());
+        countBean.setAuthenticationNo(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo());
+        countBean.setTableName("PeopleInfo");
+        countBean.setIsAndroid("1");
+        countBean.setbClosed("0");
+        countBean.setOutStatus("1");
+        countBean.setOutType("外出申请");
+        String json = new Gson().toJson(countBean);
+        String request = "Api_Get_Count " + json;
+        L.e(TAG+" loadChartOutNum",request);
+        HttpManager.getInstance().requestNewResultForm(tempIP, request, TempPeopleLeaveOutCountBean.class, new HttpManager.ResultNewCallback<TempPeopleLeaveOutCountBean>() {
+            @Override
+            public void onSuccess(String json, final TempPeopleLeaveOutCountBean peopleLeaveCountBean) throws Exception {
+                L.e(TAG+" loadChartOutNum",json);
+                if (peopleLeaveCountBean != null || peopleLeaveCountBean.getApi_Get_Count().size()>0){
+                    ApplicationApp.setOutCountBean(peopleLeaveCountBean);
+                }
+            }
+
+            @Override
+            public void onError(String msg) throws Exception {
+
+            }
+
+            @Override
+            public void onResponse(String response) throws Exception {
+
+            }
+
+            @Override
+            public void onBefore(Request request, int id) throws Exception {
+
+            }
+
+            @Override
+            public void onAfter(int id) throws Exception {
+
+            }
+
+            @Override
+            public void inProgress(float progress, long total, int id) throws Exception {
+
+            }
         });
     }
 

@@ -10,6 +10,11 @@ import android.util.DisplayMetrics;
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.bean.LoginInfoBean;
 import com.example.hgtxxgl.application.bean.PeopleInfoBean;
+import com.example.hgtxxgl.application.bean.TempPeopleLeaveCountBean;
+import com.example.hgtxxgl.application.bean.TempPeopleLeaveOutCountBean;
+import com.example.hgtxxgl.application.bean.TempPeopleLeaveRestCountBean;
+import com.example.hgtxxgl.application.bean.TempPeopleLeaveSickCountBean;
+import com.example.hgtxxgl.application.bean.TempPeopleLeaveWorkCountBean;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,6 +31,12 @@ public class ApplicationApp extends Application {
     private static PeopleInfoBean peopleInfoBean;
 
     private static LoginInfoBean loginInfoBean;
+
+    private static TempPeopleLeaveCountBean countBean;
+    private static TempPeopleLeaveWorkCountBean workCountBean;
+    private static TempPeopleLeaveSickCountBean sickCountBean;
+    private static TempPeopleLeaveRestCountBean restCountBean;
+    private static TempPeopleLeaveOutCountBean outCountBean;
 
     public static List<?> images=new ArrayList<>();
     public static int H,W;
@@ -86,4 +97,44 @@ public class ApplicationApp extends Application {
         ApplicationApp.loginInfoBean = loginInfoBean;
     }
 
+    public static TempPeopleLeaveCountBean getCountBean() {
+        return countBean;
+    }
+
+    public static void setCountBean(TempPeopleLeaveCountBean countBean) {
+        ApplicationApp.countBean = countBean;
+    }
+
+    public static TempPeopleLeaveWorkCountBean getWorkCountBean() {
+        return workCountBean;
+    }
+
+    public static void setWorkCountBean(TempPeopleLeaveWorkCountBean workCountBean) {
+        ApplicationApp.workCountBean = workCountBean;
+    }
+
+
+    public static TempPeopleLeaveSickCountBean getSickCountBean() {
+        return sickCountBean;
+    }
+
+    public static void setSickCountBean(TempPeopleLeaveSickCountBean sickCountBean) {
+        ApplicationApp.sickCountBean = sickCountBean;
+    }
+
+    public static TempPeopleLeaveRestCountBean getRestCountBean() {
+        return restCountBean;
+    }
+
+    public static void setRestCountBean(TempPeopleLeaveRestCountBean restCountBean) {
+        ApplicationApp.restCountBean = restCountBean;
+    }
+
+    public static TempPeopleLeaveOutCountBean getOutCountBean() {
+        return outCountBean;
+    }
+
+    public static void setOutCountBean(TempPeopleLeaveOutCountBean outCountBean) {
+        ApplicationApp.outCountBean = outCountBean;
+    }
 }
