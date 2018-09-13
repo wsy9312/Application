@@ -10,6 +10,8 @@ import android.text.TextUtils;
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.bean.LoginInfoBean;
 import com.example.hgtxxgl.application.bean.PeopleApplyBean;
+import com.example.hgtxxgl.application.bean.PeopleCheckBackBean;
+import com.example.hgtxxgl.application.bean.PeopleCheckOutBean;
 import com.example.hgtxxgl.application.bean.PeopleInfoBean;
 import com.example.hgtxxgl.application.bean.PeopleLeaveDetailBean;
 import com.example.hgtxxgl.application.bean.PeopleLeaveDetailRetractBean;
@@ -34,11 +36,12 @@ public class PeopleDetailFragment extends CommonFragment {
 
     private final static String TAG = "PeopleDetailFragment";
     private String s1;
-    private String [][] buttonType = {{""},{"撤销申请"},{"重新提交"}};
+    private String [][] buttonType = {{""},{"撤销申请"},{"重新提交"},{"确认离开"},{"确认归来"}};
     private int type = 0;
     private int fenNum;
     private LoginInfoBean.ApiAddLoginBean loginBean;
     private PeopleInfoBean.ApiGetMyInfoSimBean peopleInfoBean;
+    private String noindex;
 
     public PeopleDetailFragment(){
 
@@ -129,6 +132,8 @@ public class PeopleDetailFragment extends CommonFragment {
                 baseHolder.add(new HandInputGroup.Holder("所属部门", true, false, peopleInfoBean.getDepartment(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("离队时间", true, false, entity.getOutTime(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("归队时间", true, false, entity.getInTime(), HandInputGroup.VALUE_TYPE.TEXT));
+                baseHolder.add(new HandInputGroup.Holder("实际离队时间", true, false, entity.getActualOutTime().isEmpty()?"":entity.getActualOutTime(), HandInputGroup.VALUE_TYPE.TEXT));
+                baseHolder.add(new HandInputGroup.Holder("实际归队时间", true, false, entity.getActualInTime().isEmpty()?"":entity.getActualInTime(), HandInputGroup.VALUE_TYPE.TEXT));
                 if (!TextUtils.equals("-9999",entity.getVacationDays())){
                     baseHolder.add(new HandInputGroup.Holder("假期天数", true, false, entity.getVacationDays(), HandInputGroup.VALUE_TYPE.TEXT));
                 }
@@ -142,7 +147,14 @@ public class PeopleDetailFragment extends CommonFragment {
                 }
 //                baseHolder.add(new HandInputGroup.Holder("是否后补申请", true, false, entity.getBFillup().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
                 groups.add(1,new Group("基本信息", null, false, null, baseHolder));
-                setButtonsTitles(buttonType[0]);
+                if (entity.getOutStatus().equals("0") && entity.getActualInTime().isEmpty() && entity.getActualOutTime().isEmpty()){
+                    setButtonsTitles(buttonType[3]);
+                }else if (entity.getOutStatus().equals("1") && entity.getActualInTime().isEmpty() && !entity.getActualOutTime().isEmpty()){
+                    setButtonsTitles(buttonType[4]);
+                }else if (entity.getOutStatus().equals("0") && !entity.getActualInTime().isEmpty() && !entity.getActualOutTime().isEmpty()){
+                    setButtonsTitles(buttonType[0]);
+                }
+
                 //无
             }
 
@@ -245,8 +257,12 @@ public class PeopleDetailFragment extends CommonFragment {
             return buttonType[0];
         }else if(type == 1){
             return buttonType[1];
-        }else {
+        }else if (type == 2){
             return buttonType[2];
+        }else if (type == 3){
+            return buttonType[3];
+        }else {
+            return buttonType[4];
         }
     }
 
@@ -280,7 +296,7 @@ public class PeopleDetailFragment extends CommonFragment {
                 peopleLeaveRrdBean.setBCancel("1");
                 String json = new Gson().toJson(peopleLeaveRrdBean);
                 s1 = "Api_Retract_PeopleLeave " + json;
-                L.e(TAG,s1);
+//                L.e(TAG,s1);
                 AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
                 builder.setMessage("是否确认?");
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -307,7 +323,7 @@ public class PeopleDetailFragment extends CommonFragment {
                     dialog.dismiss();
                     String over = isOver(groups);
                     if (over != null){
-                        ToastUtil.showToast(getContext(),"请填写" + over);
+                        ToastUtil.showToast(getContext(),over+"不能为空!");
                         setButtonllEnable(true);
                     }else {
                         //申请人ID
@@ -337,7 +353,7 @@ public class PeopleDetailFragment extends CommonFragment {
                         HttpManager.getInstance().requestNewResultForm(getTempIP(), s1, PeopleApplyBean.class, new HttpManager.ResultNewCallback<PeopleApplyBean>() {
                             @Override
                             public void onSuccess(String json, PeopleApplyBean peopleApplyBean) throws Exception {
-                                L.e(TAG+"重新提交",json);
+//                                L.e(TAG+"重新提交",json);
                                 if (peopleApplyBean.getApi_Apply_PeopleLeave().get(0) == null){
                                     show("提交成功");
                                     getActivity().finish();
@@ -373,6 +389,134 @@ public class PeopleDetailFragment extends CommonFragment {
                             }
                         });
                     }
+                }
+            });
+            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    notifyDataSetChanged();
+                }
+            });
+            builder.create().show();
+        }else if (title.equals("确认离开")){
+            AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
+            builder.setMessage("是否确认提交?");
+            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    PeopleApplyBean.ApiApplyPeopleLeaveBean peopleApplyBean = new PeopleApplyBean.ApiApplyPeopleLeaveBean();
+                    peopleApplyBean.setAuthenticationNo(loginBean.getAuthenticationNo());
+                    peopleApplyBean.setIsAndroid("1");
+                    peopleApplyBean.setNoIndex(noindex);
+                    peopleApplyBean.setTimeStamp(loginBean.getTimeStamp());
+                    String json = new Gson().toJson(peopleApplyBean);
+                    String s1 = "Api_Edit_CheckOutForPeo " + json;
+                    HttpManager.getInstance().requestNewResultForm(getTempIP(), s1, PeopleCheckOutBean.class, new HttpManager.ResultNewCallback<PeopleCheckOutBean>() {
+                        @Override
+                        public void onSuccess(String json, PeopleCheckOutBean peopleApplyBean) throws Exception {
+                            L.e(TAG+" 确认离开",json);
+                            if (json.contains("NotInTime")){
+                                show("当前不在外出时间!");
+                                getActivity().finish();
+                            }
+                            if (peopleApplyBean.getApi_Edit_CheckOutForPeo().get(0) == null||peopleApplyBean.getApi_Edit_CheckOutForPeo().size() == 0){
+                                show("提交成功");
+                                getActivity().finish();
+                            }else{
+                                show("提交失败");
+                                getActivity().finish();
+                            }
+                        }
+
+                        @Override
+                        public void onError(String msg) throws Exception {
+
+                        }
+
+                        @Override
+                        public void onResponse(String response) throws Exception {
+
+                        }
+
+                        @Override
+                        public void onBefore(Request request, int id) throws Exception {
+
+                        }
+
+                        @Override
+                        public void onAfter(int id) throws Exception {
+
+                        }
+
+                        @Override
+                        public void inProgress(float progress, long total, int id) throws Exception {
+
+                        }
+                    });
+                }
+            });
+            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    notifyDataSetChanged();
+                }
+            });
+            builder.create().show();
+        }else if (title.equals("确认归来")){
+            AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
+            builder.setMessage("是否确认提交?");
+            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    PeopleApplyBean.ApiApplyPeopleLeaveBean peopleApplyBean = new PeopleApplyBean.ApiApplyPeopleLeaveBean();
+                    peopleApplyBean.setAuthenticationNo(loginBean.getAuthenticationNo());
+                    peopleApplyBean.setIsAndroid("1");
+                    peopleApplyBean.setNoIndex(noindex);
+                    peopleApplyBean.setTimeStamp(loginBean.getTimeStamp());
+                    String json = new Gson().toJson(peopleApplyBean);
+                    String s1 = "Api_Edit_CheckBackForPeo " + json;
+                    HttpManager.getInstance().requestNewResultForm(getTempIP(), s1, PeopleCheckBackBean.class, new HttpManager.ResultNewCallback<PeopleCheckBackBean>() {
+                        @Override
+                        public void onSuccess(String json, PeopleCheckBackBean peopleApplyBean) throws Exception {
+                            L.e(TAG+" 确认归来",json);
+                            if (peopleApplyBean.getApi_Edit_CheckBackForPeo().get(0) == null||peopleApplyBean.getApi_Edit_CheckBackForPeo().size()==0){
+                                show("提交成功");
+                                getActivity().finish();
+                            }else{
+                                show("提交失败");
+                                getActivity().finish();
+                            }
+                        }
+
+                        @Override
+                        public void onError(String msg) throws Exception {
+
+                        }
+
+                        @Override
+                        public void onResponse(String response) throws Exception {
+
+                        }
+
+                        @Override
+                        public void onBefore(Request request, int id) throws Exception {
+
+                        }
+
+                        @Override
+                        public void onAfter(int id) throws Exception {
+
+                        }
+
+                        @Override
+                        public void inProgress(float progress, long total, int id) throws Exception {
+
+                        }
+                    });
                 }
             });
             builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -449,11 +593,11 @@ public class PeopleDetailFragment extends CommonFragment {
         String outtime = getArguments().getString("outtime");
         String intime = getArguments().getString("intime");
         String content = getArguments().getString("content");
-        String process = getArguments().getString("process");
+        final String process = getArguments().getString("process");
         String modifyTime = getArguments().getString("modifyTime");
         String bcancel = getArguments().getString("bcancel");
         String bfillup = getArguments().getString("bfillup");
-        String noindex = getArguments().getString("noindex");
+        noindex = getArguments().getString("noindex");
         PeopleLeaveDetailBean.ApiGetMyApplyForPeoBean peopleLeaveRrdBean = new PeopleLeaveDetailBean.ApiGetMyApplyForPeoBean();
         peopleLeaveRrdBean.setNo(peopleInfoBean.getNo());//1
         peopleLeaveRrdBean.setRegisterTime("?");//2
@@ -478,38 +622,48 @@ public class PeopleDetailFragment extends CommonFragment {
         peopleLeaveRrdBean.setTimeStamp(loginBean.getTimeStamp());//14
         String toJson = new Gson().toJson(peopleLeaveRrdBean);
         String s="Api_Get_MyApplyForPeo "+toJson;
-        L.e(TAG+"PeopleDetailFragment",s);
+//        L.e(TAG+"PeopleDetailFragment",s);
         HttpManager.getInstance().requestNewResultForm(getTempIP(), s, PeopleLeaveDetailBean.class, new HttpManager.ResultNewCallback<PeopleLeaveDetailBean>() {
-
             @Override
             public void onSuccess(String json, final PeopleLeaveDetailBean peopleLeaveDetailBean) throws Exception {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         if (peopleLeaveDetailBean != null){
+                            L.e(TAG+"加载",peopleLeaveDetailBean.getApi_Get_MyApplyForPeo().get(0).toString());
                             String bCancel = peopleLeaveDetailBean.getApi_Get_MyApplyForPeo().get(0).getBCancel();
                             String process1 = peopleLeaveDetailBean.getApi_Get_MyApplyForPeo().get(0).getProcess();
                             String result = peopleLeaveDetailBean.getApi_Get_MyApplyForPeo().get(0).getResult();
+                            String outStatus = peopleLeaveDetailBean.getApi_Get_MyApplyForPeo().get(0).getOutStatus();
+                            String actualOutTime = peopleLeaveDetailBean.getApi_Get_MyApplyForPeo().get(0).getActualOutTime();
+                            String actualInTime = peopleLeaveDetailBean.getApi_Get_MyApplyForPeo().get(0).getActualInTime();
                             if (process1.equals("1")){
                                 if (result.equals("2")){
                                     type = 2;
                                 }else if(result.equals("0")){
                                     type = 0;
                                 }else if (result.equals("1")){
-                                    type = 0;
+                                    if (outStatus.equals("0") && actualInTime.isEmpty() && actualOutTime.isEmpty()){
+                                        type = 3;
+                                    }else if (outStatus.equals("1") && !actualOutTime.isEmpty() && actualInTime.isEmpty()){
+                                        type = 4;
+                                    }else if (outStatus.equals("0") && !actualOutTime.isEmpty() && !actualInTime.isEmpty()){
+                                        type = 0;
+                                    }
                                 }
-                            }else{
+                            }else if (process.equals("0")){
                                 if (bCancel.equals("0")){
                                     type = 1;
                                 }else {
                                     type = 0;
                                 }
+                            }else if (process.equals("2")){
+                                type = 0;
                             }
                             String hisAnnotation = peopleLeaveDetailBean.getApi_Get_MyApplyForPeo().get(0).getHisAnnotation();
                             String str = ";";
                             fenNum = StringUtils.method_5(hisAnnotation, str);
                             String [] arrAnnotation = hisAnnotation.split(";");
-                            L.e(TAG,fenNum+"*******"+ arrAnnotation.length);
                             setEntity(peopleLeaveDetailBean.getApi_Get_MyApplyForPeo().get(0));
                             setGroup(getGroupList());
                             setPb(false);

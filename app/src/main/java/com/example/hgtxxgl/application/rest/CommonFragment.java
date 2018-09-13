@@ -124,7 +124,9 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
             Button toother1 = (Button) vsActionBar.findViewById(R.id.btn_toother1);
             Button toother2 = (Button) vsActionBar.findViewById(R.id.btn_toother2);
             Button again = (Button) vsActionBar.findViewById(R.id.btn_again);
-            Button[] buttons = new Button[]{start,save,reject,approve,toother,toother1,toother2,again};
+            Button leave = (Button) vsActionBar.findViewById(R.id.btn_leave);
+            Button back = (Button) vsActionBar.findViewById(R.id.btn_back);
+            Button[] buttons = new Button[]{start,save,reject,approve,toother,toother1,toother2,again,leave,back};
             List<String> strings = Arrays.asList(buttonsTitles);
             for (final Button button : buttons) {
                 if (strings.contains(button.getText())){
@@ -159,6 +161,10 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
         save.setEnabled(eable);
         Button again = (Button) buttonll.findViewById(R.id.btn_again);
         again.setEnabled(eable);
+        Button leave = (Button) buttonll.findViewById(R.id.btn_leave);
+        leave.setEnabled(eable);
+        Button back = (Button) buttonll.findViewById(R.id.btn_back);
+        back.setEnabled(eable);
     }
 
     public String[] getButtonsTitles() {

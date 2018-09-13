@@ -1,21 +1,23 @@
 package com.example.hgtxxgl.application.bean;
 
+//Api_Edit_CheckBackForPeo
+//确认归来(销假) 人员
+
 import java.util.List;
-//Api_Get_MyApplyForPeo
-//得到我的申请(人员)
-public class PeopleLeaveDetailBean {
 
-    private List<ApiGetMyApplyForPeoBean> Api_Get_MyApplyForPeo;
+public class PeopleCheckBackBean {
 
-    public List<ApiGetMyApplyForPeoBean> getApi_Get_MyApplyForPeo() {
-        return Api_Get_MyApplyForPeo;
+    private List<ApiEditCheckBackForPeoBean> Api_Edit_CheckBackForPeo;
+
+    public List<ApiEditCheckBackForPeoBean> getApi_Edit_CheckBackForPeo() {
+        return Api_Edit_CheckBackForPeo;
     }
 
-    public void setApi_Get_MyApplyForPeo(List<ApiGetMyApplyForPeoBean> Api_Get_MyApplyForPeo) {
-        this.Api_Get_MyApplyForPeo = Api_Get_MyApplyForPeo;
+    public void setApi_Edit_CheckBackForPeo(List<ApiEditCheckBackForPeoBean> Api_Edit_CheckBackForPeo) {
+        this.Api_Edit_CheckBackForPeo = Api_Edit_CheckBackForPeo;
     }
 
-    public static class ApiGetMyApplyForPeoBean {
+    public static class ApiEditCheckBackForPeoBean {
         /**
          * ActualInTime :
          * ActualOutTime :
@@ -89,50 +91,6 @@ public class PeopleLeaveDetailBean {
         private String CurResult;
         private String BeginNum;
         private String EndNum;
-
-        @Override
-        public String toString() {
-            return "ApiGetMyApplyForPeoBean{" +
-                    "ActualInTime='" + ActualInTime + '\'' +
-                    ", ActualOutTime='" + ActualOutTime + '\'' +
-                    ", ApproverName='" + ApproverName + '\'' +
-                    ", ApproverNo='" + ApproverNo + '\'' +
-                    ", Content='" + Content + '\'' +
-                    ", Count='" + Count + '\'' +
-                    ", CurrentApproverName='" + CurrentApproverName + '\'' +
-                    ", CurrentApproverNo='" + CurrentApproverNo + '\'' +
-                    ", Destination='" + Destination + '\'' +
-                    ", Enclosure='" + Enclosure + '\'' +
-                    ", HisAnnotation='" + HisAnnotation + '\'' +
-                    ", InTime='" + InTime + '\'' +
-                    ", JourneyDays='" + JourneyDays + '\'' +
-                    ", ModifyTime='" + ModifyTime + '\'' +
-                    ", Name='" + Name + '\'' +
-                    ", No='" + No + '\'' +
-                    ", NoIndex='" + NoIndex + '\'' +
-                    ", OutStatus='" + OutStatus + '\'' +
-                    ", OutTime='" + OutTime + '\'' +
-                    ", OutType='" + OutType + '\'' +
-                    ", Process='" + Process + '\'' +
-                    ", RegisterTime='" + RegisterTime + '\'' +
-                    ", Result='" + Result + '\'' +
-                    ", VacationAddr='" + VacationAddr + '\'' +
-                    ", VacationDays='" + VacationDays + '\'' +
-                    ", bCancel='" + bCancel + '\'' +
-                    ", bFillup='" + bFillup + '\'' +
-                    ", bMessage='" + bMessage + '\'' +
-                    ", AuthenticationNo='" + AuthenticationNo + '\'' +
-                    ", IsAndroid='" + IsAndroid + '\'' +
-                    ", CurResult='" + CurResult + '\'' +
-                    ", BeginNum='" + BeginNum + '\'' +
-                    ", EndNum='" + EndNum + '\'' +
-                    ", Unit='" + Unit + '\'' +
-                    ", Department='" + Department + '\'' +
-                    ", Curannotation='" + Curannotation + '\'' +
-                    ", TimeStamp='" + TimeStamp + '\'' +
-                    '}';
-        }
-
         private String Unit;
         private String Department;
         private String Curannotation;

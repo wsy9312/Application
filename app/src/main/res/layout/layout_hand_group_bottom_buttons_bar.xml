@@ -117,6 +117,32 @@
         android:padding="@dimen/activity_horizontal_margin"
         android:text="重新提交"
         android:visibility="gone" />
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:textSize="14sp"
+        android:enabled="false"
+        android:id="@+id/btn_leave"
+        android:textColor="#569556"
+        android:background="@drawable/rec_normal_gray"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:text="确认离开"
+        android:visibility="gone" />
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:textSize="14sp"
+        android:enabled="false"
+        android:id="@+id/btn_back"
+        android:textColor="#569556"
+        android:background="@drawable/rec_normal_gray"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:text="确认归来"
+        android:visibility="gone" />
     <!--android:drawableLeft="@drawable/ic_start"
     android:drawableStart="@drawable/ic_start"-->
 
