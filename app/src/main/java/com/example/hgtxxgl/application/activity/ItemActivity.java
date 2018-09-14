@@ -115,6 +115,28 @@ public class ItemActivity extends AppCompatActivity {
             case PageConfig.PAGE_CHART:
                 checkFragment(ChartFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
+            //914生活
+            case PageConfig.PAGE_FLOW_PRESENTFOOD:
+                checkFragment(new TempFragment());
+                break;
+            case PageConfig.PAGE_FLOW_TOUPIAO:
+                checkFragment(new TempFragment());
+                break;
+            case PageConfig.PAGE_FLOW_PAIHANG:
+                checkFragment(new TempFragment());
+                break;
+            case PageConfig.PAGE_FLOW_MANAGE:
+                checkFragment(new TempFragment());
+                break;
+            case PageConfig.PAGE_FLOW_VIDEO:
+                checkFragment(new TempFragment());
+                break;
+            case PageConfig.PAGE_FLOW_BOOK:
+                checkFragment(new TempFragment());
+                break;
+            case PageConfig.PAGE_FLOW_TINENG:
+                checkFragment(new TempFragment());
+                break;
         }
     }
 

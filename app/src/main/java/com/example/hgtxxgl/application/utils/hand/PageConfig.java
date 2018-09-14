@@ -49,4 +49,14 @@ public class PageConfig {
     //810工作_审批(车辆)_我发起的_处理中和已处理
     public static final int PAGE_CAR_DETAIL_DELAY = 31;
     public static final int PAGE_CAR_DETAIL_FINISH = 32;
+
+
+    //914生活
+    public static final int PAGE_FLOW_PRESENTFOOD = 33;
+    public static final int PAGE_FLOW_TOUPIAO = 34;
+    public static final int PAGE_FLOW_PAIHANG = 35;
+    public static final int PAGE_FLOW_MANAGE = 36;
+    public static final int PAGE_FLOW_VIDEO = 37;
+    public static final int PAGE_FLOW_BOOK = 38;
+    public static final int PAGE_FLOW_TINENG = 39;
 }
