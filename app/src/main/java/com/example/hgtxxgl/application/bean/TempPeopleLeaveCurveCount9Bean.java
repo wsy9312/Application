@@ -2,15 +2,14 @@ package com.example.hgtxxgl.application.bean;
 
 import java.util.List;
 
-public class PeopleLeaveCountBean {
+public class TempPeopleLeaveCurveCount9Bean {
+    private List<PeopleLeaveCountBean.ApiGetCountBean> Api_Get_Count;
 
-    private List<ApiGetCountBean> Api_Get_Count;
-
-    public List<ApiGetCountBean> getApi_Get_Count() {
+    public List<PeopleLeaveCountBean.ApiGetCountBean> getApi_Get_Count() {
         return Api_Get_Count;
     }
 
-    public void setApi_Get_Count(List<ApiGetCountBean> Api_Get_Count) {
+    public void setApi_Get_Count(List<PeopleLeaveCountBean.ApiGetCountBean> Api_Get_Count) {
         this.Api_Get_Count = Api_Get_Count;
     }
 
@@ -31,15 +30,6 @@ public class PeopleLeaveCountBean {
         private String IsAndroid;
         private String bClosed;
         private String OutType;
-        private String RegisterTime;
-
-        public String getRegisterTime() {
-            return RegisterTime;
-        }
-
-        public void setRegisterTime(String registerTime) {
-            RegisterTime = registerTime;
-        }
 
         public String getOutType() {
             return OutType;

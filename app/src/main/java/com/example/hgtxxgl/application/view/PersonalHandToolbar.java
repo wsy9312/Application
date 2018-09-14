@@ -1,7 +1,9 @@
 package com.example.hgtxxgl.application.view;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -17,6 +19,7 @@ public class PersonalHandToolbar extends FrameLayout {
     private ImageView tvRight,tvLeft,tvHistory;
     private OnButtonsClickCallback callback;
     private ImageView tvChange;
+    private TextView tvBack;
 
     public PersonalHandToolbar(Context context) {
         super(context);
@@ -46,6 +49,7 @@ public class PersonalHandToolbar extends FrameLayout {
         tvLeft = (ImageView) findViewById(R.id.tv_left);
         tvHistory = (ImageView) findViewById(R.id.tv_history);
         tvChange = (ImageView) findViewById(R.id.tv_change);
+        tvBack = (TextView) findViewById(R.id.tv_back);
     }
 
     public ImageView getTvRightBao(){
@@ -127,6 +131,43 @@ public class PersonalHandToolbar extends FrameLayout {
     }
 
     public enum VIEWS {
-        LEFT_BUTTON, RIGHT_BUTTON,HISTORY_BUTTON,CHANGE_BUTTON
+        LEFT_BUTTON, RIGHT_BUTTON,HISTORY_BUTTON,CHANGE_BUTTON,BACK_BUTTON
+    }
+
+    public void setDisplayHomeAsUpEnabled(boolean enable, final Activity activity) {
+        if (enable) {
+            setBackButton(R.drawable.ic_arrow_left);
+            tvLeft.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    activity.onBackPressed();
+                }
+            });
+        }else{
+            setBackButton(null);
+            tvLeft.setVisibility(INVISIBLE);
+        }
+    }
+
+    public void setBackButton(Integer resDrawable) {
+        if (resDrawable != null) {
+            Drawable drawable = getResources().getDrawable(resDrawable);
+            if (drawable != null) {
+                drawable.setBounds(0, 0, 60, 60);
+            }
+            tvBack.setCompoundDrawables(drawable, null, null, null);
+        }
+        if (resDrawable == null) {
+            return;
+        }
+        tvBack.setVisibility(VISIBLE);
+        if (!tvBack.hasOnClickListeners())
+            tvBack.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (callback != null)
+                        callback.onButtonClickListner(VIEWS.BACK_BUTTON, -1);
+                }
+            });
     }
 }

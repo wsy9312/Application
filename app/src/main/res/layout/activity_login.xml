@@ -5,20 +5,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@mipmap/ic_login">
 
-    <!--<com.example.hgtxxgl.application.view.CustomVideoView
-        android:id="@+id/videoview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />-->
-
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/setting_ip"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="50dp"
         android:layout_marginRight="10dp"
         android:src="@drawable/ic_setting"/>
 

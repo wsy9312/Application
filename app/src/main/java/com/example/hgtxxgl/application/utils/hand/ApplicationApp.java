@@ -12,6 +12,9 @@ import com.example.hgtxxgl.application.bean.LoginInfoBean;
 import com.example.hgtxxgl.application.bean.PeopleInfoBean;
 import com.example.hgtxxgl.application.bean.TempPeopleLeaveCountBean;
 import com.example.hgtxxgl.application.bean.TempPeopleLeaveCurrentCountBean;
+import com.example.hgtxxgl.application.bean.TempPeopleLeaveCurveCount10Bean;
+import com.example.hgtxxgl.application.bean.TempPeopleLeaveCurveCount8Bean;
+import com.example.hgtxxgl.application.bean.TempPeopleLeaveCurveCount9Bean;
 import com.example.hgtxxgl.application.bean.TempPeopleLeaveOutCountBean;
 import com.example.hgtxxgl.application.bean.TempPeopleLeaveRestCountBean;
 import com.example.hgtxxgl.application.bean.TempPeopleLeaveSickCountBean;
@@ -39,6 +42,9 @@ public class ApplicationApp extends Application {
     private static TempPeopleLeaveSickCountBean sickCountBean;
     private static TempPeopleLeaveRestCountBean restCountBean;
     private static TempPeopleLeaveOutCountBean outCountBean;
+    private static TempPeopleLeaveCurveCount8Bean count8Bean;
+    private static TempPeopleLeaveCurveCount9Bean count9Bean;
+    private static TempPeopleLeaveCurveCount10Bean count10Bean;
 
     public static List<?> images=new ArrayList<>();
     public static int H,W;
@@ -146,5 +152,29 @@ public class ApplicationApp extends Application {
 
     public static void setOutCountBean(TempPeopleLeaveOutCountBean outCountBean) {
         ApplicationApp.outCountBean = outCountBean;
+    }
+
+    public static TempPeopleLeaveCurveCount8Bean getCount8Bean() {
+        return count8Bean;
+    }
+
+    public static void setCount8Bean(TempPeopleLeaveCurveCount8Bean count8Bean) {
+        ApplicationApp.count8Bean = count8Bean;
+    }
+
+    public static TempPeopleLeaveCurveCount9Bean getCount9Bean() {
+        return count9Bean;
+    }
+
+    public static void setCount9Bean(TempPeopleLeaveCurveCount9Bean count9Bean) {
+        ApplicationApp.count9Bean = count9Bean;
+    }
+
+    public static TempPeopleLeaveCurveCount10Bean getCount10Bean() {
+        return count10Bean;
+    }
+
+    public static void setCount10Bean(TempPeopleLeaveCurveCount10Bean count10Bean) {
+        ApplicationApp.count10Bean = count10Bean;
     }
 }

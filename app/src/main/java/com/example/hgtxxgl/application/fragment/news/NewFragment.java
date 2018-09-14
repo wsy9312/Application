@@ -148,10 +148,6 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
         newsRrdBean.setTitle("?");
         newsRrdBean.setContent("?");
         newsRrdBean.setModifyTime("?");
-//        newsRrdBean.setPicture5("?");
-//        newsRrdBean.setPicture4("?");
-//        newsRrdBean.setPicture3("?");
-//        newsRrdBean.setPicture2("?");
         newsRrdBean.setPicture1("?");
         newsRrdBean.setBeginNum(beginNum+"");
         newsRrdBean.setEndNum(endNum+"");
@@ -163,8 +159,6 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
         newsInfoEntity.setNewsRrd(list);
         String json = new Gson().toJson(newsInfoEntity);
         String s = "get " + json;
-        //        String url = CommonValues.BASE_URL;
-//        String url = ApplicationApp.getIP();
         SharedPreferences share = getActivity().getSharedPreferences(SAVE_IP, MODE_PRIVATE);
         String tempIP = share.getString("tempIP", "IP address is empty");
         L.e(TAG,s);

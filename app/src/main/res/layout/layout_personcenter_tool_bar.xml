@@ -10,15 +10,30 @@
         android:layout_width="match_parent"
         android:layout_height="130dp"
         android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:drawableLeft="@drawable/ic_arrow_left"
+            android:paddingLeft="5dp"
+            android:gravity="center_vertical"
+            android:id="@+id/tv_back"
+            android:textColor="@color/white"
+            android:text=""
+            android:textSize="18sp"
+            tools:visibility="visible"
+            android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceListItemSmall"
+            android:layout_gravity="center_vertical" />
+
         <ImageView
-            android:layout_width="80dp"
+            android:layout_width="60dp"
             android:layout_marginLeft="10dp"
             android:gravity="center_vertical"
             android:id="@+id/tv_left"
             tools:visibility="visible"
             android:layout_centerVertical="true"
             android:background="@mipmap/ic_saomiao"
-            android:layout_height="80dp"
+            android:layout_height="60dp"
             android:textAppearance="?attr/textAppearanceListItemSmall"
             android:layout_gravity="center_vertical" />
 

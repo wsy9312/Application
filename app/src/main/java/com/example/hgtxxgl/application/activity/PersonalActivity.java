@@ -25,7 +25,6 @@ import com.example.hgtxxgl.application.QrCode.sample.ScannerActivity;
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.bean.PeopleInfoBean;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
-import com.example.hgtxxgl.application.utils.NumberFormatUtil;
 import com.example.hgtxxgl.application.utils.SysExitUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
@@ -86,6 +85,7 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
         handToolBar = (PersonalHandToolbar) findViewById(R.id.personal_handtoolbar);
         handToolBar.setTitle(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getName());
         handToolBar.setTitleSize(20);
+        handToolBar.setDisplayHomeAsUpEnabled(true,this);
         handToolBar.setRightButton(R.drawable.ic_action_save);
         handToolBar.setHisButton(R.drawable.ic_action_barcode);
         handToolBar.setChangeButton(R.drawable.ic_action_change);
@@ -156,26 +156,6 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
             return bitmap;
         }
         return null;
-    }
-
-    public String getDepartmentData(String string){
-        String a = string.substring(0,1);
-        String b = string.substring(1,2);
-        String c = string.substring(2,3);
-        String d = string.substring(3,4);
-        if (Integer.parseInt(a.trim()) == 0){
-            return "";
-        } else if (Integer.parseInt(b.trim()) == 0){
-            return NumberFormatUtil.formatInteger(Integer.parseInt(a.trim()))+"营";
-        } else if (Integer.parseInt(c.trim()) == 0){
-            return NumberFormatUtil.formatInteger(Integer.parseInt(a.trim()))+"营"+NumberFormatUtil.formatInteger(Integer.parseInt(b.trim()))+"连";
-        } else if (Integer.parseInt(d.trim()) == 0){
-            return NumberFormatUtil.formatInteger(Integer.parseInt(a.trim()))+"营"+NumberFormatUtil.formatInteger(Integer.parseInt(b.trim()))+"连"+
-                    NumberFormatUtil.formatInteger(Integer.parseInt(c.trim()))+"排";
-        } else {
-            return NumberFormatUtil.formatInteger(Integer.parseInt(a.trim()))+"营"+NumberFormatUtil.formatInteger(Integer.parseInt(b.trim()))+"连"+
-                    NumberFormatUtil.formatInteger(Integer.parseInt(c.trim()))+"排"+NumberFormatUtil.formatInteger(Integer.parseInt(d.trim()))+"班";
-        }
     }
 
     @Override
@@ -249,6 +229,8 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
         }else if (views.equals(PersonalHandToolbar.VIEWS.LEFT_BUTTON)){
             MyImageDialog dialog = new MyImageDialog(this,0,0,0,bitmap,R.style.AnimBottom);
             dialog.show();
+        }else if (views.equals(PersonalHandToolbar.VIEWS.BACK_BUTTON)){
+            this.onBackPressed();
         }else if (views.equals(PersonalHandToolbar.VIEWS.CHANGE_BUTTON)){
             final Dialog dialogx = new MyDialog(this, R.style.setttinguserpassworddialog);
             dialogx.setContentView(R.layout.setting_user_password_dialog);

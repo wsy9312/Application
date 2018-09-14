@@ -27,6 +27,7 @@ import com.example.hgtxxgl.application.bean.PeopleInfoBean;
 import com.example.hgtxxgl.application.bean.PeopleLeaveCountBean;
 import com.example.hgtxxgl.application.bean.TempPeopleLeaveCountBean;
 import com.example.hgtxxgl.application.bean.TempPeopleLeaveCurrentCountBean;
+import com.example.hgtxxgl.application.bean.TempPeopleLeaveCurveCount8Bean;
 import com.example.hgtxxgl.application.bean.TempPeopleLeaveOutCountBean;
 import com.example.hgtxxgl.application.bean.TempPeopleLeaveRestCountBean;
 import com.example.hgtxxgl.application.bean.TempPeopleLeaveSickCountBean;
@@ -703,7 +704,55 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onAfter(int id) throws Exception {
+                loadTempCurveChart8Num();
+            }
 
+            @Override
+            public void inProgress(float progress, long total, int id) throws Exception {
+
+            }
+        });
+    }
+
+    private void loadTempCurveChart8Num() {
+        PeopleLeaveCountBean.ApiGetCountBean countBean = new PeopleLeaveCountBean.ApiGetCountBean();
+        countBean.setTimeStamp(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getTimeStamp());
+        countBean.setAuthenticationNo(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo());
+        countBean.setTableName("PeopleInfo");
+        countBean.setIsAndroid("1");
+        countBean.setbClosed("0");
+        countBean.setOutStatus("1");
+        countBean.setRegisterTime("2018-08-01 00:00:00&&2018-09-19 00:00:00");
+        String json = new Gson().toJson(countBean);
+        String request = "Api_Get_Count " + json;
+        L.e(TAG+" loadTempCurveChart8Num",request);
+        HttpManager.getInstance().requestNewResultForm(tempIP, request, TempPeopleLeaveCurveCount8Bean.class, new HttpManager.ResultNewCallback<TempPeopleLeaveCurveCount8Bean>() {
+            @Override
+            public void onSuccess(String json, final TempPeopleLeaveCurveCount8Bean peopleLeaveCountBean) throws Exception {
+                L.e(TAG+" loadTempCurveChart8Num",json);
+                if (peopleLeaveCountBean != null || peopleLeaveCountBean.getApi_Get_Count().size()>0){
+                    ApplicationApp.setCount8Bean(peopleLeaveCountBean);
+                }
+            }
+
+            @Override
+            public void onError(String msg) throws Exception {
+
+            }
+
+            @Override
+            public void onResponse(String response) throws Exception {
+
+            }
+
+            @Override
+            public void onBefore(Request request, int id) throws Exception {
+
+            }
+
+            @Override
+            public void onAfter(int id) throws Exception {
+//                loadTempCurveChartNum();
             }
 
             @Override
