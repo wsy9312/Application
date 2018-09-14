@@ -62,7 +62,7 @@ public class PollingService extends Service {
 		tempIP = share.getString("tempIP", "IP address is empty");
 		builder1 = new NotificationCompat.Builder(this)
 				.setSmallIcon(R.mipmap.app_logo)
-				.setContentTitle("区域信息安防软件");
+				.setContentTitle("勤务服务");
 		Notification notification = builder1.build();
 		startForeground(110, notification);
 		initNotifiManager();

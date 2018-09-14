@@ -33,7 +33,7 @@
         android:gravity="center"
         android:maxLines="2"
         android:textColor="@color/gray"
-        android:text="区域信息安防管理系统"/>
+        android:text="勤务服务"/>
 
     <RelativeLayout
         android:paddingBottom="50dp"

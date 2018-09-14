@@ -35,7 +35,6 @@ public class UnitChartCurveFragment extends Fragment implements View.OnClickList
     protected float[][] points = new float[][]{{1,10}, {2,13}, {3,12}, {4,38}, {5,9},{6,52}, {7,14}, {8,37}, {9,29}, {10,31},
             {11,52}, {12,13}, {13,51}, {14,20}, {15,19},{16,20}, {17,54}, {18,7}, {19,19}, {20,41},
             {21,52}, {22,13}, {23,51}, {24,20}, {25,80},{26,20}, {27,54}, {28,71}, {29,19}, {30,41}, {31,100}};
-    protected float[][] points2 = new float[][]{{1,52}, {2,13}, {3,51}, {4,20}, {5,19},{6,20}, {7,54}, {8,7}, {9,19}, {10,41}};
     private ArrayList<ICurveData> mDataList = new ArrayList<>();
     private CurveData mCurveData = new CurveData();
     private ArrayList<PointF> mPointArrayList = new ArrayList<>();
