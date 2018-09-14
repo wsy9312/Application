@@ -53,7 +53,7 @@ public class ItemActivity extends AppCompatActivity {
                 checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_APPLY_CAR:
-                checkFragment(CarApplyFragment.newInstance(getIntent().getBundleExtra("data")));
+                checkFragment(new TempFragment());
                 break;
 
             case PageConfig.PAGE_LEAVE_APPROVE_CAR:
@@ -83,7 +83,7 @@ public class ItemActivity extends AppCompatActivity {
                 checkFragment(GoOutApplyFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_APPLY_PEOPLE_CAR:
-                checkFragment(CarApplyFragment.newInstance(getIntent().getBundleExtra("data")));
+                checkFragment(new TempFragment());
                 break;
             case PageConfig.PAGE_APPLY_PEOPLE_WU:
                 checkFragment(new TempFragment());
@@ -135,8 +135,7 @@ public class ItemActivity extends AppCompatActivity {
     public void onBackPressed() {
         int intExtra = getIntent().getIntExtra(PageConfig.PAGE_CODE, -1);
         if (intExtra == PageConfig.PAGE_APPLY_PEOPLE_SHI||intExtra == PageConfig.PAGE_APPLY_PEOPLE_BING||
-            intExtra == PageConfig.PAGE_APPLY_PEOPLE_XIU||intExtra == PageConfig.PAGE_APPLY_PEOPLE_WAI||
-            intExtra == PageConfig.PAGE_APPLY_PEOPLE_CAR||intExtra == PageConfig.PAGE_APPLY_PEOPLE_WU){
+            intExtra == PageConfig.PAGE_APPLY_PEOPLE_XIU||intExtra == PageConfig.PAGE_APPLY_PEOPLE_WAI){
             AlertDialog.Builder builder=new AlertDialog.Builder(this);
             builder.setMessage(R.string.make_sure_back_current_apply);
             builder.setPositiveButton(R.string.make_sure, new DialogInterface.OnClickListener() {

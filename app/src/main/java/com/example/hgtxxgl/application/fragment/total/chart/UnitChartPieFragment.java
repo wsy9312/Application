@@ -30,6 +30,7 @@ public class UnitChartPieFragment extends Fragment{
     protected int[] mColors = {0xFFCCFF00, 0xFF6495ED, 0xFFE32636, 0xFF800000, 0xFF808000, 0xFFFF8C69, 0xFF808080,
             0xFFE6B800, 0xFF7CFC00, 0xFF805677};
     private PeopleLeaveCountBean.ApiGetCountBean countBean;
+    private PeopleLeaveCountBean.ApiGetCountBean currentBean;
     private PeopleLeaveCountBean.ApiGetCountBean workBean;
     private PeopleLeaveCountBean.ApiGetCountBean restBean;
     private PeopleLeaveCountBean.ApiGetCountBean outBean;
@@ -46,6 +47,9 @@ public class UnitChartPieFragment extends Fragment{
     private TextView tvWorkRate;
     private TextView tvSickRate;
     private TextView tvRestRate;
+    private TextView tvTotalNum;
+    private TextView tvCurrentNum;
+    private TextView tvCurrentRate;
 
     protected float pxTodp(float value){
         DisplayMetrics metrics = new DisplayMetrics();
@@ -78,10 +82,15 @@ public class UnitChartPieFragment extends Fragment{
 
     private void inintView(View view) {
         countBean = ApplicationApp.getCountBean().getApi_Get_Count().get(0);
+        currentBean = ApplicationApp.getCurrentCountBean().getApi_Get_Count().get(0);
         workBean = ApplicationApp.getWorkCountBean().getApi_Get_Count().get(0);
         restBean = ApplicationApp.getRestCountBean().getApi_Get_Count().get(0);
         outBean = ApplicationApp.getOutCountBean().getApi_Get_Count().get(0);
         sickBean = ApplicationApp.getSickCountBean().getApi_Get_Count().get(0);
+
+        tvTotalNum = (TextView) view.findViewById(R.id.tv_zrs);
+        tvCurrentNum = (TextView) view.findViewById(R.id.tv_zwrs);
+        tvCurrentRate = (TextView) view.findViewById(R.id.tv_zwl);
 
         pieChartOut = (PieChart) view.findViewById(R.id.pieChart_out);
         pieChartRest = (PieChart) view.findViewById(R.id.pieChart_rest);
@@ -97,9 +106,14 @@ public class UnitChartPieFragment extends Fragment{
         tvWorkRate = (TextView) view.findViewById(R.id.tv_table_workrate);
         tvSickRate = (TextView) view.findViewById(R.id.tv_table_sickrate);
         tvRestRate = (TextView) view.findViewById(R.id.tv_table_restrate);
+
     }
 
     private void initTextData() {
+        tvTotalNum.setText("总人数:"+countBean.getCount());
+        tvCurrentNum.setText("在位人数:"+currentBean.getCount());
+        tvCurrentRate.setText("在位率:"+getRate(currentBean.getCount())+"%");
+
         tvOutNum.setText(outBean.getCount()+"人");
         tvWorkNum.setText(workBean.getCount()+"人");
         tvSickNum.setText(sickBean.getCount()+"人");

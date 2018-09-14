@@ -1,6 +1,5 @@
 package com.example.hgtxxgl.application.fragment.total.chart;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,21 +11,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.example.hgtxxgl.application.R;
-import com.example.hgtxxgl.application.bean.PeopleLeaveCountBean;
-import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
-import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
-import com.example.hgtxxgl.application.utils.hyutils.L;
-import com.example.hgtxxgl.application.view.ChartToolbar;
-import com.google.gson.Gson;
+import com.example.hgtxxgl.application.view.HandToolbar;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
-
-import okhttp3.Request;
-
-import static android.content.Context.MODE_PRIVATE;
-import static com.example.hgtxxgl.application.utils.hand.Fields.SAVE_IP;
 
 public class ChartFragment extends Fragment implements RadioGroup.OnCheckedChangeListener{
     RadioGroup group;
@@ -34,7 +22,7 @@ public class ChartFragment extends Fragment implements RadioGroup.OnCheckedChang
     private ArrayList<Fragment> fragments;
     private String tempIP;
     private String TAG = "ChartFragment";
-    private ChartToolbar chartToolbar;
+    private HandToolbar chartToolbar;
     private String currentNum;
     private String totalNum;
     private String rate;
@@ -42,7 +30,7 @@ public class ChartFragment extends Fragment implements RadioGroup.OnCheckedChang
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadTotalData();
+//        loadTotalData();
     }
 
     @Nullable
@@ -55,8 +43,8 @@ public class ChartFragment extends Fragment implements RadioGroup.OnCheckedChang
     }
 
     private void initView(View view) {
-        chartToolbar = (ChartToolbar) view.findViewById(R.id.chart_handtoolbar);
-        chartToolbar.setDisplayHomeAsUpEnabled(getActivity());
+        chartToolbar = (HandToolbar) view.findViewById(R.id.chart_handtoolbar);
+        chartToolbar.setDisplayHomeAsUpEnabled(true,getActivity());
         chartToolbar.setTitle("单位态势");
         chartToolbar.setTitleSize(18);
         fragments = new ArrayList<>();
@@ -114,123 +102,123 @@ public class ChartFragment extends Fragment implements RadioGroup.OnCheckedChang
         }
     }
 
-    public void loadTotalData(){
-        SharedPreferences share = getActivity().getSharedPreferences(SAVE_IP, MODE_PRIVATE);
-        tempIP = share.getString("tempIP", "IP address is empty");
-        PeopleLeaveCountBean.ApiGetCountBean countBean = new PeopleLeaveCountBean.ApiGetCountBean();
-        countBean.setTimeStamp(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getTimeStamp());
-        countBean.setAuthenticationNo(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo());
-        countBean.setTableName("PeopleInfo");
-        countBean.setIsAndroid("1");
-        countBean.setbClosed("0");
-        String json = new Gson().toJson(countBean);
-        String request = "Api_Get_Count " + json;
-        L.e(TAG,request);
-        HttpManager.getInstance().requestNewResultForm(tempIP, request, PeopleLeaveCountBean.class, new HttpManager.ResultNewCallback<PeopleLeaveCountBean>() {
-            @Override
-            public void onSuccess(String json, final PeopleLeaveCountBean peopleLeaveCountBean) throws Exception {
-                L.e(TAG,json);
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (peopleLeaveCountBean != null || peopleLeaveCountBean.getApi_Get_Count().size()>0){
-                            totalNum = peopleLeaveCountBean.getApi_Get_Count().get(0).getCount();
-                            chartToolbar.setTotalNum(totalNum);
-                        }
-                    }
-                });
-            }
+//    public void loadTotalData(){
+//        SharedPreferences share = getActivity().getSharedPreferences(SAVE_IP, MODE_PRIVATE);
+//        tempIP = share.getString("tempIP", "IP address is empty");
+//        PeopleLeaveCountBean.ApiGetCountBean countBean = new PeopleLeaveCountBean.ApiGetCountBean();
+//        countBean.setTimeStamp(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getTimeStamp());
+//        countBean.setAuthenticationNo(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo());
+//        countBean.setTableName("PeopleInfo");
+//        countBean.setIsAndroid("1");
+//        countBean.setbClosed("0");
+//        String json = new Gson().toJson(countBean);
+//        String request = "Api_Get_Count " + json;
+//        L.e(TAG,request);
+//        HttpManager.getInstance().requestNewResultForm(tempIP, request, PeopleLeaveCountBean.class, new HttpManager.ResultNewCallback<PeopleLeaveCountBean>() {
+//            @Override
+//            public void onSuccess(String json, final PeopleLeaveCountBean peopleLeaveCountBean) throws Exception {
+//                L.e(TAG,json);
+//                getActivity().runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        if (peopleLeaveCountBean != null || peopleLeaveCountBean.getApi_Get_Count().size()>0){
+//                            totalNum = peopleLeaveCountBean.getApi_Get_Count().get(0).getCount();
+//                            chartToolbar.setTotalNum(totalNum);
+//                        }
+//                    }
+//                });
+//            }
+//
+//            @Override
+//            public void onError(String msg) throws Exception {
+//
+//            }
+//
+//            @Override
+//            public void onResponse(String response) throws Exception {
+//
+//            }
+//
+//            @Override
+//            public void onBefore(Request request, int id) throws Exception {
+//
+//            }
+//
+//            @Override
+//            public void onAfter(int id) throws Exception {
+//                loadCurrentData();
+//            }
+//
+//            @Override
+//            public void inProgress(float progress, long total, int id) throws Exception {
+//
+//            }
+//        });
+//    }
 
-            @Override
-            public void onError(String msg) throws Exception {
-
-            }
-
-            @Override
-            public void onResponse(String response) throws Exception {
-
-            }
-
-            @Override
-            public void onBefore(Request request, int id) throws Exception {
-
-            }
-
-            @Override
-            public void onAfter(int id) throws Exception {
-                loadCurrentData();
-            }
-
-            @Override
-            public void inProgress(float progress, long total, int id) throws Exception {
-
-            }
-        });
-    }
-
-    private void loadCurrentData() {
-        PeopleLeaveCountBean.ApiGetCountBean countBean = new PeopleLeaveCountBean.ApiGetCountBean();
-        countBean.setTimeStamp(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getTimeStamp());
-        countBean.setAuthenticationNo(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo());
-        countBean.setTableName("PeopleInfo");
-        countBean.setIsAndroid("1");
-        countBean.setbClosed("0");
-        countBean.setOutStatus("0");
-        String json = new Gson().toJson(countBean);
-        String request = "Api_Get_Count " + json;
-        L.e(TAG,request);
-        HttpManager.getInstance().requestNewResultForm(tempIP, request, PeopleLeaveCountBean.class, new HttpManager.ResultNewCallback<PeopleLeaveCountBean>() {
-            @Override
-            public void onSuccess(String json, final PeopleLeaveCountBean peopleLeaveCountBean) throws Exception {
-                L.e(TAG,json);
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (peopleLeaveCountBean != null || peopleLeaveCountBean.getApi_Get_Count().size()>0) {
-                            currentNum = peopleLeaveCountBean.getApi_Get_Count().get(0).getCount();
-                            chartToolbar.setCurrentNum(currentNum);
-                        }
-                    }
-                });
-            }
-
-            @Override
-            public void onError(String msg) throws Exception {
-
-            }
-
-            @Override
-            public void onResponse(String response) throws Exception {
-
-            }
-
-            @Override
-            public void onBefore(Request request, int id) throws Exception {
-
-            }
-
-            @Override
-            public void onAfter(int id) throws Exception {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        int num1 = Integer.parseInt(totalNum);
-                        int num2 = Integer.parseInt(currentNum);
-                        // 创建一个数值格式化对象
-                        NumberFormat numberFormat = NumberFormat.getInstance();
-                        // 设置精确到小数点后2位
-                        numberFormat.setMaximumFractionDigits(2);
-                        rate = numberFormat.format((float) num2 / (float) num1 * 100);
-                        chartToolbar.setCurrentRate(rate);
-                    }
-                });
-            }
-
-            @Override
-            public void inProgress(float progress, long total, int id) throws Exception {
-
-            }
-        });
-    }
+//    private void loadCurrentData() {
+//        PeopleLeaveCountBean.ApiGetCountBean countBean = new PeopleLeaveCountBean.ApiGetCountBean();
+//        countBean.setTimeStamp(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getTimeStamp());
+//        countBean.setAuthenticationNo(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo());
+//        countBean.setTableName("PeopleInfo");
+//        countBean.setIsAndroid("1");
+//        countBean.setbClosed("0");
+//        countBean.setOutStatus("0");
+//        String json = new Gson().toJson(countBean);
+//        String request = "Api_Get_Count " + json;
+//        L.e(TAG,request);
+//        HttpManager.getInstance().requestNewResultForm(tempIP, request, PeopleLeaveCountBean.class, new HttpManager.ResultNewCallback<PeopleLeaveCountBean>() {
+//            @Override
+//            public void onSuccess(String json, final PeopleLeaveCountBean peopleLeaveCountBean) throws Exception {
+//                L.e(TAG,json);
+//                getActivity().runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        if (peopleLeaveCountBean != null || peopleLeaveCountBean.getApi_Get_Count().size()>0) {
+//                            currentNum = peopleLeaveCountBean.getApi_Get_Count().get(0).getCount();
+//                            chartToolbar.setCurrentNum(currentNum);
+//                        }
+//                    }
+//                });
+//            }
+//
+//            @Override
+//            public void onError(String msg) throws Exception {
+//
+//            }
+//
+//            @Override
+//            public void onResponse(String response) throws Exception {
+//
+//            }
+//
+//            @Override
+//            public void onBefore(Request request, int id) throws Exception {
+//
+//            }
+//
+//            @Override
+//            public void onAfter(int id) throws Exception {
+//                getActivity().runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        int num1 = Integer.parseInt(totalNum);
+//                        int num2 = Integer.parseInt(currentNum);
+//                        // 创建一个数值格式化对象
+//                        NumberFormat numberFormat = NumberFormat.getInstance();
+//                        // 设置精确到小数点后2位
+//                        numberFormat.setMaximumFractionDigits(2);
+//                        rate = numberFormat.format((float) num2 / (float) num1 * 100);
+//                        chartToolbar.setCurrentRate(rate);
+//                    }
+//                });
+//            }
+//
+//            @Override
+//            public void inProgress(float progress, long total, int id) throws Exception {
+//
+//            }
+//        });
+//    }
 
 }

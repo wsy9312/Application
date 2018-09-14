@@ -59,36 +59,6 @@ public class PeopleLeaveDetailBean {
         private String ActualInTime;
         private String ActualOutTime;
         private String ApproverName;
-        private String ApproverNo;
-        private String Content;
-        private String Count;
-        private String CurrentApproverName;
-        private String CurrentApproverNo;
-        private String Destination;
-        private String Enclosure;
-        private String HisAnnotation;
-        private String InTime;
-        private String JourneyDays;
-        private String ModifyTime;
-        private String Name;
-        private String No;
-        private String NoIndex;
-        private String OutStatus;
-        private String OutTime;
-        private String OutType;
-        private String Process;
-        private String RegisterTime;
-        private String Result;
-        private String VacationAddr;
-        private String VacationDays;
-        private String bCancel;
-        private String bFillup;
-        private String bMessage;
-        private String AuthenticationNo;
-        private String IsAndroid;
-        private String CurResult;
-        private String BeginNum;
-        private String EndNum;
 
         @Override
         public String toString() {
@@ -132,6 +102,37 @@ public class PeopleLeaveDetailBean {
                     ", TimeStamp='" + TimeStamp + '\'' +
                     '}';
         }
+
+        private String ApproverNo;
+        private String Content;
+        private String Count;
+        private String CurrentApproverName;
+        private String CurrentApproverNo;
+        private String Destination;
+        private String Enclosure;
+        private String HisAnnotation;
+        private String InTime;
+        private String JourneyDays;
+        private String ModifyTime;
+        private String Name;
+        private String No;
+        private String NoIndex;
+        private String OutStatus;
+        private String OutTime;
+        private String OutType;
+        private String Process;
+        private String RegisterTime;
+        private String Result;
+        private String VacationAddr;
+        private String VacationDays;
+        private String bCancel;
+        private String bFillup;
+        private String bMessage;
+        private String AuthenticationNo;
+        private String IsAndroid;
+        private String CurResult;
+        private String BeginNum;
+        private String EndNum;
 
         private String Unit;
         private String Department;

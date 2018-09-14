@@ -11,6 +11,7 @@ import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.bean.LoginInfoBean;
 import com.example.hgtxxgl.application.bean.PeopleInfoBean;
 import com.example.hgtxxgl.application.bean.TempPeopleLeaveCountBean;
+import com.example.hgtxxgl.application.bean.TempPeopleLeaveCurrentCountBean;
 import com.example.hgtxxgl.application.bean.TempPeopleLeaveOutCountBean;
 import com.example.hgtxxgl.application.bean.TempPeopleLeaveRestCountBean;
 import com.example.hgtxxgl.application.bean.TempPeopleLeaveSickCountBean;
@@ -33,6 +34,7 @@ public class ApplicationApp extends Application {
     private static LoginInfoBean loginInfoBean;
 
     private static TempPeopleLeaveCountBean countBean;
+    private static TempPeopleLeaveCurrentCountBean currentCountBean;
     private static TempPeopleLeaveWorkCountBean workCountBean;
     private static TempPeopleLeaveSickCountBean sickCountBean;
     private static TempPeopleLeaveRestCountBean restCountBean;
@@ -103,6 +105,14 @@ public class ApplicationApp extends Application {
 
     public static void setCountBean(TempPeopleLeaveCountBean countBean) {
         ApplicationApp.countBean = countBean;
+    }
+
+    public static TempPeopleLeaveCurrentCountBean getCurrentCountBean() {
+        return currentCountBean;
+    }
+
+    public static void setCurrentCountBean(TempPeopleLeaveCurrentCountBean currentCountBean) {
+        ApplicationApp.currentCountBean = currentCountBean;
     }
 
     public static TempPeopleLeaveWorkCountBean getWorkCountBean() {

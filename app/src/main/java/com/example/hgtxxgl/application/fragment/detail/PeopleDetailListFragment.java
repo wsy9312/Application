@@ -176,11 +176,13 @@ public class PeopleDetailListFragment extends Fragment implements SimpleListView
                     if (beginNum == 1 && endNum == 10){
                         entityList.clear();
                     }
+                    L.e(TAG+"onSuccess:",peopleLeaveDetailBean.getApi_Get_MyApplyForPeo().size()+peopleLeaveDetailBean.getApi_Get_MyApplyForPeo().get(0).toString());
                     hasMore = true;
                     entityList.addAll(peopleLeaveDetailBean.getApi_Get_MyApplyForPeo());
                     adapter.notifyDataSetChanged();
                 } else {
                     hasMore = false;
+                    ivEmpty.setVisibility(View.VISIBLE);
                 }
                 pb.setVisibility(View.GONE);
                 lv.completeRefresh();
