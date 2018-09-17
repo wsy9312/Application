@@ -16,8 +16,8 @@ import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.ItemActivity;
-import com.example.hgtxxgl.application.bean.LoginInfoBean;
-import com.example.hgtxxgl.application.bean.PeopleApproveDelayBean;
+import com.example.hgtxxgl.application.bean.login.LoginInfoBean;
+import com.example.hgtxxgl.application.bean.people.PeopleApproveDelayBean;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
@@ -200,7 +200,7 @@ public class PeopleApproveDelayListFragment extends Fragment implements AdapterV
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (lv.getCurrentState() == 2) return;
         position -= 1;
-        checkDetail(position, PageConfig.PAGE_LEAVE_APPROVE_PEOPLE);
+        checkDetail(position, PageConfig.PAGE_COMMISSION_PEOPLE_DETAIL);
     }
 
     private void checkDetail(int position, int pageApplyBleave) {

@@ -1,21 +1,23 @@
-package com.example.hgtxxgl.application.bean;
+package com.example.hgtxxgl.application.bean.car;
+
+//Api_Apply_CarLeave
+//申请车辆外出
 
 import java.util.List;
-//Api_Get_MyApplyForPeo
-//得到我的申请(人员)
-public class PeopleLeaveDetailBean {
 
-    private List<ApiGetMyApplyForPeoBean> Api_Get_MyApplyForPeo;
+public class CarApplyBean {
 
-    public List<ApiGetMyApplyForPeoBean> getApi_Get_MyApplyForPeo() {
-        return Api_Get_MyApplyForPeo;
+    private List<ApiApplyCarLeaveBean> Api_Apply_CarLeave;
+
+    public List<ApiApplyCarLeaveBean> getApi_Apply_CarLeave() {
+        return Api_Apply_CarLeave;
     }
 
-    public void setApi_Get_MyApplyForPeo(List<ApiGetMyApplyForPeoBean> Api_Get_MyApplyForPeo) {
-        this.Api_Get_MyApplyForPeo = Api_Get_MyApplyForPeo;
+    public void setApi_Apply_CarLeave(List<ApiApplyCarLeaveBean> Api_Apply_CarLeave) {
+        this.Api_Apply_CarLeave = Api_Apply_CarLeave;
     }
 
-    public static class ApiGetMyApplyForPeoBean {
+    public static class ApiApplyCarLeaveBean {
         /**
          * ActualInTime :
          * ActualOutTime :
@@ -26,10 +28,8 @@ public class PeopleLeaveDetailBean {
          * CurrentApproverName : 单位B领导2;单位B负责人1;
          * CurrentApproverNo : 1FC7C8E0;D0350C13;
          * Destination : 123
-         * Enclosure :
          * HisAnnotation : ;;
          * InTime : 2018-09-10 09:12:10
-         * JourneyDays : -9999
          * ModifyTime : 2018-09-10 09:22:04
          * Name : 部门B员工1
          * No : 54969542
@@ -40,8 +40,6 @@ public class PeopleLeaveDetailBean {
          * Process : 2
          * RegisterTime : 2018-09-10 09:12:39
          * Result : 0
-         * VacationAddr :
-         * VacationDays : -9999
          * bCancel : 0
          * bFillup : 0
          * bMessage : 0
@@ -54,65 +52,24 @@ public class PeopleLeaveDetailBean {
          * Department : 0
          * Curannotation : 0
          * TimeStamp : 0
+         * CarNo : 0
+         * DriverNo : 0
+         * LeaderNo : 0
+         * DriverName : 0
+         * LeaderName : 0
          */
 
         private String ActualInTime;
         private String ActualOutTime;
         private String ApproverName;
-
-        @Override
-        public String toString() {
-            return "ApiGetMyApplyForPeoBean{" +
-                    "ActualInTime='" + ActualInTime + '\'' +
-                    ", ActualOutTime='" + ActualOutTime + '\'' +
-                    ", ApproverName='" + ApproverName + '\'' +
-                    ", ApproverNo='" + ApproverNo + '\'' +
-                    ", Content='" + Content + '\'' +
-                    ", Count='" + Count + '\'' +
-                    ", CurrentApproverName='" + CurrentApproverName + '\'' +
-                    ", CurrentApproverNo='" + CurrentApproverNo + '\'' +
-                    ", Destination='" + Destination + '\'' +
-                    ", Enclosure='" + Enclosure + '\'' +
-                    ", HisAnnotation='" + HisAnnotation + '\'' +
-                    ", InTime='" + InTime + '\'' +
-                    ", JourneyDays='" + JourneyDays + '\'' +
-                    ", ModifyTime='" + ModifyTime + '\'' +
-                    ", Name='" + Name + '\'' +
-                    ", No='" + No + '\'' +
-                    ", NoIndex='" + NoIndex + '\'' +
-                    ", OutStatus='" + OutStatus + '\'' +
-                    ", OutTime='" + OutTime + '\'' +
-                    ", OutType='" + OutType + '\'' +
-                    ", Process='" + Process + '\'' +
-                    ", RegisterTime='" + RegisterTime + '\'' +
-                    ", Result='" + Result + '\'' +
-                    ", VacationAddr='" + VacationAddr + '\'' +
-                    ", VacationDays='" + VacationDays + '\'' +
-                    ", bCancel='" + bCancel + '\'' +
-                    ", bFillup='" + bFillup + '\'' +
-                    ", bMessage='" + bMessage + '\'' +
-                    ", AuthenticationNo='" + AuthenticationNo + '\'' +
-                    ", IsAndroid='" + IsAndroid + '\'' +
-                    ", CurResult='" + CurResult + '\'' +
-                    ", BeginNum='" + BeginNum + '\'' +
-                    ", EndNum='" + EndNum + '\'' +
-                    ", Unit='" + Unit + '\'' +
-                    ", Department='" + Department + '\'' +
-                    ", Curannotation='" + Curannotation + '\'' +
-                    ", TimeStamp='" + TimeStamp + '\'' +
-                    '}';
-        }
-
         private String ApproverNo;
         private String Content;
         private String Count;
         private String CurrentApproverName;
         private String CurrentApproverNo;
         private String Destination;
-        private String Enclosure;
         private String HisAnnotation;
         private String InTime;
-        private String JourneyDays;
         private String ModifyTime;
         private String Name;
         private String No;
@@ -123,8 +80,6 @@ public class PeopleLeaveDetailBean {
         private String Process;
         private String RegisterTime;
         private String Result;
-        private String VacationAddr;
-        private String VacationDays;
         private String bCancel;
         private String bFillup;
         private String bMessage;
@@ -133,11 +88,15 @@ public class PeopleLeaveDetailBean {
         private String CurResult;
         private String BeginNum;
         private String EndNum;
-
         private String Unit;
         private String Department;
         private String Curannotation;
         private String TimeStamp;
+        private String CarNo;
+        private String DriverNo;
+        private String LeaderNo;
+        private String DriverName;
+        private String LeaderName;
 
         public String getActualInTime() {
             return ActualInTime;
@@ -211,14 +170,6 @@ public class PeopleLeaveDetailBean {
             this.Destination = Destination;
         }
 
-        public String getEnclosure() {
-            return Enclosure;
-        }
-
-        public void setEnclosure(String Enclosure) {
-            this.Enclosure = Enclosure;
-        }
-
         public String getHisAnnotation() {
             return HisAnnotation;
         }
@@ -233,14 +184,6 @@ public class PeopleLeaveDetailBean {
 
         public void setInTime(String InTime) {
             this.InTime = InTime;
-        }
-
-        public String getJourneyDays() {
-            return JourneyDays;
-        }
-
-        public void setJourneyDays(String JourneyDays) {
-            this.JourneyDays = JourneyDays;
         }
 
         public String getModifyTime() {
@@ -321,22 +264,6 @@ public class PeopleLeaveDetailBean {
 
         public void setResult(String Result) {
             this.Result = Result;
-        }
-
-        public String getVacationAddr() {
-            return VacationAddr;
-        }
-
-        public void setVacationAddr(String VacationAddr) {
-            this.VacationAddr = VacationAddr;
-        }
-
-        public String getVacationDays() {
-            return VacationDays;
-        }
-
-        public void setVacationDays(String VacationDays) {
-            this.VacationDays = VacationDays;
         }
 
         public String getBCancel() {
@@ -433,6 +360,46 @@ public class PeopleLeaveDetailBean {
 
         public void setTimeStamp(String TimeStamp) {
             this.TimeStamp = TimeStamp;
+        }
+
+        public String getCarNo() {
+            return CarNo;
+        }
+
+        public void setCarNo(String CarNo) {
+            this.CarNo = CarNo;
+        }
+
+        public String getDriverNo() {
+            return DriverNo;
+        }
+
+        public void setDriverNo(String DriverNo) {
+            this.DriverNo = DriverNo;
+        }
+
+        public String getLeaderNo() {
+            return LeaderNo;
+        }
+
+        public void setLeaderNo(String LeaderNo) {
+            this.LeaderNo = LeaderNo;
+        }
+
+        public String getDriverName() {
+            return DriverName;
+        }
+
+        public void setDriverName(String DriverName) {
+            this.DriverName = DriverName;
+        }
+
+        public String getLeaderName() {
+            return LeaderName;
+        }
+
+        public void setLeaderName(String LeaderName) {
+            this.LeaderName = LeaderName;
         }
     }
 }

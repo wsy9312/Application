@@ -23,7 +23,7 @@ import android.widget.TextView;
 
 import com.example.hgtxxgl.application.QrCode.sample.ScannerActivity;
 import com.example.hgtxxgl.application.R;
-import com.example.hgtxxgl.application.bean.PeopleInfoBean;
+import com.example.hgtxxgl.application.bean.login.PeopleInfoBean;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
 import com.example.hgtxxgl.application.utils.SysExitUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;

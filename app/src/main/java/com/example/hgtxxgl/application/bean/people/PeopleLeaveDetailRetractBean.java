@@ -1,23 +1,23 @@
-package com.example.hgtxxgl.application.bean;
-
-//Api_Apply_CarLeave
-//申请车辆外出
+package com.example.hgtxxgl.application.bean.people;
 
 import java.util.List;
 
-public class CarApplyBean {
+//Api_Retract_PeopleLeave
+//人员外出撤销申请
 
-    private List<ApiApplyCarLeaveBean> Api_Apply_CarLeave;
+public class PeopleLeaveDetailRetractBean {
 
-    public List<ApiApplyCarLeaveBean> getApi_Apply_CarLeave() {
-        return Api_Apply_CarLeave;
+    private List<ApiRetractPeopleLeaveBean> Api_Retract_PeopleLeave;
+
+    public List<ApiRetractPeopleLeaveBean> getApi_Retract_PeopleLeave() {
+        return Api_Retract_PeopleLeave;
     }
 
-    public void setApi_Apply_CarLeave(List<ApiApplyCarLeaveBean> Api_Apply_CarLeave) {
-        this.Api_Apply_CarLeave = Api_Apply_CarLeave;
+    public void setApi_Retract_PeopleLeave(List<ApiRetractPeopleLeaveBean> Api_Retract_PeopleLeave) {
+        this.Api_Retract_PeopleLeave = Api_Retract_PeopleLeave;
     }
 
-    public static class ApiApplyCarLeaveBean {
+    public static class ApiRetractPeopleLeaveBean {
         /**
          * ActualInTime :
          * ActualOutTime :
@@ -28,8 +28,10 @@ public class CarApplyBean {
          * CurrentApproverName : 单位B领导2;单位B负责人1;
          * CurrentApproverNo : 1FC7C8E0;D0350C13;
          * Destination : 123
+         * Enclosure :
          * HisAnnotation : ;;
          * InTime : 2018-09-10 09:12:10
+         * JourneyDays : -9999
          * ModifyTime : 2018-09-10 09:22:04
          * Name : 部门B员工1
          * No : 54969542
@@ -40,6 +42,8 @@ public class CarApplyBean {
          * Process : 2
          * RegisterTime : 2018-09-10 09:12:39
          * Result : 0
+         * VacationAddr :
+         * VacationDays : -9999
          * bCancel : 0
          * bFillup : 0
          * bMessage : 0
@@ -52,11 +56,6 @@ public class CarApplyBean {
          * Department : 0
          * Curannotation : 0
          * TimeStamp : 0
-         * CarNo : 0
-         * DriverNo : 0
-         * LeaderNo : 0
-         * DriverName : 0
-         * LeaderName : 0
          */
 
         private String ActualInTime;
@@ -68,8 +67,10 @@ public class CarApplyBean {
         private String CurrentApproverName;
         private String CurrentApproverNo;
         private String Destination;
+        private String Enclosure;
         private String HisAnnotation;
         private String InTime;
+        private String JourneyDays;
         private String ModifyTime;
         private String Name;
         private String No;
@@ -80,6 +81,8 @@ public class CarApplyBean {
         private String Process;
         private String RegisterTime;
         private String Result;
+        private String VacationAddr;
+        private String VacationDays;
         private String bCancel;
         private String bFillup;
         private String bMessage;
@@ -92,11 +95,6 @@ public class CarApplyBean {
         private String Department;
         private String Curannotation;
         private String TimeStamp;
-        private String CarNo;
-        private String DriverNo;
-        private String LeaderNo;
-        private String DriverName;
-        private String LeaderName;
 
         public String getActualInTime() {
             return ActualInTime;
@@ -170,6 +168,14 @@ public class CarApplyBean {
             this.Destination = Destination;
         }
 
+        public String getEnclosure() {
+            return Enclosure;
+        }
+
+        public void setEnclosure(String Enclosure) {
+            this.Enclosure = Enclosure;
+        }
+
         public String getHisAnnotation() {
             return HisAnnotation;
         }
@@ -184,6 +190,14 @@ public class CarApplyBean {
 
         public void setInTime(String InTime) {
             this.InTime = InTime;
+        }
+
+        public String getJourneyDays() {
+            return JourneyDays;
+        }
+
+        public void setJourneyDays(String JourneyDays) {
+            this.JourneyDays = JourneyDays;
         }
 
         public String getModifyTime() {
@@ -264,6 +278,22 @@ public class CarApplyBean {
 
         public void setResult(String Result) {
             this.Result = Result;
+        }
+
+        public String getVacationAddr() {
+            return VacationAddr;
+        }
+
+        public void setVacationAddr(String VacationAddr) {
+            this.VacationAddr = VacationAddr;
+        }
+
+        public String getVacationDays() {
+            return VacationDays;
+        }
+
+        public void setVacationDays(String VacationDays) {
+            this.VacationDays = VacationDays;
         }
 
         public String getBCancel() {
@@ -360,46 +390,6 @@ public class CarApplyBean {
 
         public void setTimeStamp(String TimeStamp) {
             this.TimeStamp = TimeStamp;
-        }
-
-        public String getCarNo() {
-            return CarNo;
-        }
-
-        public void setCarNo(String CarNo) {
-            this.CarNo = CarNo;
-        }
-
-        public String getDriverNo() {
-            return DriverNo;
-        }
-
-        public void setDriverNo(String DriverNo) {
-            this.DriverNo = DriverNo;
-        }
-
-        public String getLeaderNo() {
-            return LeaderNo;
-        }
-
-        public void setLeaderNo(String LeaderNo) {
-            this.LeaderNo = LeaderNo;
-        }
-
-        public String getDriverName() {
-            return DriverName;
-        }
-
-        public void setDriverName(String DriverName) {
-            this.DriverName = DriverName;
-        }
-
-        public String getLeaderName() {
-            return LeaderName;
-        }
-
-        public void setLeaderName(String LeaderName) {
-            this.LeaderName = LeaderName;
         }
     }
 }

@@ -195,7 +195,7 @@ public class MyLaunchPeopleFragment /*extends Fragment implements SimpleListView
 //    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //        if (lv.getCurrentState() == 2) return;
 //        position -= 1;
-//        checkDetail(position, PageConfig.PAGE_LEAVE_DETAIL_PEOPLE);
+//        checkDetail(position, PageConfig.PAGE_LAUNCH_PEOPLE_DETAIL);
 //    }
 //
 //    private void checkDetail(int position, int pageApplyBleave) {

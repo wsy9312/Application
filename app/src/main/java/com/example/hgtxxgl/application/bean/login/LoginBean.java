@@ -1,5 +1,5 @@
-package com.example.hgtxxgl.application.bean;
-
+package com.example.hgtxxgl.application.bean.login;
+//request 登录请求
 public class LoginBean {
 
     /**

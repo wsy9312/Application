@@ -19,8 +19,8 @@ public class TotalFragment extends Fragment {
 
     final int[] page = new int[]{PageConfig.PAGE_APPLY_PEOPLE_SHI,PageConfig.PAGE_APPLY_PEOPLE_BING,
             PageConfig.PAGE_APPLY_PEOPLE_XIU,PageConfig.PAGE_APPLY_PEOPLE_WAI,
-            PageConfig.PAGE_APPLY_PEOPLE_CAR,PageConfig.PAGE_APPLY_PEOPLE_WU,
-            PageConfig.PAGE_PEOPLE_APPROVE,PageConfig.PAGE_PEOPLE_DETAIL,
+            PageConfig.PAGE_APPLY_CAR,PageConfig.PAGE_APPLY_PEOPLE_WU,
+            PageConfig.PAGE_COMMISSION_PEOPLE_TOTAL,PageConfig.PAGE_LAUNCH_PEOPLE_LIST,
             PageConfig.PAGE_CAR_APPROVE,PageConfig.PAGE_CAR_DETAIL,
             PageConfig.PAGE_XINGZHENG,PageConfig.PAGE_YIJIAN,PageConfig.PAGE_CHART};
 

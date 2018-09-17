@@ -8,7 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 
-import com.example.hgtxxgl.application.bean.PeopleApplyBean;
+import com.example.hgtxxgl.application.bean.people.PeopleApplyBean;
 import com.example.hgtxxgl.application.rest.CommonFragment;
 import com.example.hgtxxgl.application.rest.HandInputGroup;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;

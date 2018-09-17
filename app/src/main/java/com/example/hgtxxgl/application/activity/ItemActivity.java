@@ -49,24 +49,13 @@ public class ItemActivity extends AppCompatActivity {
 
     void checkFragmentForLoading(int pageCode) {
         switch (pageCode) {
-            case PageConfig.PAGE_APPLY_PEOPLE_OUT:
-                checkFragment(RestApplyFragment.newInstance(getIntent().getBundleExtra("data")));
-                break;
-            case PageConfig.PAGE_APPLY_CAR:
-                checkFragment(new TempFragment());
-                break;
 
             case PageConfig.PAGE_LEAVE_APPROVE_CAR:
                 checkFragment(RestApproveCarFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
-            case PageConfig.PAGE_LEAVE_APPROVE_PEOPLE:
-                checkFragment(PeopleApproveDetailFragment.newInstance(getIntent().getBundleExtra("data")));
-                break;
+
             case PageConfig.PAGE_LEAVE_DETAIL_CAR:
                 checkFragment(RestDetailCarFragment.newInstance(getIntent().getBundleExtra("data")));
-                break;
-            case PageConfig.PAGE_LEAVE_DETAIL_PEOPLE:
-                checkFragment(PeopleDetailFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
 
             //810
@@ -82,23 +71,29 @@ public class ItemActivity extends AppCompatActivity {
             case PageConfig.PAGE_APPLY_PEOPLE_WAI:
                 checkFragment(GoOutApplyFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
-            case PageConfig.PAGE_APPLY_PEOPLE_CAR:
-                checkFragment(new TempFragment());
+            case PageConfig.PAGE_APPLY_CAR:
+                checkFragment(CarApplyFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_APPLY_PEOPLE_WU:
                 checkFragment(new TempFragment());
                 break;
-            case PageConfig.PAGE_PEOPLE_APPROVE:
+            case PageConfig.PAGE_COMMISSION_PEOPLE_TOTAL:
                 checkFragment(PeopleApproveListFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
-            case PageConfig.PAGE_PEOPLE_APPROVE_DELAY:
+            case PageConfig.PAGE_COMMISSION_PEOPLE_DELAY_LIST:
                 checkFragment(PeopleApproveDelayListFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
-            case PageConfig.PAGE_PEOPLE_APPROVE_FINISH:
+            case PageConfig.PAGE_COMMISSION_PEOPLE_FINISH_LIST:
                 checkFragment(PeopleApproveFinishListFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
-            case PageConfig.PAGE_PEOPLE_DETAIL:
+            case PageConfig.PAGE_COMMISSION_PEOPLE_DETAIL:
+                checkFragment(PeopleApproveDetailFragment.newInstance(getIntent().getBundleExtra("data")));
+                break;
+            case PageConfig.PAGE_LAUNCH_PEOPLE_LIST:
                 checkFragment(PeopleDetailListFragment.newInstance(getIntent().getBundleExtra("data")));
+                break;
+            case PageConfig.PAGE_LAUNCH_PEOPLE_DETAIL:
+                checkFragment(PeopleDetailFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
             case PageConfig.PAGE_CAR_APPROVE:
                 checkFragment(new TempFragment());

@@ -1,6 +1,11 @@
-package com.example.hgtxxgl.application.bean;
+package com.example.hgtxxgl.application.bean.temp;
+
+import com.example.hgtxxgl.application.bean.people.PeopleLeaveCountBean;
 
 import java.util.List;
+
+//Api_Get_Count
+//临时,得到当前总人数
 
 public class TempPeopleLeaveCountBean {
     private List<PeopleLeaveCountBean.ApiGetCountBean> Api_Get_Count;

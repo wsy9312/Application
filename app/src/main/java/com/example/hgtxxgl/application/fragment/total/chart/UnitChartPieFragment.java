@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
-import com.example.hgtxxgl.application.bean.PeopleLeaveCountBean;
+import com.example.hgtxxgl.application.bean.people.PeopleLeaveCountBean;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.idtk.smallchart.chart.PieChart;

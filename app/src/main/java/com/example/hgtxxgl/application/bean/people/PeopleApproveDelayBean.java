@@ -1,23 +1,23 @@
-package com.example.hgtxxgl.application.bean;
+package com.example.hgtxxgl.application.bean.people;
 
-//Api_Appove_PeopleLeave
-//审批人员外出
+//Api_Get_MyApproveForPeo
+//得到我的审批(人员)(需要我审批的)
 
 import java.util.List;
 
-public class PeopleApproveBean {
+public class PeopleApproveDelayBean {
 
-    private List<ApiAppovePeopleLeaveBean> Api_Appove_PeopleLeave;
+    private List<ApiGetMyApproveForPeoBean> Api_Get_MyApproveForPeo;
 
-    public List<ApiAppovePeopleLeaveBean> getApi_Appove_PeopleLeave() {
-        return Api_Appove_PeopleLeave;
+    public List<ApiGetMyApproveForPeoBean> getApi_Get_MyApproveForPeo() {
+        return Api_Get_MyApproveForPeo;
     }
 
-    public void setApi_Appove_PeopleLeave(List<ApiAppovePeopleLeaveBean> Api_Appove_PeopleLeave) {
-        this.Api_Appove_PeopleLeave = Api_Appove_PeopleLeave;
+    public void setApi_Get_MyApproveForPeo(List<ApiGetMyApproveForPeoBean> Api_Get_MyApproveForPeo) {
+        this.Api_Get_MyApproveForPeo = Api_Get_MyApproveForPeo;
     }
 
-    public static class ApiAppovePeopleLeaveBean {
+    public static class ApiGetMyApproveForPeoBean {
         /**
          * ActualInTime :
          * ActualOutTime :
@@ -55,7 +55,6 @@ public class PeopleApproveBean {
          * Unit : 0
          * Department : 0
          * Curannotation : 0
-         * TimeStamp : 0
          */
 
         private String ActualInTime;
@@ -95,6 +94,14 @@ public class PeopleApproveBean {
         private String Department;
         private String Curannotation;
         private String TimeStamp;
+
+        public String getTimeStamp() {
+            return TimeStamp;
+        }
+
+        public void setTimeStamp(String timeStamp) {
+            TimeStamp = timeStamp;
+        }
 
         public String getActualInTime() {
             return ActualInTime;
@@ -382,14 +389,6 @@ public class PeopleApproveBean {
 
         public void setCurannotation(String Curannotation) {
             this.Curannotation = Curannotation;
-        }
-
-        public String getTimeStamp() {
-            return TimeStamp;
-        }
-
-        public void setTimeStamp(String TimeStamp) {
-            this.TimeStamp = TimeStamp;
         }
     }
 }

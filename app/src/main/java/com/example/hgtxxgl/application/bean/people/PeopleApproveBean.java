@@ -1,23 +1,23 @@
-package com.example.hgtxxgl.application.bean;
+package com.example.hgtxxgl.application.bean.people;
 
-//Api_Edit_CheckBackForPeo
-//确认归来(销假) 人员
+//Api_Appove_PeopleLeave
+//审批人员请假
 
 import java.util.List;
 
-public class PeopleCheckBackBean {
+public class PeopleApproveBean {
 
-    private List<ApiEditCheckBackForPeoBean> Api_Edit_CheckBackForPeo;
+    private List<ApiAppovePeopleLeaveBean> Api_Appove_PeopleLeave;
 
-    public List<ApiEditCheckBackForPeoBean> getApi_Edit_CheckBackForPeo() {
-        return Api_Edit_CheckBackForPeo;
+    public List<ApiAppovePeopleLeaveBean> getApi_Appove_PeopleLeave() {
+        return Api_Appove_PeopleLeave;
     }
 
-    public void setApi_Edit_CheckBackForPeo(List<ApiEditCheckBackForPeoBean> Api_Edit_CheckBackForPeo) {
-        this.Api_Edit_CheckBackForPeo = Api_Edit_CheckBackForPeo;
+    public void setApi_Appove_PeopleLeave(List<ApiAppovePeopleLeaveBean> Api_Appove_PeopleLeave) {
+        this.Api_Appove_PeopleLeave = Api_Appove_PeopleLeave;
     }
 
-    public static class ApiEditCheckBackForPeoBean {
+    public static class ApiAppovePeopleLeaveBean {
         /**
          * ActualInTime :
          * ActualOutTime :

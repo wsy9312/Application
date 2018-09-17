@@ -15,7 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
-import com.example.hgtxxgl.application.bean.LoginInfoBean;
+import com.example.hgtxxgl.application.bean.login.LoginInfoBean;
 import com.example.hgtxxgl.application.entity.NewsInfoEntity;
 import com.example.hgtxxgl.application.utils.SysExitUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;

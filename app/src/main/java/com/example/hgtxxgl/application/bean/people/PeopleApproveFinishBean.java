@@ -1,24 +1,33 @@
-package com.example.hgtxxgl.application.bean;
-
-//Api_Edit_CheckOutForPeo
-//确认离开(请假) 人员
+package com.example.hgtxxgl.application.bean.people;
 
 import java.util.List;
 
-public class PeopleCheckOutBean {
+//Api_Get_MyApproveForPeoHis
+//得到我的审批(人员)(我审批过的)
 
-    private List<ApiEditCheckOutForPeoBean> Api_Edit_CheckOutForPeo;
+public class PeopleApproveFinishBean {
 
-    public List<ApiEditCheckOutForPeoBean> getApi_Edit_CheckOutForPeo() {
-        return Api_Edit_CheckOutForPeo;
+    private List<ApiGetMyApproveForPeoHisBean> Api_Get_MyApproveForPeoHis;
+
+    public List<ApiGetMyApproveForPeoHisBean> getApi_Get_MyApproveForPeoHis() {
+        return Api_Get_MyApproveForPeoHis;
     }
 
-    public void setApi_Edit_CheckOutForPeo(List<ApiEditCheckOutForPeoBean> Api_Edit_CheckOutForPeo) {
-        this.Api_Edit_CheckOutForPeo = Api_Edit_CheckOutForPeo;
+    public void setApi_Get_MyApproveForPeoHis(List<ApiGetMyApproveForPeoHisBean> Api_Get_MyApproveForPeoHis) {
+        this.Api_Get_MyApproveForPeoHis = Api_Get_MyApproveForPeoHis;
     }
 
-    public static class ApiEditCheckOutForPeoBean {
+    public static class ApiGetMyApproveForPeoHisBean {
         /**
+         * AuthenticationNo :
+         * IsAndroid:
+         * CurResult:
+         * BeginNum :
+         * EndNum :
+         * Unit :单位(自加)
+         * Department :部门(自加)
+         * Curannotation :当前批注
+
          * ActualInTime :
          * ActualOutTime :
          * ApproverName : 部门B负责人1;部门B领导1;
@@ -47,15 +56,6 @@ public class PeopleCheckOutBean {
          * bCancel : 0
          * bFillup : 0
          * bMessage : 0
-         * AuthenticationNo : 0
-         * IsAndroid : 0
-         * CurResult : 0
-         * BeginNum : 0
-         * EndNum : 0
-         * Unit : 0
-         * Department : 0
-         * Curannotation : 0
-         * TimeStamp : 0
          */
 
         private String ActualInTime;
@@ -86,6 +86,7 @@ public class PeopleCheckOutBean {
         private String bCancel;
         private String bFillup;
         private String bMessage;
+        private String Curannotation;
         private String AuthenticationNo;
         private String IsAndroid;
         private String CurResult;
@@ -93,8 +94,79 @@ public class PeopleCheckOutBean {
         private String EndNum;
         private String Unit;
         private String Department;
-        private String Curannotation;
         private String TimeStamp;
+
+        public String getTimeStamp() {
+            return TimeStamp;
+        }
+
+        public void setTimeStamp(String timeStamp) {
+            TimeStamp = timeStamp;
+        }
+
+        public String getAuthenticationNo() {
+            return AuthenticationNo;
+        }
+
+        public void setAuthenticationNo(String authenticationNo) {
+            AuthenticationNo = authenticationNo;
+        }
+
+        public String getIsAndroid() {
+            return IsAndroid;
+        }
+
+        public void setIsAndroid(String isAndroid) {
+            IsAndroid = isAndroid;
+        }
+
+        public String getCurResult() {
+            return CurResult;
+        }
+
+        public void setCurResult(String curResult) {
+            CurResult = curResult;
+        }
+
+        public String getBeginNum() {
+            return BeginNum;
+        }
+
+        public void setBeginNum(String beginNum) {
+            BeginNum = beginNum;
+        }
+
+        public String getEndNum() {
+            return EndNum;
+        }
+
+        public void setEndNum(String endNum) {
+            EndNum = endNum;
+        }
+
+        public String getUnit() {
+            return Unit;
+        }
+
+        public void setUnit(String unit) {
+            Unit = unit;
+        }
+
+        public String getDepartment() {
+            return Department;
+        }
+
+        public void setDepartment(String department) {
+            Department = department;
+        }
+
+        public String getCurannotation() {
+            return Curannotation;
+        }
+
+        public void setCurannotation(String curannotation) {
+            Curannotation = curannotation;
+        }
 
         public String getActualInTime() {
             return ActualInTime;
@@ -318,78 +390,6 @@ public class PeopleCheckOutBean {
 
         public void setBMessage(String bMessage) {
             this.bMessage = bMessage;
-        }
-
-        public String getAuthenticationNo() {
-            return AuthenticationNo;
-        }
-
-        public void setAuthenticationNo(String AuthenticationNo) {
-            this.AuthenticationNo = AuthenticationNo;
-        }
-
-        public String getIsAndroid() {
-            return IsAndroid;
-        }
-
-        public void setIsAndroid(String IsAndroid) {
-            this.IsAndroid = IsAndroid;
-        }
-
-        public String getCurResult() {
-            return CurResult;
-        }
-
-        public void setCurResult(String CurResult) {
-            this.CurResult = CurResult;
-        }
-
-        public String getBeginNum() {
-            return BeginNum;
-        }
-
-        public void setBeginNum(String BeginNum) {
-            this.BeginNum = BeginNum;
-        }
-
-        public String getEndNum() {
-            return EndNum;
-        }
-
-        public void setEndNum(String EndNum) {
-            this.EndNum = EndNum;
-        }
-
-        public String getUnit() {
-            return Unit;
-        }
-
-        public void setUnit(String Unit) {
-            this.Unit = Unit;
-        }
-
-        public String getDepartment() {
-            return Department;
-        }
-
-        public void setDepartment(String Department) {
-            this.Department = Department;
-        }
-
-        public String getCurannotation() {
-            return Curannotation;
-        }
-
-        public void setCurannotation(String Curannotation) {
-            this.Curannotation = Curannotation;
-        }
-
-        public String getTimeStamp() {
-            return TimeStamp;
-        }
-
-        public void setTimeStamp(String TimeStamp) {
-            this.TimeStamp = TimeStamp;
         }
     }
 }

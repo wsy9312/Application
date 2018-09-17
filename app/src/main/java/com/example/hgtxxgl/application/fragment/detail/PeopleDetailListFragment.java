@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.ItemActivity;
-import com.example.hgtxxgl.application.bean.PeopleLeaveDetailBean;
+import com.example.hgtxxgl.application.bean.people.PeopleLeaveDetailBean;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
@@ -245,7 +245,7 @@ public class PeopleDetailListFragment extends Fragment implements SimpleListView
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (lv.getCurrentState() == 2) return;
         position -= 1;
-        checkDetail(position, PageConfig.PAGE_LEAVE_DETAIL_PEOPLE);
+        checkDetail(position, PageConfig.PAGE_LAUNCH_PEOPLE_DETAIL);
     }
 
     private void checkDetail(int position, int pageApplyBleave) {

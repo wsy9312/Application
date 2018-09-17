@@ -95,11 +95,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeLib"
             android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".activity.StartNewActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppThemeLib"
-            android:windowSoftInputMode="adjustPan" />
 
     </application>
     <uses-feature android:name="android.hardware.camera" />

@@ -1,8 +1,14 @@
-package com.example.hgtxxgl.application.bean;
+package com.example.hgtxxgl.application.bean.temp;
+
+import com.example.hgtxxgl.application.bean.people.PeopleLeaveCountBean;
 
 import java.util.List;
 
-public class TempPeopleLeaveOutCountBean {
+//Api_Get_Count
+//临时,得到当前事假外出人数
+
+public class TempPeopleLeaveWorkCountBean {
+
     private List<PeopleLeaveCountBean.ApiGetCountBean> Api_Get_Count;
 
     public List<PeopleLeaveCountBean.ApiGetCountBean> getApi_Get_Count() {

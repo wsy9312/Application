@@ -1,24 +1,25 @@
-package com.example.hgtxxgl.application.bean;
+package com.example.hgtxxgl.application.bean.people;
 
-//Api_Get_MyApproveForPeo
-//得到我的审批(人员)(需要我审批的)
+//Api_Apply_PeopleLeave
+//申请人员请假
 
 import java.util.List;
 
-public class PeopleApproveDelayBean {
+public class PeopleApplyBean {
 
-    private List<ApiGetMyApproveForPeoBean> Api_Get_MyApproveForPeo;
+    private List<ApiApplyPeopleLeaveBean> Api_Apply_PeopleLeave;
 
-    public List<ApiGetMyApproveForPeoBean> getApi_Get_MyApproveForPeo() {
-        return Api_Get_MyApproveForPeo;
+    public List<ApiApplyPeopleLeaveBean> getApi_Apply_PeopleLeave() {
+        return Api_Apply_PeopleLeave;
     }
 
-    public void setApi_Get_MyApproveForPeo(List<ApiGetMyApproveForPeoBean> Api_Get_MyApproveForPeo) {
-        this.Api_Get_MyApproveForPeo = Api_Get_MyApproveForPeo;
+    public void setApi_Apply_PeopleLeave(List<ApiApplyPeopleLeaveBean> Api_Apply_PeopleLeave) {
+        this.Api_Apply_PeopleLeave = Api_Apply_PeopleLeave;
     }
 
-    public static class ApiGetMyApproveForPeoBean {
+    public static class ApiApplyPeopleLeaveBean {
         /**
+         * TimeStamp:
          * ActualInTime :
          * ActualOutTime :
          * ApproverName : 部门B负责人1;部门B领导1;

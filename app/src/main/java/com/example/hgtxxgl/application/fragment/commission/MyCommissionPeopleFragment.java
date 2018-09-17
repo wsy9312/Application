@@ -154,7 +154,7 @@ public class MyCommissionPeopleFragment /*extends Fragment implements AdapterVie
 //    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //        if (lv.getCurrentState() == 2) return;
 //        position -= 1;
-//        checkDetail(position, PageConfig.PAGE_LEAVE_APPROVE_PEOPLE);
+//        checkDetail(position, PageConfig.PAGE_COMMISSION_PEOPLE_DETAIL);
 //    }
 //
 //    private void checkDetail(int position, int pageApplyBleave) {

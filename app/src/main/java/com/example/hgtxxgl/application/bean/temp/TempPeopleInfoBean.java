@@ -1,8 +1,9 @@
-package com.example.hgtxxgl.application.bean;
+package com.example.hgtxxgl.application.bean.temp;
 
 import java.util.List;
 
 //Api_Get_PeopleInfoSim
+//得到人员简单信息
 
 public class TempPeopleInfoBean {
 

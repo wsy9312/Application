@@ -1,25 +1,24 @@
-package com.example.hgtxxgl.application.bean;
+package com.example.hgtxxgl.application.bean.people;
 
-//Api_Apply_PeopleLeave
-//申请人员外出
+//Api_Edit_CheckBackForPeo
+//确认归来(销假) 人员
 
 import java.util.List;
 
-public class PeopleApplyBean {
+public class PeopleCheckBackBean {
 
-    private List<ApiApplyPeopleLeaveBean> Api_Apply_PeopleLeave;
+    private List<ApiEditCheckBackForPeoBean> Api_Edit_CheckBackForPeo;
 
-    public List<ApiApplyPeopleLeaveBean> getApi_Apply_PeopleLeave() {
-        return Api_Apply_PeopleLeave;
+    public List<ApiEditCheckBackForPeoBean> getApi_Edit_CheckBackForPeo() {
+        return Api_Edit_CheckBackForPeo;
     }
 
-    public void setApi_Apply_PeopleLeave(List<ApiApplyPeopleLeaveBean> Api_Apply_PeopleLeave) {
-        this.Api_Apply_PeopleLeave = Api_Apply_PeopleLeave;
+    public void setApi_Edit_CheckBackForPeo(List<ApiEditCheckBackForPeoBean> Api_Edit_CheckBackForPeo) {
+        this.Api_Edit_CheckBackForPeo = Api_Edit_CheckBackForPeo;
     }
 
-    public static class ApiApplyPeopleLeaveBean {
+    public static class ApiEditCheckBackForPeoBean {
         /**
-         * TimeStamp:
          * ActualInTime :
          * ActualOutTime :
          * ApproverName : 部门B负责人1;部门B领导1;
@@ -56,6 +55,7 @@ public class PeopleApplyBean {
          * Unit : 0
          * Department : 0
          * Curannotation : 0
+         * TimeStamp : 0
          */
 
         private String ActualInTime;
@@ -95,14 +95,6 @@ public class PeopleApplyBean {
         private String Department;
         private String Curannotation;
         private String TimeStamp;
-
-        public String getTimeStamp() {
-            return TimeStamp;
-        }
-
-        public void setTimeStamp(String timeStamp) {
-            TimeStamp = timeStamp;
-        }
 
         public String getActualInTime() {
             return ActualInTime;
@@ -390,6 +382,14 @@ public class PeopleApplyBean {
 
         public void setCurannotation(String Curannotation) {
             this.Curannotation = Curannotation;
+        }
+
+        public String getTimeStamp() {
+            return TimeStamp;
+        }
+
+        public void setTimeStamp(String TimeStamp) {
+            this.TimeStamp = TimeStamp;
         }
     }
 }

@@ -1,8 +1,13 @@
-package com.example.hgtxxgl.application.bean;
+package com.example.hgtxxgl.application.bean.temp;
+
+import com.example.hgtxxgl.application.bean.people.PeopleLeaveCountBean;
 
 import java.util.List;
 
-public class TempPeopleLeaveCurveCount10Bean {
+//Api_Get_Count
+//临时,得到当前病假外出人数
+
+public class TempPeopleLeaveSickCountBean {
     private List<PeopleLeaveCountBean.ApiGetCountBean> Api_Get_Count;
 
     public List<PeopleLeaveCountBean.ApiGetCountBean> getApi_Get_Count() {

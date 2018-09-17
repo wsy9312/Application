@@ -7,11 +7,11 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 
-import com.example.hgtxxgl.application.bean.PeopleApproveBean;
-import com.example.hgtxxgl.application.bean.PeopleApproveDelayBean;
-import com.example.hgtxxgl.application.bean.PeopleApproveFinishBean;
-import com.example.hgtxxgl.application.bean.PeopleInfoBean;
-import com.example.hgtxxgl.application.bean.TempPeopleInfoBean;
+import com.example.hgtxxgl.application.bean.people.PeopleApproveBean;
+import com.example.hgtxxgl.application.bean.people.PeopleApproveDelayBean;
+import com.example.hgtxxgl.application.bean.people.PeopleApproveFinishBean;
+import com.example.hgtxxgl.application.bean.login.PeopleInfoBean;
+import com.example.hgtxxgl.application.bean.temp.TempPeopleInfoBean;
 import com.example.hgtxxgl.application.rest.CommonFragment;
 import com.example.hgtxxgl.application.rest.HandInputGroup;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;

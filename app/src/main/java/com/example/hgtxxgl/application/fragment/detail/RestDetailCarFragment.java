@@ -8,8 +8,8 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
 import com.example.hgtxxgl.application.R;
-import com.example.hgtxxgl.application.bean.LoginInfoBean;
-import com.example.hgtxxgl.application.bean.PeopleInfoBean;
+import com.example.hgtxxgl.application.bean.login.LoginInfoBean;
+import com.example.hgtxxgl.application.bean.login.PeopleInfoBean;
 import com.example.hgtxxgl.application.entity.CarInfoEntity;
 import com.example.hgtxxgl.application.entity.CarLeaveEntity;
 import com.example.hgtxxgl.application.rest.CommonFragment;

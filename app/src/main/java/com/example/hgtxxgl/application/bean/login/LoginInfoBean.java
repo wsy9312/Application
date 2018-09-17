@@ -1,7 +1,7 @@
-package com.example.hgtxxgl.application.bean;
+package com.example.hgtxxgl.application.bean.login;
 
 import java.util.List;
-
+//reponse 登录返回
 public class LoginInfoBean {
 
     private List<ApiAddLoginBean> Api_Add_Login;

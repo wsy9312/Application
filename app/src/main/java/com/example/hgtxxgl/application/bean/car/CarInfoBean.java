@@ -1,4 +1,4 @@
-package com.example.hgtxxgl.application.bean;
+package com.example.hgtxxgl.application.bean.car;
 
 import java.util.List;
 

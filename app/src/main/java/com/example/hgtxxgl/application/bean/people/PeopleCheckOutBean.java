@@ -1,20 +1,23 @@
-package com.example.hgtxxgl.application.bean;
+package com.example.hgtxxgl.application.bean.people;
+
+//Api_Edit_CheckOutForPeo
+//确认离开(销假) 人员
 
 import java.util.List;
 
-public class PeopleLeaveDetailRetractBean {
+public class PeopleCheckOutBean {
 
-    private List<ApiRetractPeopleLeaveBean> Api_Retract_PeopleLeave;
+    private List<ApiEditCheckOutForPeoBean> Api_Edit_CheckOutForPeo;
 
-    public List<ApiRetractPeopleLeaveBean> getApi_Retract_PeopleLeave() {
-        return Api_Retract_PeopleLeave;
+    public List<ApiEditCheckOutForPeoBean> getApi_Edit_CheckOutForPeo() {
+        return Api_Edit_CheckOutForPeo;
     }
 
-    public void setApi_Retract_PeopleLeave(List<ApiRetractPeopleLeaveBean> Api_Retract_PeopleLeave) {
-        this.Api_Retract_PeopleLeave = Api_Retract_PeopleLeave;
+    public void setApi_Edit_CheckOutForPeo(List<ApiEditCheckOutForPeoBean> Api_Edit_CheckOutForPeo) {
+        this.Api_Edit_CheckOutForPeo = Api_Edit_CheckOutForPeo;
     }
 
-    public static class ApiRetractPeopleLeaveBean {
+    public static class ApiEditCheckOutForPeoBean {
         /**
          * ActualInTime :
          * ActualOutTime :

@@ -1,33 +1,24 @@
-package com.example.hgtxxgl.application.bean;
+package com.example.hgtxxgl.application.bean.people;
 
 import java.util.List;
 
-//Api_Get_MyApproveForPeoHis
-//得到我的审批(人员)(我审批过的)
+//Api_Get_MyApplyForPeo
+//得到我的申请(人员)
 
-public class PeopleApproveFinishBean {
+public class PeopleLeaveDetailBean {
 
-    private List<ApiGetMyApproveForPeoHisBean> Api_Get_MyApproveForPeoHis;
+    private List<ApiGetMyApplyForPeoBean> Api_Get_MyApplyForPeo;
 
-    public List<ApiGetMyApproveForPeoHisBean> getApi_Get_MyApproveForPeoHis() {
-        return Api_Get_MyApproveForPeoHis;
+    public List<ApiGetMyApplyForPeoBean> getApi_Get_MyApplyForPeo() {
+        return Api_Get_MyApplyForPeo;
     }
 
-    public void setApi_Get_MyApproveForPeoHis(List<ApiGetMyApproveForPeoHisBean> Api_Get_MyApproveForPeoHis) {
-        this.Api_Get_MyApproveForPeoHis = Api_Get_MyApproveForPeoHis;
+    public void setApi_Get_MyApplyForPeo(List<ApiGetMyApplyForPeoBean> Api_Get_MyApplyForPeo) {
+        this.Api_Get_MyApplyForPeo = Api_Get_MyApplyForPeo;
     }
 
-    public static class ApiGetMyApproveForPeoHisBean {
+    public static class ApiGetMyApplyForPeoBean {
         /**
-         * AuthenticationNo :
-         * IsAndroid:
-         * CurResult:
-         * BeginNum :
-         * EndNum :
-         * Unit :单位(自加)
-         * Department :部门(自加)
-         * Curannotation :当前批注
-
          * ActualInTime :
          * ActualOutTime :
          * ApproverName : 部门B负责人1;部门B领导1;
@@ -56,11 +47,64 @@ public class PeopleApproveFinishBean {
          * bCancel : 0
          * bFillup : 0
          * bMessage : 0
+         * AuthenticationNo : 0
+         * IsAndroid : 0
+         * CurResult : 0
+         * BeginNum : 0
+         * EndNum : 0
+         * Unit : 0
+         * Department : 0
+         * Curannotation : 0
+         * TimeStamp : 0
          */
 
         private String ActualInTime;
         private String ActualOutTime;
         private String ApproverName;
+
+        @Override
+        public String toString() {
+            return "ApiGetMyApplyForPeoBean{" +
+                    "ActualInTime='" + ActualInTime + '\'' +
+                    ", ActualOutTime='" + ActualOutTime + '\'' +
+                    ", ApproverName='" + ApproverName + '\'' +
+                    ", ApproverNo='" + ApproverNo + '\'' +
+                    ", Content='" + Content + '\'' +
+                    ", Count='" + Count + '\'' +
+                    ", CurrentApproverName='" + CurrentApproverName + '\'' +
+                    ", CurrentApproverNo='" + CurrentApproverNo + '\'' +
+                    ", Destination='" + Destination + '\'' +
+                    ", Enclosure='" + Enclosure + '\'' +
+                    ", HisAnnotation='" + HisAnnotation + '\'' +
+                    ", InTime='" + InTime + '\'' +
+                    ", JourneyDays='" + JourneyDays + '\'' +
+                    ", ModifyTime='" + ModifyTime + '\'' +
+                    ", Name='" + Name + '\'' +
+                    ", No='" + No + '\'' +
+                    ", NoIndex='" + NoIndex + '\'' +
+                    ", OutStatus='" + OutStatus + '\'' +
+                    ", OutTime='" + OutTime + '\'' +
+                    ", OutType='" + OutType + '\'' +
+                    ", Process='" + Process + '\'' +
+                    ", RegisterTime='" + RegisterTime + '\'' +
+                    ", Result='" + Result + '\'' +
+                    ", VacationAddr='" + VacationAddr + '\'' +
+                    ", VacationDays='" + VacationDays + '\'' +
+                    ", bCancel='" + bCancel + '\'' +
+                    ", bFillup='" + bFillup + '\'' +
+                    ", bMessage='" + bMessage + '\'' +
+                    ", AuthenticationNo='" + AuthenticationNo + '\'' +
+                    ", IsAndroid='" + IsAndroid + '\'' +
+                    ", CurResult='" + CurResult + '\'' +
+                    ", BeginNum='" + BeginNum + '\'' +
+                    ", EndNum='" + EndNum + '\'' +
+                    ", Unit='" + Unit + '\'' +
+                    ", Department='" + Department + '\'' +
+                    ", Curannotation='" + Curannotation + '\'' +
+                    ", TimeStamp='" + TimeStamp + '\'' +
+                    '}';
+        }
+
         private String ApproverNo;
         private String Content;
         private String Count;
@@ -86,87 +130,16 @@ public class PeopleApproveFinishBean {
         private String bCancel;
         private String bFillup;
         private String bMessage;
-        private String Curannotation;
         private String AuthenticationNo;
         private String IsAndroid;
         private String CurResult;
         private String BeginNum;
         private String EndNum;
+
         private String Unit;
         private String Department;
+        private String Curannotation;
         private String TimeStamp;
-
-        public String getTimeStamp() {
-            return TimeStamp;
-        }
-
-        public void setTimeStamp(String timeStamp) {
-            TimeStamp = timeStamp;
-        }
-
-        public String getAuthenticationNo() {
-            return AuthenticationNo;
-        }
-
-        public void setAuthenticationNo(String authenticationNo) {
-            AuthenticationNo = authenticationNo;
-        }
-
-        public String getIsAndroid() {
-            return IsAndroid;
-        }
-
-        public void setIsAndroid(String isAndroid) {
-            IsAndroid = isAndroid;
-        }
-
-        public String getCurResult() {
-            return CurResult;
-        }
-
-        public void setCurResult(String curResult) {
-            CurResult = curResult;
-        }
-
-        public String getBeginNum() {
-            return BeginNum;
-        }
-
-        public void setBeginNum(String beginNum) {
-            BeginNum = beginNum;
-        }
-
-        public String getEndNum() {
-            return EndNum;
-        }
-
-        public void setEndNum(String endNum) {
-            EndNum = endNum;
-        }
-
-        public String getUnit() {
-            return Unit;
-        }
-
-        public void setUnit(String unit) {
-            Unit = unit;
-        }
-
-        public String getDepartment() {
-            return Department;
-        }
-
-        public void setDepartment(String department) {
-            Department = department;
-        }
-
-        public String getCurannotation() {
-            return Curannotation;
-        }
-
-        public void setCurannotation(String curannotation) {
-            Curannotation = curannotation;
-        }
 
         public String getActualInTime() {
             return ActualInTime;
@@ -390,6 +363,78 @@ public class PeopleApproveFinishBean {
 
         public void setBMessage(String bMessage) {
             this.bMessage = bMessage;
+        }
+
+        public String getAuthenticationNo() {
+            return AuthenticationNo;
+        }
+
+        public void setAuthenticationNo(String AuthenticationNo) {
+            this.AuthenticationNo = AuthenticationNo;
+        }
+
+        public String getIsAndroid() {
+            return IsAndroid;
+        }
+
+        public void setIsAndroid(String IsAndroid) {
+            this.IsAndroid = IsAndroid;
+        }
+
+        public String getCurResult() {
+            return CurResult;
+        }
+
+        public void setCurResult(String CurResult) {
+            this.CurResult = CurResult;
+        }
+
+        public String getBeginNum() {
+            return BeginNum;
+        }
+
+        public void setBeginNum(String BeginNum) {
+            this.BeginNum = BeginNum;
+        }
+
+        public String getEndNum() {
+            return EndNum;
+        }
+
+        public void setEndNum(String EndNum) {
+            this.EndNum = EndNum;
+        }
+
+        public String getUnit() {
+            return Unit;
+        }
+
+        public void setUnit(String Unit) {
+            this.Unit = Unit;
+        }
+
+        public String getDepartment() {
+            return Department;
+        }
+
+        public void setDepartment(String Department) {
+            this.Department = Department;
+        }
+
+        public String getCurannotation() {
+            return Curannotation;
+        }
+
+        public void setCurannotation(String Curannotation) {
+            this.Curannotation = Curannotation;
+        }
+
+        public String getTimeStamp() {
+            return TimeStamp;
+        }
+
+        public void setTimeStamp(String TimeStamp) {
+            this.TimeStamp = TimeStamp;
         }
     }
 }

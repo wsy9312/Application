@@ -1,6 +1,9 @@
-package com.example.hgtxxgl.application.bean;
+package com.example.hgtxxgl.application.bean.login;
 
 import java.util.List;
+
+//Api_Get_MyInfoSim
+//得到本人简单信息
 
 public class PeopleInfoBean {
 

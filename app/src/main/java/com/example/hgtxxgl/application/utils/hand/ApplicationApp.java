@@ -8,17 +8,17 @@ import android.os.StrictMode;
 import android.util.DisplayMetrics;
 
 import com.example.hgtxxgl.application.R;
-import com.example.hgtxxgl.application.bean.LoginInfoBean;
-import com.example.hgtxxgl.application.bean.PeopleInfoBean;
-import com.example.hgtxxgl.application.bean.TempPeopleLeaveCountBean;
-import com.example.hgtxxgl.application.bean.TempPeopleLeaveCurrentCountBean;
-import com.example.hgtxxgl.application.bean.TempPeopleLeaveCurveCount10Bean;
-import com.example.hgtxxgl.application.bean.TempPeopleLeaveCurveCount8Bean;
-import com.example.hgtxxgl.application.bean.TempPeopleLeaveCurveCount9Bean;
-import com.example.hgtxxgl.application.bean.TempPeopleLeaveOutCountBean;
-import com.example.hgtxxgl.application.bean.TempPeopleLeaveRestCountBean;
-import com.example.hgtxxgl.application.bean.TempPeopleLeaveSickCountBean;
-import com.example.hgtxxgl.application.bean.TempPeopleLeaveWorkCountBean;
+import com.example.hgtxxgl.application.bean.login.LoginInfoBean;
+import com.example.hgtxxgl.application.bean.login.PeopleInfoBean;
+import com.example.hgtxxgl.application.bean.temp.TempPeopleLeaveCountBean;
+import com.example.hgtxxgl.application.bean.temp.TempPeopleLeaveCurrentCountBean;
+import com.example.hgtxxgl.application.bean.temp.TempPeopleLeaveCurveCount10Bean;
+import com.example.hgtxxgl.application.bean.temp.TempPeopleLeaveCurveCount8Bean;
+import com.example.hgtxxgl.application.bean.temp.TempPeopleLeaveCurveCount9Bean;
+import com.example.hgtxxgl.application.bean.temp.TempPeopleLeaveOutCountBean;
+import com.example.hgtxxgl.application.bean.temp.TempPeopleLeaveRestCountBean;
+import com.example.hgtxxgl.application.bean.temp.TempPeopleLeaveSickCountBean;
+import com.example.hgtxxgl.application.bean.temp.TempPeopleLeaveWorkCountBean;
 
 import java.util.ArrayList;
 import java.util.Arrays;
