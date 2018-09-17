@@ -269,31 +269,37 @@ public class LoginActivity extends AppCompatActivity {
                 HttpManager.getInstance().requestNewResultForm(tempIP, s, LoginInfoBean.class, new HttpManager.ResultNewCallback<LoginInfoBean>() {
                     @Override
                     public void onSuccess(String json, LoginInfoBean loginInfoBean) throws Exception {
-                        Log.e(TAG,"登录成功json:"+json);
-                        if (loginInfoBean != null){
+                        Log.e(TAG,"onSuccess:"+json);
+                        if (json.contains("error")){
+                            show("用户名或密码错误");
+                            return;
+                        }
+                        if (loginInfoBean != null||loginInfoBean.getApi_Add_Login().size() == 0){
                             ApplicationApp.setLoginInfoBean(loginInfoBean);
                             authenticationNo = loginInfoBean.getApi_Add_Login().get(0).getAuthenticationNo();
                             timeStamp = loginInfoBean.getApi_Add_Login().get(0).getTimeStamp();
+                            getPeopleInfo(username,password, authenticationNo,timeStamp);
                         }
                     }
 
                     @Override
                     public void onError(String msg) throws Exception {
-                        ToastUtil.showToast(getApplicationContext(),"错误:"+msg);
+                        Log.e(TAG,"onError:"+msg);
                     }
 
                     @Override
                     public void onResponse(String response) throws Exception {
-                        ToastUtil.showToast(getApplicationContext(),"response:"+response);
+                        Log.e(TAG,"onResponse:"+response);
                     }
 
                     @Override
                     public void onBefore(Request request, int id) throws Exception {
+                        Log.e(TAG,"onBefore:"+request.toString());
                     }
 
                     @Override
                     public void onAfter(int id) throws Exception {
-                        getPeopleInfo(username,password, authenticationNo,timeStamp);
+                        Log.e(TAG,"onAfter:"+id);
                     }
 
                     @Override

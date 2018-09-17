@@ -250,7 +250,7 @@ public abstract class CommonFragment extends Fragment implements HandInputGroup.
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         layout = (RelativeLayout) inflater.inflate(R.layout.fragment_layout_container, container, false);
         initImagePicker();
-        initWidget(layout);
+//        initWidget(layout);
         buttonll = (LinearLayout) layout.findViewById(R.id.vs_action_buttons);
         setButtonllEnable(getArguments() == null);
         toolbar = (HandToolbar) layout.findViewById(R.id.toolbar);

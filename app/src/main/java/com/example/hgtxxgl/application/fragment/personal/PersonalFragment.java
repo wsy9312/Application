@@ -20,6 +20,7 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
     private RelativeLayout personCenter;
     private CircleTextImage personImage;
     private TextView tvName;
+    private RelativeLayout about;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -32,9 +33,11 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
         personCenter = (RelativeLayout) view.findViewById(R.id.rl_personalcenter);
         personImage = (CircleTextImage) view.findViewById(R.id.presonal_headpic);
         tvName = (TextView) view.findViewById(R.id.tv_person_name);
+        about = (RelativeLayout) view.findViewById(R.id.rl_about);
         personCenter.setOnClickListener(this);
         tvName.setOnClickListener(this);
         personImage.setOnClickListener(this);
+        about.setOnClickListener(this);
         personImage.setText4CircleImage(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getName());
         tvName.setText(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getName());
     }
@@ -53,6 +56,10 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
             case R.id.tv_person_name:
                 Intent intent2 = new Intent(getActivity(), PersonalActivity.class);
                 this.startActivity(intent2);
+                break;
+            case R.id.rl_about:
+                Intent intent3 = new Intent(getActivity(), AboutActivity.class);
+                this.startActivity(intent3);
                 break;
         }
     }

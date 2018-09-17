@@ -35,6 +35,7 @@
             android:theme="@style/AppThemeLib"
             android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".activity.PersonalActivity"/>
+        <activity android:name=".fragment.personal.AboutActivity"/>
         <activity android:name=".fragment.timeline.TimeLineActivity"/>
         <activity android:name=".QrCode.sample.MainActivity"
             android:label="二维码名片">

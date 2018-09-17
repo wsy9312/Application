@@ -6,13 +6,9 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.RelativeLayout;
 
-import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.attachment.ImagePickerAdapter;
 import com.example.hgtxxgl.application.bean.LoginInfoBean;
 import com.example.hgtxxgl.application.bean.PeopleApplyBean;
@@ -25,8 +21,6 @@ import com.example.hgtxxgl.application.view.HandToolbar;
 import com.google.gson.Gson;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
-import com.lzy.imagepicker.ui.ImageGridActivity;
-import com.lzy.imagepicker.ui.ImagePreviewDelActivity;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -34,7 +28,7 @@ import java.util.List;
 
 import okhttp3.Request;
 
-public class SickApplyFragment extends CommonFragment implements ImagePickerAdapter.OnRecyclerViewItemClickListener{
+public class SickApplyFragment extends CommonFragment/* implements ImagePickerAdapter.OnRecyclerViewItemClickListener*/{
     private final static String TAG = "SickApplyFragment";
     private String name;
     private String unit;
@@ -281,39 +275,39 @@ public class SickApplyFragment extends CommonFragment implements ImagePickerAdap
         }
     }
 
-    @Override
-    public void initWidget(RelativeLayout layout) {
-        RecyclerView recyclerView = (RecyclerView) layout.findViewById(R.id.recyclerView);
-        selImageList = new ArrayList<>();
-        adapter = new ImagePickerAdapter(getActivity(), selImageList, maxImgCount);
-        adapter.setOnItemClickListener(this);
+//    @Override
+//    public void initWidget(RelativeLayout layout) {
+//        RecyclerView recyclerView = (RecyclerView) layout.findViewById(R.id.recyclerView);
+//        selImageList = new ArrayList<>();
+//        adapter = new ImagePickerAdapter(getActivity(), selImageList, maxImgCount);
+//        adapter.setOnItemClickListener(this);
+//
+//        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 4));
+//        recyclerView.setHasFixedSize(true);
+//        recyclerView.setAdapter(adapter);
+//    }
 
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 4));
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(adapter);
-    }
-
-    @Override
-    public void onItemClick(View view, int position) {
-        switch (position) {
-            case IMAGE_ITEM_ADD:
-                //打开选择,本次允许选择的数量
-                ImagePicker.getInstance().setSelectLimit(maxImgCount - selImageList.size());
-                Intent intent1 = new Intent(getActivity(), ImageGridActivity.class);
-                /* 如果需要进入选择的时候显示已经选中的图片，
-                 * 详情请查看ImagePickerActivity
-                 * */
-                //intent1.putExtra(ImageGridActivity.EXTRAS_IMAGES,images);
-                startActivityForResult(intent1, REQUEST_CODE_SELECT);
-                break;
-            default:
-                //打开预览
-                Intent intentPreview = new Intent(getActivity(), ImagePreviewDelActivity.class);
-                intentPreview.putExtra(ImagePicker.EXTRA_IMAGE_ITEMS, (ArrayList<ImageItem>) adapter.getImages());
-                intentPreview.putExtra(ImagePicker.EXTRA_SELECTED_IMAGE_POSITION, position);
-                intentPreview.putExtra(ImagePicker.EXTRA_FROM_ITEMS, true);
-                startActivityForResult(intentPreview, REQUEST_CODE_PREVIEW);
-                break;
-        }
-    }
+//    @Override
+//    public void onItemClick(View view, int position) {
+//        switch (position) {
+//            case IMAGE_ITEM_ADD:
+//                //打开选择,本次允许选择的数量
+//                ImagePicker.getInstance().setSelectLimit(maxImgCount - selImageList.size());
+//                Intent intent1 = new Intent(getActivity(), ImageGridActivity.class);
+//                /* 如果需要进入选择的时候显示已经选中的图片，
+//                 * 详情请查看ImagePickerActivity
+//                 * */
+//                //intent1.putExtra(ImageGridActivity.EXTRAS_IMAGES,images);
+//                startActivityForResult(intent1, REQUEST_CODE_SELECT);
+//                break;
+//            default:
+//                //打开预览
+//                Intent intentPreview = new Intent(getActivity(), ImagePreviewDelActivity.class);
+//                intentPreview.putExtra(ImagePicker.EXTRA_IMAGE_ITEMS, (ArrayList<ImageItem>) adapter.getImages());
+//                intentPreview.putExtra(ImagePicker.EXTRA_SELECTED_IMAGE_POSITION, position);
+//                intentPreview.putExtra(ImagePicker.EXTRA_FROM_ITEMS, true);
+//                startActivityForResult(intentPreview, REQUEST_CODE_PREVIEW);
+//                break;
+//        }
+//    }
 }
