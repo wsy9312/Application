@@ -46,7 +46,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/life_flow_caipu"/>
+                        android:src="@drawable/temp1"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/life_flow_toupiao"/>
+                        android:src="@drawable/temp2"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -89,7 +89,7 @@
                     android:background="@drawable/bg_total_gray"
                     android:orientation="vertical">
                     <ImageView
-                        android:src="@drawable/life_flow_paihang"
+                        android:src="@drawable/temp3"
                         android:layout_marginBottom="2dp"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
@@ -112,7 +112,7 @@
                     android:background="@drawable/bg_total_gray"
                     android:orientation="vertical">
                     <ImageView
-                        android:src="@drawable/life_flow_manage"
+                        android:src="@drawable/temp4"
                         android:layout_marginBottom="2dp"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
@@ -155,7 +155,7 @@
                     android:background="@drawable/bg_total_gray"
                     android:orientation="vertical">
                     <ImageView
-                        android:src="@drawable/life_flow_video"
+                        android:src="@drawable/temp5"
                         android:layout_marginBottom="2dp"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
@@ -179,7 +179,7 @@
                     android:background="@drawable/bg_total_gray"
                     android:orientation="vertical">
                     <ImageView
-                        android:src="@drawable/life_flow_book"
+                        android:src="@drawable/temp7"
                         android:layout_marginBottom="2dp"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
@@ -271,7 +271,7 @@
                     android:background="@drawable/bg_total_gray"
                     android:orientation="vertical">
                     <ImageView
-                        android:src="@drawable/life_flow_run"
+                        android:src="@drawable/temp6"
                         android:layout_marginBottom="2dp"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"

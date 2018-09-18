@@ -1,29 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:orientation="horizontal"
     android:background="@drawable/bg_blue_ring_stroke"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="80dp">
+    android:layout_height="50dp">
     <TextView
         android:padding="3dp"
         android:text="这是新闻概括这是新闻概括这新闻概括这新闻概括这新闻概括这新闻概括这新闻概括这新闻概括这新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括"
         android:id="@+id/tv_sketch"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="6"
         android:textSize="15sp"
-        android:maxLines="3"
+        android:maxLines="2"
         android:ellipsize="end"
         android:textColor="#0967AE"/>
-
-    <TextView
-        android:padding="3dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:id="@+id/tv_date"
-        android:text="这是日期"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingRight="1dp"
-        android:textSize="13sp"
-        android:textColor="@color/half_black"/>
-</RelativeLayout>
+        android:layout_weight="4">
+        <TextView
+            android:padding="3dp"
+            android:id="@+id/tv_date"
+            android:text="这是日期"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="1dp"
+            android:textSize="13sp"
+            android:textColor="@color/half_black"/>
+
+        <TextView
+            android:padding="3dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:id="@+id/tv_name"
+            android:text="杨慧国"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="1dp"
+            android:textSize="13sp"
+            android:textColor="@color/half_black"/>
+    </RelativeLayout>
+
+</LinearLayout>

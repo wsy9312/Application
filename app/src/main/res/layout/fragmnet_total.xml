@@ -144,7 +144,7 @@
                 android:background="@drawable/bg_total_gray"
                 android:orientation="vertical">
                 <ImageView
-                    android:src="@drawable/flow_apply_car"
+                    android:src="@drawable/temp06"
                     android:layout_marginBottom="2dp"
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
@@ -167,7 +167,7 @@
                 android:background="@drawable/bg_total_gray"
                 android:orientation="vertical">
                 <ImageView
-                    android:src="@drawable/flow_apply_wuping"
+                    android:src="@drawable/temp01"
                     android:layout_marginBottom="2dp"
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
@@ -375,7 +375,7 @@
             android:background="@drawable/bg_total_gray"
             android:orientation="vertical">
             <ImageView
-                android:src="@drawable/flow_approve_people"
+                android:src="@drawable/temp02"
                 android:layout_marginBottom="2dp"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
@@ -399,7 +399,7 @@
             android:background="@drawable/bg_total_gray"
             android:orientation="vertical">
             <ImageView
-                android:src="@drawable/flow_launch_people"
+                android:src="@drawable/temp03"
                 android:layout_marginBottom="2dp"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
@@ -491,7 +491,7 @@
                     android:background="@drawable/bg_total_gray"
                     android:orientation="vertical">
                     <ImageView
-                        android:src="@drawable/flow_xingzheng_manage"
+                        android:src="@drawable/temp04"
                         android:layout_marginBottom="2dp"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
@@ -515,7 +515,7 @@
                     android:background="@drawable/bg_total_gray"
                     android:orientation="vertical">
                     <ImageView
-                        android:src="@drawable/flow_ideas_box"
+                        android:src="@drawable/temp05"
                         android:layout_marginBottom="2dp"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"

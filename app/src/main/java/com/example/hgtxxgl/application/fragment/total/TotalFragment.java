@@ -60,36 +60,38 @@ public class TotalFragment extends Fragment {
                 (LinearLayout)view.findViewById(R.id.flow_unit_chart),
         };
         for (int i = 0; i < buttons.length; i++) {
-            final int finalI = i;
-            buttons[i].setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    v.animate().scaleX(0.9f).scaleY(0.9f).setInterpolator(new CycleInterpolator(1))
-                            .setDuration(300).setListener(new Animator.AnimatorListener() {
-                        @Override
-                        public void onAnimationStart(Animator animation) {
+            if (i == 0 || i == 1 || i == 2 || i == 3 || i == 6 || i == 7 || i == 12){
+                final int finalI = i;
+                buttons[i].setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        v.animate().scaleX(0.9f).scaleY(0.9f).setInterpolator(new CycleInterpolator(1))
+                                .setDuration(300).setListener(new Animator.AnimatorListener() {
+                            @Override
+                            public void onAnimationStart(Animator animation) {
 
-                        }
+                            }
 
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            Intent intent = new Intent(getContext(), ItemActivity.class);
-                            intent.putExtra(PageConfig.PAGE_CODE, page[finalI]);
-                            startActivity(intent);
-                        }
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                Intent intent = new Intent(getContext(), ItemActivity.class);
+                                intent.putExtra(PageConfig.PAGE_CODE, page[finalI]);
+                                startActivity(intent);
+                            }
 
-                        @Override
-                        public void onAnimationCancel(Animator animation) {
+                            @Override
+                            public void onAnimationCancel(Animator animation) {
 
-                        }
+                            }
 
-                        @Override
-                        public void onAnimationRepeat(Animator animation) {
+                            @Override
+                            public void onAnimationRepeat(Animator animation) {
 
-                        }
-                    }).start();
-                }
-            });
+                            }
+                        }).start();
+                    }
+                });
+            }
         }
     }
 }

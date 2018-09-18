@@ -1,17 +1,13 @@
 package com.example.hgtxxgl.application.fragment.life;
 
-import android.animation.Animator;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.CycleInterpolator;
 import android.widget.LinearLayout;
 
 import com.example.hgtxxgl.application.R;
-import com.example.hgtxxgl.application.activity.ItemActivity;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
 import com.example.hgtxxgl.application.view.HandToolbar;
 
@@ -51,7 +47,7 @@ public class LifeFragment extends Fragment {
                 (LinearLayout)view.findViewById(R.id.life_flow_book),
                 (LinearLayout)view.findViewById(R.id.life_flow_tineng),
         };
-        for (int i = 0; i < buttons.length; i++) {
+        /*for (int i = 0; i < buttons.length; i++) {
             final int finalI = i;
             buttons[i].setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -82,6 +78,6 @@ public class LifeFragment extends Fragment {
                     }).start();
                 }
             });
-        }
+        }*/
     }
 }

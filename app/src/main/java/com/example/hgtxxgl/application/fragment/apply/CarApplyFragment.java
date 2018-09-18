@@ -7,10 +7,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 
+import com.example.hgtxxgl.application.bean.car.CarApplyBean;
 import com.example.hgtxxgl.application.bean.login.LoginInfoBean;
 import com.example.hgtxxgl.application.bean.login.PeopleInfoBean;
 import com.example.hgtxxgl.application.entity.CarInfoEntity;
-import com.example.hgtxxgl.application.entity.CarLeaveEntity;
 import com.example.hgtxxgl.application.rest.CommonFragment;
 import com.example.hgtxxgl.application.rest.HandInputGroup;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
@@ -71,9 +71,9 @@ public class CarApplyFragment extends CommonFragment {
         }
         List<CommonFragment.Group> groups = new ArrayList<>();
         List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
-        baseHolder.add(new HandInputGroup.Holder("申请人",true,false,name,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
-        baseHolder.add(new HandInputGroup.Holder("所属单位",true,false,unit,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
-        baseHolder.add(new HandInputGroup.Holder("所属部门",true,false,department.isEmpty()?" ":department,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
+        baseHolder.add(new HandInputGroup.Holder("申请人",false,false,name,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
+        baseHolder.add(new HandInputGroup.Holder("所属单位",false,false,unit,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
+        baseHolder.add(new HandInputGroup.Holder("所属部门",false,false,department.isEmpty()?" ":department,HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(170,170,170)));
         baseHolder.add(new HandInputGroup.Holder("",false,false,"", HandInputGroup.VALUE_TYPE.EMPTY_SPACE));
         baseHolder.add(new HandInputGroup.Holder("车辆号牌",true,false,"/请选择",HandInputGroup.VALUE_TYPE.SELECT));
         baseHolder.add(new HandInputGroup.Holder("带车干部",false,false,"/请选择",HandInputGroup.VALUE_TYPE.SELECT));
@@ -127,8 +127,7 @@ public class CarApplyFragment extends CommonFragment {
                         String content = getDisplayValueByKey("事由").getRealValue();
                         String goDirection = getDisplayValueByKey("去向").getRealValue();
 //                        String bFillup = getDisplayValueByKey("是否后补申请").getRealValue();
-                        CarLeaveEntity carLeaveEntity = new CarLeaveEntity();
-                        CarLeaveEntity.CarLeaveRrdBean carLeaveRrdBean = new CarLeaveEntity.CarLeaveRrdBean();
+                        CarApplyBean.ApiApplyCarLeaveBean carLeaveRrdBean = new CarApplyBean.ApiApplyCarLeaveBean();
                         carLeaveRrdBean.setNo(realValueNO);//
                         carLeaveRrdBean.setAuthenticationNo(realValueNO);//
                         carLeaveRrdBean.setContent(content);//
@@ -144,30 +143,45 @@ public class CarApplyFragment extends CommonFragment {
                             carLeaveRrdBean.setLeaderNo(ownerNo2);
                         }
                         carLeaveRrdBean.setCarNo(car);
-                        List<CarLeaveEntity.CarLeaveRrdBean> beanList = new ArrayList<>();
-                        beanList.add(carLeaveRrdBean);
-                        carLeaveEntity.setCarLeaveRrd(beanList);
-                        String json = new Gson().toJson(carLeaveEntity);
-                        String s1 = "apply " + json;
-                        L.e(TAG+"CarApplyFragment",s1);
-                        HttpManager.getInstance().requestResultForm(getTempIP(), s1, CarLeaveEntity.class, new HttpManager.ResultCallback<CarLeaveEntity>() {
-                            @Override
-                            public void onSuccess(String json, final CarLeaveEntity carLeaveEntity) throws InterruptedException {
-                            }
 
+                        String json = new Gson().toJson(carLeaveRrdBean);
+                        String s1 = "Api_Apply_CarLeave " + json;
+                        L.e(TAG+"提交",s1);
+                        HttpManager.getInstance().requestNewResultForm(getTempIP(), s1, CarApplyBean.class, new HttpManager.ResultNewCallback<CarApplyBean>() {
                             @Override
-                            public void onFailure(final String msg) {
-                            }
-
-                            @Override
-                            public void onResponse(String response) {
-                                if (response.toLowerCase().contains("ok")) {
+                            public void onSuccess(String json, CarApplyBean carApplyBean) throws Exception {
+                                if (carApplyBean.getApi_Apply_CarLeave().get(0) == null){
                                     show("提交成功");
                                     getActivity().finish();
                                 }else{
                                     show("提交失败");
                                     getActivity().finish();
                                 }
+                            }
+
+                            @Override
+                            public void onError(String msg) throws Exception {
+
+                            }
+
+                            @Override
+                            public void onResponse(String response) throws Exception {
+
+                            }
+
+                            @Override
+                            public void onBefore(Request request, int id) throws Exception {
+
+                            }
+
+                            @Override
+                            public void onAfter(int id) throws Exception {
+
+                            }
+
+                            @Override
+                            public void inProgress(float progress, long total, int id) throws Exception {
+
                             }
                         });
                     }
@@ -324,29 +338,6 @@ public class CarApplyFragment extends CommonFragment {
                 show("请先选择车辆号牌!");
             }
 
-       /*     if (!getDisplayValueByKey("车辆号牌").getRealValue().isEmpty()){
-                if (carOwnerNameArray != null) {
-                    showSelector(holder, carOwnerNameArray, new OnSelectedResultCallback() {
-                        @Override
-                        public void onSelected(Group ownGroup, HandInputGroup.Holder holder, int mainIndex, int itemIndex) {
-                            String str1 = ownGroup.getHolderByKey("驾驶员").getRealValue();
-                            String str2 = ownGroup.getHolderByKey("带车干部").getRealValue();
-                            for (int i = 0; i < ownGroup.getHolders().size(); i++) {
-                                if(ownGroup.getHolders().get(i).getKey().equals("驾驶员")){
-                                    getNoFromName1(str1);
-                                }else if (ownGroup.getHolders().get(i).getKey().equals("带车干部")){
-                                    getNoFromName2(str2);
-                                }
-                            }
-                        }
-                    });
-                } else {
-                    ToastUtil.showToast(getContext(),"拉取失败");
-                }
-            }else{
-                show("请先选择车辆号牌!");
-            }*/
-
         }
     }
 
@@ -433,50 +424,6 @@ public class CarApplyFragment extends CommonFragment {
         });
     }
 
-    private void loadDraftData(String realValue) {
-        CarInfoEntity entity = new CarInfoEntity();
-        CarInfoEntity.CarInfoBean bean = new CarInfoEntity.CarInfoBean();
-        bean.setNo(realValue);
-        bean.setOwner1No("?");
-        bean.setOwner2No("?");
-        bean.setIsAndroid("1");
-        bean.setAuthenticationNo(loginBean.getAuthenticationNo());
-        List<CarInfoEntity.CarInfoBean> list = new ArrayList<>();
-        list.add(bean);
-        entity.setCarInfo(list);
-        String requestStr = "get "+new Gson().toJson(entity);
-        L.e(TAG+"CarApplyFragment",requestStr);
-        HttpManager.getInstance().requestResultForm(getTempIP(), requestStr, CarInfoEntity.class, new HttpManager.ResultCallback<CarInfoEntity>() {
-            @Override
-            public void onSuccess(String json, CarInfoEntity carInfoEntity) throws InterruptedException {
-                List<String> carOwnerNameList = new ArrayList<>();
-                int num = 0;
-                if (!carInfoEntity.getCarInfo().get(0).getOwner1Name().isEmpty()){
-                    num++;
-                }
-                if (!carInfoEntity.getCarInfo().get(0).getOwner2Name().isEmpty()){
-                    num++;
-                }
-                if (num == 1){
-                    carOwnerNameList.add(0,carInfoEntity.getCarInfo().get(0).getOwner1Name());
-                }else if(num == 2){
-                    carOwnerNameList.add(0,carInfoEntity.getCarInfo().get(0).getOwner1Name());
-                    carOwnerNameList.add(1,carInfoEntity.getCarInfo().get(0).getOwner2Name());
-                }
-                carOwnerNameArray = carOwnerNameList.toArray(new String[carOwnerNameList.size()]);
-            }
-
-            @Override
-            public void onFailure(String msg) {
-
-            }
-
-            @Override
-            public void onResponse(String response) {
-
-            }
-        });
-    }
     @Override
     public void onDataChanged(HandInputGroup.Holder holder) throws ParseException {
         Group group = getGroup().get(0);

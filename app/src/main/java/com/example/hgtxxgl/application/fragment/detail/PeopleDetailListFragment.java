@@ -70,6 +70,7 @@ public class PeopleDetailListFragment extends Fragment implements SimpleListView
             holder.setText(R.id.approve_type,"请假类型: "+bean.getOutType());
             holder.setText(R.id.approve_outtime,"离队时间:"+DataUtil.parseDateByFormat(bean.getOutTime(), "yyyy-MM-dd"));
             holder.setText(R.id.approve_intime,"归队时间:"+DataUtil.parseDateByFormat(bean.getInTime(), "yyyy-MM-dd"));
+            holder.setText(R.id.approve_time,DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss"));
 
             //流程已结束
             if (bean.getProcess().equals("1")){

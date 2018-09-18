@@ -17,7 +17,6 @@ import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.NotificationItemActivity;
 import com.example.hgtxxgl.application.entity.MessageEntity;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
-import com.example.hgtxxgl.application.utils.DateUtil;
 import com.example.hgtxxgl.application.utils.TimeUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.DataUtil;
@@ -29,9 +28,6 @@ import com.example.hgtxxgl.application.view.SimpleListView;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -68,18 +64,18 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
             ((ArrayList<MessageEntity.MessageRrdBean>) entityList, R.layout.layout_notification) {
         @Override
         public void bindView(ViewHolder holder, MessageEntity.MessageRrdBean bean) {
-            holder.setText(R.id.tv_date, TimeUtil.getTimeFormatText(DataUtil.parseDateToText(bean.getModifyTime())));
+            holder.setText(R.id.tv_date, bean.getModifyTime());
             holder.setText(R.id.tv_sketch, bean.getContent());
+            holder.setText(R.id.tv_name, bean.getObjects());
         }
     };
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // TODO
         authenticationNo = ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo();
         loadData(beginNum,endNum);
-        PollingUtils.startPollingService(getContext(), 1, PollingService.class, PollingService.ACTION);
+//        PollingUtils.startPollingService(getContext(), 1, PollingService.class, PollingService.ACTION);
     }
 
     @Override
@@ -145,7 +141,8 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
         HttpManager.getInstance().requestResultForm(tempIP, s, MessageEntity.class, new HttpManager.ResultCallback<MessageEntity>() {
             @Override
             public void onSuccess(String json, MessageEntity messageEntity) throws InterruptedException {
-                if (messageEntity != null && messageEntity.getMessageRrd().size() > 0){
+                L.e(TAG,"onSuccess"+json);
+                /*if (messageEntity != null && messageEntity.getMessageRrd().size() > 0){
                     if (beginNum == -2 && endNum == 0){
                         entityList.clear();
                     }
@@ -169,11 +166,12 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
                     hasMore = false;
                 }
                 pb.setVisibility(View.GONE);
-                lv.completeRefresh();
+                lv.completeRefresh();*/
             }
 
             @Override
             public void onFailure(String msg) {
+                L.e(TAG,"onFailure"+msg);
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -185,7 +183,40 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
 
             @Override
             public void onResponse(String response) {
-                ivEmpty.setVisibility(View.VISIBLE);
+                if (entityList!=null){
+                    entityList.clear();
+                    MessageEntity messageEntity = new MessageEntity();
+                    List<MessageEntity.MessageRrdBean> list = new ArrayList<>();
+                    MessageEntity.MessageRrdBean messageRrdBean = new MessageEntity.MessageRrdBean();
+                    messageRrdBean.setContent("一营全体领导到会议厅集合");
+                    messageRrdBean.setModifyTime("2018年9月20日早8:00");
+                    messageRrdBean.setObjects("杨国慧");
+                    MessageEntity.MessageRrdBean messageRrdBean1 = new MessageEntity.MessageRrdBean();
+                    messageRrdBean1.setContent("二连全体领导到操场集合");
+                    messageRrdBean1.setModifyTime("2018年9月21日早9:00");
+                    messageRrdBean1.setObjects("李成龙");
+                    MessageEntity.MessageRrdBean messageRrdBean2 = new MessageEntity.MessageRrdBean();
+                    messageRrdBean2.setContent("三营全体官兵到体育馆集合");
+                    messageRrdBean2.setModifyTime("2018年9月22日早10:00");
+                    messageRrdBean2.setObjects("张昌林");
+                    MessageEntity.MessageRrdBean messageRrdBean3 = new MessageEntity.MessageRrdBean();
+                    messageRrdBean3.setContent("一班全员到会议厅集合");
+                    messageRrdBean3.setModifyTime("2018年9月23日早11:00");
+                    messageRrdBean3.setObjects("许三多");
+                    MessageEntity.MessageRrdBean messageRrdBean4 = new MessageEntity.MessageRrdBean();
+                    messageRrdBean4.setContent("一营全体领导到会议厅集合");
+                    messageRrdBean4.setModifyTime("2018年9月24日早12:00");
+                    messageRrdBean4.setObjects("杨国慧");
+                    list.add(0,messageRrdBean);
+                    list.add(1,messageRrdBean1);
+                    list.add(2,messageRrdBean2);
+                    list.add(3,messageRrdBean3);
+                    list.add(4,messageRrdBean4);
+                    messageEntity.setMessageRrd(list);
+                    entityList.addAll(messageEntity.getMessageRrd());
+                }
+                L.e(TAG,"onResponse"+response);
+//                ivEmpty.setVisibility(View.VISIBLE);
                 adapter.notifyDataSetChanged();
                 lv.completeRefresh();
             }

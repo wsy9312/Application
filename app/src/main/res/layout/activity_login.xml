@@ -14,20 +14,9 @@
         android:layout_marginRight="10dp"
         android:src="@drawable/ic_setting"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:textSize="20sp"
-        android:gravity="center"
-        android:maxLines="2"
-        android:textColor="@color/gray"
-        android:text="勤务服务"/>
 
     <RelativeLayout
+        android:paddingTop="70dp"
         android:paddingBottom="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
