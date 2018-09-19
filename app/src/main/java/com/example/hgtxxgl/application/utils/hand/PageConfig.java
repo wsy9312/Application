@@ -35,14 +35,23 @@ public class PageConfig {
     public static final int PAGE_COMMISSION_PEOPLE_DELAY_LIST = 15;
     public static final int PAGE_COMMISSION_PEOPLE_FINISH_LIST = 16;
     public static final int PAGE_COMMISSION_PEOPLE_DETAIL = 17;
-    //审批(人员)_我发起的(人员)_列表
+    //审批(人员)_我发起的_列表
     public static final int PAGE_LAUNCH_PEOPLE_LIST = 18;
-    //审批(人员)_我发起的(人员)_详情
+    //审批(人员)_我发起的_详情
     public static final int PAGE_LAUNCH_PEOPLE_DETAIL = 19;
-    //审批(车辆)_我审批的
-    public static final int PAGE_CAR_APPROVE = 20;
-    //审批(车辆)_我发起的
-    public static final int PAGE_CAR_DETAIL = 21;
+    //审批(车辆)_我发起的_列表
+    public static final int PAGE_LAUNCH_CAR_LIST = 21;
+    //审批(车辆)_我发起的_详情
+    public static final int PAGE_LAUNCH_CAR_DETAIL = 20;
+    //审批(车辆)_我审批的_父列表
+    public static final int PAGE_COMMISSION_CAR_TOTAL = 201;
+    //审批(车辆)_我审批的_待我审批和我已审批和详情
+    public static final int PAGE_COMMISSION_CAR_DELAY_LIST = 202;
+    public static final int PAGE_COMMISSION_CAR_FINISH_LIST = 203;
+    public static final int PAGE_COMMISSION_CAR_DETAIL = 204;
+
+    public static final int PAGE_CAR_APPROVE = 200;
+
     //工作_其他流程
     //行政管理
     public static final int PAGE_XINGZHENG = 22;

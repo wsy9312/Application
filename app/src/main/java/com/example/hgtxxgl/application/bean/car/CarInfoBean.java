@@ -37,6 +37,7 @@ public class CarInfoBean {
          * BeginNum : 0
          * EndNum : 0
          * OutStatus : 0
+         * TimeStamp : 0
          */
 
         private String Owner1No;
@@ -57,6 +58,15 @@ public class CarInfoBean {
         private String BeginNum;
         private String EndNum;
         private String OutStatus;
+        private String TimeStamp;
+
+        public String getTimeStamp() {
+            return TimeStamp;
+        }
+
+        public void setTimeStamp(String timeStamp) {
+            TimeStamp = timeStamp;
+        }
 
         public String getOwner1No() {
             return Owner1No;

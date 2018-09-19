@@ -8,9 +8,10 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 
 import com.example.hgtxxgl.application.bean.car.CarApplyBean;
+import com.example.hgtxxgl.application.bean.car.CarInfoBean;
 import com.example.hgtxxgl.application.bean.login.LoginInfoBean;
 import com.example.hgtxxgl.application.bean.login.PeopleInfoBean;
-import com.example.hgtxxgl.application.entity.CarInfoEntity;
+import com.example.hgtxxgl.application.bean.temp.TempPeopleInfoBean;
 import com.example.hgtxxgl.application.rest.CommonFragment;
 import com.example.hgtxxgl.application.rest.HandInputGroup;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
@@ -34,7 +35,6 @@ public class CarApplyFragment extends CommonFragment {
     private String unit;
     private String department;
     private String[] carNoArray;
-    private String[] carOwnerNameArray;
     private String ownerNo1 = "";
     private String ownerNo2 = "";
     private String[] arrayName;
@@ -135,6 +135,7 @@ public class CarApplyFragment extends CommonFragment {
                         carLeaveRrdBean.setOutTime(leaveTime);//
                         carLeaveRrdBean.setInTime(returnTime);//
                         carLeaveRrdBean.setIsAndroid("1");//
+                        carLeaveRrdBean.setTimeStamp(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getTimeStamp());//
 //                        carLeaveRrdBean.setBFillup(bFillup.equals("否")?"0":"1");
                         if (!ownerNo1.isEmpty()){
                             carLeaveRrdBean.setDriverNo(ownerNo1);
@@ -204,13 +205,13 @@ public class CarApplyFragment extends CommonFragment {
         peopleInfoBean.setName(driver);
         peopleInfoBean.setNo("?");
         peopleInfoBean.setAuthenticationNo(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getNo());
-        peopleInfoBean.setTimeStamp(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getTimeStamp());
+        peopleInfoBean.setTimeStamp(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getTimeStamp());
         String json = new Gson().toJson(peopleInfoBean);
-        String s1 = "Api_Get_MyInfoSim " + json;
-        HttpManager.getInstance().requestNewResultForm(getTempIP(), s1, PeopleInfoBean.class, new HttpManager.ResultNewCallback<PeopleInfoBean>() {
+        String s1 = "Api_Get_PeopleInfoSim " + json;
+        HttpManager.getInstance().requestNewResultForm(getTempIP(), s1, TempPeopleInfoBean.class, new HttpManager.ResultNewCallback<TempPeopleInfoBean>() {
             @Override
-            public void onSuccess(String json, PeopleInfoBean entity) throws InterruptedException {
-                ownerNo1 = entity.getApi_Get_MyInfoSim().get(0).getNo();
+            public void onSuccess(String json, TempPeopleInfoBean entity) throws InterruptedException {
+                ownerNo1 = entity.getApi_Get_PeopleInfoSim().get(0).getNo();
             }
 
             @Override
@@ -245,14 +246,14 @@ public class CarApplyFragment extends CommonFragment {
         peopleInfoBean.setIsAndroid("1");
         peopleInfoBean.setName(driver);
         peopleInfoBean.setNo("?");
-        peopleInfoBean.setAuthenticationNo(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getNo());
-        peopleInfoBean.setTimeStamp(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getTimeStamp());
+        peopleInfoBean.setAuthenticationNo(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getAuthenticationNo());
+        peopleInfoBean.setTimeStamp(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getTimeStamp());
         String json = new Gson().toJson(peopleInfoBean);
-        String s1 = "Api_Get_MyInfoSim " + json;
-        HttpManager.getInstance().requestNewResultForm(getTempIP(), s1, PeopleInfoBean.class, new HttpManager.ResultNewCallback<PeopleInfoBean>() {
+        String s1 = "Api_Get_PeopleInfoSim " + json;
+        HttpManager.getInstance().requestNewResultForm(getTempIP(), s1, TempPeopleInfoBean.class, new HttpManager.ResultNewCallback<TempPeopleInfoBean>() {
             @Override
-            public void onSuccess(String json, PeopleInfoBean entity) throws InterruptedException {
-                ownerNo2 = entity.getApi_Get_MyInfoSim().get(0).getNo();
+            public void onSuccess(String json, TempPeopleInfoBean entity) throws InterruptedException {
+                ownerNo2 = entity.getApi_Get_PeopleInfoSim().get(0).getNo();
             }
 
             @Override
@@ -347,16 +348,16 @@ public class CarApplyFragment extends CommonFragment {
         peopleInfoBean.setName("?");
         peopleInfoBean.setNo("?");
         peopleInfoBean.setAuthenticationNo(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getNo());
-        peopleInfoBean.setTimeStamp(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getTimeStamp());
+        peopleInfoBean.setTimeStamp(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getTimeStamp());
         String json = new Gson().toJson(peopleInfoBean);
-        String s1 = "Api_Get_MyInfoSim " + json;
-        HttpManager.getInstance().requestNewResultForm(getTempIP(), s1, PeopleInfoBean.class, new HttpManager.ResultNewCallback<PeopleInfoBean>() {
+        String s1 = "Api_Get_PeopleInfoSim " + json;
+        HttpManager.getInstance().requestNewResultForm(getTempIP(), s1, TempPeopleInfoBean.class, new HttpManager.ResultNewCallback<TempPeopleInfoBean>() {
             @Override
-            public void onSuccess(String json, PeopleInfoBean entity) throws InterruptedException {
-                int size = entity.getApi_Get_MyInfoSim().size();
+            public void onSuccess(String json, TempPeopleInfoBean entity) throws InterruptedException {
+                int size = entity.getApi_Get_PeopleInfoSim().size();
                 List<String> list = new ArrayList<>();
                 for (int i = 0; i < size; i++) {
-                    list.add(i,entity.getApi_Get_MyInfoSim().get(i).getName());
+                    list.add(i,entity.getApi_Get_PeopleInfoSim().get(i).getName());
                 }
                 arrayName = list.toArray(new String[list.size()]);
             }
@@ -389,40 +390,55 @@ public class CarApplyFragment extends CommonFragment {
     }
 
     private void loadDraftData() {
-        CarInfoEntity entity = new CarInfoEntity();
-        CarInfoEntity.CarInfoBean bean = new CarInfoEntity.CarInfoBean();
+        CarInfoBean.ApiGetCarInfoBean bean = new CarInfoBean.ApiGetCarInfoBean();
         bean.setNo("?");
         bean.setOwner1No("?");
         bean.setOwner2No("?");
         bean.setIsAndroid("1");
+        bean.setTimeStamp(loginBean.getTimeStamp());
         bean.setAuthenticationNo(loginBean.getAuthenticationNo());
-        List<CarInfoEntity.CarInfoBean> list = new ArrayList<>();
-        list.add(bean);
-        entity.setCarInfo(list);
-        String requestStr = "get "+new Gson().toJson(entity);
+        String requestStr = "Api_Get_CarInfo "+new Gson().toJson(bean);
         L.e(TAG+"CarApplyFragment",requestStr);
-        HttpManager.getInstance().requestResultForm(getTempIP(), requestStr, CarInfoEntity.class, new HttpManager.ResultCallback<CarInfoEntity>() {
+        HttpManager.getInstance().requestNewResultForm(getTempIP(), requestStr, CarInfoBean.class, new HttpManager.ResultNewCallback<CarInfoBean>() {
+
             @Override
-            public void onSuccess(String json, CarInfoEntity carInfoEntity) throws InterruptedException {
-                int size = carInfoEntity.getCarInfo().size();
+            public void onSuccess(String json, CarInfoBean carInfoBean) throws Exception {
+                int size = carInfoBean.getApi_Get_CarInfo().size();
                 List<String> carNoList = new ArrayList<>();
                 for (int i = 0; i < size; i++) {
-                    carNoList.add(i,carInfoEntity.getCarInfo().get(i).getNo());
+                    carNoList.add(i,carInfoBean.getApi_Get_CarInfo().get(i).getNo());
                 }
                 carNoArray = carNoList.toArray(new String[carNoList.size()]);
             }
 
             @Override
-            public void onFailure(String msg) {
+            public void onError(String msg) throws Exception {
 
             }
 
             @Override
-            public void onResponse(String response) {
+            public void onResponse(String response) throws Exception {
+
+            }
+
+            @Override
+            public void onBefore(Request request, int id) throws Exception {
+
+            }
+
+            @Override
+            public void onAfter(int id) throws Exception {
+
+            }
+
+            @Override
+            public void inProgress(float progress, long total, int id) throws Exception {
 
             }
         });
     }
+
+
 
     @Override
     public void onDataChanged(HandInputGroup.Holder holder) throws ParseException {

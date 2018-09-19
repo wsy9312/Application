@@ -121,7 +121,7 @@ public class PeopleDetailListFragment extends Fragment implements SimpleListView
         HandToolbar handToolbar = (HandToolbar) view.findViewById(R.id.notification_handtoolbar);
         handToolbar.setDisplayHomeAsUpEnabled(true, getActivity());
         handToolbar.setBackHome(true,0);
-        handToolbar.setTitle("我申请的(人员)");
+        handToolbar.setTitle("我发起的(人员)");
         handToolbar.setTitleSize(18);
         lv = (SimpleListView) view.findViewById(R.id.viewpager_listview);
         ivEmpty = (TextView) view.findViewById(R.id.iv_empty);

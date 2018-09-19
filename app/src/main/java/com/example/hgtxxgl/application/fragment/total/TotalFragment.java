@@ -21,7 +21,7 @@ public class TotalFragment extends Fragment {
             PageConfig.PAGE_APPLY_PEOPLE_XIU,PageConfig.PAGE_APPLY_PEOPLE_WAI,
             PageConfig.PAGE_APPLY_CAR,PageConfig.PAGE_APPLY_PEOPLE_WU,
             PageConfig.PAGE_COMMISSION_PEOPLE_TOTAL,PageConfig.PAGE_LAUNCH_PEOPLE_LIST,
-            PageConfig.PAGE_CAR_APPROVE,PageConfig.PAGE_CAR_DETAIL,
+            PageConfig.PAGE_COMMISSION_CAR_TOTAL,PageConfig.PAGE_LAUNCH_CAR_LIST,
             PageConfig.PAGE_XINGZHENG,PageConfig.PAGE_YIJIAN,PageConfig.PAGE_CHART};
 
     private LinearLayout[] buttons = null;
@@ -60,7 +60,7 @@ public class TotalFragment extends Fragment {
                 (LinearLayout)view.findViewById(R.id.flow_unit_chart),
         };
         for (int i = 0; i < buttons.length; i++) {
-            if (i == 0 || i == 1 || i == 2 || i == 3 || i == 6 || i == 7 || i == 12){
+            if (i == 0 || i == 1 || i == 2 || i == 3 || i == 4 || i == 6 || i == 7 || i == 8 || i == 9 || i == 12){
                 final int finalI = i;
                 buttons[i].setOnClickListener(new View.OnClickListener() {
                     @Override

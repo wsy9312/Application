@@ -82,8 +82,8 @@ public class PeopleDetailFragment extends CommonFragment {
                 if (!TextUtils.equals("-9999",entity.getJourneyDays())){
                     baseHolder.add(new HandInputGroup.Holder("路途天数", true, false, entity.getJourneyDays(), HandInputGroup.VALUE_TYPE.DOUBLE).setColor(Color.rgb(128,128,128)));
                 }
-                baseHolder.add(new HandInputGroup.Holder("事由",true,false,entity.getContent(),HandInputGroup.VALUE_TYPE.BIG_EDIT).setColor(Color.rgb(128,128,128)));
                 baseHolder.add(new HandInputGroup.Holder("去向",true,false,entity.getDestination(),HandInputGroup.VALUE_TYPE.TEXTFILED).setColor(Color.rgb(128,128,128)));
+                baseHolder.add(new HandInputGroup.Holder("事由",true,false,entity.getContent(),HandInputGroup.VALUE_TYPE.BIG_EDIT).setColor(Color.rgb(128,128,128)));
                 if (!TextUtils.isEmpty(entity.getVacationAddr())){
                     baseHolder.add(new HandInputGroup.Holder("疗养地址", true, false, entity.getVacationAddr(), HandInputGroup.VALUE_TYPE.TEXT));
                 }
@@ -110,8 +110,8 @@ public class PeopleDetailFragment extends CommonFragment {
                 if (!TextUtils.equals("-9999",entity.getJourneyDays())){
                     baseHolder.add(new HandInputGroup.Holder("路途天数", true, false, entity.getJourneyDays(), HandInputGroup.VALUE_TYPE.TEXT));
                 }
-                baseHolder.add(new HandInputGroup.Holder("事由", true, false, entity.getContent(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("去向", true, false, entity.getDestination(), HandInputGroup.VALUE_TYPE.TEXT));
+                baseHolder.add(new HandInputGroup.Holder("事由", true, false, entity.getContent(), HandInputGroup.VALUE_TYPE.TEXT));
                 if (!TextUtils.isEmpty(entity.getVacationAddr())){
                     baseHolder.add(new HandInputGroup.Holder("疗养地址", true, false, entity.getVacationAddr(), HandInputGroup.VALUE_TYPE.TEXT));
                 }
@@ -140,8 +140,8 @@ public class PeopleDetailFragment extends CommonFragment {
                 if (!TextUtils.equals("-9999",entity.getJourneyDays())){
                     baseHolder.add(new HandInputGroup.Holder("路途天数", true, false, entity.getJourneyDays(), HandInputGroup.VALUE_TYPE.TEXT));
                 }
-                baseHolder.add(new HandInputGroup.Holder("事由", true, false, entity.getContent(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("去向", true, false, entity.getDestination(), HandInputGroup.VALUE_TYPE.TEXT));
+                baseHolder.add(new HandInputGroup.Holder("事由", true, false, entity.getContent(), HandInputGroup.VALUE_TYPE.TEXT));
                 if (!TextUtils.isEmpty(entity.getVacationAddr())){
                     baseHolder.add(new HandInputGroup.Holder("疗养地址", true, false, entity.getVacationAddr(), HandInputGroup.VALUE_TYPE.TEXT));
                 }
@@ -165,7 +165,6 @@ public class PeopleDetailFragment extends CommonFragment {
             holders.add(new HandInputGroup.Holder("审批结果", true, false, "无", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(255,140,0)));
             holders.add(new HandInputGroup.Holder("是否已撤销", true, false, bCancel.equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(255,140,0)));
             groups.add(0,new Group("流程信息", null, false, null, holders));
-            setButtonsTitles(buttonType[0]);
             List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
             baseHolder.add(new HandInputGroup.Holder("申请人", true, false, peopleInfoBean.getName(), HandInputGroup.VALUE_TYPE.TEXT));
             baseHolder.add(new HandInputGroup.Holder("所属单位", true, false, peopleInfoBean.getUnit(), HandInputGroup.VALUE_TYPE.TEXT));
@@ -178,14 +177,14 @@ public class PeopleDetailFragment extends CommonFragment {
             if (!TextUtils.equals("-9999",entity.getJourneyDays())){
                 baseHolder.add(new HandInputGroup.Holder("路途天数", true, false, entity.getJourneyDays(), HandInputGroup.VALUE_TYPE.TEXT));
             }
-            baseHolder.add(new HandInputGroup.Holder("事由", true, false, entity.getContent(), HandInputGroup.VALUE_TYPE.TEXT));
             baseHolder.add(new HandInputGroup.Holder("去向", true, false, entity.getDestination(), HandInputGroup.VALUE_TYPE.TEXT));
+            baseHolder.add(new HandInputGroup.Holder("事由", true, false, entity.getContent(), HandInputGroup.VALUE_TYPE.TEXT));
             if (!TextUtils.isEmpty(entity.getVacationAddr())){
                 baseHolder.add(new HandInputGroup.Holder("疗养地址", true, false, entity.getVacationAddr(), HandInputGroup.VALUE_TYPE.TEXT));
             }
 //            baseHolder.add(new HandInputGroup.Holder("是否后补申请", true, false, entity.getBFillup().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
             groups.add(1,new Group("基本信息", null, false, null, baseHolder));
-
+            setButtonsTitles(buttonType[0]);
         }else if (process == 0){
             if (bCancel.equals("0")){
                 List<HandInputGroup.Holder> holders = new ArrayList<>();
@@ -216,8 +215,8 @@ public class PeopleDetailFragment extends CommonFragment {
             if (!TextUtils.equals("-9999",entity.getJourneyDays())){
                 baseHolder.add(new HandInputGroup.Holder("路途天数", true, false, entity.getJourneyDays(), HandInputGroup.VALUE_TYPE.TEXT));
             }
-            baseHolder.add(new HandInputGroup.Holder("事由", true, false, entity.getContent(), HandInputGroup.VALUE_TYPE.TEXT));
             baseHolder.add(new HandInputGroup.Holder("去向", true, false, entity.getDestination(), HandInputGroup.VALUE_TYPE.TEXT));
+            baseHolder.add(new HandInputGroup.Holder("事由", true, false, entity.getContent(), HandInputGroup.VALUE_TYPE.TEXT));
             if (!TextUtils.isEmpty(entity.getVacationAddr())){
                 baseHolder.add(new HandInputGroup.Holder("疗养地址", true, false, entity.getVacationAddr(), HandInputGroup.VALUE_TYPE.TEXT));
             }
@@ -281,17 +280,9 @@ public class PeopleDetailFragment extends CommonFragment {
                 return;
             }else{
                 if (entity.getProcess().equals("1")){
-                    if (entity.getResult().equals("0")||entity.getResult().equals("1")){
-                        show("审批已结束,不可撤销!");
-                        return;
-                    }
-                }else if (entity.getProcess().equals("0")){
-                    if (entity.getResult().equals("0")){
-                        if (!entity.getApproverNo().isEmpty()){
-                            show("审批进行中,不可撤销!");
-                            return;
-                        }
-                    }
+                    show("审批已结束,不可撤销!");
+                }else if (entity.getProcess().equals("2")){
+                    show("审批进行中,不可撤销!");
                 }
                 peopleLeaveRrdBean.setBCancel("1");
                 String json = new Gson().toJson(peopleLeaveRrdBean);
@@ -632,12 +623,12 @@ public class PeopleDetailFragment extends CommonFragment {
                         if (peopleLeaveDetailBean != null){
                             L.e(TAG+"加载",peopleLeaveDetailBean.getApi_Get_MyApplyForPeo().get(0).toString());
                             String bCancel = peopleLeaveDetailBean.getApi_Get_MyApplyForPeo().get(0).getBCancel();
-                            String process1 = peopleLeaveDetailBean.getApi_Get_MyApplyForPeo().get(0).getProcess();
+                            String process = peopleLeaveDetailBean.getApi_Get_MyApplyForPeo().get(0).getProcess();
                             String result = peopleLeaveDetailBean.getApi_Get_MyApplyForPeo().get(0).getResult();
                             String outStatus = peopleLeaveDetailBean.getApi_Get_MyApplyForPeo().get(0).getOutStatus();
                             String actualOutTime = peopleLeaveDetailBean.getApi_Get_MyApplyForPeo().get(0).getActualOutTime();
                             String actualInTime = peopleLeaveDetailBean.getApi_Get_MyApplyForPeo().get(0).getActualInTime();
-                            if (process1.equals("1")){
+                            if (process.equals("1")){
                                 if (result.equals("2")){
                                     type = 2;
                                 }else if(result.equals("0")){

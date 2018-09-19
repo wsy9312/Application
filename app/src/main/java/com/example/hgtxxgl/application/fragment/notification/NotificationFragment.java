@@ -190,7 +190,7 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
                     MessageEntity.MessageRrdBean messageRrdBean = new MessageEntity.MessageRrdBean();
                     messageRrdBean.setContent("一营全体领导到会议厅集合");
                     messageRrdBean.setModifyTime("2018年9月20日早8:00");
-                    messageRrdBean.setObjects("杨国慧");
+                    messageRrdBean.setObjects("杨慧国");
                     MessageEntity.MessageRrdBean messageRrdBean1 = new MessageEntity.MessageRrdBean();
                     messageRrdBean1.setContent("二连全体领导到操场集合");
                     messageRrdBean1.setModifyTime("2018年9月21日早9:00");
@@ -206,7 +206,7 @@ public class NotificationFragment extends Fragment implements AdapterView.OnItem
                     MessageEntity.MessageRrdBean messageRrdBean4 = new MessageEntity.MessageRrdBean();
                     messageRrdBean4.setContent("一营全体领导到会议厅集合");
                     messageRrdBean4.setModifyTime("2018年9月24日早12:00");
-                    messageRrdBean4.setObjects("杨国慧");
+                    messageRrdBean4.setObjects("杨慧国");
                     list.add(0,messageRrdBean);
                     list.add(1,messageRrdBean1);
                     list.add(2,messageRrdBean2);

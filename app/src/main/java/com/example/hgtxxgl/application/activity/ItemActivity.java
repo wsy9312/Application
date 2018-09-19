@@ -13,11 +13,17 @@ import com.example.hgtxxgl.application.fragment.apply.GoOutApplyFragment;
 import com.example.hgtxxgl.application.fragment.apply.RestApplyFragment;
 import com.example.hgtxxgl.application.fragment.apply.SickApplyFragment;
 import com.example.hgtxxgl.application.fragment.apply.WorkLeaveApplyFragment;
+import com.example.hgtxxgl.application.fragment.approve.CarApproveDelayListFragment;
+import com.example.hgtxxgl.application.fragment.approve.CarApproveDetailFragment;
+import com.example.hgtxxgl.application.fragment.approve.CarApproveFinishListFragment;
+import com.example.hgtxxgl.application.fragment.approve.CarApproveListFragment;
 import com.example.hgtxxgl.application.fragment.approve.PeopleApproveDelayListFragment;
 import com.example.hgtxxgl.application.fragment.approve.PeopleApproveDetailFragment;
 import com.example.hgtxxgl.application.fragment.approve.PeopleApproveFinishListFragment;
 import com.example.hgtxxgl.application.fragment.approve.PeopleApproveListFragment;
 import com.example.hgtxxgl.application.fragment.approve.RestApproveCarFragment;
+import com.example.hgtxxgl.application.fragment.detail.CarDetailFragment;
+import com.example.hgtxxgl.application.fragment.detail.CarDetailListFragment;
 import com.example.hgtxxgl.application.fragment.detail.PeopleDetailFragment;
 import com.example.hgtxxgl.application.fragment.detail.PeopleDetailListFragment;
 import com.example.hgtxxgl.application.fragment.detail.RestDetailCarFragment;
@@ -95,12 +101,28 @@ public class ItemActivity extends AppCompatActivity {
             case PageConfig.PAGE_LAUNCH_PEOPLE_DETAIL:
                 checkFragment(PeopleDetailFragment.newInstance(getIntent().getBundleExtra("data")));
                 break;
+            case PageConfig.PAGE_LAUNCH_CAR_LIST:
+                checkFragment(CarDetailListFragment.newInstance(getIntent().getBundleExtra("data")));
+                break;
+            case PageConfig.PAGE_LAUNCH_CAR_DETAIL:
+                checkFragment(CarDetailFragment.newInstance(getIntent().getBundleExtra("data")));
+                break;
+            case PageConfig.PAGE_COMMISSION_CAR_TOTAL:
+                checkFragment(CarApproveListFragment.newInstance(getIntent().getBundleExtra("data")));
+                break;
+            case PageConfig.PAGE_COMMISSION_CAR_DELAY_LIST:
+                checkFragment(CarApproveDelayListFragment.newInstance(getIntent().getBundleExtra("data")));
+                break;
+            case PageConfig.PAGE_COMMISSION_CAR_FINISH_LIST:
+                checkFragment(CarApproveFinishListFragment.newInstance(getIntent().getBundleExtra("data")));
+                break;
+            case PageConfig.PAGE_COMMISSION_CAR_DETAIL:
+                checkFragment(CarApproveDetailFragment.newInstance(getIntent().getBundleExtra("data")));
+                break;
             case PageConfig.PAGE_CAR_APPROVE:
                 checkFragment(new TempFragment());
                 break;
-            case PageConfig.PAGE_CAR_DETAIL:
-                checkFragment(new TempFragment());
-                break;
+
             case PageConfig.PAGE_XINGZHENG:
                 checkFragment(new TempFragment());
                 break;
