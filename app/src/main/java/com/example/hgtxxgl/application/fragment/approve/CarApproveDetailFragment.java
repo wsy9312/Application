@@ -102,6 +102,8 @@ public class CarApproveDetailFragment extends CommonFragment{
         holderList.add(new HandInputGroup.Holder("驾驶员", true, false, DriverName, HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("离队时间", true, false, OutTime, HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("归队时间", true, false, InTime, HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("实际离队时间", true, false, ActualOutTime, HandInputGroup.VALUE_TYPE.TEXT));
+        holderList.add(new HandInputGroup.Holder("实际归队时间", true, false, ActualInTime, HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("去向", true, false, Destination, HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("事由", true, false, Content, HandInputGroup.VALUE_TYPE.TEXT));
 

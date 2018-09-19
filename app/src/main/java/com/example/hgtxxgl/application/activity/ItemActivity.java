@@ -174,7 +174,8 @@ public class ItemActivity extends AppCompatActivity {
     public void onBackPressed() {
         int intExtra = getIntent().getIntExtra(PageConfig.PAGE_CODE, -1);
         if (intExtra == PageConfig.PAGE_APPLY_PEOPLE_SHI||intExtra == PageConfig.PAGE_APPLY_PEOPLE_BING||
-            intExtra == PageConfig.PAGE_APPLY_PEOPLE_XIU||intExtra == PageConfig.PAGE_APPLY_PEOPLE_WAI){
+            intExtra == PageConfig.PAGE_APPLY_PEOPLE_XIU||intExtra == PageConfig.PAGE_APPLY_PEOPLE_WAI||
+            intExtra == PageConfig.PAGE_APPLY_CAR){
             AlertDialog.Builder builder=new AlertDialog.Builder(this);
             builder.setMessage(R.string.make_sure_back_current_apply);
             builder.setPositiveButton(R.string.make_sure, new DialogInterface.OnClickListener() {

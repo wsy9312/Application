@@ -102,6 +102,10 @@ public class PeopleApproveDetailFragment extends CommonFragment {
         holderList.add(new HandInputGroup.Holder("所属部门", true, false, Department, HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("离队时间", true, false, OutTime, HandInputGroup.VALUE_TYPE.TEXT));
         holderList.add(new HandInputGroup.Holder("归队时间", true, false, InTime, HandInputGroup.VALUE_TYPE.TEXT));
+        if (substring == 1 && process == 1){
+            holderList.add(new HandInputGroup.Holder("实际离队时间", true, false, ActualOutTime, HandInputGroup.VALUE_TYPE.TEXT));
+            holderList.add(new HandInputGroup.Holder("实际归队时间", true, false, ActualInTime, HandInputGroup.VALUE_TYPE.TEXT));
+        }
         if (!TextUtils.equals("-9999",VacationDays)){
             holderList.add(new HandInputGroup.Holder("假期天数", true, false, VacationDays, HandInputGroup.VALUE_TYPE.TEXT));
         }

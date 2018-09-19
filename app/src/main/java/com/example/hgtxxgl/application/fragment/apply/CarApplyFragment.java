@@ -151,10 +151,19 @@ public class CarApplyFragment extends CommonFragment {
                         HttpManager.getInstance().requestNewResultForm(getTempIP(), s1, CarApplyBean.class, new HttpManager.ResultNewCallback<CarApplyBean>() {
                             @Override
                             public void onSuccess(String json, CarApplyBean carApplyBean) throws Exception {
+                                L.e(TAG+"onSuccess",json);
+                                if (json.contains("AuthorityError")){
+                                    show("提交失败,无申请权限");
+                                    getActivity().finish();
+                                }
+                                if (json.contains("CarIsOut")){
+                                    show("提交失败,车辆不在岗或已被使用");
+                                    getActivity().finish();
+                                }
                                 if (carApplyBean.getApi_Apply_CarLeave().get(0) == null){
                                     show("提交成功");
                                     getActivity().finish();
-                                }else{
+                                }else {
                                     show("提交失败");
                                     getActivity().finish();
                                 }

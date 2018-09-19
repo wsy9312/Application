@@ -144,7 +144,7 @@
                 android:background="@drawable/bg_total_gray"
                 android:orientation="vertical">
                 <ImageView
-                    android:src="@drawable/temp06"
+                    android:src="@drawable/flow_apply_car"
                     android:layout_marginBottom="2dp"
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
@@ -375,7 +375,7 @@
             android:background="@drawable/bg_total_gray"
             android:orientation="vertical">
             <ImageView
-                android:src="@drawable/temp02"
+                android:src="@drawable/flow_approve_people"
                 android:layout_marginBottom="2dp"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
@@ -399,7 +399,7 @@
             android:background="@drawable/bg_total_gray"
             android:orientation="vertical">
             <ImageView
-                android:src="@drawable/temp03"
+                android:src="@drawable/flow_launch_people"
                 android:layout_marginBottom="2dp"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"

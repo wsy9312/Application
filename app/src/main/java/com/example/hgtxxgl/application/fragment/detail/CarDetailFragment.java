@@ -74,16 +74,16 @@ public class CarDetailFragment extends CommonFragment {
                 holders.add(new HandInputGroup.Holder("是否已撤销", true, false, bCancel.equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(214,16,24)));
                 groups.add(0,new Group("流程信息", null, false, null, holders));
                 List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
-                baseHolder.add(new HandInputGroup.Holder("申请人",true,false,peopleInfoBean.getName(),HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(128,128,128)));
-                baseHolder.add(new HandInputGroup.Holder("所属单位",true,false,peopleInfoBean.getUnit(),HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(128,128,128)));
-                baseHolder.add(new HandInputGroup.Holder("所属部门",true,false,peopleInfoBean.getDepartment(),HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(128,128,128)));
-                baseHolder.add(new HandInputGroup.Holder("车辆号牌",false,false,entity.getCarNo(),HandInputGroup.VALUE_TYPE.SELECT).setColor(Color.rgb(128,128,128)));
+                baseHolder.add(new HandInputGroup.Holder("申请人",false,false,peopleInfoBean.getName(),HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(128,128,128)));
+                baseHolder.add(new HandInputGroup.Holder("所属单位",false,false,peopleInfoBean.getUnit(),HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(128,128,128)));
+                baseHolder.add(new HandInputGroup.Holder("所属部门",false,false,peopleInfoBean.getDepartment(),HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(128,128,128)));
+                baseHolder.add(new HandInputGroup.Holder("车辆号牌",true,false,entity.getCarNo(),HandInputGroup.VALUE_TYPE.SELECT).setColor(Color.rgb(128,128,128)));
                 baseHolder.add(new HandInputGroup.Holder("带车干部",false,false,entity.getLeaderName(),HandInputGroup.VALUE_TYPE.SELECT).setColor(Color.rgb(128,128,128)));
                 baseHolder.add(new HandInputGroup.Holder("驾驶员",false,false,entity.getDriverName(),HandInputGroup.VALUE_TYPE.SELECT).setColor(Color.rgb(128,128,128)));
                 baseHolder.add(new HandInputGroup.Holder("离队时间",true,false,entity.getOutTime(),HandInputGroup.VALUE_TYPE.DATE).setColor(Color.rgb(128,128,128)));
                 baseHolder.add(new HandInputGroup.Holder("归队时间",true,false,entity.getInTime(),HandInputGroup.VALUE_TYPE.DATE).setColor(Color.rgb(128,128,128)));
-                baseHolder.add(new HandInputGroup.Holder("去向",false,false,entity.getDestination(),HandInputGroup.VALUE_TYPE.TEXTFILED).setColor(Color.rgb(128,128,128)));
-                baseHolder.add(new HandInputGroup.Holder("事由",false,false,entity.getContent(),HandInputGroup.VALUE_TYPE.BIG_EDIT).setColor(Color.rgb(128,128,128)));
+                baseHolder.add(new HandInputGroup.Holder("去向",true,false,entity.getDestination(),HandInputGroup.VALUE_TYPE.TEXTFILED).setColor(Color.rgb(128,128,128)));
+                baseHolder.add(new HandInputGroup.Holder("事由",true,false,entity.getContent(),HandInputGroup.VALUE_TYPE.BIG_EDIT).setColor(Color.rgb(128,128,128)));
 //                baseHolder.add(new HandInputGroup.Holder("是否后补申请",false,false,entity.getBFillup().equals("0")?"否":"是",HandInputGroup.VALUE_TYPE.SELECT).setColor(Color.rgb(128,128,128)));
                 groups.add(1,new Group("基本信息", null,true,null,baseHolder));
                 setButtonsTitles(buttonType[2]);
@@ -395,7 +395,7 @@ public class CarDetailFragment extends CommonFragment {
                     }else {
                         //申请人ID
                         String realValueNO = loginBean.getAuthenticationNo();
-                        String unit = getDisplayValueByKey("单位").getRealValue();
+                        String unit = getDisplayValueByKey("所属单位").getRealValue();
                         String applicant = getDisplayValueByKey("申请人").getRealValue();
                         String carNo = getDisplayValueByKey("车辆号牌").getRealValue();
                         String driverName = getDisplayValueByKey("驾驶员").getRealValue();
