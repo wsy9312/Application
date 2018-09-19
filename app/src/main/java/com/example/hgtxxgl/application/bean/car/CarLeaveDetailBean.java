@@ -17,6 +17,13 @@ public class CarLeaveDetailBean {
         this.Api_Get_MyApplyForCar = Api_Get_MyApplyForCar;
     }
 
+    @Override
+    public String toString() {
+        return "CarLeaveDetailBean{" +
+                "Api_Get_MyApplyForCar=" + Api_Get_MyApplyForCar +
+                '}';
+    }
+
     public static class ApiGetMyApplyForCarBean {
         /**
          * ActualInTime :

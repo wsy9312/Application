@@ -163,7 +163,7 @@ public class PeopleApproveFinishListFragment extends Fragment implements SimpleL
         HttpManager.getInstance().requestNewResultForm(tempIP, s, PeopleApproveFinishBean.class,new HttpManager.ResultNewCallback<PeopleApproveFinishBean>() {
             @Override
             public void onSuccess(String json, PeopleApproveFinishBean peopleApproveFinishBean) throws Exception {
-                if (peopleApproveFinishBean != null && peopleApproveFinishBean.getApi_Get_MyApproveForPeoHis().size() > 0) {
+                if (peopleApproveFinishBean != null && peopleApproveFinishBean.getApi_Get_MyApproveForPeoHis().size() > 0 && peopleApproveFinishBean.getApi_Get_MyApproveForPeoHis().get(0) != null) {
                     if (beginNum == 1 && endNum == 10){
                         entityList.clear();
                     }
@@ -185,18 +185,12 @@ public class PeopleApproveFinishListFragment extends Fragment implements SimpleL
 
             @Override
             public void onError(String msg) throws Exception {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        lv.completeRefresh();
-                        pb.setVisibility(GONE);
-                    }
-                });
+
             }
 
             @Override
             public void onResponse(String response) throws Exception {
-                ivEmpty.setVisibility(View.VISIBLE);
+
             }
 
             @Override

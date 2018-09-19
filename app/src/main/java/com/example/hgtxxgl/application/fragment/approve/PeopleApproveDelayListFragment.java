@@ -143,7 +143,7 @@ public class PeopleApproveDelayListFragment extends Fragment implements AdapterV
         HttpManager.getInstance().requestNewResultForm(tempIP, s, PeopleApproveDelayBean.class,new HttpManager.ResultNewCallback<PeopleApproveDelayBean>() {
             @Override
             public void onSuccess(String json, PeopleApproveDelayBean peopleApproveDelayBean) throws Exception {
-                if (peopleApproveDelayBean != null && peopleApproveDelayBean.getApi_Get_MyApproveForPeo().size() > 0) {
+                if (peopleApproveDelayBean != null && peopleApproveDelayBean.getApi_Get_MyApproveForPeo().size() > 0 && peopleApproveDelayBean.getApi_Get_MyApproveForPeo().get(0) != null) {
                     if (beginNum == 1 && endNum == 10){
                         entityList.clear();
                     }
@@ -165,18 +165,12 @@ public class PeopleApproveDelayListFragment extends Fragment implements AdapterV
 
             @Override
             public void onError(String msg) throws Exception {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        lv.completeRefresh();
-                        pb.setVisibility(GONE);
-                    }
-                });
+
             }
 
             @Override
             public void onResponse(String response) throws Exception {
-                ivEmpty.setVisibility(View.VISIBLE);
+
             }
 
             @Override
@@ -259,7 +253,6 @@ public class PeopleApproveDelayListFragment extends Fragment implements AdapterV
             loadData(beginNum, endNum);
         }
         lv.completeRefresh();
-        ivEmpty.setVisibility(GONE);
     }
 
     @Override

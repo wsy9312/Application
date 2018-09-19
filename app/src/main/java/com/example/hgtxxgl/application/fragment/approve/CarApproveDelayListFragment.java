@@ -143,7 +143,7 @@ public class CarApproveDelayListFragment extends Fragment implements AdapterView
         HttpManager.getInstance().requestNewResultForm(tempIP, s, CarApproveDelayBean.class,new HttpManager.ResultNewCallback<CarApproveDelayBean>() {
             @Override
             public void onSuccess(String json, CarApproveDelayBean carApproveDelayBean) throws Exception {
-                if (carApproveDelayBean != null && carApproveDelayBean.getApi_Get_MyApproveForCar().size() > 0) {
+                if (carApproveDelayBean != null && carApproveDelayBean.getApi_Get_MyApproveForCar().size() > 0 && carApproveDelayBean.getApi_Get_MyApproveForCar().get(0) != null) {
                     if (beginNum == 1 && endNum == 10){
                         entityList.clear();
                     }
@@ -159,24 +159,17 @@ public class CarApproveDelayListFragment extends Fragment implements AdapterView
                     hasMore = false;
                 }
                 pb.setVisibility(GONE);
-                ivEmpty.setVisibility(GONE);
                 lv.completeRefresh();
             }
 
             @Override
             public void onError(String msg) throws Exception {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        lv.completeRefresh();
-                        pb.setVisibility(GONE);
-                    }
-                });
+
             }
 
             @Override
             public void onResponse(String response) throws Exception {
-                ivEmpty.setVisibility(View.VISIBLE);
+
             }
 
             @Override
@@ -259,7 +252,6 @@ public class CarApproveDelayListFragment extends Fragment implements AdapterView
             loadData(beginNum, endNum);
         }
         lv.completeRefresh();
-        ivEmpty.setVisibility(GONE);
     }
 
     @Override

@@ -26,6 +26,7 @@ import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.ListAdapter;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
+import com.example.hgtxxgl.application.utils.hyutils.L;
 import com.example.hgtxxgl.application.view.HandToolbar;
 import com.example.hgtxxgl.application.view.SimpleListView;
 import com.google.gson.Gson;
@@ -175,7 +176,8 @@ public class CarDetailListFragment extends Fragment implements SimpleListView.On
         HttpManager.getInstance().requestNewResultForm(tempIP, s, CarLeaveDetailBean.class,new HttpManager.ResultNewCallback<CarLeaveDetailBean>() {
             @Override
             public void onSuccess(String json, CarLeaveDetailBean carLeaveDetailBean) throws Exception {
-                if (carLeaveDetailBean != null && carLeaveDetailBean.getApi_Get_MyApplyForCar().size() > 0) {
+                L.e(TAG+"onSuccess",json);
+                if (carLeaveDetailBean != null && carLeaveDetailBean.getApi_Get_MyApplyForCar().size() > 0 && carLeaveDetailBean.getApi_Get_MyApplyForCar().get(0) != null) {
                     if (beginNum== 1 && endNum == 10){
                         entityList.clear();
                     }
@@ -184,7 +186,6 @@ public class CarDetailListFragment extends Fragment implements SimpleListView.On
                     adapter.notifyDataSetChanged();
                 } else {
                     hasMore = false;
-                    ivEmpty.setVisibility(View.VISIBLE);
                 }
                 pb.setVisibility(View.GONE);
                 lv.completeRefresh();
@@ -192,19 +193,12 @@ public class CarDetailListFragment extends Fragment implements SimpleListView.On
 
             @Override
             public void onError(String msg) throws Exception {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        lv.completeRefresh();
-                        pb.setVisibility(View.GONE);
-                    }
-                });
+
             }
 
             @Override
             public void onResponse(String response) throws Exception {
-                ivEmpty.setVisibility(View.VISIBLE);
-                lv.completeRefresh();
+
             }
 
             @Override

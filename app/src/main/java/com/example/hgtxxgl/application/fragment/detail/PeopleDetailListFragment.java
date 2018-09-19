@@ -36,7 +36,6 @@ import java.util.List;
 import okhttp3.Request;
 
 import static android.content.Context.MODE_PRIVATE;
-import static android.view.View.GONE;
 import static com.example.hgtxxgl.application.utils.hand.Fields.SAVE_IP;
 
 public class PeopleDetailListFragment extends Fragment implements SimpleListView.OnRefreshListener, AdapterView.OnItemClickListener {
@@ -173,17 +172,15 @@ public class PeopleDetailListFragment extends Fragment implements SimpleListView
         HttpManager.getInstance().requestNewResultForm(tempIP, s, PeopleLeaveDetailBean.class,new HttpManager.ResultNewCallback<PeopleLeaveDetailBean>() {
             @Override
             public void onSuccess(String json, PeopleLeaveDetailBean peopleLeaveDetailBean) throws Exception {
-                if (peopleLeaveDetailBean != null && peopleLeaveDetailBean.getApi_Get_MyApplyForPeo().size() > 0) {
+                if (peopleLeaveDetailBean != null && peopleLeaveDetailBean.getApi_Get_MyApplyForPeo().size() > 0 && peopleLeaveDetailBean.getApi_Get_MyApplyForPeo().get(0) != null) {
                     if (beginNum == 1 && endNum == 10){
                         entityList.clear();
                     }
-                    L.e(TAG+"onSuccess:",peopleLeaveDetailBean.getApi_Get_MyApplyForPeo().size()+peopleLeaveDetailBean.getApi_Get_MyApplyForPeo().get(0).toString());
                     hasMore = true;
                     entityList.addAll(peopleLeaveDetailBean.getApi_Get_MyApplyForPeo());
                     adapter.notifyDataSetChanged();
                 } else {
                     hasMore = false;
-                    ivEmpty.setVisibility(View.VISIBLE);
                 }
                 pb.setVisibility(View.GONE);
                 lv.completeRefresh();
@@ -191,19 +188,12 @@ public class PeopleDetailListFragment extends Fragment implements SimpleListView
 
             @Override
             public void onError(String msg) throws Exception {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        lv.completeRefresh();
-                        pb.setVisibility(GONE);
-                    }
-                });
+
             }
 
             @Override
             public void onResponse(String response) throws Exception {
-                ivEmpty.setVisibility(View.VISIBLE);
-                lv.completeRefresh();
+
             }
 
             @Override

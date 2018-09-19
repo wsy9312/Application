@@ -162,7 +162,7 @@ public class CarApproveFinishListFragment extends Fragment implements SimpleList
         HttpManager.getInstance().requestNewResultForm(tempIP, s, CarApproveFinishBean.class,new HttpManager.ResultNewCallback<CarApproveFinishBean>() {
             @Override
             public void onSuccess(String json, CarApproveFinishBean carApproveFinishBean) throws Exception {
-                if (carApproveFinishBean != null && carApproveFinishBean.getApi_Get_MyApproveForCarHis().size() > 0) {
+                if (carApproveFinishBean != null && carApproveFinishBean.getApi_Get_MyApproveForCarHis().size() > 0 && carApproveFinishBean.getApi_Get_MyApproveForCarHis().get(0) != null) {
                     if (beginNum == 1 && endNum == 10){
                         entityList.clear();
                     }
@@ -184,18 +184,12 @@ public class CarApproveFinishListFragment extends Fragment implements SimpleList
 
             @Override
             public void onError(String msg) throws Exception {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        lv.completeRefresh();
-                        pb.setVisibility(GONE);
-                    }
-                });
+
             }
 
             @Override
             public void onResponse(String response) throws Exception {
-                ivEmpty.setVisibility(View.VISIBLE);
+
             }
 
             @Override
@@ -278,7 +272,6 @@ public class CarApproveFinishListFragment extends Fragment implements SimpleList
             loadData(beginNum, endNum);
         }
         lv.completeRefresh();
-        ivEmpty.setVisibility(GONE);
     }
 
     @Override
