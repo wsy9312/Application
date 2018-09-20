@@ -19,6 +19,7 @@ import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.ItemActivity;
 import com.example.hgtxxgl.application.bean.car.CarLeaveDetailBean;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
+import com.example.hgtxxgl.application.utils.TimeUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.DataUtil;
@@ -64,13 +65,21 @@ public class CarDetailListFragment extends Fragment implements SimpleListView.On
     ListAdapter<CarLeaveDetailBean.ApiGetMyApplyForCarBean> adapter = new ListAdapter<CarLeaveDetailBean.ApiGetMyApplyForCarBean>
             ((ArrayList<CarLeaveDetailBean.ApiGetMyApplyForCarBean>) entityList, R.layout.item_approve_car) {
         @Override
-        public void bindView(ListAdapter.ViewHolder holder, CarLeaveDetailBean.ApiGetMyApplyForCarBean bean) {
+        public void bindView(ListAdapter.ViewHolder holder, CarLeaveDetailBean.ApiGetMyApplyForCarBean bean){
+            String registerTime;
+            String dateStr = DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss");
+            boolean isToday = TimeUtil.IsToday(dateStr);
+            if (isToday){
+                registerTime = DataUtil.parseDateByFormat(bean.getRegisterTime(), "HH:mm");
+            }else{
+                registerTime = DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy.MM.dd");
+            }
             holder.setImage(R.id.approve_imgae,bean.getName());
             holder.setText(R.id.approve_name,bean.getName()+"的车辆申请");
             holder.setText(R.id.approve_num,"车辆号牌: "+bean.getCarNo());
             holder.setText(R.id.approve_outtime,"离队时间:"+DataUtil.parseDateByFormat(bean.getOutTime(), "yyyy-MM-dd"));
             holder.setText(R.id.approve_intime,"归队时间:"+DataUtil.parseDateByFormat(bean.getInTime(), "yyyy-MM-dd"));
-            holder.setText(R.id.approve_time,DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss"));
+            holder.setText(R.id.approve_time,registerTime);
 
             //流程已结束
             if (bean.getProcess().equals("1")){

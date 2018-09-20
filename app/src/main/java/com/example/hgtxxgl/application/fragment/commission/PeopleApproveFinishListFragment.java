@@ -18,6 +18,7 @@ import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.ItemActivity;
 import com.example.hgtxxgl.application.bean.people.PeopleApproveFinishBean;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
+import com.example.hgtxxgl.application.utils.TimeUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.DataUtil;
@@ -65,6 +66,14 @@ public class PeopleApproveFinishListFragment extends Fragment implements SimpleL
             ((ArrayList<PeopleApproveFinishBean.ApiGetMyApproveForPeoHisBean>) entityList, R.layout.item_approve_people) {
         @Override
         public void bindView(ListAdapter.ViewHolder holder, PeopleApproveFinishBean.ApiGetMyApproveForPeoHisBean bean) {
+            String registerTime;
+            String dateStr = DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss");
+            boolean isToday = TimeUtil.IsToday(dateStr);
+            if (isToday){
+                registerTime = DataUtil.parseDateByFormat(bean.getRegisterTime(), "HH:mm");
+            }else{
+                registerTime = DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy.MM.dd");
+            }
             holder.setImage(R.id.approve_imgae,bean.getName());
             holder.setText(R.id.approve_name,bean.getName()+"的请假");
             holder.setText(R.id.approve_type,"请假类型: "+bean.getOutType());
@@ -93,7 +102,7 @@ public class PeopleApproveFinishListFragment extends Fragment implements SimpleL
                 holder.setTextColor(R.id.approve_state, Color.rgb(86,197,163));
             }
 
-            holder.setText(R.id.approve_time,DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss"));
+            holder.setText(R.id.approve_time,registerTime);
         }
     };
 

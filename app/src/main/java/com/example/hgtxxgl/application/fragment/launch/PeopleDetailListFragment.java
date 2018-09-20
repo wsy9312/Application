@@ -18,6 +18,7 @@ import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.ItemActivity;
 import com.example.hgtxxgl.application.bean.people.PeopleLeaveDetailBean;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
+import com.example.hgtxxgl.application.utils.TimeUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.DataUtil;
@@ -64,12 +65,20 @@ public class PeopleDetailListFragment extends Fragment implements SimpleListView
             ((ArrayList<PeopleLeaveDetailBean.ApiGetMyApplyForPeoBean>) entityList, R.layout.item_approve_people) {
         @Override
         public void bindView(ListAdapter.ViewHolder holder, PeopleLeaveDetailBean.ApiGetMyApplyForPeoBean bean) {
+            String registerTime;
+            String dateStr = DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss");
+            boolean isToday = TimeUtil.IsToday(dateStr);
+            if (isToday){
+                registerTime = DataUtil.parseDateByFormat(bean.getRegisterTime(), "HH:mm");
+            }else{
+                registerTime = DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy.MM.dd");
+            }
             holder.setImage(R.id.approve_imgae,bean.getName());
             holder.setText(R.id.approve_name,bean.getName()+"的请假");
             holder.setText(R.id.approve_type,"请假类型: "+bean.getOutType());
             holder.setText(R.id.approve_outtime,"离队时间:"+DataUtil.parseDateByFormat(bean.getOutTime(), "yyyy-MM-dd"));
             holder.setText(R.id.approve_intime,"归队时间:"+DataUtil.parseDateByFormat(bean.getInTime(), "yyyy-MM-dd"));
-            holder.setText(R.id.approve_time,DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss"));
+            holder.setText(R.id.approve_time,registerTime);
 
             //流程已结束
             if (bean.getProcess().equals("1")){

@@ -19,6 +19,7 @@ import com.example.hgtxxgl.application.activity.ItemActivity;
 import com.example.hgtxxgl.application.bean.login.LoginInfoBean;
 import com.example.hgtxxgl.application.bean.people.PeopleApproveDelayBean;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
+import com.example.hgtxxgl.application.utils.TimeUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
 import com.example.hgtxxgl.application.utils.hand.DataUtil;
@@ -66,6 +67,14 @@ public class PeopleApproveDelayListFragment extends Fragment implements AdapterV
             ((ArrayList<PeopleApproveDelayBean.ApiGetMyApproveForPeoBean>) entityList, R.layout.item_approve_people) {
         @Override
         public void bindView(ListAdapter.ViewHolder holder, PeopleApproveDelayBean.ApiGetMyApproveForPeoBean bean) {
+            String registerTime;
+            String dateStr = DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss");
+            boolean isToday = TimeUtil.IsToday(dateStr);
+            if (isToday){
+                registerTime = DataUtil.parseDateByFormat(bean.getRegisterTime(), "HH:mm");
+            }else{
+                registerTime = DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy.MM.dd");
+            }
             holder.setImage(R.id.approve_imgae,bean.getName());
             holder.setText(R.id.approve_name,bean.getName()+"的请假");
             holder.setText(R.id.approve_type,"请假类型: "+bean.getOutType());
@@ -73,7 +82,7 @@ public class PeopleApproveDelayListFragment extends Fragment implements AdapterV
             holder.setText(R.id.approve_intime,"归队时间:"+DataUtil.parseDateByFormat(bean.getInTime(), "yyyy-MM-dd"));
             holder.setText(R.id.approve_state,"待审批");
             holder.setTextColor(R.id.approve_state, Color.rgb(218,176,101));
-            holder.setText(R.id.approve_time,DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss"));
+            holder.setText(R.id.approve_time,registerTime);
         }
     };
 

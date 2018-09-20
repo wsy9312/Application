@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.hgtxxgl.application.view.XCRoundRectImageView;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import circletextimage.viviant.com.circletextimagelib.view.CircleTextImage;
@@ -53,11 +54,15 @@ public abstract class ListAdapter<T> extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = ViewHolder.bind(parent.getContext(), convertView, parent, mLayoutRes
                 , position);
-        bindView(holder, getItem(position));
+        try {
+            bindView(holder, getItem(position));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         return holder.getItemView();
     }
 
-    public abstract void bindView(ViewHolder holder, T obj);
+    public abstract void bindView(ViewHolder holder, T obj) throws ParseException;
 
     //添加一个元素
     public void add(T data) {

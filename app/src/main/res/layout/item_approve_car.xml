@@ -80,6 +80,7 @@
         <TextView
             android:padding="8dp"
             android:maxLines="2"
+            android:layout_gravity="right"
             android:id="@+id/approve_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
