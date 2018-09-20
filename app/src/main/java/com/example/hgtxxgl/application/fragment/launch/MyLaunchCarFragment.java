@@ -228,7 +228,7 @@ public class MyLaunchCarFragment extends Fragment implements SimpleListView.OnRe
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (lv.getCurrentState() == 2) return;
         position -= 1;
-        checkDetail(position, PageConfig.PAGE_LEAVE_DETAIL_CAR);
+//        checkDetail(position, PageConfig.PAGE_LEAVE_DETAIL_CAR);
     }
 
     private void checkDetail(int position, int pageApplyBleave) {

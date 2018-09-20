@@ -184,7 +184,7 @@ public class MyCommissionCarFragment extends Fragment implements AdapterView.OnI
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (lv.getCurrentState() == 2) return;
         position -= 1;
-        checkDetail(position, PageConfig.PAGE_LEAVE_APPROVE_CAR);
+//        checkDetail(position, PageConfig.PAGE_LEAVE_APPROVE_CAR);
     }
 
     private void checkDetail(int position, int pageApplyBleave) {
