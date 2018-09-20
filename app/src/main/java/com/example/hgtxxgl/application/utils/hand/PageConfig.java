@@ -11,10 +11,6 @@ public class PageConfig {
     public static final int PAGE_LIFE = 4;
     public static final int PAGE_ME = 5;
 
-
-    public static final int PAGE_LEAVE_APPROVE_CAR = 6;
-    public static final int PAGE_LEAVE_DETAIL_CAR = 7;
-
     //810工作_申请流程
     //事假申请
     public static final int PAGE_APPLY_PEOPLE_SHI = 8;
@@ -49,8 +45,6 @@ public class PageConfig {
     public static final int PAGE_COMMISSION_CAR_DELAY_LIST = 202;
     public static final int PAGE_COMMISSION_CAR_FINISH_LIST = 203;
     public static final int PAGE_COMMISSION_CAR_DETAIL = 204;
-
-    public static final int PAGE_CAR_APPROVE = 200;
 
     //工作_其他流程
     //行政管理

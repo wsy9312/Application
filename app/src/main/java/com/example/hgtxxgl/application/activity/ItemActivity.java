@@ -21,12 +21,10 @@ import com.example.hgtxxgl.application.fragment.approve.PeopleApproveDelayListFr
 import com.example.hgtxxgl.application.fragment.approve.PeopleApproveDetailFragment;
 import com.example.hgtxxgl.application.fragment.approve.PeopleApproveFinishListFragment;
 import com.example.hgtxxgl.application.fragment.approve.PeopleApproveListFragment;
-import com.example.hgtxxgl.application.fragment.approve.RestApproveCarFragment;
 import com.example.hgtxxgl.application.fragment.detail.CarDetailFragment;
 import com.example.hgtxxgl.application.fragment.detail.CarDetailListFragment;
 import com.example.hgtxxgl.application.fragment.detail.PeopleDetailFragment;
 import com.example.hgtxxgl.application.fragment.detail.PeopleDetailListFragment;
-import com.example.hgtxxgl.application.fragment.detail.RestDetailCarFragment;
 import com.example.hgtxxgl.application.fragment.total.chart.ChartFragment;
 import com.example.hgtxxgl.application.utils.SysExitUtil;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
@@ -55,14 +53,6 @@ public class ItemActivity extends AppCompatActivity {
 
     void checkFragmentForLoading(int pageCode) {
         switch (pageCode) {
-
-            case PageConfig.PAGE_LEAVE_APPROVE_CAR:
-                checkFragment(RestApproveCarFragment.newInstance(getIntent().getBundleExtra("data")));
-                break;
-
-            case PageConfig.PAGE_LEAVE_DETAIL_CAR:
-                checkFragment(RestDetailCarFragment.newInstance(getIntent().getBundleExtra("data")));
-                break;
 
             //810
             case PageConfig.PAGE_APPLY_PEOPLE_SHI:
@@ -118,9 +108,6 @@ public class ItemActivity extends AppCompatActivity {
                 break;
             case PageConfig.PAGE_COMMISSION_CAR_DETAIL:
                 checkFragment(CarApproveDetailFragment.newInstance(getIntent().getBundleExtra("data")));
-                break;
-            case PageConfig.PAGE_CAR_APPROVE:
-                checkFragment(new TempFragment());
                 break;
 
             case PageConfig.PAGE_XINGZHENG:
