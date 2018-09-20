@@ -285,6 +285,9 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onError(String msg) throws Exception {
                         Log.e(TAG,"onError:"+msg);
+                        if (msg.contains("Failed to connect")){
+                            ToastUtil.showToast(getApplicationContext(),"连接服务器失败!");
+                        }
                     }
 
                     @Override
@@ -327,54 +330,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
-
-    //输入用户名密码登录
-    /*private void login(final String username, final String password) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                LoginEntity loginEntity = new LoginEntity();
-                LoginEntity.LoginBean loginBean = new LoginEntity.LoginBean();
-                loginBean.setLoginName(username);
-                loginBean.setPassword(password);
-                loginBean.setIsAndroid("1");
-                List<LoginEntity.LoginBean> list = new ArrayList<>();
-                list.add(loginBean);
-                loginEntity.setLogin(list);
-                String toJson = new Gson().toJson(loginEntity);
-                String s="Login "+toJson;
-                Log.e(TAG,"登录:"+s);
-//                String url = CommonValues.BASE_URL;
-//                String url = ApplicationApp.getIP();
-                HttpManager.getInstance().requestResultForm(tempIP, s, NewLoginEntity.class, new HttpManager.ResultCallback<NewLoginEntity>() {
-                    @Override
-                    public void onSuccess(String json, NewLoginEntity loginEntity) throws InterruptedException {
-                        if (loginEntity != null){
-                            ApplicationApp.setLoginInfoBean(loginEntity);
-                            String no = loginEntity.getLogin().get(0).getAuthenticationNo();
-                            getPeopleInfo(username,password,no);
-                            if (username.equals("Admin")){
-                                show(getString(R.string.name_or_password_error));
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(String msg) {
-                        show(msg);
-                    }
-
-                    @Override
-                    public void onResponse(String response) {
-                        if (response.contains("error")){
-                            show(getString(R.string.name_or_password_error));
-                            return;
-                        }
-                    }
-                });
-            }
-        }).start();
-    }*/
 
     private void getPeopleInfo(final String username, final String password, final String no,final String timeStamp){
         //个人资料

@@ -20,17 +20,12 @@ public class ChartFragment extends Fragment implements RadioGroup.OnCheckedChang
     RadioGroup group;
     RadioButton rbLeft,rbMid;
     private ArrayList<Fragment> fragments;
-    private String tempIP;
     private String TAG = "ChartFragment";
     private HandToolbar chartToolbar;
-    private String currentNum;
-    private String totalNum;
-    private String rate;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        loadTotalData();
     }
 
     @Nullable
@@ -101,124 +96,5 @@ public class ChartFragment extends Fragment implements RadioGroup.OnCheckedChang
                 break;
         }
     }
-
-//    public void loadTotalData(){
-//        SharedPreferences share = getActivity().getSharedPreferences(SAVE_IP, MODE_PRIVATE);
-//        tempIP = share.getString("tempIP", "IP address is empty");
-//        PeopleLeaveCountBean.ApiGetCountBean countBean = new PeopleLeaveCountBean.ApiGetCountBean();
-//        countBean.setTimeStamp(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getTimeStamp());
-//        countBean.setAuthenticationNo(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo());
-//        countBean.setTableName("PeopleInfo");
-//        countBean.setIsAndroid("1");
-//        countBean.setbClosed("0");
-//        String json = new Gson().toJson(countBean);
-//        String request = "Api_Get_Count " + json;
-//        L.e(TAG,request);
-//        HttpManager.getInstance().requestNewResultForm(tempIP, request, PeopleLeaveCountBean.class, new HttpManager.ResultNewCallback<PeopleLeaveCountBean>() {
-//            @Override
-//            public void onSuccess(String json, final PeopleLeaveCountBean peopleLeaveCountBean) throws Exception {
-//                L.e(TAG,json);
-//                getActivity().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if (peopleLeaveCountBean != null || peopleLeaveCountBean.getApi_Get_Count().size()>0){
-//                            totalNum = peopleLeaveCountBean.getApi_Get_Count().get(0).getCount();
-//                            chartToolbar.setTotalNum(totalNum);
-//                        }
-//                    }
-//                });
-//            }
-//
-//            @Override
-//            public void onError(String msg) throws Exception {
-//
-//            }
-//
-//            @Override
-//            public void onResponse(String response) throws Exception {
-//
-//            }
-//
-//            @Override
-//            public void onBefore(Request request, int id) throws Exception {
-//
-//            }
-//
-//            @Override
-//            public void onAfter(int id) throws Exception {
-//                loadCurrentData();
-//            }
-//
-//            @Override
-//            public void inProgress(float progress, long total, int id) throws Exception {
-//
-//            }
-//        });
-//    }
-
-//    private void loadCurrentData() {
-//        PeopleLeaveCountBean.ApiGetCountBean countBean = new PeopleLeaveCountBean.ApiGetCountBean();
-//        countBean.setTimeStamp(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getTimeStamp());
-//        countBean.setAuthenticationNo(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo());
-//        countBean.setTableName("PeopleInfo");
-//        countBean.setIsAndroid("1");
-//        countBean.setbClosed("0");
-//        countBean.setOutStatus("0");
-//        String json = new Gson().toJson(countBean);
-//        String request = "Api_Get_Count " + json;
-//        L.e(TAG,request);
-//        HttpManager.getInstance().requestNewResultForm(tempIP, request, PeopleLeaveCountBean.class, new HttpManager.ResultNewCallback<PeopleLeaveCountBean>() {
-//            @Override
-//            public void onSuccess(String json, final PeopleLeaveCountBean peopleLeaveCountBean) throws Exception {
-//                L.e(TAG,json);
-//                getActivity().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if (peopleLeaveCountBean != null || peopleLeaveCountBean.getApi_Get_Count().size()>0) {
-//                            currentNum = peopleLeaveCountBean.getApi_Get_Count().get(0).getCount();
-//                            chartToolbar.setCurrentNum(currentNum);
-//                        }
-//                    }
-//                });
-//            }
-//
-//            @Override
-//            public void onError(String msg) throws Exception {
-//
-//            }
-//
-//            @Override
-//            public void onResponse(String response) throws Exception {
-//
-//            }
-//
-//            @Override
-//            public void onBefore(Request request, int id) throws Exception {
-//
-//            }
-//
-//            @Override
-//            public void onAfter(int id) throws Exception {
-//                getActivity().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        int num1 = Integer.parseInt(totalNum);
-//                        int num2 = Integer.parseInt(currentNum);
-//                        // 创建一个数值格式化对象
-//                        NumberFormat numberFormat = NumberFormat.getInstance();
-//                        // 设置精确到小数点后2位
-//                        numberFormat.setMaximumFractionDigits(2);
-//                        rate = numberFormat.format((float) num2 / (float) num1 * 100);
-//                        chartToolbar.setCurrentRate(rate);
-//                    }
-//                });
-//            }
-//
-//            @Override
-//            public void inProgress(float progress, long total, int id) throws Exception {
-//
-//            }
-//        });
-//    }
 
 }
