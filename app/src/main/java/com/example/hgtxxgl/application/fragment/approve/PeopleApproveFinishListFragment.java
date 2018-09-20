@@ -76,21 +76,21 @@ public class PeopleApproveFinishListFragment extends Fragment implements SimpleL
                 //已完成(拒绝)/红色
                 if (bean.getResult().equals("0")){
                     holder.setText(R.id.approve_state, "审批拒绝");
-                    holder.setTextColor(R.id.approve_state, Color.rgb(214,16,24));
+                    holder.setTextColor(R.id.approve_state, Color.rgb(237,142,148));
                     //已完成(同意)/绿色
                 }else if (bean.getResult().equals("1")){
                     holder.setText(R.id.approve_state, "审批同意");
-                    holder.setTextColor(R.id.approve_state, Color.rgb(0,128,0));
+                    holder.setTextColor(R.id.approve_state, Color.rgb(86,197,163));
                     //已完成(被退回)/红色
                 }else if (bean.getResult().equals("2")){
-                    holder.setText(R.id.approve_state, "申请被退回");
-                    holder.setTextColor(R.id.approve_state, Color.rgb(214,16,24));
+                    holder.setText(R.id.approve_state, "审批退回");
+                    holder.setTextColor(R.id.approve_state, Color.rgb(237,142,148));
                 }
                 //流程未结束
             }else if (bean.getProcess().equals("2")){
                 //审批中/黄色
-                holder.setText(R.id.approve_state,"审批中");
-                holder.setTextColor(R.id.approve_state, Color.rgb(255,140,0));
+                holder.setText(R.id.approve_state,"审批上报");
+                holder.setTextColor(R.id.approve_state, Color.rgb(86,197,163));
             }
 
             holder.setText(R.id.approve_time,DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss"));

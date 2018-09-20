@@ -71,8 +71,8 @@ public class PeopleApproveDelayListFragment extends Fragment implements AdapterV
             holder.setText(R.id.approve_type,"请假类型: "+bean.getOutType());
             holder.setText(R.id.approve_outtime,"离队时间:"+DataUtil.parseDateByFormat(bean.getOutTime(), "yyyy-MM-dd"));
             holder.setText(R.id.approve_intime,"归队时间:"+DataUtil.parseDateByFormat(bean.getInTime(), "yyyy-MM-dd"));
-            holder.setText(R.id.approve_state,"未审批");
-            holder.setTextColor(R.id.approve_state, Color.rgb(214,16,24));
+            holder.setText(R.id.approve_state,"待审批");
+            holder.setTextColor(R.id.approve_state, Color.rgb(218,176,101));
             holder.setText(R.id.approve_time,DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss"));
         }
     };

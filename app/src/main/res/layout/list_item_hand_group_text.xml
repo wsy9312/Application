@@ -33,7 +33,7 @@
             android:layout_toRightOf="@+id/tv_title"
             android:minHeight="10dp"
             android:gravity="left"
-            android:textColor="@color/simpleblack"
+            android:textColor="@color/text3"
             android:textSize="15sp"
             tools:text="@string/app_name"
             android:maxLines="3"
