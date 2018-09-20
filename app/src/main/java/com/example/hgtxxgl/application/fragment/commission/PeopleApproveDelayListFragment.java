@@ -1,4 +1,4 @@
-package com.example.hgtxxgl.application.fragment.detail;
+package com.example.hgtxxgl.application.fragment.commission;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,7 +16,8 @@ import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.ItemActivity;
-import com.example.hgtxxgl.application.bean.people.PeopleLeaveDetailBean;
+import com.example.hgtxxgl.application.bean.login.LoginInfoBean;
+import com.example.hgtxxgl.application.bean.people.PeopleApproveDelayBean;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
@@ -24,9 +25,7 @@ import com.example.hgtxxgl.application.utils.hand.DataUtil;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.ListAdapter;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
-import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.hyutils.L;
-import com.example.hgtxxgl.application.view.HandToolbar;
 import com.example.hgtxxgl.application.view.SimpleListView;
 import com.google.gson.Gson;
 
@@ -36,93 +35,60 @@ import java.util.List;
 import okhttp3.Request;
 
 import static android.content.Context.MODE_PRIVATE;
+import static android.view.View.GONE;
+import static com.example.hgtxxgl.application.R.id.iv_empty;
 import static com.example.hgtxxgl.application.utils.hand.Fields.SAVE_IP;
 
-public class PeopleDetailListFragment extends Fragment implements SimpleListView.OnRefreshListener, AdapterView.OnItemClickListener {
+public class PeopleApproveDelayListFragment extends Fragment implements AdapterView.OnItemClickListener, SimpleListView.OnRefreshListener{
 
     private int beginNum = 1;
     private int endNum = 10;
     private boolean hasMore = true;
     private TextView ivEmpty;
     private ProgressBar pb;
+    private static final String TAG = "PeopleApproveDelayListFragment";
+    private String tempIP;
     SimpleListView lv;
-    private static final String TAG = "PeopleDetailListFragment";
+    private LoginInfoBean.ApiAddLoginBean loginBean;
 
-    public PeopleDetailListFragment() {
+    public PeopleApproveDelayListFragment(){
 
     }
 
-    public static PeopleDetailListFragment newInstance(Bundle bundle) {
-        PeopleDetailListFragment fragment = new PeopleDetailListFragment();
+    public static PeopleApproveDelayListFragment newInstance(Bundle bundle) {
+        PeopleApproveDelayListFragment fragment = new PeopleApproveDelayListFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
 
-    private List<PeopleLeaveDetailBean.ApiGetMyApplyForPeoBean> entityList = new ArrayList<>();
-
-    ListAdapter<PeopleLeaveDetailBean.ApiGetMyApplyForPeoBean> adapter = new ListAdapter<PeopleLeaveDetailBean.ApiGetMyApplyForPeoBean>
-            ((ArrayList<PeopleLeaveDetailBean.ApiGetMyApplyForPeoBean>) entityList, R.layout.item_approve_people) {
+    private List<PeopleApproveDelayBean.ApiGetMyApproveForPeoBean> entityList = new ArrayList<>();
+    ListAdapter<PeopleApproveDelayBean.ApiGetMyApproveForPeoBean> adapter = new ListAdapter<PeopleApproveDelayBean.ApiGetMyApproveForPeoBean>
+            ((ArrayList<PeopleApproveDelayBean.ApiGetMyApproveForPeoBean>) entityList, R.layout.item_approve_people) {
         @Override
-        public void bindView(ListAdapter.ViewHolder holder, PeopleLeaveDetailBean.ApiGetMyApplyForPeoBean bean) {
+        public void bindView(ListAdapter.ViewHolder holder, PeopleApproveDelayBean.ApiGetMyApproveForPeoBean bean) {
             holder.setImage(R.id.approve_imgae,bean.getName());
             holder.setText(R.id.approve_name,bean.getName()+"的请假");
             holder.setText(R.id.approve_type,"请假类型: "+bean.getOutType());
             holder.setText(R.id.approve_outtime,"离队时间:"+DataUtil.parseDateByFormat(bean.getOutTime(), "yyyy-MM-dd"));
             holder.setText(R.id.approve_intime,"归队时间:"+DataUtil.parseDateByFormat(bean.getInTime(), "yyyy-MM-dd"));
+            holder.setText(R.id.approve_state,"待审批");
+            holder.setTextColor(R.id.approve_state, Color.rgb(218,176,101));
             holder.setText(R.id.approve_time,DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss"));
-
-            //流程已结束
-            if (bean.getProcess().equals("1")){
-                //已完成(拒绝)/红色
-                if (bean.getResult().equals("0")){
-                    holder.setText(R.id.approve_state, "审批拒绝");
-                    holder.setTextColor(R.id.approve_state, Color.rgb(237,142,148));
-                    //已完成(同意)/绿色
-                }else if (bean.getResult().equals("1")){
-                    holder.setText(R.id.approve_state, "审批同意");
-                    holder.setTextColor(R.id.approve_state, Color.rgb(86,197,163));
-                    //已完成(被退回)/红色
-                }else if (bean.getResult().equals("2")){
-                    holder.setText(R.id.approve_state, "申请被退回");
-                    holder.setTextColor(R.id.approve_state, Color.rgb(237,142,148));
-                }
-                //流程未结束
-            }else if (bean.getProcess().equals("2")){
-                //审批中/黄色
-                holder.setText(R.id.approve_state,"审批中");
-                holder.setTextColor(R.id.approve_state, Color.rgb(218,176,101));
-                //流程未开始
-            }else if (bean.getProcess().equals("0")){
-                //未审批
-                if (bean.getBCancel().equals("0")){
-                    holder.setText(R.id.approve_state,"待审批");
-                    holder.setTextColor(R.id.approve_state, Color.rgb(218,176,101));
-                    //已撤销
-                }else if (bean.getBCancel().equals("1")){
-                    holder.setText(R.id.approve_state,"已撤销");
-                    holder.setTextColor(R.id.approve_state, Color.rgb(48,48,48));
-                }
-            }
         }
     };
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        tabIndex = getArguments().getInt(DetailFragment.ARG_TAB);
+        loginBean = ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0);
         loadData(beginNum, endNum);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.launch_listview_libmain, null, false);
-        StatusBarUtils.setWindowStatusBarColor(getActivity(),R.color.mainColor_blue);
-        HandToolbar handToolbar = (HandToolbar) view.findViewById(R.id.launch_handtoolbar);
-        handToolbar.setDisplayHomeAsUpEnabled(true, getActivity());
-        handToolbar.setTitle("我发起的(人员)");
-        handToolbar.setTitleSize(18);
+        View view = inflater.inflate(R.layout.people_approve_listview_libmain, null, false);
         lv = (SimpleListView) view.findViewById(R.id.viewpager_listview);
-        ivEmpty = (TextView) view.findViewById(R.id.iv_empty);
+        ivEmpty = (TextView) view.findViewById(iv_empty);
         ivEmpty.setText(getString(R.string.no_current_record));
         pb = (ProgressBar) view.findViewById(R.id.mycommission_pb);
         lv.setAdapter(adapter);
@@ -132,9 +98,9 @@ public class PeopleDetailListFragment extends Fragment implements SimpleListView
                 if (adapter.getCount() == 0) {
                     ivEmpty.setVisibility(View.VISIBLE);
                 } else {
-                    ivEmpty.setVisibility(View.GONE);
+                    ivEmpty.setVisibility(GONE);
                 }
-                pb.setVisibility(View.GONE);
+                pb.setVisibility(GONE);
                 super.onChanged();
             }
         });
@@ -147,41 +113,53 @@ public class PeopleDetailListFragment extends Fragment implements SimpleListView
         if (callback != null) {
             callback.onLoadData();
         }
-        PeopleLeaveDetailBean.ApiGetMyApplyForPeoBean peopleLeaveRrdBean = new PeopleLeaveDetailBean.ApiGetMyApplyForPeoBean();
-        peopleLeaveRrdBean.setNo(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo());
-        peopleLeaveRrdBean.setProcess("?");
+        PeopleApproveDelayBean.ApiGetMyApproveForPeoBean peopleLeaveRrdBean = new PeopleApproveDelayBean.ApiGetMyApproveForPeoBean();
+        peopleLeaveRrdBean.setNo("?");
+        peopleLeaveRrdBean.setAuthenticationNo(loginBean.getAuthenticationNo());
+        peopleLeaveRrdBean.setIsAndroid("1");
+        peopleLeaveRrdBean.setRegisterTime("?");
+        peopleLeaveRrdBean.setOutTime("?");
+        peopleLeaveRrdBean.setInTime("?");
         peopleLeaveRrdBean.setContent("?");
+        peopleLeaveRrdBean.setModifyTime("?");
+        peopleLeaveRrdBean.setProcess("?");
+        peopleLeaveRrdBean.setBCancel("0");
+        peopleLeaveRrdBean.setBFillup("?");
+        peopleLeaveRrdBean.setNoIndex("?");
+        peopleLeaveRrdBean.setResult("?");
+        peopleLeaveRrdBean.setOutType("?");
+        peopleLeaveRrdBean.setApproverNo("?");
+        peopleLeaveRrdBean.setHisAnnotation("?");
+        peopleLeaveRrdBean.setDestination("?");
         peopleLeaveRrdBean.setBeginNum(String.valueOf(beginNum));
         peopleLeaveRrdBean.setEndNum(String.valueOf(endNum));
-        peopleLeaveRrdBean.setNoIndex("?");
-        peopleLeaveRrdBean.setModifyTime("?");
-        peopleLeaveRrdBean.setRegisterTime("?");
-        peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo());
-        peopleLeaveRrdBean.setIsAndroid("1");
-        peopleLeaveRrdBean.setBCancel("?");
-        peopleLeaveRrdBean.setResult("?");
-        peopleLeaveRrdBean.setDestination("?");
-        peopleLeaveRrdBean.setApproverNo("?");
+        peopleLeaveRrdBean.setCurrentApproverNo("?");
         peopleLeaveRrdBean.setTimeStamp(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getTimeStamp());
         String json = new Gson().toJson(peopleLeaveRrdBean);
-        final String s = "Api_Get_MyApplyForPeo " + json;
-        L.e(TAG+"PeopleDetailListFragment",s);
+        String s = "Api_Get_MyApproveForPeo " + json;
+        L.e(TAG+"PeopleApproveDelayListFragment",s);
         SharedPreferences share = getActivity().getSharedPreferences(SAVE_IP, MODE_PRIVATE);
-        String tempIP = share.getString("tempIP", "IP address is empty");
-        HttpManager.getInstance().requestNewResultForm(tempIP, s, PeopleLeaveDetailBean.class,new HttpManager.ResultNewCallback<PeopleLeaveDetailBean>() {
+        tempIP = share.getString("tempIP", "IP address is empty");
+        HttpManager.getInstance().requestNewResultForm(tempIP, s, PeopleApproveDelayBean.class,new HttpManager.ResultNewCallback<PeopleApproveDelayBean>() {
             @Override
-            public void onSuccess(String json, PeopleLeaveDetailBean peopleLeaveDetailBean) throws Exception {
-                if (peopleLeaveDetailBean != null && peopleLeaveDetailBean.getApi_Get_MyApplyForPeo().size() > 0 && peopleLeaveDetailBean.getApi_Get_MyApplyForPeo().get(0) != null) {
+            public void onSuccess(String json, PeopleApproveDelayBean peopleApproveDelayBean) throws Exception {
+                if (peopleApproveDelayBean != null && peopleApproveDelayBean.getApi_Get_MyApproveForPeo().size() > 0 && peopleApproveDelayBean.getApi_Get_MyApproveForPeo().get(0) != null) {
                     if (beginNum == 1 && endNum == 10){
                         entityList.clear();
                     }
-                    hasMore = true;
-                    entityList.addAll(peopleLeaveDetailBean.getApi_Get_MyApplyForPeo());
-                    adapter.notifyDataSetChanged();
+                    for (int i = 0; i < peopleApproveDelayBean.getApi_Get_MyApproveForPeo().size(); i++) {
+                        if (!peopleApproveDelayBean.getApi_Get_MyApproveForPeo().get(i).getApproverNo().contains(loginBean.getAuthenticationNo())){
+                            L.e(TAG+"PeopleApproveDelayListFragment",peopleApproveDelayBean.toString());
+                            hasMore = true;
+                            entityList.add(peopleApproveDelayBean.getApi_Get_MyApproveForPeo().get(i));
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
                 } else {
                     hasMore = false;
                 }
-                pb.setVisibility(View.GONE);
+                pb.setVisibility(GONE);
+                ivEmpty.setVisibility(GONE);
                 lv.completeRefresh();
             }
 
@@ -212,14 +190,50 @@ public class PeopleDetailListFragment extends Fragment implements SimpleListView
         });
     }
 
-    private void loadMore() {
-        if (hasMore) {
-            beginNum += 10;
-            endNum += 10;
-            loadData(beginNum, endNum);
-        } else {
-            lv.completeRefresh();
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if (lv.getCurrentState() == 2) return;
+        position -= 1;
+        checkDetail(position, PageConfig.PAGE_COMMISSION_PEOPLE_DETAIL);
+    }
+
+    private void checkDetail(int position, int pageApplyBleave) {
+        Intent intent = new Intent(getActivity(), ItemActivity.class);
+        intent.putExtra(PageConfig.PAGE_CODE, pageApplyBleave);
+        Bundle bundle = new Bundle();
+        bundle.putString("no", adapter.getItem(position).getNo());
+        bundle.putString("name", adapter.getItem(position).getName());
+        bundle.putString("outtime",adapter.getItem(position).getOutTime());
+        bundle.putString("intime", adapter.getItem(position).getInTime());
+        bundle.putString("content", adapter.getItem(position).getContent());
+        bundle.putString("process", adapter.getItem(position).getProcess());
+        bundle.putString("modifyTime",adapter.getItem(position).getModifyTime());
+        bundle.putString("bcancel",adapter.getItem(position).getBCancel());
+        bundle.putString("bfillup",adapter.getItem(position).getBFillup());
+        bundle.putString("noindex",adapter.getItem(position).getNoIndex());
+        bundle.putString("approveState","0");
+        bundle.putInt("item",position);
+        intent.putExtra("data", bundle);
+        startActivityForResult(intent, CommonValues.MYCOMM);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CommonValues.MYCOMM){
+            if (beginNum == 1 && endNum == 10){
+                entityList.clear();
+            }
+            loadData(1,10);
+            adapter.notifyDataSetChanged();
         }
+    }
+
+    private DetailFragment.DataCallback callback;
+
+    public PeopleApproveDelayListFragment setCallback(DetailFragment.DataCallback callback) {
+        this.callback = callback;
+        return this;
     }
 
     @Override
@@ -232,57 +246,18 @@ public class PeopleDetailListFragment extends Fragment implements SimpleListView
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (lv.getCurrentState() == 2) return;
-        position -= 1;
-        checkDetail(position, PageConfig.PAGE_LAUNCH_PEOPLE_DETAIL);
-    }
-
-    private void checkDetail(int position, int pageApplyBleave) {
-        Intent intent = new Intent(getActivity(), ItemActivity.class);
-        intent.putExtra(PageConfig.PAGE_CODE, pageApplyBleave);
-        Bundle bundle = new Bundle();
-        bundle.putString("no", adapter.getItem(position).getNo());
-        bundle.putString("outtime",adapter.getItem(position).getOutTime());
-        bundle.putString("intime", adapter.getItem(position).getInTime());
-        bundle.putString("content", adapter.getItem(position).getContent());
-        bundle.putString("process", adapter.getItem(position).getProcess());
-        bundle.putString("modifyTime",adapter.getItem(position).getModifyTime());
-        bundle.putString("bcancel",adapter.getItem(position).getBCancel());
-        bundle.putString("bfillup",adapter.getItem(position).getBFillup());
-        bundle.putString("noindex",adapter.getItem(position).getNoIndex());
-        bundle.putInt("item",position);
-//        bundle.putInt("tabIndex",tabIndex);
-        intent.putExtra("data", bundle);
-        startActivityForResult(intent, CommonValues.MYLAUN);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CommonValues.MYLAUN){
-            if (beginNum == 1 && endNum == 10){
-                entityList.clear();
-            }
-            loadData(1,10);
-            adapter.notifyDataSetChanged();
-        }
-    }
-
-    private DetailFragment.DataCallback callback;
-
-    public PeopleDetailListFragment setCallback(DetailFragment.DataCallback callback) {
-        this.callback = callback;
-        return this;
-    }
-
-    @Override
     public void onLoadingMore() {
-        loadMore();
+        if (hasMore) {
+            beginNum += 10;
+            endNum += 10;
+            loadData(beginNum, endNum);
+        }
+        lv.completeRefresh();
     }
 
     @Override
     public void onScrollOutside() {
 
     }
+
 }

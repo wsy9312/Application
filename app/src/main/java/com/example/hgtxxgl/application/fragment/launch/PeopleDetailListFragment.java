@@ -1,4 +1,4 @@
-package com.example.hgtxxgl.application.fragment.detail;
+package com.example.hgtxxgl.application.fragment.launch;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,7 @@ import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.ItemActivity;
-import com.example.hgtxxgl.application.bean.car.CarLeaveDetailBean;
+import com.example.hgtxxgl.application.bean.people.PeopleLeaveDetailBean;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
@@ -39,7 +38,7 @@ import okhttp3.Request;
 import static android.content.Context.MODE_PRIVATE;
 import static com.example.hgtxxgl.application.utils.hand.Fields.SAVE_IP;
 
-public class CarDetailListFragment extends Fragment implements SimpleListView.OnRefreshListener, AdapterView.OnItemClickListener{
+public class PeopleDetailListFragment extends Fragment implements SimpleListView.OnRefreshListener, AdapterView.OnItemClickListener {
 
     private int beginNum = 1;
     private int endNum = 10;
@@ -47,27 +46,27 @@ public class CarDetailListFragment extends Fragment implements SimpleListView.On
     private TextView ivEmpty;
     private ProgressBar pb;
     SimpleListView lv;
-    private static final String TAG = "CarDetailListFragment";
+    private static final String TAG = "PeopleDetailListFragment";
 
-    public CarDetailListFragment() {
+    public PeopleDetailListFragment() {
 
     }
 
-    public static CarDetailListFragment newInstance(Bundle bundle) {
-        CarDetailListFragment fragment = new CarDetailListFragment();
+    public static PeopleDetailListFragment newInstance(Bundle bundle) {
+        PeopleDetailListFragment fragment = new PeopleDetailListFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
 
-    private List<CarLeaveDetailBean.ApiGetMyApplyForCarBean> entityList = new ArrayList<>();
+    private List<PeopleLeaveDetailBean.ApiGetMyApplyForPeoBean> entityList = new ArrayList<>();
 
-    ListAdapter<CarLeaveDetailBean.ApiGetMyApplyForCarBean> adapter = new ListAdapter<CarLeaveDetailBean.ApiGetMyApplyForCarBean>
-            ((ArrayList<CarLeaveDetailBean.ApiGetMyApplyForCarBean>) entityList, R.layout.item_approve_car) {
+    ListAdapter<PeopleLeaveDetailBean.ApiGetMyApplyForPeoBean> adapter = new ListAdapter<PeopleLeaveDetailBean.ApiGetMyApplyForPeoBean>
+            ((ArrayList<PeopleLeaveDetailBean.ApiGetMyApplyForPeoBean>) entityList, R.layout.item_approve_people) {
         @Override
-        public void bindView(ListAdapter.ViewHolder holder, CarLeaveDetailBean.ApiGetMyApplyForCarBean bean) {
+        public void bindView(ListAdapter.ViewHolder holder, PeopleLeaveDetailBean.ApiGetMyApplyForPeoBean bean) {
             holder.setImage(R.id.approve_imgae,bean.getName());
-            holder.setText(R.id.approve_name,bean.getName()+"的车辆申请");
-            holder.setText(R.id.approve_num,"车辆号牌: "+bean.getCarNo());
+            holder.setText(R.id.approve_name,bean.getName()+"的请假");
+            holder.setText(R.id.approve_type,"请假类型: "+bean.getOutType());
             holder.setText(R.id.approve_outtime,"离队时间:"+DataUtil.parseDateByFormat(bean.getOutTime(), "yyyy-MM-dd"));
             holder.setText(R.id.approve_intime,"归队时间:"+DataUtil.parseDateByFormat(bean.getInTime(), "yyyy-MM-dd"));
             holder.setText(R.id.approve_time,DataUtil.parseDateByFormat(bean.getRegisterTime(), "yyyy-MM-dd HH:mm:ss"));
@@ -110,6 +109,7 @@ public class CarDetailListFragment extends Fragment implements SimpleListView.On
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        tabIndex = getArguments().getInt(DetailFragment.ARG_TAB);
         loadData(beginNum, endNum);
     }
 
@@ -119,7 +119,7 @@ public class CarDetailListFragment extends Fragment implements SimpleListView.On
         StatusBarUtils.setWindowStatusBarColor(getActivity(),R.color.mainColor_blue);
         HandToolbar handToolbar = (HandToolbar) view.findViewById(R.id.launch_handtoolbar);
         handToolbar.setDisplayHomeAsUpEnabled(true, getActivity());
-        handToolbar.setTitle("我发起的(车辆)");
+        handToolbar.setTitle("我发起的(人员)");
         handToolbar.setTitleSize(18);
         lv = (SimpleListView) view.findViewById(R.id.viewpager_listview);
         ivEmpty = (TextView) view.findViewById(R.id.iv_empty);
@@ -147,41 +147,36 @@ public class CarDetailListFragment extends Fragment implements SimpleListView.On
         if (callback != null) {
             callback.onLoadData();
         }
-        CarLeaveDetailBean.ApiGetMyApplyForCarBean carLeaveRrdBean = new CarLeaveDetailBean.ApiGetMyApplyForCarBean();
-        carLeaveRrdBean.setNo(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getAuthenticationNo());
-        carLeaveRrdBean.setName("?");
-        carLeaveRrdBean.setProcess("?");
-        carLeaveRrdBean.setContent("?");
-        carLeaveRrdBean.setDestination("?");
-        carLeaveRrdBean.setBeginNum(String.valueOf(beginNum));
-        carLeaveRrdBean.setEndNum(String.valueOf(endNum));
-        carLeaveRrdBean.setNoIndex("?");
-        carLeaveRrdBean.setModifyTime("?");
-        carLeaveRrdBean.setRegisterTime("?");
-        carLeaveRrdBean.setAuthenticationNo(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo());
-        carLeaveRrdBean.setIsAndroid("1");
-        carLeaveRrdBean.setBCancel("?");
-        carLeaveRrdBean.setResult("?");
-        carLeaveRrdBean.setCarNo("?");
-        carLeaveRrdBean.setDriverNo("?");
-        carLeaveRrdBean.setLeaderNo("?");
-        carLeaveRrdBean.setApproverNo("?");
-        carLeaveRrdBean.setTimeStamp(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getTimeStamp());
-        String json = new Gson().toJson(carLeaveRrdBean);
-        String s = "Api_Get_MyApplyForCar " + json;
-        Log.e(TAG,s);
+        PeopleLeaveDetailBean.ApiGetMyApplyForPeoBean peopleLeaveRrdBean = new PeopleLeaveDetailBean.ApiGetMyApplyForPeoBean();
+        peopleLeaveRrdBean.setNo(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo());
+        peopleLeaveRrdBean.setProcess("?");
+        peopleLeaveRrdBean.setContent("?");
+        peopleLeaveRrdBean.setBeginNum(String.valueOf(beginNum));
+        peopleLeaveRrdBean.setEndNum(String.valueOf(endNum));
+        peopleLeaveRrdBean.setNoIndex("?");
+        peopleLeaveRrdBean.setModifyTime("?");
+        peopleLeaveRrdBean.setRegisterTime("?");
+        peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo());
+        peopleLeaveRrdBean.setIsAndroid("1");
+        peopleLeaveRrdBean.setBCancel("?");
+        peopleLeaveRrdBean.setResult("?");
+        peopleLeaveRrdBean.setDestination("?");
+        peopleLeaveRrdBean.setApproverNo("?");
+        peopleLeaveRrdBean.setTimeStamp(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getTimeStamp());
+        String json = new Gson().toJson(peopleLeaveRrdBean);
+        final String s = "Api_Get_MyApplyForPeo " + json;
+        L.e(TAG+"PeopleDetailListFragment",s);
         SharedPreferences share = getActivity().getSharedPreferences(SAVE_IP, MODE_PRIVATE);
         String tempIP = share.getString("tempIP", "IP address is empty");
-        HttpManager.getInstance().requestNewResultForm(tempIP, s, CarLeaveDetailBean.class,new HttpManager.ResultNewCallback<CarLeaveDetailBean>() {
+        HttpManager.getInstance().requestNewResultForm(tempIP, s, PeopleLeaveDetailBean.class,new HttpManager.ResultNewCallback<PeopleLeaveDetailBean>() {
             @Override
-            public void onSuccess(String json, CarLeaveDetailBean carLeaveDetailBean) throws Exception {
-                L.e(TAG+"onSuccess",json);
-                if (carLeaveDetailBean != null && carLeaveDetailBean.getApi_Get_MyApplyForCar().size() > 0 && carLeaveDetailBean.getApi_Get_MyApplyForCar().get(0) != null) {
-                    if (beginNum== 1 && endNum == 10){
+            public void onSuccess(String json, PeopleLeaveDetailBean peopleLeaveDetailBean) throws Exception {
+                if (peopleLeaveDetailBean != null && peopleLeaveDetailBean.getApi_Get_MyApplyForPeo().size() > 0 && peopleLeaveDetailBean.getApi_Get_MyApplyForPeo().get(0) != null) {
+                    if (beginNum == 1 && endNum == 10){
                         entityList.clear();
                     }
                     hasMore = true;
-                    entityList.addAll(carLeaveDetailBean.getApi_Get_MyApplyForCar());
+                    entityList.addAll(peopleLeaveDetailBean.getApi_Get_MyApplyForPeo());
                     adapter.notifyDataSetChanged();
                 } else {
                     hasMore = false;
@@ -240,7 +235,7 @@ public class CarDetailListFragment extends Fragment implements SimpleListView.On
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (lv.getCurrentState() == 2) return;
         position -= 1;
-        checkDetail(position, PageConfig.PAGE_LAUNCH_CAR_DETAIL);
+        checkDetail(position, PageConfig.PAGE_LAUNCH_PEOPLE_DETAIL);
     }
 
     private void checkDetail(int position, int pageApplyBleave) {
@@ -256,9 +251,6 @@ public class CarDetailListFragment extends Fragment implements SimpleListView.On
         bundle.putString("bcancel",adapter.getItem(position).getBCancel());
         bundle.putString("bfillup",adapter.getItem(position).getBFillup());
         bundle.putString("noindex",adapter.getItem(position).getNoIndex());
-        bundle.putString("carno",adapter.getItem(position).getCarNo());
-        bundle.putString("driverno",adapter.getItem(position).getDriverNo());
-        bundle.putString("leaderno",adapter.getItem(position).getLeaderNo());
         bundle.putInt("item",position);
 //        bundle.putInt("tabIndex",tabIndex);
         intent.putExtra("data", bundle);
@@ -279,7 +271,7 @@ public class CarDetailListFragment extends Fragment implements SimpleListView.On
 
     private DetailFragment.DataCallback callback;
 
-    public CarDetailListFragment setCallback(DetailFragment.DataCallback callback) {
+    public PeopleDetailListFragment setCallback(DetailFragment.DataCallback callback) {
         this.callback = callback;
         return this;
     }

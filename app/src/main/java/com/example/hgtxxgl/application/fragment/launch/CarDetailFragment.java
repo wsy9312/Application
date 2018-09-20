@@ -1,20 +1,21 @@
-package com.example.hgtxxgl.application.fragment.detail;
+package com.example.hgtxxgl.application.fragment.launch;
 
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.text.TextUtils;
 
 import com.example.hgtxxgl.application.R;
+import com.example.hgtxxgl.application.bean.car.CarApplyBean;
+import com.example.hgtxxgl.application.bean.car.CarCheckBackBean;
+import com.example.hgtxxgl.application.bean.car.CarCheckOutBean;
+import com.example.hgtxxgl.application.bean.car.CarInfoBean;
+import com.example.hgtxxgl.application.bean.car.CarLeaveDetailBean;
+import com.example.hgtxxgl.application.bean.car.CarLeaveDetailRetractBean;
 import com.example.hgtxxgl.application.bean.login.LoginInfoBean;
-import com.example.hgtxxgl.application.bean.people.PeopleApplyBean;
-import com.example.hgtxxgl.application.bean.people.PeopleCheckBackBean;
-import com.example.hgtxxgl.application.bean.people.PeopleCheckOutBean;
 import com.example.hgtxxgl.application.bean.login.PeopleInfoBean;
-import com.example.hgtxxgl.application.bean.people.PeopleLeaveDetailBean;
-import com.example.hgtxxgl.application.bean.people.PeopleLeaveDetailRetractBean;
+import com.example.hgtxxgl.application.bean.temp.TempPeopleInfoBean;
 import com.example.hgtxxgl.application.rest.CommonFragment;
 import com.example.hgtxxgl.application.rest.HandInputGroup;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
@@ -31,26 +32,29 @@ import java.util.List;
 
 import okhttp3.Request;
 
-//人员请假申请详情
-public class PeopleDetailFragment extends CommonFragment {
+//车辆外出申请详情
+public class CarDetailFragment extends CommonFragment {
 
-    private final static String TAG = "PeopleDetailFragment";
+    private final static String TAG = "CarDetailFragment";
     private String s1;
     private String [][] buttonType = {{""},{"撤销申请"},{"重新提交"},{"确认离开"},{"确认归来"}};
     private int type = 0;
     private int fenNum;
+    private String[] carNoArray;
+    private String[] carOwnerNameArray;
+    private String ownerNo1 = "";
+    private String ownerNo2 = "";
     private LoginInfoBean.ApiAddLoginBean loginBean;
     private PeopleInfoBean.ApiGetMyInfoSimBean peopleInfoBean;
-    private String noindex;
 
-    public PeopleDetailFragment(){
+    public CarDetailFragment(){
 
     }
 
-    private PeopleLeaveDetailBean.ApiGetMyApplyForPeoBean entity = null;
+    private CarLeaveDetailBean.ApiGetMyApplyForCarBean entity = null;
 
-    public static PeopleDetailFragment newInstance(Bundle bundle) {
-        PeopleDetailFragment fragment = new PeopleDetailFragment();
+    public static CarDetailFragment newInstance(Bundle bundle) {
+        CarDetailFragment fragment = new CarDetailFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -65,35 +69,27 @@ public class PeopleDetailFragment extends CommonFragment {
         if (process == 1){
             if (substring == 2){
                 List<HandInputGroup.Holder> holders = new ArrayList<>();
-                holders.add(new HandInputGroup.Holder("申请类型", true, false, entity.getOutType(), HandInputGroup.VALUE_TYPE.TEXT));
                 holders.add(new HandInputGroup.Holder("审批状态", true, false, "审批结束", HandInputGroup.VALUE_TYPE.TEXT));
                 holders.add(new HandInputGroup.Holder("审批结果", true, false, "已退回", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(237,142,148)));
                 holders.add(new HandInputGroup.Holder("是否已撤销", true, false, bCancel.equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
                 groups.add(0,new Group("流程信息", null, false, null, holders));
                 List<HandInputGroup.Holder> baseHolder = new ArrayList<>();
-                baseHolder.add(new HandInputGroup.Holder("申请人",true,false,peopleInfoBean.getName(),HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(128,128,128)));
-                baseHolder.add(new HandInputGroup.Holder("所属单位",true,false,peopleInfoBean.getUnit(),HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(128,128,128)));
-                baseHolder.add(new HandInputGroup.Holder("所属部门",true,false,peopleInfoBean.getDepartment(),HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(128,128,128)));
+                baseHolder.add(new HandInputGroup.Holder("申请人",false,false,peopleInfoBean.getName(),HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(128,128,128)));
+                baseHolder.add(new HandInputGroup.Holder("所属单位",false,false,peopleInfoBean.getUnit(),HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(128,128,128)));
+                baseHolder.add(new HandInputGroup.Holder("所属部门",false,false,peopleInfoBean.getDepartment(),HandInputGroup.VALUE_TYPE.TEXTFILED).setEditable(false).setColor(Color.rgb(128,128,128)));
+                baseHolder.add(new HandInputGroup.Holder("车辆号牌",true,false,entity.getCarNo(),HandInputGroup.VALUE_TYPE.SELECT).setColor(Color.rgb(128,128,128)));
+                baseHolder.add(new HandInputGroup.Holder("带车干部",false,false,entity.getLeaderName(),HandInputGroup.VALUE_TYPE.SELECT).setColor(Color.rgb(128,128,128)));
+                baseHolder.add(new HandInputGroup.Holder("驾驶员",false,false,entity.getDriverName(),HandInputGroup.VALUE_TYPE.SELECT).setColor(Color.rgb(128,128,128)));
                 baseHolder.add(new HandInputGroup.Holder("离队时间",true,false,entity.getOutTime(),HandInputGroup.VALUE_TYPE.DATE).setColor(Color.rgb(128,128,128)));
                 baseHolder.add(new HandInputGroup.Holder("归队时间",true,false,entity.getInTime(),HandInputGroup.VALUE_TYPE.DATE).setColor(Color.rgb(128,128,128)));
-                if (!TextUtils.equals("-9999",entity.getVacationDays())){
-                    baseHolder.add(new HandInputGroup.Holder("假期天数", true, false, entity.getVacationDays(), HandInputGroup.VALUE_TYPE.DOUBLE).setColor(Color.rgb(128,128,128)));
-                }
-                if (!TextUtils.equals("-9999",entity.getJourneyDays())){
-                    baseHolder.add(new HandInputGroup.Holder("路途天数", true, false, entity.getJourneyDays(), HandInputGroup.VALUE_TYPE.DOUBLE).setColor(Color.rgb(128,128,128)));
-                }
                 baseHolder.add(new HandInputGroup.Holder("去向",true,false,entity.getDestination(),HandInputGroup.VALUE_TYPE.TEXTFILED).setColor(Color.rgb(128,128,128)));
                 baseHolder.add(new HandInputGroup.Holder("事由",true,false,entity.getContent(),HandInputGroup.VALUE_TYPE.BIG_EDIT).setColor(Color.rgb(128,128,128)));
-                if (!TextUtils.isEmpty(entity.getVacationAddr())){
-                    baseHolder.add(new HandInputGroup.Holder("疗养地址", true, false, entity.getVacationAddr(), HandInputGroup.VALUE_TYPE.TEXT));
-                }
 //                baseHolder.add(new HandInputGroup.Holder("是否后补申请",false,false,entity.getBFillup().equals("0")?"否":"是",HandInputGroup.VALUE_TYPE.SELECT).setColor(Color.rgb(128,128,128)));
                 groups.add(1,new Group("基本信息", null,true,null,baseHolder));
                 setButtonsTitles(buttonType[2]);
                 //重新提交,取消申请
             }else if(substring == 0){
                 List<HandInputGroup.Holder> holders = new ArrayList<>();
-                holders.add(new HandInputGroup.Holder("申请类型", true, false, entity.getOutType(), HandInputGroup.VALUE_TYPE.TEXT));
                 holders.add(new HandInputGroup.Holder("审批状态", true, false, "审批结束", HandInputGroup.VALUE_TYPE.TEXT));
                 holders.add(new HandInputGroup.Holder("审批结果", true, false, "已拒绝", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(237,142,148)));
                 holders.add(new HandInputGroup.Holder("是否已撤销", true, false, bCancel.equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
@@ -102,26 +98,19 @@ public class PeopleDetailFragment extends CommonFragment {
                 baseHolder.add(new HandInputGroup.Holder("申请人", true, false, peopleInfoBean.getName(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("所属单位", true, false, peopleInfoBean.getUnit(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("所属部门", true, false, peopleInfoBean.getDepartment(), HandInputGroup.VALUE_TYPE.TEXT));
+                baseHolder.add(new HandInputGroup.Holder("车辆号牌", true, false, entity.getCarNo(), HandInputGroup.VALUE_TYPE.TEXT));
+                baseHolder.add(new HandInputGroup.Holder("带车干部", true, false, entity.getLeaderName(), HandInputGroup.VALUE_TYPE.TEXT));
+                baseHolder.add(new HandInputGroup.Holder("驾驶员", true, false, entity.getDriverName(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("离队时间", true, false, entity.getOutTime(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("归队时间", true, false, entity.getInTime(), HandInputGroup.VALUE_TYPE.TEXT));
-                if (!TextUtils.equals("-9999",entity.getVacationDays())){
-                    baseHolder.add(new HandInputGroup.Holder("假期天数", true, false, entity.getVacationDays(), HandInputGroup.VALUE_TYPE.TEXT));
-                }
-                if (!TextUtils.equals("-9999",entity.getJourneyDays())){
-                    baseHolder.add(new HandInputGroup.Holder("路途天数", true, false, entity.getJourneyDays(), HandInputGroup.VALUE_TYPE.TEXT));
-                }
                 baseHolder.add(new HandInputGroup.Holder("去向", true, false, entity.getDestination(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("事由", true, false, entity.getContent(), HandInputGroup.VALUE_TYPE.TEXT));
-                if (!TextUtils.isEmpty(entity.getVacationAddr())){
-                    baseHolder.add(new HandInputGroup.Holder("疗养地址", true, false, entity.getVacationAddr(), HandInputGroup.VALUE_TYPE.TEXT));
-                }
 //                baseHolder.add(new HandInputGroup.Holder("是否后补申请", true, false, entity.getBFillup().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
                 groups.add(1,new Group("基本信息", null, false, null, baseHolder));
                 setButtonsTitles(buttonType[0]);
                 //无
             }else if (substring == 1){
                 List<HandInputGroup.Holder> holders = new ArrayList<>();
-                holders.add(new HandInputGroup.Holder("申请类型", true, false, entity.getOutType(), HandInputGroup.VALUE_TYPE.TEXT));
                 holders.add(new HandInputGroup.Holder("审批状态", true, false, "审批结束", HandInputGroup.VALUE_TYPE.TEXT));
                 holders.add(new HandInputGroup.Holder("审批结果", true, false, "已同意", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(86,197,163)));
                 holders.add(new HandInputGroup.Holder("是否已撤销", true, false, bCancel.equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
@@ -130,21 +119,15 @@ public class PeopleDetailFragment extends CommonFragment {
                 baseHolder.add(new HandInputGroup.Holder("申请人", true, false, peopleInfoBean.getName(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("所属单位", true, false, peopleInfoBean.getUnit(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("所属部门", true, false, peopleInfoBean.getDepartment(), HandInputGroup.VALUE_TYPE.TEXT));
+                baseHolder.add(new HandInputGroup.Holder("车辆号牌", true, false, entity.getCarNo(), HandInputGroup.VALUE_TYPE.TEXT));
+                baseHolder.add(new HandInputGroup.Holder("带车干部", true, false, entity.getLeaderName(), HandInputGroup.VALUE_TYPE.TEXT));
+                baseHolder.add(new HandInputGroup.Holder("驾驶员", true, false, entity.getDriverName(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("离队时间", true, false, entity.getOutTime(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("归队时间", true, false, entity.getInTime(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("实际离队时间", true, false, entity.getActualOutTime().isEmpty()?"":entity.getActualOutTime(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("实际归队时间", true, false, entity.getActualInTime().isEmpty()?"":entity.getActualInTime(), HandInputGroup.VALUE_TYPE.TEXT));
-                if (!TextUtils.equals("-9999",entity.getVacationDays())){
-                    baseHolder.add(new HandInputGroup.Holder("假期天数", true, false, entity.getVacationDays(), HandInputGroup.VALUE_TYPE.TEXT));
-                }
-                if (!TextUtils.equals("-9999",entity.getJourneyDays())){
-                    baseHolder.add(new HandInputGroup.Holder("路途天数", true, false, entity.getJourneyDays(), HandInputGroup.VALUE_TYPE.TEXT));
-                }
                 baseHolder.add(new HandInputGroup.Holder("去向", true, false, entity.getDestination(), HandInputGroup.VALUE_TYPE.TEXT));
                 baseHolder.add(new HandInputGroup.Holder("事由", true, false, entity.getContent(), HandInputGroup.VALUE_TYPE.TEXT));
-                if (!TextUtils.isEmpty(entity.getVacationAddr())){
-                    baseHolder.add(new HandInputGroup.Holder("疗养地址", true, false, entity.getVacationAddr(), HandInputGroup.VALUE_TYPE.TEXT));
-                }
 //                baseHolder.add(new HandInputGroup.Holder("是否后补申请", true, false, entity.getBFillup().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
                 groups.add(1,new Group("基本信息", null, false, null, baseHolder));
                 if (entity.getOutStatus().equals("0") && entity.getActualInTime().isEmpty() && entity.getActualOutTime().isEmpty()){
@@ -154,13 +137,10 @@ public class PeopleDetailFragment extends CommonFragment {
                 }else if (entity.getOutStatus().equals("0") && !entity.getActualInTime().isEmpty() && !entity.getActualOutTime().isEmpty()){
                     setButtonsTitles(buttonType[0]);
                 }
-
                 //无
             }
-
         }else if (process == 2){
             List<HandInputGroup.Holder> holders = new ArrayList<>();
-            holders.add(new HandInputGroup.Holder("申请类型", true, false, entity.getOutType(), HandInputGroup.VALUE_TYPE.TEXT));
             holders.add(new HandInputGroup.Holder("审批状态", true, false, "审批中", HandInputGroup.VALUE_TYPE.TEXT));
             holders.add(new HandInputGroup.Holder("审批结果", true, false, "", HandInputGroup.VALUE_TYPE.TEXT));
             holders.add(new HandInputGroup.Holder("是否已撤销", true, false, bCancel.equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
@@ -169,26 +149,19 @@ public class PeopleDetailFragment extends CommonFragment {
             baseHolder.add(new HandInputGroup.Holder("申请人", true, false, peopleInfoBean.getName(), HandInputGroup.VALUE_TYPE.TEXT));
             baseHolder.add(new HandInputGroup.Holder("所属单位", true, false, peopleInfoBean.getUnit(), HandInputGroup.VALUE_TYPE.TEXT));
             baseHolder.add(new HandInputGroup.Holder("所属部门", true, false, peopleInfoBean.getDepartment(), HandInputGroup.VALUE_TYPE.TEXT));
+            baseHolder.add(new HandInputGroup.Holder("车辆号牌", true, false, entity.getCarNo(), HandInputGroup.VALUE_TYPE.TEXT));
+            baseHolder.add(new HandInputGroup.Holder("带车干部", true, false, entity.getLeaderName(), HandInputGroup.VALUE_TYPE.TEXT));
+            baseHolder.add(new HandInputGroup.Holder("驾驶员", true, false, entity.getDriverName(), HandInputGroup.VALUE_TYPE.TEXT));
             baseHolder.add(new HandInputGroup.Holder("离队时间", true, false, entity.getOutTime(), HandInputGroup.VALUE_TYPE.TEXT));
             baseHolder.add(new HandInputGroup.Holder("归队时间", true, false, entity.getInTime(), HandInputGroup.VALUE_TYPE.TEXT));
-            if (!TextUtils.equals("-9999",entity.getVacationDays())){
-                baseHolder.add(new HandInputGroup.Holder("假期天数", true, false, entity.getVacationDays(), HandInputGroup.VALUE_TYPE.TEXT));
-            }
-            if (!TextUtils.equals("-9999",entity.getJourneyDays())){
-                baseHolder.add(new HandInputGroup.Holder("路途天数", true, false, entity.getJourneyDays(), HandInputGroup.VALUE_TYPE.TEXT));
-            }
             baseHolder.add(new HandInputGroup.Holder("去向", true, false, entity.getDestination(), HandInputGroup.VALUE_TYPE.TEXT));
             baseHolder.add(new HandInputGroup.Holder("事由", true, false, entity.getContent(), HandInputGroup.VALUE_TYPE.TEXT));
-            if (!TextUtils.isEmpty(entity.getVacationAddr())){
-                baseHolder.add(new HandInputGroup.Holder("疗养地址", true, false, entity.getVacationAddr(), HandInputGroup.VALUE_TYPE.TEXT));
-            }
 //            baseHolder.add(new HandInputGroup.Holder("是否后补申请", true, false, entity.getBFillup().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
             groups.add(1,new Group("基本信息", null, false, null, baseHolder));
             setButtonsTitles(buttonType[0]);
-        }else if (process == 0){
+        } else if (process == 0){
             if (bCancel.equals("0")){
                 List<HandInputGroup.Holder> holders = new ArrayList<>();
-                holders.add(new HandInputGroup.Holder("申请类型", true, false, entity.getOutType(), HandInputGroup.VALUE_TYPE.TEXT));
                 holders.add(new HandInputGroup.Holder("审批状态", true, false, "待审批", HandInputGroup.VALUE_TYPE.TEXT));
                 holders.add(new HandInputGroup.Holder("审批结果", true, false, "", HandInputGroup.VALUE_TYPE.TEXT));
                 holders.add(new HandInputGroup.Holder("是否已撤销", true, false, bCancel.equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
@@ -196,7 +169,6 @@ public class PeopleDetailFragment extends CommonFragment {
                 setButtonsTitles(buttonType[1]);
             }else if (bCancel.equals("1")){
                 List<HandInputGroup.Holder> holders = new ArrayList<>();
-                holders.add(new HandInputGroup.Holder("申请类型", true, false, entity.getOutType(), HandInputGroup.VALUE_TYPE.TEXT));
                 holders.add(new HandInputGroup.Holder("审批状态", true, false, "已撤销", HandInputGroup.VALUE_TYPE.TEXT));
                 holders.add(new HandInputGroup.Holder("审批结果", true, false, "已撤销", HandInputGroup.VALUE_TYPE.TEXT).setColor(Color.rgb(48,48,48)));
                 holders.add(new HandInputGroup.Holder("是否已撤销", true, false, bCancel.equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
@@ -207,22 +179,15 @@ public class PeopleDetailFragment extends CommonFragment {
             baseHolder.add(new HandInputGroup.Holder("申请人", true, false, peopleInfoBean.getName(), HandInputGroup.VALUE_TYPE.TEXT));
             baseHolder.add(new HandInputGroup.Holder("所属单位", true, false, peopleInfoBean.getUnit(), HandInputGroup.VALUE_TYPE.TEXT));
             baseHolder.add(new HandInputGroup.Holder("所属部门", true, false, peopleInfoBean.getDepartment(), HandInputGroup.VALUE_TYPE.TEXT));
+            baseHolder.add(new HandInputGroup.Holder("车辆号牌", true, false, entity.getCarNo(), HandInputGroup.VALUE_TYPE.TEXT));
+            baseHolder.add(new HandInputGroup.Holder("带车干部", true, false, entity.getLeaderName(), HandInputGroup.VALUE_TYPE.TEXT));
+            baseHolder.add(new HandInputGroup.Holder("驾驶员", true, false, entity.getDriverName(), HandInputGroup.VALUE_TYPE.TEXT));
             baseHolder.add(new HandInputGroup.Holder("离队时间", true, false, entity.getOutTime(), HandInputGroup.VALUE_TYPE.TEXT));
             baseHolder.add(new HandInputGroup.Holder("归队时间", true, false, entity.getInTime(), HandInputGroup.VALUE_TYPE.TEXT));
-            if (!TextUtils.equals("-9999",entity.getVacationDays())){
-                baseHolder.add(new HandInputGroup.Holder("假期天数", true, false, entity.getVacationDays(), HandInputGroup.VALUE_TYPE.TEXT));
-            }
-            if (!TextUtils.equals("-9999",entity.getJourneyDays())){
-                baseHolder.add(new HandInputGroup.Holder("路途天数", true, false, entity.getJourneyDays(), HandInputGroup.VALUE_TYPE.TEXT));
-            }
             baseHolder.add(new HandInputGroup.Holder("去向", true, false, entity.getDestination(), HandInputGroup.VALUE_TYPE.TEXT));
             baseHolder.add(new HandInputGroup.Holder("事由", true, false, entity.getContent(), HandInputGroup.VALUE_TYPE.TEXT));
-            if (!TextUtils.isEmpty(entity.getVacationAddr())){
-                baseHolder.add(new HandInputGroup.Holder("疗养地址", true, false, entity.getVacationAddr(), HandInputGroup.VALUE_TYPE.TEXT));
-            }
 //            baseHolder.add(new HandInputGroup.Holder("是否后补申请", true, false, entity.getBFillup().equals("0")?"否":"是", HandInputGroup.VALUE_TYPE.TEXT));
             groups.add(1,new Group("基本信息", null, false, null, baseHolder));
-
         }
         String split1 = entity.getHisAnnotation();
         String split3 = entity.getApproverName();
@@ -244,9 +209,117 @@ public class PeopleDetailFragment extends CommonFragment {
         return groups;
     }
 
+    private void loadDraftData() {
+        CarInfoBean.ApiGetCarInfoBean bean = new CarInfoBean.ApiGetCarInfoBean();
+        bean.setNo("?");
+        bean.setOwner1No("?");
+        bean.setOwner2No("?");
+        bean.setIsAndroid("1");
+        bean.setTimeStamp(loginBean.getTimeStamp());
+        bean.setAuthenticationNo(loginBean.getAuthenticationNo());
+        String requestStr = "Api_Get_CarInfo "+new Gson().toJson(bean);
+        L.e(TAG+"CarApplyFragment",requestStr);
+        HttpManager.getInstance().requestNewResultForm(getTempIP(), requestStr, CarInfoBean.class, new HttpManager.ResultNewCallback<CarInfoBean>() {
+
+            @Override
+            public void onSuccess(String json, CarInfoBean carInfoBean) throws Exception {
+                int size = carInfoBean.getApi_Get_CarInfo().size();
+                List<String> carNoList = new ArrayList<>();
+                for (int i = 0; i < size; i++) {
+                    carNoList.add(i,carInfoBean.getApi_Get_CarInfo().get(i).getNo());
+                }
+                carNoArray = carNoList.toArray(new String[carNoList.size()]);
+            }
+
+            @Override
+            public void onError(String msg) throws Exception {
+
+            }
+
+            @Override
+            public void onResponse(String response) throws Exception {
+
+            }
+
+            @Override
+            public void onBefore(Request request, int id) throws Exception {
+
+            }
+
+            @Override
+            public void onAfter(int id) throws Exception {
+
+            }
+
+            @Override
+            public void inProgress(float progress, long total, int id) throws Exception {
+
+            }
+        });
+
+    }
+
+    private void loadDraftData(String realValue) {
+        CarInfoBean.ApiGetCarInfoBean bean = new CarInfoBean.ApiGetCarInfoBean();
+        bean.setNo("?");
+        bean.setOwner1No("?");
+        bean.setOwner2No("?");
+        bean.setIsAndroid("1");
+        bean.setTimeStamp(loginBean.getTimeStamp());
+        bean.setAuthenticationNo(loginBean.getAuthenticationNo());
+        String requestStr = "Api_Get_CarInfo "+new Gson().toJson(bean);
+        L.e(TAG+"CarApplyFragment",requestStr);
+        HttpManager.getInstance().requestNewResultForm(getTempIP(), requestStr, CarInfoBean.class, new HttpManager.ResultNewCallback<CarInfoBean>() {
+
+            @Override
+            public void onSuccess(String json, CarInfoBean carInfoBean) throws Exception {
+                List<String> carOwnerNameList = new ArrayList<>();
+                int num = 0;
+                if (!carInfoBean.getApi_Get_CarInfo().get(0).getOwner1Name().isEmpty()){
+                    num++;
+                }
+                if (!carInfoBean.getApi_Get_CarInfo().get(0).getOwner2Name().isEmpty()){
+                    num++;
+                }
+                if (num == 1){
+                    carOwnerNameList.add(0,carInfoBean.getApi_Get_CarInfo().get(0).getOwner1Name());
+                }else if(num == 2){
+                    carOwnerNameList.add(0,carInfoBean.getApi_Get_CarInfo().get(0).getOwner1Name());
+                    carOwnerNameList.add(1,carInfoBean.getApi_Get_CarInfo().get(0).getOwner2Name());
+                }
+                carOwnerNameArray = carOwnerNameList.toArray(new String[carOwnerNameList.size()]);
+            }
+
+            @Override
+            public void onError(String msg) throws Exception {
+
+            }
+
+            @Override
+            public void onResponse(String response) throws Exception {
+
+            }
+
+            @Override
+            public void onBefore(Request request, int id) throws Exception {
+
+            }
+
+            @Override
+            public void onAfter(int id) throws Exception {
+
+            }
+
+            @Override
+            public void inProgress(float progress, long total, int id) throws Exception {
+
+            }
+        });
+    }
+
     public void setToolbar(HandToolbar toolbar) {
         toolbar.setDisplayHomeAsUpEnabled(true, getActivity());
-        toolbar.setTitle("请假申请");
+        toolbar.setTitle("车辆申请");
         toolbar.setTitleSize(18);
     }
 
@@ -267,13 +340,16 @@ public class PeopleDetailFragment extends CommonFragment {
 
     @Override
     public void onBottomButtonsClick(String title, final List<Group> groups) {
-        PeopleLeaveDetailBean.ApiGetMyApplyForPeoBean peopleLeaveRrdBean = new PeopleLeaveDetailBean.ApiGetMyApplyForPeoBean();
+        final CarLeaveDetailBean.ApiGetMyApplyForCarBean carLeaveRrdBean = new CarLeaveDetailBean.ApiGetMyApplyForCarBean();
         final String noindex = getArguments().getString("noindex");
-        peopleLeaveRrdBean.setAuthenticationNo(loginBean.getAuthenticationNo());
-        peopleLeaveRrdBean.setNo(loginBean.getAuthenticationNo());
-        peopleLeaveRrdBean.setIsAndroid("1");
-        peopleLeaveRrdBean.setNoIndex(noindex);
-        peopleLeaveRrdBean.setTimeStamp(loginBean.getTimeStamp());
+        final String carno = getArguments().getString("carno");
+        final String driverno = getArguments().getString("driverno");
+        final String leaderno = getArguments().getString("leaderno");
+        carLeaveRrdBean.setAuthenticationNo(loginBean.getAuthenticationNo());
+        carLeaveRrdBean.setNo(loginBean.getAuthenticationNo());
+        carLeaveRrdBean.setIsAndroid("1");
+        carLeaveRrdBean.setNoIndex(noindex);
+        carLeaveRrdBean.setTimeStamp(loginBean.getTimeStamp());
         if (title.equals("撤销申请")){
             if (entity.getBCancel().equals("1")){
                 show("已撤销,请勿重复操作!");
@@ -284,10 +360,10 @@ public class PeopleDetailFragment extends CommonFragment {
                 }else if (entity.getProcess().equals("2")){
                     show("审批进行中,不可撤销!");
                 }
-                peopleLeaveRrdBean.setBCancel("1");
-                String json = new Gson().toJson(peopleLeaveRrdBean);
-                s1 = "Api_Retract_PeopleLeave " + json;
-//                L.e(TAG,s1);
+                carLeaveRrdBean.setBCancel("1");
+                String json = new Gson().toJson(carLeaveRrdBean);
+                s1 = "Api_Retract_CarLeave " + json;
+                L.e(TAG,s1);
                 AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
                 builder.setMessage("是否确认?");
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -321,31 +397,42 @@ public class PeopleDetailFragment extends CommonFragment {
                         String realValueNO = loginBean.getAuthenticationNo();
                         String unit = getDisplayValueByKey("所属单位").getRealValue();
                         String applicant = getDisplayValueByKey("申请人").getRealValue();
-                        String applicantType = getDisplayValueByKey("申请类型").getRealValue();
+                        String carNo = getDisplayValueByKey("车辆号牌").getRealValue();
+                        String driverName = getDisplayValueByKey("驾驶员").getRealValue();
+                        String leaderName = getDisplayValueByKey("带车干部").getRealValue();
                         String leaveTime = getDisplayValueByKey("离队时间").getRealValue();
                         String returnTime = getDisplayValueByKey("归队时间").getRealValue();
                         String argument = getDisplayValueByKey("事由").getRealValue();
                         String goDirection  = getDisplayValueByKey("去向").getRealValue();
 //                        String bFillup = getDisplayValueByKey("是否后补申请").getRealValue();
-                        PeopleApplyBean.ApiApplyPeopleLeaveBean peopleApplyBean = new PeopleApplyBean.ApiApplyPeopleLeaveBean();
-                        peopleApplyBean.setDestination(goDirection);
-                        peopleApplyBean.setNo(realValueNO);
-                        peopleApplyBean.setOutType(applicantType);
-                        peopleApplyBean.setOutTime(leaveTime);
-                        peopleApplyBean.setInTime(returnTime);
-                        peopleApplyBean.setContent(argument);
-//                        peopleApplyBean.setBFillup(bFillup.equals("否")?"0":"1");
-                        peopleApplyBean.setAuthenticationNo(loginBean.getAuthenticationNo());
-                        peopleApplyBean.setIsAndroid("1");
-                        peopleApplyBean.setNoIndex(noindex);
-                        peopleApplyBean.setTimeStamp(loginBean.getTimeStamp());
-                        String json = new Gson().toJson(peopleApplyBean);
-                        String s1 = "Api_Apply_PeopleLeave " + json;
-                        HttpManager.getInstance().requestNewResultForm(getTempIP(), s1, PeopleApplyBean.class, new HttpManager.ResultNewCallback<PeopleApplyBean>() {
+                        CarApplyBean.ApiApplyCarLeaveBean carLeaveRrdBean = new CarApplyBean.ApiApplyCarLeaveBean();
+                        carLeaveRrdBean.setDestination(goDirection);
+                        carLeaveRrdBean.setCarNo(carNo);
+                        if (!ownerNo1.isEmpty()){
+                            carLeaveRrdBean.setDriverNo(ownerNo1);
+                        }else{
+                            carLeaveRrdBean.setDriverNo(driverno);
+                        }
+                        if (!ownerNo2.isEmpty()){
+                            carLeaveRrdBean.setLeaderNo(ownerNo2);
+                        }else{
+                            carLeaveRrdBean.setLeaderNo(leaderno);
+                        }
+                        carLeaveRrdBean.setNo(realValueNO);
+                        carLeaveRrdBean.setOutTime(leaveTime);
+                        carLeaveRrdBean.setInTime(returnTime);
+                        carLeaveRrdBean.setContent(argument);
+//                        carLeaveRrdBean.setBFillup(bFillup.equals("否")?"0":"1");
+                        carLeaveRrdBean.setAuthenticationNo(loginBean.getAuthenticationNo());
+                        carLeaveRrdBean.setIsAndroid("1");
+                        carLeaveRrdBean.setNoIndex(noindex);
+                        carLeaveRrdBean.setTimeStamp(loginBean.getTimeStamp());
+                        String json = new Gson().toJson(carLeaveRrdBean);
+                        String s1 = "Api_Apply_CarLeave " + json;
+                        HttpManager.getInstance().requestNewResultForm(getTempIP(), s1, CarApplyBean.class, new HttpManager.ResultNewCallback<CarApplyBean>() {
                             @Override
-                            public void onSuccess(String json, PeopleApplyBean peopleApplyBean) throws Exception {
-//                                L.e(TAG+"重新提交",json);
-                                if (peopleApplyBean.getApi_Apply_PeopleLeave().get(0) == null){
+                            public void onSuccess(String json, CarApplyBean carApplyBean) throws Exception {
+                                if (carApplyBean.getApi_Apply_CarLeave().get(0) == null){
                                     show("提交成功");
                                     getActivity().finish();
                                 }else{
@@ -397,22 +484,22 @@ public class PeopleDetailFragment extends CommonFragment {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
-                    PeopleApplyBean.ApiApplyPeopleLeaveBean peopleApplyBean = new PeopleApplyBean.ApiApplyPeopleLeaveBean();
-                    peopleApplyBean.setAuthenticationNo(loginBean.getAuthenticationNo());
-                    peopleApplyBean.setIsAndroid("1");
-                    peopleApplyBean.setNoIndex(noindex);
-                    peopleApplyBean.setTimeStamp(loginBean.getTimeStamp());
-                    String json = new Gson().toJson(peopleApplyBean);
-                    String s1 = "Api_Edit_CheckOutForPeo " + json;
-                    HttpManager.getInstance().requestNewResultForm(getTempIP(), s1, PeopleCheckOutBean.class, new HttpManager.ResultNewCallback<PeopleCheckOutBean>() {
+                    CarApplyBean.ApiApplyCarLeaveBean carLeaveRrdBean = new CarApplyBean.ApiApplyCarLeaveBean();
+                    carLeaveRrdBean.setAuthenticationNo(loginBean.getAuthenticationNo());
+                    carLeaveRrdBean.setIsAndroid("1");
+                    carLeaveRrdBean.setNoIndex(noindex);
+                    carLeaveRrdBean.setTimeStamp(loginBean.getTimeStamp());
+                    String json = new Gson().toJson(carLeaveRrdBean);
+                    String s1 = "Api_Edit_CheckOutForCar " + json;
+                    HttpManager.getInstance().requestNewResultForm(getTempIP(), s1, CarCheckOutBean.class, new HttpManager.ResultNewCallback<CarCheckOutBean>() {
                         @Override
-                        public void onSuccess(String json, PeopleCheckOutBean peopleApplyBean) throws Exception {
+                        public void onSuccess(String json, CarCheckOutBean carCheckOutBean) throws Exception {
                             L.e(TAG+" 确认离开",json);
                             if (json.contains("NotInTime")){
                                 show("当前不在外出时间!");
                                 getActivity().finish();
                             }
-                            if (peopleApplyBean.getApi_Edit_CheckOutForPeo().get(0) == null||peopleApplyBean.getApi_Edit_CheckOutForPeo().size() == 0){
+                            if (carCheckOutBean.getApi_Edit_CheckOutForCar().get(0) == null||carCheckOutBean.getApi_Edit_CheckOutForCar().size() == 0){
                                 show("提交成功");
                                 getActivity().finish();
                             }else{
@@ -463,18 +550,18 @@ public class PeopleDetailFragment extends CommonFragment {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
-                    PeopleApplyBean.ApiApplyPeopleLeaveBean peopleApplyBean = new PeopleApplyBean.ApiApplyPeopleLeaveBean();
-                    peopleApplyBean.setAuthenticationNo(loginBean.getAuthenticationNo());
-                    peopleApplyBean.setIsAndroid("1");
-                    peopleApplyBean.setNoIndex(noindex);
-                    peopleApplyBean.setTimeStamp(loginBean.getTimeStamp());
-                    String json = new Gson().toJson(peopleApplyBean);
-                    String s1 = "Api_Edit_CheckBackForPeo " + json;
-                    HttpManager.getInstance().requestNewResultForm(getTempIP(), s1, PeopleCheckBackBean.class, new HttpManager.ResultNewCallback<PeopleCheckBackBean>() {
+                    CarApplyBean.ApiApplyCarLeaveBean carLeaveRrdBean = new CarApplyBean.ApiApplyCarLeaveBean();
+                    carLeaveRrdBean.setAuthenticationNo(loginBean.getAuthenticationNo());
+                    carLeaveRrdBean.setIsAndroid("1");
+                    carLeaveRrdBean.setNoIndex(noindex);
+                    carLeaveRrdBean.setTimeStamp(loginBean.getTimeStamp());
+                    String json = new Gson().toJson(carLeaveRrdBean);
+                    String s1 = "Api_Edit_CheckBackForCar " + json;
+                    HttpManager.getInstance().requestNewResultForm(getTempIP(), s1, CarCheckBackBean.class, new HttpManager.ResultNewCallback<CarCheckBackBean>() {
                         @Override
-                        public void onSuccess(String json, PeopleCheckBackBean peopleApplyBean) throws Exception {
+                        public void onSuccess(String json, CarCheckBackBean carCheckBackBean) throws Exception {
                             L.e(TAG+" 确认归来",json);
-                            if (peopleApplyBean.getApi_Edit_CheckBackForPeo().get(0) == null||peopleApplyBean.getApi_Edit_CheckBackForPeo().size()==0){
+                            if (carCheckBackBean.getApi_Edit_CheckBackForCar().get(0) == null||carCheckBackBean.getApi_Edit_CheckBackForCar().size()==0){
                                 show("提交成功");
                                 getActivity().finish();
                             }else{
@@ -522,10 +609,11 @@ public class PeopleDetailFragment extends CommonFragment {
     }
 
     private void applyModify(String s1) {
-        HttpManager.getInstance().requestNewResultForm(getTempIP(), s1, PeopleLeaveDetailRetractBean.class, new HttpManager.ResultNewCallback<PeopleLeaveDetailRetractBean>() {
+        HttpManager.getInstance().requestNewResultForm(getTempIP(), s1, CarLeaveDetailRetractBean.class, new HttpManager.ResultNewCallback<CarLeaveDetailRetractBean>() {
+
             @Override
-            public void onSuccess(String json, PeopleLeaveDetailRetractBean peopleApplyBean) throws Exception {
-                if (peopleApplyBean.getApi_Retract_PeopleLeave().get(0) == null){
+            public void onSuccess(String json, CarLeaveDetailRetractBean carLeaveDetailRetractBean) throws Exception {
+                if (carLeaveDetailRetractBean.getApi_Retract_CarLeave().get(0) == null){
                     show("撤销成功");
                     getActivity().finish();
                 }else{
@@ -568,6 +656,7 @@ public class PeopleDetailFragment extends CommonFragment {
         peopleInfoBean = ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0);
         StatusBarUtils.setWindowStatusBarColor(getActivity(), R.color.mainColor_blue);
         loadData();
+        loadDraftData();
     }
 
     private void show(final String msg) {
@@ -584,50 +673,55 @@ public class PeopleDetailFragment extends CommonFragment {
         String outtime = getArguments().getString("outtime");
         String intime = getArguments().getString("intime");
         String content = getArguments().getString("content");
-        final String process = getArguments().getString("process");
+        String process = getArguments().getString("process");
         String modifyTime = getArguments().getString("modifyTime");
         String bcancel = getArguments().getString("bcancel");
         String bfillup = getArguments().getString("bfillup");
-        noindex = getArguments().getString("noindex");
-        PeopleLeaveDetailBean.ApiGetMyApplyForPeoBean peopleLeaveRrdBean = new PeopleLeaveDetailBean.ApiGetMyApplyForPeoBean();
-        peopleLeaveRrdBean.setNo(peopleInfoBean.getNo());//1
-        peopleLeaveRrdBean.setRegisterTime("?");//2
-        peopleLeaveRrdBean.setOutTime("?");//3
-        peopleLeaveRrdBean.setInTime("?");//4
-        peopleLeaveRrdBean.setContent("?");//5
-        peopleLeaveRrdBean.setActualOutTime("?");//6
-        peopleLeaveRrdBean.setActualInTime("?");//7
-        peopleLeaveRrdBean.setModifyTime("?");//8
-        peopleLeaveRrdBean.setProcess("?");//9
-        peopleLeaveRrdBean.setBFillup("?");//10
-        peopleLeaveRrdBean.setBCancel("?");//11
-        peopleLeaveRrdBean.setNoIndex(noindex);//13
-        peopleLeaveRrdBean.setDestination("?");//15
-        peopleLeaveRrdBean.setApproverNo("?");//16
-        peopleLeaveRrdBean.setApproverName("?");//20
-        peopleLeaveRrdBean.setHisAnnotation("?");//17
-        peopleLeaveRrdBean.setResult("?");//18
-        peopleLeaveRrdBean.setAuthenticationNo(loginBean.getAuthenticationNo());//19
-        peopleLeaveRrdBean.setIsAndroid("1");//12
-        peopleLeaveRrdBean.setOutType("?");//14
-        peopleLeaveRrdBean.setTimeStamp(loginBean.getTimeStamp());//14
-        String toJson = new Gson().toJson(peopleLeaveRrdBean);
-        String s="Api_Get_MyApplyForPeo "+toJson;
-//        L.e(TAG+"PeopleDetailFragment",s);
-        HttpManager.getInstance().requestNewResultForm(getTempIP(), s, PeopleLeaveDetailBean.class, new HttpManager.ResultNewCallback<PeopleLeaveDetailBean>() {
+        String noindex = getArguments().getString("noindex");
+        CarLeaveDetailBean.ApiGetMyApplyForCarBean carLeaveRrdBean = new CarLeaveDetailBean.ApiGetMyApplyForCarBean();
+        carLeaveRrdBean.setNo(peopleInfoBean.getAuthenticationNo());
+        carLeaveRrdBean.setApproverNo("?");
+        carLeaveRrdBean.setRegisterTime("?");
+        carLeaveRrdBean.setOutTime("?");
+        carLeaveRrdBean.setInTime("?");
+        carLeaveRrdBean.setContent("?");
+        carLeaveRrdBean.setActualOutTime("?");
+        carLeaveRrdBean.setActualInTime("?");
+        carLeaveRrdBean.setModifyTime("?");
+        carLeaveRrdBean.setProcess("?");
+        carLeaveRrdBean.setResult("?");
+        carLeaveRrdBean.setBCancel("?");
+        carLeaveRrdBean.setBFillup("?");
+        carLeaveRrdBean.setNoIndex(noindex);
+        carLeaveRrdBean.setBeginNum("?");
+        carLeaveRrdBean.setEndNum("?");
+        carLeaveRrdBean.setCarNo("?");
+        carLeaveRrdBean.setAuthenticationNo(loginBean.getAuthenticationNo());
+        carLeaveRrdBean.setIsAndroid("1");
+        carLeaveRrdBean.setCarNo("?");
+        carLeaveRrdBean.setDriverNo("?");
+        carLeaveRrdBean.setLeaderNo("?");
+        carLeaveRrdBean.setDriverName("?");
+        carLeaveRrdBean.setLeaderName("?");
+        carLeaveRrdBean.setHisAnnotation("?");
+        carLeaveRrdBean.setDestination("?");
+        carLeaveRrdBean.setTimeStamp(loginBean.getTimeStamp());
+        String toJson = new Gson().toJson(carLeaveRrdBean);
+        String s="Api_Get_MyApplyForCar "+toJson;
+        HttpManager.getInstance().requestNewResultForm(getTempIP(), s, CarLeaveDetailBean.class, new HttpManager.ResultNewCallback<CarLeaveDetailBean>() {
             @Override
-            public void onSuccess(String json, final PeopleLeaveDetailBean peopleLeaveDetailBean) throws Exception {
+            public void onSuccess(String json, final CarLeaveDetailBean carLeaveDetailBean) throws Exception {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if (peopleLeaveDetailBean != null){
-                            L.e(TAG+"加载",peopleLeaveDetailBean.getApi_Get_MyApplyForPeo().get(0).toString());
-                            String bCancel = peopleLeaveDetailBean.getApi_Get_MyApplyForPeo().get(0).getBCancel();
-                            String process = peopleLeaveDetailBean.getApi_Get_MyApplyForPeo().get(0).getProcess();
-                            String result = peopleLeaveDetailBean.getApi_Get_MyApplyForPeo().get(0).getResult();
-                            String outStatus = peopleLeaveDetailBean.getApi_Get_MyApplyForPeo().get(0).getOutStatus();
-                            String actualOutTime = peopleLeaveDetailBean.getApi_Get_MyApplyForPeo().get(0).getActualOutTime();
-                            String actualInTime = peopleLeaveDetailBean.getApi_Get_MyApplyForPeo().get(0).getActualInTime();
+                        if (carLeaveDetailBean != null){
+                            L.e(TAG+"加载",carLeaveDetailBean.getApi_Get_MyApplyForCar().get(0).toString());
+                            String bCancel = carLeaveDetailBean.getApi_Get_MyApplyForCar().get(0).getBCancel();
+                            String process = carLeaveDetailBean.getApi_Get_MyApplyForCar().get(0).getProcess();
+                            String result = carLeaveDetailBean.getApi_Get_MyApplyForCar().get(0).getResult();
+                            String outStatus = carLeaveDetailBean.getApi_Get_MyApplyForCar().get(0).getOutStatus();
+                            String actualOutTime = carLeaveDetailBean.getApi_Get_MyApplyForCar().get(0).getActualOutTime();
+                            String actualInTime = carLeaveDetailBean.getApi_Get_MyApplyForCar().get(0).getActualInTime();
                             if (process.equals("1")){
                                 if (result.equals("2")){
                                     type = 2;
@@ -651,11 +745,11 @@ public class PeopleDetailFragment extends CommonFragment {
                             }else if (process.equals("2")){
                                 type = 0;
                             }
-                            String hisAnnotation = peopleLeaveDetailBean.getApi_Get_MyApplyForPeo().get(0).getHisAnnotation();
+
+                            String hisAnnotation = carLeaveDetailBean.getApi_Get_MyApplyForCar().get(0).getHisAnnotation();
                             String str = ";";
                             fenNum = StringUtils.method_5(hisAnnotation, str);
-                            String [] arrAnnotation = hisAnnotation.split(";");
-                            setEntity(peopleLeaveDetailBean.getApi_Get_MyApplyForPeo().get(0));
+                            setEntity(carLeaveDetailBean.getApi_Get_MyApplyForCar().get(0));
                             setGroup(getGroupList());
                             setPb(false);
                             setButtonllEnable(true);
@@ -690,9 +784,10 @@ public class PeopleDetailFragment extends CommonFragment {
 
             }
         });
+
     }
 
-    public void setEntity(PeopleLeaveDetailBean.ApiGetMyApplyForPeoBean entity) {
+    public void setEntity(CarLeaveDetailBean.ApiGetMyApplyForCarBean entity) {
         this.entity = entity;
     }
 
@@ -700,10 +795,135 @@ public class PeopleDetailFragment extends CommonFragment {
     public void onClickItemContentSetter(final HandInputGroup.Holder holder) {
         if (holder.getType() == HandInputGroup.VALUE_TYPE.DATE) {
             showDateTimePicker(holder,true);
-        } else if (holder.getKey().equals("是否已撤销")){
+        }/* else if (holder.getKey().equals("是否后补申请")){
             showSelector(holder,new String[]{"是","否"});
-        } /*else if (holder.getKey().equals("是否后补申请")){
-            showSelector(holder,new String[]{"是","否"});
-        }*/
+        }*/ else if (holder.getKey().equals("车辆号牌")){
+            if (!getDisplayValueByKey("驾驶员").getRealValue().isEmpty()){
+                getDisplayValueByKey("驾驶员").setDispayValue("/请选择");
+            }
+            if (!getDisplayValueByKey("带车干部").getRealValue().isEmpty()){
+                getDisplayValueByKey("带车干部").setDispayValue("/请选择");
+            }
+            if (carNoArray != null) {
+                showSelector(holder, carNoArray, new OnSelectedResultCallback() {
+                    @Override
+                    public void onSelected(Group ownGroup, HandInputGroup.Holder holder, int mainIndex, int itemIndex) {
+                        String realValue = holder.getRealValue();
+                        loadDraftData(realValue);
+                    }
+                });
+            } else {
+                ToastUtil.showToast(getContext(),"拉取失败");
+            }
+        } else if (holder.getKey().equals("驾驶员")||holder.getKey().equals("带车干部")){
+            if (!getDisplayValueByKey("车辆号牌").getRealValue().isEmpty()) {
+                if (carOwnerNameArray != null) {
+                    showSelector(holder, carOwnerNameArray, new OnSelectedResultCallback() {
+                        @Override
+                        public void onSelected(Group ownGroup, HandInputGroup.Holder holder, int mainIndex, int itemIndex) {
+                            String str1 = ownGroup.getHolderByKey("驾驶员").getRealValue();
+                            String str2 = ownGroup.getHolderByKey("带车干部").getRealValue();
+                            for (int i = 0; i < ownGroup.getHolders().size(); i++) {
+                                if (ownGroup.getHolders().get(i).getKey().equals("驾驶员")) {
+                                    getNoFromName1(str1);
+                                } else if (ownGroup.getHolders().get(i).getKey().equals("带车干部")) {
+                                    getNoFromName2(str2);
+                                }
+                            }
+                        }
+                    });
+                } else {
+                    ToastUtil.showToast(getContext(), "拉取失败");
+                }
+            }else{
+                show("请先选择车辆号牌!");
+            }
+        }
+    }
+
+    private void getNoFromName1(String driver) {
+        PeopleInfoBean.ApiGetMyInfoSimBean peopleInfoBean = new PeopleInfoBean.ApiGetMyInfoSimBean();
+        peopleInfoBean.setIsAndroid("1");
+        peopleInfoBean.setName(driver);
+        peopleInfoBean.setNo("?");
+        peopleInfoBean.setAuthenticationNo(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo());
+        peopleInfoBean.setTimeStamp(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getTimeStamp());
+        String json = new Gson().toJson(peopleInfoBean);
+        String s1 = "Api_Get_PeopleInfoSim " + json;
+        HttpManager.getInstance().requestNewResultForm(getTempIP(),s1,TempPeopleInfoBean.class,new HttpManager.ResultNewCallback<TempPeopleInfoBean>() {
+            @Override
+            public void onSuccess(String json, TempPeopleInfoBean peopleInfoBean) throws Exception {
+                ownerNo1 = peopleInfoBean.getApi_Get_PeopleInfoSim().get(0).getNo();
+            }
+
+            @Override
+            public void onError(String msg) throws Exception {
+
+            }
+
+            @Override
+            public void onResponse(String response) throws Exception {
+
+            }
+
+            @Override
+            public void onBefore(Request request, int id) throws Exception {
+
+            }
+
+            @Override
+            public void onAfter(int id) throws Exception {
+
+            }
+
+            @Override
+            public void inProgress(float progress, long total, int id) throws Exception {
+
+            }
+
+        });
+    }
+
+    private void getNoFromName2(String driver) {
+        PeopleInfoBean.ApiGetMyInfoSimBean peopleInfoBean = new PeopleInfoBean.ApiGetMyInfoSimBean();
+        peopleInfoBean.setIsAndroid("1");
+        peopleInfoBean.setName(driver);
+        peopleInfoBean.setNo("?");
+        peopleInfoBean.setAuthenticationNo(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo());
+        peopleInfoBean.setTimeStamp(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getTimeStamp());
+        String json = new Gson().toJson(peopleInfoBean);
+        String s1 = "Api_Get_PeopleInfoSim " + json;
+        HttpManager.getInstance().requestNewResultForm(getTempIP(), s1, TempPeopleInfoBean.class, new HttpManager.ResultNewCallback<TempPeopleInfoBean>() {
+            @Override
+            public void onSuccess(String json, TempPeopleInfoBean peopleInfoBean) throws Exception {
+                ownerNo2 = peopleInfoBean.getApi_Get_PeopleInfoSim().get(0).getNo();
+            }
+
+            @Override
+            public void onError(String msg) throws Exception {
+
+            }
+
+            @Override
+            public void onResponse(String response) throws Exception {
+
+            }
+
+            @Override
+            public void onBefore(Request request, int id) throws Exception {
+
+            }
+
+            @Override
+            public void onAfter(int id) throws Exception {
+
+            }
+
+            @Override
+            public void inProgress(float progress, long total, int id) throws Exception {
+
+            }
+
+        });
     }
 }
