@@ -217,6 +217,7 @@ public class CarApplyFragment extends CommonFragment {
         peopleInfoBean.setTimeStamp(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getTimeStamp());
         String json = new Gson().toJson(peopleInfoBean);
         String s1 = "Api_Get_PeopleInfoSim " + json;
+        L.e(TAG,"getNoFromName1:"+s1);
         HttpManager.getInstance().requestNewResultForm(getTempIP(), s1, TempPeopleInfoBean.class, new HttpManager.ResultNewCallback<TempPeopleInfoBean>() {
             @Override
             public void onSuccess(String json, TempPeopleInfoBean entity) throws InterruptedException {
@@ -255,10 +256,11 @@ public class CarApplyFragment extends CommonFragment {
         peopleInfoBean.setIsAndroid("1");
         peopleInfoBean.setName(driver);
         peopleInfoBean.setNo("?");
-        peopleInfoBean.setAuthenticationNo(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getAuthenticationNo());
+        peopleInfoBean.setAuthenticationNo(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getNo());
         peopleInfoBean.setTimeStamp(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getTimeStamp());
         String json = new Gson().toJson(peopleInfoBean);
         String s1 = "Api_Get_PeopleInfoSim " + json;
+        L.e(TAG,"getNoFromName2:"+s1);
         HttpManager.getInstance().requestNewResultForm(getTempIP(), s1, TempPeopleInfoBean.class, new HttpManager.ResultNewCallback<TempPeopleInfoBean>() {
             @Override
             public void onSuccess(String json, TempPeopleInfoBean entity) throws InterruptedException {
@@ -316,13 +318,6 @@ public class CarApplyFragment extends CommonFragment {
             }
             if (carNoArray != null) {
                 showSelector(holder,carNoArray);
-              /*  showSelector(holder, carNoArray, new OnSelectedResultCallback() {
-                    @Override
-                    public void onSelected(Group ownGroup, HandInputGroup.Holder holder, int mainIndex, int itemIndex) {
-                        String realValue = holder.getRealValue();
-                        loadDraftData(realValue);
-                    }
-                });*/
             } else {
                 ToastUtil.showToast(getContext(),"拉取失败");
             }
@@ -332,12 +327,12 @@ public class CarApplyFragment extends CommonFragment {
                     showSelector(holder, arrayName, new OnSelectedResultCallback() {
                         @Override
                         public void onSelected(Group ownGroup, HandInputGroup.Holder holder, int mainIndex, int itemIndex) {
-                            String str1 = ownGroup.getHolderByKey("驾驶员").getRealValue();
                             String str2 = ownGroup.getHolderByKey("带车干部").getRealValue();
+                            String str1 = ownGroup.getHolderByKey("驾驶员").getRealValue();
                             for (int i = 0; i < ownGroup.getHolders().size(); i++) {
-                                if(ownGroup.getHolders().get(i).getKey().equals("驾驶员")){
+                                if(ownGroup.getHolders().get(i).getKey().equals("带车干部")){
                                     getNoFromName1(str1);
-                                }else if (ownGroup.getHolders().get(i).getKey().equals("带车干部")){
+                                }else if (ownGroup.getHolders().get(i).getKey().equals("驾驶员")){
                                     getNoFromName2(str2);
                                 }
                             }
@@ -356,8 +351,8 @@ public class CarApplyFragment extends CommonFragment {
         peopleInfoBean.setIsAndroid("1");
         peopleInfoBean.setName("?");
         peopleInfoBean.setNo("?");
-        peopleInfoBean.setAuthenticationNo(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getNo());
-        peopleInfoBean.setTimeStamp(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getTimeStamp());
+        peopleInfoBean.setAuthenticationNo(loginBean.getAuthenticationNo());
+        peopleInfoBean.setTimeStamp(loginBean.getTimeStamp());
         String json = new Gson().toJson(peopleInfoBean);
         String s1 = "Api_Get_PeopleInfoSim " + json;
         HttpManager.getInstance().requestNewResultForm(getTempIP(), s1, TempPeopleInfoBean.class, new HttpManager.ResultNewCallback<TempPeopleInfoBean>() {
@@ -446,8 +441,6 @@ public class CarApplyFragment extends CommonFragment {
             }
         });
     }
-
-
 
     @Override
     public void onDataChanged(HandInputGroup.Holder holder) throws ParseException {
