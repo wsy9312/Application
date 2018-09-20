@@ -4,6 +4,12 @@
     android:orientation="horizontal"
     android:background="@drawable/bg_blue_ring_stroke"
     android:layout_height="70dp">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_gravity="center_vertical"
+        android:layout_margin="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_personal"/>
     <RelativeLayout
         android:layout_gravity="center_vertical"
         android:layout_width="0dp"
@@ -11,7 +17,7 @@
         android:layout_weight="4">
         <TextView
             android:padding="1dp"
-            android:text="这是新闻概括这是新闻概括这新闻概括这新闻概括这新闻概括这新闻概括这新闻概括这新闻概括这新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括这是新闻概括"
+            android:text="通知内容内容内容内容内容内容内容"
             android:id="@+id/tv_sketch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -25,7 +31,7 @@
             android:padding="1dp"
             android:layout_below="@+id/tv_sketch"
             android:id="@+id/tv_name"
-            android:text="杨慧国"
+            android:text="通知类型"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="1dp"
@@ -36,7 +42,7 @@
             android:layout_marginTop="12dp"
             android:padding="3dp"
             android:id="@+id/tv_date"
-            android:text="这是日期"
+            android:text="通知日期"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:gravity="right"
@@ -46,8 +52,4 @@
             android:paddingRight="1dp"
             android:textSize="13sp"
             android:textColor="@color/half_black"/>
-
-
-
-
 </LinearLayout>

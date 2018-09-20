@@ -115,11 +115,10 @@ public class PeopleDetailListFragment extends Fragment implements SimpleListView
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.main_listview_libmain, null, false);
+        View view = inflater.inflate(R.layout.launch_listview_libmain, null, false);
         StatusBarUtils.setWindowStatusBarColor(getActivity(),R.color.mainColor_blue);
-        HandToolbar handToolbar = (HandToolbar) view.findViewById(R.id.notification_handtoolbar);
+        HandToolbar handToolbar = (HandToolbar) view.findViewById(R.id.launch_handtoolbar);
         handToolbar.setDisplayHomeAsUpEnabled(true, getActivity());
-        handToolbar.setBackHome(true,0);
         handToolbar.setTitle("我发起的(人员)");
         handToolbar.setTitleSize(18);
         lv = (SimpleListView) view.findViewById(R.id.viewpager_listview);

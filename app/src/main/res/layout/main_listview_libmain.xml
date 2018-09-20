@@ -25,7 +25,7 @@
         android:scrollbarSize="4dp"
         android:scrollbarStyle="outsideOverlay"
         android:scrollbarThumbVertical="@drawable/rec_round_blue_dark"
-        android:dividerHeight="1dp"
+        android:dividerHeight="0.5dp"
         android:layoutAnimation="@anim/list_item_in"
         android:fastScrollEnabled="false"
         android:choiceMode="singleChoice"
