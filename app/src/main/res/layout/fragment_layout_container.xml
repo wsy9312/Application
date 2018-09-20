@@ -47,7 +47,10 @@
             app:layoutManager="android.support.v7.widget.GridLayoutManager"
             app:spanCount="4"
             tools:listitem="@layout/list_item_image"/>
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:background="@color/gray" />
         <include
             android:id="@+id/vs_action_buttons"
             layout="@layout/layout_hand_group_bottom_buttons_bar"

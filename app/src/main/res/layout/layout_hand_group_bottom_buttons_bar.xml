@@ -2,18 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:id="@+id/llayout_bottom_buttons_bar"
     android:layout_height="wrap_content">
     <Button
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:layout_weight="1"
         android:enabled="false"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:id="@+id/btn_approve"
         android:textColor="#569556"
         android:background="@drawable/rec_normal_gray"
-        android:padding="@dimen/activity_horizontal_margin"
         android:text="同意结束"
         android:visibility="visible" />
     <!--android:drawableStart="@drawable/ic_approve"
@@ -21,128 +21,125 @@
 
     <Button
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:layout_weight="1"
         android:text="拒 绝"
         android:id="@+id/btn_reject"
         android:enabled="false"
         android:visibility="visible"
         android:textColor="#e94546"
-        android:textSize="14sp"
-        android:padding="@dimen/activity_horizontal_margin"
+        android:textSize="16sp"
         android:background="@drawable/rec_normal_gray"/>
     <!--android:drawableStart="@drawable/ic_reject"
         android:drawableLeft="@drawable/ic_reject"-->
 
     <Button
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:visibility="gone"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:layout_weight="1"
         android:enabled="false"
-        android:padding="@dimen/activity_horizontal_margin"
         android:textColor="#3a699b"
         android:id="@+id/btn_toother"
         android:background="@drawable/rec_normal_gray"
         android:text="撤销申请" />
     <!--android:drawableStart="@drawable/ic_cancel"
         android:drawableLeft="@drawable/ic_cancel"-->
+
     <Button
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:visibility="gone"
         android:layout_weight="1"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:enabled="false"
-        android:padding="@dimen/activity_horizontal_margin"
         android:textColor="@color/background"
         android:id="@+id/btn_toother2"
-        android:background="@drawable/rec_normal_cancelleave"
+        android:background="@drawable/rec_normal_gray"
         android:text="(取消外出) 是" />
     <!--android:drawableStart="@drawable/ic_is"
         android:drawableLeft="@drawable/ic_is"-->
+
     <Button
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:visibility="visible"
         android:layout_weight="1"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:enabled="false"
-        android:padding="@dimen/activity_horizontal_margin"
         android:textColor="#569556"
         android:id="@+id/btn_toother1"
         android:background="@drawable/rec_normal_gray"
         android:text="同意上报" />
     <!--android:drawableStart="@drawable/anew_new"
         android:drawableLeft="@drawable/anew_new"-->
+
     <Button
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:layout_weight="1"
         android:text="提 交"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:id="@+id/btn_start"
         android:enabled="false"
         android:visibility="gone"
-        android:padding="@dimen/activity_horizontal_margin"
         android:textColor="#569556"
-        android:background="@drawable/rec_normal_gray" />
+        android:background="@drawable/rec_normal_gray"/>
     <!--android:drawableStart="@drawable/ic_start"
     android:drawableLeft="@drawable/ic_start"-->
 
     <Button
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:layout_weight="1"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:enabled="false"
         android:id="@+id/btn_save"
         android:textColor="#3a699b"
         android:background="@drawable/rec_normal_gray"
-        android:padding="@dimen/activity_horizontal_margin"
         android:text="退 回"
         android:visibility="visible" />
     <!--android:drawableLeft="@drawable/ic_transfer"
         android:drawableStart="@drawable/ic_transfer"-->
+
     <Button
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:layout_weight="1"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:enabled="false"
         android:id="@+id/btn_again"
         android:textColor="#569556"
         android:background="@drawable/rec_normal_gray"
-        android:padding="@dimen/activity_horizontal_margin"
         android:text="重新提交"
         android:visibility="gone" />
 
     <Button
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:layout_weight="1"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:enabled="false"
         android:id="@+id/btn_leave"
         android:textColor="#569556"
         android:background="@drawable/rec_normal_gray"
-        android:padding="@dimen/activity_horizontal_margin"
         android:text="确认离开"
         android:visibility="gone" />
 
+
     <Button
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:layout_weight="1"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:enabled="false"
         android:id="@+id/btn_back"
         android:textColor="#569556"
         android:background="@drawable/rec_normal_gray"
-        android:padding="@dimen/activity_horizontal_margin"
         android:text="确认归来"
         android:visibility="gone" />
+
     <!--android:drawableLeft="@drawable/ic_start"
     android:drawableStart="@drawable/ic_start"-->
 
