@@ -62,6 +62,7 @@ public class PeopleDetailListFragment extends Fragment implements SimpleListView
     private String statesArray[] = {"全部", "审批结束", "待审批", "审批中", "已撤销"};
     private String typesArray[] = {"全部", "事假申请", "病假申请", "休假申请", "外出申请"};
     private DropDownMenu mDropDownMenu;
+    private String selectedArr[] = {"全部","全部"};
 
     private static final String TAG = "PeopleDetailListFragment";
 
@@ -135,7 +136,7 @@ public class PeopleDetailListFragment extends Fragment implements SimpleListView
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        tabIndex = getArguments().getInt(DetailFragment.ARG_TAB);
-        loadData(beginNum, endNum);
+        loadData(selectedArr,beginNum, endNum);
     }
 
     @Override
@@ -172,7 +173,7 @@ public class PeopleDetailListFragment extends Fragment implements SimpleListView
     private void initPopMenu(View view) {
         mDropDownMenu = (DropDownMenu) view.findViewById(R.id.dropDownMenu);
         //init city menu
-        ListView stateView = new ListView(getActivity());
+        final ListView stateView = new ListView(getActivity());
         stateView.setDividerHeight(0);
         stateAdapter = new GirdDropDownAdapter(getActivity(), Arrays.asList(statesArray));
         stateView.setAdapter(stateAdapter);
@@ -191,6 +192,11 @@ public class PeopleDetailListFragment extends Fragment implements SimpleListView
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 stateAdapter.setCheckItem(position);
                 mDropDownMenu.setTabText(statesArray[position]);
+                selectedArr[0] = statesArray[position];
+                L.e(TAG,"state="+selectedArr[0]+"-"+selectedArr[1]);
+                entityList.clear();
+                loadData(selectedArr,beginNum,endNum);
+                adapter.notifyDataSetChanged();
                 mDropDownMenu.closeMenu();
             }
         });
@@ -199,6 +205,11 @@ public class PeopleDetailListFragment extends Fragment implements SimpleListView
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 typeAdapter.setCheckItem(position);
                 mDropDownMenu.setTabText(typesArray[position]);
+                selectedArr[1] = typesArray[position];
+                L.e(TAG,"type="+selectedArr[0]+"-"+selectedArr[1]);
+                entityList.clear();
+                loadData(selectedArr,beginNum,endNum);
+                adapter.notifyDataSetChanged();
                 mDropDownMenu.closeMenu();
             }
         });
@@ -211,13 +222,57 @@ public class PeopleDetailListFragment extends Fragment implements SimpleListView
         mDropDownMenu.setDropDownMenu(Arrays.asList(headers), popupViews, contentView);
     }
 
-    public void loadData(final int beginNum, final int endNum) {
+    public void loadData(String[] selectedArr, final int beginNum, final int endNum) {
+        String menu1 = selectedArr[0];
+        String menu2 = selectedArr[1];
+        String process = "?";
+        String bCancel = "?";
+        String type = "?";
+        switch (menu1){
+            case "全部":
+                process = "?";
+                bCancel = "?";
+                break;
+            case "审批结束":
+                process = "1";
+                bCancel = "0";
+                break;
+            case "待审批":
+                process = "0";
+                bCancel = "0";
+                break;
+            case "审批中":
+                process = "2";
+                bCancel = "0";
+                break;
+            case "已撤销":
+                process = "?";
+                bCancel = "1";
+                break;
+        }
+        switch (menu2){
+            case "全部":
+                type = "?";
+                break;
+            case "事假申请":
+                type = "事假申请";
+                break;
+            case "病假申请":
+                type = "病假申请";
+                break;
+            case "休假申请":
+                type = "休假申请";
+                break;
+            case "外出申请":
+                type = "外出申请";
+                break;
+        }
         if (callback != null) {
             callback.onLoadData();
         }
         PeopleLeaveDetailBean.ApiGetMyApplyForPeoBean peopleLeaveRrdBean = new PeopleLeaveDetailBean.ApiGetMyApplyForPeoBean();
         peopleLeaveRrdBean.setNo(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo());
-        peopleLeaveRrdBean.setProcess("?");
+        peopleLeaveRrdBean.setProcess(process);
         peopleLeaveRrdBean.setContent("?");
         peopleLeaveRrdBean.setBeginNum(String.valueOf(beginNum));
         peopleLeaveRrdBean.setEndNum(String.valueOf(endNum));
@@ -226,10 +281,11 @@ public class PeopleDetailListFragment extends Fragment implements SimpleListView
         peopleLeaveRrdBean.setRegisterTime("?");
         peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo());
         peopleLeaveRrdBean.setIsAndroid("1");
-        peopleLeaveRrdBean.setBCancel("?");
+        peopleLeaveRrdBean.setBCancel(bCancel);
         peopleLeaveRrdBean.setResult("?");
         peopleLeaveRrdBean.setDestination("?");
         peopleLeaveRrdBean.setApproverNo("?");
+        peopleLeaveRrdBean.setOutType(type);
         peopleLeaveRrdBean.setTimeStamp(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getTimeStamp());
         String json = new Gson().toJson(peopleLeaveRrdBean);
         final String s = "Api_Get_MyApplyForPeo " + json;
@@ -284,7 +340,7 @@ public class PeopleDetailListFragment extends Fragment implements SimpleListView
         if (hasMore) {
             beginNum += 10;
             endNum += 10;
-            loadData(beginNum, endNum);
+            loadData(selectedArr, beginNum, endNum);
         } else {
             lv.completeRefresh();
         }
@@ -295,7 +351,7 @@ public class PeopleDetailListFragment extends Fragment implements SimpleListView
         hasMore = true;
         beginNum = 1;
         endNum = 10;
-        loadData(beginNum, endNum);
+        loadData(selectedArr, beginNum, endNum);
         lv.completeRefresh();
     }
 
@@ -332,7 +388,7 @@ public class PeopleDetailListFragment extends Fragment implements SimpleListView
             if (beginNum == 1 && endNum == 10){
                 entityList.clear();
             }
-            loadData(1,10);
+            loadData(selectedArr, 1,10);
             adapter.notifyDataSetChanged();
         }
     }
