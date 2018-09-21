@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -8,6 +10,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/launch_handtoolbar"/>
+
+        <com.yyydjk.library.DropDownMenu
+            android:id="@+id/dropDownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:ddmenuTextSize="13sp"
+            app:ddtextUnselectedColor="@color/drop_down_unselected"
+            app:ddtextSelectedColor="@color/mainColor_blue"
+            app:dddividerColor="@color/gray"
+            app:ddunderlineColor="@color/gray"
+            app:ddmenuMenuHeightPercent="0.5"
+            app:ddmenuSelectedIcon="@mipmap/ic_menu_up"
+            app:ddmaskColor="@color/mask_color"
+            app:ddmenuBackgroundColor="@color/white"
+            app:ddmenuUnselectedIcon="@mipmap/ic_menu_down" />
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"

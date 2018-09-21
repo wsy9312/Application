@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -18,6 +20,9 @@ import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.ItemActivity;
 import com.example.hgtxxgl.application.bean.people.PeopleLeaveDetailBean;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
+import com.example.hgtxxgl.application.fragment.launch.dropdownmenu.BackHandlerHelper;
+import com.example.hgtxxgl.application.fragment.launch.dropdownmenu.FragmentBackHandler;
+import com.example.hgtxxgl.application.fragment.launch.dropdownmenu.GirdDropDownAdapter;
 import com.example.hgtxxgl.application.utils.TimeUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
@@ -30,8 +35,10 @@ import com.example.hgtxxgl.application.utils.hyutils.L;
 import com.example.hgtxxgl.application.view.HandToolbar;
 import com.example.hgtxxgl.application.view.SimpleListView;
 import com.google.gson.Gson;
+import com.yyydjk.library.DropDownMenu;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import okhttp3.Request;
@@ -39,7 +46,7 @@ import okhttp3.Request;
 import static android.content.Context.MODE_PRIVATE;
 import static com.example.hgtxxgl.application.utils.hand.Fields.SAVE_IP;
 
-public class PeopleDetailListFragment extends Fragment implements SimpleListView.OnRefreshListener, AdapterView.OnItemClickListener {
+public class PeopleDetailListFragment extends Fragment implements SimpleListView.OnRefreshListener, AdapterView.OnItemClickListener,FragmentBackHandler {
 
     private int beginNum = 1;
     private int endNum = 10;
@@ -47,6 +54,15 @@ public class PeopleDetailListFragment extends Fragment implements SimpleListView
     private TextView ivEmpty;
     private ProgressBar pb;
     SimpleListView lv;
+
+    private String headers[] = {"审批状态","申请类型"};
+    private List<View> popupViews = new ArrayList<>();
+    private GirdDropDownAdapter stateAdapter;
+    private GirdDropDownAdapter typeAdapter;
+    private String statesArray[] = {"全部", "审批结束", "待审批", "审批中", "已撤销"};
+    private String typesArray[] = {"全部", "事假申请", "病假申请", "休假申请", "外出申请"};
+    private DropDownMenu mDropDownMenu;
+
     private static final String TAG = "PeopleDetailListFragment";
 
     public PeopleDetailListFragment() {
@@ -124,12 +140,13 @@ public class PeopleDetailListFragment extends Fragment implements SimpleListView
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.launch_listview_libmain, null, false);
+        final View view = inflater.inflate(R.layout.launch_listview_libmain, null, false);
         StatusBarUtils.setWindowStatusBarColor(getActivity(),R.color.mainColor_blue);
         HandToolbar handToolbar = (HandToolbar) view.findViewById(R.id.launch_handtoolbar);
         handToolbar.setDisplayHomeAsUpEnabled(true, getActivity());
         handToolbar.setTitle("我发起的(人员)");
         handToolbar.setTitleSize(18);
+        initPopMenu(view);
         lv = (SimpleListView) view.findViewById(R.id.viewpager_listview);
         ivEmpty = (TextView) view.findViewById(R.id.iv_empty);
         ivEmpty.setText(getString(R.string.no_current_record));
@@ -150,6 +167,48 @@ public class PeopleDetailListFragment extends Fragment implements SimpleListView
         lv.setOnRefreshListener(this);
         lv.setOnItemClickListener(this);
         return view;
+    }
+
+    private void initPopMenu(View view) {
+        mDropDownMenu = (DropDownMenu) view.findViewById(R.id.dropDownMenu);
+        //init city menu
+        ListView stateView = new ListView(getActivity());
+        stateView.setDividerHeight(0);
+        stateAdapter = new GirdDropDownAdapter(getActivity(), Arrays.asList(statesArray));
+        stateView.setAdapter(stateAdapter);
+
+        ListView typeView = new ListView(getActivity());
+        typeView.setDividerHeight(0);
+        typeAdapter = new GirdDropDownAdapter(getActivity(), Arrays.asList(typesArray));
+        typeView.setAdapter(typeAdapter);
+
+        //init popupViews
+        popupViews.add(stateView);
+        popupViews.add(typeView);
+        //add item click event
+        stateView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                stateAdapter.setCheckItem(position);
+                mDropDownMenu.setTabText(statesArray[position]);
+                mDropDownMenu.closeMenu();
+            }
+        });
+        typeView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                typeAdapter.setCheckItem(position);
+                mDropDownMenu.setTabText(typesArray[position]);
+                mDropDownMenu.closeMenu();
+            }
+        });
+
+        //init context view
+        LinearLayout contentView = new LinearLayout(getActivity());
+        contentView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0));
+
+        //init dropdownview
+        mDropDownMenu.setDropDownMenu(Arrays.asList(headers), popupViews, contentView);
     }
 
     public void loadData(final int beginNum, final int endNum) {
@@ -293,5 +352,15 @@ public class PeopleDetailListFragment extends Fragment implements SimpleListView
     @Override
     public void onScrollOutside() {
 
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        if (mDropDownMenu.isShowing()) {
+            mDropDownMenu.closeMenu();
+        } else {
+            return false;
+        }
+        return BackHandlerHelper.handleBackPress(this);
     }
 }

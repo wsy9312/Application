@@ -21,6 +21,7 @@ import com.example.hgtxxgl.application.fragment.commission.PeopleApproveDelayLis
 import com.example.hgtxxgl.application.fragment.commission.PeopleApproveDetailFragment;
 import com.example.hgtxxgl.application.fragment.commission.PeopleApproveFinishListFragment;
 import com.example.hgtxxgl.application.fragment.commission.PeopleApproveListFragment;
+import com.example.hgtxxgl.application.fragment.launch.dropdownmenu.BackHandlerHelper;
 import com.example.hgtxxgl.application.fragment.launch.CarDetailFragment;
 import com.example.hgtxxgl.application.fragment.launch.CarDetailListFragment;
 import com.example.hgtxxgl.application.fragment.launch.PeopleDetailFragment;
@@ -180,6 +181,9 @@ public class ItemActivity extends AppCompatActivity {
             });
             builder.create().show();
         }else {
+            super.onBackPressed();
+        }
+        if (!BackHandlerHelper.handleBackPress(this)) {
             super.onBackPressed();
         }
     }
