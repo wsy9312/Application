@@ -55,14 +55,16 @@ public class PeopleDetailListFragment extends Fragment implements SimpleListView
     private ProgressBar pb;
     SimpleListView lv;
 
-    private String headers[] = {"审批状态","申请类型"};
+    private String headers[] = {"审批状态","申请类型","审批结果"};
     private List<View> popupViews = new ArrayList<>();
     private GirdDropDownAdapter stateAdapter;
     private GirdDropDownAdapter typeAdapter;
+    private GirdDropDownAdapter resultAdapter;
     private String statesArray[] = {"全部", "审批结束", "待审批", "审批中", "已撤销"};
     private String typesArray[] = {"全部", "事假申请", "病假申请", "休假申请", "外出申请"};
+    private String resultArray[] = {"全部", "审批同意", "申请被退回", "审批拒绝"};
     private DropDownMenu mDropDownMenu;
-    private String selectedArr[] = {"全部","全部"};
+    private String selectedArr[] = {"全部","全部","全部"};
 
     private static final String TAG = "PeopleDetailListFragment";
 
@@ -183,9 +185,15 @@ public class PeopleDetailListFragment extends Fragment implements SimpleListView
         typeAdapter = new GirdDropDownAdapter(getActivity(), Arrays.asList(typesArray));
         typeView.setAdapter(typeAdapter);
 
+        ListView resultView = new ListView(getActivity());
+        resultView.setDividerHeight(0);
+        resultAdapter = new GirdDropDownAdapter(getActivity(), Arrays.asList(resultArray));
+        resultView.setAdapter(resultAdapter);
+
         //init popupViews
         popupViews.add(stateView);
         popupViews.add(typeView);
+        popupViews.add(resultView);
         //add item click event
         stateView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -193,9 +201,9 @@ public class PeopleDetailListFragment extends Fragment implements SimpleListView
                 stateAdapter.setCheckItem(position);
                 mDropDownMenu.setTabText(statesArray[position]);
                 selectedArr[0] = statesArray[position];
-                L.e(TAG,"state="+selectedArr[0]+"-"+selectedArr[1]);
+                L.e(TAG,"state="+selectedArr[0]+"-"+selectedArr[1]+"-"+selectedArr[2]);
                 entityList.clear();
-                loadData(selectedArr,beginNum,endNum);
+                loadData(selectedArr,1,10);
                 adapter.notifyDataSetChanged();
                 mDropDownMenu.closeMenu();
             }
@@ -206,14 +214,26 @@ public class PeopleDetailListFragment extends Fragment implements SimpleListView
                 typeAdapter.setCheckItem(position);
                 mDropDownMenu.setTabText(typesArray[position]);
                 selectedArr[1] = typesArray[position];
-                L.e(TAG,"type="+selectedArr[0]+"-"+selectedArr[1]);
+                L.e(TAG,"type="+selectedArr[0]+"-"+selectedArr[1]+"-"+selectedArr[2]);
                 entityList.clear();
-                loadData(selectedArr,beginNum,endNum);
+                loadData(selectedArr,1,10);
                 adapter.notifyDataSetChanged();
                 mDropDownMenu.closeMenu();
             }
         });
-
+        resultView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                resultAdapter.setCheckItem(position);
+                mDropDownMenu.setTabText(resultArray[position]);
+                selectedArr[2] = resultArray[position];
+                L.e(TAG,"type="+selectedArr[0]+"-"+selectedArr[1]+"-"+selectedArr[2]);
+                entityList.clear();
+                loadData(selectedArr,1,10);
+                adapter.notifyDataSetChanged();
+                mDropDownMenu.closeMenu();
+            }
+        });
         //init context view
         LinearLayout contentView = new LinearLayout(getActivity());
         contentView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0));
@@ -223,12 +243,120 @@ public class PeopleDetailListFragment extends Fragment implements SimpleListView
     }
 
     public void loadData(String[] selectedArr, final int beginNum, final int endNum) {
-        String menu1 = selectedArr[0];
-        String menu2 = selectedArr[1];
+        String menu1 = selectedArr[0];//审批状态
+        String menu2 = selectedArr[1];//申请类型
+        String menu3 = selectedArr[2];//审批结果
         String process = "?";
         String bCancel = "?";
         String type = "?";
+        String result = "?";
+        String screen = "?";
         switch (menu1){
+            case "全部":
+                switch (menu3){
+                    case "全部":
+                        process = "?";
+                        bCancel = "?";
+                        result = "?";
+                        break;
+                    case "审批同意":
+                        process = "1";
+                        bCancel = "0";
+                        result = "1";
+                        break;
+                    case "申请被退回":
+                        process = "1";
+                        bCancel = "0";
+                        result = "2";
+                        break;
+                    case "审批拒绝":
+                        process = "1";
+                        bCancel = "0";
+                        result = "0";
+                        break;
+                }
+                break;
+            case "审批结束":
+                process = "1";
+                bCancel = "0";
+                switch (menu3){
+                    case "全部":
+                        result = "?";
+                        break;
+                    case "审批同意":
+                        result = "1";
+                        break;
+                    case "申请被退回":
+                        result = "2";
+                        break;
+                    case "审批拒绝":
+                        result = "0";
+                        break;
+                }
+                break;
+            case "待审批":
+                process = "0";
+                bCancel = "0";
+                switch (menu3){
+                    case "全部":
+                        result = "?";
+                        break;
+                    case "审批同意":
+                        result = "1";
+                        break;
+                    case "申请被退回":
+                        result = "2";
+                        break;
+                    case "审批拒绝":
+                        result = "2";
+                        break;
+                }
+                break;
+            case "审批中":
+                process = "2";
+                bCancel = "0";
+                switch (menu3){
+                    case "全部":
+                        result = "?";
+                        break;
+                    case "审批同意":
+                        result = "1";
+                        break;
+                    case "申请被退回":
+                        result = "2";
+                        break;
+                    case "审批拒绝":
+                        result = "0";
+                        screen= "#$*721YR";
+                        break;
+                }
+                break;
+            case "已撤销":
+                switch (menu3){
+                    case "全部":
+                        process = "?";
+                        bCancel = "1";
+                        result = "?";
+                        break;
+                    case "审批同意":
+                        process = "?";
+                        bCancel = "1";
+                        result = "1";
+                        break;
+                    case "申请被退回":
+                        process = "?";
+                        bCancel = "1";
+                        result = "2";
+                        break;
+                    case "审批拒绝":
+                        process = "1";
+                        bCancel = "1";
+                        result = "0";
+                        break;
+                }
+                break;
+        }
+        /*switch (menu1){
             case "全部":
                 process = "?";
                 bCancel = "?";
@@ -249,7 +377,7 @@ public class PeopleDetailListFragment extends Fragment implements SimpleListView
                 process = "?";
                 bCancel = "1";
                 break;
-        }
+        }*/
         switch (menu2){
             case "全部":
                 type = "?";
@@ -273,7 +401,7 @@ public class PeopleDetailListFragment extends Fragment implements SimpleListView
         PeopleLeaveDetailBean.ApiGetMyApplyForPeoBean peopleLeaveRrdBean = new PeopleLeaveDetailBean.ApiGetMyApplyForPeoBean();
         peopleLeaveRrdBean.setNo(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo());
         peopleLeaveRrdBean.setProcess(process);
-        peopleLeaveRrdBean.setContent("?");
+        peopleLeaveRrdBean.setContent(screen);
         peopleLeaveRrdBean.setBeginNum(String.valueOf(beginNum));
         peopleLeaveRrdBean.setEndNum(String.valueOf(endNum));
         peopleLeaveRrdBean.setNoIndex("?");
@@ -282,7 +410,7 @@ public class PeopleDetailListFragment extends Fragment implements SimpleListView
         peopleLeaveRrdBean.setAuthenticationNo(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo());
         peopleLeaveRrdBean.setIsAndroid("1");
         peopleLeaveRrdBean.setBCancel(bCancel);
-        peopleLeaveRrdBean.setResult("?");
+        peopleLeaveRrdBean.setResult(result);
         peopleLeaveRrdBean.setDestination("?");
         peopleLeaveRrdBean.setApproverNo("?");
         peopleLeaveRrdBean.setOutType(type);

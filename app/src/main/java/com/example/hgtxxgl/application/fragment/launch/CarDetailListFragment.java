@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -19,6 +21,9 @@ import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.ItemActivity;
 import com.example.hgtxxgl.application.bean.car.CarLeaveDetailBean;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
+import com.example.hgtxxgl.application.fragment.launch.dropdownmenu.BackHandlerHelper;
+import com.example.hgtxxgl.application.fragment.launch.dropdownmenu.FragmentBackHandler;
+import com.example.hgtxxgl.application.fragment.launch.dropdownmenu.GirdDropDownAdapter;
 import com.example.hgtxxgl.application.utils.TimeUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
@@ -31,8 +36,10 @@ import com.example.hgtxxgl.application.utils.hyutils.L;
 import com.example.hgtxxgl.application.view.HandToolbar;
 import com.example.hgtxxgl.application.view.SimpleListView;
 import com.google.gson.Gson;
+import com.yyydjk.library.DropDownMenu;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import okhttp3.Request;
@@ -40,7 +47,7 @@ import okhttp3.Request;
 import static android.content.Context.MODE_PRIVATE;
 import static com.example.hgtxxgl.application.utils.hand.Fields.SAVE_IP;
 
-public class CarDetailListFragment extends Fragment implements SimpleListView.OnRefreshListener, AdapterView.OnItemClickListener{
+public class CarDetailListFragment extends Fragment implements SimpleListView.OnRefreshListener, AdapterView.OnItemClickListener,FragmentBackHandler {
 
     private int beginNum = 1;
     private int endNum = 10;
@@ -48,6 +55,16 @@ public class CarDetailListFragment extends Fragment implements SimpleListView.On
     private TextView ivEmpty;
     private ProgressBar pb;
     SimpleListView lv;
+
+    private String headers[] = {"审批状态","审批结果"};
+    private List<View> popupViews = new ArrayList<>();
+    private GirdDropDownAdapter stateAdapter;
+    private GirdDropDownAdapter resultAdapter;
+    private String statesArray[] = {"全部", "审批结束", "待审批", "审批中", "已撤销"};
+    private String resultArray[] = {"全部", "审批同意", "申请被退回", "审批拒绝"};
+    private DropDownMenu mDropDownMenu;
+    private String selectedArr[] = {"全部","全部"};
+
     private static final String TAG = "CarDetailListFragment";
 
     public CarDetailListFragment() {
@@ -119,7 +136,7 @@ public class CarDetailListFragment extends Fragment implements SimpleListView.On
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadData(beginNum, endNum);
+        loadData(selectedArr,beginNum, endNum);
     }
 
     @Override
@@ -130,6 +147,7 @@ public class CarDetailListFragment extends Fragment implements SimpleListView.On
         handToolbar.setDisplayHomeAsUpEnabled(true, getActivity());
         handToolbar.setTitle("我发起的(车辆)");
         handToolbar.setTitleSize(18);
+        initPopMenu(view);
         lv = (SimpleListView) view.findViewById(R.id.viewpager_listview);
         ivEmpty = (TextView) view.findViewById(R.id.iv_empty);
         ivEmpty.setText(getString(R.string.no_current_record));
@@ -152,15 +170,179 @@ public class CarDetailListFragment extends Fragment implements SimpleListView.On
         return view;
     }
 
-    public void loadData(final int beginNum, final int endNum) {
+    private void initPopMenu(View view) {
+        mDropDownMenu = (DropDownMenu) view.findViewById(R.id.dropDownMenu);
+        //init city menu
+        final ListView stateView = new ListView(getActivity());
+        stateView.setDividerHeight(0);
+        stateAdapter = new GirdDropDownAdapter(getActivity(), Arrays.asList(statesArray));
+        stateView.setAdapter(stateAdapter);
+
+        ListView resultView = new ListView(getActivity());
+        resultView.setDividerHeight(0);
+        resultAdapter = new GirdDropDownAdapter(getActivity(), Arrays.asList(resultArray));
+        resultView.setAdapter(resultAdapter);
+
+        //init popupViews
+        popupViews.add(stateView);
+        popupViews.add(resultView);
+        //add item click event
+        stateView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                stateAdapter.setCheckItem(position);
+                mDropDownMenu.setTabText(statesArray[position]);
+                selectedArr[0] = statesArray[position];
+                L.e(TAG,"state="+selectedArr[0]+"-"+selectedArr[1]);
+                entityList.clear();
+                loadData(selectedArr,1,10);
+                adapter.notifyDataSetChanged();
+                mDropDownMenu.closeMenu();
+            }
+        });
+        resultView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                resultAdapter.setCheckItem(position);
+                mDropDownMenu.setTabText(resultArray[position]);
+                selectedArr[1] = resultArray[position];
+                L.e(TAG,"type="+selectedArr[0]+"-"+selectedArr[1]);
+                entityList.clear();
+                loadData(selectedArr,1,10);
+                adapter.notifyDataSetChanged();
+                mDropDownMenu.closeMenu();
+            }
+        });
+
+        //init context view
+        LinearLayout contentView = new LinearLayout(getActivity());
+        contentView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0));
+
+        //init dropdownview
+        mDropDownMenu.setDropDownMenu(Arrays.asList(headers), popupViews, contentView);
+    }
+
+    public void loadData(String[] selectedArr, final int beginNum, final int endNum) {
+        String menu1 = selectedArr[0];//审批状态
+        String menu2 = selectedArr[1];//审批结果
+        String process = "?";
+        String bCancel = "?";
+        String result = "?";
+        String screen = "?";
+        switch (menu1){
+            case "全部":
+                switch (menu2){
+                    case "全部":
+                        process = "?";
+                        bCancel = "?";
+                        result = "?";
+                        break;
+                    case "审批同意":
+                        process = "1";
+                        bCancel = "0";
+                        result = "1";
+                        break;
+                    case "申请被退回":
+                        process = "1";
+                        bCancel = "0";
+                        result = "2";
+                        break;
+                    case "审批拒绝":
+                        process = "1";
+                        bCancel = "0";
+                        result = "0";
+                        break;
+                }
+                break;
+            case "审批结束":
+                process = "1";
+                bCancel = "0";
+                switch (menu2){
+                    case "全部":
+                        result = "?";
+                        break;
+                    case "审批同意":
+                        result = "1";
+                        break;
+                    case "申请被退回":
+                        result = "2";
+                        break;
+                    case "审批拒绝":
+                        result = "0";
+                        break;
+                }
+                break;
+            case "待审批":
+                process = "0";
+                bCancel = "0";
+                switch (menu2){
+                    case "全部":
+                        result = "?";
+                        break;
+                    case "审批同意":
+                        result = "1";
+                        break;
+                    case "申请被退回":
+                        result = "2";
+                        break;
+                    case "审批拒绝":
+                        result = "2";
+                        break;
+                }
+                break;
+            case "审批中":
+                process = "2";
+                bCancel = "0";
+                switch (menu2){
+                    case "全部":
+                        result = "?";
+                        break;
+                    case "审批同意":
+                        result = "1";
+                        break;
+                    case "申请被退回":
+                        result = "2";
+                        break;
+                    case "审批拒绝":
+                        result = "0";
+                        screen= "#$*721YR";
+                        break;
+                }
+                break;
+            case "已撤销":
+                switch (menu2){
+                    case "全部":
+                        process = "?";
+                        bCancel = "1";
+                        result = "?";
+                        break;
+                    case "审批同意":
+                        process = "?";
+                        bCancel = "1";
+                        result = "1";
+                        break;
+                    case "申请被退回":
+                        process = "?";
+                        bCancel = "1";
+                        result = "2";
+                        break;
+                    case "审批拒绝":
+                        process = "1";
+                        bCancel = "1";
+                        result = "0";
+                        break;
+                }
+                break;
+        }
+
         if (callback != null) {
             callback.onLoadData();
         }
         CarLeaveDetailBean.ApiGetMyApplyForCarBean carLeaveRrdBean = new CarLeaveDetailBean.ApiGetMyApplyForCarBean();
         carLeaveRrdBean.setNo(ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0).getAuthenticationNo());
         carLeaveRrdBean.setName("?");
-        carLeaveRrdBean.setProcess("?");
-        carLeaveRrdBean.setContent("?");
+        carLeaveRrdBean.setProcess(process);
+        carLeaveRrdBean.setContent(screen);
         carLeaveRrdBean.setDestination("?");
         carLeaveRrdBean.setBeginNum(String.valueOf(beginNum));
         carLeaveRrdBean.setEndNum(String.valueOf(endNum));
@@ -169,8 +351,8 @@ public class CarDetailListFragment extends Fragment implements SimpleListView.On
         carLeaveRrdBean.setRegisterTime("?");
         carLeaveRrdBean.setAuthenticationNo(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo());
         carLeaveRrdBean.setIsAndroid("1");
-        carLeaveRrdBean.setBCancel("?");
-        carLeaveRrdBean.setResult("?");
+        carLeaveRrdBean.setBCancel(bCancel);
+        carLeaveRrdBean.setResult(result);
         carLeaveRrdBean.setCarNo("?");
         carLeaveRrdBean.setDriverNo("?");
         carLeaveRrdBean.setLeaderNo("?");
@@ -230,7 +412,7 @@ public class CarDetailListFragment extends Fragment implements SimpleListView.On
         if (hasMore) {
             beginNum += 10;
             endNum += 10;
-            loadData(beginNum, endNum);
+            loadData(selectedArr,beginNum, endNum);
         } else {
             lv.completeRefresh();
         }
@@ -241,7 +423,7 @@ public class CarDetailListFragment extends Fragment implements SimpleListView.On
         hasMore = true;
         beginNum = 1;
         endNum = 10;
-        loadData(beginNum, endNum);
+        loadData(selectedArr,beginNum, endNum);
         lv.completeRefresh();
     }
 
@@ -281,7 +463,7 @@ public class CarDetailListFragment extends Fragment implements SimpleListView.On
             if (beginNum == 1 && endNum == 10){
                 entityList.clear();
             }
-            loadData(1,10);
+            loadData(selectedArr,1,10);
             adapter.notifyDataSetChanged();
         }
     }
@@ -301,5 +483,15 @@ public class CarDetailListFragment extends Fragment implements SimpleListView.On
     @Override
     public void onScrollOutside() {
 
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        if (mDropDownMenu.isShowing()) {
+            mDropDownMenu.closeMenu();
+        } else {
+            return false;
+        }
+        return BackHandlerHelper.handleBackPress(this);
     }
 }
