@@ -47,6 +47,60 @@ public class TimeUtil {
         return "刚刚";
     }
 
+    //获取本周周一日期
+    public static String getThisWeekMonday() {
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+        long time=System.currentTimeMillis();
+        Date date=new Date(time);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        // 获得当前日期是一个星期的第几天
+        int dayWeek = cal.get(Calendar.DAY_OF_WEEK);
+        if (1 == dayWeek) {
+            cal.add(Calendar.DAY_OF_MONTH, -1);
+        }
+        // 设置一个星期的第一天，按中国的习惯一个星期的第一天是星期一
+        cal.setFirstDayOfWeek(Calendar.MONDAY);
+        // 获得当前日期是一个星期的第几天
+        int day = cal.get(Calendar.DAY_OF_WEEK);
+        // 根据日历的规则，给当前日期减去星期几与一个星期第一天的差值
+        cal.add(Calendar.DATE, cal.getFirstDayOfWeek() - day);
+        Date date1 = cal.getTime();
+        String s = format.format(date1);
+        return s;
+    }
+
+    public static String getThisMouthFirstday(){
+        Calendar cale = null;
+        cale = Calendar.getInstance();
+        // 获取当月第一天
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String firstday;
+        // 获取前月的第一天
+        cale = Calendar.getInstance();
+        cale.add(Calendar.MONTH, 0);
+        cale.set(Calendar.DAY_OF_MONTH, 1);
+        firstday = format.format(cale.getTime());
+        return firstday;
+    }
+
+    //获取当前系统日期
+    public static String getCurrentDate(){
+        long time=System.currentTimeMillis();
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+        Date d1=new Date(time);
+        String t1=format.format(d1);
+        return t1;
+    }
+
+    //获取当前系统时间
+    public static String getCurrentTime(){
+        long time=System.currentTimeMillis();
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date d1=new Date(time);
+        String t1=format.format(d1);
+        return t1;
+    }
 
     /**
      * 判断是否为今天(效率比较高)
