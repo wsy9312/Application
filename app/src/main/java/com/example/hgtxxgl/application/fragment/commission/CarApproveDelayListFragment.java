@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -19,6 +21,7 @@ import com.example.hgtxxgl.application.activity.ItemActivity;
 import com.example.hgtxxgl.application.bean.car.CarApproveDelayBean;
 import com.example.hgtxxgl.application.bean.login.LoginInfoBean;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
+import com.example.hgtxxgl.application.fragment.launch.dropdownmenu.GirdDropDownAdapter;
 import com.example.hgtxxgl.application.utils.TimeUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
@@ -29,8 +32,10 @@ import com.example.hgtxxgl.application.utils.hand.PageConfig;
 import com.example.hgtxxgl.application.utils.hyutils.L;
 import com.example.hgtxxgl.application.view.SimpleListView;
 import com.google.gson.Gson;
+import com.yyydjk.library.DropDownMenu;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import okhttp3.Request;
@@ -51,6 +56,13 @@ public class CarApproveDelayListFragment extends Fragment implements AdapterView
     private String tempIP;
     SimpleListView lv;
     private LoginInfoBean.ApiAddLoginBean loginBean;
+
+    private String headers[] = {"申请时间"};
+    private List<View> popupViews = new ArrayList<>();
+    private GirdDropDownAdapter dateAdapter;
+    private String datesArray[] = {"全部", "一天内", "一周内", "一月内"};
+    private DropDownMenu mDropDownMenu;
+    private String selectedArr[] = {"全部"};
 
     public CarApproveDelayListFragment(){
 
@@ -90,12 +102,13 @@ public class CarApproveDelayListFragment extends Fragment implements AdapterView
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loginBean = ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0);
-        loadData(beginNum, endNum);
+        loadData(selectedArr,beginNum, endNum);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.people_approve_listview_libmain, null, false);
+        initPopMenu(view);
         lv = (SimpleListView) view.findViewById(R.id.viewpager_listview);
         ivEmpty = (TextView) view.findViewById(iv_empty);
         ivEmpty.setText(getString(R.string.no_current_record));
@@ -118,7 +131,57 @@ public class CarApproveDelayListFragment extends Fragment implements AdapterView
         return view;
     }
 
-    public void loadData(final int beginNum, final int endNum) {
+    private void initPopMenu(View view) {
+        mDropDownMenu = (DropDownMenu) view.findViewById(R.id.dropDownMenu);
+
+        final ListView dateView = new ListView(getActivity());
+        dateView.setDividerHeight(0);
+        dateAdapter = new GirdDropDownAdapter(getActivity(), Arrays.asList(datesArray));
+        dateView.setAdapter(dateAdapter);
+
+        //init popupViews
+        popupViews.add(dateView);
+
+        //add item click event
+        dateView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                dateAdapter.setCheckItem(position);
+                mDropDownMenu.setTabText(datesArray[position]);
+                selectedArr[0] = datesArray[position];
+                L.e(TAG,"date="+selectedArr[0]);
+                entityList.clear();
+                loadData(selectedArr,1,10);
+                adapter.notifyDataSetChanged();
+                mDropDownMenu.closeMenu();
+            }
+        });
+
+        //init context view
+        LinearLayout contentView = new LinearLayout(getActivity());
+        contentView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0));
+
+        //init dropdownview
+        mDropDownMenu.setDropDownMenu(Arrays.asList(headers), popupViews, contentView);
+    }
+
+    public void loadData(String[] selectedArr,final int beginNum, final int endNum) {
+        String menu1 = selectedArr[0];//
+        String registertime = "?";
+        switch (menu1){
+            case "全部":
+                registertime = "?";
+                break;
+            case "一天内":
+                registertime = TimeUtil.getCurrentDate()+" 00:00:00&&"+TimeUtil.getCurrentTime();
+                break;
+            case "一周内":
+                registertime = TimeUtil.getThisWeekMonday()+" 00:00:00&&"+TimeUtil.getCurrentTime();
+                break;
+            case "一月内":
+                registertime = TimeUtil.getThisMouthFirstday()+" 00:00:00&&"+TimeUtil.getCurrentTime();
+                break;
+        }
         if (callback != null) {
             callback.onLoadData();
         }
@@ -126,7 +189,7 @@ public class CarApproveDelayListFragment extends Fragment implements AdapterView
         carLeaveRrdBean.setNo("?");
         carLeaveRrdBean.setAuthenticationNo(loginBean.getAuthenticationNo());
         carLeaveRrdBean.setIsAndroid("1");
-        carLeaveRrdBean.setRegisterTime("?");
+        carLeaveRrdBean.setRegisterTime(registertime);
         carLeaveRrdBean.setOutTime("?");
         carLeaveRrdBean.setInTime("?");
         carLeaveRrdBean.setContent("?");
@@ -232,7 +295,7 @@ public class CarApproveDelayListFragment extends Fragment implements AdapterView
             if (beginNum == 1 && endNum == 10){
                 entityList.clear();
             }
-            loadData(1,10);
+            loadData(selectedArr,1,10);
             adapter.notifyDataSetChanged();
         }
     }
@@ -249,7 +312,7 @@ public class CarApproveDelayListFragment extends Fragment implements AdapterView
         hasMore = true;
         beginNum = 1;
         endNum = 10;
-        loadData(beginNum, endNum);
+        loadData(selectedArr,beginNum, endNum);
         lv.completeRefresh();
     }
 
@@ -258,7 +321,7 @@ public class CarApproveDelayListFragment extends Fragment implements AdapterView
         if (hasMore) {
             beginNum += 10;
             endNum += 10;
-            loadData(beginNum, endNum);
+            loadData(selectedArr,beginNum, endNum);
         }
         lv.completeRefresh();
     }

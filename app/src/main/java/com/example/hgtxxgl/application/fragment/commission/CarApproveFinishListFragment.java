@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -18,6 +20,7 @@ import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.activity.ItemActivity;
 import com.example.hgtxxgl.application.bean.car.CarApproveFinishBean;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
+import com.example.hgtxxgl.application.fragment.launch.dropdownmenu.GirdDropDownAdapter;
 import com.example.hgtxxgl.application.utils.TimeUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.CommonValues;
@@ -28,8 +31,10 @@ import com.example.hgtxxgl.application.utils.hand.PageConfig;
 import com.example.hgtxxgl.application.utils.hyutils.L;
 import com.example.hgtxxgl.application.view.SimpleListView;
 import com.google.gson.Gson;
+import com.yyydjk.library.DropDownMenu;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import okhttp3.Request;
@@ -49,6 +54,16 @@ public class CarApproveFinishListFragment extends Fragment implements SimpleList
     private String tempIP;
     SimpleListView lv;
     private String authenticationNo;
+
+    private String headers[] = {"审批结果","申请时间"};
+    private List<View> popupViews = new ArrayList<>();
+    private GirdDropDownAdapter resultAdapter;
+    private GirdDropDownAdapter dateAdapter;
+    private String resultArray[] = {"全部", "审批同意", "审批退回", "审批拒绝", "审批上报"};
+    private String datesArray[] = {"全部", "一天内", "一周内", "一月内"};
+    private DropDownMenu mDropDownMenu;
+    private String selectedArr[] = {"全部","全部"};
+
 
     public CarApproveFinishListFragment(){
 
@@ -109,12 +124,13 @@ public class CarApproveFinishListFragment extends Fragment implements SimpleList
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         authenticationNo = ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo();
-        loadData(beginNum, endNum);
+        loadData(selectedArr,beginNum, endNum);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.people_approve_listview_libmain, null, false);
+        initPopMenu(view);
         lv = (SimpleListView) view.findViewById(R.id.viewpager_listview);
         ivEmpty = (TextView) view.findViewById(iv_empty);
         ivEmpty.setText(getString(R.string.no_current_record));
@@ -137,7 +153,103 @@ public class CarApproveFinishListFragment extends Fragment implements SimpleList
         return view;
     }
 
-    public void loadData(final int beginNum, final int endNum) {
+    private void initPopMenu(View view) {
+        mDropDownMenu = (DropDownMenu) view.findViewById(R.id.dropDownMenu);
+
+        ListView resultView = new ListView(getActivity());
+        resultView.setDividerHeight(0);
+        resultAdapter = new GirdDropDownAdapter(getActivity(), Arrays.asList(resultArray));
+        resultView.setAdapter(resultAdapter);
+
+        final ListView dateView = new ListView(getActivity());
+        dateView.setDividerHeight(0);
+        dateAdapter = new GirdDropDownAdapter(getActivity(), Arrays.asList(datesArray));
+        dateView.setAdapter(dateAdapter);
+
+        //init popupViews
+        popupViews.add(resultView);
+        popupViews.add(dateView);
+
+        //add item click event
+        resultView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                resultAdapter.setCheckItem(position);
+                mDropDownMenu.setTabText(resultArray[position]);
+                selectedArr[0] = resultArray[position];
+                L.e(TAG,"result="+selectedArr[0]+"-"+selectedArr[1]);
+                entityList.clear();
+                loadData(selectedArr,1,10);
+                adapter.notifyDataSetChanged();
+                mDropDownMenu.closeMenu();
+            }
+        });
+        dateView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                dateAdapter.setCheckItem(position);
+                mDropDownMenu.setTabText(datesArray[position]);
+                selectedArr[1] = datesArray[position];
+                L.e(TAG,"date="+selectedArr[0]+"-"+selectedArr[1]);
+                entityList.clear();
+                loadData(selectedArr,1,10);
+                adapter.notifyDataSetChanged();
+                mDropDownMenu.closeMenu();
+            }
+        });
+
+        //init context view
+        LinearLayout contentView = new LinearLayout(getActivity());
+        contentView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0));
+
+        //init dropdownview
+        mDropDownMenu.setDropDownMenu(Arrays.asList(headers), popupViews, contentView);
+    }
+
+    public void loadData(String[] selectedArr, final int beginNum, final int endNum) {
+        String menu1 = selectedArr[0];//审批结果
+        String menu2 = selectedArr[1];//申请时间
+        String process = "?";
+        String result = "?";
+        String registertime = "?";
+        String screen = "?";
+        switch (menu1){
+            case "全部":
+                process = "?";
+                result = "?";
+                break;
+            case "审批同意":
+                process = "1";
+                result = "1";
+                break;
+            case "审批退回":
+                process = "1";
+                result = "2";
+                break;
+            case "审批拒绝":
+                process = "1";
+                result = "0";
+                break;
+            case "审批上报":
+                process = "2";
+                result = "?";
+                break;
+        }
+        switch (menu2){
+            case "全部":
+                registertime = "?";
+                break;
+            case "一天内":
+                registertime = TimeUtil.getCurrentDate()+" 00:00:00&&"+TimeUtil.getCurrentTime();
+                break;
+            case "一周内":
+                registertime = TimeUtil.getThisWeekMonday()+" 00:00:00&&"+TimeUtil.getCurrentTime();
+                break;
+            case "一月内":
+                registertime = TimeUtil.getThisMouthFirstday()+" 00:00:00&&"+TimeUtil.getCurrentTime();
+                break;
+        }
+
         if (callback != null) {
             callback.onLoadData();
         }
@@ -145,16 +257,16 @@ public class CarApproveFinishListFragment extends Fragment implements SimpleList
         carLeaveRrdBean.setNo("?");
         carLeaveRrdBean.setAuthenticationNo(authenticationNo);
         carLeaveRrdBean.setIsAndroid("1");
-        carLeaveRrdBean.setRegisterTime("?");
+        carLeaveRrdBean.setRegisterTime(registertime);
         carLeaveRrdBean.setOutTime("?");
         carLeaveRrdBean.setInTime("?");
         carLeaveRrdBean.setContent("?");
         carLeaveRrdBean.setModifyTime("?");
-        carLeaveRrdBean.setProcess("?");
+        carLeaveRrdBean.setProcess(process);
         carLeaveRrdBean.setBCancel("0");
         carLeaveRrdBean.setBFillup("?");
         carLeaveRrdBean.setNoIndex("?");
-        carLeaveRrdBean.setResult("?");
+        carLeaveRrdBean.setResult(result);
         carLeaveRrdBean.setOutType("?");
         carLeaveRrdBean.setApproverNo("?");
         carLeaveRrdBean.setHisAnnotation("?");
@@ -252,7 +364,7 @@ public class CarApproveFinishListFragment extends Fragment implements SimpleList
             if (beginNum == 1 && endNum == 10){
                 entityList.clear();
             }
-            loadData(1,10);
+            loadData(selectedArr,1,10);
             adapter.notifyDataSetChanged();
         }
     }
@@ -269,7 +381,7 @@ public class CarApproveFinishListFragment extends Fragment implements SimpleList
         hasMore = true;
         beginNum = 1;
         endNum = 10;
-        loadData(beginNum, endNum);
+        loadData(selectedArr,beginNum, endNum);
         lv.completeRefresh();
     }
 
@@ -278,7 +390,7 @@ public class CarApproveFinishListFragment extends Fragment implements SimpleList
         if (hasMore) {
             beginNum += 10;
             endNum += 10;
-            loadData(beginNum, endNum);
+            loadData(selectedArr,beginNum, endNum);
         }
         lv.completeRefresh();
     }
@@ -287,4 +399,5 @@ public class CarApproveFinishListFragment extends Fragment implements SimpleList
     public void onScrollOutside() {
 
     }
+
 }
