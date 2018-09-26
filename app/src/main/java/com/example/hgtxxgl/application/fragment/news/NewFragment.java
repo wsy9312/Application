@@ -29,7 +29,6 @@ import com.example.hgtxxgl.application.utils.hyutils.L;
 import com.example.hgtxxgl.application.view.HandToolbar;
 import com.example.hgtxxgl.application.view.SimpleListView;
 import com.google.gson.Gson;
-import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +36,7 @@ import java.util.List;
 import static android.content.Context.MODE_PRIVATE;
 import static com.example.hgtxxgl.application.utils.hand.Fields.SAVE_IP;
 //新闻列表
-public class NewFragment extends Fragment implements SimpleListView.OnRefreshListener, AdapterView.OnItemClickListener, OnBannerListener {
+public class NewFragment extends Fragment implements SimpleListView.OnRefreshListener, AdapterView.OnItemClickListener {
     private int beginNum = 1;
     private int endNum = 6;
     private boolean hasMore = true;
@@ -59,18 +58,19 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
     }
 
     private List<NewsInfoEntity.NewsRrdBean> entityList = new ArrayList<>();
-    private List<NewsInfoEntity.NewsRrdBean> baseEntityList;
 
     ListAdapter<NewsInfoEntity.NewsRrdBean> adapter = new ListAdapter<NewsInfoEntity.NewsRrdBean>
             ((ArrayList<NewsInfoEntity.NewsRrdBean>) entityList, R.layout.layout_news) {
 
-        private Bitmap bitmap;
+        private Bitmap bitmap = null;
 
         @Override
         public void bindView(ViewHolder holder, NewsInfoEntity.NewsRrdBean bean) {
-            bitmap = stringtoBitmap(bean.getPicture1());
+            if (!bean.getPicture1().isEmpty()){
+                bitmap = stringtoBitmap(bean.getPicture1());
+                holder.setBitmap(R.id.image_news,bitmap);
+            }
             holder.setText(R.id.tv_title, bean.getTitle());
-            holder.setBitmap(R.id.image_news,bitmap);
             holder.setText(R.id.tv_sketch, bean.getContent());
 //            holder.setText(R.id.tv_date, DataUtil.parseDateByFormat(bean.getModifyTime(), "yyyy-MM-dd HH:mm:ss"));
             holder.setText(R.id.tv_date, TimeUtil.getTimeFormatText(DataUtil.parseDateToText(bean.getModifyTime())));
@@ -80,7 +80,7 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
         public View getView(int position, View convertView, ViewGroup parent) {
             View view = super.getView(position, convertView, parent);
             View image = view.findViewById(R.id.image_news);
-            if (bitmap==null){
+            if (bitmap == null){
                 image.setVisibility(View.GONE);
             }else{
                 image.setVisibility(View.VISIBLE);
@@ -111,7 +111,6 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.main_listview_news, container, false);
-
         HandToolbar handToolbar = (HandToolbar) view.findViewById(R.id.news_handtoolbar);
         handToolbar.setDisplayHomeAsUpEnabled(false, getActivity());
         handToolbar.setBackHome(false,0);
@@ -165,7 +164,8 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
         HttpManager.getInstance().requestResultForm(tempIP, s, NewsInfoEntity.class,new HttpManager.ResultCallback<NewsInfoEntity>() {
             @Override
             public void onSuccess(final String json, final NewsInfoEntity newsInfoEntity) throws InterruptedException {
-                if (newsInfoEntity != null && newsInfoEntity.getNewsRrd().size() > 0) {
+                if (newsInfoEntity != null && newsInfoEntity.getNewsRrd().size() > 0 && newsInfoEntity.getNewsRrd().get(0) != null) {
+                    L.e(TAG,newsInfoEntity.toString());
                     if (beginNum == 1 && endNum == 6){
                         entityList.clear();
                     }
@@ -200,7 +200,7 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
     }
 
     private void loadMore() {
-        if (!hasMore) {
+        if (hasMore) {
             beginNum += 6;
             endNum += 6;
             loadData(beginNum, endNum);
@@ -215,6 +215,7 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
         beginNum = 1;
         endNum = 6;
         loadData(beginNum, endNum);
+        lv.completeRefresh();
     }
 
     @Override
@@ -231,12 +232,6 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
         intent.putExtra("content", adapter.getItem(position).getContent());
         intent.putExtra("modifyTime",adapter.getItem(position).getModifyTime());
         intent.putExtra("NoIndex",adapter.getItem(position).getNoIndex());
-//        intent.putExtra("picture1", adapter.getItem(position).getPicture1());
-//        intent.putExtra("picture2", adapter.getItem(position).getPicture2());
-//        intent.putExtra("picture3", adapter.getItem(position).getPicture3());
-//        intent.putExtra("picture4", adapter.getItem(position).getPicture4());
-//        intent.putExtra("picture5", adapter.getItem(position).getPicture5());
-//        intent.putExtra("data", bundle);
         startActivity(intent);
     }
 
@@ -247,37 +242,6 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
         return this;
     }
 
-    public void filter(String key) {
-        if (entityList != null && !key.equals("")) {
-            if (baseEntityList == null) {
-                baseEntityList = new ArrayList<>();
-                baseEntityList.addAll(entityList);
-            }
-            List<NewsInfoEntity.NewsRrdBean> list = new ArrayList<>();
-            for (NewsInfoEntity.NewsRrdBean bean : baseEntityList) {
-                if (bean.getTitle().replace(" ", "").contains(key)) {
-                    list.add(bean);
-                }
-                if (bean.getContent().replace(" ", "").contains(key)) {
-                    list.add(bean);
-                }
-                if (TimeUtil.getTimeFormatText(DataUtil.parseDateToText(bean.getModifyTime())).replace(" ", "").contains(key)) {
-                    list.add(bean);
-                }
-            }
-            entityList.clear();
-            entityList.addAll(list);
-            adapter.notifyDataSetChanged();
-        } else if (entityList != null) {
-            if (baseEntityList != null) {
-                entityList.clear();
-                entityList.addAll(baseEntityList);
-                adapter.notifyDataSetChanged();
-            }
-
-        }
-    }
-
     @Override
     public void onLoadingMore() {
         loadMore();
@@ -285,11 +249,6 @@ public class NewFragment extends Fragment implements SimpleListView.OnRefreshLis
 
     @Override
     public void onScrollOutside() {
-
-    }
-
-    @Override
-    public void OnBannerClick(int position) {
 
     }
 

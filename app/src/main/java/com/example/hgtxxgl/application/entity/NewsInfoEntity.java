@@ -61,6 +61,31 @@ public class NewsInfoEntity {
 
         }
 
+        @Override
+        public String toString() {
+            return "NewsRrdBean{" +
+                    "Title='" + Title + '\'' +
+                    ", Content='" + Content + '\'' +
+                    ", Picture1='" + Picture1 + '\'' +
+                    ", Picture2='" + Picture2 + '\'' +
+                    ", Picture3='" + Picture3 + '\'' +
+                    ", Picture4='" + Picture4 + '\'' +
+                    ", Picture5='" + Picture5 + '\'' +
+                    ", Picture1Len='" + Picture1Len + '\'' +
+                    ", Picture2Len='" + Picture2Len + '\'' +
+                    ", Picture3Len='" + Picture3Len + '\'' +
+                    ", Picture4Len='" + Picture4Len + '\'' +
+                    ", Picture5Len='" + Picture5Len + '\'' +
+                    ", ModifyTime='" + ModifyTime + '\'' +
+                    ", RegisterTime='" + RegisterTime + '\'' +
+                    ", BeginNum='" + BeginNum + '\'' +
+                    ", EndNum='" + EndNum + '\'' +
+                    ", NoIndex='" + NoIndex + '\'' +
+                    ", AuthenticationNo='" + AuthenticationNo + '\'' +
+                    ", IsAndroid='" + IsAndroid + '\'' +
+                    '}';
+        }
+
         public NewsRrdBean(String title, String content, String picture1, String picture2, String picture3, String picture4, String picture5, String picture1Len, String picture2Len, String picture3Len, String picture4Len, String picture5Len, String modifyTime, String registerTime, String beginNum, String endNum, String noIndex, String authenticationNo, String isAndroid) {
             Title = title;
             Content = content;
