@@ -1,6 +1,5 @@
 package com.example.hgtxxgl.application.activity;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -8,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AlertDialog;
@@ -40,7 +38,6 @@ import com.mylhyl.zxing.scanner.common.Intents;
 import com.mylhyl.zxing.scanner.encode.QREncode;
 
 import okhttp3.Request;
-import pub.devrel.easypermissions.EasyPermissions;
 
 import static com.example.hgtxxgl.application.utils.hand.Fields.SAVE_IP;
 
@@ -352,30 +349,6 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
                     tv_message.setText(stringExtra);
                 }
             }
-        }
-    }
-
-    /**
-     * 请求读取sd卡的权限
-     */
-    private void requestPermission() {
-        if (Build.VERSION.SDK_INT >= 23) {
-            //读取sd卡的权限
-            String[] mPermissionList = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-            if (EasyPermissions.hasPermissions(mContext, mPermissionList)) {
-                //已经同意过
-                saveImage();
-            } else {
-                //未同意过,或者说是拒绝了，再次申请权限
-                EasyPermissions.requestPermissions(
-                        this,  //上下文
-                        "保存图片需要读取sd卡的权限", //提示文言
-                        REQUEST_CODE_SAVE_IMG, //请求码
-                        mPermissionList //权限列表
-                );
-            }
-        } else {
-            saveImage();
         }
     }
 
