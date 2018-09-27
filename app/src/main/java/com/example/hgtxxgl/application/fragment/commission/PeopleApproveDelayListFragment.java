@@ -24,6 +24,8 @@ import com.example.hgtxxgl.application.bean.people.PeopleLeaveCountBean;
 import com.example.hgtxxgl.application.bean.temp.TempPeopleLeaveCountBean;
 import com.example.hgtxxgl.application.bean.temp.TempPeopleLeaveCurrentCountBean;
 import com.example.hgtxxgl.application.bean.temp.TempPeopleLeaveCurveCount10Bean;
+import com.example.hgtxxgl.application.bean.temp.TempPeopleLeaveCurveCount11Bean;
+import com.example.hgtxxgl.application.bean.temp.TempPeopleLeaveCurveCount12Bean;
 import com.example.hgtxxgl.application.bean.temp.TempPeopleLeaveCurveCount8Bean;
 import com.example.hgtxxgl.application.bean.temp.TempPeopleLeaveCurveCount9Bean;
 import com.example.hgtxxgl.application.bean.temp.TempPeopleLeaveOutCountBean;
@@ -785,6 +787,102 @@ public class PeopleApproveDelayListFragment extends Fragment implements AdapterV
                 L.e(TAG+" loadTempCurveChart10Num",json);
                 if (peopleLeaveCountBean != null || peopleLeaveCountBean.getApi_Get_Count().size()>0){
                     ApplicationApp.setCount10Bean(peopleLeaveCountBean);
+                }
+            }
+
+            @Override
+            public void onError(String msg) throws Exception {
+
+            }
+
+            @Override
+            public void onResponse(String response) throws Exception {
+
+            }
+
+            @Override
+            public void onBefore(Request request, int id) throws Exception {
+
+            }
+
+            @Override
+            public void onAfter(int id) throws Exception {
+                loadTempCurveChart11Num();
+            }
+
+            @Override
+            public void inProgress(float progress, long total, int id) throws Exception {
+
+            }
+        });
+    }
+
+    private void loadTempCurveChart11Num() {
+        PeopleLeaveCountBean.ApiGetCountBean countBean = new PeopleLeaveCountBean.ApiGetCountBean();
+        countBean.setTimeStamp(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getTimeStamp());
+        countBean.setAuthenticationNo(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo());
+        countBean.setTableName("PeopleInfo");
+        countBean.setIsAndroid("1");
+        countBean.setbClosed("0");
+        countBean.setOutStatus("1");
+        countBean.setRegisterTime("2018-11-01 00:00:00&&2018-11-30 23:59:59");
+        String json = new Gson().toJson(countBean);
+        String request = "Api_Get_Count " + json;
+        L.e(TAG+" loadTempCurveChart11Num",request);
+        HttpManager.getInstance().requestNewResultForm(tempIP, request, TempPeopleLeaveCurveCount11Bean.class, new HttpManager.ResultNewCallback<TempPeopleLeaveCurveCount11Bean>() {
+            @Override
+            public void onSuccess(String json, final TempPeopleLeaveCurveCount11Bean peopleLeaveCountBean) throws Exception {
+                L.e(TAG+" loadTempCurveChart11Num",json);
+                if (peopleLeaveCountBean != null || peopleLeaveCountBean.getApi_Get_Count().size()>0){
+                    ApplicationApp.setCount11Bean(peopleLeaveCountBean);
+                }
+            }
+
+            @Override
+            public void onError(String msg) throws Exception {
+
+            }
+
+            @Override
+            public void onResponse(String response) throws Exception {
+
+            }
+
+            @Override
+            public void onBefore(Request request, int id) throws Exception {
+
+            }
+
+            @Override
+            public void onAfter(int id) throws Exception {
+                loadTempCurveChart12Num();
+            }
+
+            @Override
+            public void inProgress(float progress, long total, int id) throws Exception {
+
+            }
+        });
+    }
+
+    private void loadTempCurveChart12Num() {
+        PeopleLeaveCountBean.ApiGetCountBean countBean = new PeopleLeaveCountBean.ApiGetCountBean();
+        countBean.setTimeStamp(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getTimeStamp());
+        countBean.setAuthenticationNo(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo());
+        countBean.setTableName("PeopleInfo");
+        countBean.setIsAndroid("1");
+        countBean.setbClosed("0");
+        countBean.setOutStatus("1");
+        countBean.setRegisterTime("2018-12-01 00:00:00&&2018-12-31 23:59:59");
+        String json = new Gson().toJson(countBean);
+        String request = "Api_Get_Count " + json;
+        L.e(TAG+" loadTempCurveChart12Num",request);
+        HttpManager.getInstance().requestNewResultForm(tempIP, request, TempPeopleLeaveCurveCount12Bean.class, new HttpManager.ResultNewCallback<TempPeopleLeaveCurveCount12Bean>() {
+            @Override
+            public void onSuccess(String json, final TempPeopleLeaveCurveCount12Bean peopleLeaveCountBean) throws Exception {
+                L.e(TAG+" loadTempCurveChart12Num",json);
+                if (peopleLeaveCountBean != null || peopleLeaveCountBean.getApi_Get_Count().size()>0){
+                    ApplicationApp.setCount12Bean(peopleLeaveCountBean);
                 }
             }
 

@@ -26,6 +26,7 @@ import com.example.hgtxxgl.application.fragment.launch.CarDetailFragment;
 import com.example.hgtxxgl.application.fragment.launch.CarDetailListFragment;
 import com.example.hgtxxgl.application.fragment.launch.PeopleDetailFragment;
 import com.example.hgtxxgl.application.fragment.launch.PeopleDetailListFragment;
+import com.example.hgtxxgl.application.fragment.total.IdeasBoxFragment;
 import com.example.hgtxxgl.application.fragment.total.chart.ChartFragment;
 import com.example.hgtxxgl.application.utils.SysExitUtil;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
@@ -115,7 +116,7 @@ public class ItemActivity extends AppCompatActivity {
                 checkFragment(new TempFragment());
                 break;
             case PageConfig.PAGE_YIJIAN:
-                checkFragment(new TempFragment());
+                checkFragment(new IdeasBoxFragment());
                 break;
             case PageConfig.PAGE_CHART:
                 checkFragment(ChartFragment.newInstance(getIntent().getBundleExtra("data")));

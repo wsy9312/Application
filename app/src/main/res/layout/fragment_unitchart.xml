@@ -20,6 +20,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
+                        android:textColor="#6495ED"
                         android:id="@+id/tv_zrs"
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -32,6 +33,7 @@
                         android:layout_gravity="center_vertical"
                         android:background="@color/grey"/>
                     <TextView
+                        android:textColor="#FF8C69"
                         android:id="@+id/tv_zwrs"
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -44,6 +46,7 @@
                         android:layout_gravity="center_vertical"
                         android:background="@color/grey"/>
                     <TextView
+                        android:textColor="@color/greenbtn"
                         android:id="@+id/tv_zwl"
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -222,7 +225,7 @@
                             android:gravity="center"
                             android:padding="10dp"
                             android:text="类型"
-                            android:textColor="#434343"/>
+                            android:textColor="#808080"/>
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -230,6 +233,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:padding="10dp"
+                            android:textColor="#808080"
                             android:text="人数" />
                         <TextView
                             android:layout_width="0dp"
@@ -238,6 +242,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:padding="10dp"
+                            android:textColor="#808080"
                             android:text="占比" />
                     </TableRow>
 
@@ -256,7 +261,7 @@
                             android:gravity="center"
                             android:padding="10dp"
                             android:text="外出"
-                            android:textColor="#434343"/>
+                            android:textColor="#6495ED"/>
                         <TextView
                             android:id="@+id/tv_table_outnum"
                             android:layout_width="0dp"
@@ -292,7 +297,7 @@
                             android:gravity="center"
                             android:padding="10dp"
                             android:text="事假"
-                            android:textColor="#434343"/>
+                            android:textColor="#808000"/>
                         <TextView
                             android:id="@+id/tv_table_worknum"
                             android:layout_width="0dp"
@@ -328,7 +333,7 @@
                             android:gravity="center"
                             android:padding="10dp"
                             android:text="病假"
-                            android:textColor="#434343"/>
+                            android:textColor="#E6B800"/>
                         <TextView
                             android:id="@+id/tv_table_sicknum"
                             android:layout_width="0dp"
@@ -364,7 +369,7 @@
                             android:gravity="center"
                             android:padding="10dp"
                             android:text="休假"
-                            android:textColor="#434343"/>
+                            android:textColor="#FF8C69"/>
                         <TextView
                             android:id="@+id/tv_table_restnum"
                             android:layout_width="0dp"

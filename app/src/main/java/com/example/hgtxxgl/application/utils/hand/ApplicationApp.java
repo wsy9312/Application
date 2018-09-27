@@ -13,6 +13,8 @@ import com.example.hgtxxgl.application.bean.login.PeopleInfoBean;
 import com.example.hgtxxgl.application.bean.temp.TempPeopleLeaveCountBean;
 import com.example.hgtxxgl.application.bean.temp.TempPeopleLeaveCurrentCountBean;
 import com.example.hgtxxgl.application.bean.temp.TempPeopleLeaveCurveCount10Bean;
+import com.example.hgtxxgl.application.bean.temp.TempPeopleLeaveCurveCount11Bean;
+import com.example.hgtxxgl.application.bean.temp.TempPeopleLeaveCurveCount12Bean;
 import com.example.hgtxxgl.application.bean.temp.TempPeopleLeaveCurveCount8Bean;
 import com.example.hgtxxgl.application.bean.temp.TempPeopleLeaveCurveCount9Bean;
 import com.example.hgtxxgl.application.bean.temp.TempPeopleLeaveOutCountBean;
@@ -45,6 +47,8 @@ public class ApplicationApp extends Application {
     private static TempPeopleLeaveCurveCount8Bean count8Bean;
     private static TempPeopleLeaveCurveCount9Bean count9Bean;
     private static TempPeopleLeaveCurveCount10Bean count10Bean;
+    private static TempPeopleLeaveCurveCount11Bean count11Bean;
+    private static TempPeopleLeaveCurveCount12Bean count12Bean;
 
     public static List<?> images=new ArrayList<>();
     public static int H,W;
@@ -176,5 +180,22 @@ public class ApplicationApp extends Application {
 
     public static void setCount10Bean(TempPeopleLeaveCurveCount10Bean count10Bean) {
         ApplicationApp.count10Bean = count10Bean;
+    }
+
+
+    public static TempPeopleLeaveCurveCount11Bean getCount11Bean() {
+        return count11Bean;
+    }
+
+    public static void setCount11Bean(TempPeopleLeaveCurveCount11Bean count11Bean) {
+        ApplicationApp.count11Bean = count11Bean;
+    }
+
+    public static TempPeopleLeaveCurveCount12Bean getCount12Bean() {
+        return count12Bean;
+    }
+
+    public static void setCount12Bean(TempPeopleLeaveCurveCount12Bean count12Bean) {
+        ApplicationApp.count12Bean = count12Bean;
     }
 }
