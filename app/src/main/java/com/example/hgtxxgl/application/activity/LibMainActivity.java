@@ -30,7 +30,6 @@ import com.example.hgtxxgl.application.utils.hand.PageConfig;
 import com.example.hgtxxgl.application.utils.hand.StatusBarUtils;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
 import com.example.hgtxxgl.application.view.BadgeView;
-import static org.litepal.LitePalApplication.getContext;
 
 //首页
 public class LibMainActivity extends AppCompatActivity{
@@ -192,7 +191,7 @@ public class LibMainActivity extends AppCompatActivity{
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                ToastUtil.showToast(getContext(),msg);
+                ToastUtil.showToast(getApplicationContext(),msg);
             }
         });
     }

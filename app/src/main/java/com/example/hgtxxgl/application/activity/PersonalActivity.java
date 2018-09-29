@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.example.hgtxxgl.application.QrCode.sample.ScannerActivity;
 import com.example.hgtxxgl.application.R;
+import com.example.hgtxxgl.application.bean.login.LoginOutBean;
 import com.example.hgtxxgl.application.bean.login.PeopleInfoBean;
 import com.example.hgtxxgl.application.fragment.DetailFragment;
 import com.example.hgtxxgl.application.utils.SysExitUtil;
@@ -171,10 +172,50 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                ApplicationApp.setLoginInfoBean(null);
-                ApplicationApp.setPeopleInfoBean(null);
-                startActivity(new Intent(PersonalActivity.this, LoginActivity.class));
-                SysExitUtil.exit();
+                LoginOutBean.ApiAddLogOutBean logOutBean = new LoginOutBean.ApiAddLogOutBean();
+                logOutBean.setAuthenticationNo(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getTimeStamp());
+                logOutBean.setIsAndroid("1");
+                String json = new Gson().toJson(logOutBean);
+                String s = "Api_Add_LogOut " + json;
+                Log.e(TAG,"退出登录:"+s);
+                SharedPreferences share = getSharedPreferences(SAVE_IP, MODE_PRIVATE);
+                String tempIP = share.getString("tempIP", "");
+                HttpManager.getInstance().requestNewResultForm(tempIP,s,LoginOutBean.class,new HttpManager.ResultNewCallback<LoginOutBean>() {
+                    @Override
+                    public void onSuccess(String json, LoginOutBean loginOutBean) throws Exception {
+                        Log.e(TAG,"onSuccess:"+json);
+                    }
+
+                    @Override
+                    public void onError(String msg) throws Exception {
+
+                    }
+
+                    @Override
+                    public void onResponse(String response) throws Exception {
+
+                    }
+
+                    @Override
+                    public void onBefore(Request request, int id) throws Exception {
+
+                    }
+
+                    @Override
+                    public void onAfter(int id) throws Exception {
+                        ApplicationApp.setLoginInfoBean(null);
+                        ApplicationApp.setPeopleInfoBean(null);
+                        startActivity(new Intent(PersonalActivity.this, LoginActivity.class));
+                        SysExitUtil.exit();
+                    }
+
+                    @Override
+                    public void inProgress(float progress, long total, int id) throws Exception {
+
+                    }
+
+                });
+
             }
         });
         builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
