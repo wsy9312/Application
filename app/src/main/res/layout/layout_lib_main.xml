@@ -60,7 +60,7 @@
             android:enabled="false"
             android:id="@+id/rb_main_life"
             style="@style/BottomBarItem"
-            android:drawableTop="@drawable/home_page_radio_button_post_flow"
+            android:drawableTop="@drawable/home_page_radio_button_post_life"
             android:text="生活" />
 
         <RadioButton

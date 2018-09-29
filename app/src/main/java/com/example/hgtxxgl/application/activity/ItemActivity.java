@@ -53,7 +53,7 @@ public class ItemActivity extends AppCompatActivity {
         }
     }
 
-    void checkFragmentForLoading(int pageCode) {
+    public void checkFragmentForLoading(int pageCode) {
         switch (pageCode) {
 
             //810

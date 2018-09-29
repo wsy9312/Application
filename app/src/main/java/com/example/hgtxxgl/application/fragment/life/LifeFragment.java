@@ -11,9 +11,9 @@ import android.view.animation.CycleInterpolator;
 import android.widget.LinearLayout;
 
 import com.example.hgtxxgl.application.R;
+import com.example.hgtxxgl.application.activity.ItemActivity;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
 import com.example.hgtxxgl.application.view.HandToolbar;
-import com.sd.storage.ui.main.weekmeun.WeekMenuActivity;
 
 public class LifeFragment extends Fragment {
 
@@ -66,8 +66,8 @@ public class LifeFragment extends Fragment {
 
                             @Override
                             public void onAnimationEnd(Animator animation) {
-                                Intent intent = new Intent(getActivity(), WeekMenuActivity.class);
-//                                intent.putExtra(PageConfig.PAGE_CODE, page[finalI]);
+                                Intent intent = new Intent(getActivity(), ItemActivity.class);
+                                intent.putExtra(PageConfig.PAGE_CODE, page[finalI]);
                                 startActivity(intent);
                             }
 
