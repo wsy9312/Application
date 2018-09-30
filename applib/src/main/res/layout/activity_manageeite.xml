@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cefefef"
+    android:orientation="vertical">
+
+
+    <include layout="@layout/activity_title" />
+
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/SwipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+        </android.support.v7.widget.RecyclerView>
+
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_clear"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_35"
+        android:layout_marginBottom="@dimen/dimen_10"
+        android:layout_marginLeft="@dimen/dimen_35"
+        android:layout_marginRight="@dimen/dimen_35"
+        android:layout_marginTop="@dimen/dimen_5"
+        android:background="@drawable/addnewvege_bg"
+        android:gravity="center"
+        android:text="@string/str_clear_vege"
+        android:textColor="@color/cffffff"
+        android:textSize="@dimen/dimen_20" />
+
+</LinearLayout>

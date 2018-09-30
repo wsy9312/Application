@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dimen_60"
+    android:layout_height="wrap_content"
+    android:background="@color/cefefef"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/tv_breakfast"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_35"
+        android:layout_marginTop="@dimen/dimen_15"
+        android:gravity="center"
+        android:text="@string/str_breakfast" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_1"
+        android:background="@color/c808080" />
+
+    <TextView
+        android:id="@+id/tv_lunch"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_35"
+        android:layout_marginTop="@dimen/dimen_5"
+        android:gravity="center"
+        android:text="@string/str_lunch" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_1"
+        android:background="@color/c808080" />
+
+    <TextView
+        android:id="@+id/tv_afternoon"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_35"
+        android:layout_marginBottom="@dimen/dimen_15"
+        android:layout_marginTop="@dimen/dimen_5"
+        android:gravity="center"
+        android:text="@string/str_afternoon" />
+
+</LinearLayout>

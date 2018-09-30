@@ -61,11 +61,13 @@ dependencies {
     implementation 'com.github.dongjunkun:DropDownMenu:1.0.4'
     implementation 'com.jakewharton:butterknife:6.1.0'
     implementation 'com.github.lecho:hellocharts-android:v1.5.8'
+    implementation 'com.google.zxing:core:3.3.0'
+    implementation 'com.google.zxing:android-core:3.3.0'
     implementation project(':zxingscanner')
     implementation project(':okhttputils')
     implementation project(':pulltorefresh')
     implementation project(':mylibrary')
     implementation project(':circletextimagelib')
-
+    implementation project(':applib')
 }
 

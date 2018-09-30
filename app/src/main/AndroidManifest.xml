@@ -75,6 +75,10 @@
         <activity
             android:name=".QrCode.sample.BarcodeActivity"
             android:label="barcode" />
+
+        <activity
+            android:name="com.sd.storage.ui.main.weekmeun.WeekMenuActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".rest.ActionSheetActivity"
             android:screenOrientation="portrait"

@@ -11,11 +11,11 @@ import android.view.animation.CycleInterpolator;
 import android.widget.LinearLayout;
 
 import com.example.hgtxxgl.application.R;
-import com.example.hgtxxgl.application.activity.ItemActivity;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
 import com.example.hgtxxgl.application.view.HandToolbar;
+import com.sd.storage.ui.main.weekmeun.WeekMenuActivity;
 
-public class LifeFragment extends Fragment {
+public class LifeFragment extends Fragment implements View.OnClickListener{
 
     final int[] page = new int[]{PageConfig.PAGE_FLOW_PRESENTFOOD,PageConfig.PAGE_FLOW_TOUPIAO,
             PageConfig.PAGE_FLOW_PAIHANG,PageConfig.PAGE_FLOW_MANAGE,
@@ -39,6 +39,7 @@ public class LifeFragment extends Fragment {
         handToolbar.setBackHome(false,0);
         handToolbar.setTitle("学习");
         handToolbar.setTitleSize(18);
+        handToolbar.setOnClickListener(this);
     }
 
     private void initButtons(View view) {
@@ -66,8 +67,11 @@ public class LifeFragment extends Fragment {
 
                             @Override
                             public void onAnimationEnd(Animator animation) {
-                                Intent intent = new Intent(getActivity(), ItemActivity.class);
-                                intent.putExtra(PageConfig.PAGE_CODE, page[finalI]);
+//                                Intent intent = new Intent(getActivity(), ItemActivity.class);
+//                                intent.putExtra(PageConfig.PAGE_CODE, page[finalI]);
+//                                startActivity(intent);
+                                Intent intent = new Intent(getActivity(), WeekMenuActivity.class);
+//                                intent.putExtra(PageConfig.PAGE_CODE, page[finalI]);
                                 startActivity(intent);
                             }
 
@@ -85,5 +89,10 @@ public class LifeFragment extends Fragment {
                 });
             }
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

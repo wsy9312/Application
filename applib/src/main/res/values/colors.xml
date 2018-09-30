@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#01AAEF</color>
+    <color name="colorPrimaryDark">#01AAEF</color>
+    <color name="colorAccent">#01AAEF</color>
+
+
+
+    <color name="gray">#808080</color>
+    <color name="main_black">#575858</color>
+
+
+    <color name="cefefef">#efefef</color>
+    <color name="cffffff">#ffffff</color>
+    <color name="c000">#000</color>
+    <color name="c808080">#808080</color>
+    <color name="c9f9f9f">#9f9f9f</color>
+    <color name="detail_do_buy">#FA56A0</color>
+    <color name="cf00">#f00</color>
+
+    <color name="cff9037">#ff9037</color>
+    <color name="c7387df">#7387df</color>
+
+    <color name="c28462">#c28462</color>
+    <color name="c8cc35a">#8cc35a</color>
+    <color name="main_grey3">#F3F3F3</color>
+    <color name="white">#FFFFFF</color> <!-- 白色 -->
+    <color name="black_grey">#22000000</color>
+    <color name="main_grey">#c6c6c6</color>
+    <color name="gray2">#8A8A8A</color>
+    <color name="transparent">#00000000</color>
+</resources>

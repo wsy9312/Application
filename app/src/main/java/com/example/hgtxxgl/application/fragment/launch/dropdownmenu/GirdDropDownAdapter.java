@@ -11,9 +11,6 @@ import com.example.hgtxxgl.application.R;
 
 import java.util.List;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
-
 
 public class GirdDropDownAdapter extends BaseAdapter {
 
@@ -74,11 +71,12 @@ public class GirdDropDownAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
-        @InjectView(R.id.text)
+//        @InjectView(R.id.text)
         TextView mText;
 
         ViewHolder(View view) {
-            ButterKnife.inject(this, view);
+            mText = view.findViewById(R.id.text);
+//            ButterKnife.inject(this, view);
         }
     }
 }

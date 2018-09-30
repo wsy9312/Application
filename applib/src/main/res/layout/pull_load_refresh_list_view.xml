@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"  >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ListView
+            android:id="@+id/lv_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:cacheColorHint="@color/white"
+            android:divider="@color/main_grey3"
+            android:dividerHeight="1px" >
+        </ListView>
+
+        <TextView
+            android:id="@+id/tv_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/main_black"
+            android:textSize="@dimen/text_size_16"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dimen_120"
+            android:visibility="gone"
+            android:text="@string/data_null" />
+
+        <TextView
+            android:id="@+id/tv_return_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="30dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/ic_top"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</android.support.v4.widget.SwipeRefreshLayout>

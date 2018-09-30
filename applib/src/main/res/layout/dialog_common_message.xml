@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/dimen_30"
+    android:layout_marginRight="@dimen/dimen_30"
+    android:background="@drawable/shape_dialog_white"
+    android:orientation="vertical">
+
+    <!--提示信息-->
+    <TextView
+        android:id="@+id/tv_massage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:minHeight="@dimen/dimen_80"
+        android:paddingLeft="@dimen/dimen_15"
+        android:paddingRight="@dimen/dimen_15"
+        android:paddingTop="@dimen/dimen_20"
+        android:textColor="@color/main_black"
+        android:textSize="@dimen/text_size_16" />
+
+    <View style="@style/line_style_h" />
+
+    <!--确定-->
+    <Button
+        android:id="@+id/bt_ok"
+        style="@style/text_style_main_black_16"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_40"
+        android:layout_marginBottom="@dimen/dimen_5"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="@string/confirm" />
+
+</LinearLayout>
