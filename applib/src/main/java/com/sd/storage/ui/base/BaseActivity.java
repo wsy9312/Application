@@ -34,14 +34,14 @@ public abstract class BaseActivity extends AppCompatActivity{
         setContentView(getLayoutId());
         mUnbinder = ButterKnife.bind(this);
         mContext = this;
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if(null != toolbar){
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        if(null != toolbar){
             TextView tv_title = (TextView) findViewById(R.id.tv_title);
             if(null != tv_title){
                 tv_title.setText(getToolbarTitle());
             }
-            setToolbar(toolbar);
-        }
+//            setToolbar(toolbar);
+//        }
 //        if(isStatusBarChange()){
 //            Helper.statusBarLightMode(this);
 //        }

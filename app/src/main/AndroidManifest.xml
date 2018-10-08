@@ -79,6 +79,10 @@
         <activity
             android:name="com.sd.storage.ui.main.weekmeun.WeekMenuActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.sd.storage.ui.MainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".rest.ActionSheetActivity"
             android:screenOrientation="portrait"

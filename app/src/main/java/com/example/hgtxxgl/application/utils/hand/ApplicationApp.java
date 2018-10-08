@@ -32,8 +32,6 @@ public class ApplicationApp extends Application {
 
     public static Context context;
 
-    private String UPLOAD_URL="http:";
-
     private static PeopleInfoBean peopleInfoBean;
 
     private static LoginInfoBean loginInfoBean;
@@ -61,7 +59,6 @@ public class ApplicationApp extends Application {
       //  ApplicationApp.IP = IP;
     }
 
-    private static String IP ="";
     @Override
     public void onCreate() {
         super.onCreate();
@@ -74,17 +71,7 @@ public class ApplicationApp extends Application {
         String[] urls = getResources().getStringArray(R.array.url);
         List list = Arrays.asList(urls);
         images = new ArrayList(list);
-//        //upload logfile , post params.
-//        HttpParameters params = new HttpParameters();
-//        params.add("key1", "value1");
-//        params.add("key2", "value2");
-//        params.add("key3", "value3");
-//        //.......
-//        //replace your key and value;
-//
-//        boolean isDebug = true;
-//        LogCollector.setDebugMode(isDebug);
-//        LogCollector.init(getApplicationContext(), UPLOAD_URL, params);//params can be null
+
     }
 
     public void getScreen(Context aty) {
