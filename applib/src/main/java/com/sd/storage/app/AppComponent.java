@@ -3,7 +3,7 @@ package com.sd.storage.app;
 import android.app.Application;
 
 import com.sd.storage.modules.AppModule;
-import com.sd.storage.ui.MainActivity;
+import com.sd.storage.ui.MenuMainActivity;
 import com.sd.storage.ui.main.addcommend.AddCommentActivity;
 import com.sd.storage.ui.main.meunmanage.MeunManageActivity;
 import com.sd.storage.ui.main.meunmanage.addnewvege.AddNewVegeActivity;
@@ -68,7 +68,7 @@ public interface AppComponent {
 
     void inject(SetTimeActivity setTimeActivity);
 
-    void inject(MainActivity mainActivity);
+    void inject(MenuMainActivity mainActivity);
 
 
 }

@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
 import com.example.hgtxxgl.application.view.HandToolbar;
-import com.sd.storage.ui.MainActivity;
+import com.sd.storage.ui.MenuMainActivity;
 
 public class LifeFragment extends Fragment implements View.OnClickListener{
 
@@ -70,7 +70,7 @@ public class LifeFragment extends Fragment implements View.OnClickListener{
 //                                Intent intent = new Intent(getActivity(), ItemActivity.class);
 //                                intent.putExtra(PageConfig.PAGE_CODE, page[finalI]);
 //                                startActivity(intent);
-                                Intent intent = new Intent(getActivity(), MainActivity.class);
+                                Intent intent = new Intent(getActivity(), MenuMainActivity.class);
 //                                intent.putExtra(PageConfig.PAGE_CODE, page[finalI]);
                                 startActivity(intent);
                             }

@@ -41,7 +41,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 import static org.litepal.LitePalApplication.getContext;
 
 //二维码首页
-public class MainActivity extends AppCompatActivity{
+public class QrMainActivity extends AppCompatActivity{
     private static final int PICK_CONTACT = 1;
     private TextView tvResult;
     private ImageView imageView;
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity{
     private Toolbar toolbar;
     private Bitmap bitmap;
     private static final int REQUEST_CODE_SAVE_IMG = 10;
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "QrMainActivity";
     private Context mContext;
     private String authenticationNo;
     private String name;
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SysExitUtil.activityList.add(MainActivity.this);
+        SysExitUtil.activityList.add(QrMainActivity.this);
         mContext = this;
         handToolbar = (HandToolbar) findViewById(R.id.qrcode_mainactivity_toolbar);
         handToolbar.setTitle("二维码名片");
@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onButtonClickListner(HandToolbar.VIEWS views, int radioIndex) {
                final String[] items = new String[]{"保存到相册","扫描二维码"};
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(QrMainActivity.this);
                 builder.setItems(items, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -139,13 +139,13 @@ public class MainActivity extends AppCompatActivity{
                             }
                             imageView.setDrawingCacheEnabled(false);
                         }else{
-                            if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA)
+                            if (ContextCompat.checkSelfPermission(QrMainActivity.this, Manifest.permission.CAMERA)
                                     != PackageManager.PERMISSION_GRANTED) {
                                 //权限还没有授予，需要在这里写申请权限的代码
-                                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CAMERA}, 60);
+                                ActivityCompat.requestPermissions(QrMainActivity.this, new String[]{Manifest.permission.CAMERA}, 60);
                             } else {
                                 //权限已经被授予，在这里直接写要执行的相应方法即可
-                                ScannerActivity.gotoActivity(MainActivity.this, true, 1);
+                                ScannerActivity.gotoActivity(QrMainActivity.this, true, 1);
                             }
                         }
                     }
@@ -199,14 +199,14 @@ public class MainActivity extends AppCompatActivity{
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA)
+                if (ContextCompat.checkSelfPermission(QrMainActivity.this, Manifest.permission.CAMERA)
                         != PackageManager.PERMISSION_GRANTED) {
                     //权限还没有授予，需要在这里写申请权限的代码
-                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CAMERA}, 60);
+                    ActivityCompat.requestPermissions(QrMainActivity.this, new String[]{Manifest.permission.CAMERA}, 60);
                 } else {
                     //权限已经被授予，在这里直接写要执行的相应方法即可
-                    ScannerActivity.gotoActivity(MainActivity.this, true, 1);
-//                    ScannerActivity.gotoActivity(MainActivity.this, checkBox.isChecked(), laserMode);
+                    ScannerActivity.gotoActivity(QrMainActivity.this, true, 1);
+//                    ScannerActivity.gotoActivity(QrMainActivity.this, checkBox.isChecked(), laserMode);
                 }
             }
         });
@@ -219,7 +219,7 @@ public class MainActivity extends AppCompatActivity{
 //                Resources res = getResources();
 //                Bitmap logoBitmap = BitmapFactory.decodeResource(res, R.mipmap.btn_wheelview_ok_normal);
 //                String qrContent = editText.getText().toString();
-//                Bitmap bitmap = new QREncode.Builder(MainActivity.this)
+//                Bitmap bitmap = new QREncode.Builder(QrMainActivity.this)
 //                        //二维码颜色
 //                        .setColor(getResources().getColor(R.color.mainColor_blue))
 //                        //二维码类型
@@ -253,7 +253,7 @@ public class MainActivity extends AppCompatActivity{
 //                ByteArrayOutputStream baos = new ByteArrayOutputStream();
 //                bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
 //
-//                DeCodeActivity.gotoActivity(MainActivity.this, baos.toByteArray());//step 4
+//                DeCodeActivity.gotoActivity(QrMainActivity.this, baos.toByteArray());//step 4
 //                imageView.setDrawingCacheEnabled(false);//step 5
 //            }
 //        });
@@ -262,7 +262,7 @@ public class MainActivity extends AppCompatActivity{
     private void initshow(String peopleInfoEntity) {
         String qrContent = peopleInfoEntity;
         if (qrContent!=null){
-            Bitmap bitmap = new QREncode.Builder(MainActivity.this)
+            Bitmap bitmap = new QREncode.Builder(QrMainActivity.this)
                     //二维码颜色
                     .setColor(getResources().getColor(R.color.mainColor_blue))
                     //二维码类型
@@ -290,7 +290,7 @@ public class MainActivity extends AppCompatActivity{
 //                    tvResult.setTextSize(20);
 //                    imageView.setVisibility(View.GONE);
 
-                    AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                    AlertDialog alertDialog = new AlertDialog.Builder(QrMainActivity.this).create();
                     alertDialog.show();
                     Window window = alertDialog.getWindow();
                     window.setContentView(R.layout.layout_qrcode_result);

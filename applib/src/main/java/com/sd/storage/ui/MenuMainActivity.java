@@ -25,7 +25,7 @@ import rx.functions.Action1;
  * Created by Administrator on 2018-09-05.
  */
 
-public class MainActivity extends BaseSCActivity implements View.OnClickListener {
+public class MenuMainActivity extends BaseSCActivity implements View.OnClickListener {
 
 //    @BindView(R.id.lin_weekMenu)
     LinearLayout lin_weekMenu;
@@ -48,7 +48,7 @@ public class MainActivity extends BaseSCActivity implements View.OnClickListener
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        StorageApplication.getApplication().getAppComponent().inject(this);
+        StorageApplication.getApplication().getAppComponent().inject(MenuMainActivity.this);
         init();
     }
 
@@ -92,7 +92,7 @@ public class MainActivity extends BaseSCActivity implements View.OnClickListener
             if ("1".equals(UrlManager.getLEVEl())) {
                 getDisplay().startSetMainActivity();
             } else {
-                ToastUtils.showBaseToast(R.string.you_not_have_level, MainActivity.this);
+                ToastUtils.showBaseToast(R.string.you_not_have_level, MenuMainActivity.this);
             }
 
 
@@ -118,7 +118,7 @@ public class MainActivity extends BaseSCActivity implements View.OnClickListener
             @Override
             public void call(TimeStore.VoteTimeChangeError changeError) {
                 getDisplay().hideWaittingDialog();
-                ToastUtils.showBaseToast(changeError.msge, MainActivity.this);
+                ToastUtils.showBaseToast(changeError.msge, MenuMainActivity.this);
             }
         });
     }
