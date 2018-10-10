@@ -1331,9 +1331,9 @@ public final class R {
         public static int activity_breakfast = 0x7f0f001d;
         public static int activity_comment_item = 0x7f0f001e;
         public static int activity_expand_item = 0x7f0f001f;
-        public static int activity_main = 0x7f0f0020;
-        public static int activity_manageeite = 0x7f0f0021;
-        public static int activity_managesearch = 0x7f0f0022;
+        public static int activity_manageeite = 0x7f0f0020;
+        public static int activity_managesearch = 0x7f0f0021;
+        public static int activity_menumain = 0x7f0f0022;
         public static int activity_meunmanage = 0x7f0f0023;
         public static int activity_newvege = 0x7f0f0024;
         public static int activity_order = 0x7f0f0025;

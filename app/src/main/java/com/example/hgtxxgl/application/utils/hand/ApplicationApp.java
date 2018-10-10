@@ -1,6 +1,5 @@
 package com.example.hgtxxgl.application.utils.hand;
 
-import android.app.Application;
 import android.content.Context;
 import android.os.Build;
 import android.os.Handler;
@@ -21,12 +20,13 @@ import com.example.hgtxxgl.application.bean.temp.TempPeopleLeaveOutCountBean;
 import com.example.hgtxxgl.application.bean.temp.TempPeopleLeaveRestCountBean;
 import com.example.hgtxxgl.application.bean.temp.TempPeopleLeaveSickCountBean;
 import com.example.hgtxxgl.application.bean.temp.TempPeopleLeaveWorkCountBean;
+import com.sd.storage.app.StorageApplication;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ApplicationApp extends Application {
+public class ApplicationApp extends StorageApplication {
     //handler
     public static Handler mainHandler;
 

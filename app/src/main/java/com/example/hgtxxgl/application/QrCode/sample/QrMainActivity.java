@@ -113,7 +113,7 @@ public class QrMainActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_menumain);
         SysExitUtil.activityList.add(QrMainActivity.this);
         mContext = this;
         handToolbar = (HandToolbar) findViewById(R.id.qrcode_mainactivity_toolbar);

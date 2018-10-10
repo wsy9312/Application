@@ -135,7 +135,7 @@ public class MenuMainActivity extends BaseSCActivity implements View.OnClickList
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_main;
+        return R.layout.activity_menumain;
     }
 
 

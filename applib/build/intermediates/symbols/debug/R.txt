@@ -1303,9 +1303,9 @@ int layout activity_addweekmeun 0x7f0f001c
 int layout activity_breakfast 0x7f0f001d
 int layout activity_comment_item 0x7f0f001e
 int layout activity_expand_item 0x7f0f001f
-int layout activity_main 0x7f0f0020
-int layout activity_manageeite 0x7f0f0021
-int layout activity_managesearch 0x7f0f0022
+int layout activity_manageeite 0x7f0f0020
+int layout activity_managesearch 0x7f0f0021
+int layout activity_menumain 0x7f0f0022
 int layout activity_meunmanage 0x7f0f0023
 int layout activity_newvege 0x7f0f0024
 int layout activity_order 0x7f0f0025
