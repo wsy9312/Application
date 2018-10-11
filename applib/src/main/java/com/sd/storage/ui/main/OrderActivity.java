@@ -3,9 +3,9 @@ package com.sd.storage.ui.main;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-
 import com.sd.storage.R;
 import com.sd.storage.actions.ActionsCreator;
+import com.sd.storage.add.StatusBarColorUtils;
 import com.sd.storage.dlib.store.Store;
 import com.sd.storage.ui.base.BaseSCActivity;
 
@@ -18,6 +18,7 @@ public class OrderActivity extends BaseSCActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StatusBarColorUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
         init();
     }
 

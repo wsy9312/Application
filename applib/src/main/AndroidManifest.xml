@@ -47,7 +47,8 @@
             android:name=".ui.MenuMainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/AppThemeLib">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -57,65 +58,79 @@
         </activity>
         <activity
             android:name=".ui.main.meunmanage.addnewvege.AddNewVegeActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeLib"/>
 
 
 
         <activity
             android:name=".ui.main.vagedetails.VageDetailsActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeLib"/>
 
         <activity
             android:name=".ui.main.weekmeun.WeekMenuActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeLib"/>
 
 
         <activity
             android:name=".ui.main.addcommend.AddCommentActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeLib"/>
 
         <activity
             android:name=".ui.main.meunorder.MeunOrderActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeLib"/>
 
         <activity
             android:name=".ui.main.search.SearchVageActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeLib"/>
 
         <activity
             android:name=".ui.main.meunmanage.MeunManageActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeLib"/>
 
 
         <activity
             android:name=".ui.main.meunmanage.managesearch.ManageSearchActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeLib"/>
 
 
         <activity
             android:name=".ui.main.meunmanage.manageedit.MansageEditActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeLib"/>
 
         <activity
             android:name=".ui.main.votemanage.VoteManageActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeLib"/>
 
 
         <activity
             android:name=".ui.main.OrderActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeLib"/>
 
         <activity
             android:name=".ui.main.meunmanage.addweekmeun.AddWeekMeunActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeLib"/>
 
         <activity
             android:name=".ui.main.settime.SetTimeActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeLib"/>
 
         <activity
             android:name=".ui.main.settime.SetMainActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeLib"/>
 
     </application>
 

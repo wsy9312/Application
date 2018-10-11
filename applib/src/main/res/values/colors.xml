@@ -29,4 +29,10 @@
     <color name="main_grey">#c6c6c6</color>
     <color name="gray2">#8A8A8A</color>
     <color name="transparent">#00000000</color>
+
+    <color name="mainColor_blue">#0067ae</color>
+    <color name="gray_dark">@android:color/darker_gray</color>
+    <color name="colorPrimaryLib">#053686</color>
+    <color name="colorPrimaryDarkLib">#053686</color>
+    <color name="window_background">#f2f1f0</color>
 </resources>

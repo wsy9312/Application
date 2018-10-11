@@ -14,6 +14,7 @@ import com.sd.storage.UrlManager;
 import com.sd.storage.actions.ActionsCreator;
 import com.sd.storage.actions.SearchVageActionsCreator;
 import com.sd.storage.adapter.VageSearchAdapter;
+import com.sd.storage.add.StatusBarColorUtils;
 import com.sd.storage.app.StorageApplication;
 import com.sd.storage.dlib.store.Store;
 import com.sd.storage.model.VageModel;
@@ -58,6 +59,7 @@ public class SearchVageActivity extends BaseSCActivity implements VageSearchAdap
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StatusBarColorUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
         StorageApplication.getApplication().getAppComponent().inject(this);
         init();
     }

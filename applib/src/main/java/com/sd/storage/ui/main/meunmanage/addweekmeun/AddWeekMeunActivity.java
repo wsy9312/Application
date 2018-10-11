@@ -15,6 +15,7 @@ import com.sd.storage.R;
 import com.sd.storage.actions.ActionsCreator;
 import com.sd.storage.actions.AllMeunActionsCreator;
 import com.sd.storage.adapter.StoreAddMeunAdapter;
+import com.sd.storage.add.StatusBarColorUtils;
 import com.sd.storage.app.StorageApplication;
 import com.sd.storage.dlib.store.Store;
 import com.sd.storage.model.VageModel;
@@ -63,6 +64,7 @@ public class AddWeekMeunActivity extends BaseSCActivity implements StoreAddMeunA
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StatusBarColorUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
         StorageApplication.getApplication().getAppComponent().inject(this);
         init();
     }

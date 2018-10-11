@@ -4,7 +4,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textColorPrimary">@color/main_black</item>
+        <item name="android:textColorPrimary">@color/window_background</item>
     </style>
 
     <style name="Main.Item.Button" parent="Widget.AppCompat.Button.Borderless">
@@ -69,5 +69,19 @@
     </style>
     <style name="dialog_waiting" parent="@android:style/Theme.Dialog">
         <item name="android:windowBackground">@drawable/dialog_background</item>
+    </style>
+
+    <style name="AppThemeLib" parent="AppTheme.Base">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimaryLib</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkLib</item>
+        <item name="colorAccent">@color/mainColor_blue</item>
+        <item name="android:windowBackground">@color/window_background</item>
+    </style>
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <!-- 使用 API Level 22 編譯的話，要拿掉前綴字 -->
+        <item name="windowNoTitle">true</item>
     </style>
 </resources>

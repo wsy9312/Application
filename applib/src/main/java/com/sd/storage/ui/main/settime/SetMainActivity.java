@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.sd.storage.R;
 import com.sd.storage.actions.ActionsCreator;
+import com.sd.storage.add.StatusBarColorUtils;
 import com.sd.storage.dlib.store.Store;
 import com.sd.storage.ui.base.BaseSCActivity;
 
@@ -27,6 +28,7 @@ public class SetMainActivity extends BaseSCActivity implements View.OnClickListe
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StatusBarColorUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
         init();
     }
 

@@ -7,12 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.sd.storage.R;
 import com.sd.storage.UrlManager;
 import com.sd.storage.actions.ActionsCreator;
 import com.sd.storage.actions.TimeActionsCreator;
+import com.sd.storage.add.StatusBarColorUtils;
 import com.sd.storage.app.StorageApplication;
 import com.sd.storage.dlib.store.Store;
 import com.sd.storage.stores.TimeStore;
@@ -37,7 +37,6 @@ public class MenuMainFragment extends BaseSCFragment implements View.OnClickList
     LinearLayout lin_meunOrder;
     //    @BindView(R.id.lin_meunMannage)
     LinearLayout lin_meunMannage;
-    TextView tv_order;
 
     @Inject
     TimeActionsCreator timeActionsCreator;
@@ -49,6 +48,7 @@ public class MenuMainFragment extends BaseSCFragment implements View.OnClickList
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StatusBarColorUtils.setWindowStatusBarColor(getActivity(),R.color.mainColor_blue);
         StorageApplication.getApplication().getAppComponent().inject(this);
     }
 

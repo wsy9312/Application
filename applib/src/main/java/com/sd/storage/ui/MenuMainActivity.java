@@ -10,6 +10,7 @@ import com.sd.storage.R;
 import com.sd.storage.UrlManager;
 import com.sd.storage.actions.ActionsCreator;
 import com.sd.storage.actions.TimeActionsCreator;
+import com.sd.storage.add.StatusBarColorUtils;
 import com.sd.storage.app.StorageApplication;
 import com.sd.storage.dlib.store.Store;
 import com.sd.storage.stores.TimeStore;
@@ -48,6 +49,7 @@ public class MenuMainActivity extends BaseSCActivity implements View.OnClickList
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StatusBarColorUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
         StorageApplication.getApplication().getAppComponent().inject(MenuMainActivity.this);
         init();
     }

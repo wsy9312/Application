@@ -13,6 +13,7 @@ import com.sd.storage.AndroidDisplay;
 import com.sd.storage.Display;
 import com.sd.storage.R;
 import com.sd.storage.dlib.comm.CommonMessageDialog;
+import com.sd.storage.dlib.utils.statusBarHelper.Helper;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -34,22 +35,22 @@ public abstract class BaseActivity extends AppCompatActivity{
         setContentView(getLayoutId());
         mUnbinder = ButterKnife.bind(this);
         mContext = this;
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        if(null != toolbar){
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if(null != toolbar){
             TextView tv_title = (TextView) findViewById(R.id.tv_title);
             if(null != tv_title){
                 tv_title.setText(getToolbarTitle());
             }
-//            setToolbar(toolbar);
-//        }
-//        if(isStatusBarChange()){
-//            Helper.statusBarLightMode(this);
-//        }
+            setToolbar(toolbar);
+        }
+        if(isStatusBarChange()){
+            Helper.statusBarLightMode(this);
+        }
     }
 
-//    protected boolean isStatusBarChange(){
-//        return true;
-//    }
+    protected boolean isStatusBarChange(){
+        return true;
+    }
 
     protected String getToolbarTitle(){
         return getString(R.string.app_name);

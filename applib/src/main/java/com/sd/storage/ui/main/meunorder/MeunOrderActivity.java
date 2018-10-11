@@ -14,6 +14,7 @@ import com.sd.storage.actions.ActionsCreator;
 import com.sd.storage.actions.MeunOderActionsCreator;
 import com.sd.storage.adapter.MeunOrderAdapter;
 import com.sd.storage.adapter.OrderAdapter;
+import com.sd.storage.add.StatusBarColorUtils;
 import com.sd.storage.app.StorageApplication;
 import com.sd.storage.dialog.MeunOrderPopuwindow;
 import com.sd.storage.dlib.store.Store;
@@ -70,6 +71,7 @@ public class MeunOrderActivity extends BaseSCActivity implements MeunOrderAdapte
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StatusBarColorUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
         StorageApplication.getApplication().getAppComponent().inject(this);
         init();
     }

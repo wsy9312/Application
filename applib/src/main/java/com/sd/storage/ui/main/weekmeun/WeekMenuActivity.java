@@ -16,6 +16,7 @@ import com.sd.storage.actions.ActionsCreator;
 import com.sd.storage.actions.WeekMeunActionsCreator;
 import com.sd.storage.adapter.RecyclerViewAdapter;
 import com.sd.storage.adapter.WeekMeunAdapter;
+import com.sd.storage.add.StatusBarColorUtils;
 import com.sd.storage.app.StorageApplication;
 import com.sd.storage.dialog.AddPopuwindow;
 import com.sd.storage.dlib.store.Store;
@@ -96,6 +97,7 @@ public class WeekMenuActivity extends BaseSCActivity implements WeekMeunAdapter.
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StatusBarColorUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
         StorageApplication.getApplication().getAppComponent().inject(this);
         initView();
         init();
