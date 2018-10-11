@@ -3,8 +3,6 @@ package com.sd.storage.app;
 import android.app.Application;
 import android.support.multidex.MultiDex;
 
-import com.iflytek.cloud.SpeechUtility;
-
 /**
  * Created by MrZhou on 2017/5/13.
  */
@@ -31,7 +29,7 @@ public class StorageApplication extends Application{
         MultiDex.install(this);
         appComponent = AppComponent.Initializer.init(this);
         appComponent.inject(this);
-        SpeechUtility.createUtility(getApplicationContext(), "appid=5b1bfec9");
+//        SpeechUtility.createUtility(getApplicationContext(), "appid=5b1bfec9");
     }
 
     public AppComponent getAppComponent() {

@@ -13,12 +13,12 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.example.hgtxxgl.application.R;
-import com.example.hgtxxgl.application.fragment.life.LifeFragment;
 import com.example.hgtxxgl.application.fragment.news.NewFragment;
 import com.example.hgtxxgl.application.fragment.notification.NotificationFragment;
 import com.example.hgtxxgl.application.fragment.personal.PersonalFragment;
 import com.example.hgtxxgl.application.fragment.total.TotalFragment;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
+import com.sd.storage.ui.main.MenuMainFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,7 +91,7 @@ public class DetailFragment extends Fragment {
 //                return new LaunchDetailFragment();
                 return new TotalFragment();
             } else if (currentPage == PageConfig.PAGE_LIFE) {
-                return new LifeFragment();
+                return new MenuMainFragment();
             } else if (currentPage == PageConfig.PAGE_ME) {
 //                return new CommissionDetailFragment();
                 return new PersonalFragment();

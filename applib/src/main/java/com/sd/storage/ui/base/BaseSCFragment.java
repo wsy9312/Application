@@ -1,15 +1,7 @@
 package com.sd.storage.ui.base;
 
-import android.content.DialogInterface;
-import android.support.v7.app.AlertDialog;
-
-
-import com.sd.storage.R;
 import com.sd.storage.actions.ActionsCreator;
-import com.sd.storage.app.StorageApplication;
-import com.sd.storage.common.ErrorStateCode;
 import com.sd.storage.dlib.store.Store;
-import com.sd.storage.dlib.utils.ToastUtils;
 import com.sd.storage.listener.OnErrorReloadListener;
 
 import rx.functions.Action1;
@@ -27,34 +19,22 @@ public abstract class BaseSCFragment extends BaseFragment implements OnErrorRelo
                 getActionsCreator().register(store);
             }
         }
-         initReturnEvent();
+        initEvent();
+//         initReturnEvent();
         super.onResume();
     }
 
-    protected void initReturnEvent(){
+    protected void  initEvent() {
         /**
          * 全局错误数据
          */
-        if(getStoreArray().length > 0){
+        if (getStoreArray().length > 0) {
             getStoreArray()[0].toMainSubscription(Store.AppErrorState.class, getAppErrorState());
         }
+        initReturnEvent();
     }
 
-    @Override
-    public void onPause() {
-        if(null != getActionsCreator()){
-            for (Store store: getStoreArray()) {
-                getActionsCreator().unregister(store);
-            }
-        }
-        unSubscribe();
-        super.onPause();
-    }
-
-
-    public abstract Store[] getStoreArray();
-
-    public abstract ActionsCreator getActionsCreator();
+    protected abstract void initReturnEvent();
 
     /**
      * 全局共通错误处理
@@ -68,7 +48,7 @@ public abstract class BaseSCFragment extends BaseFragment implements OnErrorRelo
                     return;
                 }
                 switch (errorState.state){
-                    // tokenId失效
+                  /*  // tokenId失效
                     case ErrorStateCode.TOKEN_ID_LOSE:
                         ToastUtils.showBaseToast(getString(R.string.user_logined_change_retry_login), mContext);
                         StorageApplication.getApplication().removeUser();
@@ -96,11 +76,36 @@ public abstract class BaseSCFragment extends BaseFragment implements OnErrorRelo
                             }
                         }).setNegativeButton(R.string.cancel, null).create().show();
                         onErrorServerChange();
-                        break;
+                        break;*/
                 }
             }
         };
     }
+   /* protected void initReturnEvent(){
+        *//**
+         * 全局错误数据
+         *//*
+        if(getStoreArray().length > 0){
+            getStoreArray()[0].toMainSubscription(Store.AppErrorState.class, getAppErrorState());
+        }
+    }*/
+
+    @Override
+    public void onPause() {
+        if(null != getActionsCreator()){
+            for (Store store: getStoreArray()) {
+                getActionsCreator().unregister(store);
+            }
+        }
+        unSubscribe();
+        super.onPause();
+    }
+
+
+    public abstract Store[] getStoreArray();
+
+    public abstract ActionsCreator getActionsCreator();
+
 
     /**
      * 登录状态发生改变
@@ -119,9 +124,9 @@ public abstract class BaseSCFragment extends BaseFragment implements OnErrorRelo
 
     @Override
     public void onErrorReload() {
-        if(getActivity() instanceof OnErrorReloadListener){
+        /*if(getActivity() instanceof OnErrorReloadListener){
             ((OnErrorReloadListener) getActivity()).onErrorReload();
-        }
+        }*/
     }
 
     @Override

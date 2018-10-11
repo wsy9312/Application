@@ -27,7 +27,7 @@ public class LifeFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragmnet_life, container, false);
+        View view = inflater.inflate(R.layout.fragmnet_life1, container, false);
         initToolbar(view);
         initButtons(view);
         return view;

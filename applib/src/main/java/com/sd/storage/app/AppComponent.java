@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.sd.storage.modules.AppModule;
 import com.sd.storage.ui.MenuMainActivity;
+import com.sd.storage.ui.main.MenuMainFragment;
 import com.sd.storage.ui.main.addcommend.AddCommentActivity;
 import com.sd.storage.ui.main.meunmanage.MeunManageActivity;
 import com.sd.storage.ui.main.meunmanage.addnewvege.AddNewVegeActivity;
@@ -70,5 +71,5 @@ public interface AppComponent {
 
     void inject(MenuMainActivity mainActivity);
 
-
+    void inject(MenuMainFragment fragment);
 }
