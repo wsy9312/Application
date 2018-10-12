@@ -12,15 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
-            android:drawableLeft="@drawable/ic_arrow_left"
+            android:src="@drawable/ic_arrow_left"
             android:paddingLeft="5dp"
             android:gravity="center_vertical"
             android:id="@+id/tv_left"
-            android:textColor="@color/white"
-            android:text=""
-            android:textSize="18sp"
             tools:visibility="visible"
             android:layout_height="wrap_content"
             android:textAppearance="?attr/textAppearanceListItemSmall"

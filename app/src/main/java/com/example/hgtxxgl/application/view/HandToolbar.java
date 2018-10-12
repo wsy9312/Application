@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hgtxxgl.application.R;
@@ -17,7 +18,8 @@ import com.example.hgtxxgl.application.R;
 public class HandToolbar extends FrameLayout {
 
     private static final int RES_ID = R.layout.layout_tool_bar;
-    private TextView tvTitle, tvLeft, tvRight;
+    private TextView tvTitle, tvRight;
+    private ImageView tvLeft;
     private OnButtonsClickCallback callback;
     private AlertDialog.Builder builder;
 
@@ -103,7 +105,7 @@ public class HandToolbar extends FrameLayout {
         inflate(context, R.layout.layout_tool_bar, this);
         tvTitle = (TextView) findViewById(R.id.tv_title);
         tvRight = (TextView) findViewById(R.id.tv_right);
-        tvLeft = (TextView) findViewById(R.id.tv_left);
+        tvLeft = (ImageView) findViewById(R.id.tv_left);
     }
 
     public void setTitle(CharSequence title) {
@@ -122,7 +124,8 @@ public class HandToolbar extends FrameLayout {
             if (drawable != null) {
                 drawable.setBounds(0, 0, 60, 60);
             }
-            tvLeft.setCompoundDrawables(drawable, null, null, null);
+            tvLeft.setImageDrawable(drawable);
+//            tvLeft.setCompoundDrawables(drawable, null, null, null);
         }
         if (resDrawable == null) {
             return;

@@ -61,10 +61,10 @@ public class MenuMainFragment extends BaseSCFragment implements View.OnClickList
     }
 
     public void init(View view) {
-        lin_weekMenu = (LinearLayout) view.findViewById(R.id.life_flow_presentfood);
-        lin_meunVote = (LinearLayout) view.findViewById(R.id.life_flow_toupiao);
-        lin_meunOrder = (LinearLayout) view.findViewById(R.id.life_flow_paihang);
-        lin_meunMannage = (LinearLayout) view.findViewById(R.id.life_flow_manage);
+        lin_weekMenu = view.findViewById(R.id.life_flow_presentfood);
+        lin_meunVote = view.findViewById(R.id.life_flow_toupiao);
+        lin_meunOrder = view.findViewById(R.id.life_flow_paihang);
+        lin_meunMannage = view.findViewById(R.id.life_flow_manage);
         lin_weekMenu.setOnClickListener(this);
         lin_meunVote.setOnClickListener(this);
         lin_meunOrder.setOnClickListener(this);

@@ -2,11 +2,17 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-<!--    <com.example.hgtxxgl.application.view.HandToolbar
+    <TextView
+        android:id="@+id/tv_life_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/life_handtoolbar"/>-->
+        android:background="@color/mainColor_blue"
+        android:gravity="center"
+        android:text="@string/life"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
     <ScrollView
+        android:layout_below="@+id/tv_life_title"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout

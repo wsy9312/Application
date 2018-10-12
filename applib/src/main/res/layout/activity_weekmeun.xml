@@ -63,8 +63,10 @@
 
         <ImageView
             android:id="@+id/im_select"
-            android:layout_width="@dimen/dimen_35"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:layout_gravity="center_vertical"
             android:background="@color/cefefef"
             android:gravity="center"
             android:src="@drawable/select" />
