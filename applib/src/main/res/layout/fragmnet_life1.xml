@@ -51,7 +51,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/temp1"/>
+                        android:src="@drawable/life_flow_caipu"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/temp2"/>
+                        android:src="@drawable/life_flow_toupiao"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -94,7 +94,7 @@
                     android:background="@drawable/bg_total_gray"
                     android:orientation="vertical">
                     <ImageView
-                        android:src="@drawable/temp3"
+                        android:src="@drawable/life_flow_paihang"
                         android:layout_marginBottom="2dp"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
@@ -117,7 +117,7 @@
                     android:background="@drawable/bg_total_gray"
                     android:orientation="vertical">
                     <ImageView
-                        android:src="@drawable/temp4"
+                        android:src="@drawable/life_flow_manage"
                         android:layout_marginBottom="2dp"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
