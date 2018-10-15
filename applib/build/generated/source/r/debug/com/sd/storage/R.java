@@ -1445,18 +1445,19 @@ public final class R {
         public static int week_item_base = 0x7f0f0066;
     }
     public static final class mipmap {
-        public static int ic_back_grey_v2 = 0x7f110001;
-        public static int ic_check = 0x7f110002;
-        public static int ic_launcher = 0x7f110003;
-        public static int ic_launcher_round = 0x7f110004;
-        public static int ic_login_top_bg = 0x7f110005;
-        public static int ic_procurement_exit_storage = 0x7f110006;
-        public static int ic_procurement_storage = 0x7f110007;
-        public static int ic_sell_exit_storage = 0x7f110008;
-        public static int ic_sell_storage = 0x7f110009;
-        public static int ic_transfer_slip = 0x7f11000a;
-        public static int make_purchase = 0x7f11000b;
-        public static int pull_down_false = 0x7f11000c;
+        public static int app_logo = 0x7f110001;
+        public static int ic_back_grey_v2 = 0x7f110002;
+        public static int ic_check = 0x7f110003;
+        public static int ic_launcher = 0x7f110004;
+        public static int ic_launcher_round = 0x7f110005;
+        public static int ic_login_top_bg = 0x7f110006;
+        public static int ic_procurement_exit_storage = 0x7f110007;
+        public static int ic_procurement_storage = 0x7f110008;
+        public static int ic_sell_exit_storage = 0x7f110009;
+        public static int ic_sell_storage = 0x7f11000a;
+        public static int ic_transfer_slip = 0x7f11000b;
+        public static int make_purchase = 0x7f11000c;
+        public static int pull_down_false = 0x7f11000d;
     }
     public static final class string {
         public static int abc_action_bar_home_description = 0x7f150001;

@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +14,12 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.example.hgtxxgl.application.R;
+import com.example.hgtxxgl.application.bean.login.PeopleInfoBean;
 import com.example.hgtxxgl.application.fragment.news.NewFragment;
 import com.example.hgtxxgl.application.fragment.notification.NotificationFragment;
 import com.example.hgtxxgl.application.fragment.personal.PersonalFragment;
 import com.example.hgtxxgl.application.fragment.total.TotalFragment;
+import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.PageConfig;
 import com.sd.storage.ui.main.MenuMainFragment;
 
@@ -91,7 +94,12 @@ public class DetailFragment extends Fragment {
 //                return new LaunchDetailFragment();
                 return new TotalFragment();
             } else if (currentPage == PageConfig.PAGE_LIFE) {
-                return new MenuMainFragment();
+                PeopleInfoBean.ApiGetMyInfoSimBean bean = ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0);
+                String loginName = bean.getLoginName();
+                String userid = bean.getNo();
+                String levelNo = bean.getAuthority();
+                Log.e("ren2","("+loginName+") ("+userid+") ("+levelNo+")");
+                return MenuMainFragment.newInstance(loginName,userid,levelNo);
             } else if (currentPage == PageConfig.PAGE_ME) {
 //                return new CommissionDetailFragment();
                 return new PersonalFragment();

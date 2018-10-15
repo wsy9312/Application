@@ -3,6 +3,7 @@ package com.sd.storage.ui.main;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.sd.storage.actions.TimeActionsCreator;
 import com.sd.storage.add.StatusBarColorUtils;
 import com.sd.storage.app.StorageApplication;
 import com.sd.storage.dlib.store.Store;
+import com.sd.storage.model.Fields;
 import com.sd.storage.stores.TimeStore;
 import com.sd.storage.ui.base.BaseSCFragment;
 import com.sd.storage.ui.main.meunorder.MeunOrderActivity;
@@ -43,13 +45,26 @@ public class MenuMainFragment extends BaseSCFragment implements View.OnClickList
     @Inject
     TimeStore timeStore;
 
-    private String userid, username, level;
+    private String userid = "123", username = "re123n", level = "1";
+
+    public static MenuMainFragment newInstance(String username,String userid,String level) {
+        Bundle args = new Bundle();
+        MenuMainFragment fragment = new MenuMainFragment();
+        args.putString(Fields.FIELD_USERNAME,username);
+        args.putString(Fields.FIELD_USERID,userid);
+        args.putString(Fields.FIELD_LEVEL,level);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         StatusBarColorUtils.setWindowStatusBarColor(getActivity(),R.color.mainColor_blue);
         StorageApplication.getApplication().getAppComponent().inject(this);
+        username = getArguments().getString(Fields.FIELD_USERNAME);
+        userid = getArguments().getString(Fields.FIELD_USERID);
+        level = getArguments().getString(Fields.FIELD_LEVEL);
     }
 
     @Nullable
@@ -70,9 +85,10 @@ public class MenuMainFragment extends BaseSCFragment implements View.OnClickList
         lin_meunOrder.setOnClickListener(this);
         lin_meunMannage.setOnClickListener(this);
 
-        level="1";
+        /*level="1";
         username="ren";
-        userid="2";
+        userid="2";*/
+        Log.e("ren1","("+username+") ("+userid+") ("+level+")");
         UrlManager.setLEVEl(level);
         UrlManager.setUSENAME(username);
         UrlManager.setUSERID(userid);

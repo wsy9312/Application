@@ -1,8 +1,10 @@
 package com.sd.storage.api;
 
 
+import com.sd.storage.actions.CommentModel;
 import com.sd.storage.dlib.model.DataContainer;
 import com.sd.storage.model.VageModel;
+import com.sd.storage.model.VegeTitle;
 import com.sd.storage.model.VoteTimeModel;
 import com.sd.storage.model.WeekMeunModel;
 
@@ -14,7 +16,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
-import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 import rx.Observable;
 
@@ -33,11 +34,11 @@ public interface ApiService {
 
 
     @GET("/Canteen/vege/selectVege.do")
-    Observable<DataContainer<ArrayList<VageModel>>> getVageDetails(@QueryMap Map<String, String> params);
+    Observable<DataContainer<VegeTitle>> getVageDetails(@QueryMap Map<String, String> params);
 
 
     @GET("/Canteen/vege/coment.do")
-    Observable<DataContainer<ArrayList<VageModel>>> getCommentList(@QueryMap Map<String, String> params);
+    Observable<DataContainer<ArrayList<CommentModel>>> getCommentList(@QueryMap Map<String, String> params);
 
     @GET("/Canteen/vege/stats.do")
     Observable<DataContainer<Object>> setGive(@QueryMap Map<String, String> params);

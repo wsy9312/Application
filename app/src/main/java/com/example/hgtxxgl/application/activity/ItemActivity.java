@@ -184,8 +184,8 @@ public class ItemActivity extends AppCompatActivity {
         }else {
             super.onBackPressed();
         }
-        if (!BackHandlerHelper.handleBackPress(this)) {
+        /*if (!BackHandlerHelper.handleBackPress(this)) {
             super.onBackPressed();
-        }
+        }*/
     }
 }

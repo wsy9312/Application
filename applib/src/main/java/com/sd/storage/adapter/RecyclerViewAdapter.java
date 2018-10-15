@@ -202,7 +202,10 @@ public class RecyclerViewAdapter extends Adapter<ViewHolder> implements View.OnC
                 ((ItemFaseViewHolder) holder).tv_name.setText(vageModel.vegename);
                 ((ItemFaseViewHolder) holder).tv_details.setText(vageModel.vegedesc);
                 ((ItemFaseViewHolder) holder).tv_give.setText(vageModel.vegegive);
-                ((ItemFaseViewHolder) holder).tv_conmment.setText(vageModel.vegecomment);
+                if(!"".equals(vageModel.vegecomment )&& null!=vageModel.vegecomment){
+                    ((ItemFaseViewHolder) holder).tv_conmment.setText(vageModel.vegecomment);
+                }
+
 
 
                 String url = vageModel.vegeimg;
@@ -255,7 +258,8 @@ public class RecyclerViewAdapter extends Adapter<ViewHolder> implements View.OnC
                 ((ItemLunchViewHolder) holder).tv_name.setText(vageModel.vegename);
                 ((ItemLunchViewHolder) holder).tv_details.setText(vageModel.vegedesc);
                 ((ItemLunchViewHolder) holder).tv_give.setText(vageModel.vegegive);
-                ((ItemLunchViewHolder) holder).tv_conmment.setText(vageModel.vegecomment);
+                if(!"".equals(vageModel.vegecomment )&& null!=vageModel.vegecomment){
+                ((ItemLunchViewHolder) holder).tv_conmment.setText(vageModel.vegecomment);}
                 //赞的总数
                 int vegestate = vageModel.vegestate;
                 if (vegestate == 0) {
@@ -301,7 +305,8 @@ public class RecyclerViewAdapter extends Adapter<ViewHolder> implements View.OnC
                 ((ItemAfterNoonViewHolder) holder).tv_details.setText(vageModel.vegedesc);
                 //赞的总数
                 ((ItemAfterNoonViewHolder) holder).tv_give.setText(vageModel.vegegive);
-                ((ItemAfterNoonViewHolder) holder).tv_conmment.setText(vageModel.vegecomment);
+                if(!"".equals(vageModel.vegecomment )&& null!=vageModel.vegecomment){
+                ((ItemAfterNoonViewHolder) holder).tv_conmment.setText(vageModel.vegecomment);}
 
                 int vegestate = vageModel.vegestate;
                 if (vegestate == 0) {

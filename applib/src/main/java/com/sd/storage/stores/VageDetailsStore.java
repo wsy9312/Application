@@ -1,18 +1,18 @@
 package com.sd.storage.stores;
 
 
-;
 import com.sd.storage.actions.CommentModel;
 import com.sd.storage.actions.MeunAction;
 import com.sd.storage.dlib.action.Action;
 import com.sd.storage.dlib.model.DataContainer;
 import com.sd.storage.dlib.store.Store;
-import com.sd.storage.model.VageModel;
-import com.sd.storage.model.WeekMeunModel;
+import com.sd.storage.model.VegeTitle;
 
 import java.util.ArrayList;
 
 import javax.inject.Inject;
+
+;
 
 /**
  * 详情
@@ -20,7 +20,10 @@ import javax.inject.Inject;
 public class VageDetailsStore extends Store<Action> {
 
 
-    private ArrayList<VageModel> vageModels = new ArrayList<>();
+
+
+
+    private VegeTitle vegeTitle;
 
     private ArrayList<CommentModel> commentModels = new ArrayList<>();
 
@@ -37,30 +40,26 @@ public class VageDetailsStore extends Store<Action> {
         return commentModels;
     }
 
-    public VageModel getVageModel() {
-        if (vageModels.size() > 0) {
-            return vageModels.get(0);
-        }
-        return null;
-
+    public VegeTitle getVegeTitle() {
+        return vegeTitle;
     }
 
     @Override
     public void doAction(Action action) {
         switch (action.getType()) {
             case MeunAction.VEGEDETAILS:
-                DataContainer<ArrayList<VageModel>> vageModelDataContainer = (DataContainer<ArrayList<VageModel>>) action.getData();
+                DataContainer<VegeTitle> vageModelDataContainer = (DataContainer<VegeTitle>) action.getData();
                 if (vageModelDataContainer.getResultOK()) {
-                    vageModels = vageModelDataContainer.data;
+                    vegeTitle = vageModelDataContainer.data;
                     dispatcherStore(new VegetChange());
                 } else {
                     dispatcherStore(new VegeChangeError(vageModelDataContainer.code, vageModelDataContainer.message));
                 }
                 break;
             case MeunAction.VAGECOMMENTLIST:
-                DataContainer<ArrayList<VageModel>> dataContainer = (DataContainer<ArrayList<VageModel>>) action.getData();
+                DataContainer<ArrayList<CommentModel>> dataContainer = (DataContainer<ArrayList<CommentModel>>) action.getData();
                 if (dataContainer.getResultOK()) {
-                    commentModels = dataContainer.data.get(0).coms;
+                    commentModels = dataContainer.data;
                     dispatcherStore(new CommentListChange());
                 } else {
                     dispatcherStore(new CommentListChangeError(dataContainer.code, dataContainer.message));

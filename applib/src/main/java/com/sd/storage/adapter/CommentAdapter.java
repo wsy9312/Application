@@ -49,6 +49,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         CommentModel commentModel= commentModels.get(position);
         holder.tv_usernem.setText(context.getResources().getString(R.string.userName,commentModel.username));
         holder.tv_comreview.setText(commentModel.comreview);
+
         holder.tv_time.setText(commentModel.comtime);
 
 

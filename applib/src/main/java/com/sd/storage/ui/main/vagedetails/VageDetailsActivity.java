@@ -19,7 +19,7 @@ import com.sd.storage.adapter.CommentAdapter;
 import com.sd.storage.add.StatusBarColorUtils;
 import com.sd.storage.app.StorageApplication;
 import com.sd.storage.dlib.store.Store;
-import com.sd.storage.model.VageModel;
+import com.sd.storage.model.VegeTitle;
 import com.sd.storage.stores.VageDetailsStore;
 import com.sd.storage.ui.base.BaseSCActivity;
 import com.sd.storage.util.ToastUtils;
@@ -70,7 +70,9 @@ public class VageDetailsActivity extends BaseSCActivity implements View.OnClickL
 
     private CommentAdapter adapter;
     private String vegeid;
-    private VageModel vageModel;
+   // private VageModel vageModel;
+
+    private VegeTitle vegeTitle;
     //记录点赞的总数
     private int vegegive;
     private boolean isGive = false;
@@ -125,10 +127,10 @@ public class VageDetailsActivity extends BaseSCActivity implements View.OnClickL
             @Override
             public void call(VageDetailsStore.VegetChange vegetChange) {
                 getDisplay().hideWaittingDialog();
-                vageModel = vageDetailsStore.getVageModel();
-                if(null!=vageModel){
+                vegeTitle = vageDetailsStore.getVegeTitle();
+
                     showPage();
-                }
+
 
             }
         });
@@ -221,16 +223,16 @@ public class VageDetailsActivity extends BaseSCActivity implements View.OnClickL
     }
 
     public void showPage() {
-        String url = vageModel.vegeimg;
+        String url = vegeTitle.vegeimg;
         if (null != url) {
             Glide.with(this).load(UrlManager.getUrlPath() + url).error(R.drawable.err_image).into(im_image);
         }
 
-        vegegive = Integer.parseInt(vageModel.vegegive);
-        vegename.setText(vageModel.vegename);
-        tv_give.setText(vageModel.vegegive);
-        tv_comment.setText(vageModel.vegecomment);
-        if (vageModel.vegestate == 0) {
+        vegegive = Integer.parseInt(vegeTitle.vegegive);
+        vegename.setText(vegeTitle.vegename);
+        tv_give.setText(vegeTitle.vegegive);
+        tv_comment.setText(vegeTitle.vegecomment);
+        if (vegeTitle.vegestate == 0) {
             isGive = false;
             im_giveup.setBackgroundResource(R.drawable.give_up_false);
         } else {

@@ -8,8 +8,7 @@ public class UrlManager {
 
     // http://192.168.1.107:8080/Canteen/today/todayAll.do
     //public static String HTTP_ROOT = "http://server.sinopharmspd.com:6041/";
-//192.168.1.161
-    public static String HTTP_ROOT = "http://192.168.1.161:8080/";
+    public static String HTTP_ROOT = "http://192.168.1.246:8080/";
 
     public static String USERID = "1";
     public static String USENAME = "WWW";
