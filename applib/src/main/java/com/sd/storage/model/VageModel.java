@@ -12,6 +12,9 @@ public class VageModel {
 
 
 
+
+
+
  /*"
                     "vegeid":22,
                     "dayid":1,
