@@ -20,7 +20,7 @@ public class PeopleInfoBean {
     public static class ApiGetMyInfoSimBean {
         /**
          * AuthenticationNo : 权限NO
-         * Authority : 权限
+         * Authority : 权限 0：不是管理员，1：是管理员 默认 0
          * CardNo : 身份证
          * IsAndroid : 是否Android
          * LoginName : 用户名
@@ -43,6 +43,11 @@ public class PeopleInfoBean {
          * bClosed : 1
          * TimeStamp : 1536283273
          * TFSerNo : 123
+         * "EditMenuAuth" : 1, 菜单管理权限
+         * "CheckInApplyAuth" : 0, 外来申请进入权限
+         * "CheckOutForCarAuth" : 0, 车辆外出申请权限
+         * "CheckOutForPersonAuth" : 0, 人物外出申请权限(非本人)
+         * "CheckStatisticsAuth" : 0, 查看统计数据权限(领导)
          */
 
         private String AuthenticationNo;
@@ -69,6 +74,51 @@ public class PeopleInfoBean {
         private String bClosed;
         private String TimeStamp;
         private String TFSerNo;
+        private String EditMenuAuth;
+        private String CheckInApplyAuth;
+        private String CheckOutForCarAuth;
+        private String CheckOutForPersonAuth;
+        private String CheckStatisticsAuth;
+
+        public String getEditMenuAuth() {
+            return EditMenuAuth;
+        }
+
+        public void setEditMenuAuth(String editMenuAuth) {
+            EditMenuAuth = editMenuAuth;
+        }
+
+        public String getCheckInApplyAuth() {
+            return CheckInApplyAuth;
+        }
+
+        public void setCheckInApplyAuth(String checkInApplyAuth) {
+            CheckInApplyAuth = checkInApplyAuth;
+        }
+
+        public String getCheckOutForCarAuth() {
+            return CheckOutForCarAuth;
+        }
+
+        public void setCheckOutForCarAuth(String checkOutForCarAuth) {
+            CheckOutForCarAuth = checkOutForCarAuth;
+        }
+
+        public String getCheckOutForPersonAuth() {
+            return CheckOutForPersonAuth;
+        }
+
+        public void setCheckOutForPersonAuth(String checkOutForPersonAuth) {
+            CheckOutForPersonAuth = checkOutForPersonAuth;
+        }
+
+        public String getCheckStatisticsAuth() {
+            return CheckStatisticsAuth;
+        }
+
+        public void setCheckStatisticsAuth(String checkStatisticsAuth) {
+            CheckStatisticsAuth = checkStatisticsAuth;
+        }
 
         public String getbClosed() {
             return bClosed;
