@@ -97,7 +97,7 @@ public class DetailFragment extends Fragment {
                 PeopleInfoBean.ApiGetMyInfoSimBean bean = ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0);
                 String loginName = bean.getLoginName();
                 String userid = bean.getNo();
-                String levelNo = bean.getAuthority();
+                String levelNo = bean.getEditMenuAuth();
                 Log.e("ren2","("+loginName+") ("+userid+") ("+levelNo+")");
                 return MenuMainFragment.newInstance(loginName,userid,levelNo);
             } else if (currentPage == PageConfig.PAGE_ME) {
