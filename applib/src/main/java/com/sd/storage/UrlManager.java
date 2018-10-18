@@ -1,5 +1,12 @@
 package com.sd.storage;
 
+import android.net.Uri;
+import android.util.Log;
+
+import java.net.URI;
+
+import retrofit2.http.Url;
+
 /**
  * Created  on 2017/5/13.
  */
@@ -7,7 +14,14 @@ package com.sd.storage;
 public class UrlManager {
 
     public static void setHttpRoot(String httpRoot) {
-        HTTP_ROOT = httpRoot;
+        Log.i("","httpRoot="+httpRoot);
+        Uri uri = Uri.parse(httpRoot);
+        int port = uri.getPort();
+        HTTP_ROOT= httpRoot.substring(0,httpRoot.length()-String.valueOf(port).length())+String.valueOf(port+10)+"/";
+      //  HTTP_ROOT = httpRoot.replaceFirst (String.valueOf(port), String.valueOf(newPort))+"/";
+        Log.i("","HTTP_ROOT="+HTTP_ROOT);
+
+
     }
 
     // http://192.168.1.107:8080/Canteen/today/todayAll.do
@@ -48,6 +62,7 @@ public class UrlManager {
     public static String getUrlPath() {
         return HTTP_ROOT + "Canteen/";
     }
+
 
 }
 
