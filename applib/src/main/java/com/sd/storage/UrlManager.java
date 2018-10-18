@@ -6,13 +6,18 @@ package com.sd.storage;
 
 public class UrlManager {
 
+    public static void setHttpRoot(String httpRoot) {
+        HTTP_ROOT = httpRoot;
+    }
+
     // http://192.168.1.107:8080/Canteen/today/todayAll.do
     //public static String HTTP_ROOT = "http://server.sinopharmspd.com:6041/";
-    public static String HTTP_ROOT = "http://192.168.1.246:8080/";
+//    public static String HTTP_ROOT = "http://192.168.1.246:8080/";
+    public static String HTTP_ROOT = "http://60.190.25.158:24545/";
 
-    public static String USERID = "1";
-    public static String USENAME = "WWW";
-    public static String LEVEl = "1";
+    public static String USERID = "";
+    public static String USENAME = "";
+    public static String LEVEl = "";
 
 
     public static String getLEVEl() {
