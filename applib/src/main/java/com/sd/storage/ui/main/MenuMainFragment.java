@@ -94,7 +94,7 @@ public class MenuMainFragment extends BaseSCFragment implements View.OnClickList
         UrlManager.setLEVEl(level);
         UrlManager.setUSENAME(username);
         UrlManager.setUSERID(userid);
-        UrlManager.setHttpRoot(ip);
+       // UrlManager.setHttpRoot(ip);
     }
 
     @Override
