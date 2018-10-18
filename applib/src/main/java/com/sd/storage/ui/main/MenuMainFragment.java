@@ -45,14 +45,15 @@ public class MenuMainFragment extends BaseSCFragment implements View.OnClickList
     @Inject
     TimeStore timeStore;
 
-    private String userid = "123", username = "re123n", level = "1";
+    private String userid = "", username = "", level = "", ip = "";
 
-    public static MenuMainFragment newInstance(String username,String userid,String level) {
+    public static MenuMainFragment newInstance(String username,String userid,String level,String ip) {
         Bundle args = new Bundle();
         MenuMainFragment fragment = new MenuMainFragment();
         args.putString(Fields.FIELD_USERNAME,username);
         args.putString(Fields.FIELD_USERID,userid);
         args.putString(Fields.FIELD_LEVEL,level);
+        args.putString(Fields.FIELD_TEMPIP,ip);
         fragment.setArguments(args);
         return fragment;
     }
@@ -65,6 +66,7 @@ public class MenuMainFragment extends BaseSCFragment implements View.OnClickList
         username = getArguments().getString(Fields.FIELD_USERNAME);
         userid = getArguments().getString(Fields.FIELD_USERID);
         level = getArguments().getString(Fields.FIELD_LEVEL);
+        ip = getArguments().getString(Fields.FIELD_TEMPIP);
     }
 
     @Nullable
@@ -88,10 +90,11 @@ public class MenuMainFragment extends BaseSCFragment implements View.OnClickList
         /*level="1";
         username="ren";
         userid="2";*/
-        Log.e("ren1","("+username+") ("+userid+") ("+level+")");
+        Log.e("ren1","("+username+") ("+userid+") ("+level+")"+") ("+ip);
         UrlManager.setLEVEl(level);
         UrlManager.setUSENAME(username);
         UrlManager.setUSERID(userid);
+        UrlManager.setHttpRoot(ip);
     }
 
     @Override
@@ -137,7 +140,7 @@ public class MenuMainFragment extends BaseSCFragment implements View.OnClickList
         timeStore.toMainSubscription(TimeStore.VoteTimeChangeError.class, new Action1<TimeStore.VoteTimeChangeError>() {
             @Override
             public void call(TimeStore.VoteTimeChangeError changeError) {
-                getDisplay().hideWaittingDialog();
+//                getDisplay().hideWaittingDialog();
                 ToastUtils.showBaseToast(changeError.msge, getContext());
             }
         });

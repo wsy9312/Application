@@ -2,33 +2,45 @@ package com.example.hgtxxgl.application.fragment.apply;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.RelativeLayout;
 
+import com.example.hgtxxgl.application.R;
 import com.example.hgtxxgl.application.attachment.ImagePickerAdapter;
+import com.example.hgtxxgl.application.bean.file.AddFileBean;
 import com.example.hgtxxgl.application.bean.login.LoginInfoBean;
 import com.example.hgtxxgl.application.bean.people.PeopleApplyBean;
 import com.example.hgtxxgl.application.rest.CommonFragment;
 import com.example.hgtxxgl.application.rest.HandInputGroup;
+import com.example.hgtxxgl.application.utils.Base64BitmapUtil;
 import com.example.hgtxxgl.application.utils.hand.ApplicationApp;
 import com.example.hgtxxgl.application.utils.hand.HttpManager;
 import com.example.hgtxxgl.application.utils.hand.ToastUtil;
+import com.example.hgtxxgl.application.utils.hyutils.L;
 import com.example.hgtxxgl.application.view.HandToolbar;
 import com.google.gson.Gson;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
+import com.lzy.imagepicker.ui.ImageGridActivity;
+import com.lzy.imagepicker.ui.ImagePreviewDelActivity;
 
+import java.io.File;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Request;
 
-public class SickApplyFragment extends CommonFragment/* implements ImagePickerAdapter.OnRecyclerViewItemClickListener*/{
+public class SickApplyFragment extends CommonFragment implements ImagePickerAdapter.OnRecyclerViewItemClickListener{
     private final static String TAG = "SickApplyFragment";
     private String name;
     private String unit;
@@ -79,6 +91,56 @@ public class SickApplyFragment extends CommonFragment/* implements ImagePickerAd
                             +selImageList.get(0).addTime+"-"
                             +selImageList.get(0).height+"-"
                             +selImageList.get(0).width);
+                    File file = new File(selImageList.get(0).path);
+                    Bitmap bitmap = null;
+                    if(file.exists()){
+                        Bitmap bm = BitmapFactory.decodeFile(selImageList.get(0).path);
+                        Log.e(TAG,"压缩前:"+Base64BitmapUtil.getBitmapSize(bm));
+                        if (selImageList.get(0).path.endsWith(".png")){
+                            bitmap = Base64BitmapUtil.getimage(selImageList.get(0).path,1);
+                        }else if (selImageList.get(0).path.endsWith(".jpg")){
+                            bitmap = Base64BitmapUtil.getimage(selImageList.get(0).path,0);
+                        }
+                        String base64Bitmap = Base64BitmapUtil.bitmapToBase64(bitmap);
+                        Log.e(TAG,"压缩后:"+Base64BitmapUtil.getBitmapSize(bitmap));
+                        AddFileBean.ApiAddFileBean fileBean = new AddFileBean.ApiAddFileBean();
+                        fileBean.setAuthenticationNo(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo());
+                        fileBean.setFile(base64Bitmap);
+                        String json = new Gson().toJson(fileBean);
+                        String s1 = "Api_Add_File " + json;
+                        HttpManager.getInstance().requestNewResultForm(getTempIP(), s1, AddFileBean.class, new HttpManager.ResultNewCallback<AddFileBean>() {
+                            @Override
+                            public void onSuccess(String json, AddFileBean addFileBean) throws Exception {
+                                L.e(TAG+"onSuccess",json);
+                            }
+
+                            @Override
+                            public void onError(String msg) throws Exception {
+                                L.e(TAG+"onError",msg);
+                            }
+
+                            @Override
+                            public void onResponse(String response) throws Exception {
+                                L.e(TAG+"onResponse",response);
+                            }
+
+                            @Override
+                            public void onBefore(Request request, int id) throws Exception {
+
+                            }
+
+                            @Override
+                            public void onAfter(int id) throws Exception {
+
+                            }
+
+                            @Override
+                            public void inProgress(float progress, long total, int id) throws Exception {
+
+                            }
+                        });
+                    }
+
                 }
             }
         } else if (resultCode == ImagePicker.RESULT_CODE_BACK) {
@@ -275,39 +337,39 @@ public class SickApplyFragment extends CommonFragment/* implements ImagePickerAd
         }
     }
 
-//    @Override
-//    public void initWidget(RelativeLayout layout) {
-//        RecyclerView recyclerView = (RecyclerView) layout.findViewById(R.id.recyclerView);
-//        selImageList = new ArrayList<>();
-//        adapter = new ImagePickerAdapter(getActivity(), selImageList, maxImgCount);
-//        adapter.setOnItemClickListener(this);
-//
-//        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 4));
-//        recyclerView.setHasFixedSize(true);
-//        recyclerView.setAdapter(adapter);
-//    }
+    @Override
+    public void initWidget(RelativeLayout layout) {
+        RecyclerView recyclerView = (RecyclerView) layout.findViewById(R.id.recyclerView);
+        selImageList = new ArrayList<>();
+        adapter = new ImagePickerAdapter(getActivity(), selImageList, maxImgCount);
+        adapter.setOnItemClickListener(this);
 
-//    @Override
-//    public void onItemClick(View view, int position) {
-//        switch (position) {
-//            case IMAGE_ITEM_ADD:
-//                //打开选择,本次允许选择的数量
-//                ImagePicker.getInstance().setSelectLimit(maxImgCount - selImageList.size());
-//                Intent intent1 = new Intent(getActivity(), ImageGridActivity.class);
-//                /* 如果需要进入选择的时候显示已经选中的图片，
-//                 * 详情请查看ImagePickerActivity
-//                 * */
-//                //intent1.putExtra(ImageGridActivity.EXTRAS_IMAGES,images);
-//                startActivityForResult(intent1, REQUEST_CODE_SELECT);
-//                break;
-//            default:
-//                //打开预览
-//                Intent intentPreview = new Intent(getActivity(), ImagePreviewDelActivity.class);
-//                intentPreview.putExtra(ImagePicker.EXTRA_IMAGE_ITEMS, (ArrayList<ImageItem>) adapter.getImages());
-//                intentPreview.putExtra(ImagePicker.EXTRA_SELECTED_IMAGE_POSITION, position);
-//                intentPreview.putExtra(ImagePicker.EXTRA_FROM_ITEMS, true);
-//                startActivityForResult(intentPreview, REQUEST_CODE_PREVIEW);
-//                break;
-//        }
-//    }
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 4));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        switch (position) {
+            case IMAGE_ITEM_ADD:
+                //打开选择,本次允许选择的数量
+                ImagePicker.getInstance().setSelectLimit(maxImgCount - selImageList.size());
+                Intent intent1 = new Intent(getActivity(), ImageGridActivity.class);
+                /* 如果需要进入选择的时候显示已经选中的图片，
+                 * 详情请查看ImagePickerActivity
+                 * */
+                //intent1.putExtra(ImageGridActivity.EXTRAS_IMAGES,images);
+                startActivityForResult(intent1, REQUEST_CODE_SELECT);
+                break;
+            default:
+                //打开预览
+                Intent intentPreview = new Intent(getActivity(), ImagePreviewDelActivity.class);
+                intentPreview.putExtra(ImagePicker.EXTRA_IMAGE_ITEMS, (ArrayList<ImageItem>) adapter.getImages());
+                intentPreview.putExtra(ImagePicker.EXTRA_SELECTED_IMAGE_POSITION, position);
+                intentPreview.putExtra(ImagePicker.EXTRA_FROM_ITEMS, true);
+                startActivityForResult(intentPreview, REQUEST_CODE_PREVIEW);
+                break;
+        }
+    }
 }

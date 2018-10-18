@@ -1,5 +1,6 @@
 package com.example.hgtxxgl.application.fragment;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -26,8 +27,11 @@ import com.sd.storage.ui.main.MenuMainFragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static com.example.hgtxxgl.application.utils.hand.Fields.SAVE_IP;
+
 //首页四个fragment的通类
 public class DetailFragment extends Fragment {
     private int currentPage;
@@ -97,9 +101,11 @@ public class DetailFragment extends Fragment {
                 PeopleInfoBean.ApiGetMyInfoSimBean bean = ApplicationApp.getPeopleInfoBean().getApi_Get_MyInfoSim().get(0);
                 String loginName = bean.getLoginName();
                 String userid = bean.getNo();
-                String levelNo = bean.getEditMenuAuth();
+                String levelNo = bean.getAuthority();
                 Log.e("ren2","("+loginName+") ("+userid+") ("+levelNo+")");
-                return MenuMainFragment.newInstance(loginName,userid,levelNo);
+                SharedPreferences share = getActivity().getSharedPreferences(SAVE_IP, MODE_PRIVATE);
+                String tempIP = share.getString("tempIP", "IP address is empty");
+                return MenuMainFragment.newInstance(loginName,userid,levelNo,tempIP);
             } else if (currentPage == PageConfig.PAGE_ME) {
 //                return new CommissionDetailFragment();
                 return new PersonalFragment();
