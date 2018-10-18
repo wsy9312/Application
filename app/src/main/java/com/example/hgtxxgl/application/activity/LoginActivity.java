@@ -211,7 +211,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 int apnType = NetworkHttpManager.getAPNType(getApplicationContext());
                 SharedPreferences share = getSharedPreferences(SAVE_IP, MODE_PRIVATE);
-
                 tempIP = share.getString("tempIP", "");
                 UrlManager.setHttpRoot(tempIP);
                 if (apnType == 0){
