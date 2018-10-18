@@ -51,6 +51,7 @@ import com.example.hgtxxgl.application.view.IPEditText;
 import com.example.hgtxxgl.application.view.UrlListAdapter;
 import com.example.hgtxxgl.application.view.UrlSelector;
 import com.google.gson.Gson;
+import com.sd.storage.UrlManager;
 
 import java.util.Map;
 
@@ -211,6 +212,7 @@ public class LoginActivity extends AppCompatActivity {
                 int apnType = NetworkHttpManager.getAPNType(getApplicationContext());
                 SharedPreferences share = getSharedPreferences(SAVE_IP, MODE_PRIVATE);
                 tempIP = share.getString("tempIP", "");
+                UrlManager.setHttpRoot(tempIP);
                 if (apnType == 0){
                     show(getString(R.string.current_no_network));
                 }else if (TextUtils.isEmpty(tempIP)){
@@ -247,6 +249,7 @@ public class LoginActivity extends AppCompatActivity {
                         DEMO_URL = url;
                         edit.putString("tempIP", DEMO_URL);
                         edit.commit();
+
                     }
                 });
 
