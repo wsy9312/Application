@@ -214,6 +214,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 tempIP = share.getString("tempIP", "");
                 UrlManager.setHttpRoot(tempIP);
+
                 if (apnType == 0){
                     show(getString(R.string.current_no_network));
                 }else if (TextUtils.isEmpty(tempIP)){
