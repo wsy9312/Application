@@ -16,7 +16,6 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -63,6 +62,7 @@ public class ApiServiceModule {
     @Provides
     @Singleton
     ApiService provideApiService(Retrofit.Builder builder) {
+        String HTTP_ROOT= UrlManager.HTTP_ROOT;
         Retrofit retrofit = builder.baseUrl(HTTP_ROOT).build();
         return retrofit.create(ApiService.class);
     }
