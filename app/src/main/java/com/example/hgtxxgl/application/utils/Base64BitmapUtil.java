@@ -4,9 +4,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.util.Base64;
+import android.util.Log;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 public class Base64BitmapUtil {
@@ -29,7 +31,7 @@ public class Base64BitmapUtil {
                 baos.close();
 
                 byte[] bitmapBytes = baos.toByteArray();
-                result = Base64.encodeToString(bitmapBytes, Base64.DEFAULT);
+                result = Base64.encodeToString(bitmapBytes, Base64.NO_WRAP);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -121,4 +123,56 @@ public class Base64BitmapUtil {
         // 在低版本中用一行的字节x高度
         return bitmap.getRowBytes() * bitmap.getHeight();                //earlier version
     }
+
+    /**
+     * 照片转byte二进制
+     * @param imagepath 需要转byte的照片路径
+     * @return 已经转成的byte
+     * @throws Exception
+     */
+    public static byte[] readStream(String imagepath) throws Exception {
+
+        FileInputStream fs = new FileInputStream(imagepath);
+        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024*2];
+        int len = 0;
+        while (-1 != (len = fs.read(buffer))) {
+            outStream.write(buffer, 0, len);
+        }
+        outStream.close();
+        fs.close();
+        Log.e("########",outStream.toByteArray()+"");
+        return outStream.toByteArray();
+    }
+
+    // 二进制转字符串
+    public static String byte2hex(byte[] b)
+    {
+        StringBuffer sb = new StringBuffer();
+        String tmp = "";
+        for (int i = 0; i < b.length; i++) {
+            tmp = Integer.toHexString(b[i] & 0XFF);
+            if (tmp.length() == 1){
+                sb.append("0" + tmp);
+            }else{
+                sb.append(tmp);
+            }
+
+        }
+        return sb.toString();
+    }
+
+    public static byte[] getBitmapByte(Bitmap bitmap){
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+        try {
+            out.flush();
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Log.e("########",out.toByteArray()+"");
+        return out.toByteArray();
+    }
+
 }
