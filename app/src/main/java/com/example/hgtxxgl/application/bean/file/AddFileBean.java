@@ -19,11 +19,41 @@ public class AddFileBean {
          * AuthenticationNo : 1E79E134
          * File : asdasdasdasd
          * Ext : png
+         * FileName  : "文件名"
+         * IsAndroid  :
+         * TimeStamp  :
          */
 
         private String AuthenticationNo;
         private String File;
         private String Ext;
+        private String FileName;
+        private String IsAndroid;
+        private String TimeStamp;
+
+        public String getFileName() {
+            return FileName;
+        }
+
+        public void setFileName(String fileName) {
+            FileName = fileName;
+        }
+
+        public String getIsAndroid() {
+            return IsAndroid;
+        }
+
+        public void setIsAndroid(String isAndroid) {
+            IsAndroid = isAndroid;
+        }
+
+        public String getTimeStamp() {
+            return TimeStamp;
+        }
+
+        public void setTimeStamp(String timeStamp) {
+            TimeStamp = timeStamp;
+        }
 
         public String getAuthenticationNo() {
             return AuthenticationNo;

@@ -47,7 +47,7 @@ public class SickApplyFragment extends CommonFragment implements ImagePickerAdap
     private String department;
     private ImagePickerAdapter adapter;
     private ArrayList<ImageItem> selImageList; //当前选择的所有图片
-    private int maxImgCount = 8;               //允许选择图片最大数
+    private int maxImgCount = 4;               //允许选择图片最大数
     private LoginInfoBean.ApiAddLoginBean loginBean;
 
     ArrayList<ImageItem> images = null;
@@ -95,20 +95,32 @@ public class SickApplyFragment extends CommonFragment implements ImagePickerAdap
                     Bitmap bitmap = null;
                     if(file.exists()){
                         Bitmap bm = BitmapFactory.decodeFile(selImageList.get(0).path);
-                        Log.e(TAG,"压缩前:"+Base64BitmapUtil.getBitmapSize(bm));
+//                        Log.e(TAG,"压缩前:"+Base64BitmapUtil.getBitmapSize(bm));
                         if (selImageList.get(0).path.endsWith(".png")){
                             bitmap = Base64BitmapUtil.getimage(selImageList.get(0).path,1);
                         }else if (selImageList.get(0).path.endsWith(".jpg")){
                             bitmap = Base64BitmapUtil.getimage(selImageList.get(0).path,0);
                         }
                         String base64Bitmap = Base64BitmapUtil.bitmapToBase64(bitmap);
-                        Log.e(TAG,"压缩后:"+Base64BitmapUtil.getBitmapSize(bitmap));
+//                        Log.e(TAG,"压缩后:"+Base64BitmapUtil.getBitmapSize(bitmap));
                         AddFileBean.ApiAddFileBean fileBean = new AddFileBean.ApiAddFileBean();
                         fileBean.setAuthenticationNo(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getAuthenticationNo());
-                        fileBean.setFile(base64Bitmap);
+                        fileBean.setFileName(selImageList.get(0).name);
+                        fileBean.setIsAndroid("1");
+                        fileBean.setTimeStamp(ApplicationApp.getLoginInfoBean().getApi_Add_Login().get(0).getTimeStamp());
+//                        fileBean.setFile(base64Bitmap.replace("\\",""));
                         String json = new Gson().toJson(fileBean);
-                        String s1 = "Api_Add_File " + json;
-                        HttpManager.getInstance().requestNewResultForm(getTempIP(), s1, AddFileBean.class, new HttpManager.ResultNewCallback<AddFileBean>() {
+                        String s1 = null;
+                        String s2 = null;
+                        try {
+                            s1 = "Api_Add_File " + json+ String.valueOf(Base64BitmapUtil.getBitmapByte(bm));
+                            s2 = "Api_Add_File " + json+ Base64BitmapUtil.readStream(selImageList.get(0).path);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        Log.e(TAG,"传图片1:"+s1);
+                        Log.e(TAG,"传图片2:"+s2);
+                        HttpManager.getInstance().requestNewResultForm("http://192.168.1.194:24545", s1, AddFileBean.class, new HttpManager.ResultNewCallback<AddFileBean>() {
                             @Override
                             public void onSuccess(String json, AddFileBean addFileBean) throws Exception {
                                 L.e(TAG+"onSuccess",json);
