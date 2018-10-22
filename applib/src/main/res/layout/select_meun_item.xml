@@ -58,16 +58,16 @@
                     android:textSize="@dimen/dimen_20" />
 
                 <TextView
-                    android:visibility="gone"
+
                     android:id="@+id/tv_meunestatus"
                     android:layout_width="@dimen/dimen_30"
                     android:layout_height="@dimen/dimen_30"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginRight="@dimen/dimen_10"
+                    android:layout_marginRight="@dimen/dimen_5"
                     android:background="@drawable/major_meun_bg"
                     android:gravity="center"
                     android:text="主"
-                    android:textColor="@color/c7387df"
+                    android:textColor="@color/cffffff"
                     android:textSize="@dimen/dimen_20"
                     />
 
