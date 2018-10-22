@@ -20,7 +20,7 @@ import retrofit2.http.QueryMap;
 import rx.Observable;
 
 /**
- * Created by MrZhou on 2016/9/26.
+ * Created by  on 2016/9/26.
  */
 public interface ApiService {
 
