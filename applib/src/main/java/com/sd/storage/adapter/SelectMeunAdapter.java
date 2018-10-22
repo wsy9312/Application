@@ -70,7 +70,12 @@ public class SelectMeunAdapter extends RecyclerView.Adapter<SelectMeunAdapter.Vi
         holder.im_delet.setTag(position);
         holder.im_delet.setOnClickListener(this);
 
-
+        String heatid = vageModel.heatid;
+        if ("0".equals(heatid)) {
+            holder.tv_meunestatus.setVisibility(View.VISIBLE);
+        } else {
+            holder.tv_meunestatus.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -126,6 +131,7 @@ public class SelectMeunAdapter extends RecyclerView.Adapter<SelectMeunAdapter.Vi
 
 //        @BindView(R.id.im_delet)
         ImageView im_delet;
+        TextView tv_meunestatus;
 
         public ViewHolder(View view) {
             super(view);
@@ -134,6 +140,7 @@ public class SelectMeunAdapter extends RecyclerView.Adapter<SelectMeunAdapter.Vi
             im_add = view.findViewById(R.id.im_add);
             im_image = view.findViewById(R.id.im_image);
             im_delet = view.findViewById(R.id.im_delet);
+            tv_meunestatus = view.findViewById(R.id.tv_meunestatus);
 //            ButterKnife.bind(this, view);
         }
     }
