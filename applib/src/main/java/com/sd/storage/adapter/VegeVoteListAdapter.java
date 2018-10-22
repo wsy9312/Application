@@ -53,6 +53,8 @@ public class VegeVoteListAdapter extends RecyclerView.Adapter<VegeVoteListAdapte
         VageModel vageModel = vageModels.get(position);
         holder.tv_name.setText(vageModel.vegename);
         holder.tv_details.setText(vageModel.vegedesc);
+
+
         holder.tv_give.setText(vageModel.vegevote);
 
 

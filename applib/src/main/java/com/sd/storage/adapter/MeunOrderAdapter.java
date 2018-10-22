@@ -58,7 +58,11 @@ public class MeunOrderAdapter extends RecyclerView.Adapter<MeunOrderAdapter.View
         }
         holder.tv_name.setText(vageModel.vegename);
         holder.tv_details.setText(vageModel.vegedesc);
-        holder.tv_conmment.setText(vageModel.vegecomment);
+        String comment=vageModel.vegecomment;
+        if(null!=comment && !"".equals(comment)){
+            holder.tv_conmment.setText(vageModel.vegecomment);
+        }
+
 
         //赞的总数
         if ("1".equals(type)) {

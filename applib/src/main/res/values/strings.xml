@@ -37,6 +37,8 @@
     <string name="more_comment">评论最多</string>
     <string name="add_newVege">新增</string>
     <string name="str_edit">编辑</string>
+    <string name="forward_selection">预选单</string>
+    <string name="forward_order">预选菜单</string>
     <string name="add_new_vege">添加菜品</string>
     <string name="add_success">添加成功</string>
     <string name="str_clear_vege">清空</string>
@@ -83,6 +85,8 @@
     <string name="code_get_frequently">验证码获取频繁</string>
     <string name="data_null">当前请求无数据~</string>
     <string name="confirm">确定</string>
+    <string name="order_manage">菜谱管理</string>
+    <string name="order_time">投票时间</string>
 
     <string-array name="week_name">
         <item>周一</item>

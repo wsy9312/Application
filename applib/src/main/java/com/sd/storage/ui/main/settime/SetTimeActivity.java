@@ -88,7 +88,7 @@ public class SetTimeActivity extends BaseSCActivity implements View.OnClickListe
         tv_submit.setOnClickListener(this);
 
 
-        tv_title.setText(R.string.setting_time);
+        tv_title.setText(R.string.order_time);
         timeActionsCreator.selectAllVoteTime();
     }
 

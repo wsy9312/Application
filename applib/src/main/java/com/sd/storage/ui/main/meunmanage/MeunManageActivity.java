@@ -17,6 +17,7 @@ import com.sd.storage.actions.AllMeunActionsCreator;
 import com.sd.storage.adapter.AllMeunAdapter;
 import com.sd.storage.add.StatusBarColorUtils;
 import com.sd.storage.app.StorageApplication;
+import com.sd.storage.dialog.DeletSubmitDialog;
 import com.sd.storage.dlib.store.Store;
 import com.sd.storage.model.VageModel;
 import com.sd.storage.stores.AllMeunStore;
@@ -33,7 +34,7 @@ import rx.functions.Action1;
  * Created by Administrator on 2018-09-13.
  */
 
-public class MeunManageActivity extends BaseSCActivity implements AllMeunAdapter.OnItemMeunClickListener, View.OnClickListener {
+public class MeunManageActivity extends BaseSCActivity implements AllMeunAdapter.OnItemMeunClickListener, View.OnClickListener, DeletSubmitDialog.OnSureClickListener {
 
     @Inject
     AllMeunActionsCreator allMeunActionsCreator;
@@ -42,13 +43,13 @@ public class MeunManageActivity extends BaseSCActivity implements AllMeunAdapter
 
     private ArrayList<VageModel> vageModels = new ArrayList<>();
 
-//    @BindView(R.id.et_search)
+    //    @BindView(R.id.et_search)
     EditText et_search;
 
-//    @BindView(R.id.recyclerView)
+    //    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
-//    @BindView(R.id.SwipeRefreshLayout)
+    //    @BindView(R.id.SwipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
     LinearLayout im_back;
     ImageView im_search;
@@ -58,11 +59,13 @@ public class MeunManageActivity extends BaseSCActivity implements AllMeunAdapter
     private AllMeunAdapter adapter;
 
     private int point;
+    private DeletSubmitDialog deletSubmitDialog;
+    private String vegeid;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        StatusBarColorUtils.setWindowStatusBarColor(this,R.color.mainColor_blue);
+        StatusBarColorUtils.setWindowStatusBarColor(this, R.color.mainColor_blue);
         StorageApplication.getApplication().getAppComponent().inject(this);
         init();
     }
@@ -80,6 +83,8 @@ public class MeunManageActivity extends BaseSCActivity implements AllMeunAdapter
     }
 
     public void init() {
+        deletSubmitDialog = new DeletSubmitDialog();
+        deletSubmitDialog.setOnSureClickListener(this);
         et_search = (EditText) findViewById(R.id.et_search);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.SwipeRefreshLayout);
@@ -107,7 +112,6 @@ public class MeunManageActivity extends BaseSCActivity implements AllMeunAdapter
         recyclerView.setAdapter(adapter);
     }
 
-//    @OnClick({R.id.im_back, R.id.im_search, R.id.tv_edit, R.id.tv_add_new})
     @Override
     public void onClick(View view) {
         int i = view.getId();
@@ -254,10 +258,17 @@ public class MeunManageActivity extends BaseSCActivity implements AllMeunAdapter
     }
 
     @Override
-    public void onItemDeletClick(int point, String vegeid) {
+    public void onItemDeletClick(int point, String vegeid, String name) {
         this.point = point;
+        this.vegeid = vegeid;
+
+        deletSubmitDialog.show(getFragmentManager(), "");
+        deletSubmitDialog.setVegeName(name + "?");
+    }
+
+    @Override
+    public void onSubmitSure() {
+        deletSubmitDialog.dismiss();
         allMeunActionsCreator.deleteFoodstore(vegeid);
-
-
     }
 }

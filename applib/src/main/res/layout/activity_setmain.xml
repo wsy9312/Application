@@ -16,10 +16,10 @@
         android:layout_marginLeft="@dimen/dimen_16"
         android:layout_marginRight="@dimen/dimen_16"
         android:layout_marginTop="@dimen/dimen_16"
-        android:background="@color/cefefef"
+        android:background="@color/c7387df"
         android:gravity="center"
-        android:text="菜谱管理"
-        android:textColor="@color/c808080"
+        android:text="@string/order_manage"
+        android:textColor="@color/cffffff"
         android:textSize="@dimen/dimen_16" />
 
     <TextView
@@ -29,10 +29,10 @@
         android:layout_marginLeft="@dimen/dimen_16"
         android:layout_marginRight="@dimen/dimen_16"
         android:layout_marginTop="@dimen/dimen_16"
-        android:background="@color/cefefef"
+        android:background="@color/c7387df"
         android:gravity="center"
-        android:text="时间设置"
-        android:textColor="@color/c808080"
+        android:text="@string/order_time"
+        android:textColor="@color/cffffff"
         android:textSize="@dimen/dimen_16" />
 
 

@@ -98,7 +98,7 @@ public class AllMeunAdapter extends RecyclerView.Adapter<AllMeunAdapter.ViewHold
         } else if (i == R.id.im_delet) {
             if (null != onItemMeunClickListener) {
                 int tpoint = (int) view.getTag();
-                onItemMeunClickListener.onItemDeletClick(tpoint, vageModels.get(tpoint).vegeid);
+                onItemMeunClickListener.onItemDeletClick(tpoint, vageModels.get(tpoint).vegeid,vageModels.get(tpoint).vegename);
             }
 
         }
@@ -107,7 +107,7 @@ public class AllMeunAdapter extends RecyclerView.Adapter<AllMeunAdapter.ViewHold
     public interface OnItemMeunClickListener {
         void onItemClick(int point);
 
-        void onItemDeletClick(int point,String vegeid);
+        void onItemDeletClick(int point,String vegeid,String name);
 
     }
 

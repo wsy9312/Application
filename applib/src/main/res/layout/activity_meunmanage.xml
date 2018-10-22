@@ -28,6 +28,8 @@
         </LinearLayout>
 
         <LinearLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/dimen_5"
@@ -62,7 +64,7 @@
             android:gravity="center"
             android:paddingLeft="@dimen/dimen_10"
             android:paddingRight="@dimen/dimen_15"
-            android:text="@string/str_edit"
+            android:text="@string/forward_selection"
             android:textColor="@color/white"
             android:textSize="@dimen/dimen_15" />
 

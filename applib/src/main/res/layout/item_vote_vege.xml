@@ -87,7 +87,7 @@
                     android:layout_weight="1"
                     android:ellipsize="end"
                     android:lines="3"
-                    android:text="描述"
+                    android:text=""
                     android:textColor="@color/c808080"
                     android:textSize="@dimen/dimen_15" />
 
