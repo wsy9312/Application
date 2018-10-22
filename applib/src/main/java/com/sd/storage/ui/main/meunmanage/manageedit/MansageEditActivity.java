@@ -84,7 +84,7 @@ public class MansageEditActivity extends BaseSCActivity implements SelectMeunAda
         im_back.setOnClickListener(this);
         tv_clear.setOnClickListener(this);
 
-        tv_title.setText(R.string.str_edit);
+        tv_title.setText(R.string.forward_order);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

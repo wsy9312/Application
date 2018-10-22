@@ -88,7 +88,7 @@
                     android:layout_weight="1"
                     android:ellipsize="end"
                     android:lines="3"
-                    android:text="描述"
+                    android:text=""
                     android:textColor="@color/c808080"
                     android:textSize="@dimen/dimen_15" />
 
@@ -106,7 +106,7 @@
                         android:layout_marginLeft="@dimen/dimen_5"
                         android:layout_marginRight="@dimen/dimen_5"
                         android:background="@drawable/add_bg"
-                        android:src="@drawable/add" />
+                        android:src="@drawable/forward_add" />
 
                     <View
                         android:layout_width="match_parent"
