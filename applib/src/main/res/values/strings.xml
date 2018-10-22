@@ -83,6 +83,8 @@
     <string name="code_get_frequently">验证码获取频繁</string>
     <string name="data_null">当前请求无数据~</string>
     <string name="confirm">确定</string>
+    <string name="order_manage">菜谱管理</string>
+    <string name="order_time">投票时间</string>
 
     <string-array name="week_name">
         <item>周一</item>
